@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.Web", "NetZ.Web.csproj", "{BF12701F-12D8-41D0-9269-D8921568AA82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.Web.TypeScript", "..\Web.TypeScript\NetZ.Web.TypeScript.csproj", "{502B98CF-A528-4168-A5F4-F04641BCEE6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{056655A1-291C-40A9-8A16-C573CD8291C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF12701F-12D8-41D0-9269-D8921568AA82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF12701F-12D8-41D0-9269-D8921568AA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF12701F-12D8-41D0-9269-D8921568AA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF12701F-12D8-41D0-9269-D8921568AA82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
