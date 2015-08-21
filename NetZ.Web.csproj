@@ -56,8 +56,10 @@
     <Compile Include="Html\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Cliente.cs" />
+    <Compile Include="Server\Clientes.cs" />
     <Compile Include="Server\Server.cs" />
     <Compile Include="Server\Solicitacao.cs" />
+    <Compile Include="Server\Servico.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Design\" />
