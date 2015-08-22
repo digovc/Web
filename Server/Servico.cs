@@ -49,9 +49,9 @@ namespace NetZ.Web.Server
                     _thr.IsBackground = true;
                     _thr.Priority = ThreadPriority.Lowest;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    throw e;
+                    throw ex;
                 }
                 finally
                 {
@@ -72,7 +72,7 @@ namespace NetZ.Web.Server
         #region Métodos
 
         /// <summary>
-        /// Inicia o serciço. Neste momento uma thread em segundo plano executa a lógica contida
+        /// Inicia o serciço, neste momento uma thread em segundo plano executa a lógica contida
         /// dentro do método <see cref="servico"/>.
         /// </summary>
         public void iniciar()
@@ -88,9 +88,9 @@ namespace NetZ.Web.Server
                 this.inicializar();
                 this.thr.Start();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
             finally
             {
@@ -120,9 +120,9 @@ namespace NetZ.Web.Server
                     this.thr.Abort();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
             finally
             {
@@ -160,9 +160,9 @@ namespace NetZ.Web.Server
             {
                 this.servico();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
             finally
             {

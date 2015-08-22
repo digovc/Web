@@ -6,11 +6,11 @@ namespace NetZ.Web.Server
 {
     internal class Cliente : Servico
     {
-        #region CONSTANTES
+        #region Constantes
 
-        #endregion CONSTANTES
+        #endregion Constantes
 
-        #region ATRIBUTOS
+        #region Atributos
 
         private Solicitacao _objSolicitacao;
         private TcpClient _tcpClient;
@@ -41,9 +41,9 @@ namespace NetZ.Web.Server
             }
         }
 
-        #endregion ATRIBUTOS
+        #endregion Atributos
 
-        #region CONSTRUTORES
+        #region Construtores
 
         internal Cliente(TcpClient tcpClient)
         {
@@ -68,9 +68,9 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        #endregion CONSTRUTORES
+        #endregion Construtores
 
-        #region MÉTODOS
+        #region Métodos
 
         protected override void servico()
         {
@@ -89,6 +89,9 @@ namespace NetZ.Web.Server
 
                 this.processarSolicitacao();
                 this.responder();
+                this.tcpClient.Close();
+
+                Server.i.lngClienteRespondido++;
             }
             catch (Exception ex)
             {
@@ -121,12 +124,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                if (!(this.tcpClient.GetStream() == null))
-                {
-                    return;
-                }
-
-                if (!(this.tcpClient.GetStream().DataAvailable))
+                if (this.tcpClient.GetStream() == null)
                 {
                     return;
                 }
@@ -162,6 +160,12 @@ namespace NetZ.Web.Server
                 for (int i = 0; i < 60; i++)
                 {
                     this.carregarSolicitacao();
+
+                    if (this.objSolicitacao != null)
+                    {
+                        return;
+                    }
+
                     Thread.Sleep(1000);
                 }
             }
@@ -180,18 +184,34 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
+            Resposta objResposta;
+
             #endregion Variáveis
 
             #region Ações
 
             try
             {
+                if (this.objSolicitacao == null)
+                {
+                    return;
+                }
+
+                this.objSolicitacao.processar();
+
                 if (!this.validarSolicitacao())
                 {
                     return;
                 }
 
+                objResposta = AppWeb.i.responder(this.objSolicitacao);
 
+                if (!this.validar(objResposta))
+                {
+                    return;
+                }
+
+                this.responder(objResposta);
             }
             catch (Exception ex)
             {
@@ -202,6 +222,63 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
+        }
+
+        private void responder(Resposta objResposta)
+        {
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (objResposta == null)
+                {
+                    return;
+                }
+
+                if (!this.tcpClient.GetStream().CanWrite)
+                {
+                    return;
+                }
+
+                this.tcpClient.GetStream().Write(objResposta.arrBteResposta, 0, objResposta.arrBteResposta.Length);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
+
+        private bool validar(Resposta objResposta)
+        {
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (objResposta == null)
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+
+            return true;
         }
 
         private bool validarSolicitacao()
@@ -215,6 +292,11 @@ namespace NetZ.Web.Server
             try
             {
                 if (this.objSolicitacao == null)
+                {
+                    return false;
+                }
+
+                if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(this.objSolicitacao))
                 {
                     return false;
                 }
@@ -232,10 +314,10 @@ namespace NetZ.Web.Server
             return true;
         }
 
-        #endregion MÉTODOS
+        #endregion Métodos
 
-        #region EVENTOS
+        #region Eventos
 
-        #endregion EVENTOS
+        #endregion Eventos
     }
 }

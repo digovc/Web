@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 
 namespace NetZ.Web.Server
 {
     public class Server : Servico
     {
-        #region CONSTANTES
+        #region Constantes
 
         public enum EnmStatus
         {
@@ -13,64 +14,85 @@ namespace NetZ.Web.Server
             PARADO,
         }
 
-        #endregion CONSTANTES
+        #endregion Constantes
 
-        #region ATRIBUTOS
+        #region Atributos
 
-        private int _intPorta = 80;
-
+        private static Server _i;
+        private EnmStatus _enmStatus = EnmStatus.PARADO;
+        private long _lngClienteRespondido;
+        private Clientes _lstObjCliente;
         private TcpListener _tcpListener;
 
-        private int intPorta
+        public static Server i
         {
             get
             {
-                return _intPorta;
-            }
+                #region Variáveis
 
-            set
-            {
-                _intPorta = value;
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_i != null)
+                    {
+                        return _i;
+                    }
+
+                    _i = new Server();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _i;
             }
         }
 
-        private TcpListener tcpListener
-        {
-            get
-            {
-                return _tcpListener;
-            }
-
-            set
-            {
-                _tcpListener = value;
-            }
-        }
-
-
-        private EnmStatus _enmStatus = EnmStatus.PARADO;
-        private EnmStatus enmStatus
+        public EnmStatus enmStatus
         {
             get
             {
                 return _enmStatus;
             }
+
             set
             {
                 _enmStatus = value;
             }
         }
 
+        public long lngClienteRespondido
+        {
+            get
+            {
+                return _lngClienteRespondido;
+            }
 
-        private Clientes _lstObjCliente;
+            set
+            {
+                _lngClienteRespondido = value;
+            }
+        }
+
         private Clientes lstObjCliente
         {
             get
             {
                 #region Variáveis
+
                 #endregion Variáveis
 
                 #region Ações
+
                 try
                 {
                     if (_lstObjCliente != null)
@@ -87,116 +109,112 @@ namespace NetZ.Web.Server
                 finally
                 {
                 }
+
                 #endregion Ações
 
                 return _lstObjCliente;
             }
         }
 
-        #endregion ATRIBUTOS
+        private TcpListener tcpListener
+        {
+            get
+            {
+                #region Variáveis
 
-        #region CONSTRUTORES
+                #endregion Variáveis
 
-        #endregion CONSTRUTORES
+                #region Ações
 
-        #region MÉTODOS
+                try
+                {
+                    if (_tcpListener != null)
+                    {
+                        return _tcpListener;
+                    }
+
+                    _tcpListener = new TcpListener(IPAddress.Any, ConfigWeb.i.intPorta);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tcpListener;
+            }
+        }
+
+        #endregion Atributos
+
+        #region Construtores
+
+        private Server()
+        {
+        }
+
+        #endregion Construtores
+
+        #region Métodos
 
         protected override void inicializar()
         {
             base.inicializar();
 
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
+                this.tcpListener.Start();
                 this.enmStatus = EnmStatus.LIGADO;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
             finally
             {
             }
+
             #endregion Ações
         }
 
         protected override void servico()
         {
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
-                while (this.booParar)
+                while (!this.booParar)
                 {
                     this.loop();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
             finally
             {
             }
-            #endregion Ações
-        }
 
-        private void loop()
-        {
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.verificarAddCliente();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-            }
-            #endregion Ações
-        }
-
-        private void verificarAddCliente()
-        {
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                if (this.tcpListener.Pending())
-                {
-                    return;
-                }
-
-                this.addCliente(this.tcpListener.AcceptTcpClient());
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 
         private void addCliente(TcpClient tcpClient)
         {
-
             #region Variáveis
 
             Cliente objCliente;
@@ -204,6 +222,7 @@ namespace NetZ.Web.Server
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 if (tcpClient == null)
@@ -217,20 +236,72 @@ namespace NetZ.Web.Server
 
                 objCliente.iniciar();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
             finally
             {
             }
+
             #endregion Ações
         }
 
-        #endregion MÉTODOS
+        private void loop()
+        {
+            #region Variáveis
 
-        #region EVENTOS
+            #endregion Variáveis
 
-        #endregion EVENTOS
+            #region Ações
+
+            try
+            {
+                this.verificarAddCliente();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void verificarAddCliente()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (!this.tcpListener.Pending())
+                {
+                    return;
+                }
+
+                this.addCliente(this.tcpListener.AcceptTcpClient());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        #endregion Métodos
+
+        #region Eventos
+
+        #endregion Eventos
     }
 }

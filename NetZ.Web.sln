@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.Web.TypeScript", "..\W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{056655A1-291C-40A9-8A16-C573CD8291C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.WebTest", "Test\NetZ.WebTest.csproj", "{FECDFB35-31CE-4D30-867E-90901C617189}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.WebTestUi", "TestUI\NetZ.WebTestUi.csproj", "{CD2E347C-0DDB-45B3-9E36-6000C40E0109}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,8 +27,20 @@ Global
 		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECDFB35-31CE-4D30-867E-90901C617189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECDFB35-31CE-4D30-867E-90901C617189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECDFB35-31CE-4D30-867E-90901C617189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECDFB35-31CE-4D30-867E-90901C617189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FECDFB35-31CE-4D30-867E-90901C617189} = {056655A1-291C-40A9-8A16-C573CD8291C5}
+		{CD2E347C-0DDB-45B3-9E36-6000C40E0109} = {056655A1-291C-40A9-8A16-C573CD8291C5}
 	EndGlobalSection
 EndGlobal
