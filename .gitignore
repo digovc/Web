@@ -2,3 +2,7 @@
 /obj
 /.vs
 /*.suo
+/Test/obj
+/TestUI/obj
+/TestUI/bin
+/Test/bin
