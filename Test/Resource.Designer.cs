@@ -65,6 +65,8 @@ namespace NetZ.WebTest {
         ///&lt;html&gt;
         ///	&lt;head&gt;
         ///		&lt;title&gt;NetZ.Web Teste&lt;/title&gt;
+        ///        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///        &lt;script src=&quot;res/js/AppWeb.js&quot;&gt;&lt;/script&gt;
         ///	&lt;/head&gt;
         ///	&lt;body&gt;
         ///		&lt;div&gt;Olá!&lt;/div&gt;

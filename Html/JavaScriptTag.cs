@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html
 {
-    internal class JavaScriptTag
+    public class JavaScriptTag
     {
         #region Constantes
 

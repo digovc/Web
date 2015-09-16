@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Html\UTestAtributo.cs" />
+    <Compile Include="Html\UTestAtributoCss.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -59,6 +61,10 @@
     <Compile Include="UTestAppWeb.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SistemaBase\NetZ.SistemaBase.csproj">
+      <Project>{4EC8339F-4E73-4786-B3BC-073690D9528E}</Project>
+      <Name>NetZ.SistemaBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NetZ.Web.csproj">
       <Project>{bf12701f-12d8-41d0-9269-d8921568aa82}</Project>
       <Name>NetZ.Web</Name>

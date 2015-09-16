@@ -3,6 +3,12 @@ using System.Threading;
 
 namespace NetZ.Web.Server
 {
+    /// <summary>
+    /// Classe base para todos os serviços assíncronos que precisam funcionar sem atrapalhar os
+    /// outros, como por exemplo a classe <see cref="Server"/> que se mantém ativa aguardando
+    /// chamadas de entrada dos clientes, ou a classe <see cref="Cliente"/> que é um processo que
+    /// processa a solicitação de cada um cliente que solicitar algum recurso deste servidor.
+    /// </summary>
     public abstract class Servico
     {
         #region Constantes
@@ -66,6 +72,29 @@ namespace NetZ.Web.Server
         #endregion Atributos
 
         #region Construtores
+
+        protected Servico(string strNome)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.thr.Name = strNome;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         #endregion Construtores
 

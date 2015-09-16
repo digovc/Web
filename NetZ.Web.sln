@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{056655A1-2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.WebTest", "Test\NetZ.WebTest.csproj", "{FECDFB35-31CE-4D30-867E-90901C617189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.WebTestUi", "TestUI\NetZ.WebTestUi.csproj", "{CD2E347C-0DDB-45B3-9E36-6000C40E0109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.SistemaBase", "..\SistemaBase\NetZ.SistemaBase.csproj", "{4EC8339F-4E73-4786-B3BC-073690D9528E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZ.SistemaBaseTest", "..\SistemaBase\test\NetZ.SistemaBaseTest.csproj", "{B798CDF2-87D1-47E2-9D97-0CBE6F8A742D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +33,20 @@ Global
 		{FECDFB35-31CE-4D30-867E-90901C617189}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FECDFB35-31CE-4D30-867E-90901C617189}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FECDFB35-31CE-4D30-867E-90901C617189}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD2E347C-0DDB-45B3-9E36-6000C40E0109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EC8339F-4E73-4786-B3BC-073690D9528E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EC8339F-4E73-4786-B3BC-073690D9528E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EC8339F-4E73-4786-B3BC-073690D9528E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EC8339F-4E73-4786-B3BC-073690D9528E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B798CDF2-87D1-47E2-9D97-0CBE6F8A742D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B798CDF2-87D1-47E2-9D97-0CBE6F8A742D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B798CDF2-87D1-47E2-9D97-0CBE6F8A742D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B798CDF2-87D1-47E2-9D97-0CBE6F8A742D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FECDFB35-31CE-4D30-867E-90901C617189} = {056655A1-291C-40A9-8A16-C573CD8291C5}
-		{CD2E347C-0DDB-45B3-9E36-6000C40E0109} = {056655A1-291C-40A9-8A16-C573CD8291C5}
+		{B798CDF2-87D1-47E2-9D97-0CBE6F8A742D} = {056655A1-291C-40A9-8A16-C573CD8291C5}
 	EndGlobalSection
 EndGlobal

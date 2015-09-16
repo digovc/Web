@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetZ.Web;
 using NetZ.Web.Server;
@@ -9,8 +8,8 @@ namespace NetZ.WebTest
     [TestClass]
     public class UTestAppWeb
     {
-
         private AppWebTest _appWebTest;
+
         private AppWebTest appWebTest
         {
             get
@@ -26,7 +25,6 @@ namespace NetZ.WebTest
             }
         }
 
-
         [TestMethod]
         public void inicializarTest()
         {
@@ -41,12 +39,13 @@ namespace NetZ.WebTest
         }
     }
 
-    class AppWebTest : AppWeb
+    internal class AppWebTest : AppWeb
     {
         public override Resposta responder(Solicitacao objSolicitacao)
         {
             Resposta objResposta = new Resposta(objSolicitacao);
 
+            //objResposta.dttUltimaModificacao = DateTime.MinValue;
             objResposta.addHtml(Resource.html_test);
 
             return objResposta;

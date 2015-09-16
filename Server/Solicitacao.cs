@@ -7,10 +7,30 @@ using System.Threading;
 
 namespace NetZ.Web.Server
 {
+    /// <summary>
+    /// Classe que abstrae cada solicitação que foi encaminhada pelo cliente e precisa ser respondida.
+    /// <para>
+    /// Esta solicitação deve ser verificada em <see cref="AppWeb.responder(Solicitacao)"/>, para
+    /// que seja construída a resposta adequeda aguardada pelo cliente.
+    /// </para>
+    /// <para>
+    /// Um dos pontos mais cruciais do sistema para ser estável, consumir poucos recursos é a
+    /// verificação da propriedade <see cref="dttUltimaModificacao"/> da instância de cada
+    /// solicitação, para garantir que recursos que não forão alterados não sejam processados, nem
+    /// enviados para o cliente.
+    /// </para>
+    /// <para>
+    /// Quando esta solicitação se tratar de recursos estáticos, que deverão estar todos presentes
+    /// na pasta "res", dentro da localidade onde está rodando este servidor WEB serão tratador automaticamente.
+    /// </para>
+    /// </summary>
     public class Solicitacao
     {
         #region Constantes
 
+        /// <summary>
+        /// Métodos que são implementados por este servidor.
+        /// </summary>
         public enum EnmMetodo
         {
             DESCONHECIDO,
@@ -24,11 +44,51 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private decimal _decHttpVersao;
+        private DateTime _dttUltimaModificacao = DateTime.MinValue;
         private EnmMetodo _enmMetodo = EnmMetodo.NONE;
-        private List<Field> _lstObjHeader;
+        private List<Field> _lstObjField;
         private NetworkStream _nts;
         private string _strMsgCliente;
         private string _strPagina;
+
+        /// <summary>
+        /// Indica a data e hora da última modificação do recurso que está salvo em cache do lado do
+        /// cliente no cache.
+        /// <para>
+        /// Esta data será comparada com a data presente em <see
+        /// cref="Resposta.dttUltimaModificacao"/>, e no caso deste recurso ainda não ter sido
+        /// alterado, ele não necessita de ser enviado para o cliente. Economizando assim recursos
+        /// valiosos de rede e processamento. Tornando o sistema mais rápido e robusto.
+        /// </para>
+        /// </summary>
+        public DateTime dttUltimaModificacao
+        {
+            get
+            {
+                return _dttUltimaModificacao;
+            }
+
+            set
+            {
+                _dttUltimaModificacao = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica o método que o cliente utilizou e aguarda a resposta.
+        /// </summary>
+        public EnmMetodo enmMetodo
+        {
+            get
+            {
+                return _enmMetodo;
+            }
+
+            set
+            {
+                _enmMetodo = value;
+            }
+        }
 
         private decimal decHttpVersao
         {
@@ -43,20 +103,7 @@ namespace NetZ.Web.Server
             }
         }
 
-        public EnmMetodo enmMetodo
-        {
-            get
-            {
-                return _enmMetodo;
-            }
-
-            set
-            {
-                _enmMetodo = value;
-            }
-        }
-
-        private List<Field> lstObjHeader
+        private List<Field> lstObjField
         {
             get
             {
@@ -68,12 +115,12 @@ namespace NetZ.Web.Server
 
                 try
                 {
-                    if (_lstObjHeader != null)
+                    if (_lstObjField != null)
                     {
-                        return _lstObjHeader;
+                        return _lstObjField;
                     }
 
-                    _lstObjHeader = new List<Field>();
+                    _lstObjField = new List<Field>();
                 }
                 catch (Exception ex)
                 {
@@ -85,7 +132,7 @@ namespace NetZ.Web.Server
 
                 #endregion Ações
 
-                return _lstObjHeader;
+                return _lstObjField;
             }
         }
 
@@ -334,9 +381,10 @@ namespace NetZ.Web.Server
 
                 objHeader = new Field(strHeader);
 
+                objHeader.objSolicitacao = this;
                 objHeader.processar();
 
-                this.lstObjHeader.Add(objHeader);
+                this.lstObjField.Add(objHeader);
             }
             catch (Exception ex)
             {

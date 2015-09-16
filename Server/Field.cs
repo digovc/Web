@@ -9,6 +9,9 @@ namespace NetZ.Web.Server
     {
         #region Constantes
 
+        /// <summary>
+        /// Tipo enumerado com todos os tipos que um field (campo) de um request ou response pode conter.
+        /// </summary>
         public enum EnmTipo
         {
             ACCEPT,
@@ -51,9 +54,125 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private decimal _decValor;
+        private DateTime _dttValor;
         private EnmTipo _enmTipo = EnmTipo.NONE;
+        private int _intValor;
+        private Solicitacao _objSolicitacao;
         private string _strField;
         private string _strValor;
+
+        /// <summary>
+        /// Valor deste "field" (campo).
+        /// </summary>
+        public decimal decValor
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _decValor = Convert.ToDecimal(this.strValor);
+                }
+                catch
+                {
+                    return 0;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _decValor;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _decValor = value;
+
+                    this.strValor = Convert.ToString(_decValor);
+                }
+                catch
+                {
+                    this.strValor = null;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        /// <summary>
+        /// Valor deste "field" (campo).
+        /// </summary>
+        public DateTime dttValor
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _dttValor = Convert.ToDateTime(this.strValor);
+                }
+                catch
+                {
+                    return DateTime.MinValue;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _dttValor;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _dttValor = value;
+
+                    this.strValor = _dttValor.ToString();
+                }
+                catch
+                {
+                    this.strValor = null;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
 
         /// <summary>
         /// Indica o tipo deste "field" (campo).
@@ -71,6 +190,91 @@ namespace NetZ.Web.Server
             }
         }
 
+        /// <summary>
+        /// Valor deste "field" (campo).
+        /// </summary>
+        public int intValor
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _intValor = (int)this.decValor;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _intValor;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _intValor = value;
+
+                    this.decValor = _intValor;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        /// <summary>
+        /// Valor deste "field" (campo).
+        /// </summary>
+        public string strValor
+        {
+            get
+            {
+                return _strValor;
+            }
+
+            set
+            {
+                _strValor = value;
+            }
+        }
+
+        internal Solicitacao objSolicitacao
+        {
+            get
+            {
+                return _objSolicitacao;
+            }
+
+            set
+            {
+                _objSolicitacao = value;
+            }
+        }
+
         private string strField
         {
             get
@@ -84,24 +288,11 @@ namespace NetZ.Web.Server
             }
         }
 
-        private string strValor
-        {
-            get
-            {
-                return _strValor;
-            }
-
-            set
-            {
-                _strValor = value;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
 
-        public Field(string strHeader)
+        internal Field(string strHeader)
         {
             #region Variáveis
 
@@ -157,8 +348,9 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.processarEnmTipo(arrStr[0]);
                 this.processarStrValor();
+
+                this.processarEnmTipo(arrStr[0]);
             }
             catch (Exception ex)
             {
@@ -168,42 +360,17 @@ namespace NetZ.Web.Server
             {
             }
 
-            #endregion Ações
-        }
-
-        private void processarStrValor()
-        {
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                if (string.IsNullOrEmpty(this.strField))
-                {
-                    return;
-                }
-
-                this.strValor = this.strField.Substring((this.strField.IndexOf(":") + 2), (this.strField.Length - this.strField.IndexOf(":") - 2));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 
         private void processarEnmTipo(string strTipo)
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 this.enmTipo = EnmTipo.DESCONHECIDO;
@@ -287,11 +454,11 @@ namespace NetZ.Web.Server
                         this.enmTipo = EnmTipo.IF_MATCH;
                         return;
 
-                    case "if-modified_since":
-                        this.enmTipo = EnmTipo.IF_MODIFIED_SINCE;
+                    case "if-modified-since":
+                        this.setEnmTipoIfModifiedSince();
                         return;
 
-                    case "if-none_match":
+                    case "if-none-match":
                         this.enmTipo = EnmTipo.IF_NONE_MATCH;
                         return;
 
@@ -299,7 +466,7 @@ namespace NetZ.Web.Server
                         this.enmTipo = EnmTipo.IF_RANGE;
                         return;
 
-                    case "if-unmodified_since":
+                    case "if-unmodified-since":
                         this.enmTipo = EnmTipo.IF_UNMODIFIED_SINCE;
                         return;
 
@@ -359,6 +526,65 @@ namespace NetZ.Web.Server
             finally
             {
             }
+
+            #endregion Ações
+        }
+
+        private void processarStrValor()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strField))
+                {
+                    return;
+                }
+
+                this.strValor = this.strField.Substring((this.strField.IndexOf(":") + 2), (this.strField.Length - this.strField.IndexOf(":") - 2));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void setEnmTipoIfModifiedSince()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.enmTipo = EnmTipo.IF_MODIFIED_SINCE;
+
+                if (this.objSolicitacao == null)
+                {
+                    return;
+                }
+
+                this.objSolicitacao.dttUltimaModificacao = Convert.ToDateTime(this.strValor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
             #endregion Ações
         }
 

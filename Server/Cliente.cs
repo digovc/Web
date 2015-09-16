@@ -12,8 +12,25 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private DateTime _dttUltimaMensagemRecebida;
         private Solicitacao _objSolicitacao;
         private TcpClient _tcpClient;
+
+        /// <summary>
+        /// Data e hora em que a última mensagem foi enviada pelo cliente para este servidor.
+        /// </summary>
+        internal DateTime dttUltimaMensagemRecebida
+        {
+            get
+            {
+                return _dttUltimaMensagemRecebida;
+            }
+
+            set
+            {
+                _dttUltimaMensagemRecebida = value;
+            }
+        }
 
         private Solicitacao objSolicitacao
         {
@@ -45,7 +62,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Cliente(TcpClient tcpClient)
+        internal Cliente(TcpClient tcpClient) : base("Cliente")
         {
             #region Variáveis
 
@@ -87,8 +104,14 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.processarSolicitacao();
-                this.responder();
+                this.dttUltimaMensagemRecebida = DateTime.Now;
+
+                while (this.tcpClient.Connected && (this.dttUltimaMensagemRecebida > DateTime.Now.AddSeconds(-5)))
+                {
+                    this.processarSolicitacao();
+                    this.responder();
+                }
+
                 this.tcpClient.Close();
 
                 Server.i.lngClienteRespondido++;
@@ -134,6 +157,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
+                this.dttUltimaMensagemRecebida = DateTime.Now;
                 this.objSolicitacao = new Solicitacao(this.tcpClient.GetStream());
             }
             catch (Exception ex)
@@ -157,7 +181,9 @@ namespace NetZ.Web.Server
 
             try
             {
-                for (int i = 0; i < 60; i++)
+                this.objSolicitacao = null;
+
+                for (int i = 0; i < 10; i++)
                 {
                     this.carregarSolicitacao();
 
@@ -166,7 +192,12 @@ namespace NetZ.Web.Server
                         return;
                     }
 
-                    Thread.Sleep(1000);
+                    if (!this.tcpClient.Connected)
+                    {
+                        return;
+                    }
+
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -193,6 +224,11 @@ namespace NetZ.Web.Server
             try
             {
                 if (this.objSolicitacao == null)
+                {
+                    return;
+                }
+
+                if (!this.tcpClient.Connected)
                 {
                     return;
                 }
@@ -227,9 +263,11 @@ namespace NetZ.Web.Server
         private void responder(Resposta objResposta)
         {
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 if (objResposta == null)
@@ -243,7 +281,6 @@ namespace NetZ.Web.Server
                 }
 
                 this.tcpClient.GetStream().Write(objResposta.arrBteResposta, 0, objResposta.arrBteResposta.Length);
-
             }
             catch (Exception ex)
             {
@@ -252,16 +289,18 @@ namespace NetZ.Web.Server
             finally
             {
             }
+
             #endregion Ações
         }
 
         private bool validar(Resposta objResposta)
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 if (objResposta == null)
@@ -276,6 +315,7 @@ namespace NetZ.Web.Server
             finally
             {
             }
+
             #endregion Ações
 
             return true;

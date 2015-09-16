@@ -48,9 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NetZ.Web.csproj">
       <Project>{bf12701f-12d8-41d0-9269-d8921568aa82}</Project>
       <Name>NetZ.Web</Name>

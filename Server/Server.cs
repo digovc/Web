@@ -1,13 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
 namespace NetZ.Web.Server
 {
+    /// <summary>
+    /// Classe principal do servidor WEB e gerencia todas as conexões com os clientes, assim como
+    /// processa e responde as solicitações destes.
+    /// <para>
+    /// A aplicação que fazer uso desta biblioteca não precisa interagir diretamente com esta
+    /// classe, implementando sua lógica a partir da class <see cref="AppWeb"/> e seu método <see cref="AppWeb.responder(Solicitacao)"/>.
+    /// </para>
+    /// </summary>
     public class Server : Servico
     {
         #region Constantes
 
+        /// <summary>
+        /// Tipo enumerado com todos as condições possíveis para este serviço.
+        /// </summary>
         public enum EnmStatus
         {
             LIGADO,
@@ -21,7 +33,7 @@ namespace NetZ.Web.Server
         private static Server _i;
         private EnmStatus _enmStatus = EnmStatus.PARADO;
         private long _lngClienteRespondido;
-        private Clientes _lstObjCliente;
+        private List<Cliente> _lstObjCliente;
         private TcpListener _tcpListener;
 
         public static Server i
@@ -57,6 +69,9 @@ namespace NetZ.Web.Server
             }
         }
 
+        /// <summary>
+        /// Indica o status atual do servidor.
+        /// </summary>
         public EnmStatus enmStatus
         {
             get
@@ -70,6 +85,10 @@ namespace NetZ.Web.Server
             }
         }
 
+        /// <summary>
+        /// Número de clientes que foi respondido. Este valor é contabilizado apenas quando o
+        /// processo estiver totalmente concluído e a conxão com o cliente fechada.
+        /// </summary>
         public long lngClienteRespondido
         {
             get
@@ -83,7 +102,7 @@ namespace NetZ.Web.Server
             }
         }
 
-        private Clientes lstObjCliente
+        private List<Cliente> lstObjCliente
         {
             get
             {
@@ -100,7 +119,7 @@ namespace NetZ.Web.Server
                         return _lstObjCliente;
                     }
 
-                    _lstObjCliente = new Clientes();
+                    _lstObjCliente = new List<Cliente>();
                 }
                 catch (Exception ex)
                 {
@@ -153,7 +172,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        private Server()
+        private Server() : base("WEB Server")
         {
         }
 
