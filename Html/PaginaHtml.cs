@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetZ.SistemaBase;
 
 namespace NetZ.Web.Html
 {
-    public class PaginaHtml
+    public class PaginaHtml : Objeto
     {
         #region Constantes
 
@@ -26,70 +27,47 @@ namespace NetZ.Web.Html
 
         #region Atributos
 
-        private static PaginaHtml _i;
-
-        public static PaginaHtml i
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_i != null)
-                    {
-                        return _i;
-                    }
-
-                    _i = new PaginaHtml();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _i;
-            }
-
-            set
-            {
-                _i = value;
-            }
-        }
-
-
         private bool _booPagSimples;
+        private List<CssTag> _lstCss;
+        private List<JavaScriptTag> _lstJs;
+        private string _srcIcone = "res/media/ico/favicon.ico";
+        private string _strTitulo;
+        private Tag _tagBody;
+        private Tag _tagDocType;
+        private Tag _tagHead;
+        private Tag _tagHtml;
+        private Tag _tagIcon;
+        private JavaScriptTag _tagJs;
+
+        private Tag _tagMetaContent;
+
+        private Tag _tagMetaHttpEquiv;
+
+        private Tag _tagTitle;
+
         private bool booPagSimples
         {
             get
             {
                 return _booPagSimples;
             }
+
             set
             {
                 _booPagSimples = value;
             }
         }
 
-
-        private List<CssTag> _lstCss;
         private List<CssTag> lstCss
         {
             get
             {
                 #region Variáveis
+
                 #endregion Variáveis
 
                 #region Ações
+
                 try
                 {
                     if (_lstCss != null)
@@ -106,22 +84,23 @@ namespace NetZ.Web.Html
                 finally
                 {
                 }
+
                 #endregion Ações
 
                 return _lstCss;
             }
         }
 
-
-        private List<JavaScriptTag> _lstJs;
         private List<JavaScriptTag> lstJs
         {
             get
             {
                 #region Variáveis
+
                 #endregion Variáveis
 
                 #region Ações
+
                 try
                 {
                     if (_lstJs != null)
@@ -138,49 +117,47 @@ namespace NetZ.Web.Html
                 finally
                 {
                 }
+
                 #endregion Ações
 
                 return _lstJs;
             }
         }
 
-
-        private string _srcIcone = "res/media/ico/favicon.ico";
         private string srcIcone
         {
             get
             {
                 return _srcIcone;
             }
+
             set
             {
                 _srcIcone = value;
             }
         }
 
-
-        private string _strTitulo;
         private string strTitulo
         {
             get
             {
-
                 return _strTitulo;
             }
+
             set
             {
-
                 #region Variáveis
+
                 #endregion Variáveis
 
                 #region Ações
+
                 try
                 {
                     _strTitulo = value;
 
                     if (string.IsNullOrEmpty(strTitulo))
                     {
-
                         return;
                     }
 
@@ -189,7 +166,7 @@ namespace NetZ.Web.Html
                     _strTitulo = _strTitulo.Replace("_titulo", strTitulo);
                     _strTitulo = _strTitulo.Replace("_app_nome", AppWeb.i.strNome);
 
-                    this.tagTitle.strConteudo _strTitulo;
+                    this.tagTitle.strConteudo = _strTitulo;
                 }
                 catch (Exception ex)
                 {
@@ -198,7 +175,325 @@ namespace NetZ.Web.Html
                 finally
                 {
                 }
+
                 #endregion Ações
+            }
+        }
+
+        private Tag tagBody
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagBody != null)
+                    {
+                        return _tagBody;
+                    }
+
+                    _tagBody = new Tag("body");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagBody;
+            }
+        }
+
+        private Tag tagDocType
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagDocType != null)
+                    {
+                        return _tagDocType;
+                    }
+
+                    _tagDocType = new Tag("!DOCTYPE");
+
+                    _tagDocType.addAtt("html");
+                    _tagDocType.booBarraFinal = false;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagDocType;
+            }
+        }
+
+        private Tag tagHead
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagHead != null)
+                    {
+                        return _tagHead;
+                    }
+
+                    _tagHead = new Tag("head");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagHead;
+            }
+        }
+
+        private Tag tagHtml
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagHtml != null)
+                    {
+                        return _tagHtml;
+                    }
+
+                    _tagHtml = new Tag("html");
+
+                    _tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
+                    _tagHtml.addAtt("lang", "pt-br");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagHtml;
+            }
+        }
+
+        private Tag tagIcon
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagIcon != null)
+                    {
+                        return _tagIcon;
+                    }
+
+                    _tagIcon = new Tag("link");
+
+                    _tagIcon.addAtt("rel", "shortcut icon");
+                    _tagIcon.addAtt("href", this.srcIcone);
+                    _tagIcon.addAtt("type", "image/x-icon");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagIcon;
+            }
+        }
+
+        private JavaScriptTag tagJs
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagJs != null)
+                    {
+                        return _tagJs;
+                    }
+
+                    _tagJs = new JavaScriptTag();
+
+                    _tagJs.intOrdem = 100;
+
+                    this.lstJs.Add(_tagJs);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagJs;
+            }
+        }
+
+        private Tag tagMetaContent
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagMetaContent != null)
+                    {
+                        return _tagMetaContent;
+                    }
+
+                    _tagMetaContent = new Tag("meta");
+
+                    _tagMetaContent.addAtt("content", this.strNomeExibicao);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagMetaContent;
+            }
+        }
+
+        private Tag tagMetaHttpEquiv
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagMetaHttpEquiv != null)
+                    {
+                        return _tagMetaHttpEquiv;
+                    }
+
+                    _tagMetaHttpEquiv = new Tag("meta");
+
+                    _tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagMetaHttpEquiv;
+            }
+        }
+
+        private Tag tagTitle
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagTitle != null)
+                    {
+                        return _tagTitle;
+                    }
+
+                    _tagTitle = new Tag("title");
+
+                    _tagTitle.strConteudo = "Página sem nome";
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagTitle;
             }
         }
 
@@ -209,6 +504,92 @@ namespace NetZ.Web.Html
         #endregion Construtores
 
         #region Métodos
+
+        private void addCss()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.booPagSimples)
+                {
+                    return;
+                }
+
+                if (this.lstCss.Count < 1)
+                {
+                    return;
+                }
+
+                foreach (CssTag cssTag in this.lstCss)
+                {
+                    if (cssTag == null)
+                    {
+                        continue;
+                    }
+
+                    cssTag.tagPai = this.tagHead;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void addJs()
+        {
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (this.booPagSimples) //TODO: Parei aqui.
+                {
+
+                    return;
+                }
+
+                this.addJsCodigo(this.getTagJsMain());
+
+                if (AppWeb.getI().getBooDart())
+                {
+
+                    return;
+                }
+
+                for (JavaScriptTag tagJs : this.getLstTagJsOrdenado())
+                {
+
+                    if (tagJs == null)
+                    {
+
+                        continue;
+                    }
+
+                    tagJs.setTagPai(this.getTagHead());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
 
         #endregion Métodos
 

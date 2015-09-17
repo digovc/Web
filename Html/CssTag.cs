@@ -13,7 +13,7 @@ namespace NetZ.Web.Html
         private CssTag _i;
         private CssTag _iImpressao;
 
-        public CssTag i
+        public static CssTag i
         {
             get
             {
@@ -54,7 +54,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        public CssTag iImpressao
+        public static CssTag iImpressao
         {
             get
             {

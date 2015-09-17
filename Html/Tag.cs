@@ -52,17 +52,29 @@ namespace NetZ.Web.Html
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
+        private string _src;
         private string _strAbertura = "<";
         private string _strCache;
         private string _strConteudo;
         private string _strFechamento = ">";
         private string _strId;
         private string _strLink;
-        private string _strLinkNovaJanela;
         private string _strName;
-        private string _strSrc;
         private string _strTitle;
         private Tag _tagPai;
+
+        public bool booBarraFinal
+        {
+            get
+            {
+                return _booBarraFinal;
+            }
+
+            set
+            {
+                _booBarraFinal = value;
+            }
+        }
 
         public bool booTagDupla
         {
@@ -87,6 +99,59 @@ namespace NetZ.Web.Html
             set
             {
                 _enmLinkTipo = value;
+            }
+        }
+
+        public string src
+        {
+            get
+            {
+                return _src;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _src = value;
+
+                    if (string.IsNullOrEmpty(_src))
+                    {
+                        return;
+                    }
+
+                    // TODO: Avaliar a necessidade de adicionar a versão da aplicação para que
+                    // recursos não fiquem defasados por conta do cache do navegador.
+                    this.attSrc.strValor = _src;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        public string strConteudo
+        {
+            get
+            {
+                return _strConteudo;
+            }
+
+            set
+            {
+                _strConteudo = value;
             }
         }
 
@@ -340,19 +405,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private bool booBarraFinal
-        {
-            get
-            {
-                return _booBarraFinal;
-            }
-
-            set
-            {
-                _booBarraFinal = value;
-            }
-        }
-
         private bool booClicavel
         {
             get
@@ -377,7 +429,7 @@ namespace NetZ.Web.Html
                         return;
                     }
 
-                    this.addCss(CssTag.i.setCursor("pointer"));
+                    this.addCss(CssTag.i.setCursor(CssTag.EnmCursor.POINTER));
                 }
                 catch (Exception ex)
                 {
@@ -483,19 +535,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string strConteudo
-        {
-            get
-            {
-                return _strConteudo;
-            }
-
-            set
-            {
-                _strConteudo = value;
-            }
-        }
-
         private string strFechamento
         {
             get
@@ -560,44 +599,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string strSrc
-        {
-            get
-            {
-                return _strSrc;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strSrc = value;
-
-                    if (string.IsNullOrEmpty(_strSrc))
-                    {
-                        return;
-                    }
-
-                    this.attSrc.strValor = _strSrc;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-            }
-        }
-
         private string strTitle
         {
             get
@@ -636,7 +637,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private Tag tagPai
+        public Tag tagPai
         {
             get
             {
@@ -890,8 +891,27 @@ namespace NetZ.Web.Html
         {
         }
 
-        protected void addJsArquivo(List<JavaScriptTag> lstJs)
+        protected virtual void addJsArquivo(List<JavaScriptTag> lstJs)
         {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_TAG));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         protected void addJsCodigo(JavaScriptTag js)

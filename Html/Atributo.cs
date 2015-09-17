@@ -20,6 +20,9 @@ namespace NetZ.Web.Html
         private string _strSeparador = " ";
         private string _strValor;
 
+        /// <summary>
+        /// Letra ou texto que vai separar os valores deste atributo.
+        /// </summary>
         public string strSeparador
         {
             get
@@ -33,6 +36,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Valor deste atributo.
+        /// </summary>
         public string strValor
         {
             get
@@ -87,6 +93,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Lista de valores deste atributo.
+        /// </summary>
         protected List<string> lstStrValor
         {
             get
