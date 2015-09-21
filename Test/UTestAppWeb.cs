@@ -41,6 +41,10 @@ namespace NetZ.WebTest
 
     internal class AppWebTest : AppWeb
     {
+        public AppWebTest() : base("AppWebTest")
+        {
+        }
+
         public override Resposta responder(Solicitacao objSolicitacao)
         {
             Resposta objResposta = new Resposta(objSolicitacao);

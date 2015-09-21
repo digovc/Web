@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NetZ.SistemaBase;
 
 namespace NetZ.Web.Html
@@ -38,11 +39,8 @@ namespace NetZ.Web.Html
         private Tag _tagHtml;
         private Tag _tagIcon;
         private JavaScriptTag _tagJs;
-
         private Tag _tagMetaContent;
-
         private Tag _tagMetaHttpEquiv;
-
         private Tag _tagTitle;
 
         private bool booPagSimples
@@ -148,6 +146,8 @@ namespace NetZ.Web.Html
             {
                 #region Variáveis
 
+                string strTituloFormatado;
+
                 #endregion Variáveis
 
                 #region Ações
@@ -156,17 +156,17 @@ namespace NetZ.Web.Html
                 {
                     _strTitulo = value;
 
-                    if (string.IsNullOrEmpty(strTitulo))
+                    if (string.IsNullOrEmpty(_strTitulo))
                     {
                         return;
                     }
 
-                    _strTitulo = "_titulo - _app_nome";
+                    strTituloFormatado = "_titulo - _app_nome";
 
-                    _strTitulo = _strTitulo.Replace("_titulo", strTitulo);
-                    _strTitulo = _strTitulo.Replace("_app_nome", AppWeb.i.strNome);
+                    strTituloFormatado = strTituloFormatado.Replace("_titulo", _strTitulo);
+                    strTituloFormatado = strTituloFormatado.Replace("_app_nome", AppWeb.i.strNome);
 
-                    this.tagTitle.strConteudo = _strTitulo;
+                    this.tagTitle.strConteudo = strTituloFormatado;
                 }
                 catch (Exception ex)
                 {
@@ -501,9 +501,185 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
+        public PaginaHtml(string strNome)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strNome = strNome;
+                this.strTitulo = this.strNome;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos
+
+        public void addJsCodigo(string strJsCodigo)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strJsCodigo))
+                {
+                    return;
+                }
+
+                this.tagJs.addJsCodigo(strJsCodigo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        public string toHtml()
+        {
+            #region Variáveis
+
+            string strBody;
+            string strConteudo;
+            string strHead;
+            string strResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.montarLayout();
+
+                strBody = this.tagBody.toHtml();
+
+                this.addCss();
+                this.addJs();
+
+                strHead = this.tagHead.toHtml();
+
+                strConteudo = "_head_body";
+
+                strConteudo = strConteudo.Replace("_head", strHead);
+                strConteudo = strConteudo.Replace("_body", strBody);
+
+                this.tagHtml.strConteudo = strConteudo;
+
+                strResultado = "_tag_doc_type_tag_html";
+
+                strResultado = strResultado.Replace("_tag_doc_type", this.tagDocType.toHtml());
+                strResultado = strResultado.Replace("_tag_html", this.tagHtml.toHtml());
+
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected virtual void addCss(List<CssTag> lstCss)
+        {
+        }
+
+        protected void addJs(List<JavaScriptTag> lstJs)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY));
+                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY_UI));
+                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_MD5));
+                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_DATE));
+                lstJs.Add(new JavaScriptTag(DIR_JS_LST_ERRO));
+                lstJs.Add(new JavaScriptTag(DIR_JS_OBJETO));
+                lstJs.Add(new JavaScriptTag(DIR_JS_ERRO));
+                lstJs.Add(new JavaScriptTag(DIR_JS_UTILS));
+                lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB));
+                lstJs.Add(new JavaScriptTag(DIR_JS_WEB_SOCKET));
+                lstJs.Add(new JavaScriptTag(DIR_JS_OBJ_WS_INTERLOCUTOR));
+                lstJs.Add(new JavaScriptTag(DIR_JS_USUARIO));
+                lstJs.Add(new JavaScriptTag(DIR_JS_PAG_HTML));
+                lstJs.Add(new JavaScriptTag(DIR_JS_MENSAGEM));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected void addJsCodigo(JavaScriptTag tagJs)
+        {
+            // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
+            //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
+        }
+
+        protected void montarLayout()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tagTitle.tagPai = this.tagHead;
+                this.tagMetaContent.tagPai = this.tagHead;
+                this.tagMetaHttpEquiv.tagPai = this.tagHead;
+                this.tagIcon.tagPai = this.tagHead;
+
+                CssTag.i.tagPai = this.tagHead;
+                CssTag.iImpressao.tagPai = this.tagHead;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         private void addCss()
         {
@@ -520,10 +696,7 @@ namespace NetZ.Web.Html
                     return;
                 }
 
-                if (this.lstCss.Count < 1)
-                {
-                    return;
-                }
+                this.addCss(this.lstCss);
 
                 foreach (CssTag cssTag in this.lstCss)
                 {
@@ -548,37 +721,34 @@ namespace NetZ.Web.Html
 
         private void addJs()
         {
-
             #region Variáveis
+
+            List<JavaScriptTag> lstJsOrdenado;
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
-                if (this.booPagSimples) //TODO: Parei aqui.
+                if (this.booPagSimples)
                 {
-
                     return;
                 }
 
-                this.addJsCodigo(this.getTagJsMain());
+                this.addJs(this.lstJs);
+                this.addJsCodigo(this.tagJs);
 
-                if (AppWeb.getI().getBooDart())
+                lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
+
+                foreach (JavaScriptTag tagJs in lstJsOrdenado)
                 {
-
-                    return;
-                }
-
-                for (JavaScriptTag tagJs : this.getLstTagJsOrdenado())
-                {
-
                     if (tagJs == null)
                     {
-
                         continue;
                     }
 
-                    tagJs.setTagPai(this.getTagHead());
+                    tagJs.tagPai = this.tagHead;
                 }
             }
             catch (Exception ex)
@@ -588,6 +758,7 @@ namespace NetZ.Web.Html
             finally
             {
             }
+
             #endregion Ações
         }
 

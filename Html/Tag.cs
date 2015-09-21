@@ -195,6 +195,44 @@ namespace NetZ.Web.Html
             }
         }
 
+        public Tag tagPai
+        {
+            get
+            {
+                return _tagPai;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _tagPai = value;
+
+                    if (_tagPai == null)
+                    {
+                        return;
+                    }
+
+                    _tagPai.addTag(this);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
         private Atributo attClass
         {
             get
@@ -429,7 +467,8 @@ namespace NetZ.Web.Html
                         return;
                     }
 
-                    this.addCss(CssTag.i.setCursor(CssTag.EnmCursor.POINTER));
+                    // TODO: Descomentar.
+                    //this.addCss(CssTag.i.setCursor(CssTag.EnmCursor.POINTER));
                 }
                 catch (Exception ex)
                 {
@@ -624,44 +663,6 @@ namespace NetZ.Web.Html
                     }
 
                     this.attTitle.strValor = _strTitle;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-            }
-        }
-
-        public Tag tagPai
-        {
-            get
-            {
-                return _tagPai;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _tagPai = value;
-
-                    if (_tagPai == null)
-                    {
-                        return;
-                    }
-
-                    _tagPai.addTag(this);
                 }
                 catch (Exception ex)
                 {
@@ -928,9 +929,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.addCssArquivo(PaginaHtml.i.lstCss);
-                this.addJsArquivo(PaginaHtml.i.lstJs);
-                this.addJsCodigo(PaginaHtml.i.tagJsMain);
+                // TODO: Descomentar.
+                //this.addCssArquivo(PaginaHtml.i.lstCss);
+                //this.addJsArquivo(PaginaHtml.i.lstJs);
+                //this.addJsCodigo(PaginaHtml.i.tagJsMain);
             }
             catch (Exception ex)
             {

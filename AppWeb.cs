@@ -85,7 +85,7 @@ namespace NetZ.Web
 
         #region Construtores
 
-        protected AppWeb()
+        protected AppWeb(string strNome)
         {
             #region Variáveis
 
@@ -95,8 +95,7 @@ namespace NetZ.Web
 
             try
             {
-                this.strNome = "NetZ.Web Server";
-
+                this.strNome = strNome;
                 AppWeb.i = this;
             }
             catch (Exception ex)
