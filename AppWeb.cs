@@ -144,6 +144,32 @@ namespace NetZ.Web
         }
 
         /// <summary>
+        /// Para o servidor imediatamente.
+        /// </summary>
+        public void pararServidor()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                Server.Server.i.parar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
         /// Este método é disparado a acada vez que o cliente fizer uma solicitação de algum recurso
         /// a este WEB server.
         /// </summary>

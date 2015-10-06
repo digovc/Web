@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using NetZ.Web.Html;
 
 namespace NetZ.Web.Server
 {
@@ -172,6 +173,38 @@ namespace NetZ.Web.Server
                 }
 
                 this.strConteudo += strHtml;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Adiciona o conteúdo em html da <see cref="PaginaHtml"/> para a resposta.
+        /// </summary>
+        /// <param name="pagHtml">Página que se deseja responder para o usuário.</param>
+        public void addHtml(PaginaHtml pagHtml)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (pagHtml == null)
+                {
+                    return;
+                }
+
+                this.addHtml(pagHtml.toHtml());
             }
             catch (Exception ex)
             {

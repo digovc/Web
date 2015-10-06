@@ -67,6 +67,10 @@ namespace NetZ.Web.Server
 
                 return _thr;
             }
+            set
+            {
+                _thr = value;
+            }
         }
 
         #endregion Atributos
@@ -148,6 +152,8 @@ namespace NetZ.Web.Server
                 {
                     this.thr.Abort();
                 }
+
+                this.thr = null;
             }
             catch (Exception ex)
             {

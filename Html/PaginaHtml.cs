@@ -180,7 +180,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private Tag tagBody
+        protected Tag tagBody
         {
             get
             {
@@ -198,6 +198,8 @@ namespace NetZ.Web.Html
                     }
 
                     _tagBody = new Tag("body");
+
+                    _tagBody.addCss(CssTag.i.);
                 }
                 catch (Exception ex)
                 {
@@ -652,7 +654,7 @@ namespace NetZ.Web.Html
             //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
         }
 
-        protected void montarLayout()
+        protected virtual void montarLayout()
         {
             #region Variáveis
 
