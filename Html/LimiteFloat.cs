@@ -1,6 +1,8 @@
-﻿namespace NetZ.Web.Html
+﻿using System;
+
+namespace NetZ.Web.Html
 {
-    internal class LimiteFloat
+    internal class LimiteFloat : Tag
     {
         #region Constantes
 
@@ -12,9 +14,57 @@
 
         #region Construtores
 
+        public LimiteFloat() : base("div")
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.booTagDupla = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos
+
+        protected override void setCss(CssTag tagCss)
+        {
+            base.setCss(tagCss);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(tagCss.setClearBoth());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         #endregion Métodos
 

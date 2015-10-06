@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html
 {
-    internal class Campo
+    internal class Campo : Componente
     {
         #region Constantes
 
