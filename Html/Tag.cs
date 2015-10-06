@@ -408,7 +408,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private Atributo attType
+        public Atributo attType
         {
             get
             {
@@ -770,25 +770,47 @@ namespace NetZ.Web.Html
         /// <summary>
         /// Link para <see cref="addAtt(Atributo)"/>.
         /// </summary>
-        public void addAtt(string strNome, string strValor = null)
+        public void addAtt(string strAttNome, string strValor = null)
         {
-            this.addAtt(new Atributo(strNome, strValor));
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (string.IsNullOrEmpty(strAttNome))
+                {
+                    return;
+                }
+
+                this.addAtt(new Atributo(strAttNome, strValor));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
         }
 
         /// <summary>
         /// Link para <see cref="addAtt(Atributo)"/>.
         /// </summary>
-        public void addAtt(string strNome, decimal decValor)
+
+        public void addAtt(string strAttNome, decimal decValor)
         {
-            this.addAtt(new Atributo(strNome, decValor.ToString()));
+            this.addAtt(new Atributo(strAttNome, decValor.ToString()));
         }
 
         /// <summary>
         /// Link para <see cref="addAtt(Atributo)"/>.
         /// </summary>
-        public void addAtt(string strNome, int intValor)
+        public void addAtt(string strAttNome, int intValor)
         {
-            this.addAtt(new Atributo(strNome, intValor.ToString()));
+            this.addAtt(new Atributo(strAttNome, intValor.ToString()));
         }
 
         /// <summary>
@@ -812,6 +834,48 @@ namespace NetZ.Web.Html
                 }
 
                 this.attClass.addValor(strCssClass);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        public void apagarAtt(string strAttNome)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strAttNome))
+                {
+                    return;
+                }
+
+                foreach (Atributo att in this.lstAtt)
+                {
+                    if (att == null)
+                    {
+                        continue;
+                    }
+
+                    if (!strAttNome.Equals(att))
+                    {
+                        continue;
+                    }
+
+                    this.lstAtt.Remove(att);
+                    return;
+                }
             }
             catch (Exception ex)
             {
@@ -884,15 +948,13 @@ namespace NetZ.Web.Html
             }
 
             #endregion Ações
-
-            return null;
         }
 
-        protected void addCssArquivo(List<CssTag> lstCss)
+        protected void addCss(List<CssTag> lstCss)
         {
         }
 
-        protected virtual void addJsArquivo(List<JavaScriptTag> lstJs)
+        protected virtual void addJs(List<JavaScriptTag> lstJs)
         {
             #region Variáveis
 
@@ -915,7 +977,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected void addJsCodigo(JavaScriptTag js)
+        protected virtual void addJs(JavaScriptTag js)
         {
         }
 

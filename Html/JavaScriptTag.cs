@@ -99,7 +99,7 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        public void addJsCodigo(string strJsCodigo)
+        public void addJs(string strJs)
         {
             #region Variáveis
 
@@ -109,12 +109,12 @@ namespace NetZ.Web.Html
 
             try
             {
-                if (string.IsNullOrEmpty(strJsCodigo))
+                if (string.IsNullOrEmpty(strJs))
                 {
                     return;
                 }
 
-                this.lstStrCodigo.Add(strJsCodigo);
+                this.lstStrCodigo.Add(strJs);
             }
             catch (Exception ex)
             {
@@ -163,8 +163,13 @@ namespace NetZ.Web.Html
             return base.toHtml();
         }
 
-        protected override void addJsArquivo(List<JavaScriptTag> lstObjJsTag)
+        /// <summary>
+        /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
+        /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
+        /// </summary>
+        protected override void addJs(List<JavaScriptTag> lstJs)
         {
+            // Não fazer nada.
         }
 
         #endregion Métodos

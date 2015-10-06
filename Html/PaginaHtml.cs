@@ -544,7 +544,7 @@ namespace NetZ.Web.Html
                     return;
                 }
 
-                this.tagJs.addJsCodigo(strJsCodigo);
+                this.tagJs.addJs(strJsCodigo);
             }
             catch (Exception ex)
             {

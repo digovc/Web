@@ -1,6 +1,9 @@
-﻿namespace NetZ.Web.Html
+﻿using System;
+using System.Collections.Generic;
+
+namespace NetZ.Web.Html
 {
-    internal class Imagem
+    internal class Imagem : Tag
     {
         #region Constantes
 
@@ -12,9 +15,38 @@
 
         #region Construtores
 
+        public Imagem() : base("img")
+        {
+        }
+
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addJs(List<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.add(new JavaScriptTag(AppWeb.DIR_JS_IMAGEM));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         #endregion Métodos
 

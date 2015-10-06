@@ -239,7 +239,7 @@ namespace NetZ.Web.Html
 
                 strResultado = strResultado.Replace("_atributo_nome", this.strNome);
                 strResultado = strResultado.Replace("_atributo_valor", string.Join(this.strSeparador, this.lstStrValor.ToArray()));
-                strResultado = strResultado.Replace("=\"\"", string.Empty);
+                strResultado = strResultado.Replace("=\"\"", null);
 
                 return strResultado;
             }
