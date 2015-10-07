@@ -12,7 +12,7 @@ namespace NetZ.Web.Html
 
         private string _strClass;
 
-        public string strClass
+        internal string strClass
         {
             get
             {

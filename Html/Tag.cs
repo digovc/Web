@@ -142,7 +142,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        public string strConteudo
+        public virtual string strConteudo
         {
             get
             {
@@ -921,10 +921,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                if (!string.IsNullOrEmpty(this.strCache))
-                {
-                    return this.strCache;
-                }
+                //if (!string.IsNullOrEmpty(this.strCache))
+                //{
+                //    return this.strCache;
+                //}
 
                 this.montarLayout();
 
@@ -950,7 +950,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected void addCss(List<CssTag> lstCss)
+        protected virtual void addCss(List<CssTag> lstCss)
         {
         }
 
@@ -991,10 +991,9 @@ namespace NetZ.Web.Html
 
             try
             {
-                // TODO: Descomentar.
-                //this.addCssArquivo(PaginaHtml.i.lstCss);
-                //this.addJsArquivo(PaginaHtml.i.lstJs);
-                //this.addJsCodigo(PaginaHtml.i.tagJsMain);
+                this.addCss(PaginaHtml.i.lstCss);
+                this.addJs(PaginaHtml.i.lstJs);
+                this.addJs(PaginaHtml.i.tagJs);
             }
             catch (Exception ex)
             {

@@ -28,6 +28,7 @@ namespace NetZ.Web.Html
 
         #region Atributos
 
+        private static PaginaHtml _i;
         private bool _booPagSimples;
         private List<CssTag> _lstCss;
         private List<JavaScriptTag> _lstJs;
@@ -43,20 +44,20 @@ namespace NetZ.Web.Html
         private Tag _tagMetaHttpEquiv;
         private Tag _tagTitle;
 
-        private bool booPagSimples
+        public static PaginaHtml i
         {
             get
             {
-                return _booPagSimples;
+                return _i;
             }
 
             set
             {
-                _booPagSimples = value;
+                _i = value;
             }
         }
 
-        private List<CssTag> lstCss
+        internal List<CssTag> lstCss
         {
             get
             {
@@ -89,7 +90,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private List<JavaScriptTag> lstJs
+        internal List<JavaScriptTag> lstJs
         {
             get
             {
@@ -119,6 +120,91 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _lstJs;
+            }
+        }
+
+        internal JavaScriptTag tagJs
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagJs != null)
+                    {
+                        return _tagJs;
+                    }
+
+                    _tagJs = new JavaScriptTag();
+
+                    _tagJs.intOrdem = 100;
+
+                    this.lstJs.Add(_tagJs);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagJs;
+            }
+        }
+
+        protected Tag tagBody
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagBody != null)
+                    {
+                        return _tagBody;
+                    }
+
+                    _tagBody = new Tag("body");
+
+                    _tagBody.addCss(CssTag.i.setMargin(0));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagBody;
+            }
+        }
+
+        private bool booPagSimples
+        {
+            get
+            {
+                return _booPagSimples;
+            }
+
+            set
+            {
+                _booPagSimples = value;
             }
         }
 
@@ -177,41 +263,6 @@ namespace NetZ.Web.Html
                 }
 
                 #endregion Ações
-            }
-        }
-
-        protected Tag tagBody
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tagBody != null)
-                    {
-                        return _tagBody;
-                    }
-
-                    _tagBody = new Tag("body");
-
-                    _tagBody.addCss(CssTag.i.);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tagBody;
             }
         }
 
@@ -357,43 +408,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private JavaScriptTag tagJs
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tagJs != null)
-                    {
-                        return _tagJs;
-                    }
-
-                    _tagJs = new JavaScriptTag();
-
-                    _tagJs.intOrdem = 100;
-
-                    this.lstJs.Add(_tagJs);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tagJs;
-            }
-        }
-
         private Tag tagMetaContent
         {
             get
@@ -513,6 +527,8 @@ namespace NetZ.Web.Html
 
             try
             {
+                PaginaHtml.i = this;
+
                 this.strNome = strNome;
                 this.strTitulo = this.strNome;
             }

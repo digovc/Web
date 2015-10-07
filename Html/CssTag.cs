@@ -100,7 +100,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        public new string strConteudo
+        public override string strConteudo
         {
             get
             {
@@ -132,9 +132,9 @@ namespace NetZ.Web.Html
                 return _strConteudo;
             }
 
-            private set
+            set
             {
-                _strConteudo = value;
+                _strConteudo = null;
             }
         }
 
@@ -901,7 +901,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setFontSize(double dblFontSize, string strGrandeza)
+        public string setFontSize(double dblFontSize, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -959,7 +959,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setHeight(double dblHeight, string strGrandeza)
+        public string setHeight(double dblHeight, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1017,7 +1017,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMargin(int intMargin, string strGrandeza)
+        public string setMargin(int intMargin, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1309,7 +1309,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setPadding(int intPadding, string strGrandeza)
+        public string setPadding(int intPadding, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1629,7 +1629,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setWidth(double dblWidth, string strGrandeza)
+        public string setWidth(double dblWidth, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1729,12 +1729,10 @@ namespace NetZ.Web.Html
                     return null;
                 }
 
-                atrCss = new AtributoCss(strNome, strValor);
-
-                atrCss.strClass = (STR_CLASS_NOME_SUFIXO + this.lstAttCss.Count);
+                atrCss = new AtributoCss((STR_CLASS_NOME_SUFIXO + this.lstAttCss.Count), strNome, strValor);
 
                 this.lstAttCss.Add(atrCss);
-                this.strConteudo = string.Empty;
+                this.strConteudo = null;
 
                 return atrCss.strClass;
             }

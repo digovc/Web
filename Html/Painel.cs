@@ -11,17 +11,33 @@ namespace NetZ.Web.Html
 
         #region Atributos
 
+        private bool _booMarkdown;
+
+        public bool booMarkdown
+        {
+            get
+            {
+                return _booMarkdown;
+            }
+
+            set
+            {
+                _booMarkdown = value;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
         public Painel() : base("div")
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 this.booTagDupla = true;
@@ -33,6 +49,7 @@ namespace NetZ.Web.Html
             finally
             {
             }
+
             #endregion Ações
         }
 
@@ -40,19 +57,16 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        private boolean _booMarkdown;
-
-
-
         protected override void addCss(List<CssTag> lstCss)
         {
-
-            base.addCssArquivo(lstCss);
+            base.addCss(lstCss);
 
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 this.addCssMarkdown(lstCss);
@@ -64,12 +78,89 @@ namespace NetZ.Web.Html
             finally
             {
             }
+
+            #endregion Ações
+        }
+
+        protected override void addJs(List<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_PAINEL));
+
+                this.addJsMarkdown(lstJs);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void addJs(JavaScriptTag js)
+        {
+            base.addJs(js);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addJsMarkdown(js);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void setCss(CssTag tagCss)
+        {
+            base.setCss(tagCss);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(tagCss.setTextAlign("center"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
             #endregion Ações
         }
 
         private void addCssMarkdown(List<CssTag> lstCss)
         {
-
             #region Variáveis
 
             CssTag cssMarkdown;
@@ -78,11 +169,11 @@ namespace NetZ.Web.Html
             #endregion Variáveis
 
             #region Ações
+
             try
             {
-                if (!this.getBooMarkdown())
+                if (!this.booMarkdown)
                 {
-
                     return;
                 }
 
@@ -104,48 +195,22 @@ namespace NetZ.Web.Html
             finally
             {
             }
-            #endregion Ações
-        }
 
-
-        protected override void addJs(List<JavaScriptTag> lstJs)
-        {
-
-            base.addJs(lstJs);
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_PAINEL));
-
-                this.addJsMarkdown(lstJs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 
         private void addJsMarkdown(List<JavaScriptTag> lstJs)
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
-                if (!this.getBooMarkdown())
+                if (!this.booMarkdown)
                 {
-
                     return;
                 }
 
@@ -160,48 +225,24 @@ namespace NetZ.Web.Html
             finally
             {
             }
-            #endregion Ações
-        }
 
-        protected override void addJs(JavaScriptTag js)
-        {
-
-            base.addJs(js);
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.addJsMarkdown(js);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 
         private void addJsMarkdown(JavaScriptTag js)
         {
-
             string strJs;
 
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
-                if (!this.getBooMarkdown())
+                if (!this.booMarkdown)
                 {
-
                     return;
                 }
 
@@ -224,41 +265,10 @@ namespace NetZ.Web.Html
             finally
             {
             }
+
             #endregion Ações
         }
 
-        private boolean getBooMarkdown()
-        {
-
-            return _booMarkdown;
-        }
-
-        public void setBooMarkdown(boolean booMarkdown)
-        {
-
-            _booMarkdown = booMarkdown;
-        }
-
-        @Override
-  protected void setCss(CssTag tagCss)
-        {
-
-            super.setCss(tagCss);
-
-            try
-            {
-
-                this.addCss(tagCss.setTextAlign("center"));
-            }
-            catch (Exception ex)
-            {
-
-                new Erro("Erro inesperado.\n", ex);
-            }
-            finally
-            {
-            }
-        }
         #endregion Métodos
 
         #region Eventos

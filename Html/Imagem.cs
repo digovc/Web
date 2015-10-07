@@ -35,7 +35,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.add(new JavaScriptTag(AppWeb.DIR_JS_IMAGEM));
+                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_IMAGEM));
             }
             catch (Exception ex)
             {
