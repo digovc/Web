@@ -178,8 +178,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagBody = new Tag("body");
-
-                    _tagBody.addCss(CssTag.i.setMargin(0));
                 }
                 catch (Exception ex)
                 {
@@ -547,7 +545,7 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        public void addJsCodigo(string strJsCodigo)
+        public void addJs(string strJsCodigo)
         {
             #region Variáveis
 
@@ -638,20 +636,23 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY));
-                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY_UI));
-                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_MD5));
-                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_DATE));
-                lstJs.Add(new JavaScriptTag(DIR_JS_LST_ERRO));
-                lstJs.Add(new JavaScriptTag(DIR_JS_OBJETO));
-                lstJs.Add(new JavaScriptTag(DIR_JS_ERRO));
-                lstJs.Add(new JavaScriptTag(DIR_JS_UTILS));
-                lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB));
-                lstJs.Add(new JavaScriptTag(DIR_JS_WEB_SOCKET));
-                lstJs.Add(new JavaScriptTag(DIR_JS_OBJ_WS_INTERLOCUTOR));
-                lstJs.Add(new JavaScriptTag(DIR_JS_USUARIO));
-                lstJs.Add(new JavaScriptTag(DIR_JS_PAG_HTML));
-                lstJs.Add(new JavaScriptTag(DIR_JS_MENSAGEM));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY_UI));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_MD5));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_DATE));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_LST_ERRO));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_OBJETO));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_ERRO));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_UTILS));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_WEB_SOCKET));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_OBJ_WS_INTERLOCUTOR));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_USUARIO));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_PAG_HTML));
+                //lstJs.Add(new JavaScriptTag(DIR_JS_MENSAGEM));
+                lstJs.Add(new JavaScriptTag("/res/js/AppWeb.js"));
+                lstJs.Add(new JavaScriptTag("/res/js/AppWeb2.js"));
+                lstJs.Add(new JavaScriptTag("/res/js/AppWeb3.js"));
             }
             catch (Exception ex)
             {
@@ -664,7 +665,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected void addJsCodigo(JavaScriptTag tagJs)
+        protected void addJs(JavaScriptTag tagJs)
         {
             // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
             //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
@@ -680,6 +681,8 @@ namespace NetZ.Web.Html
 
             try
             {
+                this.setCss(CssTag.i);
+
                 this.tagTitle.tagPai = this.tagHead;
                 this.tagMetaContent.tagPai = this.tagHead;
                 this.tagMetaHttpEquiv.tagPai = this.tagHead;
@@ -687,6 +690,29 @@ namespace NetZ.Web.Html
 
                 CssTag.i.tagPai = this.tagHead;
                 CssTag.iImpressao.tagPai = this.tagHead;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected virtual void setCss(CssTag css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tagBody.addCss(css.setMargin(0));
             }
             catch (Exception ex)
             {
@@ -755,7 +781,7 @@ namespace NetZ.Web.Html
                 }
 
                 this.addJs(this.lstJs);
-                this.addJsCodigo(this.tagJs);
+                this.addJs(this.tagJs);
 
                 lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
 

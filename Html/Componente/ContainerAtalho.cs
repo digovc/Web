@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace NetZ.Web.Html
+namespace NetZ.Web.Html.Componente
 {
-    public class Imagem : Tag
+    public class ContainerAtalho : ComponenteHtml
     {
         #region Constantes
 
@@ -15,17 +14,13 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public Imagem() : base("img")
-        {
-        }
-
         #endregion Construtores
 
         #region Métodos
 
-        protected override void addJs(List<JavaScriptTag> lstJs)
+        protected override void setCss(CssTag css)
         {
-            base.addJs(lstJs);
+            base.setCss(css);
 
             #region Variáveis
 
@@ -35,7 +30,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_IMAGEM));
+                this.addCss(css.setBackgroundColor(AppWeb.i.tma.corFundo1Normal));
+                this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.tma.corBorda1Normal));
+                this.addCss(css.setHeight(70));
+                this.addCss(css.setPadding(5));
             }
             catch (Exception ex)
             {

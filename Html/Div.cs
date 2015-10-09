@@ -1,6 +1,6 @@
-﻿namespace NetZ.Web.Html.Componente
+﻿namespace NetZ.Web.Html
 {
-    public abstract class ComponenteHtml : Div
+    public class Div : Tag
     {
         #region Constantes
 
@@ -12,7 +12,7 @@
 
         #region Construtores
 
-        public ComponenteHtml()
+        public Div() : base("div")
         {
         }
 

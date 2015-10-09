@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace NetZ.Web.Html
+namespace NetZ.Web.Html.Componente.Botao
 {
-    public class Imagem : Tag
+    public class BotaoAtalho : Botao
     {
         #region Constantes
 
@@ -15,17 +14,13 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public Imagem() : base("img")
-        {
-        }
-
         #endregion Construtores
 
         #region Métodos
 
-        protected override void addJs(List<JavaScriptTag> lstJs)
+        protected override void setCss(CssTag css)
         {
-            base.addJs(lstJs);
+            base.setCss(css);
 
             #region Variáveis
 
@@ -35,7 +30,9 @@ namespace NetZ.Web.Html
 
             try
             {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_IMAGEM));
+                this.addCss(css.setBackgroundColor("#AFAFAF"));
+                this.addCss(css.setHeight(70));
+                this.addCss(css.setWidth(70));
             }
             catch (Exception ex)
             {

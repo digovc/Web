@@ -106,11 +106,15 @@ namespace NetZ.Web.Server
 
                 this.dttUltimaMensagemRecebida = DateTime.Now;
 
-                while (this.tcpClient.Connected && (this.dttUltimaMensagemRecebida > DateTime.Now.AddSeconds(-5)))
-                {
-                    this.processarSolicitacao();
-                    this.responder();
-                }
+                // Analisar a possibilidade de responder mais de uma solicitação por conexão.
+                //while (this.tcpClient.Connected && (this.dttUltimaMensagemRecebida > DateTime.Now.AddSeconds(-10)))
+                //{
+                //this.processarSolicitacao();
+                //this.responder();
+                //}
+
+                this.processarSolicitacao();
+                this.responder();
 
                 this.tcpClient.Close();
 
@@ -197,7 +201,7 @@ namespace NetZ.Web.Server
                         return;
                     }
 
-                    Thread.Sleep(10);
+                    //Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -240,7 +244,14 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                objResposta = AppWeb.i.responder(this.objSolicitacao);
+                if ((!string.IsNullOrEmpty(this.objSolicitacao.strPagina)) && (this.objSolicitacao.strPagina.StartsWith("/res")))
+                {
+                    objResposta = Server.i.responderArquivoEstatico(this.objSolicitacao);
+                }
+                else
+                {
+                    objResposta = AppWeb.i.responder(this.objSolicitacao);
+                }
 
                 if (!this.validar(objResposta))
                 {
@@ -271,6 +282,16 @@ namespace NetZ.Web.Server
             try
             {
                 if (objResposta == null)
+                {
+                    return;
+                }
+
+                if (objResposta.arrBteResposta == null)
+                {
+                    return;
+                }
+
+                if (objResposta.arrBteResposta.Length < 1)
                 {
                     return;
                 }

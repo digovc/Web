@@ -182,7 +182,10 @@ namespace NetZ.Web.Server
             }
         }
 
-        private string strPagina
+        /// <summary>
+        /// Página que foi solicitada pelo cliente.
+        /// </summary>
+        public string strPagina
         {
             get
             {
@@ -191,7 +194,30 @@ namespace NetZ.Web.Server
 
             set
             {
-                _strPagina = value;
+
+                #region Variáveis
+                #endregion Variáveis
+
+                #region Ações
+                try
+                {
+                    _strPagina = value;
+
+                    if (string.IsNullOrEmpty(_strPagina))
+                    {
+                        return;
+                    }
+
+                    _strPagina = _strPagina.ToLower();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+                #endregion Ações
             }
         }
 

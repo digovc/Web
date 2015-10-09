@@ -63,6 +63,41 @@ namespace NetZ.Web.Html
         private string _strTitle;
         private Tag _tagPai;
 
+        public Atributo attType
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attType != null)
+                    {
+                        return _attType;
+                    }
+
+                    _attType = new Atributo("type");
+
+                    this.addAtt(_attType);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attType;
+            }
+        }
+
         public bool booBarraFinal
         {
             get
@@ -191,7 +226,27 @@ namespace NetZ.Web.Html
 
             set
             {
-                _strId = value;
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _strId = value;
+
+                    this.attId.strValor = _strId;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
@@ -405,41 +460,6 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _attTitle;
-            }
-        }
-
-        public Atributo attType
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_attType != null)
-                    {
-                        return _attType;
-                    }
-
-                    _attType = new Atributo("type");
-
-                    this.addAtt(_attType);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _attType;
             }
         }
 
@@ -691,13 +711,6 @@ namespace NetZ.Web.Html
             try
             {
                 this.strNome = strNome;
-
-                if (this is CssTag)
-                {
-                    return;
-                }
-
-                this.setCss(CssTag.i);
             }
             catch (Exception ex)
             {
@@ -772,11 +785,12 @@ namespace NetZ.Web.Html
         /// </summary>
         public void addAtt(string strAttNome, string strValor = null)
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 if (string.IsNullOrEmpty(strAttNome))
@@ -793,6 +807,7 @@ namespace NetZ.Web.Html
             finally
             {
             }
+
             #endregion Ações
         }
 
@@ -964,7 +979,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_TAG));
+                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_TAG));
             }
             catch (Exception ex)
             {
@@ -994,6 +1009,13 @@ namespace NetZ.Web.Html
                 this.addCss(PaginaHtml.i.lstCss);
                 this.addJs(PaginaHtml.i.lstJs);
                 this.addJs(PaginaHtml.i.tagJs);
+
+                if (this is CssTag)
+                {
+                    return;
+                }
+
+                this.setCss(CssTag.i);
             }
             catch (Exception ex)
             {

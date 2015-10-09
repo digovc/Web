@@ -1,5 +1,6 @@
 ﻿using System;
 using NetZ.SistemaBase;
+using NetZ.Web.Html.Design;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -45,6 +46,8 @@ namespace NetZ.Web
 
         private static AppWeb _i;
 
+        private Tema _tma;
+
         public new static AppWeb i
         {
             get
@@ -78,6 +81,39 @@ namespace NetZ.Web
                 }
 
                 #endregion Ações
+            }
+        }
+
+        public Tema tma
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tma != null)
+                    {
+                        return _tma;
+                    }
+
+                    _tma = Tema.i;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tma;
             }
         }
 

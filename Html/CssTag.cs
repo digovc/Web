@@ -540,7 +540,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBorderBottom(int intBorderBottomPx, string cor)
+        public string setBorderBottom(int intBottomPx, string strTipo, string cor)
         {
             #region Variáveis
 
@@ -552,8 +552,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_border_bottom_pxpx solid _cor";
-                css = css.Replace("_border_bottom_px", intBorderBottomPx.ToString());
+                css = "_border_bottom_pxpx _border_tipo _cor";
+
+                css = css.Replace("_border_bottom_px", intBottomPx.ToString());
+                css = css.Replace("_border_tipo", strTipo);
                 css = css.Replace("_cor", cor);
 
                 return this.addCss("border-bottom", css);
@@ -569,7 +571,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBorderLeft(int intBorderLeftPx, string cor)
+        public string setBorderLeft(int intLeftPx, string strTipo, string cor)
         {
             #region Variáveis
 
@@ -581,8 +583,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_border_left_pxpx solid _cor";
-                css = css.Replace("_border_left_px", intBorderLeftPx.ToString());
+                css = "_border_left_pxpx _border_tipo _cor";
+
+                css = css.Replace("_border_left_px", intLeftPx.ToString());
+                css = css.Replace("_border_tipo", strTipo);
                 css = css.Replace("_cor", cor);
 
                 return this.addCss("border-left", css);
@@ -630,7 +634,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBorderRight(int intBorderRightPx, string cor)
+        public string setBorderRadius(int intBorderRadius, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -642,9 +646,40 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_border_tight_pxpx solid _cor";
+                css = "_border_radius_grandeza";
 
-                css = css.Replace("_border_tight_px", intBorderRightPx.ToString());
+                css = css.Replace("_border_radius", intBorderRadius.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
+
+                return this.addCss("border-radius", css);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        public string setBorderRight(int intRightPx, string strTipo, string cor)
+        {
+            #region Variáveis
+
+            string css;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                css = "_border_tight_pxpx _border_tipo _cor";
+
+                css = css.Replace("_border_tight_px", intRightPx.ToString());
+                css = css.Replace("_border_tipo", strTipo);
                 css = css.Replace("_cor", cor);
 
                 return this.addCss("border-right", css);
@@ -660,7 +695,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBorderTop(int intBorderTopPx, string cor)
+        public string setBorderTop(int intTopPx, string strTipo, string cor)
         {
             #region Variáveis
 
@@ -672,9 +707,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_border_top_pxpx solid _cor";
+                css = "_border_top_pxpx _border_tipo _cor";
 
-                css = css.Replace("_border_top_px", intBorderTopPx.ToString());
+                css = css.Replace("_border_top_px", intTopPx.ToString());
+                css = css.Replace("_border_tipo", strTipo);
                 css = css.Replace("_cor", cor);
 
                 return this.addCss("border-top", css);
@@ -989,7 +1025,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setLeft(int intLeft)
+        public string setLeft(int intLeft, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1001,10 +1037,42 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_right_pxpx";
+                css = "_right_px_grandeza";
+
                 css = css.Replace("_right_px", intLeft.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("left", css);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        public string setLineHeight(double dblLineHeight, string strGrandeza = "px")
+        {
+            #region Variáveis
+
+            string css;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                css = "_line_height_grandeza";
+
+                css = css.Replace("_line_height", dblLineHeight.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
+
+                return this.addCss("line-height", css);
             }
             catch (Exception ex)
             {
@@ -1572,7 +1640,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setTop(int intTop)
+        public string setTop(int intTop, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1584,9 +1652,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_top_pxpx";
+                css = "_top_px_grandeza";
 
                 css = css.Replace("_top_px", intTop.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("top", css);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
@@ -33,6 +34,7 @@ namespace NetZ.Web.Server
         private static Server _i;
         private EnmStatus _enmStatus = EnmStatus.PARADO;
         private long _lngClienteRespondido;
+        private List<ArquivoEstatico> _lstArqEstatico;
         private List<Cliente> _lstObjCliente;
         private TcpListener _tcpListener;
 
@@ -99,6 +101,39 @@ namespace NetZ.Web.Server
             set
             {
                 _lngClienteRespondido = value;
+            }
+        }
+
+        private List<ArquivoEstatico> lstArqEstatico
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstArqEstatico != null)
+                    {
+                        return _lstArqEstatico;
+                    }
+
+                    _lstArqEstatico = new List<ArquivoEstatico>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstArqEstatico;
             }
         }
 
@@ -192,6 +227,8 @@ namespace NetZ.Web.Server
 
             try
             {
+                this.criarDiretorio();
+                this.inicializarArquivoEstatico("res");
                 this.tcpListener.Start();
                 this.enmStatus = EnmStatus.LIGADO;
             }
@@ -203,6 +240,129 @@ namespace NetZ.Web.Server
             {
             }
 
+            #endregion Ações
+        }
+
+        internal Resposta responderArquivoEstatico(Solicitacao objSolicitacao)
+        {
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (objSolicitacao == null)
+                {
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(objSolicitacao.strPagina))
+                {
+                    return null;
+                }
+
+
+                foreach (ArquivoEstatico arq in this.lstArqEstatico)
+                {
+                    if (arq == null)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(arq.dirWeb))
+                    {
+                        continue;
+                    }
+
+                    if (!arq.dirWeb.Equals(objSolicitacao.strPagina))
+                    {
+                        continue;
+                    }
+
+                    return this.responderArquivoEstatico(objSolicitacao, arq);
+                }
+
+                return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
+
+        private Resposta responderArquivoEstaticoNaoEncontrado(Solicitacao objSolicitacao)
+        {
+
+            #region Variáveis
+
+            Resposta objResposta;
+
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                objResposta = new Resposta(objSolicitacao);
+
+                objResposta.intStatus = 404;
+
+                return objResposta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
+
+        private Resposta responderArquivoEstatico(Solicitacao objSolicitacao, ArquivoEstatico arq)
+        {
+
+            #region Variáveis
+
+            Resposta objResposta;
+
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (objSolicitacao == null)
+                {
+                    return null;
+                }
+
+                if (arq == null)
+                {
+                    return null;
+                }
+
+                if (!File.Exists(arq.dirCompleto))
+                {
+                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+                }
+
+                objResposta = new Resposta(objSolicitacao);
+
+                objResposta.addArquivo(arq);
+
+                return objResposta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
             #endregion Ações
         }
 
@@ -254,6 +414,119 @@ namespace NetZ.Web.Server
                 this.lstObjCliente.Add(objCliente);
 
                 objCliente.iniciar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void criarDiretorio()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (Directory.Exists("res"))
+                {
+                    return;
+                }
+
+                Directory.CreateDirectory("res");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void inicializarArquivoEstatico(string dir)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (!Directory.Exists(dir))
+                {
+                    return;
+                }
+
+                foreach (string dir2 in Directory.GetDirectories(dir))
+                {
+                    if (string.IsNullOrEmpty(dir2))
+                    {
+                        continue;
+                    }
+
+                    this.inicializarArquivoEstatico(dir2);
+                }
+
+                foreach (string dirArquivo in Directory.GetFiles(dir))
+                {
+                    if (string.IsNullOrEmpty(dirArquivo))
+                    {
+                        continue;
+                    }
+
+                    this.inicializarArquivoEstaticoArquivo(dirArquivo);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void inicializarArquivoEstaticoArquivo(string dirArquivo)
+        {
+            #region Variáveis
+
+            ArquivoEstatico arq;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(dirArquivo))
+                {
+                    return;
+                }
+
+                if (!File.Exists(dirArquivo))
+                {
+                    return;
+                }
+
+                arq = new ArquivoEstatico();
+
+                arq.dirCompleto = dirArquivo.ToLower();
+
+                this.lstArqEstatico.Add(arq);
             }
             catch (Exception ex)
             {

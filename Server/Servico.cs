@@ -53,7 +53,7 @@ namespace NetZ.Web.Server
                     _thr = new Thread(this.inicializarServio);
 
                     _thr.IsBackground = true;
-                    _thr.Priority = ThreadPriority.Lowest;
+                    _thr.Priority = ThreadPriority.Normal;
                 }
                 catch (Exception ex)
                 {
