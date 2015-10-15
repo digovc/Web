@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DigoFramework;
 using NetZ.Web.Html;
 
 namespace NetZ.Web.Server
@@ -9,7 +11,7 @@ namespace NetZ.Web.Server
     /// Classe que será utilizada para responder uma solicitação enviada por um cliente por uma
     /// conexão HTTP. Esta classe contém métodos e propriedades relevantes para construção da resposta.
     /// </summary>
-    public class Resposta
+    public class Resposta : SistemaBase.Objeto
     {
         #region Constantes
 
@@ -721,8 +723,9 @@ namespace NetZ.Web.Server
         private EnmContentType _enmContentType = EnmContentType.TXT_TEXT_PLAIN;
         private EnmEncoding _enmEncoding = EnmEncoding.UTF_8;
         private int _intStatus;
+        private List<Cookie> _lstObjCookie;
+        private MemoryStream _mmsConteudo;
         private Solicitacao _objSolicitacao;
-        private string _strConteudo;
 
         /// <summary>
         /// Data em que o conteúdo desta mensagem foi modificada pela última vez.
@@ -818,6 +821,72 @@ namespace NetZ.Web.Server
             }
         }
 
+        private List<Cookie> lstObjCookie
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstObjCookie != null)
+                    {
+                        return _lstObjCookie;
+                    }
+
+                    _lstObjCookie = new List<Cookie>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstObjCookie;
+            }
+        }
+
+        private MemoryStream mmsConteudo
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_mmsConteudo != null)
+                    {
+                        return _mmsConteudo;
+                    }
+
+                    _mmsConteudo = new MemoryStream();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _mmsConteudo;
+            }
+        }
+
         private Solicitacao objSolicitacao
         {
             get
@@ -828,19 +897,6 @@ namespace NetZ.Web.Server
             set
             {
                 _objSolicitacao = value;
-            }
-        }
-
-        private string strConteudo
-        {
-            get
-            {
-                return _strConteudo;
-            }
-
-            set
-            {
-                _strConteudo = value;
             }
         }
 
@@ -876,6 +932,52 @@ namespace NetZ.Web.Server
         #region Métodos
 
         /// <summary>
+        /// Adiciona um cookie para ser armazenado no browser do cliente.
+        /// </summary>
+        public void addCookie(Cookie objCookie)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objCookie == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objCookie.strNome))
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objCookie.strValor))
+                {
+                    return;
+                }
+
+                if (objCookie.dttValidade < DateTime.Now)
+                {
+                    return;
+                }
+
+                this.lstObjCookie.Add(objCookie);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
         /// Adiciona código HTML para a resposta que será encaminhada para o cliente quando o
         /// processamento da solicitação for finalizada.
         /// </summary>
@@ -895,14 +997,9 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                if (string.IsNullOrEmpty(this.strConteudo))
-                {
-                    this.strConteudo = string.Empty;
-                }
-
                 this.enmContentType = EnmContentType.HTML_TEXT_HTML;
                 this.enmEncoding = EnmEncoding.UTF_8;
-                this.strConteudo += strHtml;
+                this.mmsConteudo.Write(Encoding.UTF8.GetBytes(strHtml), 0, Encoding.UTF8.GetByteCount(strHtml));
             }
             catch (Exception ex)
             {
@@ -951,6 +1048,8 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
+            byte[] arrBte;
+
             #endregion Variáveis
 
             #region Ações
@@ -975,7 +1074,68 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.strConteudo = arq.strConteudo;
+                arrBte = File.ReadAllBytes(arq.dirCompleto);
+
+                this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void addCookieSessaoId()
+        {
+            #region Variáveis
+
+            Cookie objCookieSessaoId;
+            string strSessaoId;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.objSolicitacao == null)
+                {
+                    return;
+                }
+
+                foreach (Cookie objCookie in this.objSolicitacao.lstObjCookie)
+                {
+                    if (objCookie == null)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(objCookie.strNome))
+                    {
+                        continue;
+                    }
+
+                    if (objCookie.strNome.Equals(Server.STR_COOKIE_SESSAO_ID_NOME))
+                    {
+                        return;
+                    }
+                }
+
+                strSessaoId = "_dtt_agora+_solicitacao_id";
+
+                strSessaoId = strSessaoId.Replace("_dtt_agora", DateTime.Now.ToString());
+                strSessaoId = strSessaoId.Replace("_solicitacao_id", this.objSolicitacao.intObjetoId.ToString());
+
+                strSessaoId = Utils.getStrMd5(strSessaoId);
+
+                objCookieSessaoId = new Cookie(Server.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
+                objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
+
+                this.addCookie(objCookieSessaoId);
             }
             catch (Exception ex)
             {
@@ -1083,7 +1243,8 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
-            string strResposta;
+            MemoryStream mmsResposta;
+            string strHeader;
 
             #endregion Variáveis
 
@@ -1091,20 +1252,22 @@ namespace NetZ.Web.Server
 
             try
             {
-                strResposta = string.Empty;
+                strHeader = this.getStrHeader();
 
-                strResposta += this.getStrHeader();
+                mmsResposta = new MemoryStream();
+
+                mmsResposta.Write(Encoding.UTF8.GetBytes(strHeader), 0, Encoding.UTF8.GetByteCount(strHeader));
 
                 if (!200.Equals(this.intStatus))
                 {
-                    return Encoding.UTF8.GetBytes(strResposta);
+                    return mmsResposta.ToArray();
                 }
 
-                strResposta += Environment.NewLine;
-                strResposta += Environment.NewLine;
-                strResposta += this.strConteudo;
+                mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
+                mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
+                mmsResposta.Write(this.mmsConteudo.ToArray(), 0, (int)this.mmsConteudo.Length);
 
-                return Encoding.UTF8.GetBytes(strResposta);
+                return mmsResposta.ToArray();
             }
             catch (Exception ex)
             {
@@ -3250,6 +3413,8 @@ namespace NetZ.Web.Server
 
             try
             {
+                this.addCookieSessaoId();
+
                 strHeader = string.Empty;
 
                 strHeader += this.getStrHeaderStatus();
@@ -3258,6 +3423,7 @@ namespace NetZ.Web.Server
                 strHeader += Environment.NewLine;
                 strHeader += this.getStrServer();
                 strHeader += Environment.NewLine;
+                strHeader += this.getStrSetCookie();
                 strHeader += this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao);
                 strHeader += Environment.NewLine;
                 strHeader += "Connection: keep-alive";
@@ -3291,13 +3457,13 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (string.IsNullOrEmpty(this.strConteudo))
+                if (this.mmsConteudo.Length < 1)
                 {
                     return null;
                 }
 
                 strResultado = "Content-Length: _content_length";
-                strResultado = strResultado.Replace("_content_length", this.strConteudo.Length.ToString());
+                strResultado = strResultado.Replace("_content_length", this.mmsConteudo.Length.ToString());
 
                 return strResultado;
             }
@@ -3356,13 +3522,12 @@ namespace NetZ.Web.Server
             {
                 if (string.IsNullOrEmpty(strFieldNome))
                 {
-                    strFieldNome = "Date";
+                    return null;
                 }
 
                 strResultado = "_str_date_nome: _date_valor";
 
                 strResultado = strResultado.Replace("_str_date_nome", strFieldNome);
-                strResultado = strResultado.Replace("_date_valor", dtt.ToString("ddd,' 'dd' 'MMM' 'yyyy' 'HH':'mm':'ss' 'K"));
                 strResultado = strResultado.Replace("_date_valor", dtt.ToUniversalTime().ToString("r"));
 
                 return strResultado;
@@ -3433,6 +3598,43 @@ namespace NetZ.Web.Server
             {
                 strResultado = "Server: _server_nome";
                 strResultado = strResultado.Replace("_server_nome", AppWeb.i.strNomeExibicao);
+
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrSetCookie()
+        {
+            #region Variáveis
+
+            string strResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                strResultado = "";
+
+                foreach (Cookie objCookie in this.lstObjCookie)
+                {
+                    if (objCookie == null)
+                    {
+                        continue;
+                    }
+
+                    strResultado += objCookie.getStrFormatado();
+                }
 
                 return strResultado;
             }

@@ -65,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ArquivoEstatico.cs" />
     <Compile Include="Server\Cliente.cs" />
+    <Compile Include="Server\Cookie.cs" />
     <Compile Include="Server\Field.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\Server.cs" />

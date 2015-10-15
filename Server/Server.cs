@@ -27,6 +27,8 @@ namespace NetZ.Web.Server
             PARADO,
         }
 
+        public const string STR_COOKIE_SESSAO_ID_NOME = "sessao_id";
+
         #endregion Constantes
 
         #region Atributos
@@ -215,41 +217,14 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.criarDiretorio();
-                this.inicializarArquivoEstatico("res");
-                this.tcpListener.Start();
-                this.enmStatus = EnmStatus.LIGADO;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         internal Resposta responderArquivoEstatico(Solicitacao objSolicitacao)
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 if (objSolicitacao == null)
@@ -261,7 +236,6 @@ namespace NetZ.Web.Server
                 {
                     return null;
                 }
-
 
                 foreach (ArquivoEstatico arq in this.lstArqEstatico)
                 {
@@ -292,26 +266,27 @@ namespace NetZ.Web.Server
             finally
             {
             }
+
             #endregion Ações
         }
 
-        private Resposta responderArquivoEstaticoNaoEncontrado(Solicitacao objSolicitacao)
+        protected override void inicializar()
         {
+            base.inicializar();
 
             #region Variáveis
-
-            Resposta objResposta;
 
             #endregion Variáveis
 
             #region Ações
+
             try
             {
-                objResposta = new Resposta(objSolicitacao);
-
-                objResposta.intStatus = 404;
-
-                return objResposta;
+                ConfigWeb.i.inicializar();
+                this.criarDiretorio();
+                this.inicializarArquivoEstatico("res");
+                this.tcpListener.Start();
+                this.enmStatus = EnmStatus.LIGADO;
             }
             catch (Exception ex)
             {
@@ -320,49 +295,7 @@ namespace NetZ.Web.Server
             finally
             {
             }
-            #endregion Ações
-        }
 
-        private Resposta responderArquivoEstatico(Solicitacao objSolicitacao, ArquivoEstatico arq)
-        {
-
-            #region Variáveis
-
-            Resposta objResposta;
-
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                if (objSolicitacao == null)
-                {
-                    return null;
-                }
-
-                if (arq == null)
-                {
-                    return null;
-                }
-
-                if (!File.Exists(arq.dirCompleto))
-                {
-                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
-                }
-
-                objResposta = new Resposta(objSolicitacao);
-
-                objResposta.addArquivo(arq);
-
-                return objResposta;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 
@@ -550,6 +483,79 @@ namespace NetZ.Web.Server
             try
             {
                 this.verificarAddCliente();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private Resposta responderArquivoEstatico(Solicitacao objSolicitacao, ArquivoEstatico arq)
+        {
+            #region Variáveis
+
+            Resposta objResposta;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objSolicitacao == null)
+                {
+                    return null;
+                }
+
+                if (arq == null)
+                {
+                    return null;
+                }
+
+                if (!File.Exists(arq.dirCompleto))
+                {
+                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+                }
+
+                objResposta = new Resposta(objSolicitacao);
+
+                objResposta.addArquivo(arq);
+
+                return objResposta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private Resposta responderArquivoEstaticoNaoEncontrado(Solicitacao objSolicitacao)
+        {
+            #region Variáveis
+
+            Resposta objResposta;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                objResposta = new Resposta(objSolicitacao);
+
+                objResposta.intStatus = 404;
+
+                return objResposta;
             }
             catch (Exception ex)
             {

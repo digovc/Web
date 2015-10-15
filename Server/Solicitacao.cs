@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using NetZ.SistemaBase;
 
 namespace NetZ.Web.Server
 {
@@ -24,7 +25,7 @@ namespace NetZ.Web.Server
     /// na pasta "res", dentro da localidade onde está rodando este servidor WEB serão tratador automaticamente.
     /// </para>
     /// </summary>
-    public class Solicitacao
+    public class Solicitacao : Objeto
     {
         #region Constantes
 
@@ -46,6 +47,7 @@ namespace NetZ.Web.Server
         private decimal _decHttpVersao;
         private DateTime _dttUltimaModificacao = DateTime.MinValue;
         private EnmMetodo _enmMetodo = EnmMetodo.NONE;
+        private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
         private string _strMsgCliente;
@@ -87,6 +89,80 @@ namespace NetZ.Web.Server
             set
             {
                 _enmMetodo = value;
+            }
+        }
+
+        public List<Cookie> lstObjCookie
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstObjCookie != null)
+                    {
+                        return _lstObjCookie;
+                    }
+
+                    _lstObjCookie = new List<Cookie>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstObjCookie;
+            }
+        }
+
+        /// <summary>
+        /// Página que foi solicitada pelo cliente.
+        /// </summary>
+        public string strPagina
+        {
+            get
+            {
+                return _strPagina;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _strPagina = value;
+
+                    if (string.IsNullOrEmpty(_strPagina))
+                    {
+                        return;
+                    }
+
+                    _strPagina = _strPagina.ToLower();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
@@ -179,45 +255,6 @@ namespace NetZ.Web.Server
                 #endregion Ações
 
                 return _strMsgCliente;
-            }
-        }
-
-        /// <summary>
-        /// Página que foi solicitada pelo cliente.
-        /// </summary>
-        public string strPagina
-        {
-            get
-            {
-                return _strPagina;
-            }
-
-            set
-            {
-
-                #region Variáveis
-                #endregion Variáveis
-
-                #region Ações
-                try
-                {
-                    _strPagina = value;
-
-                    if (string.IsNullOrEmpty(_strPagina))
-                    {
-                        return;
-                    }
-
-                    _strPagina = _strPagina.ToLower();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-                #endregion Ações
             }
         }
 
@@ -392,7 +429,7 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
-            Field objHeader;
+            Field objFieldHeader;
 
             #endregion Variáveis
 
@@ -405,12 +442,93 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                objHeader = new Field(strHeader);
+                objFieldHeader = new Field(strHeader);
 
-                objHeader.objSolicitacao = this;
-                objHeader.processar();
+                objFieldHeader.objSolicitacao = this;
+                objFieldHeader.processar();
 
-                this.lstObjField.Add(objHeader);
+                this.processarHeader(objFieldHeader);
+                this.lstObjField.Add(objFieldHeader);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void processarHeader(Field objFieldHeader)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objFieldHeader == null)
+                {
+                    return;
+                }
+
+                switch (objFieldHeader.enmTipo)
+                {
+                    case Field.EnmTipo.COOKIE:
+                        this.processarHeaderCookie(objFieldHeader);
+                        return;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void processarHeaderCookie(Field objFieldHeader)
+        {
+            #region Variáveis
+
+            Cookie objCookie;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objFieldHeader == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objFieldHeader.strValor))
+                {
+                    return;
+                }
+
+                if (objFieldHeader.strValor.IndexOf('=') < 0)
+                {
+                    return;
+                }
+
+                if (objFieldHeader.strValor.Split('=').Length < 2)
+                {
+                    return;
+                }
+
+                objCookie = new Cookie(objFieldHeader.strValor.Split('=')[0], objFieldHeader.strValor.Split('=')[1]);
+
+                this.lstObjCookie.Add(objCookie);
             }
             catch (Exception ex)
             {

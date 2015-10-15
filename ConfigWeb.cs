@@ -1,4 +1,5 @@
 ﻿using System;
+using DigoFramework;
 
 namespace NetZ.Web
 {
@@ -7,7 +8,7 @@ namespace NetZ.Web
     /// esta biblioteca.
     /// <para>Este arquivo contém as configurações para que este servidor WEB possa funcionar.</para>
     /// </summary>
-    public class ConfigWeb
+    public class ConfigWeb : ConfigMain
     {
         #region Constantes
 
@@ -16,12 +17,12 @@ namespace NetZ.Web
         #region Atributos
 
         private static ConfigWeb _i;
-        private string[] _arrDirEgnorado;
+
+        private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
-        private string _dirLocal;
         private int _intPorta = 8000;
 
-        public static ConfigWeb i
+        public static new ConfigWeb i
         {
             get
             {
@@ -59,16 +60,16 @@ namespace NetZ.Web
         /// disponíveis do lado do cliente.
         /// <para>Estes diretórios e arquivos são relativos ao diretório presente em <see cref="dirLocal"/>.</para>
         /// </summary>
-        public string[] arrDirEgnorado
+        public string[] arrDirIgnorado
         {
             get
             {
-                return _arrDirEgnorado;
+                return _arrDirIgnorado;
             }
 
             set
             {
-                _arrDirEgnorado = value;
+                _arrDirIgnorado = value;
             }
         }
 
@@ -86,22 +87,6 @@ namespace NetZ.Web
             set
             {
                 _arrStrExtencaoIgnorada = value;
-            }
-        }
-
-        /// <summary>
-        /// Diretório onde está localizado os arquivos estáticos da aplicação WEB.
-        /// </summary>
-        public string dirLocal
-        {
-            get
-            {
-                return _dirLocal;
-            }
-
-            set
-            {
-                _dirLocal = value;
             }
         }
 
