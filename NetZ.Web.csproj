@@ -51,6 +51,8 @@
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
     <Compile Include="Html\Componente\ContainerAtalho.cs" />
     <Compile Include="Html\Componente\Janela.cs" />
+    <Compile Include="Html\Componente\Menu\MainMenu.cs" />
+    <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
     <Compile Include="Html\CssTag.cs" />
     <Compile Include="Html\Design\Cor.cs" />
     <Compile Include="Html\Design\Tema.cs" />

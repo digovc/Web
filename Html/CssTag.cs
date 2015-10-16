@@ -1728,9 +1728,9 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setZ(int intZ)
+        public string setZIndex(int intZIndex)
         {
-            return this.addCss("z-index", intZ.ToString());
+            return this.addCss("z-index", intZIndex.ToString());
         }
 
         public override string toHtml()

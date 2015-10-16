@@ -1,4 +1,6 @@
-﻿namespace NetZ.Web.Html.Componente
+﻿using System;
+
+namespace NetZ.Web.Html.Componente
 {
     public abstract class ComponenteHtml : Div
     {
@@ -14,6 +16,25 @@
 
         public ComponenteHtml()
         {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.booTagDupla = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         #endregion Construtores
