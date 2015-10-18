@@ -3425,8 +3425,8 @@ namespace NetZ.Web.Server
                 strHeader += Environment.NewLine;
                 strHeader += this.getStrSetCookie();
                 strHeader += this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao);
-                strHeader += Environment.NewLine;
-                strHeader += "Connection: keep-alive";
+                //strHeader += Environment.NewLine;
+                //strHeader += "Connection: keep-alive";
                 strHeader += Environment.NewLine;
                 strHeader += this.getStrHeaderContentType();
                 strHeader += Environment.NewLine;

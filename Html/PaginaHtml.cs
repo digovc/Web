@@ -9,20 +9,19 @@ namespace NetZ.Web.Html
     {
         #region Constantes
 
-        public const string DIR_JS_APP_WEB = "res/js/lib/JDigo/AppWeb.js";
-        public const string DIR_JS_ERRO = "res/js/lib/JDigo/erro/Erro.js";
-        public const string DIR_JS_LIB_DATE = "res/js/lib/JDigo/lib/date.js";
-        public const string DIR_JS_LIB_JQUERY = "res/js/lib/JDigo/lib/jquery-2.1.3.min.js";
-        public const string DIR_JS_LIB_JQUERY_UI = "res/js/lib/JDigo/lib/jquery-ui.min.js";
-        public const string DIR_JS_LIB_MD5 = "res/js/lib/JDigo/lib/md5.js";
-        public const string DIR_JS_LST_ERRO = "res/js/lib/JDigo/lista/LstStrErro.js";
-        public const string DIR_JS_MENSAGEM = "res/js/lib/JDigo/html/componente/Mensagem.js";
-        public const string DIR_JS_OBJ_WS_INTERLOCUTOR = "res/js/lib/JDigo/websocket/ObjWsInterlocutor.js";
-        public const string DIR_JS_OBJETO = "res/js/lib/JDigo/Objeto.js";
-        public const string DIR_JS_PAG_HTML = "res/js/lib/JDigo/html/PaginaHtml.js";
-        public const string DIR_JS_USUARIO = "res/js/lib/JDigo/Usuario.js";
-        public const string DIR_JS_UTILS = "res/js/lib/JDigo/Utils.js";
-        public const string DIR_JS_WEB_SOCKET = "res/js/lib/JDigo/websocket/WebSocketMain.js";
+        //public const string DIR_JS_LIB_DATE = "res/js/lib/date.js";
+        //public const string DIR_JS_LIB_MD5 = "res/js/lib/JDigo/lib/md5.js";
+        //public const string DIR_JS_PAG_HTML = "res/js/html/PaginaHtml.js";
+        //public const string DIR_JS_USUARIO = "res/js/Usuario.js";
+
+        public const string DIR_JS_APP_WEB = "res/js/Web.TypeScript/AppWeb.js";
+        public const string DIR_JS_ERRO = "res/js/Web.TypeScript/erro/Erro.js";
+        public const string DIR_JS_LIB_JQUERY = "res/js/lib/jquery-2.1.3.min.js";
+        public const string DIR_JS_LIB_JQUERY_UI = "res/js/lib/jquery-ui.min.js";
+        public const string DIR_JS_OBJETO = "res/js/Web.TypeScript/Objeto.js";
+        public const string DIR_JS_PAGINA_HTML = "res/js/Web.TypeScript/html/PaginaHtml.js";
+        public const string DIR_JS_TAG = "res/js/Web.TypeScript/html/Tag.js";
+        public const string DIR_JS_UTILS = "res/js/Web.TypeScript/Utils.js";
 
         #endregion Constantes
 
@@ -30,8 +29,8 @@ namespace NetZ.Web.Html
 
         private static PaginaHtml _i;
         private bool _booPagSimples;
-        private List<CssTag> _lstCss;
-        private List<JavaScriptTag> _lstJs;
+        private LstTag<CssTag> _lstCss;
+        private LstTag<JavaScriptTag> _lstJs;
         private string _srcIcone = "res/media/ico/favicon.ico";
         private string _strTitulo;
         private Tag _tagBody;
@@ -57,7 +56,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        internal List<CssTag> lstCss
+        internal LstTag<CssTag> lstCss
         {
             get
             {
@@ -74,7 +73,7 @@ namespace NetZ.Web.Html
                         return _lstCss;
                     }
 
-                    _lstCss = new List<CssTag>();
+                    _lstCss = new LstTag<CssTag>();
                 }
                 catch (Exception ex)
                 {
@@ -90,7 +89,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        internal List<JavaScriptTag> lstJs
+        internal LstTag<JavaScriptTag> lstJs
         {
             get
             {
@@ -107,7 +106,7 @@ namespace NetZ.Web.Html
                         return _lstJs;
                     }
 
-                    _lstJs = new List<JavaScriptTag>();
+                    _lstJs = new LstTag<JavaScriptTag>();
                 }
                 catch (Exception ex)
                 {
@@ -622,11 +621,11 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected virtual void addCss(List<CssTag> lstCss)
+        protected virtual void addCss(LstTag<CssTag> lstCss)
         {
         }
 
-        protected void addJs(List<JavaScriptTag> lstJs)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
             #region Variáveis
 
@@ -636,23 +635,15 @@ namespace NetZ.Web.Html
 
             try
             {
-                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY_UI));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_MD5));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_LIB_DATE));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_LST_ERRO));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_OBJETO));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_ERRO));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_UTILS));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_WEB_SOCKET));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_OBJ_WS_INTERLOCUTOR));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_USUARIO));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_PAG_HTML));
-                //lstJs.Add(new JavaScriptTag(DIR_JS_MENSAGEM));
-                lstJs.Add(new JavaScriptTag("/res/js/AppWeb.js"));
-                lstJs.Add(new JavaScriptTag("/res/js/AppWeb2.js"));
-                lstJs.Add(new JavaScriptTag("/res/js/AppWeb3.js"));
+                lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB, 104));
+                lstJs.Add(new JavaScriptTag(DIR_JS_ERRO, 102));
+                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY, 0));
+                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY_UI, 0));
+                lstJs.Add(new JavaScriptTag(DIR_JS_OBJETO, 100));
+                lstJs.Add(new JavaScriptTag(DIR_JS_PAGINA_HTML, 102));
+                lstJs.Add(new JavaScriptTag(DIR_JS_TAG, 103));
+                lstJs.Add(new JavaScriptTag(DIR_JS_UTILS, 101));
+                lstJs.Add(!(string.IsNullOrEmpty(this.getSrcJsBoot())) ? new JavaScriptTag(this.getSrcJsBoot(), 999) : null);
             }
             catch (Exception ex)
             {
@@ -669,6 +660,11 @@ namespace NetZ.Web.Html
         {
             // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
             //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
+        }
+
+        protected virtual string getSrcJsBoot()
+        {
+            return null;
         }
 
         protected virtual void montarLayout()

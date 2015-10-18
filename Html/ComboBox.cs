@@ -119,7 +119,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected override void addJs(List<JavaScriptTag> lstJs)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
 

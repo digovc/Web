@@ -104,7 +104,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.dttUltimaMensagemRecebida = DateTime.Now;
+                //this.dttUltimaMensagemRecebida = DateTime.Now;
 
                 // Analisar a possibilidade de responder mais de uma solicitação por conexão.
                 //while (this.tcpClient.Connected && (this.dttUltimaMensagemRecebida > DateTime.Now.AddSeconds(-10)))
@@ -200,8 +200,6 @@ namespace NetZ.Web.Server
                     {
                         return;
                     }
-
-                    //Thread.Sleep(10);
                 }
             }
             catch (Exception ex)

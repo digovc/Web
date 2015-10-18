@@ -61,6 +61,7 @@
     <Compile Include="Html\Input.cs" />
     <Compile Include="Html\JavaScriptTag.cs" />
     <Compile Include="Html\LimiteFloat.cs" />
+    <Compile Include="Html\LstTag.cs" />
     <Compile Include="Html\PaginaHtml.cs" />
     <Compile Include="Html\Painel.cs" />
     <Compile Include="Html\Tag.cs" />

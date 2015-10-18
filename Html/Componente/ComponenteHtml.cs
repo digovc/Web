@@ -41,6 +41,31 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/ComponenteHtml.js", 110));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Métodos
 
         #region Eventos

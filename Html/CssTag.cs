@@ -1743,6 +1743,11 @@ namespace NetZ.Web.Html
 
             try
             {
+                if (string.IsNullOrEmpty(this.strConteudo))
+                {
+                    return null;
+                }
+
                 if (CssTag.STR_CSS_MAIN_ID.Equals(this.strId) || CssTag.STR_CSS_IMPRESSAO_ID.Equals(this.strId))
                 {
                     return base.toHtml();

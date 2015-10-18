@@ -15,9 +15,57 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Construtores
 
+        protected MainMenu(string strId)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strId = strId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/menu/MainMenu.js", 150));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void setCss(CssTag css)
         {

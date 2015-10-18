@@ -965,31 +965,12 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected virtual void addCss(List<CssTag> lstCss)
+        protected virtual void addCss(LstTag<CssTag> lstCss)
         {
         }
 
-        protected virtual void addJs(List<JavaScriptTag> lstJs)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_TAG));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         protected virtual void addJs(JavaScriptTag js)

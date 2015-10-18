@@ -57,7 +57,7 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        protected override void addCss(List<CssTag> lstCss)
+        protected override void addCss(LstTag<CssTag> lstCss)
         {
             base.addCss(lstCss);
 
@@ -82,7 +82,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected override void addJs(List<JavaScriptTag> lstJs)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
 
@@ -159,7 +159,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        private void addCssMarkdown(List<CssTag> lstCss)
+        private void addCssMarkdown(LstTag<CssTag> lstCss)
         {
             #region Variáveis
 
@@ -199,7 +199,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        private void addJsMarkdown(List<JavaScriptTag> lstJs)
+        private void addJsMarkdown(LstTag<JavaScriptTag> lstJs)
         {
             #region Variáveis
 

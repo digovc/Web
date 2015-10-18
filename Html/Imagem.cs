@@ -23,7 +23,7 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        protected override void addJs(List<JavaScriptTag> lstJs)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
 
@@ -35,7 +35,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_IMAGEM));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Imagem.js"));
             }
             catch (Exception ex)
             {

@@ -70,7 +70,7 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public JavaScriptTag(string src = null) : base("script")
+        public JavaScriptTag(string src = null, int intOrdem = 200) : base("script")
         {
             #region Variáveis
 
@@ -81,7 +81,9 @@ namespace NetZ.Web.Html
             try
             {
                 this.addAtt("type", "text/javascript");
+
                 this.booTagDupla = true;
+                this.intOrdem = intOrdem;
                 this.src = src;
             }
             catch (Exception ex)
@@ -139,6 +141,11 @@ namespace NetZ.Web.Html
 
             try
             {
+                if (this.lstStrCodigo.Count < 1 && string.IsNullOrEmpty(this.src))
+                {
+                    return null;
+                }
+
                 if (this.lstStrCodigo.Count < 1)
                 {
                     return base.toHtml();
@@ -167,7 +174,7 @@ namespace NetZ.Web.Html
         /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
         /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
         /// </summary>
-        protected override void addJs(List<JavaScriptTag> lstJs)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             // Não fazer nada.
         }
