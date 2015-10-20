@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -347,6 +348,8 @@ namespace NetZ.Web.Server
                 this.lstObjCliente.Add(objCliente);
 
                 objCliente.iniciar();
+
+                Thread.Sleep(1);
             }
             catch (Exception ex)
             {
