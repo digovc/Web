@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Botao
 {
-    public class BotaoAtalho : BotaoHtml
+    public class BotaoHtml : ComponenteHtml
     {
         #region Constantes
 
@@ -14,13 +14,36 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Construtores
 
+        public BotaoHtml()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strConteudo = "Botão desconhecido";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos
 
-        protected override void setCss(CssTag css)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.setCss(css);
+            base.addJs(lstJs);
 
             #region Variáveis
 
@@ -30,9 +53,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                this.addCss(css.setBackgroundColor("#AFAFAF"));
-                this.addCss(css.setHeight(70));
-                this.addCss(css.setWidth(70));
+                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_BOTAO));
             }
             catch (Exception ex)
             {

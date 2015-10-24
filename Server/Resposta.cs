@@ -1107,22 +1107,9 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                foreach (Cookie objCookie in this.objSolicitacao.lstObjCookie)
+                if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(Server.STR_COOKIE_SESSAO_ID_NOME)))
                 {
-                    if (objCookie == null)
-                    {
-                        continue;
-                    }
-
-                    if (string.IsNullOrEmpty(objCookie.strNome))
-                    {
-                        continue;
-                    }
-
-                    if (objCookie.strNome.Equals(Server.STR_COOKIE_SESSAO_ID_NOME))
-                    {
-                        return;
-                    }
+                    return;
                 }
 
                 strSessaoId = "_dtt_agora+_solicitacao_id";
@@ -1136,6 +1123,40 @@ namespace NetZ.Web.Server
                 objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
 
                 this.addCookie(objCookieSessaoId);
+                this.addUsr(objCookieSessaoId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void addUsr(Cookie objCookieSessaoId)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objCookieSessaoId == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objCookieSessaoId.strValor))
+                {
+                    return;
+                }
+
+                AppWeb.i.addUsr(new Usuario(objCookieSessaoId.strValor));
             }
             catch (Exception ex)
             {

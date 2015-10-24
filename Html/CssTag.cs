@@ -726,7 +726,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBottom(int intBottom)
+        public string setBottom(int intBottom, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -738,8 +738,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_bottompx";
+                css = "_bottom_grandeza";
+
                 css = css.Replace("_bottom", intBottom.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("bottom", css);
             }
@@ -754,7 +756,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBoxShadow(int intHorizontal, int intVertical, int intBlur, int intSpread, string cor)
+        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor)
         {
             #region Variáveis
 
@@ -768,10 +770,10 @@ namespace NetZ.Web.Html
             {
                 css = "_horizontal_pxpx _vertical_pxpx _blur_pxpx _spread_pxpx _cor";
 
-                css = css.Replace("_horizontal_px", intHorizontal.ToString());
-                css = css.Replace("_vertical_px", intVertical.ToString());
-                css = css.Replace("_blur_px", intBlur.ToString());
-                css = css.Replace("_spread_px", intSpread.ToString());
+                css = css.Replace("_horizontal_px", intHorizontalPx.ToString());
+                css = css.Replace("_vertical_px", intVerticalPx.ToString());
+                css = css.Replace("_blur_px", intBlurPx.ToString());
+                css = css.Replace("_spread_px", intSpreadPx.ToString());
                 css = css.Replace("_cor", cor);
 
                 return this.addCss("box-shadow", css);
@@ -1547,7 +1549,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setRight(int intRight)
+        public string setRight(int intRight, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1559,8 +1561,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_right_pxpx";
-                css = css.Replace("_right_px", intRight.ToString());
+                css = "_right_grandeza";
+
+                css = css.Replace("_right", intRight.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("right", css);
             }

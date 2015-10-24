@@ -281,6 +281,7 @@ namespace NetZ.Web.Server
             {
                 if (objResposta == null)
                 {
+                    // TODO: Quando a resposta estiver null enviar uma mensagem de erro no servidor.
                     return;
                 }
 

@@ -14,29 +14,6 @@ namespace NetZ.Web.Html.Componente
 
         #region Construtores
 
-        public ComponenteHtml()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booTagDupla = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         #endregion Construtores
 
         #region Métodos

@@ -1,8 +1,9 @@
 ﻿using System;
+using NetZ.Web.Html.Design;
 
 namespace NetZ.Web.Html.Componente.Botao
 {
-    public class BotaoAtalho : BotaoHtml
+    public class BotaoMini : BotaoHtml
     {
         #region Constantes
 
@@ -30,9 +31,16 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                this.addCss(css.setBackgroundColor("#AFAFAF"));
-                this.addCss(css.setHeight(70));
-                this.addCss(css.setWidth(70));
+                this.addCss(css.setBorderRadius(50, "%"));
+                this.addCss(css.setBoxShadow(0, 2, 2, 0, Tema.i.corSombra2));
+                this.addCss(css.setColor("white"));
+                this.addCss(css.setCursor("pointer"));
+                this.addCss(css.setFloat("left"));
+                this.addCss(css.setHeight(40));
+                this.addCss(css.setLineHeight(40));
+                this.addCss(css.setMargin(5));
+                this.addCss(css.setTextAlign("center"));
+                this.addCss(css.setWidth(40));
             }
             catch (Exception ex)
             {

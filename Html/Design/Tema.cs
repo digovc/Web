@@ -1006,7 +1006,7 @@ namespace NetZ.Web.Html.Design
 
         protected virtual string getCorSombra2()
         {
-            return "#757575"; // Grey 600
+            return "#444444";
         }
 
         protected virtual string getCorSombra3()

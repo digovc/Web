@@ -48,7 +48,7 @@ namespace NetZ.Web.Html
         private Atributo _attType;
         private bool _booBarraFinal = true;
         private bool _booClicavel;
-        private bool _booTagDupla;
+        private bool _booTagDupla = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;

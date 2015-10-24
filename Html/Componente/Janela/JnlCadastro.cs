@@ -1,8 +1,6 @@
-﻿using NetZ.Web.Html.Componente;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Html.Componente.Janela
 {
-    public class Campo : ComponenteHtml
+    public class JnlCadastro : JanelaHtml
     {
         #region Constantes
 

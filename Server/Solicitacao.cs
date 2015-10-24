@@ -52,6 +52,8 @@ namespace NetZ.Web.Server
         private NetworkStream _nts;
         private string _strMsgCliente;
         private string _strPagina;
+        private string _strSessaoId;
+        private Usuario _usr;
 
         /// <summary>
         /// Indica a data e hora da última modificação do recurso que está salvo em cache do lado do
@@ -163,6 +165,83 @@ namespace NetZ.Web.Server
                 }
 
                 #endregion Ações
+            }
+        }
+
+        /// <summary>
+        /// Código único que identifica o cliente. Todas as solicitações enviadas pelo cliente
+        /// através de um mesmo browser terão o mesmo valor.
+        /// <para>
+        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="Server.STR_COOKIE_SESSAO_ID_NOME"/>.
+        /// </para>
+        /// <para>Esse cookie fica salvo no browser do cliente durante 8 (oito) horas.</para>
+        /// </summary>
+        public string strSessaoId
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_strSessaoId != null)
+                    {
+                        return _strSessaoId;
+                    }
+
+                    _strSessaoId = this.getStrCookieValor(Server.STR_COOKIE_SESSAO_ID_NOME);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _strSessaoId;
+            }
+        }
+
+        /// <summary>
+        /// Usuário referênte a esta solicitação.
+        /// </summary>
+        public Usuario usr
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_usr != null)
+                    {
+                        return _usr;
+                    }
+
+                    _usr = this.getUsr();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _usr;
             }
         }
 
@@ -289,6 +368,65 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
+        /// <summary>
+        /// Retorna o valor do cookie que contém o nome indicado em <paramref name="strCookieNome"/>.
+        /// <para>Caso não haja nenhum cookie com este nome retorna null.</para>
+        /// </summary>
+        /// <param name="strCookieNome"></param>
+        /// <returns>Valor do cookie que contém o nome indicado em <paramref name="strCookieNome"/>.</returns>
+        public string getStrCookieValor(string strCookieNome)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strCookieNome))
+                {
+                    return null;
+                }
+
+                if (this.lstObjCookie == null)
+                {
+                    return null;
+                }
+
+                if (this.lstObjCookie.Count < 1)
+                {
+                    return null;
+                }
+
+                foreach (Cookie objCookie in this.lstObjCookie)
+                {
+                    if (objCookie == null)
+                    {
+                        continue;
+                    }
+
+                    if (!strCookieNome.Equals(objCookie.strNome))
+                    {
+                        continue;
+                    }
+
+                    return objCookie.strValor;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+
+            return null;
+        }
+
         internal void processar()
         {
             #region Variáveis
@@ -367,6 +505,34 @@ namespace NetZ.Web.Server
             }
 
             #endregion AÇÕES
+        }
+
+        private Usuario getUsr()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strSessaoId))
+                {
+                    return null;
+                }
+
+                return AppWeb.i.getUsr(this.strSessaoId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         private void processarHeader()

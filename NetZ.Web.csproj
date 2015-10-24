@@ -47,17 +47,25 @@
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
-    <Compile Include="Html\Componente\Botao\Botao.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
     <Compile Include="Html\Componente\Botao\BotaoAtalho.cs" />
-    <Compile Include="Html\Componente\Campo.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoMiniFechar.cs" />
+    <Compile Include="Html\Componente\Campo\CampoAlfanumerico.cs" />
+    <Compile Include="Html\Componente\Campo\CampoHtml.cs" />
     <Compile Include="Html\Combobox.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
+    <Compile Include="Html\Componente\ComponenteNivel.cs" />
     <Compile Include="Html\Componente\ContainerAtalho.cs" />
-    <Compile Include="Html\Componente\Janela.cs" />
+    <Compile Include="Html\Componente\Form\FormHtml.cs" />
+    <Compile Include="Html\Componente\Janela\JanelaHtml.cs" />
+    <Compile Include="Html\Componente\Janela\JnlCadastro.cs" />
+    <Compile Include="Html\Componente\Janela\JnlConsulta.cs" />
+    <Compile Include="Html\Componente\Janela\JnlLogin.cs" />
+    <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
     <Compile Include="Html\Componente\Menu\MainMenu.cs" />
     <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
     <Compile Include="Html\CssTag.cs" />
-    <Compile Include="Html\Design\Cor.cs" />
     <Compile Include="Html\Design\Tema.cs" />
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Imagem.cs" />
@@ -77,6 +85,7 @@
     <Compile Include="Server\Server.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
+    <Compile Include="Server\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WebSocket\" />

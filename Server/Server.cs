@@ -343,6 +343,8 @@ namespace NetZ.Web.Server
                     return;
                 }
 
+                tcpClient.NoDelay = true;
+
                 objCliente = new Cliente(tcpClient);
 
                 this.lstObjCliente.Add(objCliente);

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace NetZ.Web.Html.Componente.Botao
 {
-    public class Botao : Tag
+    public class BotaoMiniFechar : BotaoMini
     {
         #region Constantes
 
@@ -15,7 +14,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Construtores
 
-        public Botao() : base("button")
+        public BotaoMiniFechar()
         {
             #region Variáveis
 
@@ -25,7 +24,8 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                this.strConteudo = "Botão desconhecido";
+                this.strConteudo = "X";
+                this.strId = "divFechar";
             }
             catch (Exception ex)
             {
@@ -42,9 +42,9 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void setCss(CssTag css)
         {
-            base.addJs(lstJs);
+            base.setCss(css);
 
             #region Variáveis
 
@@ -54,7 +54,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_BOTAO));
+                this.addCss(css.setBackgroundColor("#CE5757"));
             }
             catch (Exception ex)
             {

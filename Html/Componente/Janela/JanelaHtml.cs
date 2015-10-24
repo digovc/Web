@@ -1,8 +1,10 @@
 ﻿using System;
+using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Html.Design;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Janela
 {
-    public class Janela : ComponenteHtml
+    public class JanelaHtml : ComponenteHtml
     {
         #region Constantes
 
@@ -14,10 +16,13 @@ namespace NetZ.Web.Html.Componente
 
         private Div _divAcao;
         private Div _divCabecalho;
-        private Div _divFechar;
+        private BotaoMiniFechar _btnFechar;
         private Div _divTitulo;
         private string _strTitulo = STR_TITULO;
 
+        /// <summary>
+        /// Título da janela.
+        /// </summary>
         public string strTitulo
         {
             get
@@ -121,7 +126,7 @@ namespace NetZ.Web.Html.Componente
             }
         }
 
-        private Div divFechar
+        private BotaoMiniFechar btnFechar
         {
             get
             {
@@ -133,15 +138,12 @@ namespace NetZ.Web.Html.Componente
 
                 try
                 {
-                    if (_divFechar != null)
+                    if (_btnFechar != null)
                     {
-                        return _divFechar;
+                        return _btnFechar;
                     }
 
-                    _divFechar = new Div();
-
-                    _divFechar.strConteudo = "X";
-                    _divFechar.strId = "divFechar";
+                    _btnFechar = new BotaoMiniFechar();
                 }
                 catch (Exception ex)
                 {
@@ -153,7 +155,7 @@ namespace NetZ.Web.Html.Componente
 
                 #endregion Ações
 
-                return _divFechar;
+                return _btnFechar;
             }
         }
 
@@ -197,6 +199,29 @@ namespace NetZ.Web.Html.Componente
 
         #region Construtores
 
+        public JanelaHtml()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strId = "divJnl";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos
@@ -216,7 +241,7 @@ namespace NetZ.Web.Html.Componente
                 this.divCabecalho.tagPai = this;
                 this.divTitulo.tagPai = this.divCabecalho;
                 this.divAcao.tagPai = this.divCabecalho;
-                this.divFechar.tagPai = this.divAcao;
+                this.btnFechar.tagPai = this.divAcao;
             }
             catch (Exception ex)
             {
@@ -241,33 +266,38 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
+                this.addCss(css.addCss("margin", "10% auto"));
+                this.addCss(css.setBackgroundColor(Tema.i.corFundo2Normal));
                 this.addCss(css.setBorder(1, "solid", "black"));
-                this.addCss(css.setBoxShadow(0, 0, 10, 0, "gray"));
-                this.addCss(css.setHeight(250));
-                this.addCss(css.setLeft(250));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setTop(250));
-                this.addCss(css.setWidth(250));
+                this.addCss(css.setBoxShadow(0, 5, 20, 0, Tema.i.corSombra2));
+                this.addCss(css.setHeight(500));
+                this.addCss(css.setWidth(500));
 
                 this.divAcao.addCss(css.setBottom(0));
                 this.divAcao.addCss(css.setPosition("absolute"));
                 this.divAcao.addCss(css.setRight(0));
                 this.divAcao.addCss(css.setTop(0));
 
-                this.divCabecalho.addCss(css.setBackgroundColor("#F3F3F3"));
-                this.divCabecalho.addCss(css.setCursor("pointer"));
+                this.divCabecalho.addCss(css.setCursor("default"));
+                this.divCabecalho.addCss(css.setHeight(50));
+                this.divCabecalho.addCss(css.setLineHeight(35));
                 this.divCabecalho.addCss(css.setPosition("relative"));
 
-                this.divFechar.addCss(css.setBackgroundColor("#CE5757"));
-                this.divFechar.addCss(css.setColor("white"));
-                this.divFechar.addCss(css.setFloat("left"));
-                this.divFechar.addCss(css.setHeight(100, "%"));
-                this.divFechar.addCss(css.setLineHeight(30));
-                this.divFechar.addCss(css.setTextAlign("center"));
-                this.divFechar.addCss(css.setWidth(50));
+                this.btnFechar.addCss(css.setBackgroundColor("#CE5757"));
+                this.btnFechar.addCss(css.setBorderRadius(50, "%"));
+                this.btnFechar.addCss(css.setBoxShadow(0, 2, 2, 0, Tema.i.corSombra2));
+                this.btnFechar.addCss(css.setColor("white"));
+                this.btnFechar.addCss(css.setCursor("pointer"));
+                this.btnFechar.addCss(css.setFloat("left"));
+                this.btnFechar.addCss(css.setHeight(40));
+                this.btnFechar.addCss(css.setLineHeight(40));
+                this.btnFechar.addCss(css.setMargin(5));
+                this.btnFechar.addCss(css.setTextAlign("center"));
+                this.btnFechar.addCss(css.setWidth(40));
 
                 this.divTitulo.addCss(css.setFontSize(20));
-                this.divTitulo.addCss(css.setPadding(5));
+                this.divTitulo.addCss(css.setLineHeight(50));
+                this.divTitulo.addCss(css.setPaddingLeft(5));
             }
             catch (Exception ex)
             {

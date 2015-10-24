@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NetZ.SistemaBase;
 using NetZ.Web.Html.Design;
 using NetZ.Web.Server;
@@ -45,7 +46,7 @@ namespace NetZ.Web
         #region Atributos
 
         private static AppWeb _i;
-
+        private List<Usuario> _lstUsr;
         private Tema _tma;
 
         public new static AppWeb i
@@ -114,6 +115,71 @@ namespace NetZ.Web
                 #endregion Ações
 
                 return _tma;
+            }
+        }
+
+        internal List<Usuario> lstUsr
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstUsr != null)
+                    {
+                        return _lstUsr;
+                    }
+
+                    _lstUsr = new List<Usuario>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstUsr;
+            }
+        }
+
+
+        private object _objLstUsrLock;
+        private object objLstUsrLock
+        {
+            get
+            {
+                #region Variáveis
+                #endregion Variáveis
+
+                #region Ações
+                try
+                {
+                    if (_objLstUsrLock != null)
+                    {
+                        return _objLstUsrLock;
+                    }
+
+                    _objLstUsrLock = new object();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+                #endregion Ações
+
+                return _objLstUsrLock;
             }
         }
 
@@ -219,6 +285,94 @@ namespace NetZ.Web
         /// </param>
         /// <returns></returns>
         public abstract Resposta responder(Solicitacao objSolicitacao);
+
+        /// <summary>
+        /// Adiciona um usuário para a lista de usuários.
+        /// </summary>
+        internal void addUsr(Usuario usr)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (usr == null)
+                {
+                    return;
+                }
+
+                if (this.lstUsr.Contains(usr))
+                {
+                    return;
+                }
+
+                // TODO: Eliminar os usuários mais antigos.
+                this.lstUsr.Add(usr);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Busca o usuário que pertence a <param name="strSessaoId"/>.
+        /// </summary>
+        internal Usuario getUsr(string strSessaoId)
+        {
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                lock (this.objLstUsrLock)
+                {
+                    if (string.IsNullOrEmpty(strSessaoId))
+                    {
+                        return null;
+                    }
+
+                    foreach (Usuario usr in this.lstUsr)
+                    {
+                        if (usr == null)
+                        {
+                            continue;
+                        }
+
+                        if (string.IsNullOrEmpty(usr.strSessaoId))
+                        {
+                            continue;
+                        }
+
+                        if (!usr.strSessaoId.Equals(strSessaoId))
+                        {
+                            continue;
+                        }
+
+                        return usr;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+
+            return null;
+        }
 
         #endregion Métodos
 

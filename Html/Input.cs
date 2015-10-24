@@ -502,10 +502,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.addCss(CssTag.i.addCss("box-sizing", "border-box"));
-                this.addCss(CssTag.i.setMarginBottom(5));
-                this.addCss(CssTag.i.setPadding(5, "px"));
-                this.addCss(CssTag.i.setWidth(100, "%"));
+                this.addCss(CssTag.i.setPadding(3));
             }
             catch (Exception ex)
             {
