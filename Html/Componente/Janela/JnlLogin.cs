@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 
@@ -44,6 +45,38 @@ namespace NetZ.Web.Html.Componente.Janela
                 #endregion Ações
 
                 return _frmLogin;
+            }
+        }
+
+
+        private BotaoAcao _btnEntrar;
+        private BotaoAcao btnEntrar
+        {
+            get
+            {
+                #region Variáveis
+                #endregion Variáveis
+
+                #region Ações
+                try
+                {
+                    if (_btnEntrar != null)
+                    {
+                        return _btnEntrar;
+                    }
+
+                    _btnEntrar = new BotaoAcao();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+                #endregion Ações
+
+                return _btnEntrar;
             }
         }
 

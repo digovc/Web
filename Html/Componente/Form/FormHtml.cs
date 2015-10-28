@@ -35,8 +35,6 @@ namespace NetZ.Web.Html.Componente.Form
                     }
 
                     _divConteudo = new Div();
-
-                    _divConteudo.strId = "divConteudo";
                 }
                 catch (Exception ex)
                 {
@@ -173,6 +171,31 @@ namespace NetZ.Web.Html.Componente.Form
                 }
 
                 this.lstDivCampo.Add(divCampo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divConteudo.strId = "divConteudo";
             }
             catch (Exception ex)
             {

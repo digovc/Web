@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace NetZ.Web.Html
+namespace NetZ.Web.Html.Componente
 {
-    public class Painel : Tag
+    public class Painel : ComponenteHtml
     {
         #region Constantes
 
@@ -13,6 +12,9 @@ namespace NetZ.Web.Html
 
         private bool _booMarkdown;
 
+        /// <summary>
+        /// Indica se o conteúdo deste painel será convertido de Markdown para HTML.
+        /// </summary>
         public bool booMarkdown
         {
             get
@@ -29,29 +31,6 @@ namespace NetZ.Web.Html
         #endregion Atributos
 
         #region Construtores
-
-        public Painel() : base("div")
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booTagDupla = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Construtores
 
@@ -134,9 +113,9 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected override void setCss(CssTag tagCss)
+        protected override void setCss(CssTag css)
         {
-            base.setCss(tagCss);
+            base.setCss(css);
 
             #region Variáveis
 
@@ -146,7 +125,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.addCss(tagCss.setTextAlign("center"));
+                this.addCss(css.setTextAlign("center"));
             }
             catch (Exception ex)
             {

@@ -12,7 +12,6 @@ namespace NetZ.Web.Html
         #region Atributos
 
         private int _intOrdem;
-
         private List<string> _lstStrCodigo;
 
         /// <summary>
@@ -82,7 +81,6 @@ namespace NetZ.Web.Html
             {
                 this.addAtt("type", "text/javascript");
 
-                this.booTagDupla = true;
                 this.intOrdem = intOrdem;
                 this.src = src;
             }

@@ -52,6 +52,7 @@ namespace NetZ.Web.Html
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
+        private PaginaHtml _pagPai;
         private string _src;
         private string _strAbertura = "<";
         private string _strCache;
@@ -137,6 +138,45 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Caso esta tag esteja contida na raíz da página, na tag body dessa, essa deverá ser utilizada.
+        /// </summary>
+        public PaginaHtml pagPai
+        {
+            get
+            {
+                return _pagPai;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _pagPai = value;
+
+                    this.atualizarPagPai();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        /// <summary>
+        /// Atributo "src" que pode identificar um arquivo estático do servidor que esta tag representa.
+        /// </summary>
         public string src
         {
             get
@@ -177,6 +217,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Conteúdo interno desta tag.
+        /// </summary>
         public virtual string strConteudo
         {
             get
@@ -190,6 +233,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Texto do atributo id desta tag que pode ser utilizado para identificá-la dentro da página.
+        /// </summary>
         public string strId
         {
             get
@@ -250,6 +296,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Indica a tag que irá ser o container desta tag.
+        /// </summary>
         public Tag tagPai
         {
             get
@@ -811,15 +860,14 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        /// <summary>
-        /// Link para <see cref="addAtt(Atributo)"/>.
-        /// </summary>
-
         public void addAtt(string strAttNome, decimal decValor)
         {
             this.addAtt(new Atributo(strAttNome, decValor.ToString()));
         }
 
+        /// <summary>
+        /// Link para <see cref="addAtt(Atributo)"/>.
+        /// </summary>
         /// <summary>
         /// Link para <see cref="addAtt(Atributo)"/>.
         /// </summary>
@@ -941,7 +989,7 @@ namespace NetZ.Web.Html
                 //    return this.strCache;
                 //}
 
-                this.montarLayout();
+                this.inicializar();
 
                 if (this.getBooTagDupla())
                 {
@@ -975,6 +1023,33 @@ namespace NetZ.Web.Html
 
         protected virtual void addJs(JavaScriptTag js)
         {
+        }
+
+        /// <summary>
+        /// Método que é chamado antes de montar o HTML desta tag e pode ser utilizado para
+        /// inicializar valores diversos das propriedades desta e de outras tags filhas.
+        /// </summary>
+        protected virtual void inicializar()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.montarLayout();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         protected virtual void montarLayout()
@@ -1029,6 +1104,34 @@ namespace NetZ.Web.Html
                 }
 
                 this.lstTag.Add(tag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarPagPai()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.pagPai == null)
+                {
+                    return;
+                }
+
+                this.tagPai = this.pagPai.tagBody;
             }
             catch (Exception ex)
             {

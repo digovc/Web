@@ -47,6 +47,7 @@
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
     <Compile Include="Html\Componente\Botao\BotaoAtalho.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
@@ -71,10 +72,10 @@
     <Compile Include="Html\Imagem.cs" />
     <Compile Include="Html\Input.cs" />
     <Compile Include="Html\JavaScriptTag.cs" />
-    <Compile Include="Html\LimiteFloat.cs" />
+    <Compile Include="Html\Componente\LimiteFloat.cs" />
     <Compile Include="Html\LstTag.cs" />
     <Compile Include="Html\PaginaHtml.cs" />
-    <Compile Include="Html\Painel.cs" />
+    <Compile Include="Html\Componente\Painel.cs" />
     <Compile Include="Html\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ArquivoEstatico.cs" />

@@ -122,44 +122,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        internal JavaScriptTag tagJs
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tagJs != null)
-                    {
-                        return _tagJs;
-                    }
-
-                    _tagJs = new JavaScriptTag();
-
-                    _tagJs.intOrdem = 100;
-
-                    this.lstJs.Add(_tagJs);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tagJs;
-            }
-        }
-
-        protected Tag tagBody
+        internal Tag tagBody
         {
             get
             {
@@ -189,6 +152,39 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _tagBody;
+            }
+        }
+
+        internal JavaScriptTag tagJs
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagJs != null)
+                    {
+                        return _tagJs;
+                    }
+
+                    _tagJs = new JavaScriptTag();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagJs;
             }
         }
 
@@ -227,39 +223,7 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
-
-                string strTituloFormatado;
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strTitulo = value;
-
-                    if (string.IsNullOrEmpty(_strTitulo))
-                    {
-                        return;
-                    }
-
-                    strTituloFormatado = "_titulo - _app_nome";
-
-                    strTituloFormatado = strTituloFormatado.Replace("_titulo", _strTitulo);
-                    strTituloFormatado = strTituloFormatado.Replace("_app_nome", AppWeb.i.strNome);
-
-                    this.tagTitle.strConteudo = strTituloFormatado;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                _strTitulo = value;
             }
         }
 
@@ -281,9 +245,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagDocType = new Tag("!DOCTYPE");
-
-                    _tagDocType.addAtt("html");
-                    _tagDocType.booBarraFinal = false;
                 }
                 catch (Exception ex)
                 {
@@ -350,9 +311,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagHtml = new Tag("html");
-
-                    _tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
-                    _tagHtml.addAtt("lang", "pt-br");
                 }
                 catch (Exception ex)
                 {
@@ -386,10 +344,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagIcon = new Tag("link");
-
-                    _tagIcon.addAtt("rel", "shortcut icon");
-                    _tagIcon.addAtt("href", this.srcIcone);
-                    _tagIcon.addAtt("type", "image/x-icon");
                 }
                 catch (Exception ex)
                 {
@@ -423,8 +377,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagMetaContent = new Tag("meta");
-
-                    _tagMetaContent.addAtt("content", this.strNomeExibicao);
                 }
                 catch (Exception ex)
                 {
@@ -458,8 +410,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagMetaHttpEquiv = new Tag("meta");
-
-                    _tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
                 }
                 catch (Exception ex)
                 {
@@ -493,8 +443,6 @@ namespace NetZ.Web.Html
                     }
 
                     _tagTitle = new Tag("title");
-
-                    _tagTitle.strConteudo = "Página sem nome";
                 }
                 catch (Exception ex)
                 {
@@ -587,7 +535,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.montarLayout();
+                this.inicializar();
 
                 strBody = this.tagBody.toHtml();
 
@@ -621,6 +569,39 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        /// <summary>
+        /// Adiciona uma classe para lista de classes da tag body desta página para fazer referência
+        /// a algum estilo CSS.
+        /// </summary>
+        /// <param name="strClassCss">Classe que faz referência a alguma regra CSS.</param>
+        protected void addCss(string strClassCss)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strClassCss))
+                {
+                    return;
+                }
+
+                this.tagBody.addCss(strClassCss);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected virtual void addCss(LstTag<CssTag> lstCss)
         {
         }
@@ -635,6 +616,8 @@ namespace NetZ.Web.Html
 
             try
             {
+                lstJs.Add(!(string.IsNullOrEmpty(this.getSrcJsBoot())) ? new JavaScriptTag(this.getSrcJsBoot(), 999) : null);
+
                 lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB, 104));
                 lstJs.Add(new JavaScriptTag(DIR_JS_ERRO, 102));
                 lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY, 0));
@@ -643,7 +626,8 @@ namespace NetZ.Web.Html
                 lstJs.Add(new JavaScriptTag(DIR_JS_PAGINA_HTML, 102));
                 lstJs.Add(new JavaScriptTag(DIR_JS_TAG, 103));
                 lstJs.Add(new JavaScriptTag(DIR_JS_UTILS, 101));
-                lstJs.Add(!(string.IsNullOrEmpty(this.getSrcJsBoot())) ? new JavaScriptTag(this.getSrcJsBoot(), 999) : null);
+
+                lstJs.Add(this.tagJs);
             }
             catch (Exception ex)
             {
@@ -665,6 +649,52 @@ namespace NetZ.Web.Html
         protected virtual string getSrcJsBoot()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Este método é chamado antes da montagem do HTML desta página e pode ser utilizado para a
+        /// inicialização das propriedades dessa ou das tags filhas.
+        /// </summary>
+        protected virtual void inicializar()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tagDocType.addAtt("html");
+                this.tagDocType.booBarraFinal = false;
+                this.tagDocType.booTagDupla = false;
+
+                this.tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
+                this.tagHtml.addAtt("lang", "pt-br");
+
+                this.tagIcon.addAtt("rel", "shortcut icon");
+                this.tagIcon.addAtt("href", this.srcIcone);
+                this.tagIcon.addAtt("type", "image/x-icon");
+
+                this.tagJs.intOrdem = 100;
+
+                this.tagMetaContent.addAtt("content", this.strNomeExibicao);
+
+                this.tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
+
+                this.tagTitle.strConteudo = this.getStrTituloFormatado();
+
+                this.montarLayout();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         protected virtual void montarLayout()
@@ -790,6 +820,36 @@ namespace NetZ.Web.Html
 
                     tagJs.tagPai = this.tagHead;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrTituloFormatado()
+        {
+            #region Variáveis
+
+            string strResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                strResultado = "_titulo - _app_nome";
+
+                strResultado = strResultado.Replace("_titulo", this.strTitulo);
+                strResultado = strResultado.Replace("_app_nome", AppWeb.i.strNome);
+
+                return strResultado;
             }
             catch (Exception ex)
             {

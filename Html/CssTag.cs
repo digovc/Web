@@ -20,7 +20,6 @@ namespace NetZ.Web.Html
         private string _cssPuro = string.Empty;
         private List<AtributoCss> _lstAttCss;
         private string _strConteudo;
-
         private string _strHref;
 
         public static CssTag i

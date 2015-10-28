@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetZ.Web.Html
+namespace NetZ.Web.Html.Componente
 {
-    internal class LimiteFloat : Tag
+    internal class LimiteFloat : ComponenteHtml
     {
         #region Constantes
 
@@ -13,29 +13,6 @@ namespace NetZ.Web.Html
         #endregion Atributos
 
         #region Construtores
-
-        public LimiteFloat() : base("div")
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booTagDupla = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Construtores
 

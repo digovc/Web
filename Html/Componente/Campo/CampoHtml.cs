@@ -6,6 +6,8 @@ namespace NetZ.Web.Html.Componente.Campo
     {
         #region Constantes
 
+        private const string STR_TITULO = "Campo desconhecido";
+
         #endregion Constantes
 
         #region Atributos
@@ -14,6 +16,8 @@ namespace NetZ.Web.Html.Componente.Campo
         private Div _divTitulo;
         private int _intFrmNivel;
         private Input _ipt;
+
+        private string _strTitulo;
 
         /// <summary>
         /// Indica em qual nível do formulário este campo aparecerá, sendo o nível 0 (zero) o
@@ -29,6 +33,19 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _intFrmNivel = value;
+            }
+        }
+
+        public string strTitulo
+        {
+            get
+            {
+                return _strTitulo;
+            }
+
+            set
+            {
+                _strTitulo = value;
             }
         }
 
@@ -50,9 +67,6 @@ namespace NetZ.Web.Html.Componente.Campo
                     }
 
                     _divObrigatorio = new Div();
-
-                    _divObrigatorio.strConteudo = "*";
-                    _divObrigatorio.strId = "divObrigatorio";
                 }
                 catch (Exception ex)
                 {
@@ -86,9 +100,6 @@ namespace NetZ.Web.Html.Componente.Campo
                     }
 
                     _divTitulo = new Div();
-
-                    _divTitulo.strConteudo = "Campo desconhecido";
-                    _divTitulo.strId = "divTitulo";
                 }
                 catch (Exception ex)
                 {
@@ -160,7 +171,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                this.divTitulo.strConteudo = strTitulo;
+                this.strTitulo = strTitulo;
                 this.intFrmNivel = intFrmNivel;
             }
             catch (Exception ex)
@@ -177,6 +188,35 @@ namespace NetZ.Web.Html.Componente.Campo
         #endregion Construtores
 
         #region Métodos
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divObrigatorio.strConteudo = "*";
+                this.divObrigatorio.strId = "divObrigatorio";
+
+                this.divTitulo.strConteudo = (string.IsNullOrEmpty(this.strTitulo)) ? STR_TITULO : this.strTitulo;
+                this.divTitulo.strId = "divTitulo";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void montarLayout()
         {

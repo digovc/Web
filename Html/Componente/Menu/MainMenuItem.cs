@@ -15,7 +15,6 @@ namespace NetZ.Web.Html.Componente.Menu
 
         private Div _divTitulo;
         private Imagem _img;
-
         private string _strTitulo;
 
         public string strTitulo
@@ -27,27 +26,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strTitulo = value;
-
-                    this.divTitulo.strConteudo = _strTitulo;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                _strTitulo = value;
             }
         }
 
@@ -148,6 +127,29 @@ namespace NetZ.Web.Html.Componente.Menu
         #endregion Construtores
 
         #region Métodos
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                this.divTitulo.strConteudo = this.strTitulo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
 
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {

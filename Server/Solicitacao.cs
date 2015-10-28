@@ -230,6 +230,15 @@ namespace NetZ.Web.Server
                     }
 
                     _usr = this.getUsr();
+
+                    if (_usr != null)
+                    {
+                        return _usr;
+                    }
+
+                    _usr = new Usuario(this.strSessaoId);
+
+                    AppWeb.i.addUsr(_usr);
                 }
                 catch (Exception ex)
                 {

@@ -14,9 +14,9 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Atributos
 
+        private BotaoMiniFechar _btnFechar;
         private Div _divAcao;
         private Div _divCabecalho;
-        private BotaoMiniFechar _btnFechar;
         private Div _divTitulo;
         private string _strTitulo = STR_TITULO;
 
@@ -32,97 +32,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strTitulo = value;
-
-                    this.atualizarStrTitulo();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-            }
-        }
-
-        private Div divAcao
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_divAcao != null)
-                    {
-                        return _divAcao;
-                    }
-
-                    _divAcao = new Div();
-
-                    _divAcao.strId = "divAcao";
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _divAcao;
-            }
-        }
-
-        private Div divCabecalho
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_divCabecalho != null)
-                    {
-                        return _divCabecalho;
-                    }
-
-                    _divCabecalho = new Div();
-
-                    _divCabecalho.strId = "divCabecalho";
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _divCabecalho;
+                _strTitulo = value;
             }
         }
 
@@ -159,6 +69,72 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
+        private Div divAcao
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divAcao != null)
+                    {
+                        return _divAcao;
+                    }
+
+                    _divAcao = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divAcao;
+            }
+        }
+
+        private Div divCabecalho
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divCabecalho != null)
+                    {
+                        return _divCabecalho;
+                    }
+
+                    _divCabecalho = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divCabecalho;
+            }
+        }
+
         private Div divTitulo
         {
             get
@@ -177,9 +153,6 @@ namespace NetZ.Web.Html.Componente.Janela
                     }
 
                     _divTitulo = new Div();
-
-                    _divTitulo.strConteudo = STR_TITULO;
-                    _divTitulo.strId = "divTitulo";
                 }
                 catch (Exception ex)
                 {
@@ -225,6 +198,36 @@ namespace NetZ.Web.Html.Componente.Janela
         #endregion Construtores
 
         #region Métodos
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divAcao.strId = "divAcao";
+
+                this.divCabecalho.strId = "divCabecalho";
+
+                this.divTitulo.strConteudo = (string.IsNullOrEmpty(this.strTitulo)) ? STR_TITULO : this.strTitulo;
+                this.divTitulo.strId = "divTitulo";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void montarLayout()
         {
@@ -298,29 +301,6 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.divTitulo.addCss(css.setFontSize(20));
                 this.divTitulo.addCss(css.setLineHeight(50));
                 this.divTitulo.addCss(css.setPaddingLeft(5));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void atualizarStrTitulo()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divTitulo.strConteudo = this.strTitulo;
             }
             catch (Exception ex)
             {
