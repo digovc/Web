@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using NetZ.SistemaBase;
 
 namespace NetZ.Web.Html
@@ -525,9 +526,9 @@ namespace NetZ.Web.Html
             #region Variáveis
 
             string strBody;
-            string strConteudo;
             string strHead;
-            string strResultado;
+            StringBuilder stbConteudo;
+            StringBuilder stbResultado;
 
             #endregion Variáveis
 
@@ -544,19 +545,23 @@ namespace NetZ.Web.Html
 
                 strHead = this.tagHead.toHtml();
 
-                strConteudo = "_head_body";
+                stbConteudo = new StringBuilder();
 
-                strConteudo = strConteudo.Replace("_head", strHead);
-                strConteudo = strConteudo.Replace("_body", strBody);
+                stbConteudo.Append("_head_body");
 
-                this.tagHtml.strConteudo = strConteudo;
+                stbConteudo.Replace("_head", strHead);
+                stbConteudo.Replace("_body", strBody);
 
-                strResultado = "_tag_doc_type_tag_html";
+                this.tagHtml.strConteudo = stbConteudo.ToString();
 
-                strResultado = strResultado.Replace("_tag_doc_type", this.tagDocType.toHtml());
-                strResultado = strResultado.Replace("_tag_html", this.tagHtml.toHtml());
+                stbResultado = new StringBuilder();
 
-                return strResultado;
+                stbResultado.Append("_tag_doc_type_tag_html");
+
+                stbResultado.Replace("_tag_doc_type", this.tagDocType.toHtml());
+                stbResultado.Replace("_tag_html", this.tagHtml.toHtml());
+
+                return stbResultado.ToString();
             }
             catch (Exception ex)
             {

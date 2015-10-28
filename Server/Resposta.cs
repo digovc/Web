@@ -3426,7 +3426,7 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
-            string strHeader;
+            StringBuilder stbResultado;
 
             #endregion Variáveis
 
@@ -3436,24 +3436,24 @@ namespace NetZ.Web.Server
             {
                 this.addCookieSessaoId();
 
-                strHeader = string.Empty;
+                stbResultado = new StringBuilder();
 
-                strHeader += this.getStrHeaderStatus();
-                strHeader += Environment.NewLine;
-                strHeader += this.getStrHeaderData("Date", DateTime.Now);
-                strHeader += Environment.NewLine;
-                strHeader += this.getStrServer();
-                strHeader += Environment.NewLine;
-                strHeader += this.getStrSetCookie();
-                strHeader += this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao);
-                //strHeader += Environment.NewLine;
-                //strHeader += "Connection: keep-alive";
-                strHeader += Environment.NewLine;
-                strHeader += this.getStrHeaderContentType();
-                strHeader += Environment.NewLine;
-                strHeader += this.getStrHeaderContentLength();
+                stbResultado.Append(this.getStrHeaderStatus());
+                stbResultado.Append(Environment.NewLine);
+                stbResultado.Append(this.getStrHeaderData("Date", DateTime.Now));
+                stbResultado.Append(Environment.NewLine);
+                stbResultado.Append(this.getStrServer());
+                stbResultado.Append(Environment.NewLine);
+                stbResultado.Append(this.getStrSetCookie());
+                stbResultado.Append(this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao));
+                //strHeader.Append(Environment.NewLine);
+                //strHeader.Append("Connection: keep-alive");
+                stbResultado.Append(Environment.NewLine);
+                stbResultado.Append(this.getStrHeaderContentType());
+                stbResultado.Append(Environment.NewLine);
+                stbResultado.Append(this.getStrHeaderContentLength());
 
-                return strHeader;
+                return stbResultado.ToString();
             }
             catch (Exception ex)
             {
@@ -3637,7 +3637,7 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
-            string strResultado;
+            StringBuilder stbResultado;
 
             #endregion Variáveis
 
@@ -3645,7 +3645,7 @@ namespace NetZ.Web.Server
 
             try
             {
-                strResultado = "";
+                stbResultado = new StringBuilder();
 
                 foreach (Cookie objCookie in this.lstObjCookie)
                 {
@@ -3654,10 +3654,10 @@ namespace NetZ.Web.Server
                         continue;
                     }
 
-                    strResultado += objCookie.getStrFormatado();
+                    stbResultado.Append(objCookie.getStrFormatado());
                 }
 
-                return strResultado;
+                return stbResultado.ToString();
             }
             catch (Exception ex)
             {

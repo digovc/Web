@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using NetZ.SistemaBase;
 
 namespace NetZ.Web.Html
@@ -1302,7 +1303,7 @@ namespace NetZ.Web.Html
         {
             #region Variáveis
 
-            string strResultado;
+            StringBuilder stbResultado;
 
             #endregion Variáveis
 
@@ -1310,23 +1311,23 @@ namespace NetZ.Web.Html
 
             try
             {
-                strResultado = string.Empty;
+                stbResultado = new StringBuilder();
 
-                strResultado += this.toHtmlTagDuplaLinkIn();
-                strResultado += this.strAbertura;
-                strResultado += this.strNome;
-                strResultado += (0.Equals(this.lstAtt.Count)) ? null : " ";
-                strResultado += this.toHtmlAtributo();
-                strResultado += this.strFechamento;
-                strResultado += this.strConteudo;
-                strResultado += this.toHtmlTagFilho();
-                strResultado += this.strAbertura;
-                strResultado += (!this.booBarraFinal) ? null : "/";
-                strResultado += this.strNome;
-                strResultado += this.strFechamento;
-                strResultado += (!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null;
+                stbResultado.Append(this.toHtmlTagDuplaLinkIn());
+                stbResultado.Append(this.strAbertura);
+                stbResultado.Append(this.strNome);
+                stbResultado.Append((0.Equals(this.lstAtt.Count)) ? null : " ");
+                stbResultado.Append(this.toHtmlAtributo());
+                stbResultado.Append(this.strFechamento);
+                stbResultado.Append(this.strConteudo);
+                stbResultado.Append(this.toHtmlTagFilho());
+                stbResultado.Append(this.strAbertura);
+                stbResultado.Append((!this.booBarraFinal) ? null : "/");
+                stbResultado.Append(this.strNome);
+                stbResultado.Append(this.strFechamento);
+                stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
 
-                return strResultado;
+                return stbResultado.ToString();
             }
             catch (Exception ex)
             {
@@ -1378,7 +1379,7 @@ namespace NetZ.Web.Html
         {
             #region Variáveis
 
-            string strResultado;
+            StringBuilder stbResultado;
 
             #endregion Variáveis
 
@@ -1386,7 +1387,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                strResultado = string.Empty;
+                stbResultado = new StringBuilder();
 
                 foreach (Tag tag in this.lstTag)
                 {
@@ -1395,10 +1396,10 @@ namespace NetZ.Web.Html
                         continue;
                     }
 
-                    strResultado += tag.toHtml();
+                    stbResultado.Append(tag.toHtml());
                 }
 
-                return strResultado;
+                return stbResultado.ToString();
             }
             catch (Exception ex)
             {
@@ -1415,7 +1416,7 @@ namespace NetZ.Web.Html
         {
             #region Variáveis
 
-            string strResultado;
+            StringBuilder stbResultado;
 
             #endregion Variáveis
 
@@ -1423,18 +1424,18 @@ namespace NetZ.Web.Html
 
             try
             {
-                strResultado = string.Empty;
+                stbResultado = new StringBuilder();
 
-                strResultado += this.toHtmlTagDuplaLinkIn();
-                strResultado += this.strAbertura;
-                strResultado += this.strNome;
-                strResultado += (0.Equals(this.lstAtt.Count)) ? null : " ";
-                strResultado += this.toHtmlAtributo();
-                strResultado += (!this.booBarraFinal) ? null : "/";
-                strResultado += this.strFechamento;
-                strResultado += (!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null;
+                stbResultado.Append(this.toHtmlTagDuplaLinkIn());
+                stbResultado.Append(this.strAbertura);
+                stbResultado.Append(this.strNome);
+                stbResultado.Append((0.Equals(this.lstAtt.Count)) ? null : " ");
+                stbResultado.Append(this.toHtmlAtributo());
+                stbResultado.Append((!this.booBarraFinal) ? null : "/");
+                stbResultado.Append(this.strFechamento);
+                stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
 
-                return strResultado;
+                return stbResultado.ToString();
             }
             catch (Exception ex)
             {

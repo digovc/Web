@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace NetZ.Web.Html
 {
@@ -17,7 +18,7 @@ namespace NetZ.Web.Html
 
         private static CssTag _i;
         private static CssTag _iImpressao;
-        private string _cssPuro = string.Empty;
+        private StringBuilder _stbCssPuro;
         private List<AtributoCss> _lstAttCss;
         private string _strConteudo;
         private string _strHref;
@@ -176,16 +177,34 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string cssPuro
+        private StringBuilder stbCssPuro
         {
             get
             {
-                return _cssPuro;
-            }
 
-            set
-            {
-                _cssPuro = value;
+                #region Variáveis
+                #endregion Variáveis
+
+                #region Ações
+                try
+                {
+                    if (_stbCssPuro != null)
+                    {
+                        return _stbCssPuro;
+                    }
+
+                    _stbCssPuro = new StringBuilder();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+                #endregion Ações
+
+                return _stbCssPuro;
             }
         }
 
@@ -311,7 +330,7 @@ namespace NetZ.Web.Html
         {
             #region Variáveis
 
-            string strResultado;
+            StringBuilder stResultado;
 
             #endregion Variáveis
 
@@ -324,7 +343,7 @@ namespace NetZ.Web.Html
                     return _strConteudo;
                 }
 
-                strResultado = string.Empty;
+                stResultado = new StringBuilder();
 
                 foreach (AtributoCss atrCss in this.lstAttCss)
                 {
@@ -333,12 +352,12 @@ namespace NetZ.Web.Html
                         continue;
                     }
 
-                    strResultado += atrCss.getStrFormatado();
+                    stResultado.Append(atrCss.getStrFormatado());
                 }
 
-                strResultado += this.cssPuro;
+                stResultado.Append(this.stbCssPuro);
 
-                return strResultado;
+                return stResultado.ToString();
             }
             catch (Exception ex)
             {
@@ -1839,7 +1858,7 @@ namespace NetZ.Web.Html
                     return;
                 }
 
-                this.cssPuro += css;
+                this.stbCssPuro.Append(css);
             }
             catch (Exception ex)
             {
