@@ -56,8 +56,8 @@
     <Compile Include="Html\Componente\Campo\CampoHtml.cs" />
     <Compile Include="Html\Combobox.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
-    <Compile Include="Html\Componente\ComponenteNivel.cs" />
-    <Compile Include="Html\Componente\ContainerAtalho.cs" />
+    <Compile Include="Html\Componente\Painel\PainelNivel.cs" />
+    <Compile Include="Html\Componente\Painel\PainelAtalho.cs" />
     <Compile Include="Html\Componente\Form\FormHtml.cs" />
     <Compile Include="Html\Componente\Janela\JanelaHtml.cs" />
     <Compile Include="Html\Componente\Janela\JnlCadastro.cs" />
@@ -75,12 +75,13 @@
     <Compile Include="Html\Componente\LimiteFloat.cs" />
     <Compile Include="Html\LstTag.cs" />
     <Compile Include="Html\PaginaHtml.cs" />
-    <Compile Include="Html\Componente\Painel.cs" />
+    <Compile Include="Html\Componente\Painel\PainelHtml.cs" />
     <Compile Include="Html\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ArquivoEstatico.cs" />
     <Compile Include="Server\Cliente.cs" />
     <Compile Include="Server\Cookie.cs" />
+    <Compile Include="Server\EnmContentType.cs" />
     <Compile Include="Server\Field.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\Server.cs" />

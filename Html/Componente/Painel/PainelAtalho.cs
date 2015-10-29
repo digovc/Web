@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Painel
 {
-    public class ContainerAtalho : ComponenteHtml
+    public class PainelAtalho : PainelHtml
     {
         #region Constantes
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using NetZ.Web.Html.Design;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Painel
 {
-    public class ComponenteNivel : ComponenteHtml
+    public class PainelNivel : PainelHtml
     {
         #region Constantes
 
@@ -33,7 +33,7 @@ namespace NetZ.Web.Html.Componente
 
         #region Construtores
 
-        public ComponenteNivel(int intNivel)
+        public PainelNivel(int intNivel)
         {
             #region Variáveis
 

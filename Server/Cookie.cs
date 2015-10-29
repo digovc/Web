@@ -120,7 +120,7 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
-                strResultado = "Set-Cookie: _cookie_name=_cookie_valor; Path=_cookie_path; expires=_cookie_validade" + Environment.NewLine;
+                strResultado = "Set-Cookie: _cookie_name=_cookie_valor; Path=_cookie_path; expires=_cookie_validade";
 
                 strResultado = strResultado.Replace("_cookie_name", this.strNome);
                 strResultado = strResultado.Replace("_cookie_valor", this.strValor);

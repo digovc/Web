@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NetZ.Web.Html.Componente.Campo;
+using NetZ.Web.Html.Componente.Painel;
 
 namespace NetZ.Web.Html.Componente.Form
 {
@@ -14,8 +15,9 @@ namespace NetZ.Web.Html.Componente.Form
         #region Atributos
 
         private Div _divConteudo;
-        private List<CampoHtml> _lstDivCampo;
-        private List<ComponenteNivel> _lstDivNivel;
+        private LimiteFloat _divLimiteFloat;
+        private List<CampoHtml> _lstCmp;
+        private List<PainelNivel> _lstPnlNivel;
 
         private Div divConteudo
         {
@@ -50,7 +52,7 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
-        private List<CampoHtml> lstDivCampo
+        private LimiteFloat divLimiteFloat
         {
             get
             {
@@ -62,12 +64,12 @@ namespace NetZ.Web.Html.Componente.Form
 
                 try
                 {
-                    if (_lstDivCampo != null)
+                    if (_divLimiteFloat != null)
                     {
-                        return _lstDivCampo;
+                        return _divLimiteFloat;
                     }
 
-                    _lstDivCampo = new List<CampoHtml>();
+                    _divLimiteFloat = new LimiteFloat();
                 }
                 catch (Exception ex)
                 {
@@ -79,11 +81,11 @@ namespace NetZ.Web.Html.Componente.Form
 
                 #endregion Ações
 
-                return _lstDivCampo;
+                return _divLimiteFloat;
             }
         }
 
-        private List<ComponenteNivel> lstDivNivel
+        private List<CampoHtml> lstCmp
         {
             get
             {
@@ -95,12 +97,12 @@ namespace NetZ.Web.Html.Componente.Form
 
                 try
                 {
-                    if (_lstDivNivel != null)
+                    if (_lstCmp != null)
                     {
-                        return _lstDivNivel;
+                        return _lstCmp;
                     }
 
-                    _lstDivNivel = new List<ComponenteNivel>();
+                    _lstCmp = new List<CampoHtml>();
                 }
                 catch (Exception ex)
                 {
@@ -112,7 +114,40 @@ namespace NetZ.Web.Html.Componente.Form
 
                 #endregion Ações
 
-                return _lstDivNivel;
+                return _lstCmp;
+            }
+        }
+
+        private List<PainelNivel> lstPnlNivel
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstPnlNivel != null)
+                    {
+                        return _lstPnlNivel;
+                    }
+
+                    _lstPnlNivel = new List<PainelNivel>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstPnlNivel;
             }
         }
 
@@ -165,12 +200,12 @@ namespace NetZ.Web.Html.Componente.Form
                     return;
                 }
 
-                if (this.lstDivCampo.Contains(divCampo))
+                if (this.lstCmp.Contains(divCampo))
                 {
                     return;
                 }
 
-                this.lstDivCampo.Add(divCampo);
+                this.lstCmp.Add(divCampo);
             }
             catch (Exception ex)
             {
@@ -222,7 +257,8 @@ namespace NetZ.Web.Html.Componente.Form
             {
                 this.divConteudo.tagPai = this;
 
-                this.montarLayoutItem();
+                this.montarLayoutLstCmp();
+                this.montarLayoutLstPnlNivel();
             }
             catch (Exception ex)
             {
@@ -247,33 +283,7 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                this.divConteudo.addCss(css.setPadding(5));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void montarLayoutItem()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                foreach (CampoHtml cmp in this.lstDivCampo.OrderBy((x) => x.intFrmNivel))
-                {
-                    this.montarLayoutItem(cmp);
-                }
+                //this.divConteudo.addCss(css.setPadding(5));
             }
             catch (Exception ex)
             {
@@ -290,7 +300,7 @@ namespace NetZ.Web.Html.Componente.Form
         {
             #region Variáveis
 
-            ComponenteNivel divNivel;
+            PainelNivel pnlNivel;
 
             #endregion Variáveis
 
@@ -303,25 +313,82 @@ namespace NetZ.Web.Html.Componente.Form
                     return;
                 }
 
-                if (this.lstDivNivel.Count < 1)
+                if (this.lstPnlNivel.Count < 1)
                 {
-                    divNivel = new ComponenteNivel(0);
-                    divNivel.tagPai = this.divConteudo;
+                    pnlNivel = new PainelNivel(0);
+                    pnlNivel.tagPai = this.divConteudo;
 
-                    this.lstDivNivel.Add(divNivel);
+                    this.lstPnlNivel.Add(pnlNivel);
                 }
 
-                if (cmp.intFrmNivel.Equals(this.lstDivNivel[this.lstDivNivel.Count - 1].intNivel))
+                if (cmp.intFrmNivel.Equals(this.lstPnlNivel[this.lstPnlNivel.Count - 1].intNivel))
                 {
-                    divNivel = this.lstDivNivel[this.lstDivNivel.Count - 1];
+                    pnlNivel = this.lstPnlNivel[this.lstPnlNivel.Count - 1];
                 }
                 else
                 {
-                    divNivel = new ComponenteNivel(cmp.intFrmNivel);
-                    divNivel.tagPai = this.divConteudo;
+                    pnlNivel = new PainelNivel(cmp.intFrmNivel);
+                    pnlNivel.tagPai = this.divConteudo;
                 }
 
-                cmp.tagPai = divNivel;
+                cmp.tagPai = pnlNivel;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void montarLayoutLstCmp()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                foreach (CampoHtml cmp in this.lstCmp.OrderBy((x) => x.intFrmNivel))
+                {
+                    this.montarLayoutItem(cmp);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void montarLayoutLstPnlNivel()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                foreach (PainelNivel pnl in this.lstPnlNivel)
+                {
+                    if (pnl == null)
+                    {
+                        continue;
+                    }
+
+                    this.divLimiteFloat.tagPai = pnl;
+                }
             }
             catch (Exception ex)
             {

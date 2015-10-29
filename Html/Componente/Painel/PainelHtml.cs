@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Painel
 {
-    public class Painel : ComponenteHtml
+    public class PainelHtml : ComponenteHtml
     {
         #region Constantes
 
@@ -11,6 +11,7 @@ namespace NetZ.Web.Html.Componente
         #region Atributos
 
         private bool _booMarkdown;
+        private int _intNivelQtd = 1;
 
         /// <summary>
         /// Indica se o conteúdo deste painel será convertido de Markdown para HTML.
@@ -25,6 +26,23 @@ namespace NetZ.Web.Html.Componente
             set
             {
                 _booMarkdown = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica a quantidade de níveis que este painel terá. Sendo que cada nível possui 50
+        /// pixels de altura.
+        /// </summary>
+        public int intNivelQtd
+        {
+            get
+            {
+                return _intNivelQtd;
+            }
+
+            set
+            {
+                _intNivelQtd = value;
             }
         }
 
@@ -125,6 +143,7 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
+                this.addCss(css.setHeight(50 * this.intNivelQtd));
                 this.addCss(css.setTextAlign("center"));
             }
             catch (Exception ex)

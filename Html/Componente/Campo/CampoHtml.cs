@@ -12,12 +12,29 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
+        private bool _booObrigatorio;
         private Div _divObrigatorio;
         private Div _divTitulo;
         private int _intFrmNivel;
-        private Input _ipt;
-
         private string _strTitulo;
+        private Input _tagInput;
+
+        /// <summary>
+        /// Define se este campo é de preenchimento obrigatório ou não. Caso seja, será indicado de
+        /// forma visual para o usuário.
+        /// </summary>
+        public bool booObrigatorio
+        {
+            get
+            {
+                return _booObrigatorio;
+            }
+
+            set
+            {
+                _booObrigatorio = value;
+            }
+        }
 
         /// <summary>
         /// Indica em qual nível do formulário este campo aparecerá, sendo o nível 0 (zero) o
@@ -46,6 +63,39 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _strTitulo = value;
+            }
+        }
+
+        protected Input tagInput
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagInput != null)
+                    {
+                        return _tagInput;
+                    }
+
+                    _tagInput = new Input();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagInput;
             }
         }
 
@@ -115,39 +165,6 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private Input ipt
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_ipt != null)
-                    {
-                        return _ipt;
-                    }
-
-                    _ipt = new Input();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _ipt;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -159,7 +176,8 @@ namespace NetZ.Web.Html.Componente.Campo
         /// Título do campo que identificará visualmente o campo para o usuário.
         /// </param>
         /// <param name="intFrmNivel">
-        /// Nível que o campo será mostrado na tela para o usuário. Vide <see cref="CampoHtml.intFrmNivel"/>.
+        /// Nível que o campo será mostrado na tela para o usuário. Vide <see cref="intFrmNivel"/>.
+        /// O primeiro nível é o 0 (zero).
         /// </param>
         public CampoHtml(string strTitulo, int intFrmNivel)
         {
@@ -231,7 +249,7 @@ namespace NetZ.Web.Html.Componente.Campo
             try
             {
                 this.divTitulo.tagPai = this;
-                this.ipt.tagPai = this;
+                this.tagInput.tagPai = this;
                 this.divObrigatorio.tagPai = this;
             }
             catch (Exception ex)
@@ -263,14 +281,16 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.addCss(css.setPaddingRight(5));
 
                 this.divObrigatorio.addCss(css.setColor("red"));
+                this.divObrigatorio.addCss(css.setDisplay(!this.booObrigatorio ? "none" : null));
                 this.divObrigatorio.addCss(css.setFloat("left"));
                 this.divObrigatorio.addCss(css.setPaddingLeft(5));
                 this.divObrigatorio.addCss(css.setPaddingRight(5));
 
                 this.divTitulo.addCss(css.setHeight(20));
                 this.divTitulo.addCss(css.setLineHeight(20));
+                this.divTitulo.addCss(css.setTextAlign("left"));
 
-                this.ipt.addCss(css.setFloat("left"));
+                this.tagInput.addCss(css.setFloat("left"));
             }
             catch (Exception ex)
             {

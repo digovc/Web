@@ -13,7 +13,109 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Atributos
 
+        private BotaoAcao _btnEntrar;
+        private CampoAlfanumerico _cmpLogin;
+        private CampoAlfanumerico _cmpSenha;
         private FormHtml _frmLogin;
+
+        private BotaoAcao btnEntrar
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_btnEntrar != null)
+                    {
+                        return _btnEntrar;
+                    }
+
+                    _btnEntrar = new BotaoAcao();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _btnEntrar;
+            }
+        }
+
+        private CampoAlfanumerico cmpLogin
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_cmpLogin != null)
+                    {
+                        return _cmpLogin;
+                    }
+
+                    _cmpLogin = new CampoAlfanumerico("Login", 0);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _cmpLogin;
+            }
+        }
+
+        private CampoAlfanumerico cmpSenha
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_cmpSenha != null)
+                    {
+                        return _cmpSenha;
+                    }
+
+                    _cmpSenha = new CampoAlfanumerico("Senha", 1);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _cmpSenha;
+            }
+        }
 
         private FormHtml frmLogin
         {
@@ -48,38 +150,6 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-
-        private BotaoAcao _btnEntrar;
-        private BotaoAcao btnEntrar
-        {
-            get
-            {
-                #region Variáveis
-                #endregion Variáveis
-
-                #region Ações
-                try
-                {
-                    if (_btnEntrar != null)
-                    {
-                        return _btnEntrar;
-                    }
-
-                    _btnEntrar = new BotaoAcao();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-                #endregion Ações
-
-                return _btnEntrar;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -111,6 +181,32 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Métodos
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.btnEntrar.strConteudo = "Entrar";
+                this.cmpSenha.booSenha = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -123,10 +219,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.frmLogin.tagPai = this;
+                this.frmLogin.tagPai = this.pnlConteudo;
 
-                this.frmLogin.addCampo(new CampoAlfanumerico("Login", 0));
-                this.frmLogin.addCampo(new CampoAlfanumerico("Senha", 1));
+                this.frmLogin.addCampo(this.cmpLogin);
+                this.frmLogin.addCampo(this.cmpSenha);
+
+                this.btnEntrar.tagPai = this.pnlComando;
             }
             catch (Exception ex)
             {

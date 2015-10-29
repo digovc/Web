@@ -21,7 +21,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
         protected override void setCss(CssTag css)
         {
-            base.setCss(css);
+            //base.setCss(css);
 
             #region Variáveis
 
@@ -31,6 +31,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
+                this.addCss(css.setBorder(0));
                 this.addCss(css.setBorderRadius(50, "%"));
                 this.addCss(css.setBoxShadow(0, 2, 2, 0, Tema.i.corSombra2));
                 this.addCss(css.setColor("white"));

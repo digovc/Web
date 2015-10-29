@@ -527,7 +527,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setBorder(int intBorderPx, string strTipo, string cor)
+        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = null)
         {
             #region Variáveis
 

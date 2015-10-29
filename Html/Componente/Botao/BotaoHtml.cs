@@ -25,6 +25,7 @@ namespace NetZ.Web.Html.Componente.Botao
             try
             {
                 this.strConteudo = "Botão desconhecido";
+                this.strNome = "button";
             }
             catch (Exception ex)
             {
@@ -40,6 +41,74 @@ namespace NetZ.Web.Html.Componente.Botao
         #endregion Construtores
 
         #region Métodos
+
+        protected override void setCss(CssTag css)
+        {
+            base.setCss(css);
+
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                this.addCss(css.setBorder(0));
+                this.addCss(css.setCursor("pointer"));
+                this.addCss(css.setFloat("right"));
+                this.addCss(css.setHeight(50));
+                this.addCss(css.setWidth(this.getIntWidth()));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
+
+        private double getIntWidth()
+        {
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                if (string.IsNullOrEmpty(this.strConteudo))
+                {
+                    return 30;
+                }
+
+                if (this.strConteudo.Length < 25)
+                {
+                    return 100;
+                }
+
+                if (this.strConteudo.Length < 50)
+                {
+                    return 125;
+                }
+
+                if (this.strConteudo.Length < 75)
+                {
+                    return 150;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+
+            return 175;
+        }
 
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
