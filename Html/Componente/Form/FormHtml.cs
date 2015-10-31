@@ -221,6 +221,32 @@ namespace NetZ.Web.Html.Componente.Form
             #endregion Ações
         }
 
+        protected override void finalizar()
+        {
+            base.finalizar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.finalizarMontarLayoutLstCmp();
+                this.finalizarMontarLayoutLstPnlNivel();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -259,9 +285,6 @@ namespace NetZ.Web.Html.Componente.Form
             try
             {
                 this.divConteudo.setPai(this);
-
-                this.montarLayoutLstCmp();
-                this.montarLayoutLstPnlNivel();
             }
             catch (Exception ex)
             {
@@ -287,6 +310,63 @@ namespace NetZ.Web.Html.Componente.Form
             try
             {
                 //this.divConteudo.addCss(css.setPadding(5));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void finalizarMontarLayoutLstCmp()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                foreach (CampoHtml cmp in this.lstCmp.OrderBy((x) => x.intFrmNivel))
+                {
+                    this.montarLayoutItem(cmp);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void finalizarMontarLayoutLstPnlNivel()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                foreach (PainelNivel pnl in this.lstPnlNivel)
+                {
+                    if (pnl == null)
+                    {
+                        continue;
+                    }
+
+                    this.divLimiteFloat.setPai(pnl);
+                }
             }
             catch (Exception ex)
             {
@@ -335,63 +415,6 @@ namespace NetZ.Web.Html.Componente.Form
                 }
 
                 cmp.setPai(pnlNivel);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void montarLayoutLstCmp()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                foreach (CampoHtml cmp in this.lstCmp.OrderBy((x) => x.intFrmNivel))
-                {
-                    this.montarLayoutItem(cmp);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void montarLayoutLstPnlNivel()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                foreach (PainelNivel pnl in this.lstPnlNivel)
-                {
-                    if (pnl == null)
-                    {
-                        continue;
-                    }
-
-                    this.divLimiteFloat.setPai(pnl);
-                }
             }
             catch (Exception ex)
             {

@@ -6,6 +6,34 @@ namespace NetZ.Web.Html.Componente.Campo
     {
         #region Constantes
 
+        public enum EnmTamanho
+        {
+            /// <summary>
+            /// Width 400px.
+            /// </summary>
+            GRANDE,
+
+            /// <summary>
+            /// Width 250px.
+            /// </summary>
+            MEDIO,
+
+            /// <summary>
+            /// Width 100px.
+            /// </summary>
+            MINIMO,
+
+            /// <summary>
+            /// Width 150px.
+            /// </summary>
+            PEQUENO,
+
+            /// <summary>
+            /// Width 100%.
+            /// </summary>
+            TOTAL,
+        }
+
         private const string STR_TITULO = "Campo desconhecido";
 
         #endregion Constantes
@@ -15,6 +43,7 @@ namespace NetZ.Web.Html.Componente.Campo
         private bool _booObrigatorio;
         private Div _divObrigatorio;
         private Div _divTitulo;
+        private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
         private int _intFrmNivel;
         private string _strTitulo;
         private Input _tagInput;
@@ -33,6 +62,22 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _booObrigatorio = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica o tamanho horizontal deste campo.
+        /// </summary>
+        public EnmTamanho enmTamanho
+        {
+            get
+            {
+                return _enmTamanho;
+            }
+
+            set
+            {
+                _enmTamanho = value;
             }
         }
 
@@ -254,6 +299,8 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
+                this.setCssWidth(css);
+
                 this.addCss(css.setFloat("left"));
                 this.addCss(css.setHeight(100, "%"));
                 this.addCss(css.setPaddingLeft(5));
@@ -270,6 +317,54 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
                 this.tagInput.addCss(css.setFloat("left"));
+                this.tagInput.addCss(css.setWidth(100, "%"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void setCssWidth(CssTag css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                switch (this.enmTamanho)
+                {
+                    case EnmTamanho.GRANDE:
+                        this.addCss(css.setWidth(400));
+                        return;
+
+                    case EnmTamanho.MINIMO:
+                        this.addCss(css.setWidth(100));
+
+                        return;
+
+                    case EnmTamanho.PEQUENO:
+                        this.addCss(css.setWidth(150));
+
+                        return;
+
+                    case EnmTamanho.TOTAL:
+                        this.addCss(css.setWidth(100, "%"));
+
+                        return;
+
+                    default:
+                        this.addCss(css.setWidth(250));
+                        return;
+                }
             }
             catch (Exception ex)
             {

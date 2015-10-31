@@ -47,6 +47,7 @@ namespace NetZ.Web
 
         private static AppWeb _i;
         private List<Usuario> _lstUsr;
+        private object _objLstUsrLock;
         private Tema _tma;
 
         public new static AppWeb i
@@ -151,16 +152,16 @@ namespace NetZ.Web
             }
         }
 
-
-        private object _objLstUsrLock;
         private object objLstUsrLock
         {
             get
             {
                 #region Variáveis
+
                 #endregion Variáveis
 
                 #region Ações
+
                 try
                 {
                     if (_objLstUsrLock != null)
@@ -177,6 +178,7 @@ namespace NetZ.Web
                 finally
                 {
                 }
+
                 #endregion Ações
 
                 return _objLstUsrLock;
@@ -329,9 +331,11 @@ namespace NetZ.Web
         internal Usuario getUsr(string strSessaoId)
         {
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 lock (this.objLstUsrLock)
@@ -369,6 +373,7 @@ namespace NetZ.Web
             finally
             {
             }
+
             #endregion Ações
 
             return null;

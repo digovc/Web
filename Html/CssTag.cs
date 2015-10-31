@@ -18,8 +18,8 @@ namespace NetZ.Web.Html
 
         private static CssTag _i;
         private static CssTag _iImpressao;
-        private StringBuilder _stbCssPuro;
         private List<AtributoCss> _lstAttCss;
+        private StringBuilder _stbCssPuro;
         private string _strConteudo;
         private string _strHref;
 
@@ -177,37 +177,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private StringBuilder stbCssPuro
-        {
-            get
-            {
-
-                #region Variáveis
-                #endregion Variáveis
-
-                #region Ações
-                try
-                {
-                    if (_stbCssPuro != null)
-                    {
-                        return _stbCssPuro;
-                    }
-
-                    _stbCssPuro = new StringBuilder();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-                #endregion Ações
-
-                return _stbCssPuro;
-            }
-        }
-
         private List<AtributoCss> lstAttCss
         {
             get
@@ -238,6 +207,39 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _lstAttCss;
+            }
+        }
+
+        private StringBuilder stbCssPuro
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_stbCssPuro != null)
+                    {
+                        return _stbCssPuro;
+                    }
+
+                    _stbCssPuro = new StringBuilder();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _stbCssPuro;
             }
         }
 

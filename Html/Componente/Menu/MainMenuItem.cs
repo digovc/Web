@@ -128,29 +128,6 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.divTitulo.strConteudo = this.strTitulo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-            #endregion Ações
-        }
-
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -164,6 +141,31 @@ namespace NetZ.Web.Html.Componente.Menu
             try
             {
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/menu/MainMenuItem.js", 151));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divTitulo.strConteudo = this.strTitulo;
             }
             catch (Exception ex)
             {

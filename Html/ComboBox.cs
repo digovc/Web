@@ -32,6 +32,22 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// DataTable que pode ser utilizado para compor os valores que podem ser selecionados neste combobox.
+        /// </summary>
+        public DataTable objDataTable
+        {
+            get
+            {
+                return _objDataTable;
+            }
+
+            set
+            {
+                _objDataTable = value;
+            }
+        }
+
         private SortedDictionary<object, string> dicOpcao
         {
             get
@@ -62,23 +78,6 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _dicOpcao;
-            }
-        }
-
-        /// <summary>
-        /// DataTable que pode ser utilizado para compor os valores que podem ser selecionados
-        /// neste combobox.
-        /// </summary>
-        public DataTable objDataTable
-        {
-            get
-            {
-                return _objDataTable;
-            }
-
-            set
-            {
-                _objDataTable = value;
             }
         }
 
