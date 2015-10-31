@@ -24,7 +24,6 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                this.strConteudo = "Botão desconhecido";
                 this.strNome = "button";
             }
             catch (Exception ex)
@@ -42,15 +41,66 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_BOTAO));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strConteudo = "Botão desconhecido";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void setCss(CssTag css)
         {
             base.setCss(css);
 
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 this.addCss(css.setBorder(0));
@@ -66,16 +116,18 @@ namespace NetZ.Web.Html.Componente.Botao
             finally
             {
             }
+
             #endregion Ações
         }
 
         private double getIntWidth()
         {
-
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 if (string.IsNullOrEmpty(this.strConteudo))
@@ -105,34 +157,10 @@ namespace NetZ.Web.Html.Componente.Botao
             finally
             {
             }
+
             #endregion Ações
 
             return 175;
-        }
-
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_BOTAO));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         #endregion Métodos

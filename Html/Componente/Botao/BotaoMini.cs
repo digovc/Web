@@ -19,6 +19,31 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strConteudo = null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void setCss(CssTag css)
         {
             //base.setCss(css);

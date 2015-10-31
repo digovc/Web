@@ -809,7 +809,7 @@ namespace NetZ.Web.Html
 
         public string setCenter()
         {
-            return this.addCss("margin", "0 auto");
+            return this.addCss("margin", "auto");
         }
 
         public string setClearBoth()
