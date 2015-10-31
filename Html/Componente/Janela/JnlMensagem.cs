@@ -134,9 +134,9 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.imgLateral.tagPai = this;
-                this.pnlConteudo.tagPai = this;
-                this.pnlComando.tagPai = this;
+                this.imgLateral.setPai(this);
+                this.pnlConteudo.setPai(this);
+                this.pnlComando.setPai(this);
             }
             catch (Exception ex)
             {

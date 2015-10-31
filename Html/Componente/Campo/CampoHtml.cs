@@ -53,6 +53,10 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        /// <summary>
+        /// Título que será apresentado no canto superior esquerdo deste campo para que o usuário
+        /// possa identificá-lo.
+        /// </summary>
         public string strTitulo
         {
             get
@@ -83,7 +87,7 @@ namespace NetZ.Web.Html.Componente.Campo
                         return _tagInput;
                     }
 
-                    _tagInput = new Input();
+                    _tagInput = this.getTagInput();
                 }
                 catch (Exception ex)
                 {
@@ -169,43 +173,16 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Construtores
 
-        /// <summary>
-        /// Cria um novo campo para a inserção de dados pelo usuário.
-        /// </summary>
-        /// <param name="strTitulo">
-        /// Título do campo que identificará visualmente o campo para o usuário.
-        /// </param>
-        /// <param name="intFrmNivel">
-        /// Nível que o campo será mostrado na tela para o usuário. Vide <see cref="intFrmNivel"/>.
-        /// O primeiro nível é o 0 (zero).
-        /// </param>
-        public CampoHtml(string strTitulo, int intFrmNivel)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strTitulo = strTitulo;
-                this.intFrmNivel = intFrmNivel;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         #endregion Construtores
 
         #region Métodos
+
+        protected abstract Input.EnmTipo getEnmTipo();
+
+        protected virtual Input getTagInput()
+        {
+            return new Input();
+        }
 
         protected override void inicializar()
         {
@@ -224,6 +201,8 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.divTitulo.strConteudo = (string.IsNullOrEmpty(this.strTitulo)) ? STR_TITULO : this.strTitulo;
                 this.divTitulo.strId = "divTitulo";
+
+                this.tagInput.enmTipo = this.getEnmTipo();
             }
             catch (Exception ex)
             {
@@ -248,9 +227,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                this.divTitulo.tagPai = this;
-                this.tagInput.tagPai = this;
-                this.divObrigatorio.tagPai = this;
+                this.divTitulo.setPai(this);
+                this.tagInput.setPai(this);
+                this.divObrigatorio.setPai(this);
             }
             catch (Exception ex)
             {

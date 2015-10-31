@@ -241,10 +241,10 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.divCabecalho.tagPai = this;
-                this.divTitulo.tagPai = this.divCabecalho;
-                this.divAcao.tagPai = this.divCabecalho;
-                this.btnFechar.tagPai = this.divAcao;
+                this.divCabecalho.setPai(this);
+                this.divTitulo.setPai(this.divCabecalho);
+                this.divAcao.setPai(this.divCabecalho);
+                this.btnFechar.setPai(this.divAcao);
             }
             catch (Exception ex)
             {

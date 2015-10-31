@@ -182,10 +182,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         #region Métodos
 
-        /// <summary>
-        /// Adiciona um novo campo para o formulário.
-        /// </summary>
-        public void addCampo(CampoHtml divCampo)
+        protected override void addTag(Tag tag)
         {
             #region Variáveis
 
@@ -195,17 +192,23 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                if (divCampo == null)
+                if (tag == null)
                 {
                     return;
                 }
 
-                if (this.lstCmp.Contains(divCampo))
+                if (!(tag is CampoHtml))
+                {
+                    base.addTag(tag);
+                    return;
+                }
+
+                if (this.lstCmp.Contains(tag))
                 {
                     return;
                 }
 
-                this.lstCmp.Add(divCampo);
+                this.lstCmp.Add((CampoHtml)tag);
             }
             catch (Exception ex)
             {
@@ -255,7 +258,7 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                this.divConteudo.tagPai = this;
+                this.divConteudo.setPai(this);
 
                 this.montarLayoutLstCmp();
                 this.montarLayoutLstPnlNivel();
@@ -316,7 +319,7 @@ namespace NetZ.Web.Html.Componente.Form
                 if (this.lstPnlNivel.Count < 1)
                 {
                     pnlNivel = new PainelNivel(0);
-                    pnlNivel.tagPai = this.divConteudo;
+                    pnlNivel.setPai(this.divConteudo);
 
                     this.lstPnlNivel.Add(pnlNivel);
                 }
@@ -328,10 +331,10 @@ namespace NetZ.Web.Html.Componente.Form
                 else
                 {
                     pnlNivel = new PainelNivel(cmp.intFrmNivel);
-                    pnlNivel.tagPai = this.divConteudo;
+                    pnlNivel.setPai(this.divConteudo);
                 }
 
-                cmp.tagPai = pnlNivel;
+                cmp.setPai(pnlNivel);
             }
             catch (Exception ex)
             {
@@ -387,7 +390,7 @@ namespace NetZ.Web.Html.Componente.Form
                         continue;
                     }
 
-                    this.divLimiteFloat.tagPai = pnl;
+                    this.divLimiteFloat.setPai(pnl);
                 }
             }
             catch (Exception ex)

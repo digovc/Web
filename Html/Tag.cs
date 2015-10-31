@@ -53,7 +53,6 @@ namespace NetZ.Web.Html
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
-        private PaginaHtml _pagPai;
         private string _src;
         private string _strAbertura = "<";
         private string _strCache;
@@ -136,42 +135,6 @@ namespace NetZ.Web.Html
             set
             {
                 _enmLinkTipo = value;
-            }
-        }
-
-        /// <summary>
-        /// Caso esta tag esteja contida na raíz da página, na tag body dessa, essa deverá ser utilizada.
-        /// </summary>
-        public PaginaHtml pagPai
-        {
-            get
-            {
-                return _pagPai;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _pagPai = value;
-
-                    this.atualizarPagPai();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -284,47 +247,6 @@ namespace NetZ.Web.Html
                     _strId = value;
 
                     this.attId.strValor = _strId;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-            }
-        }
-
-        /// <summary>
-        /// Indica a tag que irá ser o container desta tag.
-        /// </summary>
-        public Tag tagPai
-        {
-            get
-            {
-                return _tagPai;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _tagPai = value;
-
-                    if (_tagPai == null)
-                    {
-                        return;
-                    }
-
-                    _tagPai.addTag(this);
                 }
                 catch (Exception ex)
                 {
@@ -746,6 +668,39 @@ namespace NetZ.Web.Html
             }
         }
 
+        private Tag tagPai
+        {
+            get
+            {
+                return _tagPai;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _tagPai = value;
+
+                    this.atualizarPagPai();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -975,6 +930,72 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        /// <summary>
+        /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de
+        /// seus descendentes).
+        /// </summary>
+        public void setPai(Tag tagPai)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tagPai == null)
+                {
+                    return;
+                }
+
+                this.tagPai = tagPai;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de
+        /// seus descendentes).
+        /// </summary>
+        public void setPai(PaginaHtml pagPai)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (pagPai == null)
+                {
+                    return;
+                }
+
+                this.tagPai = pagPai.tagBody;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         public virtual string toHtml()
         {
             #region Variáveis
@@ -991,6 +1012,7 @@ namespace NetZ.Web.Html
                 //}
 
                 this.inicializar();
+                this.finalizar();
 
                 if (this.getBooTagDupla())
                 {
@@ -1023,6 +1045,41 @@ namespace NetZ.Web.Html
         }
 
         protected virtual void addJs(JavaScriptTag js)
+        {
+        }
+
+        protected virtual void addTag(Tag tag)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tag == null)
+                {
+                    return;
+                }
+
+                this.lstTag.Add(tag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Método que será chamado após <see cref="montarLayout"/> para que os ajustes finais sejam feitos.
+        /// </summary>
+        protected virtual void finalizar()
         {
         }
 
@@ -1089,34 +1146,6 @@ namespace NetZ.Web.Html
         {
         }
 
-        private void addTag(Tag tag)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                this.lstTag.Add(tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         private void atualizarPagPai()
         {
             #region Variáveis
@@ -1127,12 +1156,12 @@ namespace NetZ.Web.Html
 
             try
             {
-                if (this.pagPai == null)
+                if (this.tagPai == null)
                 {
                     return;
                 }
 
-                this.tagPai = this.pagPai.tagBody;
+                this.tagPai.addTag(this);
             }
             catch (Exception ex)
             {

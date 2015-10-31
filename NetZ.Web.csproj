@@ -53,8 +53,10 @@
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMiniFechar.cs" />
     <Compile Include="Html\Componente\Campo\CampoAlfanumerico.cs" />
+    <Compile Include="Html\Componente\Campo\CampoCombobox.cs" />
     <Compile Include="Html\Componente\Campo\CampoHtml.cs" />
     <Compile Include="Html\Combobox.cs" />
+    <Compile Include="Html\Componente\Campo\CampoSenha.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelNivel.cs" />
     <Compile Include="Html\Componente\Painel\PainelAtalho.cs" />

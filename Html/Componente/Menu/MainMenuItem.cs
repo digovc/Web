@@ -188,8 +188,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.img.tagPai = this;
-                this.divTitulo.tagPai = this;
+                this.img.setPai(this);
+                this.divTitulo.setPai(this);
             }
             catch (Exception ex)
             {

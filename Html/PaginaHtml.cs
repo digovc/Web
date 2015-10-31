@@ -189,6 +189,22 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Indica o título que será mostrado na aba do navegador para identificar esta página.
+        /// </summary>
+        protected string strTitulo
+        {
+            get
+            {
+                return _strTitulo;
+            }
+
+            set
+            {
+                _strTitulo = value;
+            }
+        }
+
         private bool booPagSimples
         {
             get
@@ -212,19 +228,6 @@ namespace NetZ.Web.Html
             set
             {
                 _srcIcone = value;
-            }
-        }
-
-        private string strTitulo
-        {
-            get
-            {
-                return _strTitulo;
-            }
-
-            set
-            {
-                _strTitulo = value;
             }
         }
 
@@ -537,6 +540,7 @@ namespace NetZ.Web.Html
             try
             {
                 this.inicializar();
+                this.finalizar();
 
                 strBody = this.tagBody.toHtml();
 
@@ -651,6 +655,13 @@ namespace NetZ.Web.Html
             //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
         }
 
+        /// <summary>
+        /// Método que será chamado após <see cref="montarLayout"/> para que os ajustes finais sejam feitos.
+        /// </summary>
+        protected virtual void finalizar()
+        {
+        }
+
         protected virtual string getSrcJsBoot()
         {
             return null;
@@ -714,13 +725,13 @@ namespace NetZ.Web.Html
             {
                 this.setCss(CssTag.i);
 
-                this.tagTitle.tagPai = this.tagHead;
-                this.tagMetaContent.tagPai = this.tagHead;
-                this.tagMetaHttpEquiv.tagPai = this.tagHead;
-                this.tagIcon.tagPai = this.tagHead;
+                this.tagTitle.setPai(this.tagHead);
+                this.tagMetaContent.setPai(this.tagHead);
+                this.tagMetaHttpEquiv.setPai(this.tagHead);
+                this.tagIcon.setPai(this.tagHead);
 
-                CssTag.i.tagPai = this.tagHead;
-                CssTag.iImpressao.tagPai = this.tagHead;
+                CssTag.i.setPai(this.tagHead);
+                CssTag.iImpressao.setPai(this.tagHead);
             }
             catch (Exception ex)
             {
@@ -780,7 +791,7 @@ namespace NetZ.Web.Html
                         continue;
                     }
 
-                    cssTag.tagPai = this.tagHead;
+                    cssTag.setPai(this.tagHead);
                 }
             }
             catch (Exception ex)
@@ -823,7 +834,7 @@ namespace NetZ.Web.Html
                         continue;
                     }
 
-                    tagJs.tagPai = this.tagHead;
+                    tagJs.setPai(this.tagHead);
                 }
             }
             catch (Exception ex)
