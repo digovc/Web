@@ -195,10 +195,10 @@ namespace NetZ.Web.Html.Componente.Janela
             {
                 this.btnEntrar.strConteudo = "Entrar";
 
-                this.cmpLogin.intFrmNivel = 0;
+                this.cmpLogin.intNivel = 0;
                 this.cmpLogin.strTitulo = "Login";
 
-                this.cmpSenha.intFrmNivel = 1;
+                this.cmpSenha.intNivel = 1;
                 this.cmpSenha.strTitulo = "Senha";
             }
             catch (Exception ex)

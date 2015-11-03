@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public abstract class CampoHtml : ComponenteHtml
+    public abstract class CampoHtml : ComponenteHtml, ITagNivel
     {
         #region Constantes
 
@@ -44,7 +44,7 @@ namespace NetZ.Web.Html.Componente.Campo
         private Div _divObrigatorio;
         private Div _divTitulo;
         private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
-        private int _intFrmNivel;
+        private int _intNivel;
         private string _strTitulo;
         private Input _tagInput;
 
@@ -85,16 +85,16 @@ namespace NetZ.Web.Html.Componente.Campo
         /// Indica em qual nível do formulário este campo aparecerá, sendo o nível 0 (zero) o
         /// primeiro nível de cima para baixo.
         /// </summary>
-        public int intFrmNivel
+        public int intNivel
         {
             get
             {
-                return _intFrmNivel;
+                return _intNivel;
             }
 
             set
             {
-                _intFrmNivel = value;
+                _intNivel = value;
             }
         }
 

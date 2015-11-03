@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Botao
 {
-    public class LimiteFloat : ComponenteHtml
+    public class BotaoMiniApagar : BotaoMiniFechar
     {
         #region Constantes
 
@@ -18,9 +18,9 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
-        protected override void setCss(CssTag tagCss)
+        protected override void inicializar()
         {
-            base.setCss(tagCss);
+            base.inicializar();
 
             #region Variáveis
 
@@ -30,7 +30,8 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
-                this.addCss(tagCss.setClearBoth());
+                this.strConteudo = "-";
+                this.strTitle = "Apagar";
             }
             catch (Exception ex)
             {

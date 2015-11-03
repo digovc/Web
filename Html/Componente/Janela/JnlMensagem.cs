@@ -35,7 +35,7 @@ namespace NetZ.Web.Html.Componente.Janela
                         return _pnlComando;
                     }
 
-                    _pnlComando = new PainelNivel(0);
+                    _pnlComando = new PainelNivel();
                 }
                 catch (Exception ex)
                 {

@@ -46,6 +46,8 @@ namespace NetZ.Web
         #region Atributos
 
         private static AppWeb _i;
+
+        private bool _booMostrarGrade;
         private List<Usuario> _lstUsr;
         private object _objLstUsrLock;
         private Tema _tma;
@@ -86,6 +88,32 @@ namespace NetZ.Web
             }
         }
 
+        /// <summary>
+        /// Caso esta propriedade seja marcada como true, todas as tags geradas serão marcadas
+        /// automaticamente para mostrar uma borda para que fique visível o tamanho de gasto por
+        /// todas elas.
+        /// <para>Utilize esta função para facilitar a montagem da tela.</para>
+        /// <para>
+        /// Lembre-se de considerar que a borda que será apresentada consome 1px nos quatro lados do
+        /// componente, o que pode "estourar" o layout.
+        /// </para>
+        /// </summary>
+        public bool booMostrarGrade
+        {
+            get
+            {
+                return _booMostrarGrade;
+            }
+
+            set
+            {
+                _booMostrarGrade = value;
+            }
+        }
+
+        /// <summary>
+        /// Tema atual que será utilizado para configuração do design dos componentes.
+        /// </summary>
         public Tema tma
         {
             get

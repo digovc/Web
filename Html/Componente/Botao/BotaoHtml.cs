@@ -2,13 +2,49 @@
 
 namespace NetZ.Web.Html.Componente.Botao
 {
-    public abstract class BotaoHtml : ComponenteHtml
+    public abstract class BotaoHtml : ComponenteHtml, ITagNivel
     {
         #region Constantes
 
         #endregion Constantes
 
         #region Atributos
+
+        private bool _booFrmSubmit;
+        private int _intNivel;
+
+        /// <summary>
+        /// Caso este botão esteja dentro de um formulário e não deseje que acione o submit do mesmo
+        /// ao ser clicado (que é a ação padrão), basta alterar essa propriedade para false.
+        /// </summary>
+        public bool booFrmSubmit
+        {
+            get
+            {
+                return _booFrmSubmit;
+            }
+
+            set
+            {
+                _booFrmSubmit = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica em que nível este botão será apresentado no formulário.
+        /// </summary>
+        public int intNivel
+        {
+            get
+            {
+                return _intNivel;
+            }
+
+            set
+            {
+                _intNivel = value;
+            }
+        }
 
         #endregion Atributos
 
@@ -78,6 +114,8 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
+                this.inicializarBooFrmSubmit();
+
                 this.strConteudo = "Botão desconhecido";
             }
             catch (Exception ex)
@@ -161,6 +199,34 @@ namespace NetZ.Web.Html.Componente.Botao
             #endregion Ações
 
             return 175;
+        }
+
+        private void inicializarBooFrmSubmit()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.booFrmSubmit)
+                {
+                    return;
+                }
+
+                this.addAtt(new Atributo("onclick", "return false"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         #endregion Métodos

@@ -51,6 +51,10 @@
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
     <Compile Include="Html\Componente\Botao\BotaoAtalho.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoMiniPesquisar.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoMiniApagar.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoMiniAlterar.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoMiniAdicionar.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMiniFechar.cs" />
     <Compile Include="Html\Componente\Campo\CampoAlfanumerico.cs" />
     <Compile Include="Html\Componente\Campo\CampoCombobox.cs" />
@@ -73,6 +77,7 @@
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Imagem.cs" />
     <Compile Include="Html\Input.cs" />
+    <Compile Include="Html\ITagNivel.cs" />
     <Compile Include="Html\JavaScriptTag.cs" />
     <Compile Include="Html\Componente\LimiteFloat.cs" />
     <Compile Include="Html\LstTag.cs" />

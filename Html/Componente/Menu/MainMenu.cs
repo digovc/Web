@@ -87,7 +87,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.addCss(css.setPosition("absolute"));
                 this.addCss(css.setTop(50));
                 this.addCss(css.setWidth(250));
-                this.addCss(css.setZIndex(-1));
+                this.addCss(css.setZIndex(1));
             }
             catch (Exception ex)
             {

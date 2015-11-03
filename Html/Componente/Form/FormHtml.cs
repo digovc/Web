@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Painel;
 
 namespace NetZ.Web.Html.Componente.Form
@@ -16,8 +15,8 @@ namespace NetZ.Web.Html.Componente.Form
 
         private Div _divConteudo;
         private LimiteFloat _divLimiteFloat;
-        private List<CampoHtml> _lstCmp;
         private List<PainelNivel> _lstPnlNivel;
+        private List<ITagNivel> _lstTagNivel;
 
         private Div divConteudo
         {
@@ -85,39 +84,6 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
-        private List<CampoHtml> lstCmp
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_lstCmp != null)
-                    {
-                        return _lstCmp;
-                    }
-
-                    _lstCmp = new List<CampoHtml>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _lstCmp;
-            }
-        }
-
         private List<PainelNivel> lstPnlNivel
         {
             get
@@ -135,7 +101,7 @@ namespace NetZ.Web.Html.Componente.Form
                         return _lstPnlNivel;
                     }
 
-                    _lstPnlNivel = new List<PainelNivel>();
+                    _lstPnlNivel = this.getLstPnlNivel();
                 }
                 catch (Exception ex)
                 {
@@ -149,6 +115,73 @@ namespace NetZ.Web.Html.Componente.Form
 
                 return _lstPnlNivel;
             }
+        }
+
+        private List<ITagNivel> lstTagNivel
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstTagNivel != null)
+                    {
+                        return _lstTagNivel;
+                    }
+
+                    _lstTagNivel = new List<ITagNivel>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstTagNivel;
+            }
+        }
+
+        private List<PainelNivel> getLstPnlNivel()
+        {
+            #region Variáveis
+
+            List<PainelNivel> lstPnlNivelResultado;
+            PainelNivel pnlNivel;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                pnlNivel = new PainelNivel();
+
+                pnlNivel.setPai(this.divConteudo);
+
+                lstPnlNivelResultado = new List<PainelNivel>();
+
+                lstPnlNivelResultado.Add(pnlNivel);
+
+                return lstPnlNivelResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         #endregion Atributos
@@ -197,18 +230,18 @@ namespace NetZ.Web.Html.Componente.Form
                     return;
                 }
 
-                if (!(tag is CampoHtml))
+                if (!(typeof(ITagNivel).IsAssignableFrom(tag.GetType())))
                 {
                     base.addTag(tag);
                     return;
                 }
 
-                if (this.lstCmp.Contains(tag))
+                if (this.lstTagNivel.Contains((ITagNivel)tag))
                 {
                     return;
                 }
 
-                this.lstCmp.Add((CampoHtml)tag);
+                this.lstTagNivel.Add((ITagNivel)tag);
             }
             catch (Exception ex)
             {
@@ -332,9 +365,9 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                foreach (CampoHtml cmp in this.lstCmp.OrderBy((x) => x.intFrmNivel))
+                foreach (ITagNivel tag in this.lstTagNivel.OrderBy((x) => x.intNivel))
                 {
-                    this.montarLayoutItem(cmp);
+                    this.montarLayoutItem(tag);
                 }
             }
             catch (Exception ex)
@@ -379,7 +412,7 @@ namespace NetZ.Web.Html.Componente.Form
             #endregion Ações
         }
 
-        private void montarLayoutItem(CampoHtml cmp)
+        private void montarLayoutItem(ITagNivel tag)
         {
             #region Variáveis
 
@@ -391,30 +424,29 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                if (cmp == null)
+                if (tag == null)
                 {
                     return;
                 }
 
-                if (this.lstPnlNivel.Count < 1)
+                if (!(typeof(Tag).IsAssignableFrom(tag.GetType())))
                 {
-                    pnlNivel = new PainelNivel(0);
+                    return;
+                }
+
+                pnlNivel = this.lstPnlNivel.Last();
+
+                if (tag.intNivel > pnlNivel.intNivel)
+                {
+                    pnlNivel = new PainelNivel();
+
+                    pnlNivel.intNivel = tag.intNivel;
                     pnlNivel.setPai(this.divConteudo);
 
                     this.lstPnlNivel.Add(pnlNivel);
                 }
 
-                if (cmp.intFrmNivel.Equals(this.lstPnlNivel[this.lstPnlNivel.Count - 1].intNivel))
-                {
-                    pnlNivel = this.lstPnlNivel[this.lstPnlNivel.Count - 1];
-                }
-                else
-                {
-                    pnlNivel = new PainelNivel(cmp.intFrmNivel);
-                    pnlNivel.setPai(this.divConteudo);
-                }
-
-                cmp.setPai(pnlNivel);
+                (tag as Tag).setPai(pnlNivel);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -184,9 +185,11 @@ namespace NetZ.Web.Server
 
             try
             {
+                Thread.Sleep(250);
+
                 this.objSolicitacao = null;
 
-                for (int i = 0; i < 10; i++)
+                while (true)
                 {
                     this.carregarSolicitacao();
 
