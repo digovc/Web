@@ -202,7 +202,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string srcIcone
+        protected virtual string srcIcone
         {
             get
             {

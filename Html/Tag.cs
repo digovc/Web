@@ -657,7 +657,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string strLink
+        public string strLink
         {
             get
             {
