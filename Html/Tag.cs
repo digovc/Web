@@ -260,6 +260,19 @@ namespace NetZ.Web.Html
             }
         }
 
+        public string strLink
+        {
+            get
+            {
+                return _strLink;
+            }
+
+            set
+            {
+                _strLink = value;
+            }
+        }
+
         /// <summary>
         /// Indica o valor que será apresentado ao usuário ao manter o mouse em cima desta tag.
         /// </summary>
@@ -617,19 +630,6 @@ namespace NetZ.Web.Html
             set
             {
                 _strFechamento = value;
-            }
-        }
-
-        public string strLink
-        {
-            get
-            {
-                return _strLink;
-            }
-
-            set
-            {
-                _strLink = value;
             }
         }
 

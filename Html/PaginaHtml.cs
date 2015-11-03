@@ -189,6 +189,19 @@ namespace NetZ.Web.Html
             }
         }
 
+        protected string srcIcone
+        {
+            get
+            {
+                return _srcIcone;
+            }
+
+            set
+            {
+                _srcIcone = value;
+            }
+        }
+
         /// <summary>
         /// Indica o título que será mostrado na aba do navegador para identificar esta página.
         /// </summary>
@@ -215,19 +228,6 @@ namespace NetZ.Web.Html
             set
             {
                 _booPagSimples = value;
-            }
-        }
-
-        private string srcIcone
-        {
-            get
-            {
-                return _srcIcone;
-            }
-
-            set
-            {
-                _srcIcone = value;
             }
         }
 
