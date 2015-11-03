@@ -16,6 +16,74 @@ namespace NetZ.Web.Html.Componente.Janela
 
         private PainelNivel _pnlComando;
 
+        private PainelHtml _pnlConteudo;
+
+        protected PainelNivel pnlComando
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_pnlComando != null)
+                    {
+                        return _pnlComando;
+                    }
+
+                    _pnlComando = new PainelNivel();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _pnlComando;
+            }
+        }
+
+        protected PainelHtml pnlConteudo
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_pnlConteudo != null)
+                    {
+                        return _pnlConteudo;
+                    }
+
+                    _pnlConteudo = new PainelHtml();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _pnlConteudo;
+            }
+        }
+
         private Imagem imgLateral
         {
             get
@@ -49,71 +117,6 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-        protected PainelNivel pnlComando
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_pnlComando != null)
-                    {
-                        return _pnlComando;
-                    }
-
-                    _pnlComando = new PainelNivel(0);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _pnlComando;
-            }
-        }
-
-
-        private PainelHtml _pnlConteudo;
-        protected PainelHtml pnlConteudo
-        {
-            get
-            {
-                #region Variáveis
-                #endregion Variáveis
-
-                #region Ações
-                try
-                {
-                    if (_pnlConteudo != null)
-                    {
-                        return _pnlConteudo;
-                    }
-
-                    _pnlConteudo = new PainelHtml();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-                #endregion Ações
-
-                return _pnlConteudo;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -121,6 +124,31 @@ namespace NetZ.Web.Html.Componente.Janela
         #endregion Construtores
 
         #region Métodos
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.pnlConteudo.intTamanhoVertical = 2;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void montarLayout()
         {
@@ -134,9 +162,9 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.imgLateral.tagPai = this;
-                this.pnlConteudo.tagPai = this;
-                this.pnlComando.tagPai = this;
+                this.imgLateral.setPai(this);
+                this.pnlConteudo.setPai(this);
+                this.pnlComando.setPai(this);
             }
             catch (Exception ex)
             {
@@ -146,29 +174,6 @@ namespace NetZ.Web.Html.Componente.Janela
             {
             }
 
-            #endregion Ações
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.pnlConteudo.intNivelQtd = 2;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 

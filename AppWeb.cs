@@ -46,7 +46,10 @@ namespace NetZ.Web
         #region Atributos
 
         private static AppWeb _i;
+
+        private bool _booMostrarGrade;
         private List<Usuario> _lstUsr;
+        private object _objLstUsrLock;
         private Tema _tma;
 
         public new static AppWeb i
@@ -85,6 +88,32 @@ namespace NetZ.Web
             }
         }
 
+        /// <summary>
+        /// Caso esta propriedade seja marcada como true, todas as tags geradas serão marcadas
+        /// automaticamente para mostrar uma borda para que fique visível o tamanho de gasto por
+        /// todas elas.
+        /// <para>Utilize esta função para facilitar a montagem da tela.</para>
+        /// <para>
+        /// Lembre-se de considerar que a borda que será apresentada consome 1px nos quatro lados do
+        /// componente, o que pode "estourar" o layout.
+        /// </para>
+        /// </summary>
+        public bool booMostrarGrade
+        {
+            get
+            {
+                return _booMostrarGrade;
+            }
+
+            set
+            {
+                _booMostrarGrade = value;
+            }
+        }
+
+        /// <summary>
+        /// Tema atual que será utilizado para configuração do design dos componentes.
+        /// </summary>
         public Tema tma
         {
             get
@@ -151,16 +180,16 @@ namespace NetZ.Web
             }
         }
 
-
-        private object _objLstUsrLock;
         private object objLstUsrLock
         {
             get
             {
                 #region Variáveis
+
                 #endregion Variáveis
 
                 #region Ações
+
                 try
                 {
                     if (_objLstUsrLock != null)
@@ -177,6 +206,7 @@ namespace NetZ.Web
                 finally
                 {
                 }
+
                 #endregion Ações
 
                 return _objLstUsrLock;
@@ -329,9 +359,11 @@ namespace NetZ.Web
         internal Usuario getUsr(string strSessaoId)
         {
             #region Variáveis
+
             #endregion Variáveis
 
             #region Ações
+
             try
             {
                 lock (this.objLstUsrLock)
@@ -369,6 +401,7 @@ namespace NetZ.Web
             finally
             {
             }
+
             #endregion Ações
 
             return null;

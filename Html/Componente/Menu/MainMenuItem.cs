@@ -128,29 +128,6 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.divTitulo.strConteudo = this.strTitulo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-            #endregion Ações
-        }
-
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -176,6 +153,31 @@ namespace NetZ.Web.Html.Componente.Menu
             #endregion Ações
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divTitulo.strConteudo = this.strTitulo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -188,8 +190,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.img.tagPai = this;
-                this.divTitulo.tagPai = this;
+                this.img.setPai(this);
+                this.divTitulo.setPai(this);
             }
             catch (Exception ex)
             {

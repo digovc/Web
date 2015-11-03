@@ -1,9 +1,11 @@
 ﻿namespace NetZ.Web.Html.Componente.Campo
 {
     /// <summary>
-    /// Campo para a inserção de valores de qualquer espécie, como letras, números e até mesmo pontuação.
+    /// Campo que pode ser utilizado para a entrada de senhas. Todo e qualquer caractere que o
+    /// usuário digitar neste campo será encoberto por uma máscara que não permitirá visualizar o
+    /// que foi inserido.
     /// </summary>
-    public class CampoAlfanumerico : CampoHtml
+    public class CampoSenha : CampoAlfanumerico
     {
         #region Constantes
 
@@ -21,7 +23,7 @@
 
         protected override Input.EnmTipo getEnmTipo()
         {
-            return Input.EnmTipo.TEXT;
+            return Input.EnmTipo.PASSWORD;
         }
 
         #endregion Métodos

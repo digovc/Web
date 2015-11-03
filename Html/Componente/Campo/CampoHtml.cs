@@ -2,9 +2,37 @@
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public abstract class CampoHtml : ComponenteHtml
+    public abstract class CampoHtml : ComponenteHtml, ITagNivel
     {
         #region Constantes
+
+        public enum EnmTamanho
+        {
+            /// <summary>
+            /// Width 400px.
+            /// </summary>
+            GRANDE,
+
+            /// <summary>
+            /// Width 250px.
+            /// </summary>
+            MEDIO,
+
+            /// <summary>
+            /// Width 100px.
+            /// </summary>
+            MINIMO,
+
+            /// <summary>
+            /// Width 150px.
+            /// </summary>
+            PEQUENO,
+
+            /// <summary>
+            /// Width 100%.
+            /// </summary>
+            TOTAL,
+        }
 
         private const string STR_TITULO = "Campo desconhecido";
 
@@ -15,7 +43,8 @@ namespace NetZ.Web.Html.Componente.Campo
         private bool _booObrigatorio;
         private Div _divObrigatorio;
         private Div _divTitulo;
-        private int _intFrmNivel;
+        private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
+        private int _intNivel;
         private string _strTitulo;
         private Input _tagInput;
 
@@ -37,22 +66,42 @@ namespace NetZ.Web.Html.Componente.Campo
         }
 
         /// <summary>
-        /// Indica em qual nível do formulário este campo aparecerá, sendo o nível 0 (zero) o
-        /// primeiro nível de cima para baixo.
+        /// Indica o tamanho horizontal deste campo.
         /// </summary>
-        public int intFrmNivel
+        public EnmTamanho enmTamanho
         {
             get
             {
-                return _intFrmNivel;
+                return _enmTamanho;
             }
 
             set
             {
-                _intFrmNivel = value;
+                _enmTamanho = value;
             }
         }
 
+        /// <summary>
+        /// Indica em qual nível do formulário este campo aparecerá, sendo o nível 0 (zero) o
+        /// primeiro nível de cima para baixo.
+        /// </summary>
+        public int intNivel
+        {
+            get
+            {
+                return _intNivel;
+            }
+
+            set
+            {
+                _intNivel = value;
+            }
+        }
+
+        /// <summary>
+        /// Título que será apresentado no canto superior esquerdo deste campo para que o usuário
+        /// possa identificá-lo.
+        /// </summary>
         public string strTitulo
         {
             get
@@ -83,7 +132,7 @@ namespace NetZ.Web.Html.Componente.Campo
                         return _tagInput;
                     }
 
-                    _tagInput = new Input();
+                    _tagInput = this.getTagInput();
                 }
                 catch (Exception ex)
                 {
@@ -169,43 +218,16 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Construtores
 
-        /// <summary>
-        /// Cria um novo campo para a inserção de dados pelo usuário.
-        /// </summary>
-        /// <param name="strTitulo">
-        /// Título do campo que identificará visualmente o campo para o usuário.
-        /// </param>
-        /// <param name="intFrmNivel">
-        /// Nível que o campo será mostrado na tela para o usuário. Vide <see cref="intFrmNivel"/>.
-        /// O primeiro nível é o 0 (zero).
-        /// </param>
-        public CampoHtml(string strTitulo, int intFrmNivel)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strTitulo = strTitulo;
-                this.intFrmNivel = intFrmNivel;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         #endregion Construtores
 
         #region Métodos
+
+        protected abstract Input.EnmTipo getEnmTipo();
+
+        protected virtual Input getTagInput()
+        {
+            return new Input();
+        }
 
         protected override void inicializar()
         {
@@ -224,6 +246,8 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.divTitulo.strConteudo = (string.IsNullOrEmpty(this.strTitulo)) ? STR_TITULO : this.strTitulo;
                 this.divTitulo.strId = "divTitulo";
+
+                this.tagInput.enmTipo = this.getEnmTipo();
             }
             catch (Exception ex)
             {
@@ -248,9 +272,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                this.divTitulo.tagPai = this;
-                this.tagInput.tagPai = this;
-                this.divObrigatorio.tagPai = this;
+                this.divTitulo.setPai(this);
+                this.tagInput.setPai(this);
+                this.divObrigatorio.setPai(this);
             }
             catch (Exception ex)
             {
@@ -275,6 +299,8 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
+                this.setCssWidth(css);
+
                 this.addCss(css.setFloat("left"));
                 this.addCss(css.setHeight(100, "%"));
                 this.addCss(css.setPaddingLeft(5));
@@ -291,6 +317,54 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
                 this.tagInput.addCss(css.setFloat("left"));
+                this.tagInput.addCss(css.setWidth(100, "%"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void setCssWidth(CssTag css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                switch (this.enmTamanho)
+                {
+                    case EnmTamanho.GRANDE:
+                        this.addCss(css.setWidth(400));
+                        return;
+
+                    case EnmTamanho.MINIMO:
+                        this.addCss(css.setWidth(100));
+
+                        return;
+
+                    case EnmTamanho.PEQUENO:
+                        this.addCss(css.setWidth(150));
+
+                        return;
+
+                    case EnmTamanho.TOTAL:
+                        this.addCss(css.setWidth(100, "%"));
+
+                        return;
+
+                    default:
+                        this.addCss(css.setWidth(250));
+                        return;
+                }
             }
             catch (Exception ex)
             {

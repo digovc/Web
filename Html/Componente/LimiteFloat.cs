@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente
 {
-    internal class LimiteFloat : ComponenteHtml
+    public class LimiteFloat : ComponenteHtml
     {
         #region Constantes
 

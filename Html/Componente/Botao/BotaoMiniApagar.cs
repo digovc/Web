@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetZ.Web.Html
+namespace NetZ.Web.Html.Componente.Botao
 {
-    public class Imagem : Tag
+    public class BotaoMiniApagar : BotaoMiniFechar
     {
         #region Constantes
 
@@ -14,17 +14,13 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public Imagem() : base("img")
-        {
-        }
-
         #endregion Construtores
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void inicializar()
         {
-            base.addJs(lstJs);
+            base.inicializar();
 
             #region Variáveis
 
@@ -34,7 +30,8 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Imagem.js"));
+                this.strConteudo = "-";
+                this.strTitle = "Apagar";
             }
             catch (Exception ex)
             {

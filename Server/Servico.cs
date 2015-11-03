@@ -67,6 +67,7 @@ namespace NetZ.Web.Server
 
                 return _thr;
             }
+
             set
             {
                 _thr = value;

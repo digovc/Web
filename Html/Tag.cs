@@ -53,7 +53,6 @@ namespace NetZ.Web.Html
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
-        private PaginaHtml _pagPai;
         private string _src;
         private string _strAbertura = "<";
         private string _strCache;
@@ -136,42 +135,6 @@ namespace NetZ.Web.Html
             set
             {
                 _enmLinkTipo = value;
-            }
-        }
-
-        /// <summary>
-        /// Caso esta tag esteja contida na raíz da página, na tag body dessa, essa deverá ser utilizada.
-        /// </summary>
-        public PaginaHtml pagPai
-        {
-            get
-            {
-                return _pagPai;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _pagPai = value;
-
-                    this.atualizarPagPai();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -298,13 +261,13 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Indica a tag que irá ser o container desta tag.
+        /// Indica o valor que será apresentado ao usuário ao manter o mouse em cima desta tag.
         /// </summary>
-        public Tag tagPai
+        public string strTitle
         {
             get
             {
-                return _tagPai;
+                return _strTitle;
             }
 
             set
@@ -317,14 +280,14 @@ namespace NetZ.Web.Html
 
                 try
                 {
-                    _tagPai = value;
+                    _strTitle = value;
 
-                    if (_tagPai == null)
+                    if (string.IsNullOrEmpty(_strTitle))
                     {
                         return;
                     }
 
-                    _tagPai.addTag(this);
+                    this.attTitle.strValor = _strTitle;
                 }
                 catch (Exception ex)
                 {
@@ -708,11 +671,11 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string strTitle
+        private Tag tagPai
         {
             get
             {
-                return _strTitle;
+                return _tagPai;
             }
 
             set
@@ -725,14 +688,9 @@ namespace NetZ.Web.Html
 
                 try
                 {
-                    _strTitle = value;
+                    _tagPai = value;
 
-                    if (string.IsNullOrEmpty(_strTitle))
-                    {
-                        return;
-                    }
-
-                    this.attTitle.strValor = _strTitle;
+                    this.atualizarPagPai();
                 }
                 catch (Exception ex)
                 {
@@ -975,6 +933,76 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        /// <summary>
+        /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de
+        /// seus descendentes).
+        /// </summary>
+        public void setPai(Tag tagPai)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tagPai == null)
+                {
+                    return;
+                }
+
+                this.tagPai = tagPai;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de
+        /// seus descendentes).
+        /// </summary>
+        public void setPai(PaginaHtml pagPai)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (pagPai == null)
+                {
+                    return;
+                }
+
+                this.tagPai = pagPai.tagBody;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Retorna esta TAG formatada em HTML.
+        /// </summary>
+        /// <returns>Retorna esta TAG formatada em HTML.</returns>
         public virtual string toHtml()
         {
             #region Variáveis
@@ -991,6 +1019,7 @@ namespace NetZ.Web.Html
                 //}
 
                 this.inicializar();
+                this.finalizar();
 
                 if (this.getBooTagDupla())
                 {
@@ -1014,15 +1043,77 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        /// <summary>
+        /// Método que serve para adicionar arquivos CSS estáticos para lista que será carregada
+        /// pelo browser do usuário.
+        /// </summary>
+        /// <param name="lstCss">
+        /// Lista de <see cref="CssTag"/> que será carregada pelo browser do usuário.
+        /// </param>
         protected virtual void addCss(LstTag<CssTag> lstCss)
         {
         }
 
+        /// <summary>
+        /// Método que serve para adicionar arquivos JavaScript estáticos para lista de que será
+        /// carregada pelo browser do usuário.
+        /// </summary>
+        /// <param name="lstJs">
+        /// Lista de <see cref="JavaScriptTag"/> que será carregada pelo browser do usuário.
+        /// </param>
         protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
         }
 
+        /// <summary>
+        /// Este método deve ser utilizado para adicionar código JavaScript que será executado assim
+        /// que o carregamento da página estiver concluído.
+        /// </summary>
+        /// <param name="js">
+        /// É uma tag JavaScript inline que serve para adicionar código que será executado quando o
+        /// carregamento da página estiver concluído.
+        /// </param>
         protected virtual void addJs(JavaScriptTag js)
+        {
+        }
+
+        /// <summary>
+        /// Adiciona uma tag para a lista <see cref="lstTag"/>. Essas são as tags que estarão
+        /// contidas por esta.
+        /// </summary>
+        /// <param name="tag">Tag que será contida por esta tag.</param>
+        protected virtual void addTag(Tag tag)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tag == null)
+                {
+                    return;
+                }
+
+                this.lstTag.Add(tag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Método que será chamado após <see cref="montarLayout"/> para que os ajustes finais sejam feitos.
+        /// </summary>
+        protected virtual void finalizar()
         {
         }
 
@@ -1085,11 +1176,11 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        /// <summary>
+        /// Método que deve ser utilizado para configurar o design desta tag e de seus filhos.
+        /// </summary>
+        /// <param name="css">Tag CSS principal da página onde serão adicionado todo o design.</param>
         protected virtual void setCss(CssTag css)
-        {
-        }
-
-        private void addTag(Tag tag)
         {
             #region Variáveis
 
@@ -1099,12 +1190,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                this.lstTag.Add(tag);
+                this.setCssBooMostrarGrade(css);
             }
             catch (Exception ex)
             {
@@ -1127,12 +1213,12 @@ namespace NetZ.Web.Html
 
             try
             {
-                if (this.pagPai == null)
+                if (this.tagPai == null)
                 {
                     return;
                 }
 
-                this.tagPai = this.pagPai.tagBody;
+                this.tagPai.addTag(this);
             }
             catch (Exception ex)
             {
@@ -1211,6 +1297,33 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        private string getStrJsClasse()
+        {
+            #region Variáveis
+
+            string strResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                strResultado = this.GetType().Namespace;
+
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private string getStrLinkTipo()
         {
             #region Variáveis
@@ -1238,6 +1351,34 @@ namespace NetZ.Web.Html
                     default:
                         return "_self";
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void setCssBooMostrarGrade(CssTag css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (!AppWeb.i.booMostrarGrade)
+                {
+                    return;
+                }
+
+                this.addCss(css.setBorder(1, "dashed", "#ababab"));
             }
             catch (Exception ex)
             {

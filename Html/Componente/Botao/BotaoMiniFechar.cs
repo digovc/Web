@@ -14,8 +14,14 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Construtores
 
-        public BotaoMiniFechar()
+        #endregion Construtores
+
+        #region Métodos
+
+        protected override void inicializar()
         {
+            base.inicializar();
+
             #region Variáveis
 
             #endregion Variáveis
@@ -26,6 +32,7 @@ namespace NetZ.Web.Html.Componente.Botao
             {
                 this.strConteudo = "X";
                 this.strId = "divFechar";
+                this.strTitle = "Fechar";
             }
             catch (Exception ex)
             {
@@ -37,10 +44,6 @@ namespace NetZ.Web.Html.Componente.Botao
 
             #endregion Ações
         }
-
-        #endregion Construtores
-
-        #region Métodos
 
         protected override void setCss(CssTag css)
         {
@@ -54,7 +57,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                this.addCss(css.setBackgroundColor("#CE5757"));
+                this.addCss(css.setBackgroundColor("#a03c3c"));
             }
             catch (Exception ex)
             {

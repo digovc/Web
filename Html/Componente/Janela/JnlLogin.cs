@@ -15,7 +15,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
         private BotaoAcao _btnEntrar;
         private CampoAlfanumerico _cmpLogin;
-        private CampoAlfanumerico _cmpSenha;
+        private CampoSenha _cmpSenha;
         private FormHtml _frmLogin;
 
         private BotaoAcao btnEntrar
@@ -68,7 +68,7 @@ namespace NetZ.Web.Html.Componente.Janela
                         return _cmpLogin;
                     }
 
-                    _cmpLogin = new CampoAlfanumerico("Login", 0);
+                    _cmpLogin = new CampoAlfanumerico();
                 }
                 catch (Exception ex)
                 {
@@ -84,7 +84,7 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-        private CampoAlfanumerico cmpSenha
+        private CampoSenha cmpSenha
         {
             get
             {
@@ -101,7 +101,7 @@ namespace NetZ.Web.Html.Componente.Janela
                         return _cmpSenha;
                     }
 
-                    _cmpSenha = new CampoAlfanumerico("Senha", 1);
+                    _cmpSenha = new CampoSenha();
                 }
                 catch (Exception ex)
                 {
@@ -194,7 +194,12 @@ namespace NetZ.Web.Html.Componente.Janela
             try
             {
                 this.btnEntrar.strConteudo = "Entrar";
-                this.cmpSenha.booSenha = true;
+
+                this.cmpLogin.intNivel = 0;
+                this.cmpLogin.strTitulo = "Login";
+
+                this.cmpSenha.intNivel = 1;
+                this.cmpSenha.strTitulo = "Senha";
             }
             catch (Exception ex)
             {
@@ -219,12 +224,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.frmLogin.tagPai = this.pnlConteudo;
+                this.frmLogin.setPai(this.pnlConteudo);
 
-                this.frmLogin.addCampo(this.cmpLogin);
-                this.frmLogin.addCampo(this.cmpSenha);
+                this.cmpLogin.setPai(this.frmLogin);
+                this.cmpSenha.setPai(this.frmLogin);
 
-                this.btnEntrar.tagPai = this.pnlComando;
+                this.btnEntrar.setPai(this.pnlComando);
             }
             catch (Exception ex)
             {

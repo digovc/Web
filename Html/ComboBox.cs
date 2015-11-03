@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace NetZ.Web.Html
 {
@@ -13,7 +14,11 @@ namespace NetZ.Web.Html
 
         private bool _booOpcaoVazia;
         private SortedDictionary<object, string> _dicOpcao;
+        private DataTable _objDataTable;
 
+        /// <summary>
+        /// Indica se este combobox pode ou não conter uma opção vazia.
+        /// </summary>
         public bool booOpcaoVazia
         {
             get
@@ -27,7 +32,23 @@ namespace NetZ.Web.Html
             }
         }
 
-        public SortedDictionary<object, string> dicOpcao
+        /// <summary>
+        /// DataTable que pode ser utilizado para compor os valores que podem ser selecionados neste combobox.
+        /// </summary>
+        public DataTable objDataTable
+        {
+            get
+            {
+                return _objDataTable;
+            }
+
+            set
+            {
+                _objDataTable = value;
+            }
+        }
+
+        private SortedDictionary<object, string> dicOpcao
         {
             get
             {
@@ -195,7 +216,7 @@ namespace NetZ.Web.Html
 
                 tagResultado.addAtt("value", objValor.ToString());
                 tagResultado.strConteudo = strNome;
-                tagResultado.tagPai = this;
+                tagResultado.setPai(this);
 
                 return tagResultado;
             }

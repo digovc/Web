@@ -11,7 +11,8 @@ namespace NetZ.Web.Html.Componente.Painel
         #region Atributos
 
         private bool _booMarkdown;
-        private int _intNivelQtd = 1;
+        private int _intTamanhoHorizontal;
+        private int _intTamanhoVertical = 1;
 
         /// <summary>
         /// Indica se o conteúdo deste painel será convertido de Markdown para HTML.
@@ -30,19 +31,38 @@ namespace NetZ.Web.Html.Componente.Painel
         }
 
         /// <summary>
-        /// Indica a quantidade de níveis que este painel terá. Sendo que cada nível possui 50
-        /// pixels de altura.
+        /// Indica o tamanho horizontal deste painel, tendo 200 pixels de largura cada unidade.
+        /// <para>
+        /// Esta propriedade adicionará o atributo CSS.width e o atributo CSS.float para tanto.
+        /// </para>
         /// </summary>
-        public int intNivelQtd
+        public int intTamanhoHorizontal
         {
             get
             {
-                return _intNivelQtd;
+                return _intTamanhoHorizontal;
             }
 
             set
             {
-                _intNivelQtd = value;
+                _intTamanhoHorizontal = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica o tamanho vertical deste painel, tendo 50 pixels de altura cada unidade.
+        /// <para>Esta propriedade adicionará o atributo CSS.height para tanto.</para>
+        /// </summary>
+        public int intTamanhoVertical
+        {
+            get
+            {
+                return _intTamanhoVertical;
+            }
+
+            set
+            {
+                _intTamanhoVertical = value;
             }
         }
 
@@ -143,7 +163,9 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
-                this.addCss(css.setHeight(50 * this.intNivelQtd));
+                this.setCssWidth(css);
+                this.addCss(css.setHeight(50 * this.intTamanhoVertical));
+
                 this.addCss(css.setTextAlign("center"));
             }
             catch (Exception ex)
@@ -255,6 +277,35 @@ namespace NetZ.Web.Html.Componente.Painel
                 strJs = strJs.Replace("_pnl_id", this.strId);
 
                 js.addJs(strJs);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void setCssWidth(CssTag css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.intTamanhoHorizontal < 1)
+                {
+                    return;
+                }
+
+                this.addCss(css.setFloat("left"));
+                this.addCss(css.setWidth(200 * this.intTamanhoHorizontal));
             }
             catch (Exception ex)
             {

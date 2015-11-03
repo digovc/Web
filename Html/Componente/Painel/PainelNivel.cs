@@ -3,7 +3,7 @@ using NetZ.Web.Html.Design;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
-    public class PainelNivel : PainelHtml
+    public class PainelNivel : PainelHtml, ITagNivel
     {
         #region Constantes
 
@@ -14,7 +14,7 @@ namespace NetZ.Web.Html.Componente.Painel
         private int _intNivel;
 
         /// <summary>
-        /// Indica qual é o nível dentro do componente pai.
+        /// Indica qual é o nível dentro do formulário.
         /// </summary>
         public int intNivel
         {
@@ -32,29 +32,6 @@ namespace NetZ.Web.Html.Componente.Painel
         #endregion Atributos
 
         #region Construtores
-
-        public PainelNivel(int intNivel)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.intNivel = intNivel;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Construtores
 
