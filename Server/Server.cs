@@ -38,7 +38,6 @@ namespace NetZ.Web.Server
         private EnmStatus _enmStatus = EnmStatus.PARADO;
         private long _lngClienteRespondido;
         private List<ArquivoEstatico> _lstArqEstatico;
-        private List<Cliente> _lstObjCliente;
         private TcpListener _tcpListener;
 
         public static Server i
@@ -137,39 +136,6 @@ namespace NetZ.Web.Server
                 #endregion Ações
 
                 return _lstArqEstatico;
-            }
-        }
-
-        private List<Cliente> lstObjCliente
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_lstObjCliente != null)
-                    {
-                        return _lstObjCliente;
-                    }
-
-                    _lstObjCliente = new List<Cliente>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _lstObjCliente;
             }
         }
 
@@ -347,8 +313,6 @@ namespace NetZ.Web.Server
 
                 objCliente = new Cliente(tcpClient);
 
-                this.lstObjCliente.Add(objCliente);
-
                 objCliente.iniciar();
 
                 Thread.Sleep(1);
@@ -488,6 +452,7 @@ namespace NetZ.Web.Server
             try
             {
                 this.verificarAddCliente();
+                Thread.Sleep(2);
             }
             catch (Exception ex)
             {

@@ -22,6 +22,8 @@ namespace NetZ.Web
         private string[] _arrStrExtencaoIgnorada;
         private int _intPorta = 8000;
 
+        private int _intTimeOut = 45;
+
         public static new ConfigWeb i
         {
             get
@@ -103,6 +105,24 @@ namespace NetZ.Web
             set
             {
                 _intPorta = value;
+            }
+        }
+
+        /// <summary>
+        /// Tempo em segundos que o servidor esperará pela mensagem vinda do cliente após este ter
+        /// começado uma conexão. Caso nada tenha sido enviado pelo cliente neste período a conexão
+        /// é cancelada automaticamente.
+        /// </summary>
+        public int intTimeOut
+        {
+            get
+            {
+                return _intTimeOut;
+            }
+
+            set
+            {
+                _intTimeOut = value;
             }
         }
 

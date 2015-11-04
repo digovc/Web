@@ -104,15 +104,6 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                //this.dttUltimaMensagemRecebida = DateTime.Now;
-
-                // Analisar a possibilidade de responder mais de uma solicitação por conexão.
-                //while (this.tcpClient.Connected && (this.dttUltimaMensagemRecebida > DateTime.Now.AddSeconds(-10)))
-                //{
-                //this.processarSolicitacao();
-                //this.responder();
-                //}
-
                 this.processarSolicitacao();
                 this.responder();
 
@@ -179,13 +170,15 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
+            DateTime dtt;
+
             #endregion Variáveis
 
             #region Ações
 
             try
             {
-                Thread.Sleep(250);
+                dtt = DateTime.Now;
 
                 this.objSolicitacao = null;
 
@@ -199,6 +192,11 @@ namespace NetZ.Web.Server
                     }
 
                     if (!this.tcpClient.Connected)
+                    {
+                        return;
+                    }
+
+                    if ((DateTime.Now - dtt).Seconds > ConfigWeb.i.intTimeOut)
                     {
                         return;
                     }
