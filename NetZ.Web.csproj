@@ -62,6 +62,7 @@
     <Compile Include="Html\Combobox.cs" />
     <Compile Include="Html\Componente\Campo\CampoSenha.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
+    <Compile Include="Html\Componente\Grid\GridHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelNivel.cs" />
     <Compile Include="Html\Componente\Painel\PainelAtalho.cs" />
     <Compile Include="Html\Componente\Form\FormHtml.cs" />

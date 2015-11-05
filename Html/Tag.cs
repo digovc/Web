@@ -1019,6 +1019,7 @@ namespace NetZ.Web.Html
                 //}
 
                 this.inicializar();
+                this.montarLayout();
                 this.finalizar();
 
                 if (this.getBooTagDupla())
@@ -1123,25 +1124,6 @@ namespace NetZ.Web.Html
         /// </summary>
         protected virtual void inicializar()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.montarLayout();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         protected virtual void montarLayout()
