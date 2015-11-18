@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Botao
 {
-    public abstract class BotaoHtml : ComponenteHtml, ITagNivel
+    public class BotaoHtml : ComponenteHtml, ITagNivel
     {
         #region Constantes
 
@@ -89,7 +89,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                //lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_BOTAO));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 120));
             }
             catch (Exception ex)
             {
@@ -115,8 +115,6 @@ namespace NetZ.Web.Html.Componente.Botao
             try
             {
                 this.inicializarBooFrmSubmit();
-
-                this.strConteudo = "Botão desconhecido";
             }
             catch (Exception ex)
             {

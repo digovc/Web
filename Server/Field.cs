@@ -59,7 +59,7 @@ namespace NetZ.Web.Server
         private EnmTipo _enmTipo = EnmTipo.NONE;
         private int _intValor;
         private Solicitacao _objSolicitacao;
-        private string _strField;
+        private string _strHeaderLinha;
         private string _strValor;
 
         /// <summary>
@@ -275,45 +275,22 @@ namespace NetZ.Web.Server
             }
         }
 
-        private string strField
+        internal string strHeaderLinha
         {
             get
             {
-                return _strField;
+                return _strHeaderLinha;
             }
 
             set
             {
-                _strField = value;
+                _strHeaderLinha = value;
             }
         }
 
         #endregion Atributos
 
         #region Construtores
-
-        internal Field(string strHeader)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strField = strHeader;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Construtores
 
@@ -331,12 +308,12 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (string.IsNullOrEmpty(this.strField))
+                if (string.IsNullOrEmpty(this.strHeaderLinha))
                 {
                     return;
                 }
 
-                arrStr = this.strField.Split(":".ToCharArray());
+                arrStr = this.strHeaderLinha.Split(":".ToCharArray());
 
                 if (arrStr == null)
                 {
@@ -540,12 +517,12 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (string.IsNullOrEmpty(this.strField))
+                if (string.IsNullOrEmpty(this.strHeaderLinha))
                 {
                     return;
                 }
 
-                this.strValor = this.strField.Substring((this.strField.IndexOf(":") + 2), (this.strField.Length - this.strField.IndexOf(":") - 2));
+                this.strValor = this.strHeaderLinha.Substring((this.strHeaderLinha.IndexOf(":") + 2), (this.strHeaderLinha.Length - this.strHeaderLinha.IndexOf(":") - 2));
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Imagem.js"));
+                lstJs.Add(new JavaScriptTag(typeof(Imagem)));
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Div.js", 109));
+                lstJs.Add(new JavaScriptTag(typeof(Div), 109));
             }
             catch (Exception ex)
             {

@@ -344,7 +344,7 @@ namespace NetZ.Web.Server
 
                 return _strMsgCliente;
             }
-        }
+        }        
 
         #endregion Atributos
 
@@ -579,14 +579,14 @@ namespace NetZ.Web.Server
 
                 arrStrLinha[0] = null;
 
-                foreach (string strHeader in arrStrLinha)
+                foreach (string strlinha in arrStrLinha)
                 {
-                    if (string.IsNullOrEmpty(strHeader))
+                    if (string.IsNullOrEmpty(strlinha))
                     {
                         continue;
                     }
 
-                    this.processarHeader(strHeader);
+                    this.processarHeader(strlinha);
                 }
             }
             catch (Exception ex)
@@ -600,7 +600,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private void processarHeader(string strHeader)
+        private void processarHeader(string strLinha)
         {
             #region Variáveis
 
@@ -612,14 +612,16 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (string.IsNullOrEmpty(strHeader))
+                if (string.IsNullOrEmpty(strLinha))
                 {
                     return;
                 }
 
-                objFieldHeader = new Field(strHeader);
+                objFieldHeader = new Field();
 
                 objFieldHeader.objSolicitacao = this;
+                objFieldHeader.strHeaderLinha = strLinha;
+
                 objFieldHeader.processar();
 
                 this.processarHeader(objFieldHeader);

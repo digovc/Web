@@ -335,7 +335,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_CAMPO));
+                lstJs.Add(new JavaScriptTag(typeof(Input), 110));
             }
             catch (Exception ex)
             {

@@ -13,6 +13,7 @@ namespace NetZ.Web.Html
 
         private int _intOrdem;
         private List<string> _lstStrCodigo;
+        private Type type;
 
         /// <summary>
         /// Todas as tags de JavaScript são executados pelo browser na ordem que estão dispostas na
@@ -83,6 +84,30 @@ namespace NetZ.Web.Html
 
                 this.intOrdem = intOrdem;
                 this.src = src;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        public JavaScriptTag(Type cls, int intOrdem = 200) : base("script")
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.intOrdem = intOrdem;
+                this.src = this.getSrc(cls);
             }
             catch (Exception ex)
             {
@@ -175,6 +200,43 @@ namespace NetZ.Web.Html
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             // Não fazer nada.
+        }
+
+        private string getSrc(Type cls)
+        {
+            #region Variáveis
+
+            string src;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (cls == null)
+                {
+                    return null;
+                }
+
+                src = "res/js/_cls_name_space_nome+js";
+
+                src = src.Replace("_cls_name_space_nome", cls.FullName);
+                src = src.Replace(".", "/");
+                src = src.Replace("res/js/NetZ/Web", "res/js/Web.TypeScript");
+                src = src.Replace("+", ".");
+
+                return src;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         #endregion Métodos

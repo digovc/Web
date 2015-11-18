@@ -181,6 +181,33 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Métodos
 
+        protected override void setCss(CssTag css)
+        {
+            base.setCss(css);
+
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                this.frmLogin.addCss(css.setMarginLeft(270));
+                this.frmLogin.addCss(css.setMarginTop(15));
+
+                this.pnlComando.addCss(css.setMarginRight(10));
+                this.pnlComando.addCss(css.setMarginTop(25));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
+
         protected override void inicializar()
         {
             base.inicializar();

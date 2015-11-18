@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoCombobox : CampoHtml
+    public class CampoComboBox : CampoHtml
     {
         #region Constantes
 
@@ -10,9 +10,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private Combobox _cmb;
+        private ComboBox _cmb;
 
-        private Combobox cmb
+        private ComboBox cmb
         {
             get
             {
@@ -29,7 +29,7 @@ namespace NetZ.Web.Html.Componente.Campo
                         return _cmb;
                     }
 
-                    _cmb = (Combobox)this.getTagInput();
+                    _cmb = (ComboBox)this.getTagInput();
                 }
                 catch (Exception ex)
                 {
@@ -49,13 +49,38 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Construtores
 
-        public CampoCombobox()
+        public CampoComboBox()
         {
         }
 
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 130));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override Input.EnmTipo getEnmTipo()
         {
@@ -64,7 +89,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected override Input getTagInput()
         {
-            return new Combobox();
+            return new ComboBox();
         }
 
         protected override void montarLayout()

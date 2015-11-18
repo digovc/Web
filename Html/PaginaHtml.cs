@@ -10,20 +10,6 @@ namespace NetZ.Web.Html
     {
         #region Constantes
 
-        //public const string DIR_JS_LIB_DATE = "res/js/lib/date.js";
-        //public const string DIR_JS_LIB_MD5 = "res/js/lib/JDigo/lib/md5.js";
-        //public const string DIR_JS_PAG_HTML = "res/js/html/PaginaHtml.js";
-        //public const string DIR_JS_USUARIO = "res/js/Usuario.js";
-
-        public const string DIR_JS_APP_WEB = "res/js/Web.TypeScript/AppWeb.js";
-        public const string DIR_JS_ERRO = "res/js/Web.TypeScript/erro/Erro.js";
-        public const string DIR_JS_LIB_JQUERY = "res/js/lib/jquery-2.1.3.min.js";
-        public const string DIR_JS_LIB_JQUERY_UI = "res/js/lib/jquery-ui.min.js";
-        public const string DIR_JS_OBJETO = "res/js/Web.TypeScript/Objeto.js";
-        public const string DIR_JS_PAGINA_HTML = "res/js/Web.TypeScript/html/PaginaHtml.js";
-        public const string DIR_JS_TAG = "res/js/Web.TypeScript/html/Tag.js";
-        public const string DIR_JS_UTILS = "res/js/Web.TypeScript/Utils.js";
-
         #endregion Constantes
 
         #region Atributos
@@ -627,14 +613,14 @@ namespace NetZ.Web.Html
             {
                 lstJs.Add(!(string.IsNullOrEmpty(this.getSrcJsBoot())) ? new JavaScriptTag(this.getSrcJsBoot(), 999) : null);
 
-                lstJs.Add(new JavaScriptTag(DIR_JS_APP_WEB, 104));
-                lstJs.Add(new JavaScriptTag(DIR_JS_ERRO, 102));
-                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY, 0));
-                lstJs.Add(new JavaScriptTag(DIR_JS_LIB_JQUERY_UI, 0));
-                lstJs.Add(new JavaScriptTag(DIR_JS_OBJETO, 100));
-                lstJs.Add(new JavaScriptTag(DIR_JS_PAGINA_HTML, 102));
-                lstJs.Add(new JavaScriptTag(DIR_JS_TAG, 103));
-                lstJs.Add(new JavaScriptTag(DIR_JS_UTILS, 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/AppWeb.js", 104));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
+                lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.1.3.min.js", 0));
+                lstJs.Add(new JavaScriptTag("res/js/lib/jquery-ui.min.js", 0));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/PaginaHtml.js", 102));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
                 lstJs.Add(this.tagJs);
             }

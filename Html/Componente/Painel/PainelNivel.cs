@@ -49,7 +49,6 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
-                this.addCss(css.setBorderBottom(1, "solid", Tema.i.corBorda1Normal));
                 this.addCss(css.setHeight(50));
             }
             catch (Exception ex)

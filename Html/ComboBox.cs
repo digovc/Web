@@ -4,7 +4,7 @@ using System.Data;
 
 namespace NetZ.Web.Html
 {
-    public class Combobox : Input
+    public class ComboBox : Input
     {
         #region Constantes
 
@@ -85,7 +85,7 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public Combobox()
+        public ComboBox()
         {
             #region Variáveis
 
@@ -152,7 +152,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag(AppWeb.DIR_JS_COMBO_BOX));
+                lstJs.Add(new JavaScriptTag(typeof(ComboBox), 110));
             }
             catch (Exception ex)
             {

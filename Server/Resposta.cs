@@ -260,7 +260,8 @@ namespace NetZ.Web.Server
         /// <summary>
         /// Adiciona um cookie para ser armazenado no browser do cliente.
         /// </summary>
-        public void addCookie(Cookie objCookie)
+        /// <returns>Retorna esta mesma instância.</returns>
+        public Resposta addCookie(Cookie objCookie)
         {
             #region Variáveis
 
@@ -272,25 +273,27 @@ namespace NetZ.Web.Server
             {
                 if (objCookie == null)
                 {
-                    return;
+                    return this;
                 }
 
                 if (string.IsNullOrEmpty(objCookie.strNome))
                 {
-                    return;
+                    return this;
                 }
 
                 if (string.IsNullOrEmpty(objCookie.strValor))
                 {
-                    return;
+                    return this;
                 }
 
                 if (objCookie.dttValidade < DateTime.Now)
                 {
-                    return;
+                    return this;
                 }
 
                 this.lstObjCookie.Add(objCookie);
+
+                return this;
             }
             catch (Exception ex)
             {
@@ -308,7 +311,8 @@ namespace NetZ.Web.Server
         /// processamento da solicitação for finalizada.
         /// </summary>
         /// <param name="strHtml">Código HTML que deve ser enviada para o cliente.</param>
-        public void addHtml(string strHtml)
+        /// <returns>Retorna esta mesma instância.</returns>
+        public Resposta addHtml(string strHtml)
         {
             #region Variáveis
 
@@ -320,12 +324,14 @@ namespace NetZ.Web.Server
             {
                 if (string.IsNullOrEmpty(strHtml))
                 {
-                    return;
+                    return this;
                 }
 
                 this.enmContentType = EnmContentType.HTML_TEXT_HTML;
                 this.enmEncoding = EnmEncoding.UTF_8;
                 this.mmsConteudo.Write(Encoding.UTF8.GetBytes(strHtml), 0, Encoding.UTF8.GetByteCount(strHtml));
+
+                return this;
             }
             catch (Exception ex)
             {
@@ -342,7 +348,8 @@ namespace NetZ.Web.Server
         /// Adiciona o conteúdo em html da <see cref="PaginaHtml"/> para a resposta.
         /// </summary>
         /// <param name="pagHtml">Página que se deseja responder para o usuário.</param>
-        public void addHtml(PaginaHtml pagHtml)
+        /// <returns>Retorna esta mesma instância.</returns>
+        public Resposta addHtml(PaginaHtml pagHtml)
         {
             #region Variáveis
 
@@ -354,10 +361,12 @@ namespace NetZ.Web.Server
             {
                 if (pagHtml == null)
                 {
-                    return;
+                    return this;
                 }
 
                 this.addHtml(pagHtml.toHtml());
+
+                return this;
             }
             catch (Exception ex)
             {
@@ -380,7 +389,8 @@ namespace NetZ.Web.Server
         /// <param name="url">
         /// Nova URL que será acessada pelo browser do usuário assim que essa resposta for enviada.
         /// </param>
-        public void redirecionar(string url)
+        /// <returns>Retorna esta mesma instância.</returns>
+        public Resposta redirecionar(string url)
         {
             #region Variáveis
 
@@ -392,11 +402,13 @@ namespace NetZ.Web.Server
             {
                 if (string.IsNullOrEmpty(url))
                 {
-                    return;
+                    return this;
                 }
 
                 this.intStatus = 302;
                 this.strRedirecionamento = url;
+
+                return this;
             }
             catch (Exception ex)
             {
