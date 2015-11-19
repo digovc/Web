@@ -15,11 +15,14 @@ namespace NetZ.Web.Server
     {
         #region Constantes
 
+        private const string STR_CHARSET_NONE = "_charset_none";
+
         public enum EnmEncoding
         {
             _8859,
             ANSI,
             ASCII,
+            NONE,
             NUMB,
             UTF_16,
             UTF_8,
@@ -37,7 +40,6 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private MemoryStream _mmsConteudo;
         private Solicitacao _objSolicitacao;
-
         private string _strRedirecionamento;
 
         /// <summary>
@@ -609,6 +611,11 @@ namespace NetZ.Web.Server
                         this.enmContentType = EnmContentType.MP4_VIDEO_MP4;
                         return;
 
+                    case ".ico":
+                        this.enmContentType = EnmContentType.ICO_IMAGE_X_ICON;
+                        this.enmEncoding = EnmEncoding.NONE;
+                        return;
+
                     default:
                         this.enmContentType = EnmContentType.TXT_TEXT_PLAIN;
                         return;
@@ -685,6 +692,9 @@ namespace NetZ.Web.Server
 
                     case EnmEncoding.ASCII:
                         return "ASCII";
+
+                    case EnmEncoding.NONE:
+                        return STR_CHARSET_NONE;
 
                     case EnmEncoding.NUMB:
                         return "Numb";
@@ -801,6 +811,7 @@ namespace NetZ.Web.Server
 
                 strResultado = strResultado.Replace("_content_type", EnmContentTypeManager.getStrEnmContentType(this.enmContentType));
                 strResultado = strResultado.Replace("_char_set", this.getStrEnmEncoding());
+                strResultado = strResultado.Replace(("; charset=" + STR_CHARSET_NONE), null);
 
                 return strResultado;
             }

@@ -29,6 +29,7 @@ namespace NetZ.Web.Html
         #region Atributos
 
         private static PaginaHtml _i;
+
         private bool _booPagSimples;
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
