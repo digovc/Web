@@ -37,7 +37,6 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private MemoryStream _mmsConteudo;
         private Solicitacao _objSolicitacao;
-
         private string _strRedirecionamento;
 
         /// <summary>
@@ -619,6 +618,11 @@ namespace NetZ.Web.Server
 
                     case ".mp4":
                         this.enmContentType = EnmContentType.MP4_VIDEO_MP4;
+                        return;
+
+                    case ".ico":
+                        this.enmContentType = EnmContentType.ICO_IMAGE_X_ICON;
+                        //this.enmEncoding = EnmEncoding.NONE;
                         return;
 
                     default:
