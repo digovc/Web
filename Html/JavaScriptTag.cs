@@ -80,8 +80,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.addAtt("type", "text/javascript");
-
+                this.booMostrarClazz = false;
                 this.intOrdem = intOrdem;
                 this.src = src;
             }
@@ -106,6 +105,7 @@ namespace NetZ.Web.Html
 
             try
             {
+                this.booMostrarClazz = false;
                 this.intOrdem = intOrdem;
                 this.src = this.getSrc(cls);
             }
@@ -200,6 +200,31 @@ namespace NetZ.Web.Html
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             // Não fazer nada.
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addAtt("type", "text/javascript");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         private string getSrc(Type cls)

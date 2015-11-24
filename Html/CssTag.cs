@@ -257,8 +257,8 @@ namespace NetZ.Web.Html
 
             try
             {
+                this.booMostrarClazz = false;
                 this.booTagDupla = true;
-                this.addAtt("type", "text/css");
             }
             catch (Exception ex)
             {
@@ -1837,6 +1837,31 @@ namespace NetZ.Web.Html
                 this.booTagDupla = false;
 
                 return base.toHtml();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addAtt("type", "text/css");
             }
             catch (Exception ex)
             {

@@ -49,6 +49,7 @@ namespace NetZ.Web.Html
         private Atributo _attType;
         private bool _booBarraFinal = true;
         private bool _booClicavel;
+        private bool _booMostrarClazz = true;
         private bool _booTagDupla = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private List<Atributo> _lstAtt;
@@ -64,6 +65,9 @@ namespace NetZ.Web.Html
         private string _strTitle;
         private Tag _tagPai;
 
+        /// <summary>
+        /// Atributo "type" desta tag.
+        /// </summary>
         public Atributo attType
         {
             get
@@ -99,6 +103,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Indica se conterá uma "/" (barra) na tag de fechamento.
+        /// </summary>
         public bool booBarraFinal
         {
             get
@@ -112,6 +119,28 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo
+        /// a qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
+        /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
+        /// browser do usuário.
+        /// </summary>
+        public bool booMostrarClazz
+        {
+            get
+            {
+                return _booMostrarClazz;
+            }
+
+            set
+            {
+                _booMostrarClazz = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo nenhum <see cref="strConteudo"/>.
+        /// </summary>
         public bool booTagDupla
         {
             get
@@ -125,6 +154,10 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Indica o tipo do link, caso esta tag possua algum.
+        /// <para>Para mais detalhes consulte a documentação dos possíveis valores de <see cref="EnmLinkTipo"/>.</para>
+        /// </summary>
         public EnmLinkTipo enmLinkTipo
         {
             get
@@ -260,6 +293,9 @@ namespace NetZ.Web.Html
             }
         }
 
+        /// <summary>
+        /// Link para onde o usuário será direcionado caso click nesta tag.
+        /// </summary>
         public string strLink
         {
             get
@@ -1124,6 +1160,25 @@ namespace NetZ.Web.Html
         /// </summary>
         protected virtual void inicializar()
         {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.inicializarClazz();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         protected virtual void montarLayout()
@@ -1333,6 +1388,34 @@ namespace NetZ.Web.Html
                     default:
                         return "_self";
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void inicializarClazz()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (!this.booMostrarClazz)
+                {
+                    return;
+                }
+
+                this.addAtt("clazz", this.GetType().Name);
             }
             catch (Exception ex)
             {

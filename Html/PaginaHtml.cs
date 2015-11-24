@@ -527,6 +527,7 @@ namespace NetZ.Web.Html
             try
             {
                 this.inicializar();
+                this.montarLayout();
                 this.finalizar();
 
                 strBody = this.tagBody.toHtml();
@@ -668,26 +669,34 @@ namespace NetZ.Web.Html
 
             try
             {
+                this.tagBody.booMostrarClazz = false;
+
                 this.tagDocType.addAtt("html");
                 this.tagDocType.booBarraFinal = false;
+                this.tagDocType.booMostrarClazz = false;
                 this.tagDocType.booTagDupla = false;
+
+                this.tagHead.booMostrarClazz = false;
 
                 this.tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
                 this.tagHtml.addAtt("lang", "pt-br");
+                this.tagHtml.booMostrarClazz = false;
 
                 this.tagIcon.addAtt("rel", "shortcut icon");
                 this.tagIcon.addAtt("href", this.srcIcone);
                 this.tagIcon.addAtt("type", "image/x-icon");
+                this.tagIcon.booMostrarClazz = false;
 
                 this.tagJs.intOrdem = 100;
 
                 this.tagMetaContent.addAtt("content", this.strNomeExibicao);
+                this.tagMetaContent.booMostrarClazz = false;
 
                 this.tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
+                this.tagMetaHttpEquiv.booMostrarClazz = false;
 
+                this.tagTitle.booMostrarClazz = false;
                 this.tagTitle.strConteudo = this.getStrTituloFormatado();
-
-                this.montarLayout();
             }
             catch (Exception ex)
             {

@@ -13,9 +13,7 @@ namespace NetZ.Web.Html.Componente.Janela
         #region Atributos
 
         private Imagem _imgLateral;
-
         private PainelNivel _pnlComando;
-
         private PainelHtml _pnlConteudo;
 
         protected PainelNivel pnlComando
