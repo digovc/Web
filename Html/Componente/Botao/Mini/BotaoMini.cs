@@ -1,7 +1,7 @@
 ﻿using System;
 using NetZ.Web.Html.Design;
 
-namespace NetZ.Web.Html.Componente.Botao
+namespace NetZ.Web.Html.Componente.Botao.Mini
 {
     public class BotaoMini : BotaoHtml
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Html.Componente.Botao.Acao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 
@@ -221,12 +222,17 @@ namespace NetZ.Web.Html.Componente.Janela
             try
             {
                 this.btnEntrar.strConteudo = "Entrar";
+                this.btnEntrar.strId = "btnEntrar";
 
                 this.cmpLogin.intNivel = 0;
+                this.cmpLogin.strId = "cmpLogin";
                 this.cmpLogin.strTitulo = "Login";
 
                 this.cmpSenha.intNivel = 1;
+                this.cmpSenha.strId = "cmpSenha";
                 this.cmpSenha.strTitulo = "Senha";
+
+                this.frmLogin.strId = "frmLogin";
             }
             catch (Exception ex)
             {

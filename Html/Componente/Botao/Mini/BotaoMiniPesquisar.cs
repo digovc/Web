@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetZ.Web.Html.Componente.Botao
+namespace NetZ.Web.Html.Componente.Botao.Mini
 {
     public class BotaoMiniPesquisar : BotaoMini
     {

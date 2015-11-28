@@ -1,5 +1,6 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Design;
 
 namespace NetZ.Web.Html.Componente.Janela
