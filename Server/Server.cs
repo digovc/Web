@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Threading;
 
 namespace NetZ.Web.Server
@@ -250,8 +251,9 @@ namespace NetZ.Web.Server
             try
             {
                 ConfigWeb.i.inicializar();
+
                 this.criarDiretorio();
-                this.inicializarArquivoEstatico("res");
+                this.inicializarArquivoEstatico();
                 this.tcpListener.Start();
                 this.enmStatus = EnmStatus.LIGADO;
             }
@@ -263,6 +265,46 @@ namespace NetZ.Web.Server
             {
             }
 
+            #endregion Ações
+        }
+
+        private void inicializarArquivoEstatico()
+        {
+
+            #region Variáveis
+
+            string dir;
+
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                dir = Assembly.GetEntryAssembly().Location;
+
+                if (string.IsNullOrEmpty(dir))
+                {
+                    return;
+                }
+
+                dir = Path.GetDirectoryName(dir);
+
+                if (string.IsNullOrEmpty(dir))
+                {
+                    return;
+                }
+
+                dir = dir + "\\res";
+
+                this.inicializarArquivoEstatico(dir);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
             #endregion Ações
         }
 

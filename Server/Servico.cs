@@ -198,7 +198,8 @@ namespace NetZ.Web.Server
             }
             catch (Exception ex)
             {
-                throw ex;
+                // TODO: Tratar esta exceção.
+                //throw ex;
             }
             finally
             {

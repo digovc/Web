@@ -34,7 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -104,9 +107,23 @@
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
     <Compile Include="Server\Usuario.cs" />
+    <Compile Include="WinService\NetZWebServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinService\NetZWebServiceInstaller.Designer.cs">
+      <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinService\NetZWebService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinService\NetZWebService.Designer.cs">
+      <DependentUpon>NetZWebService.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="WebSocket\" />
+    <EmbeddedResource Include="WinService\NetZWebServiceInstaller.resx">
+      <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DigoFramework\DigoFramework.csproj">
@@ -117,6 +134,9 @@
       <Project>{4ec8339f-4e73-4786-b3bc-073690d9528e}</Project>
       <Name>NetZ.SistemaBase</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

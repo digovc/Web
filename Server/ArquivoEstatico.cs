@@ -39,6 +39,8 @@ namespace NetZ.Web.Server
 
                     _dirWeb = _dirWeb.Replace("_dir_completo", this.dirCompleto);
                     _dirWeb = _dirWeb.Replace("\\", "/");
+
+                    _dirWeb = _dirWeb.Substring(_dirWeb.IndexOf("/res/"));
                 }
                 catch (Exception ex)
                 {
