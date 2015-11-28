@@ -87,6 +87,22 @@ namespace NetZ.Web.Server
             }
         }
 
+        /// <summary>
+        /// Solicitação que deu origem a esta resposta.
+        /// </summary>
+        public Solicitacao objSolicitacao
+        {
+            get
+            {
+                return _objSolicitacao;
+            }
+
+            private set
+            {
+                _objSolicitacao = value;
+            }
+        }
+
         internal byte[] arrBteResposta
         {
             get
@@ -196,19 +212,6 @@ namespace NetZ.Web.Server
                 #endregion Ações
 
                 return _mmsConteudo;
-            }
-        }
-
-        private Solicitacao objSolicitacao
-        {
-            get
-            {
-                return _objSolicitacao;
-            }
-
-            set
-            {
-                _objSolicitacao = value;
             }
         }
 
@@ -383,6 +386,9 @@ namespace NetZ.Web.Server
         /// <para>
         /// Após chamar este método, todo e qualquer conteúdo que tiver sido adicionado a esta
         /// resposta será desprezada.
+        /// </para>
+        /// <para>
+        /// O prefixo "http://" deve ser informado caso o redirecionamento seja para outro site.
         /// </para>
         /// </summary>
         /// <param name="url">

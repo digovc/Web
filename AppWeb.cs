@@ -21,6 +21,7 @@ namespace NetZ.Web
     public abstract class AppWeb : App
     {
         #region Constantes
+
         #endregion Constantes
 
         #region Atributos
@@ -232,7 +233,7 @@ namespace NetZ.Web
         /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWeb"/>.
         /// </para>
         /// </summary>
-        public void inicializar()
+        public void inicializarServidor()
         {
             #region Variáveis
 

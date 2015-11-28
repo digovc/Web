@@ -50,6 +50,7 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
+        private string _strHost;
         private string _strMsgCliente;
         private string _strPagina;
         private string _strSessaoId;
@@ -88,7 +89,7 @@ namespace NetZ.Web.Server
                 return _enmMetodo;
             }
 
-            set
+            private set
             {
                 _enmMetodo = value;
             }
@@ -111,7 +112,7 @@ namespace NetZ.Web.Server
                         return _lstObjCookie;
                     }
 
-                    _lstObjCookie = new List<Cookie>();
+                    _lstObjCookie = this.getLstObjCookie();
                 }
                 catch (Exception ex)
                 {
@@ -128,6 +129,42 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
+        /// Indica o endereço completo que o usuário está acessando.
+        /// </summary>
+        public string strHost
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_strHost != null)
+                    {
+                        return _strHost;
+                    }
+
+                    _strHost = this.getStrHost();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _strHost;
+            }
+        }
+
+        /// <summary>
         /// Página que foi solicitada pelo cliente.
         /// </summary>
         public string strPagina
@@ -137,7 +174,7 @@ namespace NetZ.Web.Server
                 return _strPagina;
             }
 
-            set
+            private set
             {
                 #region Variáveis
 
@@ -344,7 +381,7 @@ namespace NetZ.Web.Server
 
                 return _strMsgCliente;
             }
-        }        
+        }
 
         #endregion Atributos
 
@@ -452,6 +489,129 @@ namespace NetZ.Web.Server
                 }
 
                 this.processarHeader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private List<Cookie> getLstObjCookie()
+        {
+            #region Variáveis
+
+            List<Cookie> lstObjCookieResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstObjCookieResultado = new List<Cookie>();
+
+                foreach (Field objField in this.lstObjField)
+                {
+                    this.getLstObjCookie(lstObjCookieResultado, objField);
+                }
+
+                return lstObjCookieResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void getLstObjCookie(List<Cookie> lstObjCookieResultado, Field objField)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (lstObjCookieResultado == null)
+                {
+                    return;
+                }
+
+                if (objField == null)
+                {
+                    return;
+                }
+
+                if (!Field.EnmTipo.COOKIE.Equals(objField.enmTipo))
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objField.strValor))
+                {
+                    return;
+                }
+
+                if (objField.strValor.IndexOf('=') < 0)
+                {
+                    return;
+                }
+
+                if (objField.strValor.Split('=').Length < 2)
+                {
+                    return;
+                }
+
+                lstObjCookieResultado.Add(new Cookie(objField.strValor.Split('=')[0], objField.strValor.Split('=')[1]));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrHost()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                foreach (Field objField in this.lstObjField)
+                {
+                    if (objField == null)
+                    {
+                        continue;
+                    }
+
+                    if (!Field.EnmTipo.HOST.Equals(objField.enmTipo))
+                    {
+                        continue;
+                    }
+
+                    return objField.strValor;
+                }
+
+                return null;
             }
             catch (Exception ex)
             {
@@ -624,41 +784,7 @@ namespace NetZ.Web.Server
 
                 objFieldHeader.processar();
 
-                this.processarHeader(objFieldHeader);
                 this.lstObjField.Add(objFieldHeader);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void processarHeader(Field objFieldHeader)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (objFieldHeader == null)
-                {
-                    return;
-                }
-
-                switch (objFieldHeader.enmTipo)
-                {
-                    case Field.EnmTipo.COOKIE:
-                        this.processarHeaderCookie(objFieldHeader);
-                        return;
-                }
             }
             catch (Exception ex)
             {
