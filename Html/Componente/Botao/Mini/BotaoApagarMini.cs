@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Botao.Mini
 {
-    public class BotaoMiniPesquisar : BotaoMini
+    public class BotaoApagarMini : BotaoFecharMini
     {
         #region Constantes
 
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoMiniPesquisar), 120));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoApagarMini), 120));
             }
             catch (Exception ex)
             {
@@ -55,33 +55,8 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                this.strConteudo = "=";
-                this.strTitle = "Pesquisar";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void setCss(CssTag css)
-        {
-            base.setCss(css);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBackgroundColor("#3c6aa0"));
+                this.strConteudo = "-";
+                this.strTitle = "Apagar";
             }
             catch (Exception ex)
             {

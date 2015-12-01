@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Persistencia;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -41,6 +42,8 @@ namespace NetZ.Web.Html.Componente.Campo
         #region Atributos
 
         private bool _booObrigatorio;
+        private bool _booSomenteLeitura;
+        private Coluna _cln;
         private Div _divObrigatorio;
         private Div _divTitulo;
         private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
@@ -62,6 +65,78 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _booObrigatorio = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica se o usuário poderá alterar o valor do campo.
+        /// </summary>
+        public bool booSomenteLeitura
+        {
+            get
+            {
+                return _booSomenteLeitura;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _booSomenteLeitura = value;
+
+                    this.atualizarBooSomenteLeitura();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        /// <summary>
+        /// Coluna que este campo representa no formulário.
+        /// </summary>
+        public Coluna cln
+        {
+            get
+            {
+                return _cln;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _cln = value;
+
+                    this.atualizarCln();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
@@ -111,7 +186,27 @@ namespace NetZ.Web.Html.Componente.Campo
 
             set
             {
-                _strTitulo = value;
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _strTitulo = value;
+
+                    this.atualizarStrTitulo();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
@@ -249,10 +344,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected abstract Input.EnmTipo getEnmTipo();
 
-        protected virtual Input getTagInput()
-        {
-            return new Input();
-        }
+        protected abstract Input getTagInput();
 
         protected override void inicializar()
         {
@@ -269,7 +361,6 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.strConteudo = "*";
                 this.divObrigatorio.strId = "divObrigatorio";
 
-                this.divTitulo.strConteudo = (string.IsNullOrEmpty(this.strTitulo)) ? STR_TITULO : this.strTitulo;
                 this.divTitulo.strId = "divTitulo";
 
                 this.tagInput.enmTipo = this.getEnmTipo();
@@ -343,6 +434,82 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.tagInput.addCss(css.setFloat("left"));
                 this.tagInput.addCss(css.setWidth(100, "%"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarBooSomenteLeitura()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.getTagInput().booDisabled = this.booSomenteLeitura;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarCln()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.cln == null)
+                {
+                    return;
+                }
+
+                this.booSomenteLeitura = this.cln.booSomenteLeitura;
+                this.strTitulo = this.cln.strNomeExibicao;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarStrTitulo()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
+                this.getTagInput().strPlaceHolder = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
             }
             catch (Exception ex)
             {

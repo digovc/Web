@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Botao.Mini
 {
-    public class BotaoMiniFechar : BotaoMini
+    public class BotaoFecharMini : BotaoMini
     {
         #region Constantes
 
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoMiniFechar), 120));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoFecharMini), 120));
             }
             catch (Exception ex)
             {

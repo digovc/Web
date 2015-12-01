@@ -1193,7 +1193,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMarginBottom(int intMarginBottomPx)
+        public string setMarginBottom(int intMarginBottom, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1205,8 +1205,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_margin_bottom_pxpx";
-                css = css.Replace("_margin_bottom_px", intMarginBottomPx.ToString());
+                css = "_margin_bottom_grandeza";
+
+                css = css.Replace("_margin_bottom", intMarginBottom.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("margin-bottom", css);
             }
@@ -1221,7 +1223,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMarginLeft(int intMarginLeftPx)
+        public string setMarginLeft(int intMarginLeft, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1233,8 +1235,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_margin_left_pxpx";
-                css = css.Replace("_margin_left_px", intMarginLeftPx.ToString());
+                css = "_margin_left_grandeza";
+
+                css = css.Replace("_margin_left", intMarginLeft.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("margin-left", css);
             }
@@ -1249,7 +1253,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMarginRight(int intMarginRightPx)
+        public string setMarginRight(int intMarginRight, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1261,8 +1265,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_margin_right_pxpx";
-                css = css.Replace("_margin_right_px", intMarginRightPx.ToString());
+                css = "_margin_right_grandeza";
+
+                css = css.Replace("_margin_right", intMarginRight.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("margin-right", css);
             }
@@ -1277,7 +1283,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMarginTop(int intMarginTopPx)
+        public string setMarginTop(int intMarginTop, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1289,8 +1295,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_margin_top_pxpx";
-                css = css.Replace("_margin_top_px", intMarginTopPx.ToString());
+                css = "_margin_top_grandeza";
+
+                css = css.Replace("_margin_top", intMarginTop.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("margin-top", css);
             }
@@ -1485,7 +1493,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setPaddingBottom(int intPaddingBottomPx)
+        public string setPaddingBottom(int intPaddingBottom, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1497,8 +1505,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_padding_bottom_pxpx";
-                css = css.Replace("_padding_bottom_px", intPaddingBottomPx.ToString());
+                css = "_padding_bottom_grandeza";
+
+                css = css.Replace("_padding_bottom", intPaddingBottom.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("padding-bottom", css);
             }
@@ -1513,7 +1523,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setPaddingLeft(int intPaddingLeftPx)
+        public string setPaddingLeft(int intPaddingLeft, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1525,8 +1535,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_padding_left_pxpx";
-                css = css.Replace("_padding_left_px", intPaddingLeftPx.ToString());
+                css = "_padding_left_grandeza";
+
+                css = css.Replace("_padding_left", intPaddingLeft.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("padding-left", css);
             }
@@ -1541,7 +1553,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setPaddingRight(int intPaddingRightPx)
+        public string setPaddingRight(int intPaddingRight, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1553,8 +1565,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_padding_right_pxpx";
-                css = css.Replace("_padding_right_px", intPaddingRightPx.ToString());
+                css = "_padding_right_grandeza";
+
+                css = css.Replace("_padding_right", intPaddingRight.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("padding-right", css);
             }
@@ -1569,7 +1583,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setPaddingTop(int intPaddingTopPx)
+        public string setPaddingTop(int intPaddingTop, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1581,8 +1595,10 @@ namespace NetZ.Web.Html
 
             try
             {
-                css = "_padding_top_pxpx";
-                css = css.Replace("_padding_top_px", intPaddingTopPx.ToString());
+                css = "_padding_top_grandeza";
+
+                css = css.Replace("_padding_top", intPaddingTop.ToString());
+                css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("padding-top", css);
             }

@@ -1,33 +1,14 @@
 ﻿using System;
-using NetZ.Web.Html.Design;
 
-namespace NetZ.Web.Html.Componente.Painel
+namespace NetZ.Web.Html.Componente.Botao.Comando
 {
-    public class PainelNivel : PainelHtml, ITagNivel
+    public abstract class BotaoComando : BotaoHtml
     {
         #region Constantes
 
         #endregion Constantes
 
         #region Atributos
-
-        private int _intNivel;
-
-        /// <summary>
-        /// Indica qual é o nível dentro do formulário.
-        /// </summary>
-        public int intNivel
-        {
-            get
-            {
-                return _intNivel;
-            }
-
-            set
-            {
-                _intNivel = value;
-            }
-        }
 
         #endregion Atributos
 
@@ -49,9 +30,9 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
-                this.addCss(css.setHeight(50));
-                this.addCss(css.setPaddingLeft(5));
-                this.addCss(css.setPaddingRight(5));
+                this.addCss(css.setHeight(30));
+                this.addCss(css.setWidth(100));
+                this.addCss(css.setMarginLeft(5));
             }
             catch (Exception ex)
             {

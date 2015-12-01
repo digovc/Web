@@ -53,12 +53,17 @@
     <Compile Include="Html\Componente\Botao\Acao\BotaoAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
     <Compile Include="Html\Componente\Botao\Atalho\BotaoAtalho.cs" />
+    <Compile Include="Html\Componente\Botao\Comando\BotaoComando.cs" />
+    <Compile Include="Html\Componente\Botao\Comando\BotaoNovoComando.cs" />
+    <Compile Include="Html\Componente\Botao\Comando\BotaoSalvarComando.cs" />
     <Compile Include="Html\Componente\Botao\Mini\BotaoMini.cs" />
-    <Compile Include="Html\Componente\Botao\Mini\BotaoMiniPesquisar.cs" />
-    <Compile Include="Html\Componente\Botao\Mini\BotaoMiniApagar.cs" />
-    <Compile Include="Html\Componente\Botao\Mini\BotaoMiniAlterar.cs" />
-    <Compile Include="Html\Componente\Botao\Mini\BotaoMiniAdicionar.cs" />
-    <Compile Include="Html\Componente\Botao\Mini\BotaoMiniFechar.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoDireitaMini.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoEsquerdaMini.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoPesquisarMini.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoApagarMini.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoAlterarMini.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoAdicionarMini.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoFecharMini.cs" />
     <Compile Include="Html\Componente\Campo\CampoAlfanumerico.cs" />
     <Compile Include="Html\Componente\Campo\CampoAnexo.cs" />
     <Compile Include="Html\Componente\Campo\CampoCheckBox.cs" />
@@ -68,10 +73,12 @@
     <Compile Include="Html\Componente\Campo\CampoHtml.cs" />
     <Compile Include="Html\ComboBox.cs" />
     <Compile Include="Html\Componente\Campo\CampoImagem.cs" />
+    <Compile Include="Html\Componente\Campo\CampoNumerico.cs" />
     <Compile Include="Html\Componente\Campo\CampoRadioButton.cs" />
     <Compile Include="Html\Componente\Campo\CampoSenha.cs" />
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
+    <Compile Include="Html\Componente\Form\DivComando.cs" />
     <Compile Include="Html\Componente\Grid\GridHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelNivel.cs" />
     <Compile Include="Html\Componente\Painel\PainelAtalho.cs" />
@@ -129,6 +136,10 @@
     <ProjectReference Include="..\DigoFramework\DigoFramework.csproj">
       <Project>{93078de5-a910-4ad6-a942-657582105493}</Project>
       <Name>DigoFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
+      <Project>{5fdebacf-1812-47a0-8fba-25db3ad2b31c}</Project>
+      <Name>NetZ.Persistencia</Name>
     </ProjectReference>
     <ProjectReference Include="..\SistemaBase\NetZ.SistemaBase.csproj">
       <Project>{4ec8339f-4e73-4786-b3bc-073690d9528e}</Project>

@@ -1,5 +1,4 @@
 ﻿using System;
-using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Design;
 
@@ -15,11 +14,47 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Atributos
 
-        private BotaoMiniFechar _btnFechar;
+        private BotaoFecharMini _btnFechar;
         private Div _divAcao;
         private Div _divCabecalho;
         private Div _divTitulo;
+        private int _intTamanhoX = 5;
+        private int _intTamanhoY = 5;
         private string _strTitulo = STR_TITULO;
+
+        /// <summary>
+        /// Indica o tamanho horizontal desta janela. A unidade deste valor são 50 pixels, ou seja,
+        /// 1 = 50px, 5 = 250px.
+        /// </summary>
+        public int intTamanhoX
+        {
+            get
+            {
+                return _intTamanhoX;
+            }
+
+            set
+            {
+                _intTamanhoX = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica o tamanho vertical desta janela. A unidade deste valor são 50 pixels, ou seja, 1
+        /// = 50px, 5 = 250px.
+        /// </summary>
+        public int intTamanhoY
+        {
+            get
+            {
+                return _intTamanhoY;
+            }
+
+            set
+            {
+                _intTamanhoY = value;
+            }
+        }
 
         /// <summary>
         /// Título da janela.
@@ -33,11 +68,31 @@ namespace NetZ.Web.Html.Componente.Janela
 
             set
             {
-                _strTitulo = value;
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _strTitulo = value;
+
+                    this.atualizarStrTitulo();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
-        private BotaoMiniFechar btnFechar
+        private BotaoFecharMini btnFechar
         {
             get
             {
@@ -54,7 +109,7 @@ namespace NetZ.Web.Html.Componente.Janela
                         return _btnFechar;
                     }
 
-                    _btnFechar = new BotaoMiniFechar();
+                    _btnFechar = new BotaoFecharMini();
                 }
                 catch (Exception ex)
                 {
@@ -216,7 +271,6 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 this.divCabecalho.strId = "divCabecalho";
 
-                this.divTitulo.strConteudo = (string.IsNullOrEmpty(this.strTitulo)) ? STR_TITULO : this.strTitulo;
                 this.divTitulo.strId = "divTitulo";
             }
             catch (Exception ex)
@@ -274,8 +328,8 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.addCss(css.setBackgroundColor(Tema.i.corFundo2Normal));
                 this.addCss(css.setBorder(1, "solid", "black"));
                 this.addCss(css.setBoxShadow(0, 5, 20, 0, Tema.i.corSombra2));
-                this.addCss(css.setHeight(500));
-                this.addCss(css.setWidth(500));
+                this.addCss(css.setHeight(50 * this.intTamanhoY));
+                this.addCss(css.setWidth(50 * this.intTamanhoX));
 
                 this.divAcao.addCss(css.setBottom(0));
                 this.divAcao.addCss(css.setPosition("absolute"));
@@ -287,21 +341,32 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.divCabecalho.addCss(css.setLineHeight(35));
                 this.divCabecalho.addCss(css.setPosition("relative"));
 
-                this.btnFechar.addCss(css.setBackgroundColor("#CE5757"));
-                this.btnFechar.addCss(css.setBorderRadius(50, "%"));
-                this.btnFechar.addCss(css.setBoxShadow(0, 2, 2, 0, Tema.i.corSombra2));
-                this.btnFechar.addCss(css.setColor("white"));
-                this.btnFechar.addCss(css.setCursor("pointer"));
-                this.btnFechar.addCss(css.setFloat("left"));
-                this.btnFechar.addCss(css.setHeight(40));
-                this.btnFechar.addCss(css.setLineHeight(40));
-                this.btnFechar.addCss(css.setMargin(5));
-                this.btnFechar.addCss(css.setTextAlign("center"));
-                this.btnFechar.addCss(css.setWidth(40));
-
                 this.divTitulo.addCss(css.setFontSize(20));
                 this.divTitulo.addCss(css.setLineHeight(50));
                 this.divTitulo.addCss(css.setPaddingLeft(5));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarStrTitulo()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
             }
             catch (Exception ex)
             {

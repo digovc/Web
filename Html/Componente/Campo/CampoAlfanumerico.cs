@@ -13,6 +13,41 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
+        private Input _txt;
+
+        private Input txt
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_txt != null)
+                    {
+                        return _txt;
+                    }
+
+                    _txt = new Input();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _txt;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -49,6 +84,11 @@ namespace NetZ.Web.Html.Componente.Campo
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.TEXT;
+        }
+
+        protected override Input getTagInput()
+        {
+            return this.txt;
         }
 
         #endregion Métodos
