@@ -222,6 +222,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
                 this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
 
+                this.img.addCss(css.setBackgroundColor("blue"));
+                this.img.addCss(css.setBorderRadius(50, "%"));
                 this.img.addCss(css.setFloat("left"));
                 this.img.addCss(css.setHeight(INT_HEIGHT));
                 this.img.addCss(css.setMarginRight(10));
