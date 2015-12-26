@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NetZ.SistemaBase;
-using NetZ.Web.Html.Design;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -31,7 +30,6 @@ namespace NetZ.Web
         private bool _booMostrarGrade;
         private List<Usuario> _lstUsr;
         private object _objLstUsrLock;
-        private Tema _tma;
 
         public new static AppWeb i
         {
@@ -89,42 +87,6 @@ namespace NetZ.Web
             set
             {
                 _booMostrarGrade = value;
-            }
-        }
-
-        /// <summary>
-        /// Tema atual que será utilizado para configuração do design dos componentes.
-        /// </summary>
-        public Tema tma
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tma != null)
-                    {
-                        return _tma;
-                    }
-
-                    _tma = Tema.i;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tma;
             }
         }
 
@@ -295,7 +257,7 @@ namespace NetZ.Web
         /// </para>
         /// </param>
         /// <returns></returns>
-        public abstract Resposta responder(Solicitacao objSolicitacao);
+        public abstract Resposta responder(Solicitacao objSolicitacao);        
 
         /// <summary>
         /// Adiciona um usuário para a lista de usuários.

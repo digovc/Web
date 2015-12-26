@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
@@ -77,9 +78,14 @@
     <Compile Include="Html\Componente\Campo\CampoRadioButton.cs" />
     <Compile Include="Html\Componente\Campo\CampoSenha.cs" />
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
+    <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
     <Compile Include="Html\Componente\Form\DivComando.cs" />
     <Compile Include="Html\Componente\Grid\GridHtml.cs" />
+    <Compile Include="Html\Componente\Menu\Chat\DivChatUsuario.cs" />
+    <Compile Include="Html\Componente\Menu\DivFavorito.cs" />
+    <Compile Include="Html\Componente\Menu\DivFavoritoItem.cs" />
+    <Compile Include="Html\Componente\Menu\DivGavetaLateral.cs" />
     <Compile Include="Html\Componente\Painel\PainelNivel.cs" />
     <Compile Include="Html\Componente\Painel\PainelAtalho.cs" />
     <Compile Include="Html\Componente\Form\FormHtml.cs" />
@@ -91,7 +97,6 @@
     <Compile Include="Html\Componente\Menu\MainMenu.cs" />
     <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
     <Compile Include="Html\CssTag.cs" />
-    <Compile Include="Html\Design\Tema.cs" />
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Hr.cs" />
     <Compile Include="Html\Imagem.cs" />

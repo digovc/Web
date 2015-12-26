@@ -1,5 +1,4 @@
 ﻿using System;
-using NetZ.Web.Html.Design;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
@@ -12,6 +11,7 @@ namespace NetZ.Web.Html.Componente.Menu
         #region Atributos
 
         private Div _divGaveta;
+        private Div _divGavetaContainer;
         private Div _divPesquisa;
         private Input _txtPesquisa;
 
@@ -45,6 +45,39 @@ namespace NetZ.Web.Html.Componente.Menu
                 #endregion Ações
 
                 return _divGaveta;
+            }
+        }
+
+        private Div divGavetaContainer
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divGavetaContainer != null)
+                    {
+                        return _divGavetaContainer;
+                    }
+
+                    _divGavetaContainer = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divGavetaContainer;
             }
         }
 
@@ -113,39 +146,6 @@ namespace NetZ.Web.Html.Componente.Menu
                 return _txtPesquisa;
             }
         }
-
-
-        private Div _divGavetaContainer;
-        private Div divGavetaContainer
-        {
-            get
-            {
-                #region Variáveis
-                #endregion Variáveis
-
-                #region Ações
-                try
-                {
-                    if (_divGavetaContainer != null)
-                    {
-                        return _divGavetaContainer;
-                    }
-
-                    _divGavetaContainer = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-                #endregion Ações
-
-                return _divGavetaContainer;
-            }
-        }
-
 
         #endregion Atributos
 
@@ -269,11 +269,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor(Tema.i.corFundo2Normal));
-                this.divGaveta.addCss(css.setBorderBottom(1, "solid", Tema.i.corBorda2Normal));
-                this.divGaveta.addCss(css.setBorderLeft(1, "solid", Tema.i.corBorda2Normal));
-                this.divGaveta.addCss(css.setBorderRadius(0, 0, 10, 10));
-                this.divGaveta.addCss(css.setBorderRight(1, "solid", Tema.i.corBorda2Normal));
+                this.divGaveta.addCss(css.setBackgroundColor("rgba(88,178,150,0.75)"));
                 this.divGaveta.addCss(css.setCenter());
                 this.divGaveta.addCss(css.setHeight(500));
                 this.divGaveta.addCss(css.setOverflowX("hidden"));
@@ -287,13 +283,14 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divPesquisa.addCss(css.setTop(0));
                 this.divPesquisa.addCss(css.setWidth(100, "%"));
 
+                this.txtPesquisa.addCss(css.setBorder(0));
                 this.txtPesquisa.addCss(css.setCenter());
                 this.txtPesquisa.addCss(css.setDisplay("block"));
                 this.txtPesquisa.addCss(css.setFontSize(25));
-                this.txtPesquisa.addCss(css.setHeight(40));
+                this.txtPesquisa.addCss(css.setHeight(30));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
                 this.txtPesquisa.addCss(css.setTop(5));
-                this.txtPesquisa.addCss(css.setWidth(500));
+                this.txtPesquisa.addCss(css.setWidth(600));
             }
             catch (Exception ex)
             {

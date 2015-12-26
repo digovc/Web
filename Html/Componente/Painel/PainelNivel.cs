@@ -1,5 +1,4 @@
 ﻿using System;
-using NetZ.Web.Html.Design;
 
 namespace NetZ.Web.Html.Componente.Painel
 {

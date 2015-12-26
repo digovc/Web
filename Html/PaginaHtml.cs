@@ -528,6 +528,7 @@ namespace NetZ.Web.Html
             {
                 this.inicializar();
                 this.montarLayout();
+                this.setCss(CssTag.i);
                 this.finalizar();
 
                 strBody = this.tagBody.toHtml();
@@ -719,8 +720,6 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.setCss(CssTag.i);
-
                 this.tagTitle.setPai(this.tagHead);
                 this.tagMetaContent.setPai(this.tagHead);
                 this.tagMetaHttpEquiv.setPai(this.tagHead);

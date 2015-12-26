@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.Text;
 
 namespace NetZ.Web.Html
@@ -18,6 +20,8 @@ namespace NetZ.Web.Html
 
         private static CssTag _i;
         private static CssTag _iImpressao;
+
+        private CultureInfo _ctiUsa;
         private List<AtributoCss> _lstAttCss;
         private StringBuilder _stbCssPuro;
         private string _strConteudo;
@@ -174,6 +178,39 @@ namespace NetZ.Web.Html
                 }
 
                 #endregion Ações
+            }
+        }
+
+        private CultureInfo ctiUsa
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_ctiUsa != null)
+                    {
+                        return _ctiUsa;
+                    }
+
+                    _ctiUsa = CultureInfo.CreateSpecificCulture("en-US");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _ctiUsa;
             }
         }
 
@@ -428,6 +465,11 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        public string setBackgroundColor(Color cor)
+        {
+            return this.setBackgroundColor(ColorTranslator.ToHtml(cor));
+        }
+
         public string setBackgroundGradiente(string cor, string cor2)
         {
             #region Variáveis
@@ -616,6 +658,11 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        public string setBorder(int intBorderPx, string strTipo, Color cor)
+        {
+            return this.setBorder(intBorderPx, strTipo = "solid", ColorTranslator.ToHtml(cor));
+        }
+
         public string setBorderBottom(int intBottomPx, string strTipo, string cor)
         {
             #region Variáveis
@@ -647,6 +694,11 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        public string setBorderBottom(int intRightPx, string strTipo, Color cor)
+        {
+            return this.setBorderBottom(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
+        }
+
         public string setBorderLeft(int intLeftPx, string strTipo, string cor)
         {
             #region Variáveis
@@ -676,6 +728,11 @@ namespace NetZ.Web.Html
             }
 
             #endregion Ações
+        }
+
+        public string setBorderLeft(int intRightPx, string strTipo, Color cor)
+        {
+            return this.setBorderLeft(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
         }
 
         public string setBorderRadius(int intTopLeftPx, int intTopRightPx, int intBottomRightPx, int intBottomLeftPx)
@@ -769,6 +826,16 @@ namespace NetZ.Web.Html
             }
 
             #endregion Ações
+        }
+
+        public string setBorderRight(int intRightPx, string strTipo, Color cor)
+        {
+            return this.setBorderRight(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
+        }
+
+        public string setBorderTop(int intRightPx, string strTipo, Color cor)
+        {
+            return this.setBorderTop(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
         }
 
         public string setBorderTop(int intTopPx, string strTipo, string cor)
@@ -865,6 +932,11 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, Color cor)
+        {
+            return this.setBoxShadow(intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, ColorTranslator.ToHtml(cor));
+        }
+
         public string setCenter()
         {
             return this.addCss("margin", "auto");
@@ -901,6 +973,11 @@ namespace NetZ.Web.Html
             }
 
             #endregion Ações
+        }
+
+        public string setColor(Color cor)
+        {
+            return this.setColor(ColorTranslator.ToHtml(cor));
         }
 
         public string setCursor(string strCursor)
@@ -1015,7 +1092,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setFontSize(double dblFontSize, string strGrandeza = "px")
+        public string setFontSize(decimal decFontSize, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1029,7 +1106,7 @@ namespace NetZ.Web.Html
             {
                 css = "_font_size_font_grandeza";
 
-                css = css.Replace("_font_size", dblFontSize.ToString());
+                css = css.Replace("_font_size", decFontSize.ToString(this.ctiUsa));
                 css = css.Replace("_font_grandeza", strGrandeza);
 
                 return this.addCss("font-size", css);
@@ -1073,7 +1150,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setHeight(double dblHeight, string strGrandeza = "px")
+        public string setHeight(decimal decHeight, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1087,7 +1164,7 @@ namespace NetZ.Web.Html
             {
                 css = "_height_grandeza";
 
-                css = css.Replace("_height", dblHeight.ToString());
+                css = css.Replace("_height", decHeight.ToString(this.ctiUsa));
                 css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("height", css);
@@ -1133,7 +1210,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setLineHeight(double dblLineHeight, string strGrandeza = "px")
+        public string setLineHeight(decimal decLineHeight, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1147,7 +1224,7 @@ namespace NetZ.Web.Html
             {
                 css = "_line_height_grandeza";
 
-                css = css.Replace("_line_height", dblLineHeight.ToString());
+                css = css.Replace("_line_height", decLineHeight.ToString(this.ctiUsa));
                 css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("line-height", css);
@@ -1163,7 +1240,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMargin(int intMargin, string strGrandeza = "px")
+        public string setMargin(decimal decMargin, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1177,7 +1254,7 @@ namespace NetZ.Web.Html
             {
                 css = "_margin_grandeza";
 
-                css = css.Replace("_margin", intMargin.ToString());
+                css = css.Replace("_margin", decMargin.ToString(this.ctiUsa));
                 css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("margin", css);
@@ -1313,7 +1390,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMinHeight(double dblMinHeight)
+        public string setMinHeight(decimal decMinHeight)
         {
             #region Variáveis
 
@@ -1326,7 +1403,7 @@ namespace NetZ.Web.Html
             try
             {
                 css = "_min_height_pxpx";
-                css = css.Replace("_min_height_px", dblMinHeight.ToString());
+                css = css.Replace("_min_height_px", decMinHeight.ToString(this.ctiUsa));
 
                 return this.addCss("min-height", css);
             }
@@ -1341,7 +1418,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setMinWidth(double dblMinWidth)
+        public string setMinWidth(decimal decMinWidth)
         {
             #region Variáveis
 
@@ -1354,7 +1431,7 @@ namespace NetZ.Web.Html
             try
             {
                 css = "_min_width_pxpx";
-                css = css.Replace("_min_width_px", dblMinWidth.ToString());
+                css = css.Replace("_min_width_px", decMinWidth.ToString(this.ctiUsa));
 
                 return this.addCss("min-width", css);
             }
@@ -1374,9 +1451,9 @@ namespace NetZ.Web.Html
             return this.addCss("font-weight", "bold");
         }
 
-        public string setOpacity(double dblOpacity)
+        public string setOpacity(decimal decOpacity)
         {
-            return this.addCss("opacity", dblOpacity.ToString());
+            return this.addCss("opacity", decOpacity.ToString(this.ctiUsa));
         }
 
         public string setOverflow(string strOverflowPx)
@@ -1794,7 +1871,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        public string setWidth(double dblWidth, string strGrandeza = "px")
+        public string setWidth(decimal decWidth, string strGrandeza = "px")
         {
             #region Variáveis
 
@@ -1808,7 +1885,7 @@ namespace NetZ.Web.Html
             {
                 css = "_width_grandeza";
 
-                css = css.Replace("_width", dblWidth.ToString());
+                css = css.Replace("_width", decWidth.ToString(this.ctiUsa));
                 css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("width", css);

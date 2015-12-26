@@ -1,6 +1,5 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Botao.Mini;
-using NetZ.Web.Html.Design;
 
 namespace NetZ.Web.Html.Componente.Janela
 {
@@ -325,9 +324,9 @@ namespace NetZ.Web.Html.Componente.Janela
             try
             {
                 this.addCss(css.addCss("margin", "10% auto"));
-                this.addCss(css.setBackgroundColor(Tema.i.corFundo2Normal));
+                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
                 this.addCss(css.setBorder(1, "solid", "black"));
-                this.addCss(css.setBoxShadow(0, 5, 20, 0, Tema.i.corSombra2));
+                this.addCss(css.setBoxShadow(0, 5, 20, 0, AppWeb.i.objTema.corSombra));
                 this.addCss(css.setHeight(50 * this.intTamanhoY));
                 this.addCss(css.setWidth(50 * this.intTamanhoX));
 
