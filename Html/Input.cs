@@ -414,8 +414,6 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.addCss(css.setPadding(5));
-
                 this.setCssDateTime(css);
                 this.setCssNumber(css);
                 this.setCssTextArea(css);

@@ -312,6 +312,12 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
+        /// <summary>
+        /// Este método pode ser usado para atributos CSS que são pouco usuais e que não possuem métodos específicos implementados.
+        /// </summary>
+        /// <param name="strNome">Nome do atributo CSS que se deseja adicionar.</param>
+        /// <param name="strValor">Valor do atributo CSS que se deseja adicionar.</param>
+        /// <returns>Classe atribuída a este atributo CSS.</returns>
         public string addCss(string strNome, string strValor)
         {
             #region Variáveis

@@ -81,7 +81,10 @@
     <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
     <Compile Include="Html\Componente\Form\DivComando.cs" />
+    <Compile Include="Html\Componente\Grid\GridData.cs" />
+    <Compile Include="Html\Componente\Grid\GridHead.cs" />
     <Compile Include="Html\Componente\Grid\GridHtml.cs" />
+    <Compile Include="Html\Componente\Grid\GridRow.cs" />
     <Compile Include="Html\Componente\Menu\Chat\DivChatUsuario.cs" />
     <Compile Include="Html\Componente\Menu\DivFavorito.cs" />
     <Compile Include="Html\Componente\Menu\DivFavoritoItem.cs" />
@@ -92,7 +95,6 @@
     <Compile Include="Html\Componente\Janela\JanelaHtml.cs" />
     <Compile Include="Html\Componente\Janela\JnlCadastro.cs" />
     <Compile Include="Html\Componente\Janela\JnlConsulta.cs" />
-    <Compile Include="Html\Componente\Janela\JnlLogin.cs" />
     <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
     <Compile Include="Html\Componente\Menu\MainMenu.cs" />
     <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Html\ITagNivel.cs" />
     <Compile Include="Html\JavaScriptTag.cs" />
     <Compile Include="Html\Componente\LimiteFloat.cs" />
+    <Compile Include="Html\Label.cs" />
     <Compile Include="Html\LstTag.cs" />
     <Compile Include="Html\PaginaHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelHtml.cs" />

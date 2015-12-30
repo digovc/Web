@@ -56,7 +56,6 @@ namespace NetZ.Web.Html
         private List<Tag> _lstTag;
         private string _src;
         private string _strAbertura = "<";
-        private string _strCache;
         private string _strConteudo;
         private string _strFechamento = ">";
         private string _strId;
@@ -643,19 +642,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private string strCache
-        {
-            get
-            {
-                return _strCache;
-            }
-
-            set
-            {
-                _strCache = value;
-            }
-        }
-
         private string strFechamento
         {
             get
@@ -1049,25 +1035,16 @@ namespace NetZ.Web.Html
 
             try
             {
-                //if (!string.IsNullOrEmpty(this.strCache))
-                //{
-                //    return this.strCache;
-                //}
-
                 this.inicializar();
                 this.montarLayout();
                 this.finalizar();
 
                 if (this.getBooTagDupla())
                 {
-                    this.strCache = this.toHtmlTagDupla();
-                }
-                else
-                {
-                    this.strCache = this.toHtmlTagUnica();
+                    return this.toHtmlTagDupla();
                 }
 
-                return this.strCache;
+                return this.toHtmlTagUnica();
             }
             catch (Exception ex)
             {
@@ -1194,12 +1171,6 @@ namespace NetZ.Web.Html
                 this.addCss(PaginaHtml.i.lstCss);
                 this.addJs(PaginaHtml.i.lstJs);
                 this.addJs(PaginaHtml.i.tagJs);
-
-                if (this is CssTag)
-                {
-                    return;
-                }
-
                 this.setCss(CssTag.i);
             }
             catch (Exception ex)

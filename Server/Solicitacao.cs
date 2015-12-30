@@ -661,6 +661,7 @@ namespace NetZ.Web.Server
                     Array.Copy(arrBte, arrBte2, intQtd);
 
                     stbMsg.Append(Encoding.UTF8.GetString(arrBte2));
+
                 } while (this.nts.DataAvailable);
 
                 return stbMsg.ToString();

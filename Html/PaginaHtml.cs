@@ -110,7 +110,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        internal Tag tagBody
+        public Tag tagBody
         {
             get
             {
