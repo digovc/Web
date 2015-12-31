@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Painel;
 
 namespace NetZ.Web.Html.Componente.Form
@@ -15,8 +16,45 @@ namespace NetZ.Web.Html.Componente.Form
 
         private Div _divConteudo;
         private LimiteFloat _divLimiteFloat;
+        private List<CampoHtml> _lstCmp;
         private List<PainelNivel> _lstPnlNivel;
         private List<ITagNivel> _lstTagNivel;
+
+        /// <summary>
+        /// Lista dos campos que foram adicionados para este formulário.
+        /// </summary>
+        public List<CampoHtml> lstCmp
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstCmp != null)
+                    {
+                        return _lstCmp;
+                    }
+
+                    _lstCmp = new List<CampoHtml>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstCmp;
+            }
+        }
 
         private Div divConteudo
         {
@@ -236,12 +274,8 @@ namespace NetZ.Web.Html.Componente.Form
                     return;
                 }
 
-                if (this.lstTagNivel.Contains((ITagNivel)tag))
-                {
-                    return;
-                }
-
-                this.lstTagNivel.Add((ITagNivel)tag);
+                this.addLstTagNivel(tag);
+                this.addLstCmp(tag);
             }
             catch (Exception ex)
             {
@@ -330,10 +364,8 @@ namespace NetZ.Web.Html.Componente.Form
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        private void addLstCmp(Tag tag)
         {
-            base.setCss(css);
-
             #region Variáveis
 
             #endregion Variáveis
@@ -342,7 +374,60 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                //this.divConteudo.addCss(css.setPadding(5));
+                if (tag == null)
+                {
+                    return;
+                }
+
+                if (!(typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
+                {
+                    return;
+                }
+
+                if (this.lstCmp.Contains((CampoHtml)tag))
+                {
+                    return;
+                }
+
+                this.lstCmp.Add((CampoHtml)tag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void addLstTagNivel(Tag tag)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tag == null)
+                {
+                    return;
+                }
+
+                if (!(typeof(ITagNivel).IsAssignableFrom(tag.GetType())))
+                {
+                    return;
+                }
+
+                if (this.lstTagNivel.Contains((ITagNivel)tag))
+                {
+                    return;
+                }
+
+                this.lstTagNivel.Add((ITagNivel)tag);
             }
             catch (Exception ex)
             {

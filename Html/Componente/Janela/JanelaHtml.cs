@@ -7,8 +7,6 @@ namespace NetZ.Web.Html.Componente.Janela
     {
         #region Constantes
 
-        private const string STR_TITULO = "Janela desconhecida";
-
         #endregion Constantes
 
         #region Atributos
@@ -19,7 +17,7 @@ namespace NetZ.Web.Html.Componente.Janela
         private Div _divTitulo;
         private int _intTamanhoX = 5;
         private int _intTamanhoY = 5;
-        private string _strTitulo = STR_TITULO;
+        private string _strTitulo;
 
         /// <summary>
         /// Indica o tamanho horizontal desta janela. A unidade deste valor são 50 pixels, ou seja,
@@ -254,6 +252,31 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(typeof(JanelaHtml)));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -266,6 +289,8 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
+                this.strId = this.GetType().Name;
+
                 this.divAcao.strId = "divAcao";
 
                 this.divCabecalho.strId = "divCabecalho";
@@ -324,11 +349,14 @@ namespace NetZ.Web.Html.Componente.Janela
             try
             {
                 this.addCss(css.addCss("margin", "10% auto"));
-                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
-                this.addCss(css.setBorder(1, "solid", "black"));
-                this.addCss(css.setBoxShadow(0, 5, 20, 0, AppWeb.i.objTema.corSombra));
+                this.addCss(css.setBackgroundColor("white"));
+                this.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
+                this.addCss(css.setBoxShadow(0, 1, 3, 0, AppWeb.i.objTema.corSombra));
                 this.addCss(css.setHeight(50 * this.intTamanhoY));
                 this.addCss(css.setWidth(50 * this.intTamanhoX));
+
+                this.btnFechar.addCss(css.setMarginRight(10));
+                this.btnFechar.addCss(css.setMarginTop(10));
 
                 this.divAcao.addCss(css.setBottom(0));
                 this.divAcao.addCss(css.setPosition("absolute"));
@@ -365,7 +393,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
+                this.divTitulo.strConteudo = this.strTitulo;
             }
             catch (Exception ex)
             {

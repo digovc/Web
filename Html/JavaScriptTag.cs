@@ -19,6 +19,8 @@ namespace NetZ.Web.Html
         /// Todas as tags de JavaScript são executados pelo browser na ordem que estão dispostas na
         /// página. Utilize esta propriedade para indicar quais dessas tags serão executadas antes
         /// das outras.
+        /// <para>Utilize as seguintes faixas: 100 a 150 NetZ.Web.TypeScript.</para>
+        /// <para>Utilize as seguintes faixas: 200 a 250 Projetos especializados.</para>
         /// </summary>
         public int intOrdem
         {
@@ -69,6 +71,7 @@ namespace NetZ.Web.Html
         #endregion Atributos
 
         #region Construtores
+
 
         public JavaScriptTag(string src = null, int intOrdem = 200) : base("script")
         {
@@ -244,11 +247,13 @@ namespace NetZ.Web.Html
                     return null;
                 }
 
-                src = "res/js/_cls_name_space_nome+js";
+                src = "res/js/_cls_namespace/_cls_nome+js";
 
-                src = src.Replace("_cls_name_space_nome", cls.FullName);
+                src = src.Replace("_cls_namespace", cls.Namespace.ToLower());
+                src = src.Replace("_cls_nome", cls.Name);
                 src = src.Replace(".", "/");
-                src = src.Replace("res/js/NetZ/Web", "res/js/Web.TypeScript");
+                src = src.Replace("res/js/netz/web", "res/js/Web.TypeScript");
+                src = src.Replace("res/js/cia", "res/js/Principal.TypeScript");
                 src = src.Replace("+", ".");
 
                 return src;

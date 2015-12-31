@@ -157,6 +157,30 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        public Atributo(string strNome, int intValor)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.strNome = strNome;
+                this.addValor(intValor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos

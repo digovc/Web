@@ -106,7 +106,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
             {
                 this.addCss(css.setBorder(0));
                 this.addCss(css.setBorderRadius(50, "%"));
-                this.addCss(css.setBoxShadow(0, 2, 2, 0, AppWeb.i.objTema.corSombra));
+                this.addCss(css.setBoxShadow(0, 0, 1, 0, AppWeb.i.objTema.corSombra));
                 this.addCss(css.setColor("white"));
                 this.addCss(css.setCursor("pointer"));
                 this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));

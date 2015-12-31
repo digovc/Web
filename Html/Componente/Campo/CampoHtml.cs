@@ -344,7 +344,10 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected abstract Input.EnmTipo getEnmTipo();
 
-        protected abstract Input getTagInput();
+        protected virtual Input getTagInput()
+        {
+            return new Input();
+        }
 
         protected override void inicializar()
         {
@@ -456,7 +459,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                this.getTagInput().booDisabled = this.booSomenteLeitura;
+                this.tagInput.booDisabled = this.booSomenteLeitura;
             }
             catch (Exception ex)
             {
@@ -484,7 +487,9 @@ namespace NetZ.Web.Html.Componente.Campo
                     return;
                 }
 
+                this.addAtt("cln", this.cln.strNomeSql);
                 this.booSomenteLeitura = this.cln.booSomenteLeitura;
+                this.strId = this.cln.strNomeSql;
                 this.strTitulo = this.cln.strNomeExibicao;
             }
             catch (Exception ex)
@@ -509,7 +514,7 @@ namespace NetZ.Web.Html.Componente.Campo
             try
             {
                 this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
-                this.getTagInput().strPlaceHolder = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
+                this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
             }
             catch (Exception ex)
             {

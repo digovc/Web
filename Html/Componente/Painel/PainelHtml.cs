@@ -111,6 +111,8 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
+                lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 115));
+
                 this.addJsMarkdown(lstJs);
             }
             catch (Exception ex)

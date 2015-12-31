@@ -271,6 +271,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 this.divGaveta.addCss(css.setBackgroundColor("rgba(88,178,150,0.75)"));
                 this.divGaveta.addCss(css.setCenter());
+                this.divGaveta.addCss(css.setDisplay("none"));
                 this.divGaveta.addCss(css.setHeight(500));
                 this.divGaveta.addCss(css.setOverflowX("hidden"));
                 this.divGaveta.addCss(css.setOverflowY("auto"));
@@ -288,6 +289,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.txtPesquisa.addCss(css.setDisplay("block"));
                 this.txtPesquisa.addCss(css.setFontSize(25));
                 this.txtPesquisa.addCss(css.setHeight(30));
+                this.txtPesquisa.addCss(css.setPadding(5));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
                 this.txtPesquisa.addCss(css.setTop(5));
                 this.txtPesquisa.addCss(css.setWidth(600));

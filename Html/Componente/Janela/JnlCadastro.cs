@@ -51,42 +51,6 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-        /// <summary>
-        /// Tabela que esta janela de cadastro representa.
-        /// </summary>
-        protected Tabela tbl
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tbl != null)
-                    {
-                        return _tbl;
-                    }
-
-                    _tbl = this.getTbl();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tbl;
-            }
-        }
-
         private CampoNumerico cmpIntId
         {
             get
@@ -153,13 +117,77 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
+        /// <summary>
+        /// Tabela que esta janela de cadastro representa.
+        /// </summary>
+        private Tabela tbl
+        {
+            get
+            {
+                return _tbl;
+            }
+
+            set
+            {
+                _tbl = value;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
+        public JnlCadastro(Tabela tbl)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tbl = tbl;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(typeof(JnlCadastro)));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void finalizar()
         {
@@ -186,12 +214,6 @@ namespace NetZ.Web.Html.Componente.Janela
             #endregion Ações
         }
 
-        /// <summary>
-        /// Este método deve retornar a instância da tabela que este cadastro representa.
-        /// </summary>
-        /// <returns>A instância da tabela que este cadastro representa.</returns>
-        protected abstract Tabela getTbl();
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -204,13 +226,15 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
+                this.strId = this.GetType().Name;
+                this.addAtt(new Atributo("tbl", this.tbl.strNomeSql));
+
                 // TODO: O nível da div de comando deve ser dinâmico.
                 this.divComando.intNivel = 2;
 
                 this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
 
-                this.inicializarTitulo();
-                this.inicializarColunasLocal();
+                this.inicializarColunas();
             }
             catch (Exception ex)
             {
@@ -224,10 +248,31 @@ namespace NetZ.Web.Html.Componente.Janela
         }
 
         /// <summary>
-        /// Tem a responsabilidade de inicializar as propriedades <see cref="CampoHtml.cln"/> dos
-        /// campos desta janela de cadastro.
+        /// Este método deve ser sobescrito pelos herdeiros desta classe para atribuir os campos as
+        /// suas respectivas colunas.
         /// </summary>
-        protected abstract void inicializarColunas();
+        protected virtual void inicializarColunas()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.cmpIntId.cln = this.tbl.clnIntId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void montarLayout()
         {
@@ -243,64 +288,6 @@ namespace NetZ.Web.Html.Componente.Janela
             {
                 this.frm.setPai(this);
                 this.cmpIntId.setPai(this.frm);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void inicializarColunasLocal()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                this.cmpIntId.cln = this.tbl.clnIntId;
-
-                this.inicializarColunas();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void inicializarTitulo()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                this.strTitulo = this.tbl.strNomeExibicao;
             }
             catch (Exception ex)
             {
