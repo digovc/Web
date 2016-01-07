@@ -11,7 +11,7 @@ namespace NetZ.Web.Server
     /// Classe que será utilizada para responder uma solicitação enviada por um cliente por uma
     /// conexão HTTP. Esta classe contém métodos e propriedades relevantes para construção da resposta.
     /// </summary>
-    public class Resposta : SistemaBase.Objeto
+    public class Resposta
     {
         #region Constantes
 
@@ -25,6 +25,36 @@ namespace NetZ.Web.Server
             UTF_8,
         }
 
+        /// <summary>
+        /// Tudo certo.
+        /// </summary>
+        public const int INT_STATUS_CODE_200_OK = 200;
+
+        /// <summary>
+        /// Tudo certo, mas não há conteúdo para retornar.
+        /// </summary>
+        public const int INT_STATUS_CODE_204_NO_CONTENT = 204;
+
+        /// <summary>
+        /// O recurso solicitado pelo cliente ainda não está implementado.
+        /// </summary>
+        public const int INT_STATUS_CODE_501_NOT_IMPLEMENTED = 501;
+
+        /// <summary>
+        /// Redirecionamento para outra localização.
+        /// </summary>
+        public const int INT_STATUS_CODE_302_FOUND = 302;
+
+        /// <summary>
+        /// Conteúdo não alterado. Utilizar a cópia do cache.
+        /// </summary>
+        public const int INT_STATUS_CODE_304_NOT_MODIFIED = 304;
+
+        /// <summary>
+        /// Conteúdo não encontrado.
+        /// </summary>
+        public const int INT_STATUS_CODE_404_NOT_FOUND = 404;
+
         #endregion Constantes
 
         #region Atributos
@@ -35,6 +65,7 @@ namespace NetZ.Web.Server
         private EnmEncoding _enmEncoding = EnmEncoding.UTF_8;
         private int _intStatus;
         private List<Cookie> _lstObjCookie;
+        private List<string> _lstStrHeaderDiverso;
         private MemoryStream _mmsConteudo;
         private Solicitacao _objSolicitacao;
         private string _strRedirecionamento;
@@ -182,6 +213,39 @@ namespace NetZ.Web.Server
             }
         }
 
+        private List<string> lstStrHeaderDiverso
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstStrHeaderDiverso != null)
+                    {
+                        return _lstStrHeaderDiverso;
+                    }
+
+                    _lstStrHeaderDiverso = new List<string>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstStrHeaderDiverso;
+            }
+        }
+
         private MemoryStream mmsConteudo
         {
             get
@@ -296,6 +360,60 @@ namespace NetZ.Web.Server
                 this.lstObjCookie.Add(objCookie);
 
                 return this;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Adiciona valores para o header da resposta.
+        /// <para>
+        /// Estes valores serão adicionado ao final do cabeçallho da resposta apenas se o código do
+        /// status for 200 (OK).
+        /// </para>
+        /// </summary>
+        /// <param name="strNome">Nome do header que será adicionado.</param>
+        /// <param name="strValor">Valor do header que será adicionado.</param>
+        public void addHeader(string strNome, string strValor)
+        {
+            #region Variáveis
+
+            string strHeader;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strNome))
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(strValor))
+                {
+                    return;
+                }
+
+                strHeader = "_header_nome: _header_valor";
+
+                strHeader = strHeader.Replace("_header_nome", strNome);
+                strHeader = strHeader.Replace("_header_valor", strValor);
+
+                if (this.lstStrHeaderDiverso.Contains(strHeader))
+                {
+                    return;
+                }
+
+                this.lstStrHeaderDiverso.Add(strHeader);
             }
             catch (Exception ex)
             {
@@ -489,7 +607,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(Server.STR_COOKIE_SESSAO_ID_NOME)))
+                if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME)))
                 {
                     return;
                 }
@@ -501,7 +619,7 @@ namespace NetZ.Web.Server
 
                 strSessaoId = Utils.getStrMd5(strSessaoId);
 
-                objCookieSessaoId = new Cookie(Server.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
+                objCookieSessaoId = new Cookie(ServerHttp.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
                 objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
 
                 this.addCookie(objCookieSessaoId);
@@ -661,12 +779,13 @@ namespace NetZ.Web.Server
             try
             {
                 strHeader = this.getStrHeader();
+                strHeader = strHeader.Replace((Environment.NewLine + Environment.NewLine), Environment.NewLine);
 
                 mmsResposta = new MemoryStream();
 
                 mmsResposta.Write(Encoding.UTF8.GetBytes(strHeader), 0, Encoding.UTF8.GetByteCount(strHeader));
 
-                if (!200.Equals(this.intStatus))
+                if (!INT_STATUS_CODE_200_OK.Equals(this.intStatus))
                 {
                     return mmsResposta.ToArray();
                 }
@@ -733,8 +852,6 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
-            StringBuilder stbResultado;
-
             #endregion Variáveis
 
             #region Ações
@@ -743,11 +860,40 @@ namespace NetZ.Web.Server
             {
                 this.addCookieSessaoId();
 
-                if (302.Equals(this.intStatus)) // Redirecionamento.
+                switch (this.intStatus)
                 {
-                    return this.getStrHeaderRedirecionamento();
-                }
+                    case INT_STATUS_CODE_204_NO_CONTENT:
+                    case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
+                    case INT_STATUS_CODE_302_FOUND:
+                        return this.getStrHeaderBasico();
 
+                    default:
+                        return this.getStrHeader200();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrHeader200()
+        {
+            #region Variáveis
+
+            StringBuilder stbResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
                 stbResultado = new StringBuilder();
 
                 stbResultado.AppendLine(this.getStrHeaderStatus());
@@ -755,11 +901,40 @@ namespace NetZ.Web.Server
                 stbResultado.AppendLine(this.getStrServer());
                 stbResultado.AppendLine(this.getStrSetCookie());
                 stbResultado.AppendLine(this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao));
-                //stbResultado.AppendLine("Connection: keep-alive");
                 stbResultado.AppendLine(this.getStrHeaderContentType());
                 stbResultado.AppendLine(this.getStrHeaderContentLength());
+                stbResultado.AppendLine(this.getStrHeaderDiverso());
 
-                stbResultado.Replace((Environment.NewLine + Environment.NewLine), Environment.NewLine);
+                return stbResultado.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrHeaderBasico()
+        {
+            #region Variáveis
+
+            StringBuilder stbResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                stbResultado = new StringBuilder();
+
+                stbResultado.AppendLine(this.getStrHeaderStatus());
+                stbResultado.AppendLine(this.getStrServer());
+                stbResultado.AppendLine(this.getStrSetCookie());
 
                 return stbResultado.ToString();
             }
@@ -872,36 +1047,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private string getStrHeaderLocation()
-        {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                strResultado = "Location: _location_value";
-
-                strResultado = strResultado.Replace("_location_value", (!string.IsNullOrEmpty(this.strRedirecionamento)) ? this.strRedirecionamento : "/");
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private string getStrHeaderRedirecionamento()
+        private string getStrHeaderDiverso()
         {
             #region Variáveis
 
@@ -915,9 +1061,15 @@ namespace NetZ.Web.Server
             {
                 stbResultado = new StringBuilder();
 
-                stbResultado.AppendLine(this.getStrHeaderStatus());
-                stbResultado.AppendLine(this.getStrHeaderLocation());
-                stbResultado.AppendLine(this.getStrSetCookie());
+                foreach (string strHeaderDiverso in this.lstStrHeaderDiverso)
+                {
+                    if (string.IsNullOrEmpty(strHeaderDiverso))
+                    {
+                        continue;
+                    }
+
+                    stbResultado.AppendLine(strHeaderDiverso);
+                }
 
                 return stbResultado.ToString();
             }
@@ -948,20 +1100,26 @@ namespace NetZ.Web.Server
 
                 if (this.dttUltimaModificacao.ToString().Equals(this.objSolicitacao.dttUltimaModificacao.ToString()))
                 {
-                    this.intStatus = 304;
+                    this.intStatus = INT_STATUS_CODE_304_NOT_MODIFIED;
                     return strResultado.Replace("_status_code", "304 Not Modified");
                 }
 
                 switch (this.intStatus)
                 {
-                    case 302:
+                    case INT_STATUS_CODE_204_NO_CONTENT:
+                        return strResultado.Replace("_status_code", "204 No Content");
+
+                    case INT_STATUS_CODE_302_FOUND:
                         return strResultado.Replace("_status_code", "302 Found");
 
-                    case 404:
+                    case INT_STATUS_CODE_404_NOT_FOUND:
                         return strResultado.Replace("_status_code", "404 Not Found");
 
+                    case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
+                        return strResultado.Replace("_status_code", "501 Not Implemented");
+
                     default:
-                        this.intStatus = 200;
+                        this.intStatus = INT_STATUS_CODE_200_OK;
                         return strResultado.Replace("_status_code", "200 OK");
                 }
             }

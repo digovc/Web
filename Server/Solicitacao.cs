@@ -47,6 +47,7 @@ namespace NetZ.Web.Server
         private decimal _decHttpVersao;
         private DateTime _dttUltimaModificacao = DateTime.MinValue;
         private EnmMetodo _enmMetodo = EnmMetodo.NONE;
+        private string _jsn;
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
@@ -92,6 +93,43 @@ namespace NetZ.Web.Server
             private set
             {
                 _enmMetodo = value;
+            }
+        }
+
+        /// <summary>
+        /// Caso esta solicitação esteja utilizando o método POST e o tipo de dados seja JSON,
+        /// retorna o valor do objeto passado no corpo da solicitação.
+        /// </summary>
+        public string jsn
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_jsn != null)
+                    {
+                        return _jsn;
+                    }
+
+                    _jsn = this.getJsn();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _jsn;
             }
         }
 
@@ -209,7 +247,7 @@ namespace NetZ.Web.Server
         /// Código único que identifica o cliente. Todas as solicitações enviadas pelo cliente
         /// através de um mesmo browser terão o mesmo valor.
         /// <para>
-        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="Server.STR_COOKIE_SESSAO_ID_NOME"/>.
+        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="ServerHttp.STR_COOKIE_SESSAO_ID_NOME"/>.
         /// </para>
         /// <para>Esse cookie fica salvo no browser do cliente durante 8 (oito) horas.</para>
         /// </summary>
@@ -230,7 +268,7 @@ namespace NetZ.Web.Server
                         return _strSessaoId;
                     }
 
-                    _strSessaoId = this.getStrCookieValor(Server.STR_COOKIE_SESSAO_ID_NOME);
+                    _strSessaoId = this.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME);
                 }
                 catch (Exception ex)
                 {
@@ -473,6 +511,69 @@ namespace NetZ.Web.Server
             return null;
         }
 
+        /// <summary>
+        /// Retorna o valor da linha do cabeçalho que tenha o nome indicado no parâmetro.
+        /// </summary>
+        /// <param name="strHeaderNome">Nome do header que se espera o nome.</param>
+        /// <returns>Retorna o valor do header, caso seja encontrado.</returns>
+        public string getStrHeaderValor(string strHeaderNome)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strHeaderNome))
+                {
+                    return null;
+                }
+
+                if (this.lstObjField == null)
+                {
+                    return null;
+                }
+
+                if (this.lstObjField.Count < 1)
+                {
+                    return null;
+                }
+
+                foreach (Field objField in this.lstObjField)
+                {
+                    if (objField == null)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(objField.strHeaderLinha))
+                    {
+                        continue;
+                    }
+
+                    if (!objField.strHeaderLinha.ToLower().StartsWith(strHeaderNome.ToLower()))
+                    {
+                        continue;
+                    }
+
+                    return objField.strValor;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         internal void processar()
         {
             #region Variáveis
@@ -489,6 +590,44 @@ namespace NetZ.Web.Server
                 }
 
                 this.processarHeader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getJsn()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (!EnmMetodo.POST.Equals(this.enmMetodo))
+                {
+                    return null;
+                }
+
+                if (this.lstObjField == null)
+                {
+                    return null;
+                }
+
+                if (this.lstObjField.Count < 1)
+                {
+                    return null;
+                }
+
+                return this.lstObjField[this.lstObjField.Count - 1].strHeaderLinha;
             }
             catch (Exception ex)
             {
@@ -661,7 +800,6 @@ namespace NetZ.Web.Server
                     Array.Copy(arrBte, arrBte2, intQtd);
 
                     stbMsg.Append(Encoding.UTF8.GetString(arrBte2));
-
                 } while (this.nts.DataAvailable);
 
                 return stbMsg.ToString();

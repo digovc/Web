@@ -177,6 +177,9 @@ namespace NetZ.Web.Html.Componente.Janela
             try
             {
                 lstJs.Add(new JavaScriptTag(typeof(JnlCadastro)));
+
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js"));
             }
             catch (Exception ex)
             {

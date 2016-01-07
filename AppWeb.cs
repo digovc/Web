@@ -194,6 +194,11 @@ namespace NetZ.Web
         /// <para>
         /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWeb"/>.
         /// </para>
+        /// <para>
+        /// O servidor der solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também
+        /// será inicializado, caso a configuração <seealso cref="ConfigWeb.booServerAjaxDbAtivar"/>
+        /// esteja marcada.
+        /// </para>
         /// </summary>
         public void inicializarServidor()
         {
@@ -205,7 +210,12 @@ namespace NetZ.Web
 
             try
             {
-                Server.Server.i.iniciar();
+                ServerHttp.i.iniciar();
+
+                if (ConfigWeb.i.booServerAjaxDbAtivar)
+                {
+                    ServerAjaxDb.i.iniciar();
+                }
             }
             catch (Exception ex)
             {
@@ -231,7 +241,7 @@ namespace NetZ.Web
 
             try
             {
-                Server.Server.i.parar();
+                Server.ServerHttp.i.parar();
             }
             catch (Exception ex)
             {
@@ -257,7 +267,25 @@ namespace NetZ.Web
         /// </para>
         /// </param>
         /// <returns></returns>
-        public abstract Resposta responder(Solicitacao objSolicitacao);        
+        public abstract Resposta responder(Solicitacao objSolicitacao);
+
+        /// <summary>
+        /// Este método é disparado para todas as solicitações que são encaminhadas para o servidor
+        /// <see cref="ServerAjaxDb"/>. Estas solicitações estão diretamente ligadas às ações
+        /// relativas ao banco de dados como recuperar dados, salvar registros, etc.
+        /// <para>
+        /// Os dados da solicitação podem ser encontrados dentro da propriedade <see
+        /// cref="Solicitacao.jsn"/>, que representa o JSON encaminhado pelo browser do cliente.
+        /// </para>
+        /// </summary>
+        /// <param name="objSolicitacao">Solicitação contendo a operação solicitada pelo usuário.</param>
+        /// <returns>
+        /// Retorna a resposta que será processada pelo cliente AJAX no browser do cliente.
+        /// </returns>
+        public virtual Resposta responderAjaxDb(Solicitacao objSolicitacao)
+        {
+            return new Resposta(objSolicitacao) { intStatus = Resposta.INT_STATUS_CODE_501_NOT_IMPLEMENTED };
+        }
 
         /// <summary>
         /// Adiciona um usuário para a lista de usuários.

@@ -20,8 +20,9 @@ namespace NetZ.Web
 
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
-        private int _intPorta = 8000;
-
+        private bool _booServerAjaxDbAtivar = true;
+        private int _intPorta = 8080;
+        private int _intServerAjaxDbPorta = 8081;
         private int _intTimeOut = 45;
 
         public static new ConfigWeb i
@@ -93,6 +94,23 @@ namespace NetZ.Web
         }
 
         /// <summary>
+        /// Indica se ao inicializar o servidor HTTP, o servidor de solicitações AJAX do banco de
+        /// dados será ativo também.
+        /// </summary>
+        public bool booServerAjaxDbAtivar
+        {
+            get
+            {
+                return _booServerAjaxDbAtivar;
+            }
+
+            set
+            {
+                _booServerAjaxDbAtivar = value;
+            }
+        }
+
+        /// <summary>
         /// Porta TCP que será utilizada para rodar o servidor WEB.
         /// </summary>
         public int intPorta
@@ -105,6 +123,22 @@ namespace NetZ.Web
             set
             {
                 _intPorta = value;
+            }
+        }
+
+        /// <summary>
+        /// Porta que será utilizada pelo servidor <see cref="ServerAjaxDb"/>.
+        /// </summary>
+        public int intServerAjaxDbPorta
+        {
+            get
+            {
+                return _intServerAjaxDbPorta;
+            }
+
+            set
+            {
+                _intServerAjaxDbPorta = value;
             }
         }
 

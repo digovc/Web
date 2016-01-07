@@ -111,6 +111,8 @@
     <Compile Include="Html\PaginaHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelHtml.cs" />
     <Compile Include="Html\Tag.cs" />
+    <Compile Include="Persistencia\ColunaWeb.cs" />
+    <Compile Include="Persistencia\TabelaWeb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ArquivoEstatico.cs" />
     <Compile Include="Server\Cliente.cs" />
@@ -118,9 +120,14 @@
     <Compile Include="Server\EnmContentType.cs" />
     <Compile Include="Server\Field.cs" />
     <Compile Include="Server\Resposta.cs" />
-    <Compile Include="Server\Server.cs" />
+    <Compile Include="Server\ServerBase.cs" />
+    <Compile Include="Server\ServerHttp.cs" />
+    <Compile Include="Server\ServerAjax.cs" />
+    <Compile Include="Server\ServerAjaxDb.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
+    <Compile Include="Server\SolicitacaoAjax.cs" />
+    <Compile Include="Server\SolicitacaoAjaxDb.cs" />
     <Compile Include="Server\Usuario.cs" />
     <Compile Include="WinService\NetZWebServiceInstaller.cs">
       <SubType>Component</SubType>
@@ -157,6 +164,7 @@
   <ItemGroup>
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

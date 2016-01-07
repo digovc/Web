@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Net.Sockets;
-using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -14,6 +14,7 @@ namespace NetZ.Web.Server
 
         private DateTime _dttUltimaMensagemRecebida;
         private Solicitacao _objSolicitacao;
+        private ServerBase _srv;
         private TcpClient _tcpClient;
 
         /// <summary>
@@ -45,6 +46,19 @@ namespace NetZ.Web.Server
             }
         }
 
+        private ServerBase srv
+        {
+            get
+            {
+                return _srv;
+            }
+
+            set
+            {
+                _srv = value;
+            }
+        }
+
         private TcpClient tcpClient
         {
             get
@@ -62,7 +76,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Cliente(TcpClient tcpClient) : base("Cliente")
+        internal Cliente(TcpClient tcpClient, ServerBase srv) : base("Cliente")
         {
             #region Variáveis
 
@@ -72,6 +86,7 @@ namespace NetZ.Web.Server
 
             try
             {
+                this.srv = srv;
                 this.tcpClient = tcpClient;
             }
             catch (Exception ex)
@@ -108,8 +123,6 @@ namespace NetZ.Web.Server
                 this.responder();
 
                 this.tcpClient.Close();
-
-                Server.i.lngClienteRespondido++;
             }
             catch (Exception ex)
             {
@@ -242,14 +255,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                if ((!string.IsNullOrEmpty(this.objSolicitacao.strPagina)) && (this.objSolicitacao.strPagina.StartsWith("/res")))
-                {
-                    objResposta = Server.i.responderArquivoEstatico(this.objSolicitacao);
-                }
-                else
-                {
-                    objResposta = AppWeb.i.responder(this.objSolicitacao);
-                }
+                objResposta = this.srv.responder(this.objSolicitacao);
 
                 if (!this.validar(objResposta))
                 {
