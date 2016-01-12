@@ -14,6 +14,7 @@ namespace NetZ.Web.Html.Componente.Menu
         #region Atributos
 
         private DivCirculo _divIcone;
+        private Div _divItemConteudo;
         private Div _divTitulo;
         private string _strTitulo;
 
@@ -66,6 +67,39 @@ namespace NetZ.Web.Html.Componente.Menu
             }
         }
 
+        private Div divItemConteudo
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divItemConteudo != null)
+                    {
+                        return _divItemConteudo;
+                    }
+
+                    _divItemConteudo = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divItemConteudo;
+            }
+        }
+
         private Div divTitulo
         {
             get
@@ -107,6 +141,29 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                this.intTabStop = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            #endregion Ações
+        }
+
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -120,6 +177,66 @@ namespace NetZ.Web.Html.Componente.Menu
             try
             {
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/menu/MainMenuItem.js", 151));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void addTag(Tag tag)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tag == null)
+                {
+                    return;
+                }
+
+                if (!typeof(MainMenuItem).IsAssignableFrom(tag.GetType()))
+                {
+                    base.addTag(tag);
+                    return;
+                }
+
+                tag.setPai(this.divItemConteudo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divItemConteudo.strId = this.strId + "_itemConteudo";
+                this.divTitulo.strId = this.strId + "_titulo";
             }
             catch (Exception ex)
             {
@@ -171,6 +288,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 this.divIcone.setPai(this);
                 this.divTitulo.setPai(this);
+                this.divItemConteudo.setPai(this);
             }
             catch (Exception ex)
             {
@@ -196,13 +314,17 @@ namespace NetZ.Web.Html.Componente.Menu
             try
             {
                 this.addCss(css.setCursor("pointer"));
+                this.addCss(css.setMarginBottom(10));
                 this.addCss(css.setMinHeight(INT_HEIGHT));
 
                 this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
 
-                this.divIcone.addCss(css.setBackgroundColor("blue"));
+                this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
                 this.divIcone.addCss(css.setFloat("left"));
                 this.divIcone.addCss(css.setMarginRight(10));
+
+                this.divItemConteudo.addCss(css.setDisplay("none"));
+                this.divItemConteudo.addCss(css.setPadding(20));
             }
             catch (Exception ex)
             {

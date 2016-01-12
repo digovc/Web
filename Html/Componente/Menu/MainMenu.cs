@@ -215,6 +215,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
+                this.divGaveta.strId = "divGaveta";
+
                 this.txtPesquisa.strId = "txtPesquisa";
                 this.txtPesquisa.strPlaceHolder = "Pesquisa";
             }
@@ -272,7 +274,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divGaveta.addCss(css.setBackgroundColor("rgba(88,178,150,0.75)"));
                 this.divGaveta.addCss(css.setCenter());
                 this.divGaveta.addCss(css.setDisplay("none"));
-                this.divGaveta.addCss(css.setHeight(500));
+                this.divGaveta.addCss(css.setMaxHeight(500));
                 this.divGaveta.addCss(css.setOverflowX("hidden"));
                 this.divGaveta.addCss(css.setOverflowY("auto"));
                 this.divGaveta.addCss(css.setPadding(10));

@@ -1,4 +1,5 @@
 ﻿using System;
+using DigoFramework.Json;
 
 namespace NetZ.Web.Server
 {
@@ -62,6 +63,7 @@ namespace NetZ.Web.Server
             #region Variáveis
 
             Resposta objResposta;
+            SolicitacaoAjaxDb objSolicitacaoAjaxDb;
 
             #endregion Variáveis
 
@@ -74,7 +76,23 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
-                objResposta = AppWeb.i.responderAjaxDb(objSolicitacao);
+                if (string.IsNullOrEmpty(objSolicitacao.jsn))
+                {
+                    return null;
+                }
+
+                objSolicitacaoAjaxDb = Json.i.fromJson<SolicitacaoAjaxDb>(objSolicitacao.jsn);
+
+                if (objSolicitacaoAjaxDb == null)
+                {
+                    return null;
+                }
+
+                AppWeb.i.responderAjaxDb(objSolicitacao, objSolicitacaoAjaxDb);
+
+                objResposta = new Resposta(objSolicitacao);
+
+                objResposta.addJson(objSolicitacaoAjaxDb);
 
                 this.responderAddAcessControl(objResposta, objSolicitacao);
 

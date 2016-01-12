@@ -364,7 +364,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.strConteudo = "*";
                 this.divObrigatorio.strId = "divObrigatorio";
 
-                this.divTitulo.strId = "divTitulo";
+                this.divTitulo.strId = "divTitulo" + this.cln.strNomeSql;
 
                 this.tagInput.enmTipo = this.getEnmTipo();
             }
@@ -489,8 +489,10 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.addAtt("cln", this.cln.strNomeSql);
                 this.booSomenteLeitura = this.cln.booSomenteLeitura;
-                this.strId = this.cln.strNomeSql;
+                this.strId = "cmp_" + this.cln.strNomeSql;
                 this.strTitulo = this.cln.strNomeExibicao;
+
+                this.tagInput.strId = "tag_input_" + this.cln.strNomeSql;
             }
             catch (Exception ex)
             {

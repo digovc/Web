@@ -4,9 +4,36 @@
     {
         #region Constantes
 
+        public enum EnmMetodo
+        {
+            APAGAR,
+            NONE,
+            PESQUISAR,
+            RECUPERAR,
+            SALVAR,
+        }
+
         #endregion Constantes
 
         #region Atributos
+
+        private EnmMetodo _enmMetodo = EnmMetodo.NONE;
+
+        /// <summary>
+        /// Enumerado que indica o método que deve ser executado por esta solicitação.
+        /// </summary>
+        public EnmMetodo enmMetodo
+        {
+            get
+            {
+                return _enmMetodo;
+            }
+
+            set
+            {
+                _enmMetodo = value;
+            }
+        }
 
         #endregion Atributos
 

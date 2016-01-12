@@ -248,8 +248,6 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.objSolicitacao.processar();
-
                 if (!this.validarSolicitacao())
                 {
                     return;
@@ -362,7 +360,7 @@ namespace NetZ.Web.Server
                     return false;
                 }
 
-                if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(this.objSolicitacao))
+                if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(this.objSolicitacao.enmMetodo))
                 {
                     return false;
                 }

@@ -45,6 +45,7 @@ namespace NetZ.Web.Html
         private Atributo _attId;
         private Atributo _attName;
         private Atributo _attSrc;
+        private Atributo _attTabIndex;
         private Atributo _attTitle;
         private Atributo _attType;
         private bool _booBarraFinal = true;
@@ -52,6 +53,7 @@ namespace NetZ.Web.Html
         private bool _booMostrarClazz = true;
         private bool _booTagDupla = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
+        private int _intTabStop;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
         private string _src;
@@ -138,7 +140,8 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo nenhum <see cref="strConteudo"/>.
+        /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo
+        /// nenhum <see cref="strConteudo"/>.
         /// </summary>
         public bool booTagDupla
         {
@@ -167,6 +170,42 @@ namespace NetZ.Web.Html
             set
             {
                 _enmLinkTipo = value;
+            }
+        }
+
+        /// <summary>
+        /// Caso seja setado com um valor acima de 0, esta tag poderá receber o foco.
+        /// </summary>
+        public int intTabStop
+        {
+            get
+            {
+                return _intTabStop;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _intTabStop = value;
+
+                    this.atualizarIntTabStop();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
@@ -278,7 +317,7 @@ namespace NetZ.Web.Html
                 {
                     _strId = value;
 
-                    this.attId.strValor = _strId;
+                    this.atualizarStrId();
                 }
                 catch (Exception ex)
                 {
@@ -486,6 +525,41 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _attSrc;
+            }
+        }
+
+        private Atributo attTabIndex
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attTabIndex != null)
+                    {
+                        return _attTabIndex;
+                    }
+
+                    _attTabIndex = new Atributo("tabindex");
+
+                    this.addAtt(_attTabIndex);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attTabIndex;
             }
         }
 
@@ -1125,6 +1199,32 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Disparado toda vez que o atributo <see cref="strId"/> for alterado.
+        /// </summary>
+        protected virtual void atualizarStrId()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.attId.strValor = this.strId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
         /// Método que será chamado após <see cref="montarLayout"/> para que os ajustes finais sejam feitos.
         /// </summary>
         protected virtual void finalizar()
@@ -1199,6 +1299,34 @@ namespace NetZ.Web.Html
             try
             {
                 this.setCssBooMostrarGrade(css);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarIntTabStop()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.intTabStop < 1)
+                {
+                    return;
+                }
+
+                this.attTabIndex.intValor = this.intTabStop;
             }
             catch (Exception ex)
             {

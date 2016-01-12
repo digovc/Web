@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Web;
 using NetZ.SistemaBase;
 
 namespace NetZ.Web.Server
@@ -45,17 +46,57 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private decimal _decHttpVersao;
+        private Dictionary<string, string> _dicPost;
         private DateTime _dttUltimaModificacao = DateTime.MinValue;
         private EnmMetodo _enmMetodo = EnmMetodo.NONE;
         private string _jsn;
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
+        private string _strConteudo;
+        private string _strHeaderLinhaCabecalho;
         private string _strHost;
         private string _strMsgCliente;
         private string _strPagina;
         private string _strSessaoId;
         private Usuario _usr;
+
+        /// <summary>
+        /// Caso esta seja uma solicitação do tipo POST, este retorna os valores dos parâmetros
+        /// passados na solicitação.
+        /// </summary>
+        public Dictionary<string, string> dicPost
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_dicPost != null)
+                    {
+                        return _dicPost;
+                    }
+
+                    _dicPost = this.getDicPost();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _dicPost;
+            }
+        }
 
         /// <summary>
         /// Indica a data e hora da última modificação do recurso que está salvo em cache do lado do
@@ -71,12 +112,32 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _dttUltimaModificacao;
-            }
+                #region Variáveis
 
-            set
-            {
-                _dttUltimaModificacao = value;
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_dttUltimaModificacao != DateTime.MinValue)
+                    {
+                        return _dttUltimaModificacao;
+                    }
+
+                    _dttUltimaModificacao = this.getDttUltimaModificacao();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _dttUltimaModificacao;
             }
         }
 
@@ -87,12 +148,32 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _enmMetodo;
-            }
+                #region Variáveis
 
-            private set
-            {
-                _enmMetodo = value;
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_enmMetodo != EnmMetodo.NONE)
+                    {
+                        return _enmMetodo;
+                    }
+
+                    _enmMetodo = this.getEnmMetodo();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _enmMetodo;
             }
         }
 
@@ -167,6 +248,79 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
+        /// Texto contendo o conteúdo desta solicitação. O conteúdo é a parte final da solicitação,
+        /// logo após os valores dos fields do head dessa.
+        /// </summary>
+        public string strConteudo
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_strConteudo != null)
+                    {
+                        return _strConteudo;
+                    }
+
+                    _strConteudo = this.getStrConteudo();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _strConteudo;
+            }
+        }
+
+        /// <summary>
+        /// Retorna a primeira linha do header, contendo o seu cabeçalho.
+        /// </summary>
+        public string strHeaderLinhaCabecalho
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_strHeaderLinhaCabecalho != null)
+                    {
+                        return _strHeaderLinhaCabecalho;
+                    }
+
+                    _strHeaderLinhaCabecalho = this.getStrHeaderLinhaCabecalho();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _strHeaderLinhaCabecalho;
+            }
+        }
+
+        /// <summary>
         /// Indica o endereço completo que o usuário está acessando.
         /// </summary>
         public string strHost
@@ -209,11 +363,6 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _strPagina;
-            }
-
-            private set
-            {
                 #region Variáveis
 
                 #endregion Variáveis
@@ -222,14 +371,12 @@ namespace NetZ.Web.Server
 
                 try
                 {
-                    _strPagina = value;
-
-                    if (string.IsNullOrEmpty(_strPagina))
+                    if (_strPagina != null)
                     {
-                        return;
+                        return _strPagina;
                     }
 
-                    _strPagina = _strPagina.ToLower();
+                    _strPagina = this.getStrPagina();
                 }
                 catch (Exception ex)
                 {
@@ -240,6 +387,8 @@ namespace NetZ.Web.Server
                 }
 
                 #endregion Ações
+
+                return _strPagina;
             }
         }
 
@@ -305,15 +454,6 @@ namespace NetZ.Web.Server
                     }
 
                     _usr = this.getUsr();
-
-                    if (_usr != null)
-                    {
-                        return _usr;
-                    }
-
-                    _usr = new Usuario(this.strSessaoId);
-
-                    AppWeb.i.addUsr(_usr);
                 }
                 catch (Exception ex)
                 {
@@ -333,12 +473,32 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _decHttpVersao;
-            }
+                #region Variáveis
 
-            set
-            {
-                _decHttpVersao = value;
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_decHttpVersao > 0)
+                    {
+                        return _decHttpVersao;
+                    }
+
+                    _decHttpVersao = this.getDecHttpVersao();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _decHttpVersao;
             }
         }
 
@@ -359,7 +519,7 @@ namespace NetZ.Web.Server
                         return _lstObjField;
                     }
 
-                    _lstObjField = new List<Field>();
+                    _lstObjField = this.getLstObjField();
                 }
                 catch (Exception ex)
                 {
@@ -574,7 +734,143 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        internal void processar()
+        private decimal getDecHttpVersao()
+        {
+            #region Variáveis
+
+            string[] arrStr;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
+                {
+                    return 0;
+                }
+
+                arrStr = this.strHeaderLinhaCabecalho.Split(" ".ToCharArray());
+
+                if (arrStr == null)
+                {
+                    return 0;
+                }
+
+                if (arrStr.Length < 3)
+                {
+                    return 0;
+                }
+
+                return Convert.ToDecimal(arrStr[2].ToLower().Replace("http/", null), CultureInfo.CreateSpecificCulture("en-USA"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private Dictionary<string, string> getDicPost()
+        {
+            #region Variáveis
+
+            Dictionary<string, string> dicResultado;
+            string[] arrStrKeyValue;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (!EnmMetodo.POST.Equals(this.enmMetodo))
+                {
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(this.strConteudo))
+                {
+                    return null;
+                }
+
+                arrStrKeyValue = this.strConteudo.Split("&".ToCharArray());
+
+                if (arrStrKeyValue == null)
+                {
+                    return null;
+                }
+
+                dicResultado = new Dictionary<string, string>();
+
+                foreach (string strKeyValue in arrStrKeyValue)
+                {
+                    this.getDicPost(dicResultado, strKeyValue);
+                }
+
+                return dicResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void getDicPost(Dictionary<string, string> dicResultado, string strKeyValue)
+        {
+            #region Variáveis
+
+            string[] arrStrKeyValue;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strKeyValue))
+                {
+                    return;
+                }
+
+                strKeyValue = HttpUtility.UrlDecode(strKeyValue);
+
+                arrStrKeyValue = strKeyValue.Split("=".ToCharArray());
+
+                if (arrStrKeyValue == null)
+                {
+                    return;
+                }
+
+                if (arrStrKeyValue.Length < 2)
+                {
+                    return;
+                }
+
+                dicResultado.Add(arrStrKeyValue[0], arrStrKeyValue[1]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private DateTime getDttUltimaModificacao()
         {
             #region Variáveis
 
@@ -584,12 +880,65 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (!this.validar())
+                if (this.lstObjField == null)
                 {
-                    return;
+                    return DateTime.MinValue;
                 }
 
-                this.processarHeader();
+                foreach (Field objField in this.lstObjField)
+                {
+                    if (objField == null)
+                    {
+                        continue;
+                    }
+
+                    if (!Field.EnmTipo.IF_UNMODIFIED_SINCE.Equals(objField.enmTipo))
+                    {
+                        continue;
+                    }
+
+                    return objField.dttValor;
+                }
+
+                return DateTime.MinValue;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private EnmMetodo getEnmMetodo()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
+                {
+                    return EnmMetodo.DESCONHECIDO;
+                }
+
+                if (this.strHeaderLinhaCabecalho.ToLower().Contains("get"))
+                {
+                    return EnmMetodo.GET;
+                }
+
+                if (this.strHeaderLinhaCabecalho.ToLower().Contains("post"))
+                {
+                    return EnmMetodo.POST;
+                }
+
+                return EnmMetodo.DESCONHECIDO;
             }
             catch (Exception ex)
             {
@@ -725,6 +1074,182 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
+        private List<Field> getLstObjField()
+        {
+            #region Variáveis
+
+            string[] arrStrLinha;
+            List<Field> lstObjFieldResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strMsgCliente))
+                {
+                    return null;
+                }
+
+                arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
+
+                if (arrStrLinha == null)
+                {
+                    return null;
+                }
+
+                if (arrStrLinha.Length < 1)
+                {
+                    return null;
+                }
+
+                lstObjFieldResultado = new List<Field>();
+
+                foreach (string strlinha in arrStrLinha)
+                {
+                    this.getLstObjField(lstObjFieldResultado, strlinha);
+                }
+
+                return lstObjFieldResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void getLstObjField(List<Field> lstObjField, string strLinha)
+        {
+            #region Variáveis
+
+            Field objFieldHeader;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strLinha))
+                {
+                    return;
+                }
+
+                objFieldHeader = new Field();
+
+                objFieldHeader.objSolicitacao = this;
+                objFieldHeader.strHeaderLinha = strLinha;
+
+                lstObjField.Add(objFieldHeader);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrConteudo()
+        {
+            #region Variáveis
+
+            bool booConteudo;
+            string[] arrStrLinha;
+            string strResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strMsgCliente))
+                {
+                    return null;
+                }
+
+                arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
+
+                if (arrStrLinha == null)
+                {
+                    return null;
+                }
+
+                booConteudo = false;
+                strResultado = string.Empty;
+
+                foreach (string strLinha in arrStrLinha)
+                {
+                    if (string.IsNullOrEmpty(strLinha))
+                    {
+                        booConteudo = true;
+                        continue;
+                    }
+
+                    if (!booConteudo)
+                    {
+                        continue;
+                    }
+
+                    strResultado += strLinha;
+                }
+
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrHeaderLinhaCabecalho()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.lstObjField == null)
+                {
+                    return null;
+                }
+
+                if (this.lstObjField.Count < 1)
+                {
+                    return null;
+                }
+
+                return this.lstObjField[0].strHeaderLinha;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private string getStrHost()
         {
             #region Variáveis
@@ -815,6 +1340,48 @@ namespace NetZ.Web.Server
             #endregion AÇÕES
         }
 
+        private string getStrPagina()
+        {
+            #region Variáveis
+
+            string[] arrStr;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
+                {
+                    return null;
+                }
+
+                arrStr = this.strHeaderLinhaCabecalho.Split(" ".ToCharArray());
+
+                if (arrStr == null)
+                {
+                    return null;
+                }
+
+                if (arrStr.Length < 2)
+                {
+                    return null;
+                }
+
+                return arrStr[1];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private Usuario getUsr()
         {
             #region Variáveis
@@ -831,99 +1398,6 @@ namespace NetZ.Web.Server
                 }
 
                 return AppWeb.i.getUsr(this.strSessaoId);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void processarHeader()
-        {
-            #region Variáveis
-
-            string[] arrStrLinha;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (string.IsNullOrEmpty(this.strMsgCliente))
-                {
-                    return;
-                }
-
-                arrStrLinha = this.strMsgCliente.Split(Environment.NewLine.ToCharArray());
-
-                if (arrStrLinha == null)
-                {
-                    return;
-                }
-
-                if (arrStrLinha.Length < 1)
-                {
-                    return;
-                }
-
-                this.processarHeaderMetodo(arrStrLinha[0]);
-                this.processarHeaderPagina(arrStrLinha[0]);
-                this.processarHeaderHttpVersao(arrStrLinha[0]);
-
-                arrStrLinha[0] = null;
-
-                foreach (string strlinha in arrStrLinha)
-                {
-                    if (string.IsNullOrEmpty(strlinha))
-                    {
-                        continue;
-                    }
-
-                    this.processarHeader(strlinha);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void processarHeader(string strLinha)
-        {
-            #region Variáveis
-
-            Field objFieldHeader;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (string.IsNullOrEmpty(strLinha))
-                {
-                    return;
-                }
-
-                objFieldHeader = new Field();
-
-                objFieldHeader.objSolicitacao = this;
-                objFieldHeader.strHeaderLinha = strLinha;
-
-                objFieldHeader.processar();
-
-                this.lstObjField.Add(objFieldHeader);
             }
             catch (Exception ex)
             {
@@ -983,135 +1457,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private void processarHeaderHttpVersao(string strHeader)
-        {
-            #region Variáveis
-
-            string[] arrStr;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.decHttpVersao = 0;
-
-                if (string.IsNullOrEmpty(strHeader))
-                {
-                    return;
-                }
-
-                arrStr = strHeader.Split(" ".ToCharArray());
-
-                if (arrStr == null)
-                {
-                    return;
-                }
-
-                if (arrStr.Length < 3)
-                {
-                    return;
-                }
-
-                this.decHttpVersao = Convert.ToDecimal(arrStr[2].ToLower().Replace("http/", null), CultureInfo.CreateSpecificCulture("en-USA"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void processarHeaderMetodo(string strHeader)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.enmMetodo = EnmMetodo.DESCONHECIDO;
-
-                if (string.IsNullOrEmpty(strHeader))
-                {
-                    return;
-                }
-
-                if (strHeader.ToLower().Contains("get"))
-                {
-                    this.enmMetodo = EnmMetodo.GET;
-                    return;
-                }
-
-                if (strHeader.ToLower().Contains("post"))
-                {
-                    this.enmMetodo = EnmMetodo.POST;
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void processarHeaderPagina(string strHeader)
-        {
-            #region Variáveis
-
-            string[] arrStr;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strPagina = null;
-
-                if (string.IsNullOrEmpty(strHeader))
-                {
-                    return;
-                }
-
-                arrStr = strHeader.Split(" ".ToCharArray());
-
-                if (arrStr == null)
-                {
-                    return;
-                }
-
-                if (arrStr.Length < 2)
-                {
-                    return;
-                }
-
-                this.strPagina = arrStr[1];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private bool validar()
+        private bool validarDados()
         {
             #region Variáveis
 

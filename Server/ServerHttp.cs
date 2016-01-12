@@ -360,7 +360,7 @@ namespace NetZ.Web.Server
                         continue;
                     }
 
-                    if (!arq.dirWeb.Equals(objSolicitacao.strPagina))
+                    if (!arq.dirWeb.ToLower().Equals(objSolicitacao.strPagina.ToLower()))
                     {
                         continue;
                     }

@@ -91,31 +91,6 @@ namespace NetZ.Web.Server
 
                 return _decValor;
             }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _decValor = value;
-
-                    this.strValor = Convert.ToString(_decValor);
-                }
-                catch
-                {
-                    this.strValor = null;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-            }
         }
 
         /// <summary>
@@ -147,31 +122,6 @@ namespace NetZ.Web.Server
 
                 return _dttValor;
             }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _dttValor = value;
-
-                    this.strValor = _dttValor.ToString();
-                }
-                catch
-                {
-                    this.strValor = null;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-            }
         }
 
         /// <summary>
@@ -181,12 +131,32 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _enmTipo;
-            }
+                #region Variáveis
 
-            set
-            {
-                _enmTipo = value;
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (!EnmTipo.NONE.Equals(_enmTipo))
+                    {
+                        return _enmTipo;
+                    }
+
+                    _enmTipo = this.getEnmTipo();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _enmTipo;
             }
         }
 
@@ -219,8 +189,14 @@ namespace NetZ.Web.Server
 
                 return _intValor;
             }
+        }
 
-            set
+        /// <summary>
+        /// Valor deste "field" (campo).
+        /// </summary>
+        public string strValor
+        {
+            get
             {
                 #region Variáveis
 
@@ -230,9 +206,12 @@ namespace NetZ.Web.Server
 
                 try
                 {
-                    _intValor = value;
+                    if (_strValor != null)
+                    {
+                        return _strValor;
+                    }
 
-                    this.decValor = _intValor;
+                    _strValor = this.getStrValor();
                 }
                 catch (Exception ex)
                 {
@@ -243,22 +222,8 @@ namespace NetZ.Web.Server
                 }
 
                 #endregion Ações
-            }
-        }
 
-        /// <summary>
-        /// Valor deste "field" (campo).
-        /// </summary>
-        public string strValor
-        {
-            get
-            {
                 return _strValor;
-            }
-
-            set
-            {
-                _strValor = value;
             }
         }
 
@@ -296,11 +261,12 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
-        internal void processar()
+        private EnmTipo getEnmTipo()
         {
             #region Variáveis
 
             string[] arrStr;
+            string strTipo;
 
             #endregion Variáveis
 
@@ -310,191 +276,134 @@ namespace NetZ.Web.Server
             {
                 if (string.IsNullOrEmpty(this.strHeaderLinha))
                 {
-                    return;
+                    return EnmTipo.DESCONHECIDO;
                 }
 
                 arrStr = this.strHeaderLinha.Split(":".ToCharArray());
 
                 if (arrStr == null)
                 {
-                    return;
+                    return EnmTipo.DESCONHECIDO;
                 }
 
                 if (arrStr.Length < 2)
                 {
-                    return;
+                    return EnmTipo.DESCONHECIDO;
                 }
 
-                this.processarStrValor();
-
-                this.processarEnmTipo(arrStr[0]);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void processarEnmTipo(string strTipo)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.enmTipo = EnmTipo.DESCONHECIDO;
+                strTipo = arrStr[0];
 
                 if (string.IsNullOrEmpty(strTipo))
                 {
-                    return;
+                    return EnmTipo.DESCONHECIDO;
                 }
 
                 switch (strTipo.ToLower())
                 {
                     case "accept":
-                        this.enmTipo = EnmTipo.ACCEPT;
-                        return;
+                        return EnmTipo.ACCEPT;
 
                     case "accept-charset":
-                        this.enmTipo = EnmTipo.ACCEPT_CHARSET;
-                        return;
+                        return EnmTipo.ACCEPT_CHARSET;
 
                     case "accept-datetime":
-                        this.enmTipo = EnmTipo.ACCEPT_DATETIME;
-                        return;
+                        return EnmTipo.ACCEPT_DATETIME;
 
                     case "accept-encoding":
-                        this.enmTipo = EnmTipo.ACCEPT_ENCODING;
-                        return;
+                        return EnmTipo.ACCEPT_ENCODING;
 
                     case "accept-language":
-                        this.enmTipo = EnmTipo.ACCEPT_LANGUAGE;
-                        return;
+                        return EnmTipo.ACCEPT_LANGUAGE;
 
                     case "authorization":
-                        this.enmTipo = EnmTipo.AUTHORIZATION;
-                        return;
+                        return EnmTipo.AUTHORIZATION;
 
                     case "cache-control":
-                        this.enmTipo = EnmTipo.CACHE_CONTROL;
-                        return;
+                        return EnmTipo.CACHE_CONTROL;
 
                     case "connection":
-                        this.enmTipo = EnmTipo.CONNECTION;
-                        return;
+                        return EnmTipo.CONNECTION;
 
                     case "content-length":
-                        this.enmTipo = EnmTipo.CONTENT_LENGTH;
-                        return;
+                        return EnmTipo.CONTENT_LENGTH;
 
                     case "content-md5":
-                        this.enmTipo = EnmTipo.CONTENT_MD5;
-                        return;
+                        return EnmTipo.CONTENT_MD5;
 
                     case "content-type":
-                        this.enmTipo = EnmTipo.CONTENT_TYPE;
-                        return;
+                        return EnmTipo.CONTENT_TYPE;
 
                     case "cookie":
-                        this.enmTipo = EnmTipo.COOKIE;
-                        return;
+                        return EnmTipo.COOKIE;
 
                     case "date":
-                        this.enmTipo = EnmTipo.DATE;
-                        return;
+                        return EnmTipo.DATE;
 
                     case "desconhecido":
-                        this.enmTipo = EnmTipo.DESCONHECIDO;
-                        return;
+                        return EnmTipo.DESCONHECIDO;
 
                     case "expect":
-                        this.enmTipo = EnmTipo.EXPECT;
-                        return;
+                        return EnmTipo.EXPECT;
 
                     case "from":
-                        this.enmTipo = EnmTipo.FROM;
-                        return;
+                        return EnmTipo.FROM;
 
                     case "host":
-                        this.enmTipo = EnmTipo.HOST;
-                        return;
+                        return EnmTipo.HOST;
 
                     case "if-match":
-                        this.enmTipo = EnmTipo.IF_MATCH;
-                        return;
+                        return EnmTipo.IF_MATCH;
 
                     case "if-modified-since":
-                        this.setEnmTipoIfModifiedSince();
-                        return;
+                        return EnmTipo.IF_MODIFIED_SINCE;
 
                     case "if-none-match":
-                        this.enmTipo = EnmTipo.IF_NONE_MATCH;
-                        return;
+                        return EnmTipo.IF_NONE_MATCH;
 
                     case "if-range":
-                        this.enmTipo = EnmTipo.IF_RANGE;
-                        return;
+                        return EnmTipo.IF_RANGE;
 
                     case "if-unmodified-since":
-                        this.enmTipo = EnmTipo.IF_UNMODIFIED_SINCE;
-                        return;
+                        return EnmTipo.IF_UNMODIFIED_SINCE;
 
                     case "max-forwards":
-                        this.enmTipo = EnmTipo.MAX_FORWARDS;
-                        return;
+                        return EnmTipo.MAX_FORWARDS;
 
                     case "none":
-                        this.enmTipo = EnmTipo.NONE;
-                        return;
+                        return EnmTipo.NONE;
 
                     case "origin":
-                        this.enmTipo = EnmTipo.ORIGIN;
-                        return;
+                        return EnmTipo.ORIGIN;
 
                     case "pragma":
-                        this.enmTipo = EnmTipo.PRAGMA;
-                        return;
+                        return EnmTipo.PRAGMA;
 
                     case "proxy-authorization":
-                        this.enmTipo = EnmTipo.PROXY_AUTHORIZATION;
-                        return;
+                        return EnmTipo.PROXY_AUTHORIZATION;
 
                     case "range":
-                        this.enmTipo = EnmTipo.RANGE;
-                        return;
+                        return EnmTipo.RANGE;
 
                     case "referer":
-                        this.enmTipo = EnmTipo.REFERER;
-                        return;
+                        return EnmTipo.REFERER;
 
                     case "te":
-                        this.enmTipo = EnmTipo.TE;
-                        return;
+                        return EnmTipo.TE;
 
                     case "upgrade":
-                        this.enmTipo = EnmTipo.UPGRADE;
-                        return;
+                        return EnmTipo.UPGRADE;
 
                     case "user-agent":
-                        this.enmTipo = EnmTipo.USER_AGENT;
-                        return;
+                        return EnmTipo.USER_AGENT;
 
                     case "via":
-                        this.enmTipo = EnmTipo.VIA;
-                        return;
+                        return EnmTipo.VIA;
 
                     case "warning":
-                        this.enmTipo = EnmTipo.WARNING;
-                        return;
+                        return EnmTipo.WARNING;
                 }
+
+                return EnmTipo.DESCONHECIDO;
             }
             catch (Exception ex)
             {
@@ -507,7 +416,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private void processarStrValor()
+        private string getStrValor()
         {
             #region Variáveis
 
@@ -519,40 +428,10 @@ namespace NetZ.Web.Server
             {
                 if (string.IsNullOrEmpty(this.strHeaderLinha))
                 {
-                    return;
+                    return null;
                 }
 
-                this.strValor = this.strHeaderLinha.Substring((this.strHeaderLinha.IndexOf(":") + 2), (this.strHeaderLinha.Length - this.strHeaderLinha.IndexOf(":") - 2));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void setEnmTipoIfModifiedSince()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.enmTipo = EnmTipo.IF_MODIFIED_SINCE;
-
-                if (this.objSolicitacao == null)
-                {
-                    return;
-                }
-
-                this.objSolicitacao.dttUltimaModificacao = Convert.ToDateTime(this.strValor);
+                return this.strHeaderLinha.Substring((this.strHeaderLinha.IndexOf(":") + 2), (this.strHeaderLinha.Length - this.strHeaderLinha.IndexOf(":") - 2));
             }
             catch (Exception ex)
             {

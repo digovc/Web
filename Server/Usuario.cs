@@ -15,6 +15,7 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private bool _booLogado;
+        private DateTime _dttLogin;
         private DateTime _dttPrimeiroAcesso;
         private DateTime _dttUltimoAcesso;
         private int _intDbId;
@@ -33,6 +34,22 @@ namespace NetZ.Web.Server
             set
             {
                 _booLogado = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica a data e hora que o usuário logou na aplicação.
+        /// </summary>
+        public DateTime dttLogin
+        {
+            get
+            {
+                return _dttLogin;
+            }
+
+            set
+            {
+                _dttLogin = value;
             }
         }
 

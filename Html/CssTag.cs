@@ -313,7 +313,8 @@ namespace NetZ.Web.Html
         #region Métodos
 
         /// <summary>
-        /// Este método pode ser usado para atributos CSS que são pouco usuais e que não possuem métodos específicos implementados.
+        /// Este método pode ser usado para atributos CSS que são pouco usuais e que não possuem
+        /// métodos específicos implementados.
         /// </summary>
         /// <param name="strNome">Nome do atributo CSS que se deseja adicionar.</param>
         /// <param name="strValor">Valor do atributo CSS que se deseja adicionar.</param>
@@ -1384,6 +1385,36 @@ namespace NetZ.Web.Html
                 css = css.Replace("_grandeza", strGrandeza);
 
                 return this.addCss("margin-top", css);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        public string setMaxHeight(decimal decHeight, string strGrandeza = "px")
+        {
+            #region Variáveis
+
+            string css;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                css = "_height_grandeza";
+
+                css = css.Replace("_height", decHeight.ToString(this.ctiUsa));
+                css = css.Replace("_grandeza", strGrandeza);
+
+                return this.addCss("max-height", css);
             }
             catch (Exception ex)
             {

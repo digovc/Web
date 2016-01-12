@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using DigoFramework.Json;
+using NetZ.Persistencia;
+using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.Server;
 
@@ -28,6 +31,7 @@ namespace NetZ.Web
         private static AppWeb _i;
 
         private bool _booMostrarGrade;
+        private List<Tabela> _lstTbl;
         private List<Usuario> _lstUsr;
         private object _objLstUsrLock;
 
@@ -123,6 +127,39 @@ namespace NetZ.Web
             }
         }
 
+        private List<Tabela> lstTbl
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_lstTbl != null)
+                    {
+                        return _lstTbl;
+                    }
+
+                    _lstTbl = new List<Tabela>();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _lstTbl;
+            }
+        }
+
         private object objLstUsrLock
         {
             get
@@ -172,6 +209,8 @@ namespace NetZ.Web
             {
                 this.strNome = strNome;
                 AppWeb.i = this;
+
+                this.inicializarLstTbl(this.lstTbl);
             }
             catch (Exception ex)
             {
@@ -273,18 +312,55 @@ namespace NetZ.Web
         /// Este método é disparado para todas as solicitações que são encaminhadas para o servidor
         /// <see cref="ServerAjaxDb"/>. Estas solicitações estão diretamente ligadas às ações
         /// relativas ao banco de dados como recuperar dados, salvar registros, etc.
-        /// <para>
-        /// Os dados da solicitação podem ser encontrados dentro da propriedade <see
-        /// cref="Solicitacao.jsn"/>, que representa o JSON encaminhado pelo browser do cliente.
-        /// </para>
+        /// <para>Essas solicitação são enviadas por AJAX para o servidor de forma assíncrona.</para>
         /// </summary>
-        /// <param name="objSolicitacao">Solicitação contendo a operação solicitada pelo usuário.</param>
-        /// <returns>
-        /// Retorna a resposta que será processada pelo cliente AJAX no browser do cliente.
-        /// </returns>
-        public virtual Resposta responderAjaxDb(Solicitacao objSolicitacao)
+        /// <param name="objSolicitacaoAjaxDb">
+        /// Solicitação contendo as informações da operação aguardada pelo usuário.
+        /// </param>
+        /// <returns>Retorna a resposta que será processada pelo browser do cliente.</returns>
+        public void responderAjaxDb(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-            return new Resposta(objSolicitacao) { intStatus = Resposta.INT_STATUS_CODE_501_NOT_IMPLEMENTED };
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objSolicitacaoAjaxDb == null)
+                {
+                    return;
+                }
+
+                switch (objSolicitacaoAjaxDb.enmMetodo)
+                {
+                    case SolicitacaoAjaxDb.EnmMetodo.APAGAR:
+                        this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                        return;
+
+                    case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR:
+                        this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
+                        return;
+
+                    case SolicitacaoAjaxDb.EnmMetodo.RECUPERAR:
+                        this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                        return;
+
+                    case SolicitacaoAjaxDb.EnmMetodo.SALVAR:
+                        this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                        return;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         /// <summary>
@@ -331,6 +407,8 @@ namespace NetZ.Web
         {
             #region Variáveis
 
+            Usuario usrResposta;
+
             #endregion Variáveis
 
             #region Ações
@@ -363,6 +441,12 @@ namespace NetZ.Web
 
                         return usr;
                     }
+
+                    usrResposta = new Usuario(strSessaoId);
+
+                    this.addUsr(usrResposta);
+
+                    return usrResposta;
                 }
             }
             catch (Exception ex)
@@ -374,8 +458,160 @@ namespace NetZ.Web
             }
 
             #endregion Ações
+        }
 
-            return null;
+        /// <summary>
+        /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
+        /// alterar, pesquisar) com o usuário.
+        /// </summary>
+        /// <param name="lstTbl"></param>
+        protected abstract void inicializarLstTbl(List<Tabela> lstTbl);
+
+        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+        }
+
+        private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+        }
+
+        private void recuperarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+        }
+
+        private void salvarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            #region Variáveis
+
+            TabelaWeb tblWeb;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
+                {
+                    return;
+                }
+
+                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
+
+                this.salvarRegistro(objSolicitacao, tblWeb);
+
+                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            Resposta objResposta;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return;
+                }
+
+                if (tblWeb.arrClnWeb == null)
+                {
+                    return;
+                }
+
+                if (this.lstTbl == null)
+                {
+                    return;
+                }
+
+                // TODO: Analisar a possibilidade de usar uma instância de para cada usuário,
+                //       tornando o sistema mais rápido. Atrelado apenas a aplicação do jeito que
+                // está, pode ocorrer problemas com concorrência.
+                foreach (Tabela tbl in this.lstTbl)
+                {
+                    if (!this.salvarRegistro(objSolicitacao, tblWeb, tbl))
+                    {
+                        continue;
+                    }
+
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private bool salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb, Tabela tbl)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tbl == null)
+                {
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(tbl.strNomeSql))
+                {
+                    return false;
+                }
+
+                if (tblWeb == null)
+                {
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(tblWeb.strNome))
+                {
+                    return false;
+                }
+
+                if (!tbl.strNomeSql.ToLower().Equals(tblWeb.strNome.ToLower()))
+                {
+                    return false;
+                }
+
+                tbl.salvarWeb(tblWeb);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         #endregion Métodos

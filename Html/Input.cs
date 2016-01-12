@@ -336,6 +336,8 @@ namespace NetZ.Web.Html
             try
             {
                 lstJs.Add(new JavaScriptTag(typeof(Input), 110));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnValorAlteradoListener.js", 110));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnValorAlteradoArg.js", 110));
             }
             catch (Exception ex)
             {

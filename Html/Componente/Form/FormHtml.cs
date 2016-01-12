@@ -10,15 +10,61 @@ namespace NetZ.Web.Html.Componente.Form
     {
         #region Constantes
 
+        public enum EnmMetodo
+        {
+            GET,
+            POST,
+        }
+
         #endregion Constantes
 
         #region Atributos
 
+        private Atributo _attAction;
+        private Atributo _attMetodo;
         private Div _divConteudo;
         private LimiteFloat _divLimiteFloat;
+        private EnmMetodo _enmMetodo;
         private List<CampoHtml> _lstCmp;
         private List<PainelNivel> _lstPnlNivel;
         private List<ITagNivel> _lstTagNivel;
+        private string _strAction;
+
+        /// <summary>
+        /// Indica o método que será utilizado para envio dos dados.
+        /// </summary>
+        public EnmMetodo enmMetodo
+        {
+            get
+            {
+                return _enmMetodo;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _enmMetodo = value;
+
+                    this.attMetodo.strValor = EnmMetodo.GET.Equals(_enmMetodo) ? "get" : "post";
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
 
         /// <summary>
         /// Lista dos campos que foram adicionados para este formulário.
@@ -53,6 +99,112 @@ namespace NetZ.Web.Html.Componente.Form
                 #endregion Ações
 
                 return _lstCmp;
+            }
+        }
+
+        /// <summary>
+        /// Define a localização que receberá os dados deste formulário quando ele for submetido ao servidor.
+        /// </summary>
+        public string strAction
+        {
+            get
+            {
+                return _strAction;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _strAction = value;
+
+                    this.attAction.strValor = _strAction;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        private Atributo attAction
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attAction != null)
+                    {
+                        return _attAction;
+                    }
+
+                    _attAction = new Atributo("action");
+
+                    this.addAtt(_attAction);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attAction;
+            }
+        }
+
+        private Atributo attMetodo
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attMetodo != null)
+                    {
+                        return _attMetodo;
+                    }
+
+                    _attMetodo = new Atributo("method");
+
+                    this.addAtt(_attMetodo);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attMetodo;
             }
         }
 
@@ -252,6 +404,31 @@ namespace NetZ.Web.Html.Componente.Form
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstJs.Add(new JavaScriptTag(typeof(FormHtml)));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         protected override void addTag(Tag tag)
         {
