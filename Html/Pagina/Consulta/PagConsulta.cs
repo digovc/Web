@@ -1,11 +1,12 @@
 ﻿using System;
 using NetZ.Persistencia;
-using NetZ.Web.Html.Componente.Campo;
-using NetZ.Web.Html.Componente.Form;
+using NetZ.Web.Html.Componente.Botao.Acao;
+using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Html.Componente.Painel;
 
-namespace NetZ.Web.Html.Componente.Janela
+namespace NetZ.Web.Html.Pagina.Consulta
 {
-    public abstract class JnlCadastro : JanelaHtml
+    public sealed class PagConsulta : PaginaHtml
     {
         #region Constantes
 
@@ -13,12 +14,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Atributos
 
-        private CampoNumerico _cmpIntId;
-        private DivComando _divComando;
-        private FormHtml _frm;
+        private BotaoAcao _btnAcao;
+        private GridHtml _grdDados;
+        private PainelFiltro _pnlFiltro;
         private Tabela _tbl;
 
-        protected FormHtml frm
+        private BotaoAcao btnAcao
         {
             get
             {
@@ -30,12 +31,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 try
                 {
-                    if (_frm != null)
+                    if (_btnAcao != null)
                     {
-                        return _frm;
+                        return _btnAcao;
                     }
 
-                    _frm = new FormHtml();
+                    _btnAcao = new BotaoAcao();
                 }
                 catch (Exception ex)
                 {
@@ -47,11 +48,11 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 #endregion Ações
 
-                return _frm;
+                return _btnAcao;
             }
         }
 
-        private CampoNumerico cmpIntId
+        private GridHtml grdDados
         {
             get
             {
@@ -63,12 +64,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 try
                 {
-                    if (_cmpIntId != null)
+                    if (_grdDados != null)
                     {
-                        return _cmpIntId;
+                        return _grdDados;
                     }
 
-                    _cmpIntId = new CampoNumerico();
+                    _grdDados = new GridHtml();
                 }
                 catch (Exception ex)
                 {
@@ -80,11 +81,11 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 #endregion Ações
 
-                return _cmpIntId;
+                return _grdDados;
             }
         }
 
-        private DivComando divComando
+        private PainelFiltro pnlFiltro
         {
             get
             {
@@ -96,12 +97,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 try
                 {
-                    if (_divComando != null)
+                    if (_pnlFiltro != null)
                     {
-                        return _divComando;
+                        return _pnlFiltro;
                     }
 
-                    _divComando = new DivComando();
+                    _pnlFiltro = new PainelFiltro();
                 }
                 catch (Exception ex)
                 {
@@ -113,13 +114,10 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 #endregion Ações
 
-                return _divComando;
+                return _pnlFiltro;
             }
         }
 
-        /// <summary>
-        /// Tabela que esta janela de cadastro representa.
-        /// </summary>
         private Tabela tbl
         {
             get
@@ -133,11 +131,43 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
+
+        private Div _divGrid;
+        private Div divGrid
+        {
+            get
+            {
+                #region Variáveis
+                #endregion Variáveis
+
+                #region Ações
+                try
+                {
+                    if (_divGrid != null)
+                    {
+                        return _divGrid;
+                    }
+
+                    _divGrid = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+                #endregion Ações
+
+                return _divGrid;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
-        public JnlCadastro(Tabela tbl)
+        public PagConsulta(Tabela tbl) : base("Consula")
         {
             #region Variáveis
 
@@ -176,35 +206,10 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(JnlCadastro)));
+                lstJs.Add(new JavaScriptTag(typeof(PagConsulta), 103));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void finalizar()
-        {
-            base.finalizar();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divComando.setPai(this.frm);
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/FiltroWeb.js"));
             }
             catch (Exception ex)
             {
@@ -229,42 +234,11 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.strId = this.GetType().Name;
-                this.addAtt(new Atributo("tblWeb", this.tbl.strNomeSql));
+                this.tagBody.addAtt(new Atributo("tblWeb", this.tbl.strNomeSql));
 
-                // TODO: O nível da div de comando deve ser dinâmico.
-                this.divComando.intNivel = 2;
+                this.btnAcao.strId = "btnAcao";
 
-                this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
-
-                this.inicializarColunas();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        /// <summary>
-        /// Este método deve ser sobescrito pelos herdeiros desta classe para atribuir os campos as
-        /// suas respectivas colunas.
-        /// </summary>
-        protected virtual void inicializarColunas()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.cmpIntId.cln = this.tbl.clnIntId;
+                this.divGrid.strId = "divGrid";
             }
             catch (Exception ex)
             {
@@ -289,8 +263,45 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.frm.setPai(this);
-                this.cmpIntId.setPai(this.frm);
+                this.pnlFiltro.setPai(this);
+                this.divGrid.setPai(this);
+                this.btnAcao.setPai(this);
+                //this.grdDados.setPai(this.divConteudo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void setCss(CssTag css)
+        {
+            base.setCss(css);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+
+                this.btnAcao.addCss(css.setBottom(25));
+                this.btnAcao.addCss(css.setRight(50));
+
+                this.divGrid.addCss(css.setBottom(0));
+                this.divGrid.addCss(css.setLeft(0));
+                this.divGrid.addCss(css.setOverflow("scroll"));
+                this.divGrid.addCss(css.setPosition("absolute"));
+                this.divGrid.addCss(css.setRight(0));
+                this.divGrid.addCss(css.setTop(150));
             }
             catch (Exception ex)
             {

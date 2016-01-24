@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
 
@@ -1568,10 +1569,15 @@ namespace NetZ.Web.Html
 
             try
             {
+                if (this.lstAtt == null)
+                {
+                    return null;
+                }
+
                 lstStrAtrAdicionado = new List<string>();
                 lstStrAtrFormatado = new List<string>();
 
-                foreach (Atributo att in this.lstAtt)
+                foreach (Atributo att in this.lstAtt.OrderBy((o) => o.strNome))
                 {
                     if (att == null)
                     {

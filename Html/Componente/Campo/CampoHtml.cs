@@ -364,9 +364,14 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.strConteudo = "*";
                 this.divObrigatorio.strId = "divObrigatorio";
 
-                this.divTitulo.strId = "divTitulo" + this.cln.strNomeSql;
-
                 this.tagInput.enmTipo = this.getEnmTipo();
+
+                if (this.cln == null)
+                {
+                    return;
+                }
+
+                this.divTitulo.strId = "divTitulo" + this.cln.strNomeSql;
             }
             catch (Exception ex)
             {

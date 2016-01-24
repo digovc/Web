@@ -1,4 +1,4 @@
-﻿namespace NetZ.Web.ServerService.WinService
+﻿namespace NetZ.Web.WinService
 {
     partial class NetZWebServiceInstaller
     {

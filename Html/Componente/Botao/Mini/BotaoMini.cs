@@ -113,6 +113,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
                 this.addCss(css.setFontSize(15));
                 this.addCss(css.setHeight(30));
                 this.addCss(css.setMarginRight(5));
+                this.addCss(css.setOutLine("none"));
                 this.addCss(css.setTextAlign("center"));
                 this.addCss(css.setWidth(30));
             }

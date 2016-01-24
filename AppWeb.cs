@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
+using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -471,8 +473,147 @@ namespace NetZ.Web
         {
         }
 
+        private Tabela getTbl(TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(tblWeb.strNome))
+                {
+                    return null;
+                }
+
+                if (this.lstTbl == null)
+                {
+                    return null;
+                }
+
+                foreach (Tabela tbl in this.lstTbl)
+                {
+                    if (tbl == null)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(tbl.strNomeSql))
+                    {
+                        continue;
+                    }
+
+                    if (!tblWeb.strNome.ToLower().Equals(tbl.strNomeSql.ToLower()))
+                    {
+                        continue;
+                    }
+
+                    return tbl;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
+            #region Variáveis
+
+            TabelaWeb tblWeb;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
+                {
+                    return;
+                }
+
+                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
+
+                this.pesquisar(objSolicitacao, tblWeb);
+
+                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void pesquisar(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            DataTable tblDados;
+            GridHtml tagGrid;
+            Tabela tbl;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return;
+                }
+
+                tbl = this.getTbl(tblWeb);
+
+                if (tbl == null)
+                {
+                    return;
+                }
+
+                tblDados = tbl.pesquisar(tblWeb);
+
+                if (tblDados == null)
+                {
+                    return;
+                }
+
+                tagGrid = new GridHtml();
+
+                tagGrid.tbl = tbl;
+                tagGrid.tblDados = tblDados;
+
+                tblWeb.tagGrid = tagGrid.toHtml();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         private void recuperarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
@@ -517,7 +658,7 @@ namespace NetZ.Web
         {
             #region Variáveis
 
-            Resposta objResposta;
+            Tabela tbl;
 
             #endregion Variáveis
 
@@ -535,73 +676,14 @@ namespace NetZ.Web
                     return;
                 }
 
-                if (this.lstTbl == null)
-                {
-                    return;
-                }
+                tbl = this.getTbl(tblWeb);
 
-                // TODO: Analisar a possibilidade de usar uma instância de para cada usuário,
-                //       tornando o sistema mais rápido. Atrelado apenas a aplicação do jeito que
-                // está, pode ocorrer problemas com concorrência.
-                foreach (Tabela tbl in this.lstTbl)
-                {
-                    if (!this.salvarRegistro(objSolicitacao, tblWeb, tbl))
-                    {
-                        continue;
-                    }
-
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private bool salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb, Tabela tbl)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
                 if (tbl == null)
                 {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(tbl.strNomeSql))
-                {
-                    return false;
-                }
-
-                if (tblWeb == null)
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(tblWeb.strNome))
-                {
-                    return false;
-                }
-
-                if (!tbl.strNomeSql.ToLower().Equals(tblWeb.strNome.ToLower()))
-                {
-                    return false;
+                    return;
                 }
 
                 tbl.salvarWeb(tblWeb);
-
-                return true;
             }
             catch (Exception ex)
             {

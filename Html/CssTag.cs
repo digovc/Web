@@ -1493,6 +1493,34 @@ namespace NetZ.Web.Html
             return this.addCss("opacity", decOpacity.ToString(this.ctiUsa));
         }
 
+        public string setOutLine(string strOutLine)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strOutLine))
+                {
+                    return null;
+                }
+
+                return this.addCss("outline", strOutLine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         public string setOverflow(string strOverflowPx)
         {
             #region Variáveis

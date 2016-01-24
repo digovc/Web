@@ -141,29 +141,6 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.intTabStop = 1;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-            #endregion Ações
-        }
-
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -274,6 +251,31 @@ namespace NetZ.Web.Html.Componente.Menu
             #endregion Ações
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.intTabStop = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -316,6 +318,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.addCss(css.setCursor("pointer"));
                 this.addCss(css.setMarginBottom(10));
                 this.addCss(css.setMinHeight(INT_HEIGHT));
+                this.addCss(css.setOutLine("none"));
 
                 this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
 

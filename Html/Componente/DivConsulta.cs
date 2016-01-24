@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ServiceProcess;
 
-namespace NetZ.Web.WinService
+namespace NetZ.Web.Html.Componente
 {
-    public abstract partial class NetZWebService : ServiceBase
+    public class DivConsulta : Div
     {
         #region Constantes
 
@@ -11,9 +10,9 @@ namespace NetZ.Web.WinService
 
         #region Atributos
 
-        private AppWeb _appWeb;
+        private Tag _tagObject;
 
-        private AppWeb appWeb
+        private Tag tagObject
         {
             get
             {
@@ -25,12 +24,12 @@ namespace NetZ.Web.WinService
 
                 try
                 {
-                    if (_appWeb != null)
+                    if (_tagObject != null)
                     {
-                        return _appWeb;
+                        return _tagObject;
                     }
 
-                    _appWeb = this.getAppWeb();
+                    _tagObject = new Tag("object");
                 }
                 catch (Exception ex)
                 {
@@ -42,7 +41,7 @@ namespace NetZ.Web.WinService
 
                 #endregion Ações
 
-                return _appWeb;
+                return _tagObject;
             }
         }
 
@@ -50,8 +49,14 @@ namespace NetZ.Web.WinService
 
         #region Construtores
 
-        public NetZWebService()
+        #endregion Construtores
+
+        #region Métodos
+
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
+            base.addJs(lstJs);
+
             #region Variáveis
 
             #endregion Variáveis
@@ -60,16 +65,7 @@ namespace NetZ.Web.WinService
 
             try
             {
-                this.InitializeComponent();
-
-                this.ServiceName = this.GetType().Name;
-                this.EventLog.Log = this.GetType().Name + "_log";
-
-                this.CanHandlePowerEvent = true;
-                this.CanHandleSessionChangeEvent = true;
-                this.CanPauseAndContinue = true;
-                this.CanShutdown = true;
-                this.CanStop = true;
+                lstJs.Add(new JavaScriptTag(typeof(DivConsulta), 110));
             }
             catch (Exception ex)
             {
@@ -82,14 +78,10 @@ namespace NetZ.Web.WinService
             #endregion Ações
         }
 
-        #endregion Construtores
-
-        #region Métodos
-
-        protected abstract AppWeb getAppWeb();
-
-        private void inicializar()
+        protected override void inicializar()
         {
+            base.inicializar();
+
             #region Variáveis
 
             #endregion Variáveis
@@ -98,12 +90,66 @@ namespace NetZ.Web.WinService
 
             try
             {
-                if (this.appWeb == null)
-                {
-                    throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
-                }
+                this.strId = "divConsulta";
+                this.tagObject.strId = "divConsulta_tagObject";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
 
-                this.appWeb.inicializarServidor();
+            #endregion Ações
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tagObject.setPai(this);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void setCss(CssTag css)
+        {
+            base.setCss(css);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(CssTag.i.setBottom(0));
+                this.addCss(CssTag.i.setLeft(0));
+                this.addCss(CssTag.i.setPosition("absolute"));
+                this.addCss(CssTag.i.setRight(0));
+                this.addCss(CssTag.i.setTop(50));
+                this.addCss(CssTag.i.setZIndex(-1));
+
+                this.tagObject.addCss(CssTag.i.setHeight(100, "%"));
+                this.tagObject.addCss(CssTag.i.setWidth(100, "%"));
             }
             catch (Exception ex)
             {
@@ -119,64 +165,6 @@ namespace NetZ.Web.WinService
         #endregion Métodos
 
         #region Eventos
-
-        protected override void OnStart(string[] args)
-        {
-            base.OnStart(args);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                // Comentar sempre que não quiser debugar.
-                //Debugger.Launch();
-
-                this.inicializar();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void OnStop()
-        {
-            base.OnStop();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.appWeb == null)
-                {
-                    throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
-                }
-
-                this.appWeb.pararServidor();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Eventos
     }

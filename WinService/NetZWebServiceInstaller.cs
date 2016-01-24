@@ -2,7 +2,7 @@
 using System.Configuration.Install;
 using System.ServiceProcess;
 
-namespace NetZ.Web.ServerService.WinService
+namespace NetZ.Web.WinService
 {
     public abstract partial class NetZWebServiceInstaller : Installer
     {

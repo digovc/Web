@@ -119,6 +119,7 @@ namespace NetZ.Web.Server
             #region Variáveis
 
             string strReferer;
+            Uri uri;
 
             #endregion Variáveis
 
@@ -148,12 +149,9 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                if (strReferer.EndsWith("/"))
-                {
-                    strReferer = strReferer.Substring(0, (strReferer.Length - 1));
-                }
+                uri = new Uri(strReferer); // TODO: Deve ser revisado.
 
-                objResposta.addHeader("Access-Control-Allow-Origin", strReferer);
+                objResposta.addHeader("Access-Control-Allow-Origin", "http://" + uri.Host);
                 objResposta.addHeader("Access-Control-Allow-Credentials", "true");
             }
             catch (Exception ex)
