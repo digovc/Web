@@ -462,18 +462,7 @@ namespace NetZ.Web
             #endregion Ações
         }
 
-        /// <summary>
-        /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
-        /// alterar, pesquisar) com o usuário.
-        /// </summary>
-        /// <param name="lstTbl"></param>
-        protected abstract void inicializarLstTbl(List<Tabela> lstTbl);
-
-        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-        }
-
-        private Tabela getTbl(TabelaWeb tblWeb)
+        protected Tabela getTbl(string strTblNome)
         {
             #region Variáveis
 
@@ -483,12 +472,7 @@ namespace NetZ.Web
 
             try
             {
-                if (tblWeb == null)
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(tblWeb.strNome))
+                if (string.IsNullOrEmpty(strTblNome))
                 {
                     return null;
                 }
@@ -510,7 +494,7 @@ namespace NetZ.Web
                         continue;
                     }
 
-                    if (!tblWeb.strNome.ToLower().Equals(tbl.strNomeSql.ToLower()))
+                    if (!strTblNome.ToLower().Equals(tbl.strNomeSql.ToLower()))
                     {
                         continue;
                     }
@@ -529,6 +513,50 @@ namespace NetZ.Web
             }
 
             #endregion Ações
+        }
+
+        protected Tabela getTbl(TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(tblWeb.strNome))
+                {
+                    return null;
+                }
+
+                return this.getTbl(tblWeb.strNome);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
+        /// alterar, pesquisar) com o usuário.
+        /// </summary>
+        /// <param name="lstTbl"></param>
+        protected abstract void inicializarLstTbl(List<Tabela> lstTbl);
+
+        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
         }
 
         private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
@@ -600,6 +628,7 @@ namespace NetZ.Web
 
                 tagGrid = new GridHtml();
 
+                tagGrid.strId = "tagGridHtml_consulta";
                 tagGrid.tbl = tbl;
                 tagGrid.tblDados = tblDados;
 

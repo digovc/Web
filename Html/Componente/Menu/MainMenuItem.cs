@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Circulo;
 
 namespace NetZ.Web.Html.Componente.Menu
@@ -18,6 +19,8 @@ namespace NetZ.Web.Html.Componente.Menu
         private Div _divTitulo;
         private string _strTitulo;
 
+        private Tabela _tbl;
+
         /// <summary>
         /// Texto que será apresentado para o usuário.
         /// </summary>
@@ -31,6 +34,39 @@ namespace NetZ.Web.Html.Componente.Menu
             set
             {
                 _strTitulo = value;
+            }
+        }
+
+        public Tabela tbl
+        {
+            get
+            {
+                return _tbl;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _tbl = value;
+
+                    this.atualizarTbl();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
             }
         }
 
@@ -153,7 +189,9 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/menu/MainMenuItem.js", 151));
+                lstJs.Add(new JavaScriptTag(typeof(MainMenuItem), 151));
+
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
             }
             catch (Exception ex)
             {
@@ -328,6 +366,36 @@ namespace NetZ.Web.Html.Componente.Menu
 
                 this.divItemConteudo.addCss(css.setDisplay("none"));
                 this.divItemConteudo.addCss(css.setPadding(20));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void atualizarTbl()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.tbl == null)
+                {
+                    return;
+                }
+
+                this.strTitulo = this.tbl.strNomeExibicao;
+
+                this.addAtt("tblWebNome", this.tbl.strNomeSql);
             }
             catch (Exception ex)
             {

@@ -227,6 +227,66 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strId))
+                {
+                    return;
+                }
+
+                this.tagTable.strId = this.strId + "_table";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.tbl == null)
+                {
+                    return;
+                }
+
+                this.addAtt("tblWebNome", this.tbl.strNomeSql);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -271,16 +331,16 @@ namespace NetZ.Web.Html.Componente.Grid
 
             try
             {
-                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+                //this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
                 //this.addCss(css.setHeight(600));
                 //this.addCss(css.setOverflow("scroll"));
-                this.addCss(css.setPadding(10));
+                //this.addCss(css.setPadding(10));
                 //this.addCss(css.setWidth(600));
 
                 this.tagTable.addCss(css.addCss("border-spacing", "0"));
                 this.tagTable.addCss(css.setBackgroundColor("white"));
-                this.tagTable.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
-                this.tagTable.addCss(css.setBoxShadow(0,2,2,0,AppWeb.i.objTema.corBorda));
+                //this.tagTable.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
+                this.tagTable.addCss(css.setBoxShadow(0, 2, 2, 0, AppWeb.i.objTema.corBorda));
                 this.tagTable.addCss(css.setCenter());
 
                 this.tagTrHead.addCss(css.setHeight(INT_LINHA_TAMANHO));

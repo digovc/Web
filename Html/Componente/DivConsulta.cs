@@ -148,7 +148,7 @@ namespace NetZ.Web.Html.Componente
                 this.addCss(CssTag.i.setTop(50));
                 this.addCss(CssTag.i.setZIndex(-1));
 
-                this.tagObject.addCss(CssTag.i.setHeight(100, "%"));
+                this.tagObject.addCss(CssTag.i.setHeight(99.5m, "%"));
                 this.tagObject.addCss(CssTag.i.setWidth(100, "%"));
             }
             catch (Exception ex)

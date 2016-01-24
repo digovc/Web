@@ -2,7 +2,6 @@
 using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Botao.Acao;
 using NetZ.Web.Html.Componente.Grid;
-using NetZ.Web.Html.Componente.Painel;
 
 namespace NetZ.Web.Html.Pagina.Consulta
 {
@@ -15,6 +14,7 @@ namespace NetZ.Web.Html.Pagina.Consulta
         #region Atributos
 
         private BotaoAcao _btnAcao;
+        private Div _divGrid;
         private GridHtml _grdDados;
         private PainelFiltro _pnlFiltro;
         private Tabela _tbl;
@@ -49,6 +49,39 @@ namespace NetZ.Web.Html.Pagina.Consulta
                 #endregion Ações
 
                 return _btnAcao;
+            }
+        }
+
+        private Div divGrid
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divGrid != null)
+                    {
+                        return _divGrid;
+                    }
+
+                    _divGrid = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divGrid;
             }
         }
 
@@ -131,38 +164,6 @@ namespace NetZ.Web.Html.Pagina.Consulta
             }
         }
 
-
-        private Div _divGrid;
-        private Div divGrid
-        {
-            get
-            {
-                #region Variáveis
-                #endregion Variáveis
-
-                #region Ações
-                try
-                {
-                    if (_divGrid != null)
-                    {
-                        return _divGrid;
-                    }
-
-                    _divGrid = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-                #endregion Ações
-
-                return _divGrid;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -206,10 +207,12 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
             try
             {
+                lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(PagConsulta), 103));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/FiltroWeb.js"));
+                lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
             }
             catch (Exception ex)
             {
@@ -234,7 +237,7 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
             try
             {
-                this.tagBody.addAtt(new Atributo("tblWeb", this.tbl.strNomeSql));
+                this.tagBody.addAtt("tblWebNome", this.tbl.strNomeSql);
 
                 this.btnAcao.strId = "btnAcao";
 
@@ -296,9 +299,10 @@ namespace NetZ.Web.Html.Pagina.Consulta
                 this.btnAcao.addCss(css.setBottom(25));
                 this.btnAcao.addCss(css.setRight(50));
 
+                this.divGrid.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
                 this.divGrid.addCss(css.setBottom(0));
                 this.divGrid.addCss(css.setLeft(0));
-                this.divGrid.addCss(css.setOverflow("scroll"));
+                this.divGrid.addCss(css.setOverflow("auto"));
                 this.divGrid.addCss(css.setPosition("absolute"));
                 this.divGrid.addCss(css.setRight(0));
                 this.divGrid.addCss(css.setTop(150));

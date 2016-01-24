@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/ComponenteHtml.js", 110));
+                lstJs.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
             }
             catch (Exception ex)
             {

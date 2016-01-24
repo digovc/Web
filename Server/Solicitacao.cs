@@ -672,6 +672,54 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
+        /// Retorna o valor do parâmetro GET caso esteja presente na URL solicitada ou null caso não encontre.
+        /// </summary>
+        public string getStrGetValue(string strGetParam)
+        {
+            #region Variáveis
+
+            string urlPagina;
+            Uri uri;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strGetParam))
+                {
+                    return null;
+                }
+
+                urlPagina = this.strPagina;
+
+                if (string.IsNullOrEmpty(urlPagina))
+                {
+                    return null;
+                }
+
+                if (urlPagina.StartsWith("/"))
+                {
+                    urlPagina = "http://localhost" + urlPagina;
+                }
+
+                uri = new Uri(urlPagina);
+
+                return HttpUtility.ParseQueryString(uri.Query).Get(strGetParam);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
         /// Retorna o valor da linha do cabeçalho que tenha o nome indicado no parâmetro.
         /// </summary>
         /// <param name="strHeaderNome">Nome do header que se espera o nome.</param>
@@ -1325,7 +1373,6 @@ namespace NetZ.Web.Server
                     Array.Copy(arrBte, arrBte2, intQtd);
 
                     stbMsg.Append(Encoding.UTF8.GetString(arrBte2));
-					
                 } while (this.nts.DataAvailable);
 
                 return stbMsg.ToString();
