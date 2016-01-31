@@ -23,7 +23,7 @@ namespace NetZ.Web
         private bool _booServerAjaxDbAtivar = true;
         private int _intPorta = 8080;
         private int _intServerAjaxDbPorta = 8081;
-        private int _intTimeOut = 45;
+        private int _intTimeOut = 5;
 
         public static new ConfigWeb i
         {

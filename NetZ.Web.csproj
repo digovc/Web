@@ -52,7 +52,8 @@
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
-    <Compile Include="Html\Componente\Botao\Acao\BotaoAcao.cs" />
+    <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
+    <Compile Include="Html\Componente\Botao\BotaoCircular.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
     <Compile Include="Html\Componente\Botao\Atalho\BotaoAtalho.cs" />
     <Compile Include="Html\Componente\Botao\Comando\BotaoComando.cs" />
@@ -81,8 +82,9 @@
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
     <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
-    <Compile Include="Html\Componente\DivConsulta.cs" />
+    <Compile Include="Html\Pagina\Cadastro\PagCadastro.cs" />
     <Compile Include="Html\Pagina\Consulta\FrmFiltroSelecao.cs" />
+    <Compile Include="Html\Pagina\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Pagina\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Form\DivComando.cs" />
     <Compile Include="Html\Componente\Grid\GridData.cs" />
@@ -98,7 +100,6 @@
     <Compile Include="Html\Componente\Form\FormHtml.cs" />
     <Compile Include="Html\Componente\Janela\JanelaHtml.cs" />
     <Compile Include="Html\Componente\Janela\JnlCadastro.cs" />
-    <Compile Include="Html\Componente\Janela\JnlConsulta.cs" />
     <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
     <Compile Include="Html\Componente\Menu\MainMenu.cs" />
     <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />

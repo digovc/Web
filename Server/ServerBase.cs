@@ -213,35 +213,6 @@ namespace NetZ.Web.Server
 
             try
             {
-                this.verificarAddCliente();
-                Thread.Sleep(10);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void verificarAddCliente()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (!this.tcpListener.Pending())
-                {
-                    return;
-                }
-
                 this.addCliente(this.tcpListener.AcceptTcpClient());
             }
             catch (Exception ex)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Sockets;
 using System.Reflection;
 
 namespace NetZ.Web.Server
@@ -120,12 +119,12 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
-                if (string.IsNullOrEmpty(objSolicitacao.strPagina))
+                if (string.IsNullOrEmpty(objSolicitacao.strPaginaCompleta))
                 {
                     return null;
                 }
 
-                if (objSolicitacao.strPagina.StartsWith("/res"))
+                if (objSolicitacao.strPaginaCompleta.StartsWith("/res"))
                 {
                     return this.responderArquivoEstatico(objSolicitacao);
                 }

@@ -6,6 +6,7 @@
 
         public enum EnmMetodo
         {
+            ADICIONAR,
             APAGAR,
             NONE,
             PESQUISAR,

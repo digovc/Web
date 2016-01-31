@@ -120,7 +120,7 @@ namespace NetZ.Web.Html.Componente.Janela
         /// <summary>
         /// Tabela que esta janela de cadastro representa.
         /// </summary>
-        private Tabela tbl
+        public Tabela tbl
         {
             get
             {
@@ -136,29 +136,6 @@ namespace NetZ.Web.Html.Componente.Janela
         #endregion Atributos
 
         #region Construtores
-
-        public JnlCadastro(Tabela tbl)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tbl = tbl;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Construtores
 
@@ -176,7 +153,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(JnlCadastro)));
+                lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js"));
@@ -230,7 +207,7 @@ namespace NetZ.Web.Html.Componente.Janela
             try
             {
                 this.strId = this.GetType().Name;
-                this.addAtt(new Atributo("tblWeb", this.tbl.strNomeSql));
+                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
 
                 // TODO: O nível da div de comando deve ser dinâmico.
                 this.divComando.intNivel = 2;

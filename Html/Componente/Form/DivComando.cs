@@ -248,9 +248,9 @@ namespace NetZ.Web.Html.Componente.Form
 
             try
             {
-                this.addCss(css.setPaddingLeft(10));
-                this.addCss(css.setPaddingRight(10));
                 this.addCss(css.setPaddingTop(10));
+
+                this.btnEsquerda.addCss(css.setMarginRight(5));
             }
             catch (Exception ex)
             {

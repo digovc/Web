@@ -492,7 +492,7 @@ namespace NetZ.Web.Html.Componente.Campo
                     return;
                 }
 
-                this.addAtt("cln", this.cln.strNomeSql);
+                this.addAtt("cln_nome", this.cln.strNomeSql);
                 this.booSomenteLeitura = this.cln.booSomenteLeitura;
                 this.strId = "cmp_" + this.cln.strNomeSql;
                 this.strTitulo = this.cln.strNomeExibicao;

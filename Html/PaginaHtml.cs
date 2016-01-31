@@ -624,6 +624,7 @@ namespace NetZ.Web.Html
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/PaginaHtml.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnPaginaImportadaListener.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerBase.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerAjax.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerAjaxDb.js", 105));

@@ -1,11 +1,10 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Botao.Mini;
-using NetZ.Web.Html.Componente.Campo;
-using NetZ.Web.Html.Componente.Form;
+using NetZ.Web.Html.Componente.Painel;
 
 namespace NetZ.Web.Html.Pagina.Consulta
 {
-    public class FrmFiltroSelecao : FormHtml
+    public class PainelAcaoConsulta : PainelAcao
     {
         #region Constantes
 
@@ -15,8 +14,6 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
         private BotaoAdicionarMini _btnAdicionar;
         private BotaoAlterarMini _btnAlterar;
-        private BotaoApagarMini _btnApagar;
-        private CampoComboBox _cmpFiltroSelecao;
 
         private BotaoAdicionarMini btnAdicionar
         {
@@ -84,72 +81,6 @@ namespace NetZ.Web.Html.Pagina.Consulta
             }
         }
 
-        private BotaoApagarMini btnApagar
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_btnApagar != null)
-                    {
-                        return _btnApagar;
-                    }
-
-                    _btnApagar = new BotaoApagarMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _btnApagar;
-            }
-        }
-
-        private CampoComboBox cmpFiltroSelecao
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_cmpFiltroSelecao != null)
-                    {
-                        return _cmpFiltroSelecao;
-                    }
-
-                    _cmpFiltroSelecao = new CampoComboBox();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _cmpFiltroSelecao;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -158,9 +89,9 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
         #region Métodos
 
-        protected override void inicializar()
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.inicializar();
+            base.addJs(lstJs);
 
             #region Variáveis
 
@@ -170,11 +101,7 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
             try
             {
-                this.btnAdicionar.intNivel = 1;
-                this.btnAlterar.intNivel = 1;
-                this.btnApagar.intNivel = 1;
-
-                this.cmpFiltroSelecao.strTitulo = "Selecione um filtro";
+                lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
             }
             catch (Exception ex)
             {
@@ -199,11 +126,8 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
             try
             {
-                this.cmpFiltroSelecao.setPai(this);
-
-                //this.btnAdicionar.setPai(this);
-                //this.btnAlterar.setPai(this);
-                //this.btnApagar.setPai(this);
+                this.btnAdicionar.setPai(this);
+                this.btnAlterar.setPai(this);
             }
             catch (Exception ex)
             {
@@ -213,6 +137,30 @@ namespace NetZ.Web.Html.Pagina.Consulta
             {
             }
 
+            #endregion Ações
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+
+            #region Variáveis
+            #endregion Variáveis
+
+            #region Ações
+            try
+            {
+                this.btnAdicionar.strId = "btnAdicionar";
+                this.btnAlterar.strId = "btnAlterar";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
             #endregion Ações
         }
 

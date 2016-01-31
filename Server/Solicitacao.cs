@@ -58,6 +58,7 @@ namespace NetZ.Web.Server
         private string _strHost;
         private string _strMsgCliente;
         private string _strPagina;
+        private string _strPaginaCompleta;
         private string _strSessaoId;
         private Usuario _usr;
 
@@ -357,7 +358,7 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Página que foi solicitada pelo cliente.
+        /// Página solicitada pelo usuário.
         /// </summary>
         public string strPagina
         {
@@ -389,6 +390,42 @@ namespace NetZ.Web.Server
                 #endregion Ações
 
                 return _strPagina;
+            }
+        }
+
+        /// <summary>
+        /// Página que foi solicitada pelo cliente contendo os possíveis parâmetros GET.
+        /// </summary>
+        public string strPaginaCompleta
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_strPaginaCompleta != null)
+                    {
+                        return _strPaginaCompleta;
+                    }
+
+                    _strPaginaCompleta = this.getStrPaginaCompleta();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _strPaginaCompleta;
             }
         }
 
@@ -692,7 +729,7 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
-                urlPagina = this.strPagina;
+                urlPagina = this.strPaginaCompleta;
 
                 if (string.IsNullOrEmpty(urlPagina))
                 {
@@ -940,7 +977,7 @@ namespace NetZ.Web.Server
                         continue;
                     }
 
-                    if (!Field.EnmTipo.IF_UNMODIFIED_SINCE.Equals(objField.enmTipo))
+                    if (!Field.EnmTipo.IF_MODIFIED_SINCE.Equals(objField.enmTipo))
                     {
                         continue;
                     }
@@ -1389,6 +1426,39 @@ namespace NetZ.Web.Server
         }
 
         private string getStrPagina()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strPaginaCompleta))
+                {
+                    return null;
+                }
+
+                if (this.strPaginaCompleta.IndexOf("?") < 0)
+                {
+                    return this.strPaginaCompleta;
+                }
+
+                return this.strPaginaCompleta.Split('?')[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private string getStrPaginaCompleta()
         {
             #region Variáveis
 

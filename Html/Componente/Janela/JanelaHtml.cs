@@ -264,7 +264,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(JanelaHtml)));
+                lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 111));
             }
             catch (Exception ex)
             {

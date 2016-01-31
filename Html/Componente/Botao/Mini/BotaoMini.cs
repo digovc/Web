@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Botao.Mini
 {
-    public class BotaoMini : BotaoHtml
+    public class BotaoMini : BotaoCircular
     {
         #region Constantes
 
@@ -67,6 +67,11 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
             #endregion Ações
         }
 
+        protected override int getIntTamanho()
+        {
+            return 30;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -94,7 +99,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
         protected override void setCss(CssTag css)
         {
-            //base.setCss(css);
+            base.setCss(css);
 
             #region Variáveis
 
@@ -104,18 +109,11 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                this.addCss(css.setBorder(0));
-                this.addCss(css.setBorderRadius(50, "%"));
-                this.addCss(css.setBoxShadow(0, 0, 1, 0, AppWeb.i.objTema.corSombra));
-                this.addCss(css.setColor("white"));
-                this.addCss(css.setCursor("pointer"));
                 this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));
                 this.addCss(css.setFontSize(15));
-                this.addCss(css.setHeight(30));
-                this.addCss(css.setMarginRight(5));
-                this.addCss(css.setOutLine("none"));
+                this.addCss(css.setHeight(this.getIntTamanho()));
                 this.addCss(css.setTextAlign("center"));
-                this.addCss(css.setWidth(30));
+                this.addCss(css.setWidth(this.getIntTamanho()));
             }
             catch (Exception ex)
             {

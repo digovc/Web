@@ -55,8 +55,6 @@ namespace NetZ.Web.Html.Componente.Botao.Comando
 
             try
             {
-                this.addCss(css.setHeight(30));
-                this.addCss(css.setWidth(100));
                 this.addCss(css.setMarginLeft(5));
             }
             catch (Exception ex)

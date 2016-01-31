@@ -142,7 +142,7 @@ namespace NetZ.Web.Html.Componente.Botao
                 this.addCss(css.setBorder(0));
                 this.addCss(css.setCursor("pointer"));
                 this.addCss(css.setFloat("right"));
-                this.addCss(css.setHeight(50));
+                this.addCss(css.setHeight(30));
                 this.addCss(css.setWidth(this.getDecWidth()));
             }
             catch (Exception ex)
@@ -214,7 +214,7 @@ namespace NetZ.Web.Html.Componente.Botao
                     return;
                 }
 
-                this.addAtt(new Atributo("onclick", "return false"));
+                this.addAtt("onclick", "return false");
             }
             catch (Exception ex)
             {

@@ -274,7 +274,7 @@ namespace NetZ.Web.Html.Componente.Grid
                     return;
                 }
 
-                this.addAtt("tblWebNome", this.tbl.strNomeSql);
+                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
             }
             catch (Exception ex)
             {

@@ -1,8 +1,10 @@
 ﻿using System;
+using NetZ.Persistencia;
+using NetZ.Web.Html.Componente.Janela;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Pagina.Cadastro
 {
-    public class DivConsulta : Div
+    public class PagCadastro : PaginaHtml
     {
         #region Constantes
 
@@ -10,44 +12,61 @@ namespace NetZ.Web.Html.Componente
 
         #region Atributos
 
-        private Tag _tagObject;
+        private JnlCadastro _jnlCadastro;
+        private Tabela _tbl;
 
-        private Tag tagObject
+        private JnlCadastro jnlCadastro
         {
             get
             {
-                #region Variáveis
+                return _jnlCadastro;
+            }
 
-                #endregion Variáveis
+            set
+            {
+                _jnlCadastro = value;
+            }
+        }
 
-                #region Ações
+        private Tabela tbl
+        {
+            get
+            {
+                return _tbl;
+            }
 
-                try
-                {
-                    if (_tagObject != null)
-                    {
-                        return _tagObject;
-                    }
-
-                    _tagObject = new Tag("object");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tagObject;
+            set
+            {
+                _tbl = value;
             }
         }
 
         #endregion Atributos
 
         #region Construtores
+
+        public PagCadastro(Tabela tbl) : base("Cadastro")
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tbl = tbl;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         #endregion Construtores
 
@@ -65,7 +84,7 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(DivConsulta), 110));
+                lstJs.Add(new JavaScriptTag(typeof(PagCadastro), 103));
             }
             catch (Exception ex)
             {
@@ -90,8 +109,7 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
-                this.strId = "divConsulta";
-                this.tagObject.strId = "divConsulta_tagObject";
+                this.inicializarTbl();
             }
             catch (Exception ex)
             {
@@ -116,7 +134,7 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
-                this.tagObject.setPai(this);
+                this.jnlCadastro.setPai(this);
             }
             catch (Exception ex)
             {
@@ -129,10 +147,8 @@ namespace NetZ.Web.Html.Componente
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        private void inicializarTbl()
         {
-            base.setCss(css);
-
             #region Variáveis
 
             #endregion Variáveis
@@ -141,15 +157,18 @@ namespace NetZ.Web.Html.Componente
 
             try
             {
-                this.addCss(CssTag.i.setBottom(0));
-                this.addCss(CssTag.i.setLeft(0));
-                this.addCss(CssTag.i.setPosition("absolute"));
-                this.addCss(CssTag.i.setRight(0));
-                this.addCss(CssTag.i.setTop(50));
-                this.addCss(CssTag.i.setZIndex(-1));
+                if (this.tbl == null)
+                {
+                    return;
+                }
 
-                this.tagObject.addCss(CssTag.i.setHeight(99.5m, "%"));
-                this.tagObject.addCss(CssTag.i.setWidth(100, "%"));
+                if (this.tbl.clsJnlCadastro == null)
+                {
+                    return;
+                }
+
+                this.jnlCadastro = (JnlCadastro)Activator.CreateInstance(this.tbl.clsJnlCadastro);
+                this.jnlCadastro.tbl = this.tbl;
             }
             catch (Exception ex)
             {

@@ -279,6 +279,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divGaveta.addCss(css.setOverflowY("auto"));
                 this.divGaveta.addCss(css.setPadding(10));
                 this.divGaveta.addCss(css.setWidth(600));
+                this.divGaveta.addCss(css.setZIndex(10));
 
                 this.divGavetaContainer.addCss(css.setWidth(100, "%"));
 

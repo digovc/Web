@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -119,8 +119,11 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.processarSolicitacao();
-                this.responder();
+                while (this.tcpClient.Connected)
+                {
+                    this.processarSolicitacao();
+                    this.responder();
+                }
 
                 this.tcpClient.Close();
             }
@@ -211,8 +214,11 @@ namespace NetZ.Web.Server
 
                     if ((DateTime.Now - dtt).Seconds > ConfigWeb.i.intTimeOut)
                     {
+                        this.tcpClient.Close();
                         return;
                     }
+
+                    Thread.Sleep(1);
                 }
             }
             catch (Exception ex)
@@ -261,6 +267,11 @@ namespace NetZ.Web.Server
                 }
 
                 this.responder(objResposta);
+
+                if (Resposta.INT_STATUS_CODE_302_FOUND.Equals(objResposta.intStatus))
+                {
+                    this.tcpClient.Close();
+                }
             }
             catch (Exception ex)
             {

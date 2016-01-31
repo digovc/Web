@@ -1112,6 +1112,7 @@ namespace NetZ.Web.Html
             {
                 this.inicializar();
                 this.montarLayout();
+                this.setCss(CssTag.i);
                 this.finalizar();
 
                 if (this.getBooTagDupla())
@@ -1246,6 +1247,10 @@ namespace NetZ.Web.Html
 
             try
             {
+                this.addCss(PaginaHtml.i.lstCss);
+                this.addJs(PaginaHtml.i.lstJs);
+                this.addJs(PaginaHtml.i.tagJs);
+
                 this.inicializarClazz();
             }
             catch (Exception ex)
@@ -1261,28 +1266,6 @@ namespace NetZ.Web.Html
 
         protected virtual void montarLayout()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(PaginaHtml.i.lstCss);
-                this.addJs(PaginaHtml.i.lstJs);
-                this.addJs(PaginaHtml.i.tagJs);
-                this.setCss(CssTag.i);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 using NetZ.Persistencia;
-using NetZ.Web.Html.Componente.Botao.Acao;
+using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Grid;
 
 namespace NetZ.Web.Html.Pagina.Consulta
@@ -13,13 +13,14 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
         #region Atributos
 
-        private BotaoAcao _btnAcao;
+        private Div _divCadastro;
         private Div _divGrid;
         private GridHtml _grdDados;
+        private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
         private Tabela _tbl;
 
-        private BotaoAcao btnAcao
+        private Div divCadastro
         {
             get
             {
@@ -31,12 +32,12 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
                 try
                 {
-                    if (_btnAcao != null)
+                    if (_divCadastro != null)
                     {
-                        return _btnAcao;
+                        return _divCadastro;
                     }
 
-                    _btnAcao = new BotaoAcao();
+                    _divCadastro = new Div();
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +49,7 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
                 #endregion Ações
 
-                return _btnAcao;
+                return _divCadastro;
             }
         }
 
@@ -115,6 +116,39 @@ namespace NetZ.Web.Html.Pagina.Consulta
                 #endregion Ações
 
                 return _grdDados;
+            }
+        }
+
+        private PainelAcaoConsulta pnlAcaoConsulta
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_pnlAcaoConsulta != null)
+                    {
+                        return _pnlAcaoConsulta;
+                    }
+
+                    _pnlAcaoConsulta = new PainelAcaoConsulta();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _pnlAcaoConsulta;
             }
         }
 
@@ -208,7 +242,7 @@ namespace NetZ.Web.Html.Pagina.Consulta
             try
             {
                 lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
-                lstJs.Add(new JavaScriptTag(typeof(PagConsulta), 103));
+                lstJs.Add(new JavaScriptTag(typeof(PagConsulta), 122));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/FiltroWeb.js"));
@@ -237,11 +271,15 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
             try
             {
-                this.tagBody.addAtt("tblWebNome", this.tbl.strNomeSql);
-
-                this.btnAcao.strId = "btnAcao";
+                this.divCadastro.strId = "divCadastro";
 
                 this.divGrid.strId = "divGrid";
+
+                this.pnlAcaoConsulta.strId = "pnlAcaoConsulta";
+
+                this.tagBody.strId = "body_consulta";
+
+                this.tagBody.addAtt("tbl_web_nome", this.tbl.strNomeSql);
             }
             catch (Exception ex)
             {
@@ -268,8 +306,8 @@ namespace NetZ.Web.Html.Pagina.Consulta
             {
                 this.pnlFiltro.setPai(this);
                 this.divGrid.setPai(this);
-                this.btnAcao.setPai(this);
-                //this.grdDados.setPai(this.divConteudo);
+                this.pnlAcaoConsulta.setPai(this);
+                this.divCadastro.setPai(this);
             }
             catch (Exception ex)
             {
@@ -296,8 +334,8 @@ namespace NetZ.Web.Html.Pagina.Consulta
             {
                 this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
 
-                this.btnAcao.addCss(css.setBottom(25));
-                this.btnAcao.addCss(css.setRight(50));
+                this.pnlAcaoConsulta.addCss(css.setBottom(25));
+                this.pnlAcaoConsulta.addCss(css.setRight(50));
 
                 this.divGrid.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
                 this.divGrid.addCss(css.setBottom(0));

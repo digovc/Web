@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NetZ.Web.Html.Componente.Botao.Acao
+namespace NetZ.Web.Html.Componente.Botao
 {
-    public class BotaoAcao : BotaoHtml
+    public class BotaoCircular : BotaoHtml
     {
         #region Constantes
 
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Botao.Acao
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoAcao), 120));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
             }
             catch (Exception ex)
             {
@@ -43,9 +43,14 @@ namespace NetZ.Web.Html.Componente.Botao.Acao
             #endregion Ações
         }
 
+        protected virtual int getIntTamanho()
+        {
+            return 65;
+        }
+
         protected override void setCss(CssTag css)
         {
-            base.setCss(css);
+            //base.setCss(css);
 
             #region Variáveis
 
@@ -56,13 +61,13 @@ namespace NetZ.Web.Html.Componente.Botao.Acao
             try
             {
                 this.addCss(css.setBackgroundColor("#03a9f4"));
-                this.addCss(css.setBorder(1, "solid", "#059ce0"));
+                this.addCss(css.setBorder(0));
                 this.addCss(css.setBorderRadius(50, "%"));
                 this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
-                this.addCss(css.setHeight(65));
+                this.addCss(css.setCursor("pointer"));
+                this.addCss(css.setHeight(this.getIntTamanho()));
                 this.addCss(css.setOutLine("none"));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setWidth(65));
+                this.addCss(css.setWidth(this.getIntTamanho()));
             }
             catch (Exception ex)
             {
