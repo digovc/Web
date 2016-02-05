@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoAdicionarMini), 120));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoAdicionarMini), 118));
             }
             catch (Exception ex)
             {

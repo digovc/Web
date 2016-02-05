@@ -1,11 +1,10 @@
 ﻿using System;
 using NetZ.Persistencia;
-using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Grid;
 
-namespace NetZ.Web.Html.Pagina.Consulta
+namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
-    public sealed class PagConsulta : PaginaHtml
+    public sealed class JnlConsulta : JanelaHtml
     {
         #region Constantes
 
@@ -202,7 +201,7 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
         #region Construtores
 
-        public PagConsulta(Tabela tbl) : base("Consula")
+        public JnlConsulta(Tabela tbl)
         {
             #region Variáveis
 
@@ -229,36 +228,6 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
-                lstJs.Add(new JavaScriptTag(typeof(PagConsulta), 122));
-
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/FiltroWeb.js"));
-                lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -271,15 +240,16 @@ namespace NetZ.Web.Html.Pagina.Consulta
 
             try
             {
+                this.strId = "jnlConsulta";
+                this.strTitulo = this.tbl.strNomeExibicao;
+
                 this.divCadastro.strId = "divCadastro";
 
                 this.divGrid.strId = "divGrid";
 
                 this.pnlAcaoConsulta.strId = "pnlAcaoConsulta";
 
-                this.tagBody.strId = "body_consulta";
-
-                this.tagBody.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
             }
             catch (Exception ex)
             {
@@ -334,16 +304,47 @@ namespace NetZ.Web.Html.Pagina.Consulta
             {
                 this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
 
-                this.pnlAcaoConsulta.addCss(css.setBottom(25));
-                this.pnlAcaoConsulta.addCss(css.setRight(50));
+                this.divCadastro.addCss(css.setDisplay("none"));
 
-                this.divGrid.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
+                this.divGrid.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
                 this.divGrid.addCss(css.setBottom(0));
                 this.divGrid.addCss(css.setLeft(0));
                 this.divGrid.addCss(css.setOverflow("auto"));
                 this.divGrid.addCss(css.setPosition("absolute"));
                 this.divGrid.addCss(css.setRight(0));
                 this.divGrid.addCss(css.setTop(150));
+
+                this.pnlAcaoConsulta.addCss(css.setBottom(25));
+                this.pnlAcaoConsulta.addCss(css.setRight(50));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void setCssTamanho(CssTag css)
+        {
+            //base.setCssTamanho(css);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setBottom(0));
+                this.addCss(css.setLeft(0));
+                this.addCss(css.setPosition("absolute"));
+                this.addCss(css.setRight(0));
+                this.addCss(css.setTop(0));
             }
             catch (Exception ex)
             {

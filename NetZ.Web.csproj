@@ -82,10 +82,9 @@
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
     <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
-    <Compile Include="Html\Pagina\Cadastro\PagCadastro.cs" />
-    <Compile Include="Html\Pagina\Consulta\FrmFiltroSelecao.cs" />
-    <Compile Include="Html\Pagina\Consulta\PainelAcaoConsulta.cs" />
-    <Compile Include="Html\Pagina\Consulta\PainelFiltro.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroSelecao.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Form\DivComando.cs" />
     <Compile Include="Html\Componente\Grid\GridData.cs" />
     <Compile Include="Html\Componente\Grid\GridHead.cs" />
@@ -99,7 +98,7 @@
     <Compile Include="Html\Componente\Painel\PainelAtalho.cs" />
     <Compile Include="Html\Componente\Form\FormHtml.cs" />
     <Compile Include="Html\Componente\Janela\JanelaHtml.cs" />
-    <Compile Include="Html\Componente\Janela\JnlCadastro.cs" />
+    <Compile Include="Html\Componente\Janela\Cadastro\JnlCadastro.cs" />
     <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
     <Compile Include="Html\Componente\Menu\MainMenu.cs" />
     <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
@@ -113,9 +112,10 @@
     <Compile Include="Html\Componente\LimiteFloat.cs" />
     <Compile Include="Html\Label.cs" />
     <Compile Include="Html\LstTag.cs" />
-    <Compile Include="Html\PaginaHtml.cs" />
+    <Compile Include="Html\Pagina\PaginaHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelHtml.cs" />
-    <Compile Include="Html\Pagina\Consulta\PagConsulta.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\JnlConsulta.cs" />
+    <Compile Include="Html\Pagina\PagPrincipal.cs" />
     <Compile Include="Html\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ArquivoEstatico.cs" />

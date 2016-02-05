@@ -3,7 +3,7 @@ using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 
-namespace NetZ.Web.Html.Componente.Janela
+namespace NetZ.Web.Html.Componente.Janela.Cadastro
 {
     public abstract class JnlCadastro : JanelaHtml
     {
@@ -117,10 +117,7 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-        /// <summary>
-        /// Tabela que esta janela de cadastro representa.
-        /// </summary>
-        public Tabela tbl
+        private Tabela tbl
         {
             get
             {
@@ -136,6 +133,29 @@ namespace NetZ.Web.Html.Componente.Janela
         #endregion Atributos
 
         #region Construtores
+
+        public JnlCadastro(Tabela tbl)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.tbl = tbl;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         #endregion Construtores
 

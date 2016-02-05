@@ -348,12 +348,12 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.addCss(css.addCss("margin", "10% auto"));
+                this.setCssTamanho(css);
+
+                this.addCss(css.addCss("margin", "auto"));
                 this.addCss(css.setBackgroundColor("white"));
                 this.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
-                this.addCss(css.setBoxShadow(0, 1, 3, 0, AppWeb.i.objTema.corSombra));
-                this.addCss(css.setHeight(50 * this.intTamanhoY));
-                this.addCss(css.setWidth(50 * this.intTamanhoX));
+                this.addCss(css.setBoxShadow(0, 0, 10, 0, AppWeb.i.objTema.corSombra));
 
                 this.btnFechar.addCss(css.setMarginRight(10));
                 this.btnFechar.addCss(css.setMarginTop(10));
@@ -371,6 +371,30 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.divTitulo.addCss(css.setFontSize(20));
                 this.divTitulo.addCss(css.setLineHeight(50));
                 this.divTitulo.addCss(css.setPaddingLeft(5));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected virtual void setCssTamanho(CssTag css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setHeight(50 * this.intTamanhoY));
+                this.addCss(css.setWidth(50 * this.intTamanhoX));
             }
             catch (Exception ex)
             {

@@ -69,7 +69,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 130));
+                lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
             }
             catch (Exception ex)
             {

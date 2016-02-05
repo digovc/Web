@@ -198,16 +198,11 @@ namespace NetZ.Web.Server
 
                 this.objSolicitacao = null;
 
-                while (true)
+                while (this.tcpClient.Connected)
                 {
                     this.carregarSolicitacao();
 
                     if (this.objSolicitacao != null)
-                    {
-                        return;
-                    }
-
-                    if (!this.tcpClient.Connected)
                     {
                         return;
                     }

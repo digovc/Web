@@ -3,7 +3,7 @@ using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 
-namespace NetZ.Web.Html.Pagina.Consulta
+namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
     public class FrmFiltroSelecao : FormHtml
     {

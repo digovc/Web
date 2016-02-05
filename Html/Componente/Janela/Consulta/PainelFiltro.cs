@@ -1,7 +1,7 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Painel;
 
-namespace NetZ.Web.Html.Pagina.Consulta
+namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
     public class PainelFiltro : PainelHtml
     {

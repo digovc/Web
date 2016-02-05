@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
+using NetZ.Web.Html.Pagina;
 
 namespace NetZ.Web.Html
 {
@@ -1115,12 +1116,7 @@ namespace NetZ.Web.Html
                 this.setCss(CssTag.i);
                 this.finalizar();
 
-                if (this.getBooTagDupla())
-                {
-                    return this.toHtmlTagDupla();
-                }
-
-                return this.toHtmlTagUnica();
+                return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
             }
             catch (Exception ex)
             {

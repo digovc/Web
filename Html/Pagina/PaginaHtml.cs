@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
 
-namespace NetZ.Web.Html
+namespace NetZ.Web.Html.Pagina
 {
     public class PaginaHtml : Objeto
     {
@@ -614,24 +614,22 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(!(string.IsNullOrEmpty(this.getSrcJsBoot())) ? new JavaScriptTag(this.getSrcJsBoot(), 999) : null);
+                lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 102));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/AppWeb.js", 104));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.1.3.min.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-ui.min.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/PaginaHtml.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnPaginaImportadaListener.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerBase.js", 105));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerHttp.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerAjax.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerAjaxDb.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/SolicitacaoAjax.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/SolicitacaoAjaxDb.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxErroArg.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxListener.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxSucessoArg.js", 105));
 
                 lstJs.Add(this.tagJs);

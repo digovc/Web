@@ -5,6 +5,7 @@ using System.Text;
 using DigoFramework;
 using DigoFramework.Json;
 using NetZ.Web.Html;
+using NetZ.Web.Html.Pagina;
 
 namespace NetZ.Web.Server
 {
@@ -630,7 +631,17 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                arrBte = File.ReadAllBytes(arq.dirCompleto);
+                arrBte = File.ReadAllBytes(arq.dirCompleto); // TODO: Manter o arquivo na memória RAM.
+
+                if (arrBte == null)
+                {
+                    return;
+                }
+
+                if (arrBte.Length < 1)
+                {
+                    return;
+                }
 
                 this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
             }
