@@ -415,11 +415,13 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.intTamanhoY = 5;
                 this.strId = this.GetType().Name;
 
-                this.divAcao.strId = "divAcao";
+                this.btnFechar.strId = (this.strId + "_btnFechar");
 
-                this.divCabecalho.strId = "divCabecalho";
+                this.divAcao.strId = (this.strId + "_divAcao");
 
-                this.divTitulo.strId = "divTitulo";
+                this.divCabecalho.strId = (this.strId + "_divCabecalho");
+
+                this.divTitulo.strId = (this.strId + "_divTitulo");
             }
             catch (Exception ex)
             {

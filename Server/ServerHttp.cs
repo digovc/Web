@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using NetZ.Web.Html;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -204,6 +203,53 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
+        private ArquivoEstatico getArqJs(string strJsClass)
+        {
+            #region Variáveis
+
+            string strArqNome;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strJsClass))
+                {
+                    return null;
+                }
+
+                foreach (ArquivoEstatico arq in this.lstArqEstatico)
+                {
+                    if (arq == null)
+                    {
+                        continue;
+                    }
+
+                    strArqNome = Path.GetFileNameWithoutExtension(arq.dirCompleto);
+
+                    if (!strJsClass.ToLower().Equals(strArqNome))
+                    {
+                        continue;
+                    }
+
+                    return arq;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private void inicializarArquivoEstatico()
         {
             #region Variáveis
@@ -355,10 +401,14 @@ namespace NetZ.Web.Server
                     return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
                 }
 
-
                 if (CssPrint.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
                 {
                     return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
+                }
+
+                if ("getScript".Equals(objSolicitacao.getStrGetValue("method")))
+                {
+                    return this.responderArquivoEstaticoGetScript(objSolicitacao);
                 }
 
                 foreach (ArquivoEstatico arq in this.lstArqEstatico)
@@ -426,6 +476,51 @@ namespace NetZ.Web.Server
                 objResposta.addArquivo(arq);
 
                 return objResposta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private Resposta responderArquivoEstaticoGetScript(Solicitacao objSolicitacao)
+        {
+            #region Variáveis
+
+            ArquivoEstatico arqJq;
+            string strJsClass;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objSolicitacao == null)
+                {
+                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+                }
+
+                strJsClass = objSolicitacao.getStrGetValue("class");
+
+                if (string.IsNullOrEmpty(strJsClass))
+                {
+                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+                }
+
+                arqJq = this.getArqJs(strJsClass);
+
+                if (arqJq == null)
+                {
+                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+                }
+
+                return new Resposta(objSolicitacao).addArquivo(arqJq);
             }
             catch (Exception ex)
             {

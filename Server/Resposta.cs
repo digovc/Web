@@ -602,7 +602,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        internal void addArquivo(ArquivoEstatico arq)
+        internal Resposta addArquivo(ArquivoEstatico arq)
         {
             #region Variáveis
 
@@ -616,7 +616,7 @@ namespace NetZ.Web.Server
             {
                 if (arq == null)
                 {
-                    return;
+                    return this;
                 }
 
                 this.dttUltimaModificacao = arq.dttUltimaModificacao;
@@ -624,22 +624,24 @@ namespace NetZ.Web.Server
 
                 if (this.objSolicitacao.dttUltimaModificacao.ToString().Equals(this.dttUltimaModificacao.ToString()))
                 {
-                    return;
+                    return this;
                 }
 
                 arrBte = arq.getArrBte();
 
                 if (arrBte == null)
                 {
-                    return;
+                    return this;
                 }
 
                 if (arrBte.Length < 1)
                 {
-                    return;
+                    return this;
                 }
 
                 this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
+
+                return this;
             }
             catch (Exception ex)
             {

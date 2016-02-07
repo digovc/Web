@@ -286,6 +286,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 this.intTamanhoX = 10;
                 this.strId = this.GetType().Name;
 
+                this.addAtt("js_src", JavaScriptTag.getSrc(this.GetType()));
                 this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
 
                 this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;

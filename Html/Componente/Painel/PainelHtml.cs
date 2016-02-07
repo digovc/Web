@@ -112,7 +112,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 115));
+                lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
 
                 this.addJsMarkdown(lstJs);
             }

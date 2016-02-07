@@ -31,7 +31,7 @@ namespace NetZ.Web.Html.Componente.Botao.Comando
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoComando), 115));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoComando), 114));
             }
             catch (Exception ex)
             {

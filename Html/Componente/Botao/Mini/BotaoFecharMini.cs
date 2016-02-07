@@ -57,7 +57,6 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
             try
             {
                 this.strConteudo = "X";
-                this.strId = "btnFechar";
                 this.strTitle = "Fechar";
             }
             catch (Exception ex)

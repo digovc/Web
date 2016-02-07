@@ -234,7 +234,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.strId = "jnlConsulta";
+                this.strId = typeof(JnlConsulta).Name;
                 this.strTitulo = this.tbl.strNomeExibicao;
 
                 this.divGrid.strId = "divGrid";

@@ -90,7 +90,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 115));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
             }
             catch (Exception ex)
             {

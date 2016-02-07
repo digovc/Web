@@ -72,7 +72,6 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-
         public JavaScriptTag(string src = null, int intOrdem = 200) : base("script")
         {
             #region Variáveis
@@ -110,7 +109,7 @@ namespace NetZ.Web.Html
             {
                 this.booMostrarClazz = false;
                 this.intOrdem = intOrdem;
-                this.src = this.getSrc(cls);
+                this.src = getSrc(cls);
             }
             catch (Exception ex)
             {
@@ -126,6 +125,45 @@ namespace NetZ.Web.Html
         #endregion Construtores
 
         #region Métodos
+
+        public static string getSrc(Type cls)
+        {
+            #region Variáveis
+
+            string srcResultado;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (cls == null)
+                {
+                    return null;
+                }
+
+                srcResultado = "res/js/_cls_namespace/_cls_nome+js";
+
+                srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
+                srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
+                srcResultado = srcResultado.Replace(".", "/");
+                srcResultado = srcResultado.Replace("res/js/netz/web", "res/js/Web.TypeScript");
+                srcResultado = srcResultado.Replace("res/js/cia", "res/js/Principal.TypeScript");
+                srcResultado = srcResultado.Replace("+", ".");
+
+                return srcResultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         public void addJs(string strJs)
         {
@@ -218,45 +256,6 @@ namespace NetZ.Web.Html
             try
             {
                 this.addAtt("type", "text/javascript");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private string getSrc(Type cls)
-        {
-            #region Variáveis
-
-            string src;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (cls == null)
-                {
-                    return null;
-                }
-
-                src = "res/js/_cls_namespace/_cls_nome+js";
-
-                src = src.Replace("_cls_namespace", cls.Namespace.ToLower());
-                src = src.Replace("_cls_nome", cls.Name);
-                src = src.Replace(".", "/");
-                src = src.Replace("res/js/netz/web", "res/js/Web.TypeScript");
-                src = src.Replace("res/js/cia", "res/js/Principal.TypeScript");
-                src = src.Replace("+", ".");
-
-                return src;
             }
             catch (Exception ex)
             {
