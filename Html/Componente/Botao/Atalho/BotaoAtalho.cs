@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Botao.Atalho
 {
@@ -43,7 +44,7 @@ namespace NetZ.Web.Html.Componente.Botao.Atalho
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 

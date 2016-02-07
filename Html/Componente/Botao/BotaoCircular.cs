@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Botao
 {
@@ -48,7 +49,7 @@ namespace NetZ.Web.Html.Componente.Botao
             return 65;
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             //base.setCss(css);
 

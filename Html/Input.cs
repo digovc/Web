@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html
 {
@@ -404,7 +405,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -751,7 +752,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        private void setCssDateTime(CssTag css)
+        private void setCssDateTime(CssArquivo css)
         {
             #region Variáveis
 
@@ -779,7 +780,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        private void setCssNumber(CssTag css)
+        private void setCssNumber(CssArquivo css)
         {
             #region Variáveis
 
@@ -807,7 +808,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        private void setCssTextArea(CssTag css)
+        private void setCssTextArea(CssArquivo css)
         {
             #region Variáveis
 

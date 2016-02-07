@@ -6,6 +6,7 @@ using DigoFramework;
 using DigoFramework.Json;
 using NetZ.Web.Html;
 using NetZ.Web.Html.Pagina;
+using NetZ.Web.Server.Arquivo;
 
 namespace NetZ.Web.Server
 {
@@ -618,11 +619,6 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                if (!File.Exists(arq.dirCompleto))
-                {
-                    return;
-                }
-
                 this.dttUltimaModificacao = arq.dttUltimaModificacao;
                 this.atualizarEnmContentType(arq);
 
@@ -631,7 +627,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                arrBte = File.ReadAllBytes(arq.dirCompleto); // TODO: Manter o arquivo na memória RAM.
+                arrBte = arq.getArrBte();
 
                 if (arrBte == null)
                 {

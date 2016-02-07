@@ -1,5 +1,6 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela
 {
@@ -174,7 +175,7 @@ namespace NetZ.Web.Html.Componente.Janela
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 

@@ -6,6 +6,7 @@ using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela;
 using NetZ.Web.Html.Componente.Janela.Consulta;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
 {
@@ -17,9 +18,43 @@ namespace NetZ.Web.Html.Pagina
 
         #region Atributos
 
-        private Div _divConsulta;
+        private DivArea _divCadastro;
+        private DivArea _divConsulta;
 
-        private Div divConsulta
+        private DivArea divCadastro
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divCadastro != null)
+                    {
+                        return _divCadastro;
+                    }
+
+                    _divCadastro = new DivArea();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divCadastro;
+            }
+        }
+
+        private DivArea divConsulta
         {
             get
             {
@@ -36,7 +71,7 @@ namespace NetZ.Web.Html.Pagina
                         return _divConsulta;
                     }
 
-                    _divConsulta = new Div();
+                    _divConsulta = new DivArea();
                 }
                 catch (Exception ex)
                 {
@@ -120,6 +155,7 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
+                this.divCadastro.strId = "divCadastro";
                 this.divConsulta.strId = "divConsulta";
             }
             catch (Exception ex)
@@ -146,6 +182,7 @@ namespace NetZ.Web.Html.Pagina
             try
             {
                 this.divConsulta.setPai(this);
+                this.divCadastro.setPai(this);
             }
             catch (Exception ex)
             {
@@ -158,7 +195,7 @@ namespace NetZ.Web.Html.Pagina
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -170,14 +207,7 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                this.divConsulta.addCss(css.setBackgroundColor("white"));
-                this.divConsulta.addCss(css.setBottom(0));
-                this.divConsulta.addCss(css.setDisplay("none"));
-                this.divConsulta.addCss(css.setLeft(0));
-                this.divConsulta.addCss(css.setPosition("absolute"));
-                this.divConsulta.addCss(css.setRight(0));
-                this.divConsulta.addCss(css.setTop(50));
-                //this.divConsulta.addCss(css.setZIndex(-1));
+                this.divCadastro.addCss(css.setBackgroundColor("rgba(128,128,128,0.5)"));
             }
             catch (Exception ex)
             {

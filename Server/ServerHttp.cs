@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using NetZ.Web.Html;
+using NetZ.Web.Server.Arquivo;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Server
 {
@@ -347,6 +350,17 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
+                if (CssMain.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
+                {
+                    return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
+                }
+
+
+                if (CssPrint.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
+                {
+                    return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
+                }
+
                 foreach (ArquivoEstatico arq in this.lstArqEstatico)
                 {
                     if (arq == null)
@@ -355,6 +369,11 @@ namespace NetZ.Web.Server
                     }
 
                     if (string.IsNullOrEmpty(arq.dirWeb))
+                    {
+                        continue;
+                    }
+
+                    if (!File.Exists(arq.dirCompleto))
                     {
                         continue;
                     }
@@ -400,11 +419,6 @@ namespace NetZ.Web.Server
                 if (arq == null)
                 {
                     return null;
-                }
-
-                if (!File.Exists(arq.dirCompleto))
-                {
-                    return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
                 }
 
                 objResposta = new Resposta(objSolicitacao);

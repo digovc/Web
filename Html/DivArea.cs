@@ -1,9 +1,9 @@
 ﻿using System;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Botao.Mini
+namespace NetZ.Web.Html
 {
-    public class BotaoFecharMini : BotaoMini
+    public class DivArea : Div
     {
         #region Constantes
 
@@ -31,34 +31,7 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoFecharMini), 118));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strConteudo = "X";
-                this.strId = "btnFechar";
-                this.strTitle = "Fechar";
+                lstJs.Add(new JavaScriptTag(typeof(DivArea), 110));
             }
             catch (Exception ex)
             {
@@ -83,7 +56,12 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
 
             try
             {
-                this.addCss(css.setBackgroundColor("#a03c3c"));
+                this.addCss(css.setBottom(0));
+                this.addCss(css.setDisplay("none"));
+                this.addCss(css.setLeft(0));
+                this.addCss(css.setPosition("absolute"));
+                this.addCss(css.setRight(0));
+                this.addCss(css.setTop(50));
             }
             catch (Exception ex)
             {

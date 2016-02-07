@@ -1,6 +1,7 @@
 ﻿using System;
 using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Circulo;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
@@ -341,7 +342,7 @@ namespace NetZ.Web.Html.Componente.Menu
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -354,7 +355,6 @@ namespace NetZ.Web.Html.Componente.Menu
             try
             {
                 this.addCss(css.setCursor("pointer"));
-                this.addCss(css.setMarginBottom(10));
                 this.addCss(css.setMinHeight(INT_HEIGHT));
                 this.addCss(css.setOutLine("none"));
 
@@ -362,10 +362,10 @@ namespace NetZ.Web.Html.Componente.Menu
 
                 this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
                 this.divIcone.addCss(css.setFloat("left"));
+                this.divIcone.addCss(css.setMarginLeft(10));
                 this.divIcone.addCss(css.setMarginRight(10));
 
                 this.divItemConteudo.addCss(css.setDisplay("none"));
-                this.divItemConteudo.addCss(css.setPadding(20));
             }
             catch (Exception ex)
             {

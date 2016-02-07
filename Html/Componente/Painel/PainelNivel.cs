@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
@@ -36,7 +37,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
         #region Métodos
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -51,6 +52,7 @@ namespace NetZ.Web.Html.Componente.Painel
                 this.addCss(css.setHeight(50));
                 this.addCss(css.setPaddingLeft(5));
                 this.addCss(css.setPaddingRight(5));
+                this.addCss(css.setPosition("relative"));
             }
             catch (Exception ex)
             {

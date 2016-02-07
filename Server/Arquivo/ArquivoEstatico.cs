@@ -1,9 +1,10 @@
 ﻿using System;
+using System.IO;
 using DigoFramework.Arquivo;
 
-namespace NetZ.Web.Server
+namespace NetZ.Web.Server.Arquivo
 {
-    internal class ArquivoEstatico : ArquivoDiverso
+    public class ArquivoEstatico : ArquivoDiverso
     {
         #region Constantes
 
@@ -62,11 +63,62 @@ namespace NetZ.Web.Server
 
         public ArquivoEstatico() : base(EnmMimeTipo.TEXT_PLAIN)
         {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.iniciar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         #endregion Construtores
 
         #region Métodos
+
+        internal virtual byte[] getArrBte()
+        {
+            return File.ReadAllBytes(this.dirCompleto); // TODO: Manter o arquivo na memória RAM.
+        }
+
+        protected virtual void inicializar()
+        {
+        }
+
+        private void iniciar()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.inicializar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
 
         #endregion Métodos
 

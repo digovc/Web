@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Botao.Mini;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
@@ -209,7 +210,7 @@ namespace NetZ.Web.Html.Componente.Painel
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -269,7 +270,7 @@ namespace NetZ.Web.Html.Componente.Painel
             #endregion Ações
         }
 
-        private void setCss(CssTag css, BotaoMini btnMini)
+        private void setCss(CssArquivo css, BotaoMini btnMini)
         {
             #region Variáveis
 
@@ -301,7 +302,7 @@ namespace NetZ.Web.Html.Componente.Painel
             #endregion Ações
         }
 
-        private void setCssLstBtnMini(CssTag css)
+        private void setCssLstBtnMini(CssArquivo css)
         {
             #region Variáveis
 

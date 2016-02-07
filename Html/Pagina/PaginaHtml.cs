@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
 {
@@ -22,6 +23,8 @@ namespace NetZ.Web.Html.Pagina
         private string _srcIcone = "res/media/ico/favicon.ico";
         private string _strTitulo;
         private Tag _tagBody;
+        private CssTag _tagCssMain;
+        private CssTag _tagCssPrint;
         private Tag _tagDocType;
         private Tag _tagHead;
         private Tag _tagHtml;
@@ -41,6 +44,39 @@ namespace NetZ.Web.Html.Pagina
             set
             {
                 _i = value;
+            }
+        }
+
+        public Tag tagBody
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagBody != null)
+                    {
+                        return _tagBody;
+                    }
+
+                    _tagBody = new Tag("body");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagBody;
             }
         }
 
@@ -107,39 +143,6 @@ namespace NetZ.Web.Html.Pagina
                 #endregion Ações
 
                 return _lstJs;
-            }
-        }
-
-        public Tag tagBody
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tagBody != null)
-                    {
-                        return _tagBody;
-                    }
-
-                    _tagBody = new Tag("body");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tagBody;
             }
         }
 
@@ -215,6 +218,72 @@ namespace NetZ.Web.Html.Pagina
             set
             {
                 _booPagSimples = value;
+            }
+        }
+
+        private CssTag tagCssMain
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagCssMain != null)
+                    {
+                        return _tagCssMain;
+                    }
+
+                    _tagCssMain = new CssTag();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagCssMain;
+            }
+        }
+
+        private CssTag tagCssPrint
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagCssPrint != null)
+                    {
+                        return _tagCssPrint;
+                    }
+
+                    _tagCssPrint = new CssTag();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagCssPrint;
             }
         }
 
@@ -528,8 +597,9 @@ namespace NetZ.Web.Html.Pagina
             {
                 this.inicializar();
                 this.montarLayout();
-                this.setCss(CssTag.i);
+                this.setCss(CssMain.i);
                 this.finalizar();
+                this.finalizarCss(CssPrint.i);
 
                 strBody = this.tagBody.toHtml();
 
@@ -658,6 +728,15 @@ namespace NetZ.Web.Html.Pagina
         {
         }
 
+        /// <summary>
+        /// Método que será chamado após <see cref="finalizar"/> e deverá ser utilizado para fazer
+        /// ajustes finais no estilo da tag.
+        /// </summary>
+        /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
+        protected virtual void finalizarCss(CssArquivo css)
+        {
+        }
+
         protected virtual string getSrcJsBoot()
         {
             return null;
@@ -678,6 +757,15 @@ namespace NetZ.Web.Html.Pagina
             try
             {
                 this.tagBody.booMostrarClazz = false;
+
+                this.tagCssMain.strId = CssMain.STR_CSS_ID;
+
+                this.tagCssMain.addAtt("href", CssMain.i.strHref);
+
+                this.tagCssPrint.strId = CssPrint.STR_CSS_ID;
+
+                this.tagCssPrint.addAtt("href", CssPrint.i.strHref);
+                this.tagCssPrint.addAtt("media", "print");
 
                 this.tagDocType.addAtt("html");
                 this.tagDocType.booBarraFinal = false;
@@ -731,9 +819,8 @@ namespace NetZ.Web.Html.Pagina
                 this.tagMetaContent.setPai(this.tagHead);
                 this.tagMetaHttpEquiv.setPai(this.tagHead);
                 this.tagIcon.setPai(this.tagHead);
-
-                CssTag.i.setPai(this.tagHead);
-                CssTag.iImpressao.setPai(this.tagHead);
+                this.tagCssMain.setPai(this.tagHead);
+                this.tagCssPrint.setPai(this.tagHead);
             }
             catch (Exception ex)
             {
@@ -746,7 +833,7 @@ namespace NetZ.Web.Html.Pagina
             #endregion Ações
         }
 
-        protected virtual void setCss(CssTag css)
+        protected virtual void setCss(CssArquivo css)
         {
             #region Variáveis
 

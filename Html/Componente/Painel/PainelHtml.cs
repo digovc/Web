@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
@@ -151,7 +152,7 @@ namespace NetZ.Web.Html.Componente.Painel
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -289,7 +290,7 @@ namespace NetZ.Web.Html.Componente.Painel
             #endregion Ações
         }
 
-        private void setCssWidth(CssTag css)
+        private void setCssWidth(CssArquivo css)
         {
             #region Variáveis
 

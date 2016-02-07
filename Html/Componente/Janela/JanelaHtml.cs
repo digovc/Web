@@ -1,5 +1,6 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Botao.Mini;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela
 {
@@ -11,12 +12,14 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Atributos
 
+        private Atributo _attHeight;
+        private Atributo _attWidth;
         private BotaoFecharMini _btnFechar;
         private Div _divAcao;
         private Div _divCabecalho;
         private Div _divTitulo;
-        private int _intTamanhoX = 5;
-        private int _intTamanhoY = 5;
+        private int _intTamanhoX;
+        private int _intTamanhoY;
         private string _strTitulo;
 
         /// <summary>
@@ -86,6 +89,76 @@ namespace NetZ.Web.Html.Componente.Janela
                 }
 
                 #endregion Ações
+            }
+        }
+
+        private Atributo attHeight
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attHeight != null)
+                    {
+                        return _attHeight;
+                    }
+
+                    _attHeight = new Atributo("height");
+
+                    this.addAtt(_attHeight);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attHeight;
+            }
+        }
+
+        private Atributo attWidth
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attWidth != null)
+                    {
+                        return _attWidth;
+                    }
+
+                    _attWidth = new Atributo("width");
+
+                    this.addAtt(_attWidth);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attWidth;
             }
         }
 
@@ -277,6 +350,55 @@ namespace NetZ.Web.Html.Componente.Janela
             #endregion Ações
         }
 
+        protected override void finalizarCss(CssArquivo css)
+        {
+            base.finalizarCss(css);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.finalizarCssTamanho(css);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected virtual void finalizarCssTamanho(CssArquivo css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setHeight((this.intTamanhoY * 50)));
+                this.addCss(css.setWidth((this.intTamanhoX * 50)));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -289,6 +411,8 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
+                this.intTamanhoX = 5;
+                this.intTamanhoY = 5;
                 this.strId = this.GetType().Name;
 
                 this.divAcao.strId = "divAcao";
@@ -336,7 +460,7 @@ namespace NetZ.Web.Html.Componente.Janela
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -348,12 +472,14 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.setCssTamanho(css);
-
-                this.addCss(css.addCss("margin", "auto"));
                 this.addCss(css.setBackgroundColor("white"));
-                this.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
-                this.addCss(css.setBoxShadow(0, 0, 10, 0, AppWeb.i.objTema.corSombra));
+                this.addCss(css.setBottom(0));
+                this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
+                this.addCss(css.setCenter());
+                this.addCss(css.setLeft(0));
+                this.addCss(css.setPosition("absolute"));
+                this.addCss(css.setRight(0));
+                this.addCss(css.setTop(0));
 
                 this.btnFechar.addCss(css.setMarginRight(10));
                 this.btnFechar.addCss(css.setMarginTop(10));
@@ -371,30 +497,6 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.divTitulo.addCss(css.setFontSize(20));
                 this.divTitulo.addCss(css.setLineHeight(50));
                 this.divTitulo.addCss(css.setPaddingLeft(5));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected virtual void setCssTamanho(CssTag css)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setHeight(50 * this.intTamanhoY));
-                this.addCss(css.setWidth(50 * this.intTamanhoX));
             }
             catch (Exception ex)
             {

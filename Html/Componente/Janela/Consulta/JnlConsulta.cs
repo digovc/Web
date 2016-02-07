@@ -1,6 +1,7 @@
 ﻿using System;
 using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
@@ -12,45 +13,11 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
-        private Div _divCadastro;
         private Div _divGrid;
         private GridHtml _grdDados;
         private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
         private Tabela _tbl;
-
-        private Div divCadastro
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_divCadastro != null)
-                    {
-                        return _divCadastro;
-                    }
-
-                    _divCadastro = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _divCadastro;
-            }
-        }
 
         private Div divGrid
         {
@@ -228,6 +195,33 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
+        protected override void finalizarCssTamanho(CssArquivo css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setBottom(0));
+                this.addCss(css.setLeft(0));
+                this.addCss(css.setPosition("absolute"));
+                this.addCss(css.setRight(0));
+                this.addCss(css.setTop(0));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -242,8 +236,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             {
                 this.strId = "jnlConsulta";
                 this.strTitulo = this.tbl.strNomeExibicao;
-
-                this.divCadastro.strId = "divCadastro";
 
                 this.divGrid.strId = "divGrid";
 
@@ -277,7 +269,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 this.pnlFiltro.setPai(this);
                 this.divGrid.setPai(this);
                 this.pnlAcaoConsulta.setPai(this);
-                this.divCadastro.setPai(this);
             }
             catch (Exception ex)
             {
@@ -290,7 +281,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -304,8 +295,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             {
                 this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
 
-                this.divCadastro.addCss(css.setDisplay("none"));
-
                 this.divGrid.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
                 this.divGrid.addCss(css.setBottom(0));
                 this.divGrid.addCss(css.setLeft(0));
@@ -316,35 +305,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 this.pnlAcaoConsulta.addCss(css.setBottom(25));
                 this.pnlAcaoConsulta.addCss(css.setRight(50));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void setCssTamanho(CssTag css)
-        {
-            //base.setCssTamanho(css);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBottom(0));
-                this.addCss(css.setLeft(0));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setRight(0));
-                this.addCss(css.setTop(0));
             }
             catch (Exception ex)
             {

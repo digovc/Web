@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using NetZ.Persistencia;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
@@ -319,7 +320,7 @@ namespace NetZ.Web.Html.Componente.Grid
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Circulo
 {
@@ -43,7 +44,7 @@ namespace NetZ.Web.Html.Componente.Circulo
 
         #region Métodos
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -71,7 +72,7 @@ namespace NetZ.Web.Html.Componente.Circulo
             #endregion Ações
         }
 
-        private void setCssEnmTamanho(CssTag css)
+        private void setCssEnmTamanho(CssArquivo css)
         {
             #region Variáveis
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
 using NetZ.Web.Html.Pagina;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html
 {
@@ -1113,8 +1114,9 @@ namespace NetZ.Web.Html
             {
                 this.inicializar();
                 this.montarLayout();
-                this.setCss(CssTag.i);
+                this.setCss(CssMain.i);
                 this.finalizar();
+                this.finalizarCss(CssMain.i);
 
                 return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
             }
@@ -1134,7 +1136,7 @@ namespace NetZ.Web.Html
         /// pelo browser do usuário.
         /// </summary>
         /// <param name="lstCss">
-        /// Lista de <see cref="CssTag"/> que será carregada pelo browser do usuário.
+        /// Lista de <see cref="CssArquivo"/> que será carregada pelo browser do usuário.
         /// </param>
         protected virtual void addCss(LstTag<CssTag> lstCss)
         {
@@ -1230,6 +1232,15 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Método que será chamado após <see cref="finalizar"/> e deverá ser utilizado para fazer
+        /// ajustes finais no estilo da tag.
+        /// </summary>
+        /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
+        protected virtual void finalizarCss(CssArquivo css)
+        {
+        }
+
+        /// <summary>
         /// Método que é chamado antes de montar o HTML desta tag e pode ser utilizado para
         /// inicializar valores diversos das propriedades desta e de outras tags filhas.
         /// </summary>
@@ -1268,7 +1279,7 @@ namespace NetZ.Web.Html
         /// Método que deve ser utilizado para configurar o design desta tag e de seus filhos.
         /// </summary>
         /// <param name="css">Tag CSS principal da página onde serão adicionado todo o design.</param>
-        protected virtual void setCss(CssTag css)
+        protected virtual void setCss(CssArquivo css)
         {
             #region Variáveis
 
@@ -1507,7 +1518,7 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
-        private void setCssBooMostrarGrade(CssTag css)
+        private void setCssBooMostrarGrade(CssArquivo css)
         {
             #region Variáveis
 

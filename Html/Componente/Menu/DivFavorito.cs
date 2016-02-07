@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
@@ -80,7 +81,7 @@ namespace NetZ.Web.Html.Componente.Menu
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -103,7 +104,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divContainer.addCss(css.setLeft(0));
                 this.divContainer.addCss(css.setPosition("absolute"));
                 this.divContainer.addCss(css.setRight(0));
-                this.divContainer.addCss(css.setTop(60));
+                this.divContainer.addCss(css.setTop(0));
                 this.divContainer.addCss(css.setWidth(380));
             }
             catch (Exception ex)

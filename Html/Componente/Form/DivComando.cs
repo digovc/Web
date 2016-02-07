@@ -2,6 +2,7 @@
 using NetZ.Web.Html.Componente.Botao.Comando;
 using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Form
 {
@@ -236,7 +237,7 @@ namespace NetZ.Web.Html.Componente.Form
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 

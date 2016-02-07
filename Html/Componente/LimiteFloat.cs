@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente
 {
@@ -18,7 +19,7 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
-        protected override void setCss(CssTag tagCss)
+        protected override void setCss(CssArquivo tagCss)
         {
             base.setCss(tagCss);
 

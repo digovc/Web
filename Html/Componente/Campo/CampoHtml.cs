@@ -1,5 +1,6 @@
 ﻿using System;
 using NetZ.Persistencia;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -10,22 +11,22 @@ namespace NetZ.Web.Html.Componente.Campo
         public enum EnmTamanho
         {
             /// <summary>
-            /// Width 400px.
+            /// Width 250px.
             /// </summary>
             GRANDE,
 
             /// <summary>
-            /// Width 250px.
+            /// Width 150px.
             /// </summary>
             MEDIO,
 
             /// <summary>
-            /// Width 100px.
+            /// Width 50px.
             /// </summary>
             MINIMO,
 
             /// <summary>
-            /// Width 150px.
+            /// Width 100px.
             /// </summary>
             PEQUENO,
 
@@ -41,15 +42,33 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
+        private bool _booDireita;
         private bool _booObrigatorio;
         private bool _booSomenteLeitura;
         private Coluna _cln;
+        private Div _divInputContainer;
         private Div _divObrigatorio;
         private Div _divTitulo;
         private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
         private int _intNivel;
         private string _strTitulo;
         private Input _tagInput;
+
+        /// <summary>
+        /// Indica se o campo estará alinhado a direita da janela.
+        /// </summary>
+        public bool booDireita
+        {
+            get
+            {
+                return _booDireita;
+            }
+
+            set
+            {
+                _booDireita = value;
+            }
+        }
 
         /// <summary>
         /// Define se este campo é de preenchimento obrigatório ou não. Caso seja, será indicado de
@@ -243,6 +262,39 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        private Div divInputContainer
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divInputContainer != null)
+                    {
+                        return _divInputContainer;
+                    }
+
+                    _divInputContainer = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divInputContainer;
+            }
+        }
+
         private Div divObrigatorio
         {
             get
@@ -365,13 +417,6 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.strId = "divObrigatorio";
 
                 this.tagInput.enmTipo = this.getEnmTipo();
-
-                if (this.cln == null)
-                {
-                    return;
-                }
-
-                this.divTitulo.strId = "divTitulo" + this.cln.strNomeSql;
             }
             catch (Exception ex)
             {
@@ -397,7 +442,8 @@ namespace NetZ.Web.Html.Componente.Campo
             try
             {
                 this.divTitulo.setPai(this);
-                this.tagInput.setPai(this);
+                this.divInputContainer.setPai(this);
+                this.tagInput.setPai(this.divInputContainer);
                 this.divObrigatorio.setPai(this);
             }
             catch (Exception ex)
@@ -411,7 +457,7 @@ namespace NetZ.Web.Html.Componente.Campo
             #endregion Ações
         }
 
-        protected override void setCss(CssTag css)
+        protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
@@ -425,10 +471,15 @@ namespace NetZ.Web.Html.Componente.Campo
             {
                 this.setCssWidth(css);
 
-                this.addCss(css.setFloat("left"));
+                this.addCss(css.setFloat(this.booDireita ? "right" : "left"));
                 this.addCss(css.setHeight(100, "%"));
                 this.addCss(css.setPaddingLeft(5));
                 this.addCss(css.setPaddingRight(5));
+                this.addCss(css.setPosition((EnmTamanho.TOTAL.Equals(this.enmTamanho)) ? "absolute" : "relative"));
+
+                this.divInputContainer.addCss(css.setLeft(5));
+                this.divInputContainer.addCss(css.setPosition("absolute"));
+                this.divInputContainer.addCss(css.setRight(10));
 
                 this.divObrigatorio.addCss(css.setColor("red"));
                 this.divObrigatorio.addCss(css.setDisplay(!this.booObrigatorio ? "none" : null));
@@ -436,11 +487,12 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.addCss(css.setPaddingLeft(5));
                 this.divObrigatorio.addCss(css.setPaddingRight(5));
 
+                this.divTitulo.addCss(css.setDisplay("none"));
                 this.divTitulo.addCss(css.setHeight(20));
                 this.divTitulo.addCss(css.setLineHeight(20));
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
-                this.tagInput.addCss(css.setFloat("left"));
+                this.tagInput.addCss(css.setHeight(100, "%"));
                 this.tagInput.addCss(css.setWidth(100, "%"));
             }
             catch (Exception ex)
@@ -497,6 +549,8 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.strId = "cmp_" + this.cln.strNomeSql;
                 this.strTitulo = this.cln.strNomeExibicao;
 
+                this.divTitulo.strId = this.strId + "_divTitulo";
+
                 this.tagInput.strId = "tag_input_" + this.cln.strNomeSql;
             }
             catch (Exception ex)
@@ -534,7 +588,7 @@ namespace NetZ.Web.Html.Componente.Campo
             #endregion Ações
         }
 
-        private void setCssWidth(CssTag css)
+        private void setCssWidth(CssArquivo css)
         {
             #region Variáveis
 
@@ -547,28 +601,49 @@ namespace NetZ.Web.Html.Componente.Campo
                 switch (this.enmTamanho)
                 {
                     case EnmTamanho.GRANDE:
-                        this.addCss(css.setWidth(400));
+                        this.addCss(css.setWidth(250));
                         return;
 
                     case EnmTamanho.MINIMO:
-                        this.addCss(css.setWidth(100));
-
+                        this.addCss(css.setWidth(50));
                         return;
 
                     case EnmTamanho.PEQUENO:
-                        this.addCss(css.setWidth(150));
-
+                        this.addCss(css.setWidth(100));
                         return;
 
                     case EnmTamanho.TOTAL:
-                        this.addCss(css.setWidth(100, "%"));
-
+                        this.setCssWidthTotal(css);
                         return;
 
                     default:
-                        this.addCss(css.setWidth(250));
+                        this.addCss(css.setWidth(150));
                         return;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void setCssWidthTotal(CssArquivo css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setLeft(5));
+                this.addCss(css.setRight(5));
             }
             catch (Exception ex)
             {
