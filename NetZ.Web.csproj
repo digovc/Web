@@ -52,6 +52,7 @@
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
+    <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
     <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoCircular.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />

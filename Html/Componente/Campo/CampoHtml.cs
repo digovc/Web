@@ -487,9 +487,9 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.addCss(css.setPaddingLeft(5));
                 this.divObrigatorio.addCss(css.setPaddingRight(5));
 
-                this.divTitulo.addCss(css.setDisplay("none"));
                 this.divTitulo.addCss(css.setHeight(20));
                 this.divTitulo.addCss(css.setLineHeight(20));
+                this.divTitulo.addCss(css.setOpacity(0));
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
                 this.tagInput.addCss(css.setHeight(100, "%"));

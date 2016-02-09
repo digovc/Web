@@ -1733,6 +1733,34 @@ namespace NetZ.Web.Server.Arquivo.Css
             #endregion Ações
         }
 
+        public string setVisibility(string strVisibility)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(strVisibility))
+                {
+                    return null;
+                }
+
+                return this.addCss("visibility", strVisibility);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         public string setWhiteSpace(string strWhiteSpace)
         {
             #region Variáveis

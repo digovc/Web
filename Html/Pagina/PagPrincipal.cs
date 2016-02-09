@@ -142,6 +142,7 @@ namespace NetZ.Web.Html.Pagina
 
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
 
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js", 101));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/FiltroWeb.js", 101));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js", 101));
             }
