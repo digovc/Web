@@ -12,10 +12,10 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
-        private FrmFiltroSelecao _frmFiltroSelecao;
+        private FrmFiltro _frmFiltro;
         private PainelHtml _pnlFiltroSelecao;
 
-        private FrmFiltroSelecao frmFiltroSelecao
+        private FrmFiltro frmFiltro
         {
             get
             {
@@ -27,12 +27,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 try
                 {
-                    if (_frmFiltroSelecao != null)
+                    if (_frmFiltro != null)
                     {
-                        return _frmFiltroSelecao;
+                        return _frmFiltro;
                     }
 
-                    _frmFiltroSelecao = new FrmFiltroSelecao();
+                    _frmFiltro = new FrmFiltro();
                 }
                 catch (Exception ex)
                 {
@@ -44,7 +44,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 #endregion Ações
 
-                return _frmFiltroSelecao;
+                return _frmFiltro;
             }
         }
 
@@ -101,12 +101,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.intTamanhoVertical = 3;
+                this.intTamanhoVertical = 2;
                 this.strId = "pnlFiltro";
 
-                this.frmFiltroSelecao.strId = "frmFiltroSelecao";
+                this.frmFiltro.strId = "frmFiltro";
 
-                this.pnlFiltroSelecao.intTamanhoVertical = 3;
+                this.pnlFiltroSelecao.intTamanhoVertical = 2;
                 this.pnlFiltroSelecao.strId = "pnlFiltroSelecao";
             }
             catch (Exception ex)
@@ -133,7 +133,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             try
             {
                 this.pnlFiltroSelecao.setPai(this);
-                this.frmFiltroSelecao.setPai(this.pnlFiltroSelecao);
+                this.frmFiltro.setPai(this.pnlFiltroSelecao);
             }
             catch (Exception ex)
             {

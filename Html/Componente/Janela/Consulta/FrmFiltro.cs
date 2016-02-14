@@ -5,7 +5,7 @@ using NetZ.Web.Html.Componente.Form;
 
 namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
-    public class FrmFiltroSelecao : FormHtml
+    public class FrmFiltro : FormHtml
     {
         #region Constantes
 
@@ -174,7 +174,8 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 this.btnAlterar.intNivel = 1;
                 this.btnApagar.intNivel = 1;
 
-                this.cmpFiltroSelecao.strTitulo = "Selecione um filtro";
+                this.cmpFiltroSelecao.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+                this.cmpFiltroSelecao.strTitulo = "Filtro";
             }
             catch (Exception ex)
             {

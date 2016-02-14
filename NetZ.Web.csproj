@@ -83,7 +83,7 @@
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
     <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
     <Compile Include="Html\Componente\ComponenteHtml.cs" />
-    <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroSelecao.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\FrmFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Form\DivComando.cs" />

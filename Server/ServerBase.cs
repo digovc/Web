@@ -24,6 +24,7 @@ namespace NetZ.Web.Server
 
         private EnmStatus _enmStatus = EnmStatus.PARADO;
         private long _intClienteRespondido;
+        private int _intPorta;
         private TcpListener _tcpListener;
 
         /// <summary>
@@ -59,6 +60,47 @@ namespace NetZ.Web.Server
             }
         }
 
+        /// <summary>
+        /// Porta que este serviço TCP irá escutar.
+        /// </summary>
+        public int intPorta
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_intPorta > 0)
+                    {
+                        return _intPorta;
+                    }
+
+                    _intPorta = this.getIntPort();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _intPorta;
+            }
+
+            set
+            {
+                _intPorta = value;
+            }
+        }
+
         private TcpListener tcpListener
         {
             get
@@ -76,7 +118,7 @@ namespace NetZ.Web.Server
                         return _tcpListener;
                     }
 
-                    _tcpListener = new TcpListener(IPAddress.Any, this.getIntPort());
+                    _tcpListener = new TcpListener(IPAddress.Any, this.intPorta);
                 }
                 catch (Exception ex)
                 {
