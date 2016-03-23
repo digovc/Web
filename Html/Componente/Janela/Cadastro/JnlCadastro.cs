@@ -18,6 +18,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private DivComando _divComando;
         private FormHtml _frm;
         private int _intComandoNivel = 1;
+        private int _intRegistroId;
         private Tabela _tbl;
 
         private CampoNumerico cmpIntId
@@ -129,6 +130,19 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             set
             {
                 _intComandoNivel = value;
+            }
+        }
+
+        public int intRegistroId
+        {
+            get
+            {
+                return _intRegistroId;
+            }
+
+            set
+            {
+                _intRegistroId = value;
             }
         }
 
@@ -343,6 +357,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                     return;
                 }
 
+                this.tbl.recuperar(this.intRegistroId);
+
                 this.inicializarCampos(this.GetType());
             }
             catch (Exception ex)
@@ -437,6 +453,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 }
 
                 (objPropertyInfo.GetValue(this) as CampoHtml).cln = cln;
+                (objPropertyInfo.GetValue(this) as CampoHtml).tagInput.strValor = cln.strValor;
             }
             catch (Exception ex)
             {

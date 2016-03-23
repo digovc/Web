@@ -8,6 +8,7 @@
         {
             ADICIONAR,
             APAGAR,
+            FILTRO,
             NONE,
             PESQUISAR,
             RECUPERAR,

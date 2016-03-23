@@ -39,6 +39,7 @@ namespace NetZ.Web.Html
 
         #region Atributos
 
+        private Atributo _attValue;
         private bool _booDisabled;
         private bool _booValor;
         private decimal _decValor;
@@ -308,7 +309,62 @@ namespace NetZ.Web.Html
 
             set
             {
-                _strValor = value;
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _strValor = value;
+
+                    this.atualizarStrValor();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        private Atributo attValue
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attValue != null)
+                    {
+                        return _attValue;
+                    }
+
+                    _attValue = new Atributo("value");
+
+                    this.addAtt(_attValue);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attValue;
             }
         }
 
@@ -339,6 +395,29 @@ namespace NetZ.Web.Html
                 lstJs.Add(new JavaScriptTag(typeof(Input), 110));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnValorAlteradoArg.js", 110));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected void atualizarStrValor()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.attValue.strValor = this.strValor;
             }
             catch (Exception ex)
             {

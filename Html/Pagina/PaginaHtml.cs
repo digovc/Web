@@ -641,7 +641,7 @@ namespace NetZ.Web.Html.Pagina
         /// Adiciona uma classe para lista de classes da tag body desta página para fazer referência
         /// a algum estilo CSS.
         /// </summary>
-        /// <param name="strClassCss">Classe que faz referência a alguma regra CSS.</param>
+        /// <param name="strClassCss">Classe que faz referência a alguma regar CSS.</param>
         protected void addCss(string strClassCss)
         {
             #region Variáveis

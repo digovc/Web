@@ -13,10 +13,11 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Atributos
 
+        private Atributo _attIntId;
         private DataRow _row;
         private Tabela _tbl;
 
-        private DataRow row
+        internal DataRow row
         {
             get
             {
@@ -29,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Grid
             }
         }
 
-        private Tabela tbl
+        internal Tabela tbl
         {
             get
             {
@@ -42,12 +43,57 @@ namespace NetZ.Web.Html.Componente.Grid
             }
         }
 
+        private Atributo attIntId
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_attIntId != null)
+                    {
+                        return _attIntId;
+                    }
+
+                    _attIntId = new Atributo("int_id", null);
+
+                    this.addAtt(_attIntId);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _attIntId;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
-        public GridRow(Tabela tbl, DataRow row) : base("tr")
+        public GridRow() : base("tr")
         {
+        }
+
+        #endregion Construtores
+
+        #region Métodos
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
             #region Variáveis
 
             #endregion Variáveis
@@ -56,8 +102,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
             try
             {
-                this.tbl = tbl;
-                this.row = row;
+                this.inicializarId();
             }
             catch (Exception ex)
             {
@@ -69,10 +114,6 @@ namespace NetZ.Web.Html.Componente.Grid
 
             #endregion Ações
         }
-
-        #endregion Construtores
-
-        #region Métodos
 
         protected override void montarLayout()
         {
@@ -125,6 +166,65 @@ namespace NetZ.Web.Html.Componente.Grid
             try
             {
                 this.addCss(css.setHeight(GridHtml.INT_LINHA_TAMANHO));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void inicializarId()
+        {
+            #region Variáveis
+
+            long intId;
+            string strId;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.row == null)
+                {
+                    return;
+                }
+
+                if (this.tbl == null)
+                {
+                    return;
+                }
+
+                if (this.row[this.tbl.clnIntId.strNomeSql] == null)
+                {
+                    return;
+                }
+
+                if (DBNull.Value.Equals(this.row[this.tbl.clnIntId.strNomeSql]))
+                {
+                    return;
+                }
+
+                intId = (long)this.row[this.tbl.clnIntId.strNomeSql];
+
+                if (intId < 1)
+                {
+                    return;
+                }
+
+                this.attIntId.addValor(intId);
+
+                strId = "tagGridRow__registro_id";
+
+                strId = strId.Replace("_registro_id", intId.ToString());
+
+                this.strId = strId;
             }
             catch (Exception ex)
             {

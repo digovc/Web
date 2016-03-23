@@ -229,7 +229,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        protected Input tagInput
+        public Input tagInput
         {
             get
             {

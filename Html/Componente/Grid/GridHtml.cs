@@ -245,7 +245,8 @@ namespace NetZ.Web.Html.Componente.Grid
                     return;
                 }
 
-                this.tagTable.strId = this.strId + "_table";
+                this.tagTable.strId = (this.strId + "_table");
+                this.tagTbody.strId = (this.strId + "_tbody");
             }
             catch (Exception ex)
             {
@@ -456,6 +457,8 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             #region Variáveis
 
+            GridRow tagGridRow;
+
             #endregion Variáveis
 
             #region Ações
@@ -467,7 +470,12 @@ namespace NetZ.Web.Html.Componente.Grid
                     return;
                 }
 
-                new GridRow(this.tbl, row).setPai(this.tagTbody);
+                tagGridRow = new GridRow();
+
+                tagGridRow.row = row;
+                tagGridRow.tbl = tbl;
+
+                tagGridRow.setPai(this.tagTbody);
             }
             catch (Exception ex)
             {
