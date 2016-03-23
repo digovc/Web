@@ -51,7 +51,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
         protected override void setCss(CssArquivo css)
         {
-            //base.setCss(css);
+            base.setCss(css);
 
             #region Variáveis
 
@@ -62,13 +62,10 @@ namespace NetZ.Web.Html.Componente.Botao
             try
             {
                 this.addCss(css.setBackgroundColor("#03a9f4"));
-                this.addCss(css.setBorder(0));
                 this.addCss(css.setBorderRadius(50, "%"));
-                this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
-                this.addCss(css.setCursor("pointer"));
-                this.addCss(css.setHeight(this.getIntTamanho()));
                 this.addCss(css.setOutLine("none"));
-                this.addCss(css.setWidth(this.getIntTamanho()));
+
+                this.setCssBoxShadow(css);
             }
             catch (Exception ex)
             {
@@ -79,6 +76,44 @@ namespace NetZ.Web.Html.Componente.Botao
             }
 
             #endregion Ações
+        }
+
+        protected virtual void setCssBoxShadow(CssArquivo css)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void setCssFload(CssArquivo css)
+        {
+            return;
+        }
+
+        protected override void setCssHeight(CssArquivo css)
+        {
+            this.addCss(css.setHeight(this.getIntTamanho()));
+        }
+
+        protected override void setCssWidth(CssArquivo css)
+        {
+            this.addCss(css.setWidth(this.getIntTamanho()));
         }
 
         #endregion Métodos

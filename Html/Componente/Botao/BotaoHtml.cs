@@ -142,9 +142,10 @@ namespace NetZ.Web.Html.Componente.Botao
             {
                 this.addCss(css.setBorder(0));
                 this.addCss(css.setCursor("pointer"));
-                this.addCss(css.setFloat("right"));
-                this.addCss(css.setHeight(30));
-                this.addCss(css.setWidth(this.getDecWidth()));
+
+                this.setCssFload(css);
+                this.setCssHeight(css);
+                this.setCssWidth(css);
             }
             catch (Exception ex)
             {
@@ -155,6 +156,21 @@ namespace NetZ.Web.Html.Componente.Botao
             }
 
             #endregion Ações
+        }
+
+        protected virtual void setCssFload(CssArquivo css)
+        {
+            this.addCss(css.setFloat("right"));
+        }
+
+        protected virtual void setCssHeight(CssArquivo css)
+        {
+            this.addCss(css.setHeight(30));
+        }
+
+        protected virtual void setCssWidth(CssArquivo css)
+        {
+            this.addCss(css.setWidth(this.getDecWidth()));
         }
 
         private decimal getDecWidth()

@@ -299,7 +299,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBackgroundColor(Color cor)
         {
-            return this.setBackgroundColor(ColorTranslator.ToHtml(cor));
+            return this.setBackgroundColor(this.corToRgba(cor));
         }
 
         public string setBackgroundGradiente(string cor, string cor2)
@@ -492,7 +492,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorder(int intBorderPx, string strTipo, Color cor)
         {
-            return this.setBorder(intBorderPx, strTipo = "solid", ColorTranslator.ToHtml(cor));
+            return this.setBorder(intBorderPx, strTipo = "solid", this.corToRgba(cor));
         }
 
         public string setBorderBottom(int intBottomPx, string strTipo, string cor)
@@ -528,7 +528,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderBottom(int intRightPx, string strTipo, Color cor)
         {
-            return this.setBorderBottom(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
+            return this.setBorderBottom(intRightPx, strTipo, this.corToRgba(cor));
         }
 
         public string setBorderLeft(int intLeftPx, string strTipo, string cor)
@@ -564,7 +564,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderLeft(int intRightPx, string strTipo, Color cor)
         {
-            return this.setBorderLeft(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
+            return this.setBorderLeft(intRightPx, strTipo, this.corToRgba(cor));
         }
 
         public string setBorderRadius(int intTopLeftPx, int intTopRightPx, int intBottomRightPx, int intBottomLeftPx)
@@ -662,12 +662,12 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderRight(int intRightPx, string strTipo, Color cor)
         {
-            return this.setBorderRight(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
+            return this.setBorderRight(intRightPx, strTipo, this.corToRgba(cor));
         }
 
         public string setBorderTop(int intRightPx, string strTipo, Color cor)
         {
-            return this.setBorderTop(intRightPx, strTipo, ColorTranslator.ToHtml(cor));
+            return this.setBorderTop(intRightPx, strTipo, this.corToRgba(cor));
         }
 
         public string setBorderTop(int intTopPx, string strTipo, string cor)
@@ -766,7 +766,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, Color cor)
         {
-            return this.setBoxShadow(intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, ColorTranslator.ToHtml(cor));
+            return this.setBoxShadow(intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, this.corToRgba(cor));
         }
 
         public string setCenter()
@@ -809,7 +809,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setColor(Color cor)
         {
-            return this.setColor(ColorTranslator.ToHtml(cor));
+            return this.setColor(this.corToRgba(cor));
         }
 
         public string setCursor(string strCursor)
@@ -1925,6 +1925,20 @@ namespace NetZ.Web.Server.Arquivo.Css
             }
 
             #endregion Ações
+        }
+
+        private string corToRgba(Color cor)
+        {
+            double dblAlpha = (cor.A < 255) ? (cor.A / 255d) : 1;
+
+            string strResultado = "rgba(_r,_g,_b,_a)";
+
+            strResultado = strResultado.Replace("_r", cor.R.ToString());
+            strResultado = strResultado.Replace("_g", cor.G.ToString());
+            strResultado = strResultado.Replace("_b", cor.B.ToString());
+            strResultado = strResultado.Replace("_a", dblAlpha.ToString("n2", CultureInfo.CreateSpecificCulture("en-USA")));
+
+            return strResultado;
         }
 
         #endregion Métodos

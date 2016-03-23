@@ -492,7 +492,12 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divTitulo.addCss(css.setOpacity(0));
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
-                this.tagInput.addCss(css.setHeight(100, "%"));
+                this.setCssTagInputHeight(css);
+
+                this.tagInput.addCss(css.addCss("-webkit-box-shadow", "0 0 0px 1000px white inset"));
+                this.tagInput.addCss(css.setBorder(0));
+                this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
+                this.tagInput.addCss(css.setOutLine("none"));
                 this.tagInput.addCss(css.setWidth(100, "%"));
             }
             catch (Exception ex)
@@ -504,6 +509,11 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             #endregion Ações
+        }
+
+        protected virtual void setCssTagInputHeight(CssArquivo css)
+        {
+            this.tagInput.addCss(css.setHeight(19));
         }
 
         private void atualizarBooSomenteLeitura()

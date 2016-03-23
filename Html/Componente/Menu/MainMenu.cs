@@ -282,6 +282,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divGaveta.addCss(css.setZIndex(10));
 
                 this.divGavetaContainer.addCss(css.setPosition("absolute"));
+                this.divGavetaContainer.addCss(css.setTop(50));
                 this.divGavetaContainer.addCss(css.setWidth(100, "%"));
 
                 this.divPesquisa.addCss(css.setPosition("absolute"));

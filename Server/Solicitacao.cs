@@ -1375,16 +1375,16 @@ namespace NetZ.Web.Server
 
         private string getStrMsgCliente()
         {
-            #region VARIÁVEIS
+            #region Variáveis
 
             byte[] arrBte;
             byte[] arrBte2;
             int intQtd;
             StringBuilder stbMsg;
 
-            #endregion VARIÁVEIS
+            #endregion Variáveis
 
-            #region AÇÕES
+            #region Ações
 
             try
             {
@@ -1422,7 +1422,7 @@ namespace NetZ.Web.Server
             {
             }
 
-            #endregion AÇÕES
+            #endregion Ações
         }
 
         private string getStrPagina()

@@ -16,7 +16,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         private BotaoAdicionarMini _btnAdicionar;
         private BotaoAlterarMini _btnAlterar;
         private BotaoApagarMini _btnApagar;
-        private CampoComboBox _cmpFiltroSelecao;
+        private CampoComboBox _cmpFiltro;
 
         private BotaoAdicionarMini btnAdicionar
         {
@@ -117,7 +117,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private CampoComboBox cmpFiltroSelecao
+        private CampoComboBox cmpFiltro
         {
             get
             {
@@ -129,12 +129,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 try
                 {
-                    if (_cmpFiltroSelecao != null)
+                    if (_cmpFiltro != null)
                     {
-                        return _cmpFiltroSelecao;
+                        return _cmpFiltro;
                     }
 
-                    _cmpFiltroSelecao = new CampoComboBox();
+                    _cmpFiltro = new CampoComboBox();
                 }
                 catch (Exception ex)
                 {
@@ -146,7 +146,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 #endregion Ações
 
-                return _cmpFiltroSelecao;
+                return _cmpFiltro;
             }
         }
 
@@ -170,12 +170,17 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
+                this.strId = "frmFiltro";
+
                 this.btnAdicionar.intNivel = 1;
+                this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+
                 this.btnAlterar.intNivel = 1;
                 this.btnApagar.intNivel = 1;
 
-                this.cmpFiltroSelecao.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
-                this.cmpFiltroSelecao.strTitulo = "Filtro";
+                this.cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+                this.cmpFiltro.strId = (this.strId + "_cmpFiltro");
+                this.cmpFiltro.strTitulo = "Filtro";
             }
             catch (Exception ex)
             {
@@ -200,9 +205,9 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.cmpFiltroSelecao.setPai(this);
+                this.cmpFiltro.setPai(this);
 
-                //this.btnAdicionar.setPai(this);
+                this.btnAdicionar.setPai(this);
                 //this.btnAlterar.setPai(this);
                 //this.btnApagar.setPai(this);
             }

@@ -491,6 +491,7 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.divAcao.addCss(css.setRight(0));
                 this.divAcao.addCss(css.setTop(0));
 
+                this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
                 this.divCabecalho.addCss(css.setCursor("default"));
                 this.divCabecalho.addCss(css.setHeight(50));
                 this.divCabecalho.addCss(css.setLineHeight(35));

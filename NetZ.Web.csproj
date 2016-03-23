@@ -104,7 +104,6 @@
     <Compile Include="Html\Componente\Menu\MainMenu.cs" />
     <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
     <Compile Include="Html\CssTag.cs" />
-    <Compile Include="Html\DivArea.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Hr.cs" />

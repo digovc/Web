@@ -127,6 +127,11 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
             #endregion Ações
         }
 
+        protected override void setCssBoxShadow(CssArquivo css)
+        {
+            return;
+        }
+
         #endregion Métodos
 
         #region Eventos

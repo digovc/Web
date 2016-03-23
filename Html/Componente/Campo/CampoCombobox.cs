@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -29,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Campo
                         return _cmb;
                     }
 
-                    _cmb = (ComboBox)this.getTagInput();
+                    _cmb = new ComboBox();
                 }
                 catch (Exception ex)
                 {
@@ -89,31 +90,12 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected override Input getTagInput()
         {
-            return new ComboBox();
+            return this.cmb;
         }
 
-        protected override void montarLayout()
+        protected override void setCssTagInputHeight(CssArquivo css)
         {
-            base.montarLayout();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tagInput.addCss(css.setHeight(25));
         }
 
         #endregion Métodos

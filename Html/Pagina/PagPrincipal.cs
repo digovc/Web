@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Botao.Comando;
 using NetZ.Web.Html.Componente.Botao.Mini;
@@ -21,10 +22,10 @@ namespace NetZ.Web.Html.Pagina
 
         #region Atributos
 
-        private DivArea _divCadastro;
-        private DivArea _divConsulta;
+        private Div _divCadastro;
+        private Div _divConsulta;
 
-        private DivArea divCadastro
+        private Div divCadastro
         {
             get
             {
@@ -41,7 +42,7 @@ namespace NetZ.Web.Html.Pagina
                         return _divCadastro;
                     }
 
-                    _divCadastro = new DivArea();
+                    _divCadastro = new Div();
                 }
                 catch (Exception ex)
                 {
@@ -57,7 +58,7 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private DivArea divConsulta
+        private Div divConsulta
         {
             get
             {
@@ -74,7 +75,7 @@ namespace NetZ.Web.Html.Pagina
                         return _divConsulta;
                     }
 
-                    _divConsulta = new DivArea();
+                    _divConsulta = new Div();
                 }
                 catch (Exception ex)
                 {
@@ -130,6 +131,8 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
                 lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
+                lstJs.Add(new JavaScriptTag(typeof(FormHtml), 111));
+                lstJs.Add(new JavaScriptTag(typeof(FrmFiltro), 112));
                 lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
                 lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
@@ -137,6 +140,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(PagPrincipal), 103));
                 lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
                 lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
+                lstJs.Add(new JavaScriptTag(typeof(PainelFiltro), 115));
                 lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
                 lstJs.Add(new JavaScriptTag(typeof(PainelNivel), 115));
 
@@ -221,7 +225,20 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                this.divCadastro.addCss(css.setBackgroundColor("rgba(128,128,128,0.5)"));
+                this.divCadastro.addCss(css.setBackgroundColor(Color.FromArgb(127, AppWeb.i.objTema.corTema)));
+                this.divCadastro.addCss(css.setBottom(0));
+                this.divCadastro.addCss(css.setDisplay("none"));
+                this.divCadastro.addCss(css.setLeft(0));
+                this.divCadastro.addCss(css.setPosition("absolute"));
+                this.divCadastro.addCss(css.setRight(0));
+                this.divCadastro.addCss(css.setTop(50));
+
+                this.divConsulta.addCss(css.setBottom(0));
+                this.divConsulta.addCss(css.setDisplay("none"));
+                this.divConsulta.addCss(css.setLeft(0));
+                this.divConsulta.addCss(css.setPosition("absolute"));
+                this.divConsulta.addCss(css.setRight(0));
+                this.divConsulta.addCss(css.setTop(50));
             }
             catch (Exception ex)
             {

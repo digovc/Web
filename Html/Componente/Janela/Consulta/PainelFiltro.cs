@@ -13,7 +13,8 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         #region Atributos
 
         private FrmFiltro _frmFiltro;
-        private PainelHtml _pnlFiltroSelecao;
+        private PainelHtml _pnlCondicao;
+        private PainelHtml _pnlSelecao;
 
         private FrmFiltro frmFiltro
         {
@@ -48,7 +49,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private PainelHtml pnlFiltroSelecao
+        private PainelHtml pnlCondicao
         {
             get
             {
@@ -60,12 +61,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 try
                 {
-                    if (_pnlFiltroSelecao != null)
+                    if (_pnlCondicao != null)
                     {
-                        return _pnlFiltroSelecao;
+                        return _pnlCondicao;
                     }
 
-                    _pnlFiltroSelecao = new PainelHtml();
+                    _pnlCondicao = new PainelHtml();
                 }
                 catch (Exception ex)
                 {
@@ -77,7 +78,40 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 #endregion Ações
 
-                return _pnlFiltroSelecao;
+                return _pnlCondicao;
+            }
+        }
+
+        private PainelHtml pnlSelecao
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_pnlSelecao != null)
+                    {
+                        return _pnlSelecao;
+                    }
+
+                    _pnlSelecao = new PainelHtml();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _pnlSelecao;
             }
         }
 
@@ -104,10 +138,11 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 this.intTamanhoVertical = 2;
                 this.strId = "pnlFiltro";
 
-                this.frmFiltro.strId = "frmFiltro";
+                this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
+                this.pnlCondicao.strId = (this.strId + "_pnlCondicao");
 
-                this.pnlFiltroSelecao.intTamanhoVertical = 2;
-                this.pnlFiltroSelecao.strId = "pnlFiltroSelecao";
+                this.pnlSelecao.intTamanhoVertical = this.intTamanhoVertical;
+                this.pnlSelecao.strId = (this.strId + "_pnlSelecao");
             }
             catch (Exception ex)
             {
@@ -132,8 +167,9 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.pnlFiltroSelecao.setPai(this);
-                this.frmFiltro.setPai(this.pnlFiltroSelecao);
+                this.pnlSelecao.setPai(this);
+                this.frmFiltro.setPai(this.pnlSelecao);
+                this.pnlCondicao.setPai(this);
             }
             catch (Exception ex)
             {
@@ -158,7 +194,14 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.pnlFiltroSelecao.addCss(css.setFloat("left"));
+                this.addCss(css.setPosition("relative"));
+
+                this.pnlCondicao.addCss(css.setLeft(270));
+                this.pnlCondicao.addCss(css.setPosition("absolute"));
+                this.pnlCondicao.addCss(css.setRight(0));
+
+                this.pnlSelecao.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corBorda));
+                this.pnlSelecao.addCss(css.setFloat("left"));
             }
             catch (Exception ex)
             {
