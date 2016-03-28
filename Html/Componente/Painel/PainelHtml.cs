@@ -33,9 +33,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
         /// <summary>
         /// Indica o tamanho horizontal deste painel, tendo 200 pixels de largura cada unidade.
-        /// <para>
-        /// Esta propriedade adicionará o atributo CSS.width e o atributo CSS.float para tanto.
-        /// </para>
+        /// <para>Esta propriedade adicionará o atributo CSS.width e o atributo CSS.float para tanto.</para>
         /// </summary>
         public int intTamanhoHorizontal
         {

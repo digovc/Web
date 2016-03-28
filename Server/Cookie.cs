@@ -16,8 +16,7 @@ namespace NetZ.Web.Server
         private string _strValor;
 
         /// <summary>
-        /// Indica a data e hora de validade deste cookie. Após este período o browser o apaga do
-        /// seu armazenamento.
+        /// Indica a data e hora de validade deste cookie. Após este período o browser o apaga do seu armazenamento.
         /// </summary>
         public DateTime dttValidade
         {
@@ -33,8 +32,8 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Indica o escopo deste cookie dentro do site. O valor "/" indica que este cookie vale
-        /// para todos o âmbito deste site.
+        /// Indica o escopo deste cookie dentro do site. O valor "/" indica que este cookie vale para
+        /// todos o âmbito deste site.
         /// </summary>
         public string strPath
         {

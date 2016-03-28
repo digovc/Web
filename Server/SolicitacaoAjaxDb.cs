@@ -6,6 +6,8 @@
 
         public enum EnmMetodo
         {
+            ABRIR_CADASTRO,
+            ABRIR_CONSULTA,
             ADICIONAR,
             APAGAR,
             FILTRO,

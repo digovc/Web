@@ -21,6 +21,32 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private int _intRegistroId;
         private Tabela _tbl;
 
+        public int intRegistroId
+        {
+            get
+            {
+                return _intRegistroId;
+            }
+
+            set
+            {
+                _intRegistroId = value;
+            }
+        }
+
+        public Tabela tbl
+        {
+            get
+            {
+                return _tbl;
+            }
+
+            set
+            {
+                _tbl = value;
+            }
+        }
+
         private CampoNumerico cmpIntId
         {
             get
@@ -133,58 +159,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
-        public int intRegistroId
-        {
-            get
-            {
-                return _intRegistroId;
-            }
-
-            set
-            {
-                _intRegistroId = value;
-            }
-        }
-
-        private Tabela tbl
-        {
-            get
-            {
-                return _tbl;
-            }
-
-            set
-            {
-                _tbl = value;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
-
-        public JnlCadastro(Tabela tbl)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tbl = tbl;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
 
         #endregion Construtores
 
@@ -329,6 +306,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             try
             {
                 this.frm.setPai(this);
+
                 this.cmpIntId.setPai(this.frm);
             }
             catch (Exception ex)

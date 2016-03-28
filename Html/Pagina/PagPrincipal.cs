@@ -115,8 +115,9 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                // TODO: Carregar esses scripts separadamente, quando forem necessário, durante a execução de cada tarefa.
-                // O carregamento excessivo na abertura da tela principal diminui a performance neste ponto da aplicação.
+                // TODO: Carregar esses scripts separadamente, quando forem necessário, durante a
+                //       execução de cada tarefa. O carregamento excessivo na abertura da tela
+                // principal diminui a performance neste ponto da aplicação.
                 lstJs.Add(new JavaScriptTag(typeof(BotaoAdicionarMini), 118));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoAlterarMini), 118));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoApagarMini), 119));

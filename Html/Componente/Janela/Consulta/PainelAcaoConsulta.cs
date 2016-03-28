@@ -114,6 +114,32 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             #endregion Ações
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.btnAdicionar.strId = "btnAdicionar";
+                this.btnAlterar.strId = "btnAlterar";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -137,30 +163,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             {
             }
 
-            #endregion Ações
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-
-            #region Variáveis
-            #endregion Variáveis
-
-            #region Ações
-            try
-            {
-                this.btnAdicionar.strId = "btnAdicionar";
-                this.btnAlterar.strId = "btnAlterar";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
             #endregion Ações
         }
 

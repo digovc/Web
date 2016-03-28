@@ -5,7 +5,10 @@ using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
+using NetZ.Web.DataBase;
 using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Html.Componente.Janela.Cadastro;
+using NetZ.Web.Html.Componente.Janela.Consulta;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -35,6 +38,7 @@ namespace NetZ.Web
         private bool _booMostrarGrade;
         private List<Tabela> _lstTbl;
         private List<Usuario> _lstUsr;
+        private Persistencia.DataBase _objDbPrincipal;
         private object _objLstUsrLock;
 
         public new static AppWeb i
@@ -93,6 +97,39 @@ namespace NetZ.Web
             set
             {
                 _booMostrarGrade = value;
+            }
+        }
+
+        public Persistencia.DataBase objDbPrincipal
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_objDbPrincipal != null)
+                    {
+                        return _objDbPrincipal;
+                    }
+
+                    _objDbPrincipal = this.getObjDbPrincipal();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _objDbPrincipal;
             }
         }
 
@@ -282,7 +319,7 @@ namespace NetZ.Web
 
             try
             {
-                Server.ServerHttp.i.parar();
+                ServerHttp.i.parar();
             }
             catch (Exception ex)
             {
@@ -339,6 +376,14 @@ namespace NetZ.Web
                 {
                     case SolicitacaoAjaxDb.EnmMetodo.APAGAR:
                         this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                        return;
+
+                    case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
+                        this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
+                        return;
+
+                    case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CONSULTA:
+                        this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
                         return;
 
                     case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR:
@@ -462,7 +507,238 @@ namespace NetZ.Web
             #endregion Ações
         }
 
-        protected Tabela getTbl(string strTblNome)
+        protected abstract Persistencia.DataBase getObjDbPrincipal();
+
+        protected Tabela getTbl(TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(tblWeb.strNome))
+                {
+                    return null;
+                }
+
+                return this.getTbl(tblWeb.strNome);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        /// <summary>
+        /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
+        /// alterar, pesquisar) com o usuário.
+        /// </summary>
+        /// <param name="lstTbl"></param>
+        protected virtual void inicializarLstTbl(List<Tabela> lstTbl)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                lstTbl.Add(TblFiltro.i);
+                lstTbl.Add(TblFiltroItem.i);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void abrirCadastro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            #region Variáveis
+
+            TabelaWeb tblWeb;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
+                {
+                    return;
+                }
+
+                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
+
+                this.abrirCadastro(objSolicitacao, tblWeb);
+
+                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void abrirCadastro(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            JnlCadastro jnlCadastro;
+            Tabela tbl;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(tblWeb.strNome))
+                {
+                    return;
+                }
+
+                tbl = this.getTbl(tblWeb.strNome);
+
+                if (tbl == null)
+                {
+                    return;
+                }
+
+                if (tbl.clsJnlCadastro == null)
+                {
+                    return;
+                }
+
+                jnlCadastro = ((JnlCadastro)Activator.CreateInstance(tbl.clsJnlCadastro));
+
+                jnlCadastro.intRegistroId = tblWeb.intRegistroId;
+                jnlCadastro.tbl = tbl;
+
+                tblWeb.tag = jnlCadastro.toHtml();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void abrirConsulta(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            #region Variáveis
+
+            TabelaWeb tblWeb;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
+                {
+                    return;
+                }
+
+                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
+
+                this.abrirConsulta(objSolicitacao, tblWeb);
+
+                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void abrirConsulta(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        {
+            #region Variáveis
+
+            Tabela tbl;
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (tblWeb == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(tblWeb.strNome))
+                {
+                    return;
+                }
+
+                tbl = this.getTbl(tblWeb.strNome);
+
+                if (tbl == null)
+                {
+                    return;
+                }
+
+                tblWeb.tag = new JnlConsulta(tbl).toHtml();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+        }
+
+        private Tabela getTbl(string strTblNome)
         {
             #region Variáveis
 
@@ -513,50 +789,6 @@ namespace NetZ.Web
             }
 
             #endregion Ações
-        }
-
-        protected Tabela getTbl(TabelaWeb tblWeb)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (tblWeb == null)
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(tblWeb.strNome))
-                {
-                    return null;
-                }
-
-                return this.getTbl(tblWeb.strNome);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        /// <summary>
-        /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
-        /// alterar, pesquisar) com o usuário.
-        /// </summary>
-        /// <param name="lstTbl"></param>
-        protected abstract void inicializarLstTbl(List<Tabela> lstTbl);
-
-        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
         }
 
         private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
@@ -632,7 +864,7 @@ namespace NetZ.Web
                 tagGrid.tbl = tbl;
                 tagGrid.tblDados = tblDados;
 
-                tblWeb.tagGrid = tagGrid.toHtml();
+                tblWeb.tag = tagGrid.toHtml();
             }
             catch (Exception ex)
             {

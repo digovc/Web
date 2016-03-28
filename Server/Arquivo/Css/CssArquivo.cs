@@ -1863,6 +1863,31 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.dttCssUltimaAdicao;
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.booNaoCriarDiretorio = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private string addCssNovo(string strNome, string strValor)
         {
             #region Variáveis

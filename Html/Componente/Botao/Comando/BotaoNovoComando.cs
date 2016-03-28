@@ -24,7 +24,6 @@
             this.strConteudo = "Novo";
         }
 
-
         #endregion Métodos
 
         #region Eventos

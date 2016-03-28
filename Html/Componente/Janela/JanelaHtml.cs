@@ -1,5 +1,4 @@
 ﻿using System;
-using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela
@@ -14,8 +13,8 @@ namespace NetZ.Web.Html.Componente.Janela
 
         private Atributo _attHeight;
         private Atributo _attWidth;
-        private BotaoFecharMini _btnFechar;
         private Div _divAcao;
+        private Div _divBtnFechar;
         private Div _divCabecalho;
         private Div _divTitulo;
         private int _intTamanhoX;
@@ -23,8 +22,8 @@ namespace NetZ.Web.Html.Componente.Janela
         private string _strTitulo;
 
         /// <summary>
-        /// Indica o tamanho horizontal desta janela. A unidade deste valor são 50 pixels, ou seja,
-        /// 1 = 50px, 5 = 250px.
+        /// Indica o tamanho horizontal desta janela. A unidade deste valor são 50 pixels, ou seja, 1
+        /// = 50px, 5 = 250px.
         /// </summary>
         public int intTamanhoX
         {
@@ -162,39 +161,6 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-        private BotaoFecharMini btnFechar
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_btnFechar != null)
-                    {
-                        return _btnFechar;
-                    }
-
-                    _btnFechar = new BotaoFecharMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _btnFechar;
-            }
-        }
-
         private Div divAcao
         {
             get
@@ -225,6 +191,39 @@ namespace NetZ.Web.Html.Componente.Janela
                 #endregion Ações
 
                 return _divAcao;
+            }
+        }
+
+        private Div divBtnFechar
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divBtnFechar != null)
+                    {
+                        return _divBtnFechar;
+                    }
+
+                    _divBtnFechar = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divBtnFechar;
             }
         }
 
@@ -350,6 +349,39 @@ namespace NetZ.Web.Html.Componente.Janela
             #endregion Ações
         }
 
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strId))
+                {
+                    return;
+                }
+
+                this.divAcao.strId = (this.strId + "_divAcao");
+                this.divBtnFechar.strId = (this.strId + "_divBtnFechar");
+                this.divCabecalho.strId = (this.strId + "_divCabecalho");
+                this.divTitulo.strId = (this.strId + "_divTitulo");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void finalizarCss(CssArquivo css)
         {
             base.finalizarCss(css);
@@ -414,14 +446,6 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.intTamanhoX = 5;
                 this.intTamanhoY = 5;
                 this.strId = this.GetType().Name;
-
-                this.btnFechar.strId = (this.strId + "_btnFechar");
-
-                this.divAcao.strId = (this.strId + "_divAcao");
-
-                this.divCabecalho.strId = (this.strId + "_divCabecalho");
-
-                this.divTitulo.strId = (this.strId + "_divTitulo");
             }
             catch (Exception ex)
             {
@@ -449,7 +473,7 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.divCabecalho.setPai(this);
                 this.divTitulo.setPai(this.divCabecalho);
                 this.divAcao.setPai(this.divCabecalho);
-                this.btnFechar.setPai(this.divAcao);
+                this.divBtnFechar.setPai(this.divAcao);
             }
             catch (Exception ex)
             {
@@ -483,8 +507,12 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.addCss(css.setRight(0));
                 this.addCss(css.setTop(0));
 
-                this.btnFechar.addCss(css.setMarginRight(10));
-                this.btnFechar.addCss(css.setMarginTop(10));
+                this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 2, 2));
+                this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
+                this.divBtnFechar.addCss(css.setHeight(25));
+                this.divBtnFechar.addCss(css.setMarginRight(10));
+                this.divBtnFechar.addCss(css.setTextAlign("center"));
+                this.divBtnFechar.addCss(css.setWidth(50));
 
                 this.divAcao.addCss(css.setBottom(0));
                 this.divAcao.addCss(css.setPosition("absolute"));

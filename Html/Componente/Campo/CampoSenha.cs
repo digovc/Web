@@ -4,8 +4,8 @@ namespace NetZ.Web.Html.Componente.Campo
 {
     /// <summary>
     /// Campo que pode ser utilizado para a entrada de senhas. Todo e qualquer caractere que o
-    /// usuário digitar neste campo será encoberto por uma máscara que não permitirá visualizar o
-    /// que foi inserido.
+    /// usuário digitar neste campo será encoberto por uma máscara que não permitirá visualizar o que
+    /// foi inserido.
     /// </summary>
     public class CampoSenha : CampoAlfanumerico
     {

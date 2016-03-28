@@ -22,6 +22,62 @@ namespace NetZ.Web.Html
         private string _strValor;
 
         /// <summary>
+        /// Valor deste atributo.
+        /// </summary>
+        public int intValor
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _intValor = Convert.ToInt32(this.strValor);
+                }
+                catch
+                {
+                    return 0;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _intValor;
+            }
+
+            set
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    _intValor = value;
+
+                    this.strValor = Convert.ToString(_intValor);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+            }
+        }
+
+        /// <summary>
         /// Letra ou texto que vai separar os valores deste atributo.
         /// </summary>
         public string strSeparador
@@ -127,62 +183,6 @@ namespace NetZ.Web.Html
                 #endregion Ações
 
                 return _lstStrValor;
-            }
-        }
-
-        /// <summary>
-        /// Valor deste atributo.
-        /// </summary>
-        public int intValor
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _intValor = Convert.ToInt32(this.strValor);
-                }
-                catch
-                {
-                    return 0;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _intValor;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _intValor = value;
-
-                    this.strValor = Convert.ToString(_intValor);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 

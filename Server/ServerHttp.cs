@@ -11,8 +11,8 @@ namespace NetZ.Web.Server
     /// Classe principal do servidor WEB e gerencia todas as conexões com os clientes, assim como
     /// processa e responde as solicitações destes.
     /// <para>
-    /// A aplicação que fazer uso desta biblioteca não precisa interagir diretamente com esta
-    /// classe, implementando sua lógica a partir da class <see cref="AppWeb"/> e seu método <see cref="AppWeb.responder(Solicitacao)"/>.
+    /// A aplicação que fazer uso desta biblioteca não precisa interagir diretamente com esta classe,
+    /// implementando sua lógica a partir da class <see cref="AppWeb"/> e seu método <see cref="AppWeb.responder(Solicitacao)"/>.
     /// </para>
     /// </summary>
     public class ServerHttp : ServerBase

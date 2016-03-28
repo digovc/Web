@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,9 +51,12 @@
   <ItemGroup>
     <Compile Include="AppWeb.cs" />
     <Compile Include="ConfigWeb.cs" />
+    <Compile Include="DataBase\TblFiltro.cs" />
+    <Compile Include="DataBase\TblFiltroItem.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
+    <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroCadastro.cs" />
     <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoCircular.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />

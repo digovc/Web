@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using DigoFramework;
 using DigoFramework.Json;
-using NetZ.Web.Html;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo;
 
@@ -504,8 +503,8 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Adiciona a instância do objeto passado como parâmetro no formato de JSON para ser
-        /// enviado para o cliente na resposta.
+        /// Adiciona a instância do objeto passado como parâmetro no formato de JSON para ser enviado
+        /// para o cliente na resposta.
         /// <para>
         /// Este método também atualizará o tipo da resposta para JSON, para informar o browser do
         /// que se trata a resposta.

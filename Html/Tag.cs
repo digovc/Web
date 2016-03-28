@@ -124,8 +124,8 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo
-        /// a qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
+        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo a
+        /// qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
         /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
         /// browser do usuário.
         /// </summary>
@@ -1034,8 +1034,7 @@ namespace NetZ.Web.Html
 
         /// <summary>
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
-        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de
-        /// seus descendentes).
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de seus descendentes).
         /// </summary>
         public void setPai(Tag tagPai)
         {
@@ -1067,8 +1066,7 @@ namespace NetZ.Web.Html
 
         /// <summary>
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
-        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de
-        /// seus descendentes).
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de seus descendentes).
         /// </summary>
         public void setPai(PaginaHtml pagPai)
         {
@@ -1132,8 +1130,8 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Método que serve para adicionar arquivos CSS estáticos para lista que será carregada
-        /// pelo browser do usuário.
+        /// Método que serve para adicionar arquivos CSS estáticos para lista que será carregada pelo
+        /// browser do usuário.
         /// </summary>
         /// <param name="lstCss">
         /// Lista de <see cref="CssArquivo"/> que será carregada pelo browser do usuário.

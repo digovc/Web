@@ -1,9 +1,9 @@
 ﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+using NetZ.Web.Html.Componente.Campo;
 
-namespace NetZ.Web.Html.Componente.Menu
+namespace NetZ.Web.Html.Componente.Janela.Cadastro
 {
-    public class DivFavoritoItem : ComponenteHtml
+    public class JnlFiltroCadastro : JnlCadastro
     {
         #region Constantes
 
@@ -11,9 +11,10 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Atributos
 
-        private Imagem _imgIcone;
+        private CampoAlfanumerico _cmpStrDescricao;
+        private CampoAlfanumerico _cmpStrNome;
 
-        private Imagem imgIcone
+        private CampoAlfanumerico cmpStrDescricao
         {
             get
             {
@@ -25,12 +26,12 @@ namespace NetZ.Web.Html.Componente.Menu
 
                 try
                 {
-                    if (_imgIcone != null)
+                    if (_cmpStrDescricao != null)
                     {
-                        return _imgIcone;
+                        return _cmpStrDescricao;
                     }
 
-                    _imgIcone = new Imagem();
+                    _cmpStrDescricao = new CampoAlfanumerico();
                 }
                 catch (Exception ex)
                 {
@@ -42,7 +43,40 @@ namespace NetZ.Web.Html.Componente.Menu
 
                 #endregion Ações
 
-                return _imgIcone;
+                return _cmpStrDescricao;
+            }
+        }
+
+        private CampoAlfanumerico cmpStrNome
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_cmpStrNome != null)
+                    {
+                        return _cmpStrNome;
+                    }
+
+                    _cmpStrNome = new CampoAlfanumerico();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _cmpStrNome;
             }
         }
 
@@ -66,7 +100,11 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.imgIcone.src = "res/media/png/btn_favorito_novo_80x80.png";
+                this.cmpStrNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
+                this.cmpStrNome.intNivel = 1;
+
+                this.cmpStrDescricao.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
+                this.cmpStrDescricao.intNivel = 2;
             }
             catch (Exception ex)
             {
@@ -91,41 +129,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.imgIcone.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void setCss(CssArquivo css)
-        {
-            base.setCss(css);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setFloat("left"));
-                this.addCss(css.setHeight(32, "%"));
-                this.addCss(css.setWidth(32, "%"));
-
-                this.imgIcone.addCss(css.setBorder(2, "solid", "#e7e8e9"));
-                this.imgIcone.addCss(css.setBorderRadius(50, "%"));
-                this.imgIcone.addCss(css.setCursor("pointer"));
-                this.imgIcone.addCss(css.setHeight(75, "%"));
-                this.imgIcone.addCss(css.setMargin(12.5m, "%"));
-                this.imgIcone.addCss(css.setWidth(75, "%"));
+                this.cmpStrNome.setPai(this);
+                this.cmpStrDescricao.setPai(this);
             }
             catch (Exception ex)
             {
