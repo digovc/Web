@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
@@ -32,6 +33,7 @@ namespace NetZ.Web.Html.Pagina
         private JavaScriptTag _tagJs;
         private Tag _tagMetaContent;
         private Tag _tagMetaHttpEquiv;
+        private Tag _tagThemaColor;
         private Tag _tagTitle;
 
         public static PaginaHtml i
@@ -208,6 +210,39 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
+        protected Tag tagHead
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_tagHead != null)
+                    {
+                        return _tagHead;
+                    }
+
+                    _tagHead = new Tag("head");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _tagHead;
+            }
+        }
+
         private bool booPagSimples
         {
             get
@@ -317,39 +352,6 @@ namespace NetZ.Web.Html.Pagina
                 #endregion Ações
 
                 return _tagDocType;
-            }
-        }
-
-        private Tag tagHead
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_tagHead != null)
-                    {
-                        return _tagHead;
-                    }
-
-                    _tagHead = new Tag("head");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _tagHead;
             }
         }
 
@@ -485,6 +487,21 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
+        private Tag tagMetaThemaColor
+        {
+            get
+            {
+                if (_tagThemaColor != null)
+                {
+                    return _tagThemaColor;
+                }
+
+                _tagThemaColor = new Tag("meta");
+
+                return _tagThemaColor;
+            }
+        }
+
         private Tag tagTitle
         {
             get
@@ -532,7 +549,7 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                PaginaHtml.i = this;
+                i = this;
 
                 this.strNome = strNome;
                 this.strTitulo = this.strNome;
@@ -688,8 +705,7 @@ namespace NetZ.Web.Html.Pagina
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/AppWeb.js", 104));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
-                lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.1.3.min.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/lib/jquery-ui.min.js", 0));
+                lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
@@ -770,7 +786,7 @@ namespace NetZ.Web.Html.Pagina
                 this.tagDocType.addAtt("html");
                 this.tagDocType.booBarraFinal = false;
                 this.tagDocType.booMostrarClazz = false;
-                this.tagDocType.booTagDupla = false;
+                this.tagDocType.booDupla = false;
 
                 this.tagHead.booMostrarClazz = false;
 
@@ -787,11 +803,19 @@ namespace NetZ.Web.Html.Pagina
 
                 this.tagMetaContent.addAtt("content", this.strNomeExibicao);
                 this.tagMetaContent.booMostrarClazz = false;
+                this.tagMetaContent.booDupla = false;
 
                 this.tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
                 this.tagMetaHttpEquiv.booMostrarClazz = false;
+                this.tagMetaHttpEquiv.booDupla = false;
+
+                this.tagMetaThemaColor.addAtt("name", "theme-color");
+                this.tagMetaThemaColor.addAtt("content", ColorTranslator.ToHtml(AppWeb.i.objTema.corTema));
+                this.tagMetaThemaColor.booMostrarClazz = false;
+                this.tagMetaThemaColor.booDupla = false;
 
                 this.tagTitle.booMostrarClazz = false;
+                this.tagTitle.booDupla = false;
                 this.tagTitle.strConteudo = this.getStrTituloFormatado();
             }
             catch (Exception ex)
@@ -818,6 +842,7 @@ namespace NetZ.Web.Html.Pagina
                 this.tagTitle.setPai(this.tagHead);
                 this.tagMetaContent.setPai(this.tagHead);
                 this.tagMetaHttpEquiv.setPai(this.tagHead);
+                this.tagMetaThemaColor.setPai(this.tagHead);
                 this.tagIcon.setPai(this.tagHead);
                 this.tagCssMain.setPai(this.tagHead);
                 this.tagCssPrint.setPai(this.tagHead);

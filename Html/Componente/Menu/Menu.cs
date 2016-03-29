@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
-    public abstract class MainMenu : ComponenteHtml
+    public abstract class Menu : ComponenteHtml
     {
         #region Constantes
 
@@ -152,7 +152,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Construtores
 
-        protected MainMenu(string strId)
+        protected Menu(string strId)
         {
             #region Variáveis
 

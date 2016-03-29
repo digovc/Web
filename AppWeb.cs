@@ -246,8 +246,9 @@ namespace NetZ.Web
 
             try
             {
+                i = this;
+
                 this.strNome = strNome;
-                AppWeb.i = this;
 
                 this.inicializarLstTbl(this.lstTbl);
             }

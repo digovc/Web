@@ -53,8 +53,8 @@ namespace NetZ.Web.Html
         private Atributo _attType;
         private bool _booBarraFinal = true;
         private bool _booClicavel;
+        private bool _booDupla = true;
         private bool _booMostrarClazz = true;
-        private bool _booTagDupla = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
         private List<Atributo> _lstAtt;
@@ -124,6 +124,23 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo
+        /// nenhum <see cref="strConteudo"/>.
+        /// </summary>
+        public bool booDupla
+        {
+            get
+            {
+                return _booDupla;
+            }
+
+            set
+            {
+                _booDupla = value;
+            }
+        }
+
+        /// <summary>
         /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo a
         /// qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
         /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
@@ -139,23 +156,6 @@ namespace NetZ.Web.Html
             set
             {
                 _booMostrarClazz = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo
-        /// nenhum <see cref="strConteudo"/>.
-        /// </summary>
-        public bool booTagDupla
-        {
-            get
-            {
-                return _booTagDupla;
-            }
-
-            set
-            {
-                _booTagDupla = value;
             }
         }
 
@@ -1366,7 +1366,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                if (this.booTagDupla)
+                if (this.booDupla)
                 {
                     return true;
                 }

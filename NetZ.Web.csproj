@@ -54,8 +54,12 @@
     <Compile Include="DataBase\TblFiltroItem.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
+    <Compile Include="Html\Componente\ActionBar.cs" />
+    <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroCadastro.cs" />
+    <Compile Include="Html\Componente\Menu\MenuMobile.cs" />
+    <Compile Include="Html\Componente\Menu\MenuMobileItem.cs" />
     <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoCircular.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
@@ -104,9 +108,10 @@
     <Compile Include="Html\Componente\Janela\JanelaHtml.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlCadastro.cs" />
     <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
-    <Compile Include="Html\Componente\Menu\MainMenu.cs" />
-    <Compile Include="Html\Componente\Menu\MainMenuItem.cs" />
+    <Compile Include="Html\Componente\Menu\Menu.cs" />
+    <Compile Include="Html\Componente\Menu\MenuItem.cs" />
     <Compile Include="Html\CssTag.cs" />
+    <Compile Include="Html\Pagina\PagMobile.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Hr.cs" />

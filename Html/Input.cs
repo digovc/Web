@@ -776,7 +776,7 @@ namespace NetZ.Web.Html
             try
             {
                 this.strNome = "textarea";
-                this.booTagDupla = true;
+                this.booDupla = true;
                 this.addAtt("rows", "7");
             }
             catch (Exception ex)

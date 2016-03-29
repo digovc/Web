@@ -5,7 +5,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
-    public class MainMenuItem : ComponenteHtml
+    public class MenuItem : ComponenteHtml
     {
         #region Constantes
 
@@ -190,7 +190,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(MainMenuItem), 151));
+                lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
             }
@@ -220,7 +220,7 @@ namespace NetZ.Web.Html.Componente.Menu
                     return;
                 }
 
-                if (!typeof(MainMenuItem).IsAssignableFrom(tag.GetType()))
+                if (!typeof(MenuItem).IsAssignableFrom(tag.GetType()))
                 {
                     base.addTag(tag);
                     return;

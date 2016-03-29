@@ -124,7 +124,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                this.booTagDupla = false;
+                this.booDupla = false;
 
                 this.addAtt("rel", "stylesheet");
                 this.addAtt("type", "text/css");
