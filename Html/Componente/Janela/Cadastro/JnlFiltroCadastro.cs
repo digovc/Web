@@ -1,5 +1,7 @@
 ﻿using System;
+using NetZ.Web.DataBase;
 using NetZ.Web.Html.Componente.Campo;
+using NetZ.Web.Html.Componente.Tab;
 
 namespace NetZ.Web.Html.Componente.Janela.Cadastro
 {
@@ -13,6 +15,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         private CampoAlfanumerico _cmpStrDescricao;
         private CampoAlfanumerico _cmpStrNome;
+
+        private TabItem _tabFiltroItem;
 
         private CampoAlfanumerico cmpStrDescricao
         {
@@ -80,6 +84,21 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
+        private TabItem tabFiltroItem
+        {
+            get
+            {
+                if (_tabFiltroItem != null)
+                {
+                    return _tabFiltroItem;
+                }
+
+                _tabFiltroItem = new TabItem();
+
+                return _tabFiltroItem;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -105,6 +124,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
                 this.cmpStrDescricao.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
                 this.cmpStrDescricao.intNivel = 2;
+
+                this.tabFiltroItem.tbl = TblFiltroItem.i;
             }
             catch (Exception ex)
             {
@@ -131,6 +152,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             {
                 this.cmpStrNome.setPai(this);
                 this.cmpStrDescricao.setPai(this);
+
+                this.tabFiltroItem.setPai(this);
             }
             catch (Exception ex)
             {

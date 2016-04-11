@@ -386,49 +386,18 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.finalizarCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.finalizarCssTamanho(css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.finalizarCssHeight(css);
+            this.finalizarCssWidth(css);
         }
 
-        protected virtual void finalizarCssTamanho(CssArquivo css)
+        protected virtual void finalizarCssWidth(CssArquivo css)
         {
-            #region Variáveis
+            this.addCss(css.setWidth((this.intTamanhoX * 50)));
+        }
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setHeight((this.intTamanhoY * 50)));
-                this.addCss(css.setWidth((this.intTamanhoX * 50)));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+        protected virtual void finalizarCssHeight(CssArquivo css)
+        {
+            this.addCss(css.setHeight((this.intTamanhoY * 50)));
         }
 
         protected override void inicializar()

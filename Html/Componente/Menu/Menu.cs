@@ -191,7 +191,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/menu/MainMenu.js", 150));
+                lstJs.Add(new JavaScriptTag(typeof(Menu), 150));
             }
             catch (Exception ex)
             {

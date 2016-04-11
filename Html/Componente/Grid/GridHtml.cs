@@ -9,7 +9,7 @@ namespace NetZ.Web.Html.Componente.Grid
     {
         #region Constantes
 
-        internal const decimal INT_LINHA_TAMANHO = 45;
+        internal const decimal INT_LINHA_TAMANHO = 35;
 
         #endregion Constantes
 

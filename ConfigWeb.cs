@@ -4,8 +4,7 @@ using DigoFramework;
 namespace NetZ.Web
 {
     /// <summary>
-    /// Esta classe mantém uma instância do arquivo AppConfig.xml, localizado na pasta onde fica
-    /// esta biblioteca.
+    /// Esta classe mantém uma instância do arquivo AppConfig.xml, localizado na pasta onde fica esta biblioteca.
     /// <para>Este arquivo contém as configurações para que este servidor WEB possa funcionar.</para>
     /// </summary>
     public class ConfigWeb : ConfigMain
@@ -144,8 +143,8 @@ namespace NetZ.Web
 
         /// <summary>
         /// Tempo em segundos que o servidor esperará pela mensagem vinda do cliente após este ter
-        /// começado uma conexão. Caso nada tenha sido enviado pelo cliente neste período a conexão
-        /// é cancelada automaticamente.
+        /// começado uma conexão. Caso nada tenha sido enviado pelo cliente neste período a conexão é
+        /// cancelada automaticamente.
         /// </summary>
         public int intTimeOut
         {

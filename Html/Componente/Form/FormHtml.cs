@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Painel;
@@ -42,27 +41,9 @@ namespace NetZ.Web.Html.Componente.Form
 
             set
             {
-                #region Variáveis
+                _enmMetodo = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _enmMetodo = value;
-
-                    this.attMetodo.strValor = EnmMetodo.GET.Equals(_enmMetodo) ? "get" : "post";
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                this.attMetodo.strValor = EnmMetodo.GET.Equals(_enmMetodo) ? "get" : "post";
             }
         }
 
@@ -73,30 +54,12 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstCmp != null)
                 {
-                    if (_lstCmp != null)
-                    {
-                        return _lstCmp;
-                    }
-
-                    _lstCmp = new List<CampoHtml>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstCmp;
                 }
 
-                #endregion Ações
+                _lstCmp = new List<CampoHtml>();
 
                 return _lstCmp;
             }
@@ -114,27 +77,9 @@ namespace NetZ.Web.Html.Componente.Form
 
             set
             {
-                #region Variáveis
+                _strAction = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strAction = value;
-
-                    this.attAction.strValor = _strAction;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                this.attAction.strValor = _strAction;
             }
         }
 
@@ -142,32 +87,14 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attAction != null)
                 {
-                    if (_attAction != null)
-                    {
-                        return _attAction;
-                    }
-
-                    _attAction = new Atributo("action");
-
-                    this.addAtt(_attAction);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attAction;
                 }
 
-                #endregion Ações
+                _attAction = new Atributo("action");
+
+                this.addAtt(_attAction);
 
                 return _attAction;
             }
@@ -177,32 +104,14 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attMetodo != null)
                 {
-                    if (_attMetodo != null)
-                    {
-                        return _attMetodo;
-                    }
-
-                    _attMetodo = new Atributo("method");
-
-                    this.addAtt(_attMetodo);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attMetodo;
                 }
 
-                #endregion Ações
+                _attMetodo = new Atributo("method");
+
+                this.addAtt(_attMetodo);
 
                 return _attMetodo;
             }
@@ -212,30 +121,12 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divConteudo != null)
                 {
-                    if (_divConteudo != null)
-                    {
-                        return _divConteudo;
-                    }
-
-                    _divConteudo = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divConteudo;
                 }
 
-                #endregion Ações
+                _divConteudo = new Div();
 
                 return _divConteudo;
             }
@@ -245,30 +136,12 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divLimiteFloat != null)
                 {
-                    if (_divLimiteFloat != null)
-                    {
-                        return _divLimiteFloat;
-                    }
-
-                    _divLimiteFloat = new LimiteFloat();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divLimiteFloat;
                 }
 
-                #endregion Ações
+                _divLimiteFloat = new LimiteFloat();
 
                 return _divLimiteFloat;
             }
@@ -278,30 +151,12 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstPnlNivel != null)
                 {
-                    if (_lstPnlNivel != null)
-                    {
-                        return _lstPnlNivel;
-                    }
-
-                    _lstPnlNivel = this.getLstPnlNivel();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstPnlNivel;
                 }
 
-                #endregion Ações
+                _lstPnlNivel = this.getLstPnlNivel();
 
                 return _lstPnlNivel;
             }
@@ -311,30 +166,12 @@ namespace NetZ.Web.Html.Componente.Form
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstTagNivel != null)
                 {
-                    if (_lstTagNivel != null)
-                    {
-                        return _lstTagNivel;
-                    }
-
-                    _lstTagNivel = new List<ITagNivel>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstTagNivel;
                 }
 
-                #endregion Ações
+                _lstTagNivel = new List<ITagNivel>();
 
                 return _lstTagNivel;
             }
@@ -342,36 +179,18 @@ namespace NetZ.Web.Html.Componente.Form
 
         private List<PainelNivel> getLstPnlNivel()
         {
-            #region Variáveis
-
             List<PainelNivel> lstPnlNivelResultado;
             PainelNivel pnlNivel;
 
-            #endregion Variáveis
+            pnlNivel = new PainelNivel();
 
-            #region Ações
+            pnlNivel.setPai(this.divConteudo);
 
-            try
-            {
-                pnlNivel = new PainelNivel();
+            lstPnlNivelResultado = new List<PainelNivel>();
 
-                pnlNivel.setPai(this.divConteudo);
+            lstPnlNivelResultado.Add(pnlNivel);
 
-                lstPnlNivelResultado = new List<PainelNivel>();
-
-                lstPnlNivelResultado.Add(pnlNivel);
-
-                return lstPnlNivelResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return lstPnlNivelResultado;
         }
 
         #endregion Atributos
@@ -380,25 +199,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         public FormHtml()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = "form";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = "form";
         }
 
         #endregion Construtores
@@ -409,316 +210,139 @@ namespace NetZ.Web.Html.Componente.Form
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(FormHtml)));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(FormHtml)));
         }
 
         protected override void addTag(Tag tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if (!(typeof(ITagNivel).IsAssignableFrom(tag.GetType())))
-                {
-                    base.addTag(tag);
-                    return;
-                }
-
-                this.addLstTagNivel(tag);
-                this.addLstCmp(tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if ((typeof(ITagNivel).IsAssignableFrom(tag.GetType())))
+            {
+                this.addTagITagNivel(tag as ITagNivel);
+                return;
+            }
+
+            base.addTag(tag);
         }
 
         protected override void finalizar()
         {
             base.finalizar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.finalizarMontarLayoutLstCmp();
-                this.finalizarMontarLayoutLstPnlNivel();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.finalizarMontarLayoutLstCmp();
+            this.finalizarMontarLayoutLstPnlNivel();
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divConteudo.strId = "divConteudo";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divConteudo.strId = "divConteudo";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divConteudo.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divConteudo.setPai(this);
         }
 
-        private void addLstCmp(Tag tag)
+        private void addLstCmp(ITagNivel tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if (!(typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
-                {
-                    return;
-                }
-
-                if (this.lstCmp.Contains((CampoHtml)tag))
-                {
-                    return;
-                }
-
-                this.lstCmp.Add((CampoHtml)tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (!(typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
+            {
+                return;
+            }
+
+            if (this.lstCmp.Contains((CampoHtml)tag))
+            {
+                return;
+            }
+
+            this.lstCmp.Add((CampoHtml)tag);
         }
 
-        private void addLstTagNivel(Tag tag)
+        private void addLstTagNivel(ITagNivel tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if (!(typeof(ITagNivel).IsAssignableFrom(tag.GetType())))
-                {
-                    return;
-                }
-
-                if (this.lstTagNivel.Contains((ITagNivel)tag))
-                {
-                    return;
-                }
-
-                this.lstTagNivel.Add((ITagNivel)tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.lstTagNivel.Contains(tag))
+            {
+                return;
+            }
+
+            this.lstTagNivel.Add(tag);
+        }
+
+        private void addTagITagNivel(ITagNivel tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            this.addLstTagNivel(tag);
+            this.addLstCmp(tag);
         }
 
         private void finalizarMontarLayoutLstCmp()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (ITagNivel tag in this.lstTagNivel.OrderBy((x) => x.intNivel))
             {
-                foreach (ITagNivel tag in this.lstTagNivel.OrderBy((x) => x.intNivel))
-                {
-                    this.montarLayoutItem(tag);
-                }
+                this.finalizarMontarLayoutLstCmp(tag);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void finalizarMontarLayoutLstPnlNivel()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (PainelNivel pnl in this.lstPnlNivel)
             {
-                foreach (PainelNivel pnl in this.lstPnlNivel)
+                if (pnl == null)
                 {
-                    if (pnl == null)
-                    {
-                        continue;
-                    }
-
-                    this.divLimiteFloat.setPai(pnl);
+                    continue;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+                this.divLimiteFloat.setPai(pnl);
+            }
         }
 
-        private void montarLayoutItem(ITagNivel tag)
+        private void finalizarMontarLayoutLstCmp(ITagNivel tag)
         {
-            #region Variáveis
-
-            PainelNivel pnlNivel;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if (!(typeof(Tag).IsAssignableFrom(tag.GetType())))
-                {
-                    return;
-                }
-
-                pnlNivel = this.lstPnlNivel.Last();
-
-                if (tag.intNivel > pnlNivel.intNivel)
-                {
-                    pnlNivel = new PainelNivel();
-
-                    pnlNivel.intNivel = tag.intNivel;
-                    pnlNivel.setPai(this.divConteudo);
-
-                    this.lstPnlNivel.Add(pnlNivel);
-                }
-
-                (tag as Tag).setPai(pnlNivel);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (!(typeof(Tag).IsAssignableFrom(tag.GetType())))
+            {
+                return;
+            }
+
+            PainelNivel pnlNivel = this.lstPnlNivel.Last();
+
+            if (tag.intNivel > pnlNivel.intNivel)
+            {
+                pnlNivel = new PainelNivel();
+
+                pnlNivel.intNivel = tag.intNivel;
+                pnlNivel.setPai(this.divConteudo);
+
+                this.lstPnlNivel.Add(pnlNivel);
+            }
+
+            (tag as Tag).setPai(pnlNivel);
         }
 
         #endregion Métodos

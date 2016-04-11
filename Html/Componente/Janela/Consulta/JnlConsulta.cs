@@ -195,33 +195,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
-        protected override void finalizarCssTamanho(CssArquivo css)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBottom(0));
-                this.addCss(css.setLeft(0));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setRight(0));
-                this.addCss(css.setTop(0));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -252,6 +225,16 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
 
             #endregion Ações
+        }
+
+        protected override void finalizarCssHeight(CssArquivo css)
+        {
+            //base.finalizarCssHeight(css);
+        }
+
+        protected override void finalizarCssWidth(CssArquivo css)
+        {
+            //base.finalizarCssWidth(css);
         }
 
         protected override void montarLayout()
@@ -285,36 +268,23 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.addCss(css.setBottom(0));
+            this.addCss(css.setLeft(0));
+            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setRight(0));
+            this.addCss(css.setTop(0));
 
-            #endregion Variáveis
+            this.divGrid.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
+            this.divGrid.addCss(css.setBottom(0));
+            this.divGrid.addCss(css.setLeft(0));
+            this.divGrid.addCss(css.setOverflow("auto"));
+            this.divGrid.addCss(css.setPosition("absolute"));
+            this.divGrid.addCss(css.setRight(0));
+            this.divGrid.addCss(css.setTop(150));
 
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
-
-                this.divGrid.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
-                this.divGrid.addCss(css.setBottom(0));
-                this.divGrid.addCss(css.setLeft(0));
-                this.divGrid.addCss(css.setOverflow("auto"));
-                this.divGrid.addCss(css.setPosition("absolute"));
-                this.divGrid.addCss(css.setRight(0));
-                this.divGrid.addCss(css.setTop(150));
-
-                this.pnlAcaoConsulta.addCss(css.setBottom(25));
-                this.pnlAcaoConsulta.addCss(css.setRight(50));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.pnlAcaoConsulta.addCss(css.setBottom(25));
+            this.pnlAcaoConsulta.addCss(css.setRight(50));
         }
 
         #endregion Métodos

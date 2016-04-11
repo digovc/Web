@@ -196,6 +196,8 @@ namespace NetZ.Web.Server
                 while (!this.booParar)
                 {
                     this.loop();
+
+                    Thread.Sleep(1);
                 }
             }
             catch (Exception ex)
@@ -255,7 +257,7 @@ namespace NetZ.Web.Server
 
             try
             {
-                this.addCliente(this.tcpListener.AcceptTcpClient());
+                this.validarAddCliente();
             }
             catch (Exception ex)
             {
@@ -266,6 +268,16 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
+        }
+
+        private void validarAddCliente()
+        {
+            if (!this.tcpListener.Pending())
+            {
+                return;
+            }
+
+            this.addCliente(this.tcpListener.AcceptTcpClient());
         }
 
         #endregion Métodos

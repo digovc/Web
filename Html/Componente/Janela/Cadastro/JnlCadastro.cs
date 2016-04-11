@@ -3,6 +3,8 @@ using System.Reflection;
 using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
+using NetZ.Web.Html.Componente.Tab;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela.Cadastro
 {
@@ -159,6 +161,23 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
+
+        private TabHtml _tabHtml;
+        private TabHtml tabHtml
+        {
+            get
+            {
+                if (_tabHtml != null)
+                {
+                    return _tabHtml;
+                }
+
+                _tabHtml = new TabHtml();
+
+                return _tabHtml;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -211,14 +230,19 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                     return;
                 }
 
-                if (!(typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
+                if ((typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
                 {
-                    base.addTag(tag);
+                    this.addTagCampoHtml(tag as CampoHtml);
                     return;
                 }
 
-                tag.setPai(this.frm);
-                this.intComandoNivel = (((tag as CampoHtml).intNivel + 1) > this.intComandoNivel) ? ((tag as CampoHtml).intNivel + 1) : this.intComandoNivel;
+                if ((typeof(TabItem).IsAssignableFrom(tag.GetType())))
+                {
+                    this.addTagTabItem(tag as TabItem);
+                    return;
+                }
+
+                base.addTag(tag);
             }
             catch (Exception ex)
             {
@@ -231,33 +255,54 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             #endregion Ações
         }
 
+        private void addTagTabItem(TabItem tabItem)
+        {
+            if (tabItem == null)
+            {
+                return;
+            }
+
+            tabItem.setPai(this.tabHtml);
+        }
+
+        private void addTagCampoHtml(CampoHtml tagCampoHtml)
+        {
+            if (tagCampoHtml == null)
+            {
+                return;
+            }
+
+            tagCampoHtml.setPai(this.frm);
+
+            this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
+        }
+
         protected override void finalizar()
         {
             base.finalizar();
 
-            #region Variáveis
+            this.finalizarTabHtml();
 
-            #endregion Variáveis
+            this.finalizarDivComando();
 
-            #region Ações
+            this.intTamanhoY = (this.intComandoNivel + 2);
+        }
 
-            try
+        private void finalizarDivComando()
+        {
+            this.divComando.intNivel = this.intComandoNivel;
+
+            this.divComando.setPai(this.frm);
+        }
+
+        private void finalizarTabHtml()
+        {
+            if (this.tabHtml.intTabQuantidade < 1)
             {
-                this.divComando.intNivel = this.intComandoNivel; // TODO: Parei no problema do tamanho das janelas.
-
-                this.divComando.setPai(this.frm);
-
-                this.intTamanhoY = (this.intComandoNivel + 2);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.tabHtml.setPai(this);
         }
 
         protected override void inicializar()
@@ -306,7 +351,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             try
             {
                 this.frm.setPai(this);
-
                 this.cmpIntId.setPai(this.frm);
             }
             catch (Exception ex)
@@ -442,6 +486,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             #endregion Ações
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.tabHtml.addCss(css.setDisplay("none"));
         }
 
         #endregion Métodos
