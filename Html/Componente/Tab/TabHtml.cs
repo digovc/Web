@@ -32,6 +32,24 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
+        private int _intTabQuantidade;
+
+        /// <summary>
+        /// Retorna a quantidade de tabs que essa tag possui.
+        /// </summary>
+        public int intTabQuantidade
+        {
+            get
+            {
+                return _intTabQuantidade;
+            }
+
+            private set
+            {
+                _intTabQuantidade = value;
+            }
+        }
+
         private Div divCabecalho
         {
             get

@@ -22,6 +22,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private FormHtml _frm;
         private int _intComandoNivel = 1;
         private TabHtml _tabHtml;
+        private TabHtml _tabHtml;
         private Tabela _tbl;
         private Tabela _tblPai;
         private TabelaWeb _tblWeb;
@@ -278,6 +279,50 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
+        private Tabela getTblPai()
+        {
+            if (this.tblWeb == null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(this.tblWeb.strTblPaiNome))
+            {
+                return null;
+            }
+
+            return AppWeb.i.getTbl(this.tblWeb.strTblPaiNome);
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.tabHtml.addCss(css.setDisplay("none"));
+        }
+
+        private void addTagCampoHtml(CampoHtml tagCampoHtml)
+        {
+            if (tagCampoHtml == null)
+            {
+                return;
+            }
+
+            tagCampoHtml.setPai(this.frm);
+
+            this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
+        }
+
+        private void addTagTabItem(TabItem tabItem)
+        {
+            if (tabItem == null)
+            {
+                return;
+            }
+
+            tabItem.setPai(this.tabHtml);
+        }
+
         private void finalizarDivComando()
         {
             this.divComando.intNivel = this.intComandoNivel;
@@ -293,21 +338,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             this.tabHtml.setPai(this);
-        }
-
-        private Tabela getTblPai()
-        {
-            if (this.tblWeb == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrEmpty(this.tblWeb.strTblPaiNome))
-            {
-                return null;
-            }
-
-            return AppWeb.i.getTbl(this.tblWeb.strTblPaiNome);
         }
 
         private void inicializarCampos()
