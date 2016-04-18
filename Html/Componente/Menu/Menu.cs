@@ -219,7 +219,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divGaveta.strId = "divGaveta";
 
                 this.txtPesquisa.strId = "txtPesquisa";
-                this.txtPesquisa.strPlaceHolder = "Pesquisa";
+                this.txtPesquisa.strPlaceHolder = "Digite para pesquisar";
             }
             catch (Exception ex)
             {
@@ -272,14 +272,18 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor("rgba(88,178,150,0.75)"));
+                this.divGaveta.addCss(css.setBackgroundColor("rgba(86, 177, 149, 0.85)"));
                 this.divGaveta.addCss(css.setCenter());
                 this.divGaveta.addCss(css.setDisplay("none"));
                 this.divGaveta.addCss(css.setMaxHeight(500));
                 this.divGaveta.addCss(css.setOverflowX("hidden"));
                 this.divGaveta.addCss(css.setOverflowY("auto"));
-                this.divGaveta.addCss(css.setWidth(600));
+                this.divGaveta.addCss(css.setWidth(450));
                 this.divGaveta.addCss(css.setZIndex(10));
+                this.divGaveta.addCss(css.setPaddingTop(0));
+                this.divGaveta.addCss(css.setPaddingRight(20));
+                this.divGaveta.addCss(css.setPaddingBottom(10));
+                this.divGaveta.addCss(css.setPaddingLeft(20));
 
                 this.divGavetaContainer.addCss(css.setPosition("absolute"));
                 this.divGavetaContainer.addCss(css.setTop(50));
@@ -290,14 +294,16 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divPesquisa.addCss(css.setWidth(100, "%"));
 
                 this.txtPesquisa.addCss(css.setBorder(0));
+                this.txtPesquisa.addCss(css.setBorderRadius(5, 5, 5, 5));
                 this.txtPesquisa.addCss(css.setCenter());
                 this.txtPesquisa.addCss(css.setDisplay("block"));
-                this.txtPesquisa.addCss(css.setFontSize(25));
-                this.txtPesquisa.addCss(css.setHeight(30));
+                this.txtPesquisa.addCss(css.setFontSize(20));
+                this.txtPesquisa.addCss(css.setHeight(20));
                 this.txtPesquisa.addCss(css.setPadding(5));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
-                this.txtPesquisa.addCss(css.setTop(5));
-                this.txtPesquisa.addCss(css.setWidth(600));
+                this.txtPesquisa.addCss(css.setTextAlign("center"));
+                this.txtPesquisa.addCss(css.setTop(10));
+                this.txtPesquisa.addCss(css.setWidth(450));
             }
             catch (Exception ex)
             {

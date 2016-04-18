@@ -357,6 +357,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.addCss(css.setCursor("pointer"));
                 this.addCss(css.setMinHeight(INT_HEIGHT));
                 this.addCss(css.setOutLine("none"));
+                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
 
                 this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
 
