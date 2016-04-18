@@ -160,7 +160,14 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             set
             {
+                if (_tbl == value)
+                {
+                    return;
+                }
+
                 _tbl = value;
+
+                this.atualizarTbl();
             }
         }
 
@@ -195,6 +202,24 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            this.divGrid.strId = (this.strId + "_divGrid");
+            this.pnlAcaoConsulta.strId = (this.strId + "_pnlAcaoConsulta");
+        }
+
+        protected override void finalizarCssHeight(CssArquivo css)
+        {
+            //base.finalizarCssHeight(css);
+        }
+
+        protected override void finalizarCssWidth(CssArquivo css)
+        {
+            //base.finalizarCssWidth(css);
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -207,14 +232,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.strId = typeof(JnlConsulta).Name;
-                this.strTitulo = this.tbl.strNomeExibicao;
-
-                this.divGrid.strId = "divGrid";
-
-                this.pnlAcaoConsulta.strId = "pnlAcaoConsulta";
-
-                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+                this.strId = "jnlConsulta";
             }
             catch (Exception ex)
             {
@@ -225,16 +243,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
 
             #endregion Ações
-        }
-
-        protected override void finalizarCssHeight(CssArquivo css)
-        {
-            //base.finalizarCssHeight(css);
-        }
-
-        protected override void finalizarCssWidth(CssArquivo css)
-        {
-            //base.finalizarCssWidth(css);
         }
 
         protected override void montarLayout()
@@ -285,6 +293,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.pnlAcaoConsulta.addCss(css.setBottom(25));
             this.pnlAcaoConsulta.addCss(css.setRight(50));
+        }
+
+        private void atualizarTbl()
+        {
+            this.strTitulo = this.tbl.strNomeExibicao;
+
+            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
         #endregion Métodos

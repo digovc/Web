@@ -166,27 +166,13 @@ namespace NetZ.Web.DataBase
         {
             base.inicializar();
 
-            #region Variáveis
+            this.clsJnlCadastro = typeof(JnlFiltroCadastro);
 
-            #endregion Variáveis
+            this.clnStrDescricao.strNomeExibicao = "descrição";
 
-            #region Ações
+            this.clnStrNome.booObrigatorio = true;
 
-            try
-            {
-                this.clsJnlCadastro = typeof(JnlFiltroCadastro);
-
-                this.clnStrDescricao.strNomeExibicao = "descrição";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.clnStrTabelaNome.booObrigatorio = true;
         }
 
         protected override int inicializarColunas(int intOrdem)
@@ -201,6 +187,7 @@ namespace NetZ.Web.DataBase
             {
                 intOrdem = base.inicializarColunas(intOrdem);
 
+                this.clnStrDescricao.intOrdem = ++intOrdem;
                 this.clnStrNome.intOrdem = ++intOrdem;
                 this.clnStrTabelaNome.intOrdem = ++intOrdem;
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using NetZ.Persistencia;
+using NetZ.Persistencia.Web;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 using NetZ.Web.Html.Componente.Tab;
@@ -20,21 +21,10 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private DivComando _divComando;
         private FormHtml _frm;
         private int _intComandoNivel = 1;
-        private int _intRegistroId;
+        private TabHtml _tabHtml;
         private Tabela _tbl;
-
-        public int intRegistroId
-        {
-            get
-            {
-                return _intRegistroId;
-            }
-
-            set
-            {
-                _intRegistroId = value;
-            }
-        }
+        private Tabela _tblPai;
+        private TabelaWeb _tblWeb;
 
         public Tabela tbl
         {
@@ -45,7 +35,42 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             set
             {
+                if (_tbl == value)
+                {
+                    return;
+                }
+
                 _tbl = value;
+
+                this.atualizarTbl();
+            }
+        }
+
+        public TabelaWeb tblWeb
+        {
+            get
+            {
+                return _tblWeb;
+            }
+
+            set
+            {
+                _tblWeb = value;
+            }
+        }
+
+        protected Tabela tblPai
+        {
+            get
+            {
+                if (_tblPai != null)
+                {
+                    return _tblPai;
+                }
+
+                _tblPai = this.getTblPai();
+
+                return _tblPai;
             }
         }
 
@@ -53,30 +78,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_cmpIntId != null)
                 {
-                    if (_cmpIntId != null)
-                    {
-                        return _cmpIntId;
-                    }
-
-                    _cmpIntId = new CampoNumerico();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _cmpIntId;
                 }
 
-                #endregion Ações
+                _cmpIntId = new CampoNumerico();
 
                 return _cmpIntId;
             }
@@ -86,30 +93,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divComando != null)
                 {
-                    if (_divComando != null)
-                    {
-                        return _divComando;
-                    }
-
-                    _divComando = new DivComando();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divComando;
                 }
 
-                #endregion Ações
+                _divComando = new DivComando();
 
                 return _divComando;
             }
@@ -119,30 +108,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_frm != null)
                 {
-                    if (_frm != null)
-                    {
-                        return _frm;
-                    }
-
-                    _frm = new FormHtml();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _frm;
                 }
 
-                #endregion Ações
+                _frm = new FormHtml();
 
                 return _frm;
             }
@@ -161,8 +132,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
-
-        private TabHtml _tabHtml;
         private TabHtml tabHtml
         {
             get
@@ -190,79 +159,91 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
+            lstJs.Add(new JavaScriptTag(this.GetType(), 112));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
-                lstJs.Add(new JavaScriptTag(this.GetType(), 112));
-
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if ((typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
-                {
-                    this.addTagCampoHtml(tag as CampoHtml);
-                    return;
-                }
-
-                if ((typeof(TabItem).IsAssignableFrom(tag.GetType())))
-                {
-                    this.addTagTabItem(tag as TabItem);
-                    return;
-                }
-
-                base.addTag(tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void addTagTabItem(TabItem tabItem)
-        {
-            if (tabItem == null)
+            if (tag == null)
             {
                 return;
             }
 
-            tabItem.setPai(this.tabHtml);
+            if ((typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
+            {
+                this.addTagCampoHtml(tag as CampoHtml);
+                return;
+            }
+
+            if ((typeof(TabItem).IsAssignableFrom(tag.GetType())))
+            {
+                this.addTagTabItem(tag as TabItem);
+                return;
+            }
+
+            base.addTag(tag);
+        }
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            this.divComando.strId = (this.strId + "_divComando");
+            this.tabHtml.strId = (this.strId + "_tabHtml");
+        }
+
+        /// <summary>
+        /// Este método é chamado de dentro do método <see cref="inicializar"/> e serve para carregar
+        /// os dados do banco de dados para os campos.
+        /// </summary>
+        protected virtual void carregarDados()
+        {
+        }
+
+        protected override void finalizar()
+        {
+            this.finalizarTabHtml();
+
+            base.finalizar();
+
+            this.finalizarDivComando();
+
+            this.intTamanhoY = (this.intComandoNivel + 2);
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.inicializarCampos();
+
+            this.intTamanhoX = 10;
+            this.strId = this.GetType().Name;
+
+            this.addAtt("js_src", JavaScriptTag.getSrc(this.GetType()));
+
+            this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
+
+            this.carregarDados();
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.frm.setPai(this);
+            this.cmpIntId.setPai(this.frm);
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.tabHtml.addCss(css.setDisplay("none"));
         }
 
         private void addTagCampoHtml(CampoHtml tagCampoHtml)
@@ -277,15 +258,24 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
         }
 
-        protected override void finalizar()
+        private void addTagTabItem(TabItem tabItem)
         {
-            base.finalizar();
+            if (tabItem == null)
+            {
+                return;
+            }
 
-            this.finalizarTabHtml();
+            tabItem.setPai(this.tabHtml);
+        }
 
-            this.finalizarDivComando();
+        private void atualizarTbl()
+        {
+            if (this.tbl == null)
+            {
+                return;
+            }
 
-            this.intTamanhoY = (this.intComandoNivel + 2);
+            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
         private void finalizarDivComando()
@@ -305,194 +295,95 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.tabHtml.setPai(this);
         }
 
-        protected override void inicializar()
+        private Tabela getTblPai()
         {
-            base.inicializar();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tblWeb == null)
             {
-                this.inicializarCampos();
-
-                this.intTamanhoX = 10;
-                this.strId = this.GetType().Name;
-
-                this.addAtt("js_src", JavaScriptTag.getSrc(this.GetType()));
-                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-
-                this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
-        }
-
-        protected override void montarLayout()
-        {
-            base.montarLayout();
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.tblWeb.strTblPaiNome))
             {
-                this.frm.setPai(this);
-                this.cmpIntId.setPai(this.frm);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return AppWeb.i.getTbl(this.tblWeb.strTblPaiNome);
         }
 
         private void inicializarCampos()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tbl == null)
             {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                this.tbl.recuperar(this.intRegistroId);
-
-                this.inicializarCampos(this.GetType());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.tblWeb == null)
+            {
+                return;
+            }
+
+            if (this.tblWeb.intRegistroId > 0)
+            {
+                this.tbl.recuperar(this.tblWeb.intRegistroId);
+            }
+
+            this.inicializarCampos(this.GetType());
         }
 
         private void inicializarCampos(Type cls)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (cls == null)
             {
-                if (cls == null)
-                {
-                    return;
-                }
-
-                if (cls.BaseType != null)
-                {
-                    this.inicializarCampos(cls.BaseType);
-                }
-
-                foreach (Coluna cln in this.tbl.lstCln)
-                {
-                    this.inicializarCampos(cls, cln);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (cls.BaseType != null)
+            {
+                this.inicializarCampos(cls.BaseType);
+            }
+
+            foreach (Coluna cln in this.tbl.lstCln)
+            {
+                this.inicializarCampos(cls, cln);
+            }
         }
 
         private void inicializarCampos(Type cls, Coluna cln)
         {
-            #region Variáveis
-
-            PropertyInfo objPropertyInfo;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (cls == null)
             {
-                if (cls == null)
-                {
-                    return;
-                }
-
-                if (cln == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(cln.strCampoNome))
-                {
-                    return;
-                }
-
-                objPropertyInfo = cls.GetProperty(cln.strCampoNome, BindingFlags.IgnoreCase | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-
-                if (objPropertyInfo == null)
-                {
-                    return;
-                }
-
-                if (!(typeof(CampoHtml).IsAssignableFrom(objPropertyInfo.PropertyType)))
-                {
-                    return;
-                }
-
-                if ((objPropertyInfo.GetValue(this) as CampoHtml).cln != null)
-                {
-                    return;
-                }
-
-                (objPropertyInfo.GetValue(this) as CampoHtml).cln = cln;
-                (objPropertyInfo.GetValue(this) as CampoHtml).tagInput.strValor = cln.strValor;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
-        }
+            if (cln == null)
+            {
+                return;
+            }
 
-        protected override void setCss(CssArquivo css)
-        {
-            base.setCss(css);
+            if (string.IsNullOrEmpty(cln.strCampoNome))
+            {
+                return;
+            }
 
-            this.tabHtml.addCss(css.setDisplay("none"));
+            PropertyInfo objPropertyInfo = cls.GetProperty(cln.strCampoNome, BindingFlags.IgnoreCase | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+
+            if (objPropertyInfo == null)
+            {
+                return;
+            }
+
+            if (!(typeof(CampoHtml).IsAssignableFrom(objPropertyInfo.PropertyType)))
+            {
+                return;
+            }
+
+            if ((objPropertyInfo.GetValue(this) as CampoHtml).cln != null)
+            {
+                return;
+            }
+
+            (objPropertyInfo.GetValue(this) as CampoHtml).cln = cln;
+            (objPropertyInfo.GetValue(this) as CampoHtml).tagInput.strValor = cln.strValor;
         }
 
         #endregion Métodos

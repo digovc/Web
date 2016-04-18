@@ -58,6 +58,21 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
+        /// <summary>
+        /// Adiciona uma opção para a lista do combobox.
+        /// </summary>
+        /// <param name="objValor">Valor único que identificará a opção.</param>
+        /// <param name="strNome">Nome que ficará visível para o usuário.</param>
+        public void addOpcao(object objValor, string strNome)
+        {
+            if (this.tagInput == null)
+            {
+                return;
+            }
+
+            this.cmb.addOpcao(objValor, strNome);
+        }
+
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -81,6 +96,13 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             #endregion Ações
+        }
+
+        protected override void atualizarCln()
+        {
+            base.atualizarCln();
+
+            this.cmb.cln = this.cln;
         }
 
         protected override Input.EnmTipo getEnmTipo()

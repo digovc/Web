@@ -2,6 +2,7 @@
 using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
@@ -220,6 +221,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
 
             #endregion Ações
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.btnAdicionar.addCss(css.setMarginRight(10));
         }
 
         #endregion Métodos

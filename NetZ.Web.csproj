@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +58,7 @@
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroCadastro.cs" />
+    <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroItemCadastro.cs" />
     <Compile Include="Html\Componente\Menu\MenuMobile.cs" />
     <Compile Include="Html\Componente\Menu\MenuMobileItem.cs" />
     <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
@@ -93,7 +94,7 @@
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
-    <Compile Include="Html\Componente\Form\DivComando.cs" />
+    <Compile Include="Html\Componente\Janela\Cadastro\DivComando.cs" />
     <Compile Include="Html\Componente\Grid\GridData.cs" />
     <Compile Include="Html\Componente\Grid\GridHead.cs" />
     <Compile Include="Html\Componente\Grid\GridHtml.cs" />

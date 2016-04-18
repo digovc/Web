@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
@@ -11,19 +10,25 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Atributos
 
+        private TabItem _tabItem;
 
-        private string _strTitulo = "Tab desconhecida";
-        public string strTitulo
+        internal TabItem tabItem
         {
             get
             {
-                return _strTitulo;
+                return _tabItem;
             }
+
             set
             {
-                _strTitulo = value;
+                if (_tabItem == value)
+                {
+                    return;
+                }
 
-                this.atualizarStrTitulo();
+                _tabItem = value;
+
+                this.atualizarTabItem();
             }
         }
 
@@ -35,9 +40,11 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        private void atualizarStrTitulo()
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            this.strConteudo = this.strTitulo;
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 110));
         }
 
         protected override void setCss(CssArquivo css)
@@ -52,6 +59,17 @@ namespace NetZ.Web.Html.Componente.Tab
             this.addCss(css.setPaddingLeft(10));
             this.addCss(css.setPaddingRight(10));
             this.addCss(css.setWidth(130));
+        }
+
+        private void atualizarTabItem()
+        {
+            if (this.tabItem == null)
+            {
+                return;
+            }
+
+            this.strConteudo = this.tabItem.strTitulo;
+            this.strId = (this.tabItem.strId + "_tabItemHead");
         }
 
         #endregion Métodos

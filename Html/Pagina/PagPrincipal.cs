@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Botao.Comando;
 using NetZ.Web.Html.Componente.Botao.Mini;
@@ -10,6 +9,7 @@ using NetZ.Web.Html.Componente.Janela;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Html.Componente.Tab;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
@@ -128,9 +128,11 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(BotaoMini), 117));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoSalvarComando), 115));
                 lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
+                lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
                 lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 131));
+                lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
                 lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
                 lstJs.Add(new JavaScriptTag(typeof(FormHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(FrmFiltro), 112));
@@ -145,7 +147,11 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(PainelFiltro), 115));
                 lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
                 lstJs.Add(new JavaScriptTag(typeof(PainelNivel), 115));
+                lstJs.Add(new JavaScriptTag(typeof(TabHtml), 111));
+                lstJs.Add(new JavaScriptTag(typeof(TabItem), 111));
+                lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 111));
 
+                lstJs.Add(new JavaScriptTag("res/js/lib/jquery.fixedheadertable.min.js"));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js", 101));
@@ -227,7 +233,7 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                this.divCadastro.addCss(css.setBackgroundColor(Color.FromArgb(127, AppWeb.i.objTema.corTema)));
+                this.divCadastro.addCss(css.setBackgroundColor("rgba(0,0,0,0.5)"));
                 this.divCadastro.addCss(css.setBottom(0));
                 this.divCadastro.addCss(css.setDisplay("none"));
                 this.divCadastro.addCss(css.setLeft(0));

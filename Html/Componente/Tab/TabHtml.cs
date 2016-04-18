@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
@@ -13,6 +12,25 @@ namespace NetZ.Web.Html.Componente.Tab
 
         private Div _divCabecalho;
         private Div _divCabecalhoConteudo;
+
+        private Div _divConteudo;
+        private int _intTabQuantidade;
+
+        /// <summary>
+        /// Retorna a quantidade de tabs que essa tag possui.
+        /// </summary>
+        public int intTabQuantidade
+        {
+            get
+            {
+                return _intTabQuantidade;
+            }
+
+            private set
+            {
+                _intTabQuantidade = value;
+            }
+        }
 
         private Div divCabecalho
         {
@@ -44,21 +62,18 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
-
-        private int _intTabQuantidade ;
-
-        /// <summary>
-        /// Retorna a quantidade de tabs que essa tag possui.
-        /// </summary>
-        public int intTabQuantidade
+        private Div divConteudo
         {
             get
             {
-                return _intTabQuantidade;
-            }
-            private set
-            {
-                _intTabQuantidade = value;
+                if (_divConteudo != null)
+                {
+                    return _divConteudo;
+                }
+
+                _divConteudo = new Div();
+
+                return _divConteudo;
             }
         }
 
@@ -70,9 +85,15 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(TabHtml), 110));
+        }
+
         protected override void addTag(Tag tag)
         {
-
             if (tag == null)
             {
                 return;
@@ -81,9 +102,38 @@ namespace NetZ.Web.Html.Componente.Tab
             if ((typeof(TabItem).IsAssignableFrom(tag.GetType())))
             {
                 this.addTagTabItem(tag as TabItem);
+                return;
             }
 
             base.addTag(tag);
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.divCabecalho.setPai(this);
+            this.divCabecalhoConteudo.setPai(this.divCabecalho);
+            this.divConteudo.setPai(this);
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.addCss(css.setHeight(250));
+            this.addCss(css.setPosition("relative"));
+
+            this.divCabecalho.addCss(css.setHeight(40));
+
+            this.divCabecalhoConteudo.addCss(css.setHeight(30));
+
+            this.divConteudo.addCss(css.setBottom(0));
+            this.divConteudo.addCss(css.setOverflow("auto"));
+            this.divConteudo.addCss(css.setPosition("absolute"));
+            this.divConteudo.addCss(css.setTop(40));
+            this.divConteudo.addCss(css.setWidth(100, "%"));
         }
 
         private void addTagTabItem(TabItem tabItem)
@@ -93,33 +143,20 @@ namespace NetZ.Web.Html.Componente.Tab
                 return;
             }
 
-            TabItemHead tagTabItemHead = new TabItemHead();
+            tabItem.setPai(this.divConteudo);
 
-            tagTabItemHead.strTitulo = tabItem.strTitulo;
-
-            tagTabItemHead.setPai(this.divCabecalhoConteudo);
+            this.addTagTabItemTabItemHead(tabItem);
 
             this.intTabQuantidade++;
         }
 
-        protected override void montarLayout()
+        private void addTagTabItemTabItemHead(TabItem tabItem)
         {
-            base.montarLayout();
+            TabItemHead tagTabItemHead = new TabItemHead();
 
-            this.divCabecalho.setPai(this);
-            this.divCabecalhoConteudo.setPai(this.divCabecalho);
-        }
+            tagTabItemHead.tabItem = tabItem;
 
-        protected override void setCss(CssArquivo css)
-        {
-            base.setCss(css);
-
-            this.addCss(css.setHeight(250));
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
-
-            this.divCabecalho.addCss(css.setHeight(40));
-
-            this.divCabecalhoConteudo.addCss(css.setHeight(30));
+            tagTabItemHead.setPai(this.divCabecalhoConteudo);
         }
 
         #endregion Métodos

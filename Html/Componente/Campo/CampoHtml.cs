@@ -143,6 +143,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 try
                 {
+                    if (_cln == value)
+                    {
+                        return;
+                    }
+
                     _cln = value;
 
                     this.atualizarCln();
@@ -394,6 +399,53 @@ namespace NetZ.Web.Html.Componente.Campo
             #endregion Ações
         }
 
+        protected virtual void atualizarCln()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.cln == null)
+                {
+                    return;
+                }
+
+                this.addAtt("cln_nome", this.cln.strNomeSql);
+
+                this.booObrigatorio = this.cln.booObrigatorio;
+                this.booSomenteLeitura = this.cln.booSomenteLeitura;
+                this.strId = ("cmp_" + this.cln.strNomeSql);
+                this.strTitulo = this.cln.strNomeExibicao;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.divObrigatorio.strId = (this.strId + "_divObrigatorio");
+            this.divTitulo.strId = (this.strId + "_divTitulo");
+            this.tagInput.strId = (this.strId + "_tagInput");
+        }
+
         protected abstract Input.EnmTipo getEnmTipo();
 
         protected virtual Input getTagInput()
@@ -414,7 +466,6 @@ namespace NetZ.Web.Html.Componente.Campo
             try
             {
                 this.divObrigatorio.strConteudo = "*";
-                this.divObrigatorio.strId = "divObrigatorio";
 
                 this.tagInput.enmTipo = this.getEnmTipo();
             }
@@ -480,12 +531,15 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divInputContainer.addCss(css.setLeft(5));
                 this.divInputContainer.addCss(css.setPosition("absolute"));
                 this.divInputContainer.addCss(css.setRight(10));
+                this.divInputContainer.addCss(css.setTextAlign("left"));
 
                 this.divObrigatorio.addCss(css.setColor("red"));
                 this.divObrigatorio.addCss(css.setDisplay(!this.booObrigatorio ? "none" : null));
-                this.divObrigatorio.addCss(css.setFloat("left"));
-                this.divObrigatorio.addCss(css.setPaddingLeft(5));
-                this.divObrigatorio.addCss(css.setPaddingRight(5));
+                this.divObrigatorio.addCss(css.setPosition("absolute"));
+                this.divObrigatorio.addCss(css.setRight(0));
+                //this.divObrigatorio.addCss(css.setFloat("left"));
+                //this.divObrigatorio.addCss(css.setPaddingLeft(5));
+                //this.divObrigatorio.addCss(css.setPaddingRight(5));
 
                 this.divTitulo.addCss(css.setFontSize(12));
                 this.divTitulo.addCss(css.setHeight(15));
@@ -495,12 +549,11 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
                 this.setCssTagInputHeight(css);
+                this.setCssTagInputWidth(css);
 
-                this.tagInput.addCss(css.addCss("-webkit-box-shadow", "0 0 0px 1000px white inset"));
                 this.tagInput.addCss(css.setBorder(0));
                 this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
                 this.tagInput.addCss(css.setOutLine("none"));
-                this.tagInput.addCss(css.setWidth(100, "%"));
             }
             catch (Exception ex)
             {
@@ -518,6 +571,11 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.addCss(css.setHeight(19));
         }
 
+        protected virtual void setCssTagInputWidth(CssArquivo css)
+        {
+            this.tagInput.addCss(css.setWidth(100, "%"));
+        }
+
         private void atualizarBooSomenteLeitura()
         {
             #region Variáveis
@@ -529,41 +587,6 @@ namespace NetZ.Web.Html.Componente.Campo
             try
             {
                 this.tagInput.booDisabled = this.booSomenteLeitura;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void atualizarCln()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.cln == null)
-                {
-                    return;
-                }
-
-                this.addAtt("cln_nome", this.cln.strNomeSql);
-                this.booSomenteLeitura = this.cln.booSomenteLeitura;
-                this.strId = "cmp_" + this.cln.strNomeSql;
-                this.strTitulo = this.cln.strNomeExibicao;
-
-                this.divTitulo.strId = this.strId + "_divTitulo";
-
-                this.tagInput.strId = "tag_input_" + this.cln.strNomeSql;
             }
             catch (Exception ex)
             {

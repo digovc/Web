@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.DataBase;
+﻿using NetZ.Web.DataBase;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Tab;
 
@@ -15,37 +14,18 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         private CampoAlfanumerico _cmpStrDescricao;
         private CampoAlfanumerico _cmpStrNome;
-
         private TabItem _tabFiltroItem;
 
         private CampoAlfanumerico cmpStrDescricao
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_cmpStrDescricao != null)
                 {
-                    if (_cmpStrDescricao != null)
-                    {
-                        return _cmpStrDescricao;
-                    }
-
-                    _cmpStrDescricao = new CampoAlfanumerico();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _cmpStrDescricao;
                 }
 
-                #endregion Ações
+                _cmpStrDescricao = new CampoAlfanumerico();
 
                 return _cmpStrDescricao;
             }
@@ -55,30 +35,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_cmpStrNome != null)
                 {
-                    if (_cmpStrNome != null)
-                    {
-                        return _cmpStrNome;
-                    }
-
-                    _cmpStrNome = new CampoAlfanumerico();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _cmpStrNome;
                 }
 
-                #endregion Ações
+                _cmpStrNome = new CampoAlfanumerico();
 
                 return _cmpStrNome;
             }
@@ -111,59 +73,23 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.inicializar();
 
-            #region Variáveis
+            this.cmpStrNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
+            this.cmpStrNome.intNivel = 1;
 
-            #endregion Variáveis
+            this.cmpStrDescricao.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
+            this.cmpStrDescricao.intNivel = 2;
 
-            #region Ações
-
-            try
-            {
-                this.cmpStrNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
-                this.cmpStrNome.intNivel = 1;
-
-                this.cmpStrDescricao.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
-                this.cmpStrDescricao.intNivel = 2;
-
-                this.tabFiltroItem.tbl = TblFiltroItem.i;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tabFiltroItem.tbl = TblFiltroItem.i;
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.cmpStrNome.setPai(this);
+            this.cmpStrDescricao.setPai(this);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.cmpStrNome.setPai(this);
-                this.cmpStrDescricao.setPai(this);
-
-                this.tabFiltroItem.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tabFiltroItem.setPai(this);
         }
 
         #endregion Métodos

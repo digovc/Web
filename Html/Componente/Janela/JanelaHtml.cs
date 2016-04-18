@@ -16,6 +16,7 @@ namespace NetZ.Web.Html.Componente.Janela
         private Div _divAcao;
         private Div _divBtnFechar;
         private Div _divCabecalho;
+        private Div _divInativa;
         private Div _divTitulo;
         private int _intTamanhoX;
         private int _intTamanhoY;
@@ -260,6 +261,21 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
+        private Div divInativa
+        {
+            get
+            {
+                if (_divInativa != null)
+                {
+                    return _divInativa;
+                }
+
+                _divInativa = new Div();
+
+                return _divInativa;
+            }
+        }
+
         private Div divTitulo
         {
             get
@@ -353,33 +369,23 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.atualizarStrId();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strId))
             {
-                if (string.IsNullOrEmpty(this.strId))
-                {
-                    return;
-                }
-
-                this.divAcao.strId = (this.strId + "_divAcao");
-                this.divBtnFechar.strId = (this.strId + "_divBtnFechar");
-                this.divCabecalho.strId = (this.strId + "_divCabecalho");
-                this.divTitulo.strId = (this.strId + "_divTitulo");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.divAcao.strId = (this.strId + "_divAcao");
+            this.divBtnFechar.strId = (this.strId + "_divBtnFechar");
+            this.divCabecalho.strId = (this.strId + "_divCabecalho");
+            this.divInativa.strId = (this.strId + "_divInativa");
+            this.divTitulo.strId = (this.strId + "_divTitulo");
+        }
+
+        protected override void finalizar()
+        {
+            base.finalizar();
+
+            this.divInativa.setPai(this);
         }
 
         protected override void finalizarCss(CssArquivo css)
@@ -390,14 +396,14 @@ namespace NetZ.Web.Html.Componente.Janela
             this.finalizarCssWidth(css);
         }
 
-        protected virtual void finalizarCssWidth(CssArquivo css)
-        {
-            this.addCss(css.setWidth((this.intTamanhoX * 50)));
-        }
-
         protected virtual void finalizarCssHeight(CssArquivo css)
         {
             this.addCss(css.setHeight((this.intTamanhoY * 50)));
+        }
+
+        protected virtual void finalizarCssWidth(CssArquivo css)
+        {
+            this.addCss(css.setWidth((this.intTamanhoX * 50)));
         }
 
         protected override void inicializar()
@@ -431,82 +437,53 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divCabecalho.setPai(this);
-                this.divTitulo.setPai(this.divCabecalho);
-                this.divAcao.setPai(this.divCabecalho);
-                this.divBtnFechar.setPai(this.divAcao);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divCabecalho.setPai(this);
+            this.divTitulo.setPai(this.divCabecalho);
+            this.divAcao.setPai(this.divCabecalho);
+            this.divBtnFechar.setPai(this.divAcao);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setBackgroundColor("white"));
+            this.addCss(css.setBottom(0));
+            this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
+            this.addCss(css.setCenter());
+            this.addCss(css.setLeft(0));
+            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setRight(0));
+            this.addCss(css.setTop(0));
 
-            #endregion Variáveis
+            this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 2, 2));
+            this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
+            this.divBtnFechar.addCss(css.setHeight(25));
+            this.divBtnFechar.addCss(css.setMarginRight(10));
+            this.divBtnFechar.addCss(css.setTextAlign("center"));
+            this.divBtnFechar.addCss(css.setWidth(50));
 
-            #region Ações
+            this.divAcao.addCss(css.setBottom(0));
+            this.divAcao.addCss(css.setPosition("absolute"));
+            this.divAcao.addCss(css.setRight(0));
+            this.divAcao.addCss(css.setTop(0));
 
-            try
-            {
-                this.addCss(css.setBackgroundColor("white"));
-                this.addCss(css.setBottom(0));
-                this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
-                this.addCss(css.setCenter());
-                this.addCss(css.setLeft(0));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setRight(0));
-                this.addCss(css.setTop(0));
+            this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.divCabecalho.addCss(css.setCursor("default"));
+            this.divCabecalho.addCss(css.setHeight(50));
+            this.divCabecalho.addCss(css.setLineHeight(35));
+            this.divCabecalho.addCss(css.setPosition("relative"));
 
-                this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 2, 2));
-                this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
-                this.divBtnFechar.addCss(css.setHeight(25));
-                this.divBtnFechar.addCss(css.setMarginRight(10));
-                this.divBtnFechar.addCss(css.setTextAlign("center"));
-                this.divBtnFechar.addCss(css.setWidth(50));
+            this.divInativa.addCss(css.setBackgroundColor("rgba(0,0,0,0.5)"));
+            this.divInativa.addCss(css.setDisplay("none"));
+            this.divInativa.addCss(css.setHeight(100, "%"));
+            this.divInativa.addCss(css.setPosition("absolute"));
+            this.divInativa.addCss(css.setTop(0));
+            this.divInativa.addCss(css.setWidth(100, "%"));
 
-                this.divAcao.addCss(css.setBottom(0));
-                this.divAcao.addCss(css.setPosition("absolute"));
-                this.divAcao.addCss(css.setRight(0));
-                this.divAcao.addCss(css.setTop(0));
-
-                this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
-                this.divCabecalho.addCss(css.setCursor("default"));
-                this.divCabecalho.addCss(css.setHeight(50));
-                this.divCabecalho.addCss(css.setLineHeight(35));
-                this.divCabecalho.addCss(css.setPosition("relative"));
-
-                this.divTitulo.addCss(css.setFontSize(20));
-                this.divTitulo.addCss(css.setLineHeight(50));
-                this.divTitulo.addCss(css.setPaddingLeft(5));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divTitulo.addCss(css.setFontSize(20));
+            this.divTitulo.addCss(css.setLineHeight(50));
+            this.divTitulo.addCss(css.setPaddingLeft(5));
         }
 
         private void atualizarStrTitulo()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using NetZ.Persistencia;
 
 namespace NetZ.Web.Html
 {
@@ -13,6 +14,7 @@ namespace NetZ.Web.Html
         #region Atributos
 
         private bool _booOpcaoVazia;
+        private Coluna _cln;
         private SortedDictionary<object, string> _dicOpcao;
         private DataTable _objDataTable;
 
@@ -45,6 +47,26 @@ namespace NetZ.Web.Html
             set
             {
                 _objDataTable = value;
+            }
+        }
+
+        internal Coluna cln
+        {
+            get
+            {
+                return _cln;
+            }
+
+            set
+            {
+                if (_cln == value)
+                {
+                    return;
+                }
+
+                _cln = value;
+
+                this.atualizarCln();
             }
         }
 
@@ -152,7 +174,7 @@ namespace NetZ.Web.Html
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(ComboBox), 110));
+                lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
             }
             catch (Exception ex)
             {
@@ -188,6 +210,34 @@ namespace NetZ.Web.Html
             }
 
             #endregion Ações
+        }
+
+        private void atualizarCln()
+        {
+            if (this.cln == null)
+            {
+                return;
+            }
+
+            this.atualizarClnAddOpcao();
+        }
+
+        private void atualizarClnAddOpcao()
+        {
+            if (this.cln.lstKvpOpcao.Count < 1)
+            {
+                return;
+            }
+
+            foreach (KeyValuePair<object, string> kpv in this.cln.lstKvpOpcao)
+            {
+                this.atualizarClnAddOpcao(kpv);
+            }
+        }
+
+        private void atualizarClnAddOpcao(KeyValuePair<object, string> kpv)
+        {
+            this.addOpcao(kpv.Key, kpv.Value);
         }
 
         private Tag getTagOption(object objValor, string strNome)

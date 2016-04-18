@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using NetZ.Persistencia;
+using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
@@ -15,6 +16,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Atributos
 
+        private BotaoAdicionarMini _btnAdicionar;
         private Tag _tagTable;
         private Tag _tagTbody;
         private Tag _tagTfoot;
@@ -52,6 +54,21 @@ namespace NetZ.Web.Html.Componente.Grid
             set
             {
                 _tblDados = value;
+            }
+        }
+
+        private BotaoAdicionarMini btnAdicionar
+        {
+            get
+            {
+                if (_btnAdicionar != null)
+                {
+                    return _btnAdicionar;
+                }
+
+                _btnAdicionar = new BotaoAdicionarMini();
+
+                return _btnAdicionar;
             }
         }
 
@@ -232,31 +249,14 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.atualizarStrId();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strId))
             {
-                if (string.IsNullOrEmpty(this.strId))
-                {
-                    return;
-                }
-
-                this.tagTable.strId = (this.strId + "_table");
-                this.tagTbody.strId = (this.strId + "_tbody");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+            this.tagTable.strId = (this.strId + "_table");
+            this.tagTbody.strId = (this.strId + "_tbody");
         }
 
         protected override void inicializar()
@@ -306,6 +306,8 @@ namespace NetZ.Web.Html.Componente.Grid
                 this.tagTrHead.setPai(this.tagThead);
                 this.tagTbody.setPai(this.tagTable);
                 this.tagTfoot.setPai(this.tagTable);
+
+                this.btnAdicionar.setPai(this);
 
                 this.montarLayoutHead();
                 this.montarLayoutTbody();

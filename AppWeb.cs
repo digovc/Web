@@ -268,6 +268,68 @@ namespace NetZ.Web
         #region Métodos
 
         /// <summary>
+        /// Pesquisa na lista de tabelas da aplicação a que corresponde a <paramref name="tblWeb"/>,
+        /// segundo o nome dessa.
+        /// </summary>
+        /// <param name="tblWeb">Tabela web que se pretende encontar a correlativa do lado do servidor.</param>
+        /// <returns>Retorna a tabela correlativa à tabela web passada por parâmetro.</returns>
+        public Tabela getTbl(TabelaWeb tblWeb)
+        {
+            if (tblWeb == null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(tblWeb.strNome))
+            {
+                return null;
+            }
+
+            return this.getTbl(tblWeb.strNome);
+        }
+
+        /// <summary>
+        /// Pesquisa na lista de tabelas da aplicação e retorna a tabela que corresponde a este nome
+        /// passado por parâmetro.
+        /// </summary>
+        /// <param name="strTblNome">Nome da tabela que se pretende encontrar.</param>
+        /// <returns>Retorna a tabela que corresponde a este nome passado por parâmetro.</returns>
+        public Tabela getTbl(string strTblNome)
+        {
+            if (string.IsNullOrEmpty(strTblNome))
+            {
+                return null;
+            }
+
+            if (this.lstTbl == null)
+            {
+                return null;
+            }
+
+            foreach (Tabela tbl in this.lstTbl)
+            {
+                if (tbl == null)
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(tbl.strNomeSql))
+                {
+                    continue;
+                }
+
+                if (!strTblNome.ToLower().Equals(tbl.strNomeSql.ToLower()))
+                {
+                    continue;
+                }
+
+                return tbl;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
         /// ficarão disponíveis para servir esta aplicação para os cliente.
         /// <para>
@@ -510,39 +572,6 @@ namespace NetZ.Web
 
         protected abstract Persistencia.DataBase getObjDbPrincipal();
 
-        protected Tabela getTbl(TabelaWeb tblWeb)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (tblWeb == null)
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(tblWeb.strNome))
-                {
-                    return null;
-                }
-
-                return this.getTbl(tblWeb.strNome);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         /// <summary>
         /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
         /// alterar, pesquisar) com o usuário.
@@ -643,8 +672,8 @@ namespace NetZ.Web
 
                 jnlCadastro = ((JnlCadastro)Activator.CreateInstance(tbl.clsJnlCadastro));
 
-                jnlCadastro.intRegistroId = tblWeb.intRegistroId;
                 jnlCadastro.tbl = tbl;
+                jnlCadastro.tblWeb = tblWeb;
 
                 tblWeb.tag = jnlCadastro.toHtml();
             }
@@ -737,59 +766,6 @@ namespace NetZ.Web
 
         private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-        }
-
-        private Tabela getTbl(string strTblNome)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (string.IsNullOrEmpty(strTblNome))
-                {
-                    return null;
-                }
-
-                if (this.lstTbl == null)
-                {
-                    return null;
-                }
-
-                foreach (Tabela tbl in this.lstTbl)
-                {
-                    if (tbl == null)
-                    {
-                        continue;
-                    }
-
-                    if (string.IsNullOrEmpty(tbl.strNomeSql))
-                    {
-                        continue;
-                    }
-
-                    if (!strTblNome.ToLower().Equals(tbl.strNomeSql.ToLower()))
-                    {
-                        continue;
-                    }
-
-                    return tbl;
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)

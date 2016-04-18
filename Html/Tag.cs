@@ -787,6 +787,11 @@ namespace NetZ.Web.Html
 
                 try
                 {
+                    if (_tagPai == value)
+                    {
+                        return;
+                    }
+
                     _tagPai = value;
 
                     this.atualizarPagPai();

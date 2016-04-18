@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -46,6 +47,24 @@ namespace NetZ.Web.Html.Componente.Campo
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.CHECKBOX;
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.tagInput.addCss(css.setTextAlign("left"));
+        }
+
+        protected override void setCssTagInputHeight(CssArquivo css)
+        {
+            //base.setCssTagInputHeight(css);
+            this.tagInput.addCss(css.setHeight(15));
+        }
+
+        protected override void setCssTagInputWidth(CssArquivo css)
+        {
+            //base.setCssTagInputWidth(css);
         }
 
         #endregion Métodos
