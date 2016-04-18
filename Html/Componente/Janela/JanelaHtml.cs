@@ -390,14 +390,14 @@ namespace NetZ.Web.Html.Componente.Janela
             this.finalizarCssWidth(css);
         }
 
-        protected virtual void finalizarCssWidth(CssArquivo css)
-        {
-            this.addCss(css.setWidth((this.intTamanhoX * 50)));
-        }
-
         protected virtual void finalizarCssHeight(CssArquivo css)
         {
             this.addCss(css.setHeight((this.intTamanhoY * 50)));
+        }
+
+        protected virtual void finalizarCssWidth(CssArquivo css)
+        {
+            this.addCss(css.setWidth((this.intTamanhoX * 50)));
         }
 
         protected override void inicializar()

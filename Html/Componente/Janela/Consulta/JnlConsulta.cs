@@ -195,6 +195,16 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
+        protected override void finalizarCssHeight(CssArquivo css)
+        {
+            //base.finalizarCssHeight(css);
+        }
+
+        protected override void finalizarCssWidth(CssArquivo css)
+        {
+            //base.finalizarCssWidth(css);
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -225,16 +235,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
 
             #endregion Ações
-        }
-
-        protected override void finalizarCssHeight(CssArquivo css)
-        {
-            //base.finalizarCssHeight(css);
-        }
-
-        protected override void finalizarCssWidth(CssArquivo css)
-        {
-            //base.finalizarCssWidth(css);
         }
 
         protected override void montarLayout()

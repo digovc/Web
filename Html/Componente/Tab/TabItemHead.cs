@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
@@ -11,14 +10,15 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Atributos
 
-
         private string _strTitulo = "Tab desconhecida";
+
         public string strTitulo
         {
             get
             {
                 return _strTitulo;
             }
+
             set
             {
                 _strTitulo = value;
@@ -35,11 +35,6 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        private void atualizarStrTitulo()
-        {
-            this.strConteudo = this.strTitulo;
-        }
-
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
@@ -52,6 +47,11 @@ namespace NetZ.Web.Html.Componente.Tab
             this.addCss(css.setPaddingLeft(10));
             this.addCss(css.setPaddingRight(10));
             this.addCss(css.setWidth(130));
+        }
+
+        private void atualizarStrTitulo()
+        {
+            this.strConteudo = this.strTitulo;
         }
 
         #endregion Métodos

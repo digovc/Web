@@ -21,6 +21,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private FormHtml _frm;
         private int _intComandoNivel = 1;
         private int _intRegistroId;
+        private TabHtml _tabHtml;
         private Tabela _tbl;
 
         public int intRegistroId
@@ -161,8 +162,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
-
-        private TabHtml _tabHtml;
         private TabHtml tabHtml
         {
             get
@@ -255,28 +254,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             #endregion Ações
         }
 
-        private void addTagTabItem(TabItem tabItem)
-        {
-            if (tabItem == null)
-            {
-                return;
-            }
-
-            tabItem.setPai(this.tabHtml);
-        }
-
-        private void addTagCampoHtml(CampoHtml tagCampoHtml)
-        {
-            if (tagCampoHtml == null)
-            {
-                return;
-            }
-
-            tagCampoHtml.setPai(this.frm);
-
-            this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
-        }
-
         protected override void finalizar()
         {
             base.finalizar();
@@ -286,23 +263,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.finalizarDivComando();
 
             this.intTamanhoY = (this.intComandoNivel + 2);
-        }
-
-        private void finalizarDivComando()
-        {
-            this.divComando.intNivel = this.intComandoNivel;
-
-            this.divComando.setPai(this.frm);
-        }
-
-        private void finalizarTabHtml()
-        {
-            if (this.tabHtml.intTabQuantidade < 1)
-            {
-                return;
-            }
-
-            this.tabHtml.setPai(this);
         }
 
         protected override void inicializar()
@@ -362,6 +322,52 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             #endregion Ações
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.tabHtml.addCss(css.setDisplay("none"));
+        }
+
+        private void addTagCampoHtml(CampoHtml tagCampoHtml)
+        {
+            if (tagCampoHtml == null)
+            {
+                return;
+            }
+
+            tagCampoHtml.setPai(this.frm);
+
+            this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
+        }
+
+        private void addTagTabItem(TabItem tabItem)
+        {
+            if (tabItem == null)
+            {
+                return;
+            }
+
+            tabItem.setPai(this.tabHtml);
+        }
+
+        private void finalizarDivComando()
+        {
+            this.divComando.intNivel = this.intComandoNivel;
+
+            this.divComando.setPai(this.frm);
+        }
+
+        private void finalizarTabHtml()
+        {
+            if (this.tabHtml.intTabQuantidade < 1)
+            {
+                return;
+            }
+
+            this.tabHtml.setPai(this);
         }
 
         private void inicializarCampos()
@@ -486,13 +492,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             #endregion Ações
-        }
-
-        protected override void setCss(CssArquivo css)
-        {
-            base.setCss(css);
-
-            this.tabHtml.addCss(css.setDisplay("none"));
         }
 
         #endregion Métodos

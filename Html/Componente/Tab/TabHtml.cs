@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
@@ -13,6 +12,24 @@ namespace NetZ.Web.Html.Componente.Tab
 
         private Div _divCabecalho;
         private Div _divCabecalhoConteudo;
+
+        private int _intTabQuantidade;
+
+        /// <summary>
+        /// Retorna a quantidade de tabs que essa tag possui.
+        /// </summary>
+        public int intTabQuantidade
+        {
+            get
+            {
+                return _intTabQuantidade;
+            }
+
+            private set
+            {
+                _intTabQuantidade = value;
+            }
+        }
 
         private Div divCabecalho
         {
@@ -44,24 +61,6 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
-
-        private int _intTabQuantidade ;
-
-        /// <summary>
-        /// Retorna a quantidade de tabs que essa tag possui.
-        /// </summary>
-        public int intTabQuantidade
-        {
-            get
-            {
-                return _intTabQuantidade;
-            }
-            private set
-            {
-                _intTabQuantidade = value;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -72,7 +71,6 @@ namespace NetZ.Web.Html.Componente.Tab
 
         protected override void addTag(Tag tag)
         {
-
             if (tag == null)
             {
                 return;
@@ -84,22 +82,6 @@ namespace NetZ.Web.Html.Componente.Tab
             }
 
             base.addTag(tag);
-        }
-
-        private void addTagTabItem(TabItem tabItem)
-        {
-            if (tabItem == null)
-            {
-                return;
-            }
-
-            TabItemHead tagTabItemHead = new TabItemHead();
-
-            tagTabItemHead.strTitulo = tabItem.strTitulo;
-
-            tagTabItemHead.setPai(this.divCabecalhoConteudo);
-
-            this.intTabQuantidade++;
         }
 
         protected override void montarLayout()
@@ -120,6 +102,22 @@ namespace NetZ.Web.Html.Componente.Tab
             this.divCabecalho.addCss(css.setHeight(40));
 
             this.divCabecalhoConteudo.addCss(css.setHeight(30));
+        }
+
+        private void addTagTabItem(TabItem tabItem)
+        {
+            if (tabItem == null)
+            {
+                return;
+            }
+
+            TabItemHead tagTabItemHead = new TabItemHead();
+
+            tagTabItemHead.strTitulo = tabItem.strTitulo;
+
+            tagTabItemHead.setPai(this.divCabecalhoConteudo);
+
+            this.intTabQuantidade++;
         }
 
         #endregion Métodos

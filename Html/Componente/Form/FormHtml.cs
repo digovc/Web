@@ -305,19 +305,6 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
-        private void finalizarMontarLayoutLstPnlNivel()
-        {
-            foreach (PainelNivel pnl in this.lstPnlNivel)
-            {
-                if (pnl == null)
-                {
-                    continue;
-                }
-
-                this.divLimiteFloat.setPai(pnl);
-            }
-        }
-
         private void finalizarMontarLayoutLstCmp(ITagNivel tag)
         {
             if (tag == null)
@@ -343,6 +330,19 @@ namespace NetZ.Web.Html.Componente.Form
             }
 
             (tag as Tag).setPai(pnlNivel);
+        }
+
+        private void finalizarMontarLayoutLstPnlNivel()
+        {
+            foreach (PainelNivel pnl in this.lstPnlNivel)
+            {
+                if (pnl == null)
+                {
+                    continue;
+                }
+
+                this.divLimiteFloat.setPai(pnl);
+            }
         }
 
         #endregion Métodos
