@@ -18,7 +18,7 @@ namespace NetZ.Web.Server
         private DateTime _dttLogin;
         private DateTime _dttPrimeiroAcesso;
         private DateTime _dttUltimoAcesso;
-        private int _intDbId;
+        private int _intId;
         private string _strSessaoId;
 
         /// <summary>
@@ -88,16 +88,16 @@ namespace NetZ.Web.Server
         /// <summary>
         /// Código deste usuário dentro do banco de dados.
         /// </summary>
-        public int intDbId
+        public int intId
         {
             get
             {
-                return _intDbId;
+                return _intId;
             }
 
             set
             {
-                _intDbId = value;
+                _intId = value;
             }
         }
 

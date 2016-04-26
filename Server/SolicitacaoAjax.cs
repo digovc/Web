@@ -1,9 +1,10 @@
 ﻿using System;
 using DigoFramework.Json;
+using NetZ.SistemaBase;
 
 namespace NetZ.Web.Server
 {
-    public class SolicitacaoAjax
+    public class SolicitacaoAjax : Objeto
     {
         #region Constantes
 
@@ -11,21 +12,21 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
-        private string _jsn;
+        private string _strData;
 
         /// <summary>
-        /// Objeto serializado em JSON para ser transportado por esta solicitação.
+        /// Propriedade que serve para intercâmbio de informações entre o servidor e o cliente.
         /// </summary>
-        public string jsn
+        public string strData
         {
             get
             {
-                return _jsn;
+                return _strData;
             }
 
             set
             {
-                _jsn = value;
+                _strData = value;
             }
         }
 
@@ -39,7 +40,9 @@ namespace NetZ.Web.Server
 
         /// <summary>
         /// Retorna o objeto que foi enviado pelo browser do tipo indicado em T.
-        /// <para>Caso a propriedade <see cref="SolicitacaoAjax.jsn"/> esteja vazia retorna null.</para>
+        /// <para>
+        /// Caso a propriedade <see cref="SolicitacaoAjax.strData"/> esteja vazia retorna null.
+        /// </para>
         /// </summary>
         public T getObjJson<T>()
         {
@@ -51,12 +54,12 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (string.IsNullOrEmpty(this.jsn))
+                if (string.IsNullOrEmpty(this.strData))
                 {
                     return default(T);
                 }
 
-                return Json.i.fromJson<T>(this.jsn);
+                return Json.i.fromJson<T>(this.strData);
             }
             catch (Exception ex)
             {

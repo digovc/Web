@@ -17,7 +17,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         private BotaoAdicionarMini _btnAdicionar;
         private BotaoAlterarMini _btnAlterar;
         private BotaoApagarMini _btnApagar;
-        private CampoComboBox _cmpFiltro;
+        private CampoComboBox _cmpIntFiltroId;
 
         private BotaoAdicionarMini btnAdicionar
         {
@@ -118,7 +118,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private CampoComboBox cmpFiltro
+        private CampoComboBox cmpIntFiltroId
         {
             get
             {
@@ -130,12 +130,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 try
                 {
-                    if (_cmpFiltro != null)
+                    if (_cmpIntFiltroId != null)
                     {
-                        return _cmpFiltro;
+                        return _cmpIntFiltroId;
                     }
 
-                    _cmpFiltro = new CampoComboBox();
+                    _cmpIntFiltroId = new CampoComboBox();
                 }
                 catch (Exception ex)
                 {
@@ -147,7 +147,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 #endregion Ações
 
-                return _cmpFiltro;
+                return _cmpIntFiltroId;
             }
         }
 
@@ -158,6 +158,19 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         #endregion Construtores
 
         #region Métodos
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+            this.cmpIntFiltroId.strId = (this.strId + "_cmpIntFiltroId");
+        }
 
         protected override void inicializar()
         {
@@ -174,14 +187,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 this.strId = "frmFiltro";
 
                 this.btnAdicionar.intNivel = 1;
-                this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
 
                 this.btnAlterar.intNivel = 1;
                 this.btnApagar.intNivel = 1;
 
-                this.cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
-                this.cmpFiltro.strId = (this.strId + "_cmpFiltro");
-                this.cmpFiltro.strTitulo = "Filtro";
+                this.cmpIntFiltroId.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+                this.cmpIntFiltroId.strTitulo = "Filtro";
             }
             catch (Exception ex)
             {
@@ -206,7 +217,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             try
             {
-                this.cmpFiltro.setPai(this);
+                this.cmpIntFiltroId.setPai(this);
 
                 this.btnAdicionar.setPai(this);
                 //this.btnAlterar.setPai(this);

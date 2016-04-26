@@ -192,7 +192,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
 
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js"));
             }
             catch (Exception ex)
             {

@@ -7,12 +7,14 @@
         public enum EnmMetodo
         {
             ABRIR_CADASTRO,
+            ABRIR_CADASTRO_FILTRO_CONTEUDO,
             ABRIR_CONSULTA,
             ADICIONAR,
             APAGAR,
             FILTRO,
             NONE,
-            PESQUISAR,
+            PESQUISAR_COMBO_BOX,
+            PESQUISAR_GRID,
             RECUPERAR,
             SALVAR,
         }

@@ -22,7 +22,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private FormHtml _frm;
         private int _intComandoNivel = 1;
         private TabHtml _tabHtml;
-        private TabHtml _tabHtml;
         private Tabela _tbl;
         private Tabela _tblPai;
         private TabelaWeb _tblWeb;
@@ -163,8 +162,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
             lstJs.Add(new JavaScriptTag(this.GetType(), 112));
 
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js"));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js"));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js"));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ColunaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
@@ -193,7 +192,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.atualizarStrId();
 
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
             this.divComando.strId = (this.strId + "_divComando");
+            this.frm.strId = (this.strId + "_frm");
             this.tabHtml.strId = (this.strId + "_tabHtml");
         }
 
@@ -225,7 +230,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.intTamanhoX = 10;
             this.strId = this.GetType().Name;
 
-            this.addAtt("js_src", JavaScriptTag.getSrc(this.GetType()));
+            this.addAtt("src_js", JavaScriptTag.getSrc(this.GetType()));
 
             this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
 
@@ -279,50 +284,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
-        private Tabela getTblPai()
-        {
-            if (this.tblWeb == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrEmpty(this.tblWeb.strTblPaiNome))
-            {
-                return null;
-            }
-
-            return AppWeb.i.getTbl(this.tblWeb.strTblPaiNome);
-        }
-
-        protected override void setCss(CssArquivo css)
-        {
-            base.setCss(css);
-
-            this.tabHtml.addCss(css.setDisplay("none"));
-        }
-
-        private void addTagCampoHtml(CampoHtml tagCampoHtml)
-        {
-            if (tagCampoHtml == null)
-            {
-                return;
-            }
-
-            tagCampoHtml.setPai(this.frm);
-
-            this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
-        }
-
-        private void addTagTabItem(TabItem tabItem)
-        {
-            if (tabItem == null)
-            {
-                return;
-            }
-
-            tabItem.setPai(this.tabHtml);
-        }
-
         private void finalizarDivComando()
         {
             this.divComando.intNivel = this.intComandoNivel;
@@ -340,6 +301,21 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.tabHtml.setPai(this);
         }
 
+        private Tabela getTblPai()
+        {
+            if (this.tblWeb == null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(this.tblWeb.strTblPaiNome))
+            {
+                return null;
+            }
+
+            return AppWeb.i.getTbl(this.tblWeb.strTblPaiNome);
+        }
+
         private void inicializarCampos()
         {
             if (this.tbl == null)
@@ -355,6 +331,10 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             if (this.tblWeb.intRegistroId > 0)
             {
                 this.tbl.recuperar(this.tblWeb.intRegistroId);
+            }
+            else
+            {
+                this.tbl.limparDados();
             }
 
             this.inicializarCampos(this.GetType());

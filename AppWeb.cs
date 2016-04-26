@@ -36,10 +36,10 @@ namespace NetZ.Web
         private static AppWeb _i;
 
         private bool _booMostrarGrade;
+        private List<Usuario> _lstObjUsuario;
         private List<Tabela> _lstTbl;
-        private List<Usuario> _lstUsr;
         private Persistencia.DataBase _objDbPrincipal;
-        private object _objLstUsrLock;
+        private object _objLstObjUsuarioLock;
 
         public new static AppWeb i
         {
@@ -50,30 +50,12 @@ namespace NetZ.Web
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_i != null)
                 {
-                    if (_i != null)
-                    {
-                        return;
-                    }
-
-                    _i = value;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _i = value;
             }
         }
 
@@ -104,65 +86,29 @@ namespace NetZ.Web
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_objDbPrincipal != null)
                 {
-                    if (_objDbPrincipal != null)
-                    {
-                        return _objDbPrincipal;
-                    }
-
-                    _objDbPrincipal = this.getObjDbPrincipal();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _objDbPrincipal;
                 }
 
-                #endregion Ações
+                _objDbPrincipal = this.getObjDbPrincipal();
 
                 return _objDbPrincipal;
             }
         }
 
-        internal List<Usuario> lstUsr
+        internal List<Usuario> lstObjUsuario
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstObjUsuario != null)
                 {
-                    if (_lstUsr != null)
-                    {
-                        return _lstUsr;
-                    }
-
-                    _lstUsr = new List<Usuario>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstObjUsuario;
                 }
 
-                #endregion Ações
+                _lstObjUsuario = new List<Usuario>();
 
-                return _lstUsr;
+                return _lstObjUsuario;
             }
         }
 
@@ -170,65 +116,29 @@ namespace NetZ.Web
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstTbl != null)
                 {
-                    if (_lstTbl != null)
-                    {
-                        return _lstTbl;
-                    }
-
-                    _lstTbl = new List<Tabela>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstTbl;
                 }
 
-                #endregion Ações
+                _lstTbl = new List<Tabela>();
 
                 return _lstTbl;
             }
         }
 
-        private object objLstUsrLock
+        private object objLstObjUsuarioLock
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_objLstObjUsuarioLock != null)
                 {
-                    if (_objLstUsrLock != null)
-                    {
-                        return _objLstUsrLock;
-                    }
-
-                    _objLstUsrLock = new object();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _objLstObjUsuarioLock;
                 }
 
-                #endregion Ações
+                _objLstObjUsuarioLock = new object();
 
-                return _objLstUsrLock;
+                return _objLstObjUsuarioLock;
             }
         }
 
@@ -238,29 +148,11 @@ namespace NetZ.Web
 
         protected AppWeb(string strNome)
         {
-            #region Variáveis
+            i = this;
 
-            #endregion Variáveis
+            this.strNome = strNome;
 
-            #region Ações
-
-            try
-            {
-                i = this;
-
-                this.strNome = strNome;
-
-                this.inicializarLstTbl(this.lstTbl);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializarLstTbl(this.lstTbl);
         }
 
         #endregion Construtores
@@ -343,30 +235,12 @@ namespace NetZ.Web
         /// </summary>
         public void inicializarServidor()
         {
-            #region Variáveis
+            ServerHttp.i.iniciar();
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (ConfigWeb.i.booServerAjaxDbAtivar)
             {
-                ServerHttp.i.iniciar();
-
-                if (ConfigWeb.i.booServerAjaxDbAtivar)
-                {
-                    ServerAjaxDb.i.iniciar();
-                }
+                ServerAjaxDb.i.iniciar();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         /// <summary>
@@ -374,25 +248,7 @@ namespace NetZ.Web
         /// </summary>
         public void pararServidor()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                ServerHttp.i.parar();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            ServerHttp.i.parar();
         }
 
         /// <summary>
@@ -422,152 +278,98 @@ namespace NetZ.Web
         /// <returns>Retorna a resposta que será processada pelo browser do cliente.</returns>
         public void responderAjaxDb(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objSolicitacaoAjaxDb == null)
             {
-                if (objSolicitacaoAjaxDb == null)
-                {
+                return;
+            }
+
+            switch (objSolicitacaoAjaxDb.enmMetodo)
+            {
+                case SolicitacaoAjaxDb.EnmMetodo.APAGAR:
+                    this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
                     return;
-                }
 
-                switch (objSolicitacaoAjaxDb.enmMetodo)
-                {
-                    case SolicitacaoAjaxDb.EnmMetodo.APAGAR:
-                        this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                        return;
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
+                    this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return;
 
-                    case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
-                        this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
-                        return;
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CONSULTA:
+                    this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
+                    return;
 
-                    case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CONSULTA:
-                        this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
-                        return;
+                case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID:
+                case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_COMBO_BOX:
+                    this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
+                    return;
 
-                    case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR:
-                        this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
-                        return;
+                case SolicitacaoAjaxDb.EnmMetodo.RECUPERAR:
+                    this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return;
 
-                    case SolicitacaoAjaxDb.EnmMetodo.RECUPERAR:
-                        this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                        return;
-
-                    case SolicitacaoAjaxDb.EnmMetodo.SALVAR:
-                        this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                        return;
-                }
+                case SolicitacaoAjaxDb.EnmMetodo.SALVAR:
+                    this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         /// <summary>
         /// Adiciona um usuário para a lista de usuários.
         /// </summary>
-        internal void addUsr(Usuario usr)
+        internal void addObjUsuario(Usuario objUsuario)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objUsuario == null)
             {
-                if (usr == null)
-                {
-                    return;
-                }
-
-                if (this.lstUsr.Contains(usr))
-                {
-                    return;
-                }
-
-                // TODO: Eliminar os usuários mais antigos.
-                this.lstUsr.Add(usr);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.lstObjUsuario.Contains(objUsuario))
+            {
+                return;
+            }
+
+            // TODO: Eliminar os usuários mais antigos.
+            this.lstObjUsuario.Add(objUsuario);
         }
 
         /// <summary>
         /// Busca o usuário que pertence a <param name="strSessaoId"/>.
         /// </summary>
-        internal Usuario getUsr(string strSessaoId)
+        internal Usuario getObjUsuario(string strSessaoId)
         {
-            #region Variáveis
-
-            Usuario usrResposta;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            lock (this.objLstObjUsuarioLock)
             {
-                lock (this.objLstUsrLock)
+                if (string.IsNullOrEmpty(strSessaoId))
                 {
-                    if (string.IsNullOrEmpty(strSessaoId))
-                    {
-                        return null;
-                    }
-
-                    foreach (Usuario usr in this.lstUsr)
-                    {
-                        if (usr == null)
-                        {
-                            continue;
-                        }
-
-                        if (string.IsNullOrEmpty(usr.strSessaoId))
-                        {
-                            continue;
-                        }
-
-                        if (!usr.strSessaoId.Equals(strSessaoId))
-                        {
-                            continue;
-                        }
-
-                        return usr;
-                    }
-
-                    usrResposta = new Usuario(strSessaoId);
-
-                    this.addUsr(usrResposta);
-
-                    return usrResposta;
+                    return null;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+                foreach (Usuario objUsuario in this.lstObjUsuario)
+                {
+                    if (objUsuario == null)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(objUsuario.strSessaoId))
+                    {
+                        continue;
+                    }
+
+                    if (!objUsuario.strSessaoId.Equals(strSessaoId))
+                    {
+                        continue;
+                    }
+
+                    return objUsuario;
+                }
+
+                Usuario objUsuarioNovo = new Usuario(strSessaoId);
+
+                this.addObjUsuario(objUsuarioNovo);
+
+                return objUsuarioNovo;
+            }
         }
 
         protected abstract Persistencia.DataBase getObjDbPrincipal();
@@ -579,189 +381,128 @@ namespace NetZ.Web
         /// <param name="lstTbl"></param>
         protected virtual void inicializarLstTbl(List<Tabela> lstTbl)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstTbl.Add(TblFiltro.i);
-                lstTbl.Add(TblFiltroItem.i);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstTbl.Add(TblFiltro.i);
+            lstTbl.Add(TblFiltroItem.i);
         }
 
         private void abrirCadastro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-            #region Variáveis
-
-            TabelaWeb tblWeb;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
             {
-                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
-                {
-                    return;
-                }
-
-                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
-
-                this.abrirCadastro(objSolicitacao, tblWeb);
-
-                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+
+            if (SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO.Equals(objSolicitacaoAjaxDb.enmMetodo))
+            {
+                this.abrirCadastro(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                return;
+            }
+
+            this.abrirCadastroFiltroConteudo(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
         }
 
-        private void abrirCadastro(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirCadastro(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
-            #region Variáveis
-
-            JnlCadastro jnlCadastro;
-            Tabela tbl;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tblWeb == null)
             {
-                if (tblWeb == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(tblWeb.strNome))
-                {
-                    return;
-                }
-
-                tbl = this.getTbl(tblWeb.strNome);
-
-                if (tbl == null)
-                {
-                    return;
-                }
-
-                if (tbl.clsJnlCadastro == null)
-                {
-                    return;
-                }
-
-                jnlCadastro = ((JnlCadastro)Activator.CreateInstance(tbl.clsJnlCadastro));
-
-                jnlCadastro.tbl = tbl;
-                jnlCadastro.tblWeb = tblWeb;
-
-                tblWeb.tag = jnlCadastro.toHtml();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(tblWeb.strNome))
+            {
+                return;
+            }
+
+            Tabela tbl = this.getTbl(tblWeb.strNome);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            if (tbl.clsJnlCadastro == null)
+            {
+                return;
+            }
+
+            JnlCadastro jnlCadastro = ((JnlCadastro)Activator.CreateInstance(tbl.clsJnlCadastro));
+
+            jnlCadastro.tbl = tbl;
+            jnlCadastro.tblWeb = tblWeb;
+
+            objSolicitacaoAjaxDb.strData = jnlCadastro.toHtml();
+        }
+
+        private void abrirCadastroFiltroConteudo(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWebFiltro)
+        {
+            if (tblWebFiltro == null)
+            {
+                return;
+            }
+
+            if (tblWebFiltro.arrFil == null)
+            {
+                return;
+            }
+
+            if (tblWebFiltro.arrFil.Length < 1)
+            {
+                return;
+            }
+
+            if (tblWebFiltro.arrFil[0].objValor == null)
+            {
+                return;
+            }
+
+            int intFiltroId = Convert.ToInt32(tblWebFiltro.arrFil[0].objValor);
+
+            if (intFiltroId < 1)
+            {
+                return;
+            }
+
+            FrmFiltroConteudo frm = new FrmFiltroConteudo();
+
+            frm.intFiltroId = intFiltroId;
+
+            objSolicitacaoAjaxDb.strData = frm.toHtml();
         }
 
         private void abrirConsulta(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-            #region Variáveis
-
-            TabelaWeb tblWeb;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
             {
-                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
-                {
-                    return;
-                }
-
-                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
-
-                this.abrirConsulta(objSolicitacao, tblWeb);
-
-                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+
+            this.abrirConsulta(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
         }
 
-        private void abrirConsulta(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirConsulta(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
-            #region Variáveis
-
-            Tabela tbl;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tblWeb == null)
             {
-                if (tblWeb == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(tblWeb.strNome))
-                {
-                    return;
-                }
-
-                tbl = this.getTbl(tblWeb.strNome);
-
-                if (tbl == null)
-                {
-                    return;
-                }
-
-                tblWeb.tag = new JnlConsulta(tbl).toHtml();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(tblWeb.strNome))
+            {
+                return;
+            }
+
+            Tabela tbl = this.getTbl(tblWeb.strNome);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            objSolicitacaoAjaxDb.strData = new JnlConsulta(tbl).toHtml();
         }
 
         private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
@@ -770,88 +511,59 @@ namespace NetZ.Web
 
         private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-            #region Variáveis
-
-            TabelaWeb tblWeb;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
             {
-                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
-                {
-                    return;
-                }
-
-                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
-
-                this.pesquisar(objSolicitacao, tblWeb);
-
-                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+
+            this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb, tblWeb);
         }
 
-        private void pesquisar(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb, TabelaWeb tblWeb)
         {
-            #region Variáveis
-
-            DataTable tblDados;
-            GridHtml tagGrid;
-            Tabela tbl;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tblWeb == null)
             {
-                if (tblWeb == null)
-                {
-                    return;
-                }
-
-                tbl = this.getTbl(tblWeb);
-
-                if (tbl == null)
-                {
-                    return;
-                }
-
-                tblDados = tbl.pesquisar(tblWeb);
-
-                if (tblDados == null)
-                {
-                    return;
-                }
-
-                tagGrid = new GridHtml();
-
-                tagGrid.strId = "tagGridHtml_consulta";
-                tagGrid.tbl = tbl;
-                tagGrid.tblDados = tblDados;
-
-                tblWeb.tag = tagGrid.toHtml();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            Tabela tbl = this.getTbl(tblWeb);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            DataTable tblData = tbl.pesquisar(tblWeb);
+
+            if (tblData == null)
+            {
+                return;
+            }
+
+            if (SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID.Equals(objSolicitacaoAjaxDb.enmMetodo))
+            {
+                this.pesquisarGrid(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
+                return;
+            }
+
+            this.pesquisarComboBox(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
+        }
+
+        private void pesquisarComboBox(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
+        {
+            objSolicitacaoAjaxDb.strData = tblWeb.getJson(tbl, tblData);
+        }
+
+        private void pesquisarGrid(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
+        {
+            GridHtml tagGrid = new GridHtml();
+
+            tagGrid.tbl = tbl;
+            tagGrid.tblData = tblData;
+
+            objSolicitacaoAjaxDb.strData = tagGrid.toHtml();
         }
 
         private void recuperarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
@@ -860,78 +572,61 @@ namespace NetZ.Web
 
         private void salvarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-            #region Variáveis
-
-            TabelaWeb tblWeb;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
             {
-                if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.jsn))
-                {
-                    return;
-                }
-
-                tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.jsn);
-
-                this.salvarRegistro(objSolicitacao, tblWeb);
-
-                objSolicitacaoAjaxDb.jsn = Json.i.toJson(tblWeb);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+
+            this.salvarRegistro(objSolicitacao, tblWeb);
+
+            objSolicitacaoAjaxDb.strData = Json.i.toJson(tblWeb);
         }
 
         private void salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
-            #region Variáveis
-
-            Tabela tbl;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objSolicitacao == null)
             {
-                if (tblWeb == null)
-                {
-                    return;
-                }
-
-                if (tblWeb.arrClnWeb == null)
-                {
-                    return;
-                }
-
-                tbl = this.getTbl(tblWeb);
-
-                if (tbl == null)
-                {
-                    return;
-                }
-
-                tbl.salvarWeb(tblWeb);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (!objSolicitacao.objUsuario.booLogado)
+            {
+                return;
+            }
+
+            if (objSolicitacao.objUsuario.intId < 1)
+            {
+                return;
+            }
+
+            if (tblWeb == null)
+            {
+                return;
+            }
+
+            if (tblWeb.arrClnWeb == null)
+            {
+                return;
+            }
+
+            Tabela tbl = this.getTbl(tblWeb);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            tblWeb.getClnWeb(tbl.clnIntUsuarioAlteracaoId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
+            tblWeb.getClnWeb(tbl.clnIntUsuarioCadastroId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
+
+            tbl.salvarWeb(tblWeb);
         }
 
         #endregion Métodos

@@ -23,7 +23,7 @@ namespace NetZ.Web.Html.Componente.Grid
         private Tag _tagThead;
         private Tag _tagTrHead;
         private Tabela _tbl;
-        private DataTable _tblDados;
+        private DataTable _tblData;
 
         /// <summary>
         /// Tabela que este grid irá representar.
@@ -44,16 +44,16 @@ namespace NetZ.Web.Html.Componente.Grid
         /// <summary>
         /// Tabela que guarda os dados deste grid.
         /// </summary>
-        public DataTable tblDados
+        public DataTable tblData
         {
             get
             {
-                return _tblDados;
+                return _tblData;
             }
 
             set
             {
-                _tblDados = value;
+                _tblData = value;
             }
         }
 
@@ -276,6 +276,8 @@ namespace NetZ.Web.Html.Componente.Grid
                     return;
                 }
 
+                this.strId = ("tagGridHtml_" + this.tbl.strNomeSql);
+
                 this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
             }
             catch (Exception ex)
@@ -434,12 +436,12 @@ namespace NetZ.Web.Html.Componente.Grid
                     return;
                 }
 
-                if (this.tblDados == null)
+                if (this.tblData == null)
                 {
                     return;
                 }
 
-                foreach (DataRow row in this.tblDados.Rows)
+                foreach (DataRow row in this.tblData.Rows)
                 {
                     this.montarLayoutTbody(row);
                 }

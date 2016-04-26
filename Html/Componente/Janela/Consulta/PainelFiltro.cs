@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Painel;
+﻿using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela.Consulta
@@ -20,30 +19,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_frmFiltro != null)
                 {
-                    if (_frmFiltro != null)
-                    {
-                        return _frmFiltro;
-                    }
-
-                    _frmFiltro = new FrmFiltro();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _frmFiltro;
                 }
 
-                #endregion Ações
+                _frmFiltro = new FrmFiltro();
 
                 return _frmFiltro;
             }
@@ -53,30 +34,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_pnlCondicao != null)
                 {
-                    if (_pnlCondicao != null)
-                    {
-                        return _pnlCondicao;
-                    }
-
-                    _pnlCondicao = new PainelHtml();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _pnlCondicao;
                 }
 
-                #endregion Ações
+                _pnlCondicao = new PainelHtml();
 
                 return _pnlCondicao;
             }
@@ -86,30 +49,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_pnlSelecao != null)
                 {
-                    if (_pnlSelecao != null)
-                    {
-                        return _pnlSelecao;
-                    }
-
-                    _pnlSelecao = new PainelHtml();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _pnlSelecao;
                 }
 
-                #endregion Ações
+                _pnlSelecao = new PainelHtml();
 
                 return _pnlSelecao;
             }
@@ -123,95 +68,52 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.pnlCondicao.strId = (this.strId + "_pnlCondicao");
+            this.pnlSelecao.strId = (this.strId + "_pnlSelecao");
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
+            this.intTamanhoVertical = 2;
+            this.strId = "pnlFiltro";
 
-            #endregion Variáveis
+            this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
 
-            #region Ações
-
-            try
-            {
-                this.intTamanhoVertical = 2;
-                this.strId = "pnlFiltro";
-
-                this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
-                this.pnlCondicao.strId = (this.strId + "_pnlCondicao");
-
-                this.pnlSelecao.intTamanhoVertical = this.intTamanhoVertical;
-                this.pnlSelecao.strId = (this.strId + "_pnlSelecao");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.pnlSelecao.intTamanhoVertical = this.intTamanhoVertical;
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.pnlSelecao.setPai(this);
-                this.frmFiltro.setPai(this.pnlSelecao);
-                this.pnlCondicao.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.pnlSelecao.setPai(this);
+            this.frmFiltro.setPai(this.pnlSelecao);
+            this.pnlCondicao.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setPosition("relative"));
 
-            #endregion Variáveis
+            this.pnlCondicao.addCss(css.setLeft(270));
+            this.pnlCondicao.addCss(css.setPosition("absolute"));
+            this.pnlCondicao.addCss(css.setRight(0));
 
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setPosition("relative"));
-
-                this.pnlCondicao.addCss(css.setLeft(270));
-                this.pnlCondicao.addCss(css.setPosition("absolute"));
-                this.pnlCondicao.addCss(css.setRight(0));
-
-                this.pnlSelecao.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corBorda));
-                this.pnlSelecao.addCss(css.setFloat("left"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.pnlSelecao.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corBorda));
+            this.pnlSelecao.addCss(css.setFloat("left"));
         }
 
         #endregion Métodos

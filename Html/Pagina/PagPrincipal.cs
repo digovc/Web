@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Persistencia.Web;
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Botao.Comando;
 using NetZ.Web.Html.Componente.Botao.Mini;
@@ -136,6 +137,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
                 lstJs.Add(new JavaScriptTag(typeof(FormHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(FrmFiltro), 112));
+                lstJs.Add(new JavaScriptTag(typeof(FrmFiltroConteudo), 112));
                 lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(GridRow), 104));
                 lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
@@ -154,9 +156,11 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.fixedheadertable.min.js"));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
 
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/ColunaWeb.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/FiltroWeb.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/persistencia/TabelaWeb.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ColunaWeb.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/FiltroWeb.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js", 102));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TblFiltro.js", 300));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ParValorNome.js", 300));
             }
             catch (Exception ex)
             {

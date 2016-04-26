@@ -752,7 +752,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                AppWeb.i.addUsr(new Usuario(objCookieSessaoId.strValor));
+                AppWeb.i.addObjUsuario(new Usuario(objCookieSessaoId.strValor));
             }
             catch (Exception ex)
             {

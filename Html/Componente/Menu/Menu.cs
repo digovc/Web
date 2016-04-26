@@ -301,7 +301,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.txtPesquisa.addCss(css.setHeight(20));
                 this.txtPesquisa.addCss(css.setPadding(5));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
-                this.txtPesquisa.addCss(css.setTextAlign("center"));
+                //this.txtPesquisa.addCss(css.setTextAlign("center"));
                 this.txtPesquisa.addCss(css.setTop(10));
                 this.txtPesquisa.addCss(css.setWidth(450));
             }

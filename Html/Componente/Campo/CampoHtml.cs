@@ -537,9 +537,6 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.addCss(css.setDisplay(!this.booObrigatorio ? "none" : null));
                 this.divObrigatorio.addCss(css.setPosition("absolute"));
                 this.divObrigatorio.addCss(css.setRight(0));
-                //this.divObrigatorio.addCss(css.setFloat("left"));
-                //this.divObrigatorio.addCss(css.setPaddingLeft(5));
-                //this.divObrigatorio.addCss(css.setPaddingRight(5));
 
                 this.divTitulo.addCss(css.setFontSize(12));
                 this.divTitulo.addCss(css.setHeight(15));

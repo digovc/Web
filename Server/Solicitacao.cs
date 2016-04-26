@@ -53,6 +53,7 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
+        private Usuario _objUsuario;
         private string _strConteudo;
         private string _strHeaderLinhaCabecalho;
         private string _strHost;
@@ -60,7 +61,6 @@ namespace NetZ.Web.Server
         private string _strPagina;
         private string _strPaginaCompleta;
         private string _strSessaoId;
-        private Usuario _usr;
 
         /// <summary>
         /// Caso esta seja uma solicitação do tipo POST, este retorna os valores dos parâmetros
@@ -245,6 +245,42 @@ namespace NetZ.Web.Server
                 #endregion Ações
 
                 return _lstObjCookie;
+            }
+        }
+
+        /// <summary>
+        /// Usuário referênte a esta solicitação.
+        /// </summary>
+        public Usuario objUsuario
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_objUsuario != null)
+                    {
+                        return _objUsuario;
+                    }
+
+                    _objUsuario = this.getObjUsuario();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _objUsuario;
             }
         }
 
@@ -467,42 +503,6 @@ namespace NetZ.Web.Server
                 #endregion Ações
 
                 return _strSessaoId;
-            }
-        }
-
-        /// <summary>
-        /// Usuário referênte a esta solicitação.
-        /// </summary>
-        public Usuario usr
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_usr != null)
-                    {
-                        return _usr;
-                    }
-
-                    _usr = this.getUsr();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _usr;
             }
         }
 
@@ -1500,7 +1500,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private Usuario getUsr()
+        private Usuario getObjUsuario()
         {
             #region Variáveis
 
@@ -1515,7 +1515,7 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
-                return AppWeb.i.getUsr(this.strSessaoId);
+                return AppWeb.i.getObjUsuario(this.strSessaoId);
             }
             catch (Exception ex)
             {

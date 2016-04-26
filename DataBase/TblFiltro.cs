@@ -170,6 +170,7 @@ namespace NetZ.Web.DataBase
 
             this.clnStrDescricao.strNomeExibicao = "descrição";
 
+            this.clnStrNome.booNome = true;
             this.clnStrNome.booObrigatorio = true;
 
             this.clnStrTabelaNome.booObrigatorio = true;
