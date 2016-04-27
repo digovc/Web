@@ -1,7 +1,8 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Circulo;
 using NetZ.Web.Server.Arquivo.Css;
+using System;
+using System.Collections.Generic;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
@@ -18,6 +19,7 @@ namespace NetZ.Web.Html.Componente.Menu
         private DivCirculo _divIcone;
         private Div _divItemConteudo;
         private Div _divTitulo;
+        private List<MenuItem> _lstMni;
         private string _strTitulo;
 
         private Tabela _tbl;
@@ -170,6 +172,21 @@ namespace NetZ.Web.Html.Componente.Menu
             }
         }
 
+        private List<MenuItem> lstMni
+        {
+            get
+            {
+                if (_lstMni != null)
+                {
+                    return _lstMni;
+                }
+
+                _lstMni = new List<MenuItem>();
+
+                return _lstMni;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -227,6 +244,8 @@ namespace NetZ.Web.Html.Componente.Menu
                 }
 
                 tag.setPai(this.divItemConteudo);
+
+                this.lstMni.Add(tag as MenuItem);
             }
             catch (Exception ex)
             {
@@ -357,16 +376,20 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.addCss(css.setCursor("pointer"));
                 this.addCss(css.setMinHeight(INT_HEIGHT));
                 this.addCss(css.setOutLine("none"));
-                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+                this.addCss(css.setFontFamily("Ubuntu"));
+                this.addCss(css.setFontStyle("Ligth"));
+
+                this.setCssPai(css);
+                this.setCssFilho(css);
 
                 this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
 
-                this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
                 this.divIcone.addCss(css.setFloat("left"));
                 this.divIcone.addCss(css.setMarginLeft(10));
                 this.divIcone.addCss(css.setMarginRight(10));
 
                 this.divItemConteudo.addCss(css.setDisplay("none"));
+                this.divItemConteudo.addCss(css.setPaddingLeft(50));
             }
             catch (Exception ex)
             {
@@ -407,6 +430,29 @@ namespace NetZ.Web.Html.Componente.Menu
             }
 
             #endregion Ações
+        }
+
+        private void setCssFilho(CssArquivo css)
+        {
+            if (this.lstMni.Count > 0)
+            {
+                return;
+            }
+            this.addCss(css.setBackgroundColor("rgba(81, 165, 138, 0.30)"));
+            this.addCss(css.setBorderTop(1, "solid", "rgba(255, 255, 255, 0.30)"));
+            this.addCss(css.setFontSize(14));
+            this.addCss(css.setWidth(350));
+        }
+
+        private void setCssPai(CssArquivo css)
+        {
+            if (this.lstMni.Count < 1)
+            {
+                return;
+            }
+
+            this.addCss(css.setBorderBottom(2, "solid", "rgba(75, 155, 130, 0.65)"));
+            this.addCss(css.setFontSize(18));
         }
 
         #endregion Métodos
