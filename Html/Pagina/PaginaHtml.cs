@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
+using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
@@ -701,22 +702,23 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 102));
+                lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
+                lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+                lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
+                lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
+                lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
+                lstJs.Add(new JavaScriptTag(typeof(ServerHttp), 102));
+                lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjax), 105));
+                lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjaxDb), 105));
 
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/AppWeb.js", 104));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerBase.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerHttp.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerAjax.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/ServerAjaxDb.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/SolicitacaoAjax.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/SolicitacaoAjaxDb.js", 105));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxErroArg.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxSucessoArg.js", 105));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
                 lstJs.Add(this.tagJs);
             }

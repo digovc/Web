@@ -131,6 +131,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
+                lstJs.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
                 lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));

@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -13,34 +12,16 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private ComboBox _cmb;
 
-        private ComboBox cmb
+        protected ComboBox cmb
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_cmb != null)
                 {
-                    if (_cmb != null)
-                    {
-                        return _cmb;
-                    }
-
-                    _cmb = new ComboBox();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _cmb;
                 }
 
-                #endregion Ações
+                _cmb = new ComboBox();
 
                 return _cmb;
             }
@@ -77,25 +58,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
         }
 
         protected override void atualizarCln()
