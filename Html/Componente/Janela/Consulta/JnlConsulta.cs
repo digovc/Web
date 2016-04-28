@@ -206,6 +206,11 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.atualizarStrId();
 
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
             this.divGrid.strId = (this.strId + "_divGrid");
             this.pnlAcaoConsulta.strId = (this.strId + "_pnlAcaoConsulta");
         }
@@ -283,7 +288,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.addCss(css.setRight(0));
             this.addCss(css.setTop(0));
 
-            this.divGrid.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
             this.divGrid.addCss(css.setBottom(0));
             this.divGrid.addCss(css.setLeft(0));
             this.divGrid.addCss(css.setOverflow("auto"));

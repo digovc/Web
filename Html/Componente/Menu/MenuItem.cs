@@ -251,8 +251,13 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divItemConteudo.strId = this.strId + "_itemConteudo";
-                this.divTitulo.strId = this.strId + "_titulo";
+                if (string.IsNullOrEmpty(this.strId))
+                {
+                    return;
+                }
+
+                this.divItemConteudo.strId = this.strId + "_divItemConteudo";
+                this.divTitulo.strId = this.strId + "_divTitulo";
             }
             catch (Exception ex)
             {

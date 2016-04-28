@@ -163,7 +163,8 @@ namespace NetZ.Web.Html.Componente.Painel
             try
             {
                 this.setCssWidth(css);
-                this.addCss(css.setHeight(50 * this.intTamanhoVertical));
+
+                this.setCssHeight(css);
 
                 this.addCss(css.setTextAlign("center"));
             }
@@ -286,6 +287,16 @@ namespace NetZ.Web.Html.Componente.Painel
             }
 
             #endregion Ações
+        }
+
+        private void setCssHeight(CssArquivo css)
+        {
+            if (this.intTamanhoVertical < 1)
+            {
+                return;
+            }
+
+            this.addCss(css.setHeight(50 * this.intTamanhoVertical));
         }
 
         private void setCssWidth(CssArquivo css)

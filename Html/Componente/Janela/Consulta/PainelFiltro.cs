@@ -11,9 +11,25 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
+        private Div _divBarra;
         private FrmFiltro _frmFiltro;
         private PainelHtml _pnlCondicao;
         private PainelHtml _pnlSelecao;
+
+        private Div divBarra
+        {
+            get
+            {
+                if (_divBarra != null)
+                {
+                    return _divBarra;
+                }
+
+                _divBarra = new Div();
+
+                return _divBarra;
+            }
+        }
 
         private FrmFiltro frmFiltro
         {
@@ -77,6 +93,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
+            this.divBarra.strId = (this.strId + "_divBarra");
             this.pnlCondicao.strId = (this.strId + "_pnlCondicao");
             this.pnlSelecao.strId = (this.strId + "_pnlSelecao");
         }
@@ -85,8 +102,10 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            this.intTamanhoVertical = 2;
+            this.intTamanhoVertical = -1;
             this.strId = "pnlFiltro";
+
+            this.divBarra.strConteudo = "===";
 
             this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
 
@@ -100,13 +119,27 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.pnlSelecao.setPai(this);
             this.frmFiltro.setPai(this.pnlSelecao);
             this.pnlCondicao.setPai(this);
+            this.divBarra.setPai(this);
+            new LimiteFloat().setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
+            this.addCss(css.setMinHeight(10));
             this.addCss(css.setPosition("relative"));
+
+            this.divBarra.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divBarra.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corBorda));
+            this.divBarra.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
+            this.divBarra.addCss(css.setBottom(0));
+            this.divBarra.addCss(css.setColor(AppWeb.i.objTema.corBorda));
+            this.divBarra.addCss(css.setCursor("pointer"));
+            this.divBarra.addCss(css.setFontSize(10));
+            this.divBarra.addCss(css.setHeight(10));
+            this.divBarra.addCss(css.setPosition("absolute"));
+            this.divBarra.addCss(css.setWidth(100, "%"));
 
             this.pnlCondicao.addCss(css.setLeft(270));
             this.pnlCondicao.addCss(css.setPosition("absolute"));
