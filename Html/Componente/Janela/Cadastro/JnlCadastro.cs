@@ -328,9 +328,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (this.tblWeb.intRegistroId > 0)
+            if (this.tblWeb.clnIntId.intValor > 0)
             {
-                this.tbl.recuperar(this.tblWeb.intRegistroId);
+                this.tbl.recuperar(this.tblWeb.clnIntId.intValor);
             }
             else
             {

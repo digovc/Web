@@ -446,7 +446,7 @@ namespace NetZ.Web.Html
                 this.inicializarName();
                 this.inicializarStrPlaceHolder();
 
-                this.addAtt(this.booDisabled ? "disabled" : null);
+                this.addAtt((this.booDisabled ? "disabled" : null), (this.booDisabled ? "true" : null));
             }
             catch (Exception ex)
             {

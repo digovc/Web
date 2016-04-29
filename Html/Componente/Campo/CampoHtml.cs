@@ -418,8 +418,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.booObrigatorio = this.cln.booObrigatorio;
                 this.booSomenteLeitura = this.cln.booSomenteLeitura;
-                this.strId = ("cmp_" + this.cln.strNomeSql);
                 this.strTitulo = this.cln.strNomeExibicao;
+
+                this.atualizarClnStrId();
             }
             catch (Exception ex)
             {
@@ -594,6 +595,21 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             #endregion Ações
+        }
+
+        private void atualizarClnStrId()
+        {
+            if (this.cln.tbl == null)
+            {
+                return;
+            }
+
+            string strId = "cmp__cln_nome__obj_id";
+
+            strId = strId.Replace("_cln_nome", this.cln.strNomeSql);
+            strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
+
+            this.strId = strId;
         }
 
         private void atualizarStrTitulo()
