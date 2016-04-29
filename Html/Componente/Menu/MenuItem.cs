@@ -390,11 +390,11 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
 
                 this.divIcone.addCss(css.setFloat("left"));
-                this.divIcone.addCss(css.setMarginLeft(10));
-                this.divIcone.addCss(css.setMarginRight(10));
+                this.divIcone.addCss(css.setMarginLeft(5));
+                this.divIcone.addCss(css.setMarginRight(5));
 
                 this.divItemConteudo.addCss(css.setDisplay("none"));
-                this.divItemConteudo.addCss(css.setPaddingLeft(50));
+                this.divItemConteudo.addCss(css.setPaddingLeft(20));
             }
             catch (Exception ex)
             {
@@ -443,10 +443,10 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 return;
             }
-            this.addCss(css.setBackgroundColor("rgba(81, 165, 138, 0.30)"));
+            this.addCss(css.setBackgroundColor("rgba(103, 189, 156, 0.18)"));
             this.addCss(css.setBorderTop(1, "solid", "rgba(255, 255, 255, 0.30)"));
             this.addCss(css.setFontSize(14));
-            this.addCss(css.setWidth(350));
+            this.addCss(css.setWidth(300));
         }
 
         private void setCssPai(CssArquivo css)
@@ -456,7 +456,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderBottom(2, "solid", "rgba(75, 155, 130, 0.65)"));
+            this.addCss(css.setBorderBottom(1, "solid", "rgba(2, 74, 72, 0.29)"));
             this.addCss(css.setFontSize(18));
         }
 

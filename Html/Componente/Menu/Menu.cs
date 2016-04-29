@@ -272,20 +272,22 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor("rgba(88, 178, 150, 0.95)"));
+                this.divGaveta.addCss(css.setBackgroundColor("rgba(5, 154, 149, 0.870588)"));
                 this.divGaveta.addCss(css.setBorderRadius(0, 0, 5, 5));
-                this.divGaveta.addCss(css.setBoxShadow(0, 9, 15, -3, "rgb(100, 100, 100)"));
+                this.divGaveta.addCss(css.setBorderBottom(1, "solid", "white"));
+                this.divGaveta.addCss(css.setBorderRight(1, "solid", "white"));
+                this.divGaveta.addCss(css.setBorderLeft(1, "solid", "white"));
+                this.divGaveta.addCss(css.setBoxShadow(0, 5, 40, -5, "rgb(100, 100, 100)"));
                 this.divGaveta.addCss(css.setCenter());
                 this.divGaveta.addCss(css.setColor("white"));
                 this.divGaveta.addCss(css.setDisplay("none"));
                 this.divGaveta.addCss(css.setMaxHeight(500));
                 this.divGaveta.addCss(css.setOverflowX("hidden"));
                 this.divGaveta.addCss(css.setOverflowY("auto"));
-                this.divGaveta.addCss(css.setPaddingBottom(10));
-                this.divGaveta.addCss(css.setPaddingLeft(20));
-                this.divGaveta.addCss(css.setPaddingRight(20));
-                this.divGaveta.addCss(css.setPaddingTop(10));
-                this.divGaveta.addCss(css.setWidth(450));
+                this.divGaveta.addCss(css.setPaddingBottom(15));
+                this.divGaveta.addCss(css.setPaddingLeft(15));
+                this.divGaveta.addCss(css.setPaddingRight(15));
+                this.divGaveta.addCss(css.setWidth(370));
                 this.divGaveta.addCss(css.setZIndex(10));
 
                 this.divGavetaContainer.addCss(css.setPosition("absolute"));
@@ -301,11 +303,12 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.txtPesquisa.addCss(css.setCenter());
                 this.txtPesquisa.addCss(css.setDisplay("block"));
                 this.txtPesquisa.addCss(css.setFontSize(20));
-                this.txtPesquisa.addCss(css.setHeight(20));
-                this.txtPesquisa.addCss(css.setPadding(5));
+                this.txtPesquisa.addCss(css.setHeight(29));
+                this.txtPesquisa.addCss(css.setPaddingLeft(10));
+                this.txtPesquisa.addCss(css.setPaddingRight(10));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
-                this.txtPesquisa.addCss(css.setTop(10));
-                this.txtPesquisa.addCss(css.setWidth(450));
+                this.txtPesquisa.addCss(css.setTop(9));
+                this.txtPesquisa.addCss(css.setWidth(350));
             }
             catch (Exception ex)
             {
