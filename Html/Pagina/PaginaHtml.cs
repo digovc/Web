@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
+using NetZ.Web.Html.Componente;
+using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -166,7 +168,7 @@ namespace NetZ.Web.Html.Pagina
                         return _tagJs;
                     }
 
-                    _tagJs = new JavaScriptTag();
+                    _tagJs = new JavaScriptTag(string.Empty, 5000);
                 }
                 catch (Exception ex)
                 {
@@ -613,11 +615,7 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                this.inicializar();
-                this.montarLayout();
-                this.setCss(CssMain.i);
-                this.finalizar();
-                this.finalizarCss(CssPrint.i);
+                this.iniciar();
 
                 strBody = this.tagBody.toHtml();
 
@@ -715,6 +713,8 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/LayoutFixo.js", 0));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/LayoutFixoManager.js", 1));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxErroArg.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxSucessoArg.js", 105));
@@ -964,6 +964,32 @@ namespace NetZ.Web.Html.Pagina
             #endregion Ações
         }
 
+        private void addLayoutFixo()
+        {
+            this.addLayoutFixo(typeof(MenuContexto));
+            this.addLayoutFixo(typeof(MenuContextoItem));
+        }
+
+        private void addLayoutFixo(Type cls)
+        {
+            if (cls == null)
+            {
+                return;
+            }
+
+            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
+            {
+                return;
+            }
+
+            string strJq = "NetZ_Web_TypeScript.LayoutFixoManager.i.addLayoutFixo(new NetZ_Web_TypeScript.LayoutFixo('_class_nome', '_componente_html'));";
+
+            strJq = strJq.Replace("_class_nome", cls.GetType().Name);
+            strJq = strJq.Replace("_componente_html", (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
+
+            this.addJs(strJq);
+        }
+
         private string getStrTituloFormatado()
         {
             #region Variáveis
@@ -992,6 +1018,16 @@ namespace NetZ.Web.Html.Pagina
             }
 
             #endregion Ações
+        }
+
+        private void iniciar()
+        {
+            this.inicializar();
+            this.montarLayout();
+            this.setCss(CssMain.i);
+            this.finalizar();
+            this.finalizarCss(CssPrint.i);
+            this.addLayoutFixo();
         }
 
         #endregion Métodos

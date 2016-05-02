@@ -448,13 +448,9 @@ namespace NetZ.Web.Html.Componente.Janela
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor("white"));
-            this.addCss(css.setBottom(0));
             this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
             this.addCss(css.setCenter());
-            this.addCss(css.setLeft(0));
             this.addCss(css.setPosition("absolute"));
-            this.addCss(css.setRight(0));
-            this.addCss(css.setTop(0));
 
             this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 2, 2));
             this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
