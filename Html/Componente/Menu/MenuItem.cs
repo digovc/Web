@@ -394,7 +394,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divIcone.addCss(css.setMarginRight(5));
 
                 this.divItemConteudo.addCss(css.setDisplay("none"));
-                this.divItemConteudo.addCss(css.setPaddingLeft(20));
+                this.divItemConteudo.addCss(css.setPaddingLeft(35));
             }
             catch (Exception ex)
             {
