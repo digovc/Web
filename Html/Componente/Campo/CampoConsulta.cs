@@ -63,8 +63,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.inicializar();
 
-            this.inicializarAttTblWebRef();
-            this.inicializarAttClnWebRef();
+            this.inicializarAttRef();
         }
 
         protected override void montarLayout()
@@ -87,20 +86,15 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private void inicializarAttClnWebRef()
         {
-            if (this.cln == null)
-            {
-                return;
-            }
-
-            if (this.cln.clnRef == null)
-            {
-                return;
-            }
-
             this.addAtt("cln_web_ref", this.cln.clnRef.strNomeSql);
         }
 
-        private void inicializarAttTblWebRef()
+        private void inicializarAttClnWebRefNome()
+        {
+            this.addAtt("cln_web_ref_nome", this.cln.clnRef.tbl.clnNome.strNomeSql);
+        }
+
+        private void inicializarAttRef()
         {
             if (this.cln == null)
             {
@@ -117,6 +111,18 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
+            if (this.cln.clnRef.tbl.clnNome == null)
+            {
+                return;
+            }
+
+            this.inicializarAttTblWebRef();
+            this.inicializarAttClnWebRef();
+            this.inicializarAttClnWebRefNome();
+        }
+
+        private void inicializarAttTblWebRef()
+        {
             this.addAtt("tbl_web_ref", this.cln.clnRef.tbl.viwPrincipal.strNomeSql);
         }
 

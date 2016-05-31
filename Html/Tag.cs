@@ -928,6 +928,11 @@ namespace NetZ.Web.Html
             this.addAtt(new Atributo(strAttNome, decValor.ToString()));
         }
 
+        public void addAtt(string strAttNome, bool booValor)
+        {
+            this.addAtt(new Atributo(strAttNome, booValor.ToString()));
+        }
+
         /// <summary>
         /// Link para <see cref="addAtt(Atributo)"/>.
         /// </summary>

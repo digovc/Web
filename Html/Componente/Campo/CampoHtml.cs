@@ -43,6 +43,7 @@ namespace NetZ.Web.Html.Componente.Campo
         #region Atributos
 
         private bool _booDireita;
+        private bool _booMostrarTituloSempre;
         private bool _booObrigatorio;
         private bool _booSomenteLeitura;
         private Coluna _cln;
@@ -67,6 +68,19 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _booDireita = value;
+            }
+        }
+
+        public bool booMostrarTituloSempre
+        {
+            get
+            {
+                return _booMostrarTituloSempre;
+            }
+
+            set
+            {
+                _booMostrarTituloSempre = value;
             }
         }
 
@@ -447,6 +461,13 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.strId = (this.strId + "_tagInput");
         }
 
+        protected override void finalizar()
+        {
+            base.finalizar();
+
+            this.finalizarMostrarTituloSempre();
+        }
+
         protected abstract Input.EnmTipo getEnmTipo();
 
         protected virtual Input getTagInput()
@@ -634,6 +655,16 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             #endregion Ações
+        }
+
+        private void finalizarMostrarTituloSempre()
+        {
+            if (!this.booMostrarTituloSempre)
+            {
+                return;
+            }
+
+            this.addAtt("mostrar_titulo_sempre", true);
         }
 
         private void setCssWidth(CssArquivo css)

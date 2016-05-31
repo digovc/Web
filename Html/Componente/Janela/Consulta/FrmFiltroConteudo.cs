@@ -87,6 +87,16 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.montarLayoutLstCmpFiltro();
         }
 
+        private string getStrCampoTitulo(DataRow row, Coluna clnFiltrada)
+        {
+            string strResultado = "_cln_filtrada_nome (_operador_nome)";
+
+            strResultado = strResultado.Replace("_cln_filtrada_nome", clnFiltrada.strNomeExibicao);
+            strResultado = strResultado.Replace("_operador_nome", Filtro.getStrOperadorNome(Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql])));
+
+            return strResultado;
+        }
+
         private Tabela getTblFiltrada()
         {
             if (this.intFiltroId < 1)
@@ -160,7 +170,10 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
+            cmpFiltro.booMostrarTituloSempre = true;
             cmpFiltro.cln = clnFiltrada;
+            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+            cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);
 
             cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql]));
             cmpFiltro.addAtt("int_filtro_item_id", Convert.ToInt32(row[TblFiltroItem.i.clnIntId.strNomeSql]));
