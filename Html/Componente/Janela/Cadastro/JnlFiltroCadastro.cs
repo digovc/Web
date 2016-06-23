@@ -1,4 +1,4 @@
-﻿using NetZ.Web.DataBase;
+﻿using NetZ.Web.DataBase.View;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Tab;
 
@@ -79,7 +79,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.cmpStrDescricao.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
             this.cmpStrDescricao.intNivel = 2;
 
-            this.tabFiltroItem.tbl = TblFiltroItem.i;
+            this.tabFiltroItem.tbl = ViwFiltroItem.i;
         }
 
         protected override void montarLayout()

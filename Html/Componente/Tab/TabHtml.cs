@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Html.Componente.Botao.Mini;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
@@ -10,7 +11,11 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Atributos
 
+        private BotaoAdicionarMini _btnAdicionar;
+        private BotaoAlterarMini _btnAlterar;
+        private BotaoApagarMini _btnApagar;
         private Div _divCabecalho;
+        private Div _divCabecalhoComando;
         private Div _divCabecalhoConteudo;
         private Div _divConteudo;
         private int _intTabQuantidade;
@@ -31,6 +36,51 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
+        private BotaoAdicionarMini btnAdicionar
+        {
+            get
+            {
+                if (_btnAdicionar != null)
+                {
+                    return _btnAdicionar;
+                }
+
+                _btnAdicionar = new BotaoAdicionarMini();
+
+                return _btnAdicionar;
+            }
+        }
+
+        private BotaoAlterarMini btnAlterar
+        {
+            get
+            {
+                if (_btnAlterar != null)
+                {
+                    return _btnAlterar;
+                }
+
+                _btnAlterar = new BotaoAlterarMini();
+
+                return _btnAlterar;
+            }
+        }
+
+        private BotaoApagarMini btnApagar
+        {
+            get
+            {
+                if (_btnApagar != null)
+                {
+                    return _btnApagar;
+                }
+
+                _btnApagar = new BotaoApagarMini();
+
+                return _btnApagar;
+            }
+        }
+
         private Div divCabecalho
         {
             get
@@ -43,6 +93,21 @@ namespace NetZ.Web.Html.Componente.Tab
                 _divCabecalho = new Div();
 
                 return _divCabecalho;
+            }
+        }
+
+        private Div divCabecalhoComando
+        {
+            get
+            {
+                if (_divCabecalhoComando != null)
+                {
+                    return _divCabecalhoComando;
+                }
+
+                _divCabecalhoComando = new Div();
+
+                return _divCabecalhoComando;
             }
         }
 
@@ -107,13 +172,41 @@ namespace NetZ.Web.Html.Componente.Tab
             base.addTag(tag);
         }
 
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+            this.btnAlterar.strId = (this.strId + "_btnAlterar");
+            this.btnApagar.strId = (this.strId + "_btnApagar");
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.btnAdicionar.enmLado = BotaoMini.EnmLado.ESQUERDA;
+            this.btnAlterar.enmLado = BotaoMini.EnmLado.ESQUERDA;
+            this.btnApagar.enmLado = BotaoMini.EnmLado.ESQUERDA;
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
 
             this.divCabecalho.setPai(this);
             this.divCabecalhoConteudo.setPai(this.divCabecalho);
+            this.divCabecalhoComando.setPai(this.divCabecalho);
             this.divConteudo.setPai(this);
+
+            this.btnAdicionar.setPai(this.divCabecalhoComando);
+            this.btnAlterar.setPai(this.divCabecalhoComando);
+            this.btnApagar.setPai(this.divCabecalhoComando);
         }
 
         protected override void setCss(CssArquivo css)
@@ -125,6 +218,10 @@ namespace NetZ.Web.Html.Componente.Tab
             this.addCss(css.setPosition("relative"));
 
             this.divCabecalho.addCss(css.setHeight(40));
+
+            this.divCabecalhoComando.addCss(css.setPosition("absolute"));
+            this.divCabecalhoComando.addCss(css.setRight(0));
+            this.divCabecalhoComando.addCss(css.setTop(5));
 
             this.divCabecalhoConteudo.addCss(css.setHeight(30));
 

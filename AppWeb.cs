@@ -6,6 +6,7 @@ using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase;
+using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
@@ -200,22 +201,14 @@ namespace NetZ.Web
 
             foreach (Tabela tbl in this.lstTbl)
             {
-                if (tbl == null)
+                Tabela tblResultado = this.getTbl(strTblNome, tbl);
+
+                if (tblResultado == null)
                 {
                     continue;
                 }
 
-                if (string.IsNullOrEmpty(tbl.strNomeSql))
-                {
-                    continue;
-                }
-
-                if (!strTblNome.ToLower().Equals(tbl.strNomeSql.ToLower()))
-                {
-                    continue;
-                }
-
-                return tbl;
+                return tblResultado;
             }
 
             return null;
@@ -422,6 +415,8 @@ namespace NetZ.Web
                 return;
             }
 
+            tbl = tbl.tblPrincipal;
+
             if (tbl.clsJnlCadastro == null)
             {
                 return;
@@ -509,6 +504,26 @@ namespace NetZ.Web
         {
         }
 
+        private Tabela getTbl(string strTblNome, Tabela tbl)
+        {
+            if (tbl.strNomeSql.ToLower().Equals(strTblNome.ToLower()))
+            {
+                return tbl;
+            }
+
+            foreach (View viw in tbl.lstViw)
+            {
+                if (!viw.strNomeSql.ToLower().Equals(strTblNome.ToLower()))
+                {
+                    continue;
+                }
+
+                return viw;
+            }
+
+            return null;
+        }
+
         private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
             if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
@@ -535,7 +550,7 @@ namespace NetZ.Web
                 return;
             }
 
-            DataTable tblData = tbl.pesquisar(tblWeb);
+            DataTable tblData = tbl.viwPrincipal.pesquisar(tblWeb);
 
             if (tblData == null)
             {
@@ -560,7 +575,7 @@ namespace NetZ.Web
         {
             GridHtml tagGrid = new GridHtml();
 
-            tagGrid.tbl = tbl;
+            tagGrid.tbl = tbl.viwPrincipal;
             tagGrid.tblData = tblData;
 
             objSolicitacaoAjaxDb.strData = tagGrid.toHtml();

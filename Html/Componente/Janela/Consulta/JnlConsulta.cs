@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -13,40 +12,38 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
+        private ComboBox _cmbStrViewNome;
         private Div _divGrid;
         private GridHtml _grdDados;
         private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
         private Tabela _tbl;
 
+        private ComboBox cmbStrViewNome
+        {
+            get
+            {
+                if (_cmbStrViewNome != null)
+                {
+                    return _cmbStrViewNome;
+                }
+
+                _cmbStrViewNome = new ComboBox();
+
+                return _cmbStrViewNome;
+            }
+        }
+
         private Div divGrid
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divGrid != null)
                 {
-                    if (_divGrid != null)
-                    {
-                        return _divGrid;
-                    }
-
-                    _divGrid = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divGrid;
                 }
 
-                #endregion Ações
+                _divGrid = new Div();
 
                 return _divGrid;
             }
@@ -56,30 +53,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_grdDados != null)
                 {
-                    if (_grdDados != null)
-                    {
-                        return _grdDados;
-                    }
-
-                    _grdDados = new GridHtml();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _grdDados;
                 }
 
-                #endregion Ações
+                _grdDados = new GridHtml();
 
                 return _grdDados;
             }
@@ -89,30 +68,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_pnlAcaoConsulta != null)
                 {
-                    if (_pnlAcaoConsulta != null)
-                    {
-                        return _pnlAcaoConsulta;
-                    }
-
-                    _pnlAcaoConsulta = new PainelAcaoConsulta();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _pnlAcaoConsulta;
                 }
 
-                #endregion Ações
+                _pnlAcaoConsulta = new PainelAcaoConsulta();
 
                 return _pnlAcaoConsulta;
             }
@@ -122,30 +83,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_pnlFiltro != null)
                 {
-                    if (_pnlFiltro != null)
-                    {
-                        return _pnlFiltro;
-                    }
-
-                    _pnlFiltro = new PainelFiltro();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _pnlFiltro;
                 }
 
-                #endregion Ações
+                _pnlFiltro = new PainelFiltro();
 
                 return _pnlFiltro;
             }
@@ -177,25 +120,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         public JnlConsulta(Tabela tbl)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tbl = tbl;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tbl = tbl;
         }
 
         #endregion Construtores
@@ -211,6 +136,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
+            this.cmbStrViewNome.strId = (this.strId + "_cmbStrViewNome");
             this.divGrid.strId = (this.strId + "_divGrid");
             this.pnlAcaoConsulta.strId = (this.strId + "_pnlAcaoConsulta");
         }
@@ -229,52 +155,18 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strId = "jnlConsulta";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strId = "jnlConsulta";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.pnlFiltro.setPai(this);
+            this.divGrid.setPai(this);
+            this.pnlAcaoConsulta.setPai(this);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.pnlFiltro.setPai(this);
-                this.divGrid.setPai(this);
-                this.pnlAcaoConsulta.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.montarLayoutCmbStrViewNome();
         }
 
         protected override void setCss(CssArquivo css)
@@ -297,13 +189,69 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.pnlAcaoConsulta.addCss(css.setBottom(25));
             this.pnlAcaoConsulta.addCss(css.setRight(50));
+
+            this.setCssCmbStrViewNome(css);
         }
 
         private void atualizarTbl()
         {
-            this.strTitulo = this.tbl.strNomeExibicao;
+            if (this.tbl == null)
+            {
+                return;
+            }
 
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+            this.addAtt("viw_web_nome", this.tbl.viwPrincipal.strNomeSql);
+
+            this.atualizarTblLstViw();
+        }
+
+        private void atualizarTblLstViw()
+        {
+            if (this.tbl.lstViw.Count < 2)
+            {
+                this.strTitulo = this.tbl.strNomeExibicao;
+                return;
+            }
+
+            foreach (View viw in this.tbl.lstViw)
+            {
+                this.atualizarTblLstViw(viw);
+            }
+        }
+
+        private void atualizarTblLstViw(View viw)
+        {
+            if (viw == null)
+            {
+                return;
+            }
+
+            this.cmbStrViewNome.addOpcao((viw.intObjetoId), viw.strNomeExibicao);
+        }
+
+        private void montarLayoutCmbStrViewNome()
+        {
+            if (this.tbl.lstViw.Count < 2)
+            {
+                return;
+            }
+
+            this.cmbStrViewNome.setPai(this.divCabecalho);
+        }
+
+        private void setCssCmbStrViewNome(CssArquivo css)
+        {
+            if (this.tbl.lstViw.Count < 2)
+            {
+                return;
+            }
+
+            this.cmbStrViewNome.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
+            this.cmbStrViewNome.addCss(css.setBorder(0));
+            this.cmbStrViewNome.addCss(css.setFontSize(20));
+            this.cmbStrViewNome.addCss(css.setHeight(100, "%"));
+            this.cmbStrViewNome.addCss(css.setMinWidth(255));
         }
 
         #endregion Métodos

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using NetZ.Persistencia;
 using NetZ.Web.DataBase;
+using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 

@@ -66,12 +66,6 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _booValor = Convert.ToBoolean(this.strValor);
@@ -80,23 +74,12 @@ namespace NetZ.Web.Html
                 {
                     return false;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
 
                 return _booValor;
             }
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _booValor = value;
@@ -107,11 +90,6 @@ namespace NetZ.Web.Html
                 {
                     this.strValor = null;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -119,12 +97,6 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _decValor = Convert.ToDecimal(this.strValor);
@@ -133,23 +105,12 @@ namespace NetZ.Web.Html
                 {
                     return 0;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
 
                 return _decValor;
             }
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _decValor = value;
@@ -160,11 +121,6 @@ namespace NetZ.Web.Html
                 {
                     this.strValor = null;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -172,12 +128,6 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _dttValor = Convert.ToDateTime(this.strValor);
@@ -186,23 +136,12 @@ namespace NetZ.Web.Html
                 {
                     return DateTime.MinValue;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
 
                 return _dttValor;
             }
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _dttValor = value;
@@ -213,11 +152,6 @@ namespace NetZ.Web.Html
                 {
                     this.strValor = null;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -238,12 +172,6 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _intValor = (int)this.decValor;
@@ -252,23 +180,12 @@ namespace NetZ.Web.Html
                 {
                     return 0;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
 
                 return _intValor;
             }
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _intValor = value;
@@ -279,11 +196,6 @@ namespace NetZ.Web.Html
                 {
                     this.decValor = 0;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -309,27 +221,9 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
+                _strValor = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strValor = value;
-
-                    this.atualizarStrValor();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                this.atualizarStrValor();
             }
         }
 
@@ -337,32 +231,14 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attValue != null)
                 {
-                    if (_attValue != null)
-                    {
-                        return _attValue;
-                    }
-
-                    _attValue = new Atributo("value");
-
-                    this.addAtt(_attValue);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attValue;
                 }
 
-                #endregion Ações
+                _attValue = new Atributo("value");
+
+                this.addAtt(_attValue);
 
                 return _attValue;
             }
@@ -384,535 +260,247 @@ namespace NetZ.Web.Html
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(Input), 110));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(Input), 110));
-
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnValorAlteradoArg.js", 110));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnValorAlteradoArg.js", 110));
         }
 
         protected void atualizarStrValor()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.attValue.strValor = this.strValor;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.attValue.strValor = this.strValor;
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
+            this.inicializarEnmTipo();
+            this.inicializarName();
+            this.inicializarStrPlaceHolder();
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.inicializarEnmTipo();
-                this.inicializarName();
-                this.inicializarStrPlaceHolder();
-
-                this.addAtt((this.booDisabled ? "disabled" : null), (this.booDisabled ? "true" : null));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addAtt((this.booDisabled ? "disabled" : null), (this.booDisabled ? "true" : null));
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.montarLayoutValor();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.montarLayoutValor();
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.setCssDateTime(css);
-                this.setCssNumber(css);
-                this.setCssTextArea(css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.setCssDateTime(css);
+            this.setCssNumber(css);
+            this.setCssTextArea(css);
         }
 
         private void inicializarEnmTipo()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            switch (this.enmTipo)
             {
-                switch (this.enmTipo)
-                {
-                    case EnmTipo.BUTTON:
-                        this.attType.strValor = "button";
-                        return;
+                case EnmTipo.BUTTON:
+                    this.attType.strValor = "button";
+                    return;
 
-                    case EnmTipo.CHECKBOX:
-                        this.attType.strValor = "checkbox";
-                        return;
+                case EnmTipo.CHECKBOX:
+                    this.attType.strValor = "checkbox";
+                    return;
 
-                    case EnmTipo.COLOR:
-                        this.attType.strValor = "color";
-                        return;
+                case EnmTipo.COLOR:
+                    this.attType.strValor = "color";
+                    return;
 
-                    case EnmTipo.DATE:
-                        this.inicializarEnmTipoDate();
-                        return;
+                case EnmTipo.DATE:
+                    this.inicializarEnmTipoDate();
+                    return;
 
-                    case EnmTipo.DATETIME:
-                        this.inicialziarEnmTipoDateTime();
-                        return;
+                case EnmTipo.DATETIME:
+                    this.inicialziarEnmTipoDateTime();
+                    return;
 
-                    case EnmTipo.DATETIME_LOCAL:
-                        this.attType.strValor = "datetime-local";
-                        return;
+                case EnmTipo.DATETIME_LOCAL:
+                    this.attType.strValor = "datetime-local";
+                    return;
 
-                    case EnmTipo.EMAIL:
-                        this.attType.strValor = "email";
-                        return;
+                case EnmTipo.EMAIL:
+                    this.attType.strValor = "email";
+                    return;
 
-                    case EnmTipo.FILE:
-                        this.attType.strValor = "file";
-                        return;
+                case EnmTipo.FILE:
+                    this.attType.strValor = "file";
+                    return;
 
-                    case EnmTipo.HIDDEN:
-                        this.attType.strValor = "hidden";
-                        return;
+                case EnmTipo.HIDDEN:
+                    this.attType.strValor = "hidden";
+                    return;
 
-                    case EnmTipo.IMAGE:
-                        this.attType.strValor = "image";
-                        return;
+                case EnmTipo.IMAGE:
+                    this.attType.strValor = "image";
+                    return;
 
-                    case EnmTipo.MONTH:
-                        this.attType.strValor = "month";
-                        return;
+                case EnmTipo.MONTH:
+                    this.attType.strValor = "month";
+                    return;
 
-                    case EnmTipo.NUMBER:
-                        this.inicialziarEnmTipoNumber();
-                        return;
+                case EnmTipo.NUMBER:
+                    this.inicialziarEnmTipoNumber();
+                    return;
 
-                    case EnmTipo.PASSWORD:
-                        this.attType.strValor = "password";
-                        return;
+                case EnmTipo.PASSWORD:
+                    this.attType.strValor = "password";
+                    return;
 
-                    case EnmTipo.RADIO:
-                        this.attType.strValor = "radio";
-                        return;
+                case EnmTipo.RADIO:
+                    this.attType.strValor = "radio";
+                    return;
 
-                    case EnmTipo.RANGE:
-                        this.attType.strValor = "range";
-                        return;
+                case EnmTipo.RANGE:
+                    this.attType.strValor = "range";
+                    return;
 
-                    case EnmTipo.RESET:
-                        this.attType.strValor = "reset";
-                        return;
+                case EnmTipo.RESET:
+                    this.attType.strValor = "reset";
+                    return;
 
-                    case EnmTipo.SEARCH:
-                        this.attType.strValor = "search";
-                        return;
+                case EnmTipo.SEARCH:
+                    this.attType.strValor = "search";
+                    return;
 
-                    case EnmTipo.SUBMIT:
-                        this.attType.strValor = "submit";
-                        return;
+                case EnmTipo.SUBMIT:
+                    this.attType.strValor = "submit";
+                    return;
 
-                    case EnmTipo.TEL:
-                        this.attType.strValor = "tel";
-                        return;
+                case EnmTipo.TEL:
+                    this.attType.strValor = "tel";
+                    return;
 
-                    case EnmTipo.TEXT:
-                        this.attType.strValor = "text";
-                        return;
+                case EnmTipo.TEXT:
+                    this.attType.strValor = "text";
+                    return;
 
-                    case EnmTipo.TEXT_AREA:
-                        this.inicialziarEnmTipoTextArea();
-                        return;
+                case EnmTipo.TEXT_AREA:
+                    this.inicialziarEnmTipoTextArea();
+                    return;
 
-                    case EnmTipo.TIME:
-                        this.attType.strValor = "time";
-                        return;
+                case EnmTipo.TIME:
+                    this.attType.strValor = "time";
+                    return;
 
-                    case EnmTipo.URL:
-                        this.attType.strValor = "url";
-                        return;
+                case EnmTipo.URL:
+                    this.attType.strValor = "url";
+                    return;
 
-                    case EnmTipo.WEEK:
-                        this.attType.strValor = "week";
-                        return;
+                case EnmTipo.WEEK:
+                    this.attType.strValor = "week";
+                    return;
 
-                    default:
-                        this.attType.strValor = "text";
-                        return;
-                }
+                default:
+                    this.attType.strValor = "text";
+                    return;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void inicializarEnmTipoDate()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.attType.strValor = "date";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.attType.strValor = "date";
         }
 
         private void inicializarName()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strId))
             {
-                if (string.IsNullOrEmpty(this.strId))
-                {
-                    return;
-                }
-
-                if (EnmTipo.RADIO.Equals(this.enmTipo))
-                {
-                    return;
-                }
-
-                this.addAtt("name", this.strId);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (EnmTipo.RADIO.Equals(this.enmTipo))
+            {
+                return;
+            }
+
+            this.addAtt("name", this.strId);
         }
 
         private void inicializarStrPlaceHolder()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strPlaceHolder))
             {
-                if (string.IsNullOrEmpty(this.strPlaceHolder))
-                {
-                    return;
-                }
-
-                this.addAtt("placeholder", this.strPlaceHolder);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addAtt("placeholder", this.strPlaceHolder);
         }
 
         private void inicialziarEnmTipoDateTime()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.attType.strValor = "datetime";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.attType.strValor = "datetime";
         }
 
         private void inicialziarEnmTipoNumber()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.attType.strValor = "number";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.attType.strValor = "number";
         }
 
         private void inicialziarEnmTipoTextArea()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = "textarea";
-                this.booDupla = true;
-                this.addAtt("rows", "7");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = "textarea";
+            this.booDupla = true;
+            this.addAtt("rows", "7");
         }
 
         private void montarLayoutValor()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strValor))
             {
-                if (string.IsNullOrEmpty(this.strValor))
-                {
-                    return;
-                }
-
-                switch (this.enmTipo)
-                {
-                    case EnmTipo.TEXT_AREA:
-                        this.strConteudo = this.strValor;
-                        break;
-
-                    case EnmTipo.CHECKBOX:
-                        this.addAtt((this.booValor ? "checked" : null));
-                        break;
-
-                    default:
-                        this.addAtt("value", this.strValor);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            switch (this.enmTipo)
+            {
+                case EnmTipo.TEXT_AREA:
+                    this.strConteudo = this.strValor;
+                    break;
+
+                case EnmTipo.CHECKBOX:
+                    this.addAtt((this.booValor ? "checked" : null));
+                    break;
+
+                default:
+                    this.addAtt("value", this.strValor);
+                    break;
+            }
         }
 
         private void setCssDateTime(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!EnmTipo.DATETIME.Equals(this.enmTipo))
             {
-                if (!EnmTipo.DATETIME.Equals(this.enmTipo))
-                {
-                    return;
-                }
-
-                this.addCss(css.setTextAlign("right"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addCss(css.setTextAlign("right"));
         }
 
         private void setCssNumber(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!EnmTipo.NUMBER.Equals(this.enmTipo))
             {
-                if (!EnmTipo.NUMBER.Equals(this.enmTipo))
-                {
-                    return;
-                }
-
-                this.addCss(css.setTextAlign("right"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addCss(css.setTextAlign("right"));
         }
 
         private void setCssTextArea(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!EnmTipo.TEXT_AREA.Equals(this.enmTipo))
             {
-                if (!EnmTipo.TEXT_AREA.Equals(this.enmTipo))
-                {
-                    return;
-                }
-
-                this.addCss(css.setWidth(100, "%"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addCss(css.setWidth(100, "%"));
         }
 
         #endregion Métodos

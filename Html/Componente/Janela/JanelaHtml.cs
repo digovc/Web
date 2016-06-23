@@ -18,8 +18,8 @@ namespace NetZ.Web.Html.Componente.Janela
         private Div _divCabecalho;
         private Div _divInativa;
         private Div _divTitulo;
-        private int _intTamanhoX;
-        private int _intTamanhoY;
+        private int _intTamanhoX = 5;
+        private int _intTamanhoY = 5;
         private string _strTitulo;
 
         /// <summary>
@@ -76,6 +76,11 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 try
                 {
+                    if (_strTitulo == value)
+                    {
+                        return;
+                    }
+
                     _strTitulo = value;
 
                     this.atualizarStrTitulo();
@@ -228,7 +233,7 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
-        private Div divCabecalho
+        protected Div divCabecalho
         {
             get
             {
@@ -398,7 +403,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
         protected virtual void finalizarCssHeight(CssArquivo css)
         {
-            this.addCss(css.setHeight((this.intTamanhoY * 50)));
+            this.addCss(css.setHeight((this.intTamanhoY * 50) - 20));
         }
 
         protected virtual void finalizarCssWidth(CssArquivo css)
@@ -418,8 +423,6 @@ namespace NetZ.Web.Html.Componente.Janela
 
             try
             {
-                this.intTamanhoX = 5;
-                this.intTamanhoY = 5;
                 this.strId = this.GetType().Name;
             }
             catch (Exception ex)
@@ -466,8 +469,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
             this.divCabecalho.addCss(css.setCursor("default"));
-            this.divCabecalho.addCss(css.setHeight(50));
-            this.divCabecalho.addCss(css.setLineHeight(35));
+            this.divCabecalho.addCss(css.setHeight(30));
             this.divCabecalho.addCss(css.setPosition("relative"));
 
             this.divInativa.addCss(css.setBackgroundColor("rgba(0,0,0,0.5)"));
@@ -478,7 +480,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divInativa.addCss(css.setWidth(100, "%"));
 
             this.divTitulo.addCss(css.setFontSize(20));
-            this.divTitulo.addCss(css.setLineHeight(50));
+            this.divTitulo.addCss(css.setLineHeight(30));
             this.divTitulo.addCss(css.setPaddingLeft(5));
         }
 

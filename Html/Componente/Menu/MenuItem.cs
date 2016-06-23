@@ -1,16 +1,14 @@
-﻿using NetZ.Persistencia;
+﻿using System;
+using System.Collections.Generic;
+using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Circulo;
 using NetZ.Web.Server.Arquivo.Css;
-using System;
-using System.Collections.Generic;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
     public class MenuItem : ComponenteHtml
     {
         #region Constantes
-
-        private const int INT_HEIGHT = 50;
 
         #endregion Constantes
 
@@ -379,22 +377,16 @@ namespace NetZ.Web.Html.Componente.Menu
             try
             {
                 this.addCss(css.setCursor("pointer"));
-                this.addCss(css.setMinHeight(INT_HEIGHT));
                 this.addCss(css.setOutLine("none"));
-                this.addCss(css.setFontFamily("Ubuntu"));
-                this.addCss(css.setFontStyle("Ligth"));
+                this.addCss(css.setFontFamily("ubuntu"));
+                this.addCss(css.setFontStyle("ligth"));
 
                 this.setCssPai(css);
                 this.setCssFilho(css);
 
-                this.divTitulo.addCss(css.setLineHeight(INT_HEIGHT));
-
-                this.divIcone.addCss(css.setFloat("left"));
-                this.divIcone.addCss(css.setMarginLeft(5));
-                this.divIcone.addCss(css.setMarginRight(5));
-
+                this.divItemConteudo.addCss(css.setBackgroundColor("rgb(118,188,186)"));
                 this.divItemConteudo.addCss(css.setDisplay("none"));
-                this.divItemConteudo.addCss(css.setPaddingLeft(35));
+                this.divItemConteudo.addCss(css.setFontSize(14));
             }
             catch (Exception ex)
             {
@@ -443,10 +435,15 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 return;
             }
-            this.addCss(css.setBackgroundColor("rgba(103, 189, 156, 0.18)"));
-            this.addCss(css.setBorderTop(1, "solid", "rgba(255, 255, 255, 0.30)"));
-            this.addCss(css.setFontSize(14));
-            this.addCss(css.setWidth(300));
+
+            this.addCss(css.setBorderTop(1, "solid", "rgba(255,255,255,0.3)"));
+            this.addCss(css.setHeight(35));
+            this.addCss(css.setMinHeight(35));
+            this.addCss(css.setPaddingLeft(60));
+
+            this.divIcone.addCss(css.setDisplay("none"));
+
+            this.divTitulo.addCss(css.setLineHeight(35));
         }
 
         private void setCssPai(CssArquivo css)
@@ -456,8 +453,15 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderBottom(1, "solid", "rgba(2, 74, 72, 0.29)"));
+            this.addCss(css.setBorderBottom(1, "solid", "rgba(2,74,72,0.3)"));
             this.addCss(css.setFontSize(18));
+            this.addCss(css.setMinHeight(50));
+
+            this.divIcone.addCss(css.setBackgroundColor("#13928d"));
+            this.divIcone.addCss(css.setFloat("left"));
+            this.divIcone.addCss(css.setMargin(5));
+
+            this.divTitulo.addCss(css.setLineHeight(50));
         }
 
         #endregion Métodos

@@ -47,32 +47,14 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attIntId != null)
                 {
-                    if (_attIntId != null)
-                    {
-                        return _attIntId;
-                    }
-
-                    _attIntId = new Atributo("int_id", null);
-
-                    this.addAtt(_attIntId);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attIntId;
                 }
 
-                #endregion Ações
+                _attIntId = new Atributo("int_id", null);
+
+                this.addAtt(_attIntId);
 
                 return _attIntId;
             }
@@ -94,175 +76,82 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.inicializarId();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializarIntId();
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tbl == null)
             {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                if (this.row == null)
-                {
-                    return;
-                }
-
-                foreach (Coluna cln in this.tbl.lstClnConsulta)
-                {
-                    this.montarLayout(cln);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.row == null)
+            {
+                return;
+            }
+
+            foreach (Coluna cln in this.tbl.lstClnConsulta)
+            {
+                this.montarLayout(cln);
+            }
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setHeight(GridHtml.INT_LINHA_TAMANHO));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setHeight(GridHtml.INT_LINHA_TAMANHO));
         }
 
-        private void inicializarId()
+        private void inicializarIntId()
         {
-            #region Variáveis
-
-            long intId;
-            string strId;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.row == null)
             {
-                if (this.row == null)
-                {
-                    return;
-                }
-
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                if (this.row[this.tbl.clnIntId.strNomeSql] == null)
-                {
-                    return;
-                }
-
-                if (DBNull.Value.Equals(this.row[this.tbl.clnIntId.strNomeSql]))
-                {
-                    return;
-                }
-
-                intId = (long)this.row[this.tbl.clnIntId.strNomeSql];
-
-                if (intId < 1)
-                {
-                    return;
-                }
-
-                this.attIntId.addValor(intId);
-
-                strId = "tagGridRow__registro_id";
-
-                strId = strId.Replace("_registro_id", intId.ToString());
-
-                this.strId = strId;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.tbl == null)
+            {
+                return;
+            }
+
+            if (this.row[this.tbl.clnIntId.strNomeSql] == null)
+            {
+                return;
+            }
+
+            if (DBNull.Value.Equals(this.row[this.tbl.clnIntId.strNomeSql]))
+            {
+                return;
+            }
+
+            long intId = (long)this.row[this.tbl.clnIntId.strNomeSql];
+
+            if (intId < 1)
+            {
+                return;
+            }
+
+            this.attIntId.addValor(intId);
+
+            strId = "tagGridRow__registro_id";
+
+            strId = strId.Replace("_registro_id", intId.ToString());
+
+            this.strId = strId;
         }
 
         private void montarLayout(Coluna cln)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (cln == null)
             {
-                if (cln == null)
-                {
-                    return;
-                }
-
-                new GridData(cln, this.row).setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            new GridColumn(cln, this.row).setPai(this);
         }
 
         #endregion Métodos

@@ -281,7 +281,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private Div divInputContainer
+        protected Div divInputContainer
         {
             get
             {

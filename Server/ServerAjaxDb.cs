@@ -100,7 +100,7 @@ namespace NetZ.Web.Server
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ex; // TODO: Entregar a mensagem de erro para o usuário.
             }
             finally
             {

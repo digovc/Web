@@ -122,6 +122,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.addCss(css.setPaddingTop(10));
 
             this.btnEsquerda.addCss(css.setMarginRight(5));
+
+            this.btnNovo.addCss(css.setDisplay("none"));
         }
 
         #endregion Métodos

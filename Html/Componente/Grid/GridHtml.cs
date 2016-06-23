@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using NetZ.Persistencia;
-using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
@@ -10,13 +8,12 @@ namespace NetZ.Web.Html.Componente.Grid
     {
         #region Constantes
 
-        internal const decimal INT_LINHA_TAMANHO = 35;
+        internal const decimal INT_LINHA_TAMANHO = 25;
 
         #endregion Constantes
 
         #region Atributos
 
-        private BotaoAdicionarMini _btnAdicionar;
         private Tag _tagTable;
         private Tag _tagTbody;
         private Tag _tagTfoot;
@@ -57,49 +54,16 @@ namespace NetZ.Web.Html.Componente.Grid
             }
         }
 
-        private BotaoAdicionarMini btnAdicionar
-        {
-            get
-            {
-                if (_btnAdicionar != null)
-                {
-                    return _btnAdicionar;
-                }
-
-                _btnAdicionar = new BotaoAdicionarMini();
-
-                return _btnAdicionar;
-            }
-        }
-
         private Tag tagTable
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagTable != null)
                 {
-                    if (_tagTable != null)
-                    {
-                        return _tagTable;
-                    }
-
-                    _tagTable = new Tag("table");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagTable;
                 }
 
-                #endregion Ações
+                _tagTable = new Tag("table");
 
                 return _tagTable;
             }
@@ -109,30 +73,12 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagTbody != null)
                 {
-                    if (_tagTbody != null)
-                    {
-                        return _tagTbody;
-                    }
-
-                    _tagTbody = new Tag("tbody");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagTbody;
                 }
 
-                #endregion Ações
+                _tagTbody = new Tag("tbody");
 
                 return _tagTbody;
             }
@@ -142,30 +88,12 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagTfoot != null)
                 {
-                    if (_tagTfoot != null)
-                    {
-                        return _tagTfoot;
-                    }
-
-                    _tagTfoot = new Tag("tfoot");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagTfoot;
                 }
 
-                #endregion Ações
+                _tagTfoot = new Tag("tfoot");
 
                 return _tagTfoot;
             }
@@ -175,30 +103,12 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagThead != null)
                 {
-                    if (_tagThead != null)
-                    {
-                        return _tagThead;
-                    }
-
-                    _tagThead = new Tag("thead");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagThead;
                 }
 
-                #endregion Ações
+                _tagThead = new Tag("thead");
 
                 return _tagThead;
             }
@@ -208,30 +118,12 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagTrHead != null)
                 {
-                    if (_tagTrHead != null)
-                    {
-                        return _tagTrHead;
-                    }
-
-                    _tagTrHead = new Tag("tr");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagTrHead;
                 }
 
-                #endregion Ações
+                _tagTrHead = new Tag("tr");
 
                 return _tagTrHead;
             }
@@ -254,7 +146,6 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
             this.tagTable.strId = (this.strId + "_table");
             this.tagTbody.strId = (this.strId + "_tbody");
         }
@@ -263,233 +154,98 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tbl == null)
             {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                this.strId = ("tagGridHtml_" + this.tbl.strNomeSql);
-
-                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.strId = ("tagGridHtml_" + this.tbl.strNomeSql);
+
+            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.strNomeSql);
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.tagTable.setPai(this);
+            this.tagThead.setPai(this.tagTable);
+            this.tagTrHead.setPai(this.tagThead);
+            this.tagTbody.setPai(this.tagTable);
+            this.tagTfoot.setPai(this.tagTable);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tagTable.setPai(this);
-                this.tagThead.setPai(this.tagTable);
-                this.tagTrHead.setPai(this.tagThead);
-                this.tagTbody.setPai(this.tagTable);
-                this.tagTfoot.setPai(this.tagTable);
-
-                this.btnAdicionar.setPai(this);
-
-                this.montarLayoutHead();
-                this.montarLayoutTbody();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.montarLayoutHead();
+            this.montarLayoutTbody();
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.tagTable.addCss(css.addCss("border-spacing", "0"));
+            this.tagTable.addCss(css.setBackgroundColor("white"));
+            this.tagTable.addCss(css.setBoxShadow(0, 2, 2, 0, AppWeb.i.objTema.corBorda));
+            this.tagTable.addCss(css.setCenter());
+            this.tagTable.addCss(css.setWhiteSpace("nowrap"));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                //this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
-                //this.addCss(css.setHeight(600));
-                //this.addCss(css.setOverflow("scroll"));
-                //this.addCss(css.setPadding(10));
-                //this.addCss(css.setWidth(600));
-
-                this.tagTable.addCss(css.addCss("border-spacing", "0"));
-                this.tagTable.addCss(css.setBackgroundColor("white"));
-                //this.tagTable.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
-                this.tagTable.addCss(css.setBoxShadow(0, 2, 2, 0, AppWeb.i.objTema.corBorda));
-                this.tagTable.addCss(css.setCenter());
-
-                this.tagTrHead.addCss(css.setHeight(INT_LINHA_TAMANHO));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tagTrHead.addCss(css.setHeight(INT_LINHA_TAMANHO));
         }
 
         private void montarLayoutHead()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tbl == null)
             {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                foreach (Coluna cln in this.tbl.lstClnConsulta)
-                {
-                    this.montarLayoutHead(cln);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            foreach (Coluna cln in this.tbl.lstClnConsulta)
+            {
+                this.montarLayoutHead(cln);
+            }
         }
 
         private void montarLayoutHead(Coluna cln)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (cln == null)
             {
-                if (cln == null)
-                {
-                    return;
-                }
-
-                new GridHead(cln).setPai(this.tagTrHead);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            new GridHead(cln).setPai(this.tagTrHead);
         }
 
         private void montarLayoutTbody()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tbl == null)
             {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                if (this.tblData == null)
-                {
-                    return;
-                }
-
-                foreach (DataRow row in this.tblData.Rows)
-                {
-                    this.montarLayoutTbody(row);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.tblData == null)
+            {
+                return;
+            }
+
+            foreach (DataRow row in this.tblData.Rows)
+            {
+                this.montarLayoutTbody(row);
+            }
         }
 
         private void montarLayoutTbody(DataRow row)
         {
-            #region Variáveis
-
-            GridRow tagGridRow;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (row == null)
             {
-                if (row == null)
-                {
-                    return;
-                }
-
-                tagGridRow = new GridRow();
-
-                tagGridRow.row = row;
-                tagGridRow.tbl = tbl;
-
-                tagGridRow.setPai(this.tagTbody);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            GridRow tagGridRow = new GridRow();
+
+            tagGridRow.row = row;
+            tagGridRow.tbl = tbl;
+
+            tagGridRow.setPai(this.tagTbody);
         }
 
         #endregion Métodos

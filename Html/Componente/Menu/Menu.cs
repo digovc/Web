@@ -272,21 +272,17 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor("rgba(5, 154, 149, 0.870588)"));
-                this.divGaveta.addCss(css.setBorderRadius(0, 0, 5, 5));
+                this.divGaveta.addCss(css.setBackgroundColor("rgba(5,154,149,0.95)"));
                 this.divGaveta.addCss(css.setBorderBottom(1, "solid", "white"));
-                this.divGaveta.addCss(css.setBorderRight(1, "solid", "white"));
                 this.divGaveta.addCss(css.setBorderLeft(1, "solid", "white"));
-                this.divGaveta.addCss(css.setBoxShadow(0, 5, 40, -5, "rgb(100, 100, 100)"));
+                this.divGaveta.addCss(css.setBorderRight(1, "solid", "white"));
+                this.divGaveta.addCss(css.setBoxShadow(0, 5, 40, -5, "rgb(100,100,100)"));
                 this.divGaveta.addCss(css.setCenter());
-                this.divGaveta.addCss(css.setColor("white"));
+                this.divGaveta.addCss(css.setColor("#212121"));
                 this.divGaveta.addCss(css.setDisplay("none"));
                 this.divGaveta.addCss(css.setMaxHeight(500));
                 this.divGaveta.addCss(css.setOverflowX("hidden"));
-                this.divGaveta.addCss(css.setOverflowY("auto"));
-                this.divGaveta.addCss(css.setPaddingBottom(15));
-                this.divGaveta.addCss(css.setPaddingLeft(15));
-                this.divGaveta.addCss(css.setPaddingRight(15));
+                this.divGaveta.addCss(css.setOverflowY("scroll"));
                 this.divGaveta.addCss(css.setWidth(370));
                 this.divGaveta.addCss(css.setZIndex(10));
 
@@ -299,7 +295,6 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divPesquisa.addCss(css.setWidth(100, "%"));
 
                 this.txtPesquisa.addCss(css.setBorder(0));
-                this.txtPesquisa.addCss(css.setBorderRadius(5, 5, 5, 5));
                 this.txtPesquisa.addCss(css.setCenter());
                 this.txtPesquisa.addCss(css.setDisplay("block"));
                 this.txtPesquisa.addCss(css.setFontSize(20));

@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Botao.Mini
 {
@@ -47,25 +46,14 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(BotaoMini), 117));
+        }
 
-            #endregion Variáveis
+        protected override void finalizarCss(CssArquivo css)
+        {
+            base.finalizarCss(css);
 
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoMini), 117));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.finalizarCssPadding(css);
         }
 
         protected override int getIntTamanho()
@@ -77,59 +65,35 @@ namespace NetZ.Web.Html.Componente.Botao.Mini
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strConteudo = "?";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strConteudo = "?";
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));
-                this.addCss(css.setFontSize(15));
-                this.addCss(css.setHeight(this.getIntTamanho()));
-                this.addCss(css.setTextAlign("center"));
-                this.addCss(css.setWidth(this.getIntTamanho()));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));
+            this.addCss(css.setFontSize(15));
+            this.addCss(css.setHeight(this.getIntTamanho()));
+            this.addCss(css.setTextAlign("center"));
+            this.addCss(css.setWidth(this.getIntTamanho()));
         }
 
         protected override void setCssBoxShadow(CssArquivo css)
         {
             return;
+        }
+
+        private void finalizarCssPadding(CssArquivo css)
+        {
+            if (EnmLado.DIREITA.Equals(this.enmLado))
+            {
+                this.addCss(css.setMarginLeft(5));
+            }
+            else
+            {
+                this.addCss(css.setMarginRight(5));
+            }
         }
 
         #endregion Métodos

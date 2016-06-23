@@ -1,5 +1,6 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase;
+using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Campo;
 
 namespace NetZ.Web.Html.Componente.Janela.Cadastro

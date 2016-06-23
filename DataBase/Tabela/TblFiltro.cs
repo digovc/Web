@@ -2,9 +2,9 @@
 using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 
-namespace NetZ.Web.DataBase
+namespace NetZ.Web.DataBase.Tabela
 {
-    public class TblFiltro : Tabela
+    public class TblFiltro : TblWebBase
     {
         #region Constantes
 
@@ -154,7 +154,7 @@ namespace NetZ.Web.DataBase
 
         #region Construtores
 
-        private TblFiltro() : base(AppWeb.i.objDbPrincipal, "tbl_filtro")
+        private TblFiltro() : base("tbl_filtro")
         {
         }
 

@@ -50,10 +50,14 @@
   <ItemGroup>
     <Compile Include="AppWeb.cs" />
     <Compile Include="ConfigWeb.cs" />
-    <Compile Include="DataBase\TblFiltro.cs" />
-    <Compile Include="DataBase\TblFiltroItem.cs" />
+    <Compile Include="DataBase\Tabela\TblFiltro.cs" />
+    <Compile Include="DataBase\Tabela\TblFiltroItem.cs" />
+    <Compile Include="DataBase\Tabela\TblWebBase.cs" />
+    <Compile Include="DataBase\View\ViwFiltroItem.cs" />
+    <Compile Include="DataBase\View\ViwWebBase.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
+    <Compile Include="Html\CheckBox.cs" />
     <Compile Include="Html\Componente\ActionBar.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
@@ -98,7 +102,7 @@
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\DivComando.cs" />
-    <Compile Include="Html\Componente\Grid\GridData.cs" />
+    <Compile Include="Html\Componente\Grid\GridColumn.cs" />
     <Compile Include="Html\Componente\Grid\GridHead.cs" />
     <Compile Include="Html\Componente\Grid\GridHtml.cs" />
     <Compile Include="Html\Componente\Grid\GridRow.cs" />
@@ -152,6 +156,11 @@
     <Compile Include="Server\SolicitacaoAjax.cs" />
     <Compile Include="Server\SolicitacaoAjaxDb.cs" />
     <Compile Include="Server\Usuario.cs" />
+    <Compile Include="Properties\View.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>View.resx</DependentUpon>
+    </Compile>
     <Compile Include="WinService\NetZWebServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,6 +175,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\View.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>View.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinService\NetZWebServiceInstaller.resx">
       <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,7 +200,9 @@
   <ItemGroup>
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\viw_filtro_item.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

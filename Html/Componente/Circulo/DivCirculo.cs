@@ -90,13 +90,13 @@ namespace NetZ.Web.Html.Componente.Circulo
                         return;
 
                     case EnmTamanho.PEQUENO:
-                        this.addCss(css.setHeight(20));
-                        this.addCss(css.setWidth(20));
+                        this.addCss(css.setHeight(25));
+                        this.addCss(css.setWidth(25));
                         return;
 
                     default:
-                        this.addCss(css.setHeight(50));
-                        this.addCss(css.setWidth(50));
+                        this.addCss(css.setHeight(40));
+                        this.addCss(css.setWidth(40));
                         return;
                 }
             }

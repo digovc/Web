@@ -1,6 +1,6 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela.Consulta
 {
@@ -19,30 +19,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_btnAdicionar != null)
                 {
-                    if (_btnAdicionar != null)
-                    {
-                        return _btnAdicionar;
-                    }
-
-                    _btnAdicionar = new BotaoAdicionarMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _btnAdicionar;
                 }
 
-                #endregion Ações
+                _btnAdicionar = new BotaoAdicionarMini();
 
                 return _btnAdicionar;
             }
@@ -52,30 +34,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_btnAlterar != null)
                 {
-                    if (_btnAlterar != null)
-                    {
-                        return _btnAlterar;
-                    }
-
-                    _btnAlterar = new BotaoAlterarMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _btnAlterar;
                 }
 
-                #endregion Ações
+                _btnAlterar = new BotaoAlterarMini();
 
                 return _btnAlterar;
             }
@@ -93,77 +57,30 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.btnAdicionar.strId = "btnAdicionar";
-                this.btnAlterar.strId = "btnAlterar";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.btnAdicionar.strId = "btnAdicionar";
+            this.btnAlterar.strId = "btnAlterar";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.btnAdicionar.setPai(this);
+            this.btnAlterar.setPai(this);
+        }
 
-            #endregion Variáveis
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
 
-            #region Ações
-
-            try
-            {
-                this.btnAdicionar.setPai(this);
-                this.btnAlterar.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.btnAlterar.addCss(css.setDisplay("none"));
         }
 
         #endregion Métodos

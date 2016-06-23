@@ -85,6 +85,7 @@ namespace NetZ.Web.Html.Componente.Tab
             this.strTitulo = this.tbl.strNomeExibicao;
 
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.strNomeSql);
         }
 
         #endregion Métodos
