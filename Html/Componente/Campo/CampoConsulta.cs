@@ -29,6 +29,23 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        private Div _divOpcao;
+
+        private Div divOpcao
+        {
+            get
+            {
+                if (_divOpcao != null)
+                {
+                    return _divOpcao;
+                }
+
+                _divOpcao = new Div();
+
+                return _divOpcao;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -96,6 +113,7 @@ namespace NetZ.Web.Html.Componente.Campo
             base.montarLayout();
 
             this.txtPesquisa.setPai(this.divInputContainer);
+            this.divOpcao.setPai(this.divInputContainer);
         }
 
         protected override void setCss(CssArquivo css)
@@ -104,12 +122,33 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.cmb.addCss(css.setDisplay("none"));
 
+            this.divOpcao.addCss(css.setBackgroundColor("rgba(5,154,149,0.15)"));
+            this.divOpcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corBorda));
+            this.divOpcao.addCss(css.setBorderRadius(2));
+            this.divOpcao.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divOpcao.addCss(css.setCursor("pointer"));
+            this.divOpcao.addCss(css.setFontSize(20));
+            this.divOpcao.addCss(css.setHeight(25));
+            this.divOpcao.addCss(css.setLineHeight(15));
+            this.divOpcao.addCss(css.setPosition("absolute"));
+            this.divOpcao.addCss(css.setRight(5));
+            this.divOpcao.addCss(css.setTextAlign("center"));
+            this.divOpcao.addCss(css.setTop(-8));
+            this.divOpcao.addCss(css.setWidth(25));
+
             this.txtPesquisa.addCss(css.setBorder(0));
             this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
             this.txtPesquisa.addCss(css.setOutLine("none"));
             this.txtPesquisa.addCss(css.setWidth(100, "%"));
         }
 
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.divOpcao.strConteudo = "...";
+        }
         #endregion Métodos
 
         #region Eventos

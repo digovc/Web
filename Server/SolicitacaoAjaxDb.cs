@@ -12,6 +12,7 @@
             ADICIONAR,
             APAGAR,
             FILTRO,
+            JSON_TABELA_WEB,
             NONE,
             PESQUISAR_COMBO_BOX,
             PESQUISAR_GRID,
