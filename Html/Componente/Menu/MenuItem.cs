@@ -377,14 +377,16 @@ namespace NetZ.Web.Html.Componente.Menu
             try
             {
                 this.addCss(css.setCursor("pointer"));
-                this.addCss(css.setOutLine("none"));
                 this.addCss(css.setFontFamily("ubuntu"));
                 this.addCss(css.setFontStyle("ligth"));
+                this.addCss(css.setOutLine("none"));
 
                 this.setCssPai(css);
                 this.setCssFilho(css);
+                
+                this.divIcone.addCss(css.setBackgroundColor("rgb(195,195,195)"));
 
-                this.divItemConteudo.addCss(css.setBackgroundColor("rgb(118,188,186)"));
+                this.divItemConteudo.addCss(css.setBackgroundColor("rgb(140, 140, 140)"));
                 this.divItemConteudo.addCss(css.setDisplay("none"));
                 this.divItemConteudo.addCss(css.setFontSize(14));
             }
