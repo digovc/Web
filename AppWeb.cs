@@ -291,6 +291,10 @@ namespace NetZ.Web
                     this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
                     return;
 
+                case SolicitacaoAjaxDb.EnmMetodo.CARREGAR_TBL_WEB:
+                    this.carregarTbl(objSolicitacao, objSolicitacaoAjaxDb);
+                    return;
+
                 case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID:
                 case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_COMBO_BOX:
                     this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
@@ -304,6 +308,18 @@ namespace NetZ.Web
                     this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
                     return;
             }
+        }
+
+        private void carregarTbl(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            Tabela tbl = this.getTbl(objSolicitacaoAjaxDb.strData);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            objSolicitacaoAjaxDb.strData = Json.i.toJson(tbl.tblWeb);
         }
 
         /// <summary>

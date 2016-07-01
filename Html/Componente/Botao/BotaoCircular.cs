@@ -61,7 +61,6 @@ namespace NetZ.Web.Html.Componente.Botao
 
             try
             {
-                this.addCss(css.setBackgroundColor("#03a9f4"));
                 this.addCss(css.setBorderRadius(50, "%"));
                 this.addCss(css.setOutLine("none"));
 

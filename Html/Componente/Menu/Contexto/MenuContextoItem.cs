@@ -55,7 +55,9 @@ namespace NetZ.Web.Html.Componente.Menu.Contexto
         {
             base.inicializar();
 
-            this.divSeta.strConteudo = ">";
+            this.strId = "_id";
+
+            this.divTitulo.strConteudo = "_conteudo";
         }
 
         protected override void montarLayout()

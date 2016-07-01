@@ -710,6 +710,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjaxDb), 105));
 
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/Tema.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
@@ -984,7 +985,7 @@ namespace NetZ.Web.Html.Pagina
 
             string strJq = "NetZ_Web_TypeScript.LayoutFixoManager.i.addLayoutFixo(new NetZ_Web_TypeScript.LayoutFixo('_class_nome', '_componente_html'));";
 
-            strJq = strJq.Replace("_class_nome", cls.GetType().Name);
+            strJq = strJq.Replace("_class_nome", cls.Name);
             strJq = strJq.Replace("_componente_html", (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
 
             this.addJs(strJq);

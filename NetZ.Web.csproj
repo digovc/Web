@@ -60,6 +60,7 @@
     <Compile Include="Html\CheckBox.cs" />
     <Compile Include="Html\Componente\ActionBar.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
+    <Compile Include="Html\Componente\Botao\Mini\BotaoMenuMini.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroCadastro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroItemCadastro.cs" />

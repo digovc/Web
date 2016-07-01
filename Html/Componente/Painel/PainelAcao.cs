@@ -225,6 +225,8 @@ namespace NetZ.Web.Html.Componente.Painel
                 this.addCss(css.setPosition("absolute"));
 
                 this.setCssLstBtnMini(css);
+
+                this.btnAcaoPrincipal.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
             }
             catch (Exception ex)
             {
