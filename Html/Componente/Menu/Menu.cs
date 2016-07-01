@@ -272,18 +272,18 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor("rgba(5,154,149,0.95)"));
-                this.divGaveta.addCss(css.setBorderBottom(1, "solid", "white"));
-                this.divGaveta.addCss(css.setBorderLeft(1, "solid", "white"));
-                this.divGaveta.addCss(css.setBorderRight(1, "solid", "white"));
-                this.divGaveta.addCss(css.setBoxShadow(0, 5, 40, -5, "rgb(100,100,100)"));
+                this.divGaveta.addCss(css.setBackgroundColor("rgb(158, 158, 158)"));
+                this.divGaveta.addCss(css.setBorder(1, "solid", "rgb(140, 140, 140)"));
+                this.divGaveta.addCss(css.setBoxShadow(0, 5, 10, -3, "rgb(100, 100, 100)"));
                 this.divGaveta.addCss(css.setCenter());
-                this.divGaveta.addCss(css.setColor("#212121"));
+                this.divGaveta.addCss(css.setColor("rgb(200, 200, 200)"));
                 this.divGaveta.addCss(css.setDisplay("none"));
-                this.divGaveta.addCss(css.setMaxHeight(500));
-                this.divGaveta.addCss(css.setOverflowX("hidden"));
-                this.divGaveta.addCss(css.setOverflowY("scroll"));
-                this.divGaveta.addCss(css.setWidth(370));
+                this.divGaveta.addCss(css.setMaxHeight(650));
+                this.divGaveta.addCss(css.setMinWidth(370));
+                this.divGaveta.addCss(css.setOverflow("hidden"));
+                this.divGaveta.addCss(css.setPaddingLeft(10, "px"));
+                this.divGaveta.addCss(css.setPaddingRight(10, "px"));
+                this.divGaveta.addCss(css.setWidth(25, "%"));
                 this.divGaveta.addCss(css.setZIndex(10));
 
                 this.divGavetaContainer.addCss(css.setPosition("absolute"));
@@ -295,6 +295,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divPesquisa.addCss(css.setWidth(100, "%"));
 
                 this.txtPesquisa.addCss(css.setBorder(0));
+                this.txtPesquisa.addCss(css.setBorderRadius(5, "px"));
                 this.txtPesquisa.addCss(css.setCenter());
                 this.txtPesquisa.addCss(css.setDisplay("block"));
                 this.txtPesquisa.addCss(css.setFontSize(20));
@@ -302,6 +303,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.txtPesquisa.addCss(css.setPaddingLeft(10));
                 this.txtPesquisa.addCss(css.setPaddingRight(10));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
+                this.txtPesquisa.addCss(css.setTextAlign("center"));
                 this.txtPesquisa.addCss(css.setTop(9));
                 this.txtPesquisa.addCss(css.setWidth(350));
             }
