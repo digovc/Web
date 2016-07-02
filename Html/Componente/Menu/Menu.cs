@@ -294,6 +294,8 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.divPesquisa.addCss(css.setTop(0));
                 this.divPesquisa.addCss(css.setWidth(100, "%"));
 
+                this.txtPesquisa.limparClass();
+
                 this.txtPesquisa.addCss(css.setBorder(0));
                 this.txtPesquisa.addCss(css.setBorderRadius(5, "px"));
                 this.txtPesquisa.addCss(css.setCenter());
@@ -303,7 +305,6 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.txtPesquisa.addCss(css.setPaddingLeft(10));
                 this.txtPesquisa.addCss(css.setPaddingRight(10));
                 this.txtPesquisa.addCss(css.setPosition("relative"));
-                this.txtPesquisa.addCss(css.setTextAlign("center"));
                 this.txtPesquisa.addCss(css.setTop(9));
                 this.txtPesquisa.addCss(css.setWidth(350));
             }

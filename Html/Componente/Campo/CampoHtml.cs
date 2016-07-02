@@ -434,6 +434,8 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.booSomenteLeitura = this.cln.booSomenteLeitura;
                 this.strTitulo = this.cln.strNomeExibicao;
 
+                this.tagInput.strValor = cln.strValor;
+
                 this.atualizarClnStrId();
             }
             catch (Exception ex)
@@ -560,7 +562,8 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.addCss(css.setPosition("absolute"));
                 this.divObrigatorio.addCss(css.setRight(0));
 
-                this.divTitulo.addCss(css.setFontSize(12));
+                this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+                this.divTitulo.addCss(css.setFontSize(15));
                 this.divTitulo.addCss(css.setHeight(15));
                 this.divTitulo.addCss(css.setLineHeight(15));
                 this.divTitulo.addCss(css.setOpacity(0));
@@ -570,6 +573,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.setCssTagInputHeight(css);
                 this.setCssTagInputWidth(css);
 
+                this.tagInput.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
                 this.tagInput.addCss(css.setBorder(0));
                 this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
                 this.tagInput.addCss(css.setOutLine("none"));

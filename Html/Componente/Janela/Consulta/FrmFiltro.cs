@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 using NetZ.Web.Server.Arquivo.Css;
@@ -23,30 +22,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_btnAdicionar != null)
                 {
-                    if (_btnAdicionar != null)
-                    {
-                        return _btnAdicionar;
-                    }
-
-                    _btnAdicionar = new BotaoAdicionarMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _btnAdicionar;
                 }
 
-                #endregion Ações
+                _btnAdicionar = new BotaoAdicionarMini();
 
                 return _btnAdicionar;
             }
@@ -56,30 +37,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_btnAlterar != null)
                 {
-                    if (_btnAlterar != null)
-                    {
-                        return _btnAlterar;
-                    }
-
-                    _btnAlterar = new BotaoAlterarMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _btnAlterar;
                 }
 
-                #endregion Ações
+                _btnAlterar = new BotaoAlterarMini();
 
                 return _btnAlterar;
             }
@@ -89,30 +52,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_btnApagar != null)
                 {
-                    if (_btnApagar != null)
-                    {
-                        return _btnApagar;
-                    }
-
-                    _btnApagar = new BotaoApagarMini();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _btnApagar;
                 }
 
-                #endregion Ações
+                _btnApagar = new BotaoApagarMini();
 
                 return _btnApagar;
             }
@@ -122,30 +67,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_cmpIntFiltroId != null)
                 {
-                    if (_cmpIntFiltroId != null)
-                    {
-                        return _cmpIntFiltroId;
-                    }
-
-                    _cmpIntFiltroId = new CampoComboBox();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _cmpIntFiltroId;
                 }
 
-                #endregion Ações
+                _cmpIntFiltroId = new CampoComboBox();
 
                 return _cmpIntFiltroId;
             }
@@ -169,6 +96,8 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
 
             this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+            this.btnAlterar.strId = (this.strId + "_btnAlterar");
+            this.btnApagar.strId = (this.strId + "_btnApagar");
             this.cmpIntFiltroId.strId = (this.strId + "_cmpIntFiltroId");
         }
 
@@ -176,69 +105,33 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            #region Variáveis
+            this.strId = "frmFiltro";
 
-            #endregion Variáveis
+            this.btnAdicionar.intNivel = 1;
 
-            #region Ações
+            this.btnAlterar.intNivel = 1;
+            this.btnApagar.intNivel = 1;
 
-            try
-            {
-                this.strId = "frmFiltro";
-
-                this.btnAdicionar.intNivel = 1;
-
-                this.btnAlterar.intNivel = 1;
-                this.btnApagar.intNivel = 1;
-
-                this.cmpIntFiltroId.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
-                this.cmpIntFiltroId.strTitulo = "Filtro";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.cmpIntFiltroId.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+            this.cmpIntFiltroId.strTitulo = "Filtro";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.cmpIntFiltroId.setPai(this);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.cmpIntFiltroId.setPai(this);
-
-                this.btnAdicionar.setPai(this);
-                //this.btnAlterar.setPai(this);
-                //this.btnApagar.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.btnApagar.setPai(this);
+            this.btnAlterar.setPai(this);
+            this.btnAdicionar.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.btnAdicionar.addCss(css.setMarginRight(10));
+            this.btnApagar.addCss(css.setMarginRight(10));
         }
 
         #endregion Métodos

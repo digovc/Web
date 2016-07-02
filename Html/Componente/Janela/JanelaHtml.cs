@@ -479,7 +479,8 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divInativa.addCss(css.setTop(0));
             this.divInativa.addCss(css.setWidth(100, "%"));
 
-            this.divTitulo.addCss(css.setFontSize(20));
+            this.divTitulo.addCss(css.setColor("white"));
+            this.divTitulo.addCss(css.setFontSize(18));
             this.divTitulo.addCss(css.setLineHeight(30));
             this.divTitulo.addCss(css.setPaddingLeft(5));
         }

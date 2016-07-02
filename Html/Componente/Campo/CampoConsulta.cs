@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Html.Componente.Botao;
+﻿using System;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -104,8 +105,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.cmb.addCss(css.setDisplay("none"));
 
+            this.btnMenu.addCss(css.setDisplay("none"));
             this.btnMenu.addCss(css.setPosition("absolute"));
-            this.btnMenu.addCss(css.setRight(-1));
+            this.btnMenu.addCss(css.setRight(-30));
             this.btnMenu.addCss(css.setTop(3));
 
             this.txtPesquisa.addCss(css.setBorder(0));
@@ -127,15 +129,30 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             this.atualizarClnClnRefStrTitulo();
+            this.atualizarClnClnRefStrValor();
 
+            this.addAtt("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
             this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.strNomeSql);
+
+        }
+
+        private void atualizarClnClnRefStrValor()
+        {
+            if (this.tagInput.intValor < 1)
+            {
+                return;
+            }
+
+            this.cln.clnRef.tbl.recuperar(this.tagInput.intValor);
+
+            this.cmb.addOpcao(this.cln.intValor, this.cln.clnRef.tbl.clnNome.strValor);
         }
 
         private void atualizarClnClnRefStrTitulo()
         {
-            string strTitulo = "_cln_ref_nome (_tbl_ref_cln_nome_exibicao)";
+            string strTitulo = "cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
 
-            strTitulo = strTitulo.Replace("_cln_ref_nome", this.cln.clnRef.tbl.strNomeExibicao);
+            strTitulo = strTitulo.Replace("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
             strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", this.cln.clnRef.tbl.clnNome.strNomeExibicao);
 
             this.strTitulo = strTitulo;

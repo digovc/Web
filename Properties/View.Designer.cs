@@ -61,16 +61,16 @@ namespace NetZ.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to create or replace view public.viw_solicitacao as
+        ///   Looks up a localized string similar to create or replace view public.viw_filtro_item as
         ///  select
-        ///    tbl_solicitacao.boo_ativo boo_solicitacao_ativo,
-        ///    tbl_solicitacao.dtt_alteracao dtt_solicitacao_alteracao,
-        ///    tbl_solicitacao.dtt_cadastro dtt_solicitacao_cadastro,
-        ///    tbl_solicitacao.dtt_exclusao dtt_solicitacao_exclusao,
-        ///    tbl_solicitacao.int_cliente_id int_solicitacao_cliente_id,
-        ///    tbl_solicitacao.int_id int_solicitacao_id,
-        ///    tbl_solicitacao.int_prioridade int_solicitacao_prioridade,
-        ///    tbl_solicitacao.int_sistema_id int_s [rest of string was truncated]&quot;;.
+        ///    tbl_filtro_item.boo_and boo_filtro_item_and,
+        ///    tbl_filtro_item.dtt_alteracao dtt_filtro_item_alteracao,
+        ///    tbl_filtro_item.dtt_cadastro dtt_filtro_item_cadastro,
+        ///    tbl_filtro_item.int_filtro_id int_filtro_item_filtro_id,
+        ///    tbl_filtro_item.int_id int_filtro_item_id,
+        ///    tbl_filtro_item.int_operador int_filtro_item_operador,
+        ///    tbl_filtro_item.int_usuario_alteracao_id int_filtro_item_usuario_alteracao_id,
+        ///    tbl_filtro_item.int_us [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string viw_filtro_item {
             get {

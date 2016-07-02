@@ -328,9 +328,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (this.tblWeb.clnIntId.intValor > 0)
+            if (this.tblWeb.clnWebIntId.intValor > 0)
             {
-                this.tbl.recuperar(this.tblWeb.clnIntId.intValor);
+                this.tbl.recuperar(this.tblWeb.clnWebIntId.intValor);
             }
             else
             {
@@ -393,7 +393,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             (objPropertyInfo.GetValue(this) as CampoHtml).cln = cln;
-            (objPropertyInfo.GetValue(this) as CampoHtml).tagInput.strValor = cln.strValor;
         }
 
         #endregion Métodos
