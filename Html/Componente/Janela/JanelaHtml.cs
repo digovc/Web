@@ -469,7 +469,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
             this.divCabecalho.addCss(css.setCursor("default"));
-            this.divCabecalho.addCss(css.setHeight(30));
+            this.divCabecalho.addCss(css.setHeight(40));
             this.divCabecalho.addCss(css.setPosition("relative"));
 
             this.divInativa.addCss(css.setBackgroundColor("rgba(0,0,0,0.5)"));
@@ -481,7 +481,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
             this.divTitulo.addCss(css.setColor("white"));
             this.divTitulo.addCss(css.setFontSize(18));
-            this.divTitulo.addCss(css.setLineHeight(30));
+            this.divTitulo.addCss(css.setLineHeight(40));
             this.divTitulo.addCss(css.setPaddingLeft(5));
         }
 

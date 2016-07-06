@@ -272,11 +272,13 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor("rgb(158, 158, 158)"));
-                this.divGaveta.addCss(css.setBorder(1, "solid", "rgb(140, 140, 140)"));
-                this.divGaveta.addCss(css.setBoxShadow(0, 5, 10, -3, "rgb(100, 100, 100)"));
+                this.divGaveta.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+                this.divGaveta.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corSombra));
+                this.divGaveta.addCss(css.setBorderLeft(1, "solid", AppWeb.i.objTema.corSombra));
+                this.divGaveta.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corSombra));
+                this.divGaveta.addCss(css.setBoxShadow(0, 3, 5, -1, "rgba(80, 80, 80,0.8)"));
                 this.divGaveta.addCss(css.setCenter());
-                this.divGaveta.addCss(css.setColor("rgb(200, 200, 200)"));
+                this.divGaveta.addCss(css.setColor(AppWeb.i.objTema.corFonte));
                 this.divGaveta.addCss(css.setDisplay("none"));
                 this.divGaveta.addCss(css.setMaxHeight(650));
                 this.divGaveta.addCss(css.setMinWidth(370));

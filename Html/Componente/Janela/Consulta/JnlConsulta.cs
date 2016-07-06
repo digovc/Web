@@ -173,7 +173,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
             this.addCss(css.setBottom(0));
             this.addCss(css.setLeft(0));
             this.addCss(css.setPosition("absolute"));
@@ -185,7 +185,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.divGrid.addCss(css.setOverflow("auto"));
             this.divGrid.addCss(css.setPosition("absolute"));
             this.divGrid.addCss(css.setRight(0));
-            this.divGrid.addCss(css.setTop(150));
+            this.divGrid.addCss(css.setTop(190));
 
             this.pnlAcaoConsulta.addCss(css.setBottom(25));
             this.pnlAcaoConsulta.addCss(css.setRight(50));

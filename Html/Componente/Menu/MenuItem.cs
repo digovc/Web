@@ -383,10 +383,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
                 this.setCssPai(css);
                 this.setCssFilho(css);
-                
-                this.divIcone.addCss(css.setBackgroundColor("rgb(195,195,195)"));
-
-                this.divItemConteudo.addCss(css.setBackgroundColor("rgb(140, 140, 140)"));
+                                
+                this.divItemConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
                 this.divItemConteudo.addCss(css.setDisplay("none"));
                 this.divItemConteudo.addCss(css.setFontSize(14));
             }
@@ -438,14 +436,15 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderTop(1, "solid", "rgba(255,255,255,0.3)"));
-            this.addCss(css.setHeight(35));
-            this.addCss(css.setMinHeight(35));
+            this.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
+            this.addCss(css.setHeight(40));
+            this.addCss(css.setMinHeight(40));
             this.addCss(css.setPaddingLeft(60));
-
+            //this.addCss(css.setMarginTop(10));
+            
             this.divIcone.addCss(css.setDisplay("none"));
 
-            this.divTitulo.addCss(css.setLineHeight(35));
+            this.divTitulo.addCss(css.setLineHeight(40));
         }
 
         private void setCssPai(CssArquivo css)
@@ -455,13 +454,19 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderBottom(1, "solid", "rgba(2,74,72,0.3)"));
+            this.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
             this.addCss(css.setFontSize(18));
             this.addCss(css.setMinHeight(50));
+            this.addCss(css.setPaddingBottom(10));
+            this.addCss(css.setPaddingTop(10));
 
-            this.divIcone.addCss(css.setBackgroundColor("#13928d"));
+            this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divIcone.addCss(css.setBorder(1, "solid", "rgb(130,202,156)"));
             this.divIcone.addCss(css.setFloat("left"));
-            this.divIcone.addCss(css.setMargin(5));
+            this.divIcone.addCss(css.setMarginLeft(5));
+            this.divIcone.addCss(css.setMarginRight(15));
+            this.divIcone.addCss(css.setMinHeight(50));
+            this.divIcone.addCss(css.setMinWidth(50));
 
             this.divTitulo.addCss(css.setLineHeight(50));
         }

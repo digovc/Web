@@ -151,8 +151,8 @@ namespace NetZ.Web.Server
 
                 uri = new Uri(strReferer); // TODO: Deve ser revisado.
 
-                //objResposta.addHeader("Access-Control-Allow-Origin", "http://" + uri.Host + ":8080");
-                objResposta.addHeader("Access-Control-Allow-Origin", ("http://" + uri.Host));
+                objResposta.addHeader("Access-Control-Allow-Origin", "http://" + uri.Host + ":8080");
+                //objResposta.addHeader("Access-Control-Allow-Origin", ("http://" + uri.Host));
                 objResposta.addHeader("Access-Control-Allow-Credentials", "true");
             }
             catch (Exception ex)
