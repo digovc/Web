@@ -88,6 +88,29 @@ namespace NetZ.Web.Html.Componente.Grid
             this.addCss(css.setOverflowX("hidden"));
             this.addCss(css.setPaddingLeft(25));
             this.addCss(css.setPaddingRight(25));
+
+            this.setCssCln(css);
+        }
+
+        private void setCssCln(CssArquivo css)
+        {
+            if (this.cln == null)
+            {
+                return;
+            }
+
+            switch (this.cln.enmGrupo)
+            {
+                case Coluna.EnmGrupo.NUMERICO_INTEIRO:
+                case Coluna.EnmGrupo.NUMERICO_PONTO_FLUTUANTE:
+                    this.setCssClnNumerico(css);
+                    return;
+            }
+        }
+
+        private void setCssClnNumerico(CssArquivo css)
+        {
+            this.addCss(css.setTextAlign("right"));
         }
 
         #endregion Métodos

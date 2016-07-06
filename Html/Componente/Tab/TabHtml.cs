@@ -1,4 +1,4 @@
-﻿using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
@@ -11,9 +11,9 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Atributos
 
-        private BotaoAdicionarMini _btnAdicionar;
-        private BotaoAlterarMini _btnAlterar;
-        private BotaoApagarMini _btnApagar;
+        private BotaoCircular _btnAdicionar;
+        private BotaoCircular _btnAlterar;
+        private BotaoCircular _btnApagar;
         private Div _divCabecalho;
         private Div _divCabecalhoComando;
         private Div _divCabecalhoConteudo;
@@ -36,7 +36,7 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
-        private BotaoAdicionarMini btnAdicionar
+        private BotaoCircular btnAdicionar
         {
             get
             {
@@ -45,13 +45,13 @@ namespace NetZ.Web.Html.Componente.Tab
                     return _btnAdicionar;
                 }
 
-                _btnAdicionar = new BotaoAdicionarMini();
+                _btnAdicionar = new BotaoCircular();
 
                 return _btnAdicionar;
             }
         }
 
-        private BotaoAlterarMini btnAlterar
+        private BotaoCircular btnAlterar
         {
             get
             {
@@ -60,13 +60,13 @@ namespace NetZ.Web.Html.Componente.Tab
                     return _btnAlterar;
                 }
 
-                _btnAlterar = new BotaoAlterarMini();
+                _btnAlterar = new BotaoCircular();
 
                 return _btnAlterar;
             }
         }
 
-        private BotaoApagarMini btnApagar
+        private BotaoCircular btnApagar
         {
             get
             {
@@ -75,7 +75,7 @@ namespace NetZ.Web.Html.Componente.Tab
                     return _btnApagar;
                 }
 
-                _btnApagar = new BotaoApagarMini();
+                _btnApagar = new BotaoCircular();
 
                 return _btnApagar;
             }
@@ -190,9 +190,9 @@ namespace NetZ.Web.Html.Componente.Tab
         {
             base.inicializar();
 
-            this.btnAdicionar.enmLado = BotaoMini.EnmLado.ESQUERDA;
-            this.btnAlterar.enmLado = BotaoMini.EnmLado.ESQUERDA;
-            this.btnApagar.enmLado = BotaoMini.EnmLado.ESQUERDA;
+            this.btnAdicionar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
+            this.btnAlterar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
+            this.btnApagar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
         }
 
         protected override void montarLayout()

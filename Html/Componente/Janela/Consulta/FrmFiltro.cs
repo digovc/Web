@@ -1,4 +1,4 @@
-﻿using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 using NetZ.Web.Server.Arquivo.Css;
@@ -13,12 +13,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
-        private BotaoAdicionarMini _btnAdicionar;
-        private BotaoAlterarMini _btnAlterar;
-        private BotaoApagarMini _btnApagar;
+        private BotaoCircular _btnAdicionar;
+        private BotaoCircular _btnAlterar;
+        private BotaoCircular _btnApagar;
         private CampoComboBox _cmpIntFiltroId;
 
-        private BotaoAdicionarMini btnAdicionar
+        private BotaoCircular btnAdicionar
         {
             get
             {
@@ -27,13 +27,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _btnAdicionar;
                 }
 
-                _btnAdicionar = new BotaoAdicionarMini();
+                _btnAdicionar = new BotaoCircular();
 
                 return _btnAdicionar;
             }
         }
 
-        private BotaoAlterarMini btnAlterar
+        private BotaoCircular btnAlterar
         {
             get
             {
@@ -42,13 +42,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _btnAlterar;
                 }
 
-                _btnAlterar = new BotaoAlterarMini();
+                _btnAlterar = new BotaoCircular();
 
                 return _btnAlterar;
             }
         }
 
-        private BotaoApagarMini btnApagar
+        private BotaoCircular btnApagar
         {
             get
             {
@@ -57,7 +57,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _btnApagar;
                 }
 
-                _btnApagar = new BotaoApagarMini();
+                _btnApagar = new BotaoCircular();
 
                 return _btnApagar;
             }
@@ -107,9 +107,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.strId = "frmFiltro";
 
+            this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
             this.btnAdicionar.intNivel = 1;
 
+            this.btnAlterar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
             this.btnAlterar.intNivel = 1;
+
+            this.btnApagar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;        
             this.btnApagar.intNivel = 1;
 
             this.cmpIntFiltroId.enmTamanho = CampoHtml.EnmTamanho.GRANDE;

@@ -13,6 +13,7 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private string _strData;
+        private string _strErro;
 
         /// <summary>
         /// Propriedade que serve para intercâmbio de informações entre o servidor e o cliente.
@@ -27,6 +28,22 @@ namespace NetZ.Web.Server
             set
             {
                 _strData = value;
+            }
+        }
+
+        /// <summary>
+        /// Caso haja algum erro no processamento desta solicitação.
+        /// </summary>
+        public string strErro
+        {
+            get
+            {
+                return _strErro;
+            }
+
+            set
+            {
+                _strErro = value;
             }
         }
 

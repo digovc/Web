@@ -2,6 +2,7 @@
 using System.Linq;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Form
 {
@@ -21,6 +22,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         private Atributo _attAction;
         private Atributo _attMetodo;
+        private bool _booComandoCinza;
         private Div _divConteudo;
         private LimiteFloat _divLimiteFloat;
         private EnmMetodo _enmMetodo;
@@ -28,6 +30,19 @@ namespace NetZ.Web.Html.Componente.Form
         private List<PainelNivel> _lstPnlNivel;
         private List<ITagNivel> _lstTagNivel;
         private string _strAction;
+
+        public bool booComandoCinza
+        {
+            get
+            {
+                return _booComandoCinza;
+            }
+
+            set
+            {
+                _booComandoCinza = value;
+            }
+        }
 
         /// <summary>
         /// Indica o método que será utilizado para envio dos dados.
@@ -237,6 +252,13 @@ namespace NetZ.Web.Html.Componente.Form
             this.finalizarMontarLayoutLstPnlNivel();
         }
 
+        protected override void finalizarCss(CssArquivo css)
+        {
+            base.finalizarCss(css);
+
+            this.finalizarCssUltimoNivel(css);
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -295,6 +317,21 @@ namespace NetZ.Web.Html.Componente.Form
 
             this.addLstTagNivel(tag);
             this.addLstCmp(tag);
+        }
+
+        private void finalizarCssUltimoNivel(CssArquivo css)
+        {
+            if (!this.booComandoCinza)
+            {
+                return;
+            }
+
+            if (this.lstPnlNivel.Count < 1)
+            {
+                return;
+            }
+
+            this.lstPnlNivel[this.lstPnlNivel.Count - 1].addCss(css.setBackgroundColor("gray"));
         }
 
         private void finalizarMontarLayoutLstCmp()

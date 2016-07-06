@@ -1,5 +1,4 @@
-﻿using NetZ.Web.Html.Componente.Botao.Comando;
-using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -13,12 +12,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Atributos
 
-        private BotaoDireitaMini _btnDireita;
-        private BotaoEsquerdaMini _btnEsquerda;
-        private BotaoNovoComando _btnNovo;
-        private BotaoSalvarComando _btnSalvar;
+        private BotaoCircular _btnDireita;
+        private BotaoCircular _btnEsquerda;
+        private BotaoCircular _btnNovo;
+        private BotaoCircular _btnSalvar;
 
-        private BotaoDireitaMini btnDireita
+        private BotaoCircular btnDireita
         {
             get
             {
@@ -27,13 +26,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                     return _btnDireita;
                 }
 
-                _btnDireita = new BotaoDireitaMini();
+                _btnDireita = new BotaoCircular();
 
                 return _btnDireita;
             }
         }
 
-        private BotaoEsquerdaMini btnEsquerda
+        private BotaoCircular btnEsquerda
         {
             get
             {
@@ -42,13 +41,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                     return _btnEsquerda;
                 }
 
-                _btnEsquerda = new BotaoEsquerdaMini();
+                _btnEsquerda = new BotaoCircular();
 
                 return _btnEsquerda;
             }
         }
 
-        private BotaoNovoComando btnNovo
+        private BotaoCircular btnNovo
         {
             get
             {
@@ -57,13 +56,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                     return _btnNovo;
                 }
 
-                _btnNovo = new BotaoNovoComando();
+                _btnNovo = new BotaoCircular();
 
                 return _btnNovo;
             }
         }
 
-        private BotaoSalvarComando btnSalvar
+        private BotaoCircular btnSalvar
         {
             get
             {
@@ -72,7 +71,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                     return _btnSalvar;
                 }
 
-                _btnSalvar = new BotaoSalvarComando();
+                _btnSalvar = new BotaoCircular();
 
                 return _btnSalvar;
             }
@@ -102,7 +101,23 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
+            this.btnDireita.strId = (this.strId + "_btnDireita");
+            this.btnEsquerda.strId = (this.strId + "_btnEsquerda");
+            this.btnNovo.strId = (this.strId + "_btnNovo");
             this.btnSalvar.strId = (this.strId + "_btnSalvar");
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.btnDireita.enmLado = BotaoHtml.EnmLado.ESQUERDA;
+            this.btnDireita.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+
+            this.btnEsquerda.enmLado = BotaoHtml.EnmLado.ESQUERDA;
+            this.btnEsquerda.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+
+            this.btnNovo.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
         }
 
         protected override void montarLayout()
@@ -123,7 +138,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.btnEsquerda.addCss(css.setMarginRight(5));
 
-            this.btnNovo.addCss(css.setDisplay("none"));
+            //this.btnNovo.addCss(css.setDisplay("none"));
+            this.btnNovo.addCss(css.setPosition("absolute"));
+            this.btnNovo.addCss(css.setRight(65));
+
+            this.btnSalvar.addCss(css.setPosition("absolute"));
+            this.btnSalvar.addCss(css.setRight(10));
+            this.btnSalvar.addCss(css.setTop(5));
         }
 
         #endregion Métodos

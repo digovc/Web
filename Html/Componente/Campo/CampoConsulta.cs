@@ -1,6 +1,4 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Botao;
-using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
@@ -13,7 +11,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private BotaoMenuMini _btnMenu;
+        private BotaoCircular _btnMenu;
         private Input _txtPesquisa;
 
         private BotaoCircular btnMenu
@@ -25,7 +23,7 @@ namespace NetZ.Web.Html.Componente.Campo
                     return _btnMenu;
                 }
 
-                _btnMenu = new BotaoMenuMini();
+                _btnMenu = new BotaoCircular();
 
                 return _btnMenu;
             }
@@ -133,7 +131,16 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.addAtt("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
             this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.strNomeSql);
+        }
 
+        private void atualizarClnClnRefStrTitulo()
+        {
+            string strTitulo = "cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
+
+            strTitulo = strTitulo.Replace("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
+            strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", this.cln.clnRef.tbl.clnNome.strNomeExibicao);
+
+            this.strTitulo = strTitulo;
         }
 
         private void atualizarClnClnRefStrValor()
@@ -146,16 +153,6 @@ namespace NetZ.Web.Html.Componente.Campo
             this.cln.clnRef.tbl.recuperar(this.tagInput.intValor);
 
             this.cmb.addOpcao(this.cln.intValor, this.cln.clnRef.tbl.clnNome.strValor);
-        }
-
-        private void atualizarClnClnRefStrTitulo()
-        {
-            string strTitulo = "cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
-
-            strTitulo = strTitulo.Replace("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
-            strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", this.cln.clnRef.tbl.clnNome.strNomeExibicao);
-
-            this.strTitulo = strTitulo;
         }
 
         #endregion Métodos

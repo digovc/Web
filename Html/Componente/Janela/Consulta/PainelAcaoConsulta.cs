@@ -1,4 +1,4 @@
-﻿using NetZ.Web.Html.Componente.Botao.Mini;
+﻿using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -12,10 +12,10 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
-        private BotaoAdicionarMini _btnAdicionar;
-        private BotaoAlterarMini _btnAlterar;
+        private BotaoCircular _btnAdicionar;
+        private BotaoCircular _btnAlterar;
 
-        private BotaoAdicionarMini btnAdicionar
+        private BotaoCircular btnAdicionar
         {
             get
             {
@@ -24,13 +24,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _btnAdicionar;
                 }
 
-                _btnAdicionar = new BotaoAdicionarMini();
+                _btnAdicionar = new BotaoCircular();
 
                 return _btnAdicionar;
             }
         }
 
-        private BotaoAlterarMini btnAlterar
+        private BotaoCircular btnAlterar
         {
             get
             {
@@ -39,7 +39,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _btnAlterar;
                 }
 
-                _btnAlterar = new BotaoAlterarMini();
+                _btnAlterar = new BotaoCircular();
 
                 return _btnAlterar;
             }
@@ -53,6 +53,15 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+
+            this.btnAlterar.strId = (this.strId + "_btnAlterar");
+        }
+
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -64,8 +73,11 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            this.btnAdicionar.strId = "btnAdicionar";
-            this.btnAlterar.strId = "btnAlterar";
+            this.strId = "pnlAcaoConsulta";
+
+            this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+
+            this.btnAlterar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
         }
 
         protected override void montarLayout()

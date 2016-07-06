@@ -270,6 +270,7 @@ namespace NetZ.Web.Server
             }
             catch (Exception ex)
             {
+                // TODO: Enviar os eventuais erros para o cliente.
                 throw ex;
             }
             finally

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NetZ.Web.Html.Componente.Botao;
-using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
@@ -15,85 +13,49 @@ namespace NetZ.Web.Html.Componente.Painel
         #region Atributos
 
         private BotaoCircular _btnAcaoPrincipal;
-        private int _intBtnMiniTop = -45;
-        private List<BotaoMini> _lstBtnMini;
+        private int _intBtnAcaoSecundariaTop = -45;
+        private List<BotaoCircular> _lstBtnAcaoSecundaria;
 
         private BotaoCircular btnAcaoPrincipal
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_btnAcaoPrincipal != null)
                 {
-                    if (_btnAcaoPrincipal != null)
-                    {
-                        return _btnAcaoPrincipal;
-                    }
-
-                    _btnAcaoPrincipal = new BotaoCircular();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _btnAcaoPrincipal;
                 }
 
-                #endregion Ações
+                _btnAcaoPrincipal = new BotaoCircular();
 
                 return _btnAcaoPrincipal;
             }
         }
 
-        private int intBtnMiniTop
+        private int intBtnAcaoSecundariaTop
         {
             get
             {
-                return _intBtnMiniTop;
+                return _intBtnAcaoSecundariaTop;
             }
 
             set
             {
-                _intBtnMiniTop = value;
+                _intBtnAcaoSecundariaTop = value;
             }
         }
 
-        private List<BotaoMini> lstBtnMini
+        private List<BotaoCircular> lstBtnAcaoSecundaria
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstBtnAcaoSecundaria != null)
                 {
-                    if (_lstBtnMini != null)
-                    {
-                        return _lstBtnMini;
-                    }
-
-                    _lstBtnMini = new List<BotaoMini>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstBtnAcaoSecundaria;
                 }
 
-                #endregion Ações
+                _lstBtnAcaoSecundaria = new List<BotaoCircular>();
 
-                return _lstBtnMini;
+                return _lstBtnAcaoSecundaria;
             }
         }
 
@@ -109,225 +71,92 @@ namespace NetZ.Web.Html.Componente.Painel
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
         }
 
         protected override void addTag(Tag tag)
         {
             base.addTag(tag);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (!(tag is BotaoMini))
-                {
-                    return;
-                }
-
-                this.addBtnMini(tag as BotaoMini);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (!(tag is BotaoCircular))
+            {
+                return;
+            }
+
+            if (tag.Equals(this.btnAcaoPrincipal))
+            {
+                return;
+            }
+
+            this.addBtnAcaoSecundaria(tag as BotaoCircular);
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.btnAcaoPrincipal.strId = "btnAcaoPrincipal";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.btnAcaoPrincipal.enmTamanho = BotaoCircular.EnmTamanho.GRANDE;
+            this.btnAcaoPrincipal.strId = "btnAcaoPrincipal";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.btnAcaoPrincipal.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.btnAcaoPrincipal.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setPosition("absolute"));
 
-            #endregion Variáveis
+            this.setCssLstBtnMini(css);
 
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setPosition("absolute"));
-
-                this.setCssLstBtnMini(css);
-
-                this.btnAcaoPrincipal.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.btnAcaoPrincipal.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
         }
 
-        private void addBtnMini(BotaoMini btnMini)
+        private void addBtnAcaoSecundaria(BotaoCircular btnAcaoSecundaria)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (btnAcaoSecundaria == null)
             {
-                if (btnMini == null)
-                {
-                    return;
-                }
-
-                if (this.lstBtnMini.Contains(btnMini))
-                {
-                    return;
-                }
-
-                this.lstBtnMini.Add(btnMini);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.lstBtnAcaoSecundaria.Contains(btnAcaoSecundaria))
+            {
+                return;
+            }
+
+            this.lstBtnAcaoSecundaria.Add(btnAcaoSecundaria);
         }
 
-        private void setCss(CssArquivo css, BotaoMini btnMini)
+        private void setCss(CssArquivo css, BotaoCircular btnAcaoSecundaria)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (btnAcaoSecundaria == null)
             {
-                if (btnMini == null)
-                {
-                    return;
-                }
-
-                btnMini.addCss(css.setPosition("absolute"));
-                btnMini.addCss(css.setRight(20));
-                btnMini.addCss(css.setTop(this.intBtnMiniTop));
-
-                this.intBtnMiniTop -= 40;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            btnAcaoSecundaria.addCss(css.setPosition("absolute"));
+            btnAcaoSecundaria.addCss(css.setRight(17));
+            btnAcaoSecundaria.addCss(css.setTop(this.intBtnAcaoSecundariaTop));
+
+            this.intBtnAcaoSecundariaTop -= 40;
         }
 
         private void setCssLstBtnMini(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (BotaoCircular btnAcaoSecundaria in this.lstBtnAcaoSecundaria)
             {
-                foreach (BotaoMini btnMini in this.lstBtnMini)
-                {
-                    this.setCss(css, btnMini);
-                }
+                this.setCss(css, btnAcaoSecundaria);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         #endregion Métodos

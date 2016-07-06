@@ -1,14 +1,11 @@
 ﻿using System;
 using NetZ.Web.Html.Componente.Botao;
-using NetZ.Web.Html.Componente.Botao.Comando;
-using NetZ.Web.Html.Componente.Botao.Mini;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
-using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Html.Componente.Tab;
 using NetZ.Web.Server.Arquivo.Css;
@@ -119,16 +116,8 @@ namespace NetZ.Web.Html.Pagina
                 // TODO: Carregar esses scripts separadamente, quando forem necessário, durante a
                 //       execução de cada tarefa. O carregamento excessivo na abertura da tela
                 // principal diminui a performance neste ponto da aplicação.
-                lstJs.Add(new JavaScriptTag(typeof(BotaoAdicionarMini), 118));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoAlterarMini), 118));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoApagarMini), 119));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoComando), 114));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoFecharMini), 118));
+                lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 118));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoMenuMini), 119));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoMini), 117));
-                lstJs.Add(new JavaScriptTag(typeof(BotaoSalvarComando), 115));
                 lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
@@ -146,8 +135,6 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
                 lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
                 lstJs.Add(new JavaScriptTag(typeof(JnlConsulta), 122));
-                lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
-                lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(PagPrincipal), 103));
                 lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
                 lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));

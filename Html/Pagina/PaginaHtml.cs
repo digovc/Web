@@ -701,6 +701,9 @@ namespace NetZ.Web.Html.Pagina
             try
             {
                 lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
+                lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
+                lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
+                lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
@@ -967,6 +970,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addLayoutFixo()
         {
+            this.addLayoutFixo(typeof(Mensagem));
             this.addLayoutFixo(typeof(MenuContexto));
             this.addLayoutFixo(typeof(MenuContextoItem));
         }

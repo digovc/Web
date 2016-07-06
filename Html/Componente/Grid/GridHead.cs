@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
@@ -33,25 +32,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         public GridHead(Coluna cln) : base("th")
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.cln = cln;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.cln = cln;
         }
 
         #endregion Construtores
@@ -62,57 +43,53 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.cln == null)
             {
-                if (this.cln == null)
-                {
-                    return;
-                }
-
-                this.strConteudo = this.cln.strNomeExibicao;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.strConteudo = this.cln.strNomeExibicao;
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corBorda));
+            this.addCss(css.setPaddingLeft(25));
+            this.addCss(css.setPaddingRight(25));
 
-            #endregion Variáveis
+            this.setCssCln(css);
+        }
 
-            #region Ações
-
-            try
+        private void setCssCln(CssArquivo css)
+        {
+            if (this.cln == null)
             {
-                this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corBorda));
-                this.addCss(css.setPaddingLeft(25));
-                this.addCss(css.setPaddingRight(25));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            switch (this.cln.enmGrupo)
+            {
+                case Coluna.EnmGrupo.ALFANUMERICO:
+                    this.setCssClnAlfanumerico(css);
+                    return;
+
+                case Coluna.EnmGrupo.NUMERICO_INTEIRO:
+                case Coluna.EnmGrupo.NUMERICO_PONTO_FLUTUANTE:
+                    this.setCssClnNumerico(css);
+                    return;
+            }
+        }
+
+        private void setCssClnAlfanumerico(CssArquivo css)
+        {
+            this.addCss(css.setTextAlign("left"));
+        }
+
+        private void setCssClnNumerico(CssArquivo css)
+        {
+            this.addCss(css.setTextAlign("right"));
         }
 
         #endregion Métodos

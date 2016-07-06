@@ -429,6 +429,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 }
 
                 this.addAtt("cln_web_nome", this.cln.strNomeSql);
+                this.addAtt("str_dica", this.cln.strDica);
 
                 this.booObrigatorio = this.cln.booObrigatorio;
                 this.booSomenteLeitura = this.cln.booSomenteLeitura;

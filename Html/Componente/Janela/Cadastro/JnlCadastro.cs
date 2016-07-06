@@ -4,6 +4,7 @@ using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
+using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Html.Componente.Tab;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -20,7 +21,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private CampoNumerico _cmpIntId;
         private DivComando _divComando;
         private FormHtml _frm;
-        private int _intComandoNivel = 1;
+        private int _intDicaNivel = 1;
+        private PainelNivel _pnlDica;
         private TabHtml _tabHtml;
         private Tabela _tbl;
         private Tabela _tblPai;
@@ -119,16 +121,31 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
-        private int intComandoNivel
+        private int intDicaNivel
         {
             get
             {
-                return _intComandoNivel;
+                return _intDicaNivel;
             }
 
             set
             {
-                _intComandoNivel = value;
+                _intDicaNivel = value;
+            }
+        }
+
+        private PainelNivel pnlDica
+        {
+            get
+            {
+                if (_pnlDica != null)
+                {
+                    return _pnlDica;
+                }
+
+                _pnlDica = new PainelNivel();
+
+                return _pnlDica;
             }
         }
 
@@ -199,6 +216,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.divComando.strId = (this.strId + "_divComando");
             this.frm.strId = (this.strId + "_frm");
+            this.pnlDica.strId = (this.strId + "_pnlDica");
             this.tabHtml.strId = (this.strId + "_tabHtml");
         }
 
@@ -216,9 +234,10 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             base.finalizar();
 
+            this.finalizarPnlDica();
             this.finalizarDivComando();
 
-            this.intTamanhoY = (this.intComandoNivel + 2);
+            this.intTamanhoY = (this.intDicaNivel + 3);
         }
 
         protected override void inicializar()
@@ -229,10 +248,13 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.intTamanhoX = 10;
             this.strId = this.GetType().Name;
+            this.strTitulo = this.tbl.strNomeExibicao;
 
             this.addAtt("src_js", JavaScriptTag.getSrc(this.GetType()));
 
             this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
+
+            this.frm.booComandoCinza = true;
 
             this.carregarDados();
         }
@@ -249,6 +271,18 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.setCss(css);
 
+            this.addCss(css.setDisplay("none"));
+
+            this.pnlDica.addCss(css.setBackgroundColor("rgba(128,128,128,0.75)"));
+            this.pnlDica.addCss(css.setBorderRadius(0));
+            this.pnlDica.addCss(css.setColor("white"));
+            this.pnlDica.addCss(css.setHeight(20));
+            this.pnlDica.addCss(css.setLeft(-5));
+            this.pnlDica.addCss(css.setPadding(5));
+            this.pnlDica.addCss(css.setTextAlign("left"));
+            this.pnlDica.addCss(css.setTop(20));
+            this.pnlDica.addCss(css.setWidth(100, "%"));
+
             this.tabHtml.addCss(css.setDisplay("none"));
         }
 
@@ -261,7 +295,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             tagCampoHtml.setPai(this.frm);
 
-            this.intComandoNivel = ((tagCampoHtml.intNivel + 1) > this.intComandoNivel) ? (tagCampoHtml.intNivel + 1) : this.intComandoNivel;
+            this.intDicaNivel = ((tagCampoHtml.intNivel + 1) > this.intDicaNivel) ? (tagCampoHtml.intNivel + 1) : this.intDicaNivel;
         }
 
         private void addTagTabItem(TabItem tabItem)
@@ -286,9 +320,16 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         private void finalizarDivComando()
         {
-            this.divComando.intNivel = this.intComandoNivel;
+            this.divComando.intNivel = (this.intDicaNivel + 1);
 
             this.divComando.setPai(this.frm);
+        }
+
+        private void finalizarPnlDica()
+        {
+            this.pnlDica.intNivel = this.intDicaNivel;
+
+            this.pnlDica.setPai(this.frm);
         }
 
         private void finalizarTabHtml()
@@ -328,9 +369,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (this.tblWeb.clnWebIntId.intValor > 0)
+            if (this.tblWeb.getClnWeb(tbl.clnIntId.strNomeSql).intValor > 0)
             {
-                this.tbl.recuperar(this.tblWeb.clnWebIntId.intValor);
+                this.tbl.recuperar(this.tblWeb.getClnWeb(tbl.clnIntId.strNomeSql).intValor);
             }
             else
             {

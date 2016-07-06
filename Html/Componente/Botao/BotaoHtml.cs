@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Botao
 {
@@ -7,11 +6,18 @@ namespace NetZ.Web.Html.Componente.Botao
     {
         #region Constantes
 
+        public enum EnmLado
+        {
+            DIREITA,
+            ESQUERDA,
+        }
+
         #endregion Constantes
 
         #region Atributos
 
         private bool _booFrmSubmit;
+        private EnmLado _enmLado = EnmLado.DIREITA;
         private int _intNivel;
 
         /// <summary>
@@ -28,6 +34,22 @@ namespace NetZ.Web.Html.Componente.Botao
             set
             {
                 _booFrmSubmit = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica o lado que que este componente estará dentro do seu container.
+        /// </summary>
+        public EnmLado enmLado
+        {
+            get
+            {
+                return _enmLado;
+            }
+
+            set
+            {
+                _enmLado = value;
             }
         }
 
@@ -53,25 +75,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
         public BotaoHtml()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = "button";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = "button";
         }
 
         #endregion Construtores
@@ -82,80 +86,27 @@ namespace NetZ.Web.Html.Componente.Botao
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.inicializarBooFrmSubmit();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializarBooFrmSubmit();
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setBorder(0));
+            this.addCss(css.setCursor("pointer"));
+            this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBorder(0));
-                this.addCss(css.setCursor("pointer"));
-
-                this.setCssFload(css);
-                this.setCssHeight(css);
-                this.setCssWidth(css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.setCssFload(css);
+            this.setCssHeight(css);
+            this.setCssWidth(css);
         }
 
         protected virtual void setCssFload(CssArquivo css)
@@ -175,73 +126,37 @@ namespace NetZ.Web.Html.Componente.Botao
 
         private decimal getDecWidth()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strConteudo))
             {
-                if (string.IsNullOrEmpty(this.strConteudo))
-                {
-                    return 30;
-                }
-
-                if (this.strConteudo.Length < 25)
-                {
-                    return 100;
-                }
-
-                if (this.strConteudo.Length < 50)
-                {
-                    return 125;
-                }
-
-                if (this.strConteudo.Length < 75)
-                {
-                    return 150;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return 30;
             }
 
-            #endregion Ações
+            if (this.strConteudo.Length < 25)
+            {
+                return 100;
+            }
+
+            if (this.strConteudo.Length < 50)
+            {
+                return 125;
+            }
+
+            if (this.strConteudo.Length < 75)
+            {
+                return 150;
+            }
 
             return 175;
         }
 
         private void inicializarBooFrmSubmit()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.booFrmSubmit)
             {
-                if (this.booFrmSubmit)
-                {
-                    return;
-                }
-
-                this.addAtt("onclick", "return false");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addAtt("onclick", "return false");
         }
 
         #endregion Métodos

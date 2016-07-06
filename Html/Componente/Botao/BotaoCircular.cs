@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Botao
 {
@@ -7,9 +6,31 @@ namespace NetZ.Web.Html.Componente.Botao
     {
         #region Constantes
 
+        public enum EnmTamanho
+        {
+            GRANDE,
+            NORMAL,
+            PEQUENO,
+        }
+
         #endregion Constantes
 
         #region Atributos
+
+        private EnmTamanho _enmTamanho = EnmTamanho.NORMAL;
+
+        public EnmTamanho enmTamanho
+        {
+            get
+            {
+                return _enmTamanho;
+            }
+
+            set
+            {
+                _enmTamanho = value;
+            }
+        }
 
         #endregion Atributos
 
@@ -23,86 +44,43 @@ namespace NetZ.Web.Html.Componente.Botao
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
+        }
 
-            #endregion Variáveis
+        protected override void finalizarCss(CssArquivo css)
+        {
+            base.finalizarCss(css);
 
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.finalizarCssPadding(css);
         }
 
         protected virtual int getIntTamanho()
         {
-            return 65;
+            switch (this.enmTamanho)
+            {
+                case EnmTamanho.GRANDE:
+                    return 60;
+
+                case EnmTamanho.PEQUENO:
+                    return 30;
+
+                default:
+                    return 40;
+            }
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBorderRadius(50, "%"));
-                this.addCss(css.setOutLine("none"));
-
-                this.setCssBoxShadow(css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected virtual void setCssBoxShadow(CssArquivo css)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void setCssFload(CssArquivo css)
-        {
-            return;
+            this.addCss(css.setBackgroundColor("white"));
+            this.addCss(css.setBorderRadius(50, "%"));
+            this.addCss(css.setBoxShadow(0, 2, 1, 1, "rgba(0,0,0,0.25)"));
+            this.addCss(css.setFontSize(15));
+            this.addCss(css.setHeight(this.getIntTamanho()));
+            this.addCss(css.setOutLine("none"));
+            this.addCss(css.setTextAlign("center"));
+            this.addCss(css.setWidth(this.getIntTamanho()));
         }
 
         protected override void setCssHeight(CssArquivo css)
@@ -113,6 +91,18 @@ namespace NetZ.Web.Html.Componente.Botao
         protected override void setCssWidth(CssArquivo css)
         {
             this.addCss(css.setWidth(this.getIntTamanho()));
+        }
+
+        private void finalizarCssPadding(CssArquivo css)
+        {
+            if (EnmLado.DIREITA.Equals(this.enmLado))
+            {
+                this.addCss(css.setMarginLeft(5));
+            }
+            else
+            {
+                this.addCss(css.setMarginRight(5));
+            }
         }
 
         #endregion Métodos
