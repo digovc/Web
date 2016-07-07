@@ -131,8 +131,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.addCss(css.setPosition("relative"));
             this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
 
-            this.divBarra.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
-            //this.divBarra.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corSombra));
+            this.divBarra.addCss(css.setBackgroundColor("rgb(130,202,156)"));
             this.divBarra.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
             this.divBarra.addCss(css.setBottom(0));
             this.divBarra.addCss(css.setColor(AppWeb.i.objTema.corBorda));
@@ -145,8 +144,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.pnlCondicao.addCss(css.setLeft(270));
             this.pnlCondicao.addCss(css.setPosition("absolute"));
             this.pnlCondicao.addCss(css.setRight(0));
-
-            this.pnlSelecao.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corBorda));
+            
             this.pnlSelecao.addCss(css.setFloat("left"));
         }
 

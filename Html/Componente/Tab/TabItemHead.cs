@@ -51,13 +51,18 @@ namespace NetZ.Web.Html.Componente.Tab
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor("rgba(88,178,150,0.5)"));
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.addCss(css.setBorderBottom(1, "solid", "rgb(130,202,156)"));
+            this.addCss(css.setBorderLeft(1, "solid", "rgb(130,202,156)"));
+            this.addCss(css.setBorderRadius(0, 0, 5, 5));
+            this.addCss(css.setBorderRight(1, "solid", "rgb(130,202,156)"));
+            this.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
             this.addCss(css.setFloat("left"));
             this.addCss(css.setHeight(30));
             this.addCss(css.setLineHeight(30));
             this.addCss(css.setOverflow("hide"));
             this.addCss(css.setPaddingLeft(10));
-            this.addCss(css.setPaddingRight(10));
+            this.addCss(css.setMarginLeft(10));
             this.addCss(css.setWidth(130));
         }
 

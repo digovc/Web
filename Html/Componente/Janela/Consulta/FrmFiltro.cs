@@ -135,7 +135,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
+            this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
+
+            this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
+
             this.btnApagar.addCss(css.setMarginRight(10));
+            this.btnApagar.addCss(css.setBackgroundImage("/res/media/png/btn_apagar_30x30.png"));
         }
 
         #endregion Métodos

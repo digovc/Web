@@ -110,6 +110,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.cmb.addCss(css.setDisplay("none"));
 
+            this.btnMenu.addCss(css.setBackgroundImage("/res/media/png/btn_opcoes_30x30.png"));
+            this.btnMenu.addCss(css.setBackgroundPosition("center"));
+            this.btnMenu.addCss(css.setBackgroundRepeat("no-repeat"));
             this.btnMenu.addCss(css.setDisplay("none"));
             this.btnMenu.addCss(css.setPosition("absolute"));
             this.btnMenu.addCss(css.setRight(-30));

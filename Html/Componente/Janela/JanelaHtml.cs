@@ -450,17 +450,24 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor("white"));
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
             this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
             this.addCss(css.setCenter());
             this.addCss(css.setPosition("absolute"));
 
-            this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 2, 2));
+            this.divBtnFechar.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divBtnFechar.addCss(css.setBackgroundImage("/res/media/png/btn_fechar_25x25.png"));
+            this.divBtnFechar.addCss(css.setBackgroundPosition("center"));
+            this.divBtnFechar.addCss(css.setBackgroundRepeat("no-repeat"));
+            this.divBtnFechar.addCss(css.setBorderBottom(1, "solid", "rgb(130,202,156)"));
+            this.divBtnFechar.addCss(css.setBorderLeft(1, "solid", "rgb(130,202,156)"));
+            this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 5, 5));
+            this.divBtnFechar.addCss(css.setBorderRight(1, "solid", "rgb(130,202,156)"));
             this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
             this.divBtnFechar.addCss(css.setHeight(25));
-            this.divBtnFechar.addCss(css.setMarginRight(10));
+            this.divBtnFechar.addCss(css.setMarginRight(8));
             this.divBtnFechar.addCss(css.setTextAlign("center"));
-            this.divBtnFechar.addCss(css.setWidth(50));
+            this.divBtnFechar.addCss(css.setWidth(55));
 
             this.divAcao.addCss(css.setBottom(0));
             this.divAcao.addCss(css.setPosition("absolute"));
@@ -471,8 +478,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divCabecalho.addCss(css.setCursor("default"));
             this.divCabecalho.addCss(css.setHeight(40));
             this.divCabecalho.addCss(css.setPosition("relative"));
-
-            this.divInativa.addCss(css.setBackgroundColor("rgba(0,0,0,0.5)"));
+            
             this.divInativa.addCss(css.setDisplay("none"));
             this.divInativa.addCss(css.setHeight(100, "%"));
             this.divInativa.addCss(css.setPosition("absolute"));
@@ -482,7 +488,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divTitulo.addCss(css.setColor("white"));
             this.divTitulo.addCss(css.setFontSize(18));
             this.divTitulo.addCss(css.setLineHeight(40));
-            this.divTitulo.addCss(css.setPaddingLeft(5));
+            this.divTitulo.addCss(css.setPaddingLeft(10));
         }
 
         private void atualizarStrTitulo()
