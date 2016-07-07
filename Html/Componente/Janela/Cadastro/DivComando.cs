@@ -137,13 +137,26 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.addCss(css.setPaddingTop(10));
 
             this.btnEsquerda.addCss(css.setMarginRight(5));
+            this.btnEsquerda.addCss(css.setBackgroundImage("/res/media/png/btn_voltar_30x30.png"));
+            this.btnEsquerda.addCss(css.setBackgroundPosition("center"));
+            this.btnEsquerda.addCss(css.setBackgroundRepeat("no-repeat"));
 
-            //this.btnNovo.addCss(css.setDisplay("none"));
+            this.btnDireita.addCss(css.setMarginRight(5));
+            this.btnDireita.addCss(css.setBackgroundImage("/res/media/png/btn_avancar_30x30.png"));
+            this.btnDireita.addCss(css.setBackgroundPosition("center"));
+            this.btnDireita.addCss(css.setBackgroundRepeat("no-repeat"));
+            
+            this.btnNovo.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
+            this.btnNovo.addCss(css.setBackgroundPosition("center"));
+            this.btnNovo.addCss(css.setBackgroundRepeat("no-repeat"));
             this.btnNovo.addCss(css.setPosition("absolute"));
-            this.btnNovo.addCss(css.setRight(65));
+            this.btnNovo.addCss(css.setRight(55));
 
+            this.btnSalvar.addCss(css.setBackgroundImage("/res/media/png/btn_salvar_40x40.png"));
+            this.btnSalvar.addCss(css.setBackgroundPosition("center"));
+            this.btnSalvar.addCss(css.setBackgroundRepeat("no-repeat"));
             this.btnSalvar.addCss(css.setPosition("absolute"));
-            this.btnSalvar.addCss(css.setRight(10));
+            this.btnSalvar.addCss(css.setRight(5));
             this.btnSalvar.addCss(css.setTop(5));
         }
 

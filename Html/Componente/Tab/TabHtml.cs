@@ -217,15 +217,17 @@ namespace NetZ.Web.Html.Componente.Tab
             this.addCss(css.setHeight(250));
             this.addCss(css.setPosition("relative"));
 
-            this.divCabecalho.addCss(css.setHeight(40));
+            this.divCabecalho.addCss(css.setHeight(30));
 
             this.divCabecalhoComando.addCss(css.setPosition("absolute"));
             this.divCabecalhoComando.addCss(css.setRight(0));
+            this.divCabecalhoComando.addCss(css.setHeight(30));
             this.divCabecalhoComando.addCss(css.setTop(5));
 
             this.divCabecalhoConteudo.addCss(css.setHeight(30));
 
             this.divConteudo.addCss(css.setBottom(0));
+            this.divConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
             this.divConteudo.addCss(css.setOverflow("auto"));
             this.divConteudo.addCss(css.setPosition("absolute"));
             this.divConteudo.addCss(css.setTop(40));

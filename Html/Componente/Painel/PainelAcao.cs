@@ -119,7 +119,8 @@ namespace NetZ.Web.Html.Componente.Painel
 
             this.setCssLstBtnMini(css);
 
-            this.btnAcaoPrincipal.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.btnAcaoPrincipal.addCss(css.setBackgroundColor("rgb(248,248,248)"));
+            this.btnAcaoPrincipal.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisar_60x60.png"));
         }
 
         private void addBtnAcaoSecundaria(BotaoCircular btnAcaoSecundaria)

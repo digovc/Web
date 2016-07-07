@@ -331,7 +331,7 @@ namespace NetZ.Web.Html.Componente.Form
                 return;
             }
 
-            this.lstPnlNivel[this.lstPnlNivel.Count - 1].addCss(css.setBackgroundColor("gray"));
+            this.lstPnlNivel[this.lstPnlNivel.Count - 1].addCss(css.setBackgroundColor("rgb(130,202,156)"));
         }
 
         private void finalizarMontarLayoutLstCmp()

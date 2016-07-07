@@ -273,16 +273,16 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.addCss(css.setDisplay("none"));
 
-            this.pnlDica.addCss(css.setBackgroundColor("rgba(128,128,128,0.75)"));
+            this.pnlDica.addCss(css.setBackgroundColor("rgba(220,220,220,0.6)"));
             this.pnlDica.addCss(css.setBorderRadius(0));
-            this.pnlDica.addCss(css.setColor("white"));
+            this.pnlDica.addCss(css.setColor("rgb(120,120,120)"));
             this.pnlDica.addCss(css.setHeight(20));
             this.pnlDica.addCss(css.setLeft(-5));
             this.pnlDica.addCss(css.setPadding(5));
             this.pnlDica.addCss(css.setTextAlign("left"));
             this.pnlDica.addCss(css.setTop(20));
             this.pnlDica.addCss(css.setWidth(100, "%"));
-
+            
             this.tabHtml.addCss(css.setDisplay("none"));
         }
 
