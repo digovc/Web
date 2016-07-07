@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
 using NetZ.Web.Html.Componente;
+using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo.Css;
@@ -704,6 +705,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
+                lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
                 lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
@@ -973,6 +975,7 @@ namespace NetZ.Web.Html.Pagina
             this.addLayoutFixo(typeof(Mensagem));
             this.addLayoutFixo(typeof(MenuContexto));
             this.addLayoutFixo(typeof(MenuContextoItem));
+            this.addLayoutFixo(typeof(MenuGrid));
         }
 
         private void addLayoutFixo(Type cls)

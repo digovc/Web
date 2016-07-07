@@ -440,7 +440,6 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setHeight(40));
             this.addCss(css.setMinHeight(40));
             this.addCss(css.setPaddingLeft(60));
-            //this.addCss(css.setMarginTop(10));
             
             this.divIcone.addCss(css.setDisplay("none"));
 
@@ -465,8 +464,6 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setMarginLeft(5));
             this.divIcone.addCss(css.setMarginRight(15));
-            this.divIcone.addCss(css.setMinHeight(50));
-            this.divIcone.addCss(css.setMinWidth(50));
 
             this.divTitulo.addCss(css.setLineHeight(50));
         }

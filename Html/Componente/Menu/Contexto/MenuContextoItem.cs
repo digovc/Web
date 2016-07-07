@@ -73,6 +73,7 @@ namespace NetZ.Web.Html.Componente.Menu.Contexto
             base.setCss(css);
 
             this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corBorda));
+            this.addCss(css.setCursor("pointer"));
             this.addCss(css.setPadding(10));
             this.addCss(css.setPosition("relative"));
 

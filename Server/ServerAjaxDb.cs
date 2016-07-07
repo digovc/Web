@@ -149,10 +149,16 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                uri = new Uri(strReferer); // TODO: Deve ser revisado.
+                uri = new Uri(strReferer);
 
-                objResposta.addHeader("Access-Control-Allow-Origin", "http://" + uri.Host + ":8080");
-                //objResposta.addHeader("Access-Control-Allow-Origin", ("http://" + uri.Host));
+                string strHost = ("http://" + uri.Host);
+
+                if (ConfigWeb.i.intPorta != 80)
+                {
+                    strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWeb.i.intPorta);
+                }
+
+                objResposta.addHeader("Access-Control-Allow-Origin", strHost);
                 objResposta.addHeader("Access-Control-Allow-Credentials", "true");
             }
             catch (Exception ex)

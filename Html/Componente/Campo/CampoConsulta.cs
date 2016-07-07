@@ -89,6 +89,13 @@ namespace NetZ.Web.Html.Componente.Campo
             return Input.EnmTipo.SEARCH;
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.btnMenu.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
