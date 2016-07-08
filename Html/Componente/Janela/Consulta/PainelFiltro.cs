@@ -129,10 +129,9 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.addCss(css.setMinHeight(10));
             this.addCss(css.setPosition("relative"));
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
 
             this.divBarra.addCss(css.setBackgroundColor("rgb(130,202,156)"));
-            this.divBarra.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
+            this.divBarra.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
             this.divBarra.addCss(css.setBottom(0));
             this.divBarra.addCss(css.setColor(AppWeb.i.objTema.corBorda));
             this.divBarra.addCss(css.setCursor("pointer"));

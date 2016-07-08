@@ -141,11 +141,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.pnlAcaoConsulta.strId = (this.strId + "_pnlAcaoConsulta");
         }
 
-        protected override void finalizarCssHeight(CssArquivo css)
-        {
-            //base.finalizarCssHeight(css);
-        }
-
         protected override void finalizarCssWidth(CssArquivo css)
         {
             //base.finalizarCssWidth(css);
@@ -173,7 +168,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
             this.addCss(css.setBottom(0));
             this.addCss(css.setLeft(0));
             this.addCss(css.setPosition("absolute"));

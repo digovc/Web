@@ -31,7 +31,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
-                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+                this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
                 this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corBorda));
                 this.addCss(css.setHeight(70));
                 this.addCss(css.setPadding(5));

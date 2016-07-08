@@ -436,7 +436,8 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
+            this.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corSombra));
+            this.addCss(css.setBorderBottom(0, "solid", null));
             this.addCss(css.setHeight(40));
             this.addCss(css.setMinHeight(40));
             this.addCss(css.setPaddingLeft(60));
@@ -455,15 +456,17 @@ namespace NetZ.Web.Html.Componente.Menu
 
             this.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
             this.addCss(css.setFontSize(18));
+            this.addCss(css.setLineHeight(50));
             this.addCss(css.setMinHeight(50));
-            this.addCss(css.setPaddingBottom(10));
-            this.addCss(css.setPaddingTop(10));
+            //this.addCss(css.setPaddingBottom(10));
+            //this.addCss(css.setPaddingTop(10));
 
             this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
             this.divIcone.addCss(css.setBorder(1, "solid", "rgb(130,202,156)"));
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setMarginLeft(5));
             this.divIcone.addCss(css.setMarginRight(15));
+            this.divIcone.addCss(css.setMarginTop(4));
 
             this.divTitulo.addCss(css.setLineHeight(50));
         }

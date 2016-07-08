@@ -81,7 +81,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.inicializar();
 
-            this.intTamanhoX = 7;
+            this.intTamanhoHotizontal = 7;
 
             this.cmpBooAnd.booDireita = true;
             this.cmpBooAnd.intNivel = 2;
@@ -96,6 +96,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         protected override void montarLayout()
         {
             base.montarLayout();
+
+            this.intTamanhoHotizontal = 10;
 
             this.cmpStrColunaNome.setPai(this);
             this.cmpIntOperador.setPai(this);

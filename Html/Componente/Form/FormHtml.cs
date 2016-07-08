@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NetZ.Web.Html.Componente.Campo;
+using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Painel;
+using NetZ.Web.Html.Componente.Tab;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Form
@@ -22,27 +24,18 @@ namespace NetZ.Web.Html.Componente.Form
 
         private Atributo _attAction;
         private Atributo _attMetodo;
-        private bool _booComandoCinza;
+        private bool _booJnlCadastro;
+        private DivComando _divComando;
         private Div _divConteudo;
         private LimiteFloat _divLimiteFloat;
         private EnmMetodo _enmMetodo;
+        private int _intUltimoNivel = 1;
         private List<CampoHtml> _lstCmp;
         private List<PainelNivel> _lstPnlNivel;
         private List<ITagNivel> _lstTagNivel;
+        private PainelNivel _pnlDica;
         private string _strAction;
-
-        public bool booComandoCinza
-        {
-            get
-            {
-                return _booComandoCinza;
-            }
-
-            set
-            {
-                _booComandoCinza = value;
-            }
-        }
+        private TabHtml _tabHtml;
 
         /// <summary>
         /// Indica o método que será utilizado para envio dos dados.
@@ -132,6 +125,34 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
+        private bool booJnlCadastro
+        {
+            get
+            {
+                return _booJnlCadastro;
+            }
+
+            set
+            {
+                _booJnlCadastro = value;
+            }
+        }
+
+        private DivComando divComando
+        {
+            get
+            {
+                if (_divComando != null)
+                {
+                    return _divComando;
+                }
+
+                _divComando = new DivComando();
+
+                return _divComando;
+            }
+        }
+
         private Div divConteudo
         {
             get
@@ -159,6 +180,19 @@ namespace NetZ.Web.Html.Componente.Form
                 _divLimiteFloat = new LimiteFloat();
 
                 return _divLimiteFloat;
+            }
+        }
+
+        private int intUltimoNivel
+        {
+            get
+            {
+                return _intUltimoNivel;
+            }
+
+            set
+            {
+                _intUltimoNivel = value;
             }
         }
 
@@ -192,6 +226,36 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
+        private PainelNivel pnlDica
+        {
+            get
+            {
+                if (_pnlDica != null)
+                {
+                    return _pnlDica;
+                }
+
+                _pnlDica = new PainelNivel();
+
+                return _pnlDica;
+            }
+        }
+
+        private TabHtml tabHtml
+        {
+            get
+            {
+                if (_tabHtml != null)
+                {
+                    return _tabHtml;
+                }
+
+                _tabHtml = new TabHtml();
+
+                return _tabHtml;
+            }
+        }
+
         private List<PainelNivel> getLstPnlNivel()
         {
             List<PainelNivel> lstPnlNivelResultado;
@@ -221,6 +285,13 @@ namespace NetZ.Web.Html.Componente.Form
 
         #region Métodos
 
+        public override void setPai(Tag tagPai)
+        {
+            base.setPai(tagPai);
+
+            this.booJnlCadastro = (tagPai is JnlCadastro);
+        }
+
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -241,14 +312,41 @@ namespace NetZ.Web.Html.Componente.Form
                 return;
             }
 
+            if ((typeof(TabItem).IsAssignableFrom(tag.GetType())))
+            {
+                this.addTagTabItem(tag as TabItem);
+                return;
+            }
+
             base.addTag(tag);
+        }
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.divComando.strId = (this.strId + "_divComando");
+            this.pnlDica.strId = (this.strId + "_pnlDica");
+            this.tabHtml.strId = (this.strId + "_tabHtml");
         }
 
         protected override void finalizar()
         {
             base.finalizar();
 
+            this.finalizarTabHtml();
+
+            this.finalizarPnlDica();
+
+            this.finalizarDivComando();
+
             this.finalizarMontarLayoutLstCmp();
+
             this.finalizarMontarLayoutLstPnlNivel();
         }
 
@@ -256,7 +354,11 @@ namespace NetZ.Web.Html.Componente.Form
         {
             base.finalizarCss(css);
 
-            this.finalizarCssUltimoNivel(css);
+            this.pnlDica.addCss(css.setLineHeight(30));
+            this.pnlDica.addCss(css.setMinHeight(30));
+            this.pnlDica.addCss(css.setTextAlign("left"));
+
+            this.finalizarCssNivel(css);
         }
 
         protected override void inicializar()
@@ -317,21 +419,70 @@ namespace NetZ.Web.Html.Componente.Form
 
             this.addLstTagNivel(tag);
             this.addLstCmp(tag);
+
+            this.intUltimoNivel = ((tag.intNivel) > this.intUltimoNivel) ? (tag.intNivel) : this.intUltimoNivel;
         }
 
-        private void finalizarCssUltimoNivel(CssArquivo css)
+        private void addTagTabItem(TabItem tabItem)
         {
-            if (!this.booComandoCinza)
+            if (tabItem == null)
             {
                 return;
             }
 
-            if (this.lstPnlNivel.Count < 1)
+            tabItem.setPai(this.tabHtml);
+        }
+
+        private void finalizarCssNivel(CssArquivo css)
+        {
+            if (!this.booJnlCadastro)
             {
                 return;
             }
 
-            this.lstPnlNivel[this.lstPnlNivel.Count - 1].addCss(css.setBackgroundColor("rgb(130,202,156)"));
+            if (this.lstPnlNivel.Count < 4)
+            {
+                return;
+            }
+
+            this.finalizarCssNivelTabHtml(css, this.lstPnlNivel[this.lstPnlNivel.Count - 3]);
+            this.finalizarCssNivelDica(css, this.lstPnlNivel[this.lstPnlNivel.Count - 2]);
+            this.finalizarCssNivelComando(css, this.lstPnlNivel.Last());
+        }
+
+        private void finalizarCssNivelComando(CssArquivo css, PainelNivel pnlNivelComando)
+        {
+            pnlNivelComando.addCss(css.setBackgroundColor("rgb(130,202,156)"));
+        }
+
+        private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)
+        {
+            pnlNivelDica.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+        }
+
+        private void finalizarCssNivelTabHtml(CssArquivo css, PainelNivel pnlNivelTabHtml)
+        {
+            if (this.tabHtml.intTabQuantidade < 1)
+            {
+                return;
+            }
+
+            pnlNivelTabHtml.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            pnlNivelTabHtml.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
+            pnlNivelTabHtml.addCss(css.setPaddingLeft(10));
+            pnlNivelTabHtml.addCss(css.setPaddingRight(10));
+        }
+
+        private void finalizarDivComando()
+        {
+            if (!this.booJnlCadastro)
+            {
+                return;
+            }
+
+            this.divComando.intNivel = (this.intUltimoNivel + 3);
+
+            this.divComando.setPai(this);
         }
 
         private void finalizarMontarLayoutLstCmp()
@@ -361,6 +512,7 @@ namespace NetZ.Web.Html.Componente.Form
                 pnlNivel = new PainelNivel();
 
                 pnlNivel.intNivel = tag.intNivel;
+
                 pnlNivel.setPai(this.divConteudo);
 
                 this.lstPnlNivel.Add(pnlNivel);
@@ -380,6 +532,35 @@ namespace NetZ.Web.Html.Componente.Form
 
                 this.divLimiteFloat.setPai(pnl);
             }
+        }
+
+        private void finalizarPnlDica()
+        {
+            if (!this.booJnlCadastro)
+            {
+                return;
+            }
+
+            this.pnlDica.intNivel = (this.intUltimoNivel + 2);
+
+            this.pnlDica.setPai(this);
+        }
+
+        private void finalizarTabHtml()
+        {
+            if (!this.booJnlCadastro)
+            {
+                return;
+            }
+
+            if (this.tabHtml.intTabQuantidade < 1)
+            {
+                return;
+            }
+
+            this.tabHtml.intNivel = (this.intUltimoNivel + 1);
+
+            this.tabHtml.setPai(this);
         }
 
         #endregion Métodos

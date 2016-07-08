@@ -1046,7 +1046,7 @@ namespace NetZ.Web.Html
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
         /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de seus descendentes).
         /// </summary>
-        public void setPai(Tag tagPai)
+        public virtual void setPai(Tag tagPai)
         {
             #region Variáveis
 

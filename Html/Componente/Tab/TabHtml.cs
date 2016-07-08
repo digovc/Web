@@ -1,9 +1,10 @@
-﻿using NetZ.Web.Html.Componente.Botao;
+﻿using System;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
-    public class TabHtml : ComponenteHtml
+    public class TabHtml : ComponenteHtml, ITagNivel
     {
         #region Constantes
 
@@ -15,10 +16,23 @@ namespace NetZ.Web.Html.Componente.Tab
         private BotaoCircular _btnAlterar;
         private BotaoCircular _btnApagar;
         private Div _divCabecalho;
-        private Div _divCabecalhoComando;
-        private Div _divCabecalhoConteudo;
+        private Div _divComando;
         private Div _divConteudo;
+        private int _intNivel;
         private int _intTabQuantidade;
+
+        public int intNivel
+        {
+            get
+            {
+                return _intNivel;
+            }
+
+            set
+            {
+                _intNivel = value;
+            }
+        }
 
         /// <summary>
         /// Retorna a quantidade de tabs que essa tag possui.
@@ -96,33 +110,18 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
-        private Div divCabecalhoComando
+        private Div divComando
         {
             get
             {
-                if (_divCabecalhoComando != null)
+                if (_divComando != null)
                 {
-                    return _divCabecalhoComando;
+                    return _divComando;
                 }
 
-                _divCabecalhoComando = new Div();
+                _divComando = new Div();
 
-                return _divCabecalhoComando;
-            }
-        }
-
-        private Div divCabecalhoConteudo
-        {
-            get
-            {
-                if (_divCabecalhoConteudo != null)
-                {
-                    return _divCabecalhoConteudo;
-                }
-
-                _divCabecalhoConteudo = new Div();
-
-                return _divCabecalhoConteudo;
+                return _divComando;
             }
         }
 
@@ -184,6 +183,7 @@ namespace NetZ.Web.Html.Componente.Tab
             this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
             this.btnAlterar.strId = (this.strId + "_btnAlterar");
             this.btnApagar.strId = (this.strId + "_btnApagar");
+            this.divComando.strId = (this.strId + "_divComando");
         }
 
         protected override void inicializar()
@@ -191,8 +191,13 @@ namespace NetZ.Web.Html.Componente.Tab
             base.inicializar();
 
             this.btnAdicionar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
+            this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+
             this.btnAlterar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
+            this.btnAlterar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+
             this.btnApagar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
+            this.btnApagar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
         }
 
         protected override void montarLayout()
@@ -200,34 +205,39 @@ namespace NetZ.Web.Html.Componente.Tab
             base.montarLayout();
 
             this.divCabecalho.setPai(this);
-            this.divCabecalhoConteudo.setPai(this.divCabecalho);
-            this.divCabecalhoComando.setPai(this.divCabecalho);
             this.divConteudo.setPai(this);
+            this.divComando.setPai(this);
 
-            this.btnAdicionar.setPai(this.divCabecalhoComando);
-            this.btnAlterar.setPai(this.divCabecalhoComando);
-            this.btnApagar.setPai(this.divCabecalhoComando);
+            this.btnAdicionar.setPai(this.divComando);
+            this.btnAlterar.setPai(this.divComando);
+            //this.btnApagar.setPai(this.divComando);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
             this.addCss(css.setHeight(250));
             this.addCss(css.setPosition("relative"));
 
+            this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
+
+            this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
+            this.btnAlterar.addCss(css.setBottom(40));
+            this.btnAlterar.addCss(css.setPosition("absolute"));
+            this.btnAlterar.addCss(css.setRight(0));
+
             this.divCabecalho.addCss(css.setHeight(30));
+            this.divCabecalho.addCss(css.setPosition("absolute"));
+            this.divCabecalho.addCss(css.setTop(10));
 
-            this.divCabecalhoComando.addCss(css.setPosition("absolute"));
-            this.divCabecalhoComando.addCss(css.setRight(0));
-            this.divCabecalhoComando.addCss(css.setHeight(30));
-            this.divCabecalhoComando.addCss(css.setTop(5));
-
-            this.divCabecalhoConteudo.addCss(css.setHeight(30));
+            this.divComando.addCss(css.setBottom(10));
+            this.divComando.addCss(css.setDisplay("none"));
+            this.divComando.addCss(css.setPosition("absolute"));
+            this.divComando.addCss(css.setRight(5));
 
             this.divConteudo.addCss(css.setBottom(0));
-            this.divConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            this.divConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
             this.divConteudo.addCss(css.setOverflow("auto"));
             this.divConteudo.addCss(css.setPosition("absolute"));
             this.divConteudo.addCss(css.setTop(40));
@@ -254,7 +264,7 @@ namespace NetZ.Web.Html.Componente.Tab
 
             tagTabItemHead.tabItem = tabItem;
 
-            tagTabItemHead.setPai(this.divCabecalhoConteudo);
+            tagTabItemHead.setPai(this.divCabecalho);
         }
 
         #endregion Métodos

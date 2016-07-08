@@ -18,41 +18,23 @@ namespace NetZ.Web.Html.Componente.Janela
         private Div _divCabecalho;
         private Div _divInativa;
         private Div _divTitulo;
-        private int _intTamanhoX = 5;
-        private int _intTamanhoY = 5;
+        private int _intTamanhoHotizontal = 5;
         private string _strTitulo;
 
         /// <summary>
         /// Indica o tamanho horizontal desta janela. A unidade deste valor são 50 pixels, ou seja, 1
         /// = 50px, 5 = 250px.
         /// </summary>
-        public int intTamanhoX
+        public int intTamanhoHotizontal
         {
             get
             {
-                return _intTamanhoX;
+                return _intTamanhoHotizontal;
             }
 
             set
             {
-                _intTamanhoX = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica o tamanho vertical desta janela. A unidade deste valor são 50 pixels, ou seja, 1
-        /// = 50px, 5 = 250px.
-        /// </summary>
-        public int intTamanhoY
-        {
-            get
-            {
-                return _intTamanhoY;
-            }
-
-            set
-            {
-                _intTamanhoY = value;
+                _intTamanhoHotizontal = value;
             }
         }
 
@@ -397,18 +379,12 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.finalizarCss(css);
 
-            this.finalizarCssHeight(css);
             this.finalizarCssWidth(css);
-        }
-
-        protected virtual void finalizarCssHeight(CssArquivo css)
-        {
-            this.addCss(css.setHeight((this.intTamanhoY * 50) - 20));
         }
 
         protected virtual void finalizarCssWidth(CssArquivo css)
         {
-            this.addCss(css.setWidth((this.intTamanhoX * 50)));
+            this.addCss(css.setWidth(this.intTamanhoHotizontal * 50));
         }
 
         protected override void inicializar()
@@ -450,7 +426,7 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
             this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
             this.addCss(css.setCenter());
             this.addCss(css.setPosition("absolute"));
