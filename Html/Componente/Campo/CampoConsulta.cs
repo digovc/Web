@@ -118,6 +118,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.btnMenu.addCss(css.setRight(-30));
             this.btnMenu.addCss(css.setTop(3));
 
+            this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.txtPesquisa.addCss(css.setBorder(0));
             this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
             this.txtPesquisa.addCss(css.setOutLine("none"));

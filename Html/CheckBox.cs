@@ -11,9 +11,9 @@ namespace NetZ.Web.Html
 
         #region Atributos
 
-        private Div _divQuadrado;
+        private Div _divContainer;
+        private Div _divSeletor;
         private Div _divTitulo;
-
         private string _strTitulo;
 
         /// <summary>
@@ -32,18 +32,33 @@ namespace NetZ.Web.Html
             }
         }
 
-        private Div divQuadrado
+        private Div divContainer
         {
             get
             {
-                if (_divQuadrado != null)
+                if (_divContainer != null)
                 {
-                    return _divQuadrado;
+                    return _divContainer;
                 }
 
-                _divQuadrado = new Div();
+                _divContainer = new Div();
 
-                return _divQuadrado;
+                return _divContainer;
+            }
+        }
+
+        private Div divSeletor
+        {
+            get
+            {
+                if (_divSeletor != null)
+                {
+                    return _divSeletor;
+                }
+
+                _divSeletor = new Div();
+
+                return _divSeletor;
             }
         }
 
@@ -75,6 +90,25 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(CheckBox), 111));
+        }
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.divSeletor.strId = (this.strId + "_divSeletor");
+        }
+
         protected override void finalizar()
         {
             base.finalizar();
@@ -86,7 +120,8 @@ namespace NetZ.Web.Html
         {
             base.montarLayout();
 
-            this.divQuadrado.setPai(this);
+            this.divContainer.setPai(this);
+            this.divSeletor.setPai(this.divContainer);
 
             this.divTitulo.setPai(this);
 
@@ -99,12 +134,22 @@ namespace NetZ.Web.Html
 
             this.addCss(css.setCursor("pointer"));
 
-            this.divQuadrado.addCss(css.setBackgroundColor("white"));
-            this.divQuadrado.addCss(css.setBorder(1, "solid", "gray"));
-            this.divQuadrado.addCss(css.setBorderRadius(3));
-            this.divQuadrado.addCss(css.setFloat("left"));
-            this.divQuadrado.addCss(css.setHeight(16));
-            this.divQuadrado.addCss(css.setWidth(16));
+            this.divContainer.addCss(css.setBackgroundColor("white"));
+            this.divContainer.addCss(css.setBorder(1, "solid", "gray"));
+            this.divContainer.addCss(css.setBorderRadius(10));
+            this.divContainer.addCss(css.setFloat("left"));
+            this.divContainer.addCss(css.setHeight(16));
+            this.divContainer.addCss(css.setMarginRight(10));
+            this.divContainer.addCss(css.setPosition("relative"));
+            this.divContainer.addCss(css.setWidth(30));
+
+            this.divSeletor.addCss(css.setBackgroundColor("rgb(160,160,160)"));
+            this.divSeletor.addCss(css.setBorderRadius(50, "%"));
+            this.divSeletor.addCss(css.setHeight(14));
+            this.divSeletor.addCss(css.setLeft(1));
+            this.divSeletor.addCss(css.setPosition("absolute"));
+            this.divSeletor.addCss(css.setTop(1));
+            this.divSeletor.addCss(css.setWidth(14));
 
             this.divTitulo.addCss(css.setPaddingLeft(25));
             this.divTitulo.addCss(css.setPaddingTop(2));

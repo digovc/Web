@@ -31,7 +31,7 @@ namespace NetZ.Web.Html.Componente.Menu.Contexto
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
-            this.addCss(css.setBoxShadow(0, 0, 10, 0, AppWeb.i.objTema.corBorda));
+            this.addCss(css.setBoxShadow(0, 0, 10, 0, AppWeb.i.objTema.corSombra));
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setMaxHeight(250));
             this.addCss(css.setOverflowY("auto"));

@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -10,6 +9,23 @@ namespace NetZ.Web.Html.Componente.Campo
         #endregion Constantes
 
         #region Atributos
+
+        private CheckBox _ckb;
+
+        private CheckBox ckb
+        {
+            get
+            {
+                if (_ckb != null)
+                {
+                    return _ckb;
+                }
+
+                _ckb = new CheckBox();
+
+                return _ckb;
+            }
+        }
 
         #endregion Atributos
 
@@ -23,25 +39,14 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 130));
+        }
 
-            #endregion Variáveis
+        protected override void atualizarStrTitulo()
+        {
+            base.atualizarStrTitulo();
 
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 130));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.ckb.strTitulo = this.strTitulo;
         }
 
         protected override Input.EnmTipo getEnmTipo()
@@ -49,22 +54,16 @@ namespace NetZ.Web.Html.Componente.Campo
             return Input.EnmTipo.CHECKBOX;
         }
 
+        protected override Input getTagInput()
+        {
+            return this.ckb;
+        }
+
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.tagInput.addCss(css.setTextAlign("left"));
-        }
-
-        protected override void setCssTagInputHeight(CssArquivo css)
-        {
-            //base.setCssTagInputHeight(css);
-            this.tagInput.addCss(css.setHeight(15));
-        }
-
-        protected override void setCssTagInputWidth(CssArquivo css)
-        {
-            //base.setCssTagInputWidth(css);
+            this.ckb.addCss(css.setBorderBottom(0, "solid", AppWeb.i.objTema.corTema));
         }
 
         #endregion Métodos

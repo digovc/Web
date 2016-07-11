@@ -232,6 +232,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 try
                 {
+                    if (_strTitulo == value)
+                    {
+                        return;
+                    }
+
                     _strTitulo = value;
 
                     this.atualizarStrTitulo();
@@ -347,7 +352,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private Div divTitulo
+        protected Div divTitulo
         {
             get
             {
@@ -638,7 +643,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.strId = strId;
         }
 
-        private void atualizarStrTitulo()
+        protected virtual void atualizarStrTitulo()
         {
             #region Variáveis
 

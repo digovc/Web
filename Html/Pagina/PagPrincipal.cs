@@ -123,7 +123,10 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
+                lstJs.Add(new JavaScriptTag(typeof(CampoMarkdown), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 131));
+                lstJs.Add(new JavaScriptTag(typeof(CampoSenha), 132));
+                lstJs.Add(new JavaScriptTag(typeof(CampoTexto), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CheckBox), 111));
                 lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
                 lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
