@@ -138,6 +138,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
                 lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
                 lstJs.Add(new JavaScriptTag(typeof(JnlConsulta), 122));
+                lstJs.Add(new JavaScriptTag(typeof(JnlTag), 122));
                 lstJs.Add(new JavaScriptTag(typeof(PagPrincipal), 103));
                 lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
                 lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
@@ -147,6 +148,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(TabHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabItem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 111));
+                lstJs.Add(new JavaScriptTag(typeof(TagCard), 111));
 
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.fixedheadertable.min.js"));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));

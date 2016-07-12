@@ -77,6 +77,23 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
         }
 
+        private BotaoCircular _btnTag;
+
+        private BotaoCircular btnTag
+        {
+            get
+            {
+                if (_btnTag != null)
+                {
+                    return _btnTag;
+                }
+
+                _btnTag = new BotaoCircular();
+
+                return _btnTag;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -101,10 +118,11 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
+            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
             this.btnDireita.strId = (this.strId + "_btnDireita");
             this.btnEsquerda.strId = (this.strId + "_btnEsquerda");
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
             this.btnSalvar.strId = (this.strId + "_btnSalvar");
+            this.btnTag.strId = (this.strId + "_btnTag");
         }
 
         protected override void inicializar()
@@ -118,6 +136,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.btnEsquerda.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
             this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+
+            this.btnTag.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
         }
 
         protected override void montarLayout()
@@ -128,6 +148,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.btnDireita.setPai(this);
             this.btnAdicionar.setPai(this);
             this.btnSalvar.setPai(this);
+            this.btnTag.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
@@ -153,6 +174,10 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.btnSalvar.addCss(css.setPosition("absolute"));
             this.btnSalvar.addCss(css.setRight(5));
             this.btnSalvar.addCss(css.setTop(5));
+
+            this.btnTag.addCss(css.setPosition("absolute"));
+            this.btnTag.addCss(css.setRight(95));
+            this.btnTag.addCss(css.setTop(10));
         }
 
         #endregion Métodos

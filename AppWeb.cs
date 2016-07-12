@@ -284,6 +284,7 @@ namespace NetZ.Web
 
                 case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
                 case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_JANELA_TAG:
                     this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
                     return;
 
@@ -403,13 +404,50 @@ namespace NetZ.Web
 
             TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
 
-            if (SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO.Equals(objSolicitacaoAjaxDb.enmMetodo))
+            switch (objSolicitacaoAjaxDb.enmMetodo)
             {
-                this.abrirCadastro(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
+                    this.abrirCadastro(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                    return;
+
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
+                    this.abrirCadastroFiltroConteudo(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                    return;
+
+                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_JANELA_TAG:
+                    this.abrirJnlTag(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                    return;
+            }
+
+        }
+
+        private void abrirJnlTag(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        {
+            if (tblWeb == null)
+            {
                 return;
             }
 
-            this.abrirCadastroFiltroConteudo(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+            if (string.IsNullOrEmpty(tblWeb.strNome))
+            {
+                return;
+            }
+
+            Tabela tbl = this.getTbl(tblWeb.strNome);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            tbl = tbl.tblPrincipal;
+
+            JnlTag jnlTag = new JnlTag();
+
+            jnlTag.tbl = tbl;
+            jnlTag.tblWeb = tblWeb;
+
+            objSolicitacaoAjaxDb.strData = jnlTag.toHtml();
         }
 
         private void abrirCadastro(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)

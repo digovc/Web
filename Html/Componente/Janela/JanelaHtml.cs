@@ -427,6 +427,7 @@ namespace NetZ.Web.Html.Componente.Janela
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
+            this.addCss(css.setBorder(1, "solid", "#2e2e2e"));
             this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
             this.addCss(css.setCenter());
             this.addCss(css.setPosition("absolute"));

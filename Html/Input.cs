@@ -292,9 +292,20 @@ namespace NetZ.Web.Html
         {
             base.setCss(css);
 
-            this.setCssDateTime(css);
-            this.setCssNumber(css);
-            this.setCssTextArea(css);
+            switch (this.enmTipo)
+            {
+                case EnmTipo.DATETIME:
+                    this.setCssDateTime(css);
+                    return;
+
+                case EnmTipo.NUMBER:
+                    this.setCssNumber(css);
+                    return;
+
+                case EnmTipo.TEXT_AREA:
+                    this.setCssTextArea(css);
+                    return;
+            }
         }
 
         private void inicializarEnmTipo()
@@ -475,32 +486,17 @@ namespace NetZ.Web.Html
 
         private void setCssDateTime(CssArquivo css)
         {
-            if (!EnmTipo.DATETIME.Equals(this.enmTipo))
-            {
-                return;
-            }
-
             this.addCss(css.setTextAlign("right"));
         }
 
         private void setCssNumber(CssArquivo css)
         {
-            if (!EnmTipo.NUMBER.Equals(this.enmTipo))
-            {
-                return;
-            }
-
             this.addCss(css.setTextAlign("right"));
         }
 
         private void setCssTextArea(CssArquivo css)
         {
-            if (!EnmTipo.TEXT_AREA.Equals(this.enmTipo))
-            {
-                return;
-            }
-
-            this.addCss(css.setWidth(100, "%"));
+            //this.addCss(css.setWidth(100, "%"));
         }
 
         #endregion Métodos

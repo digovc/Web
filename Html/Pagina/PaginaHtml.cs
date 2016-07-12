@@ -6,6 +6,7 @@ using System.Text;
 using NetZ.SistemaBase;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo.Css;
@@ -539,6 +540,23 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
+        private Div _divNotificacao;
+
+        private Div divNotificacao
+        {
+            get
+            {
+                if (_divNotificacao != null)
+                {
+                    return _divNotificacao;
+                }
+
+                _divNotificacao = new Div();
+
+                return _divNotificacao;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -706,6 +724,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
+                lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
                 lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
@@ -780,6 +799,8 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
+                this.divNotificacao.strId = "divNotificacao";
+
                 this.tagBody.booMostrarClazz = false;
 
                 this.tagCssMain.strId = CssMain.STR_CSS_ID;
@@ -854,6 +875,8 @@ namespace NetZ.Web.Html.Pagina
                 this.tagIcon.setPai(this.tagHead);
                 this.tagCssMain.setPai(this.tagHead);
                 this.tagCssPrint.setPai(this.tagHead);
+
+                this.divNotificacao.setPai(this);
             }
             catch (Exception ex)
             {
@@ -877,6 +900,11 @@ namespace NetZ.Web.Html.Pagina
             try
             {
                 this.tagBody.addCss(css.setMargin(0));
+
+                this.divNotificacao.addCss(css.setBottom(20));
+                this.divNotificacao.addCss(css.setPosition("absolute"));
+                this.divNotificacao.addCss(css.setRight(20));
+                this.divNotificacao.addCss(css.setZIndex(100));
             }
             catch (Exception ex)
             {
@@ -976,6 +1004,8 @@ namespace NetZ.Web.Html.Pagina
             this.addLayoutFixo(typeof(MenuContexto));
             this.addLayoutFixo(typeof(MenuContextoItem));
             this.addLayoutFixo(typeof(MenuGrid));
+            this.addLayoutFixo(typeof(Notificacao));
+            this.addLayoutFixo(typeof(TagCard));
         }
 
         private void addLayoutFixo(Type cls)

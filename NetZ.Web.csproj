@@ -64,12 +64,15 @@
     <Compile Include="Html\Componente\Grid\MenuGrid.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroCadastro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroItemCadastro.cs" />
+    <Compile Include="Html\Componente\Janela\Cadastro\JnlTag.cs" />
+    <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContexto.cs" />
     <Compile Include="Html\Componente\Menu\MenuMobile.cs" />
     <Compile Include="Html\Componente\Menu\MenuMobileItem.cs" />
+    <Compile Include="Html\Componente\Notificacao.cs" />
     <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoCircular.cs" />
     <Compile Include="Html\Componente\Botao\BotaoHtml.cs" />
