@@ -246,7 +246,7 @@ namespace NetZ.Web.DataBase.View
         {
         }
 
-        protected override string getSqlView()
+        protected override string getSql()
         {
             return Properties.View.viw_filtro_item;
         }

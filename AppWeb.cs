@@ -5,7 +5,6 @@ using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
-using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
@@ -153,7 +152,20 @@ namespace NetZ.Web
 
             this.strNome = strNome;
 
-            this.inicializarLstTbl(this.lstTbl);
+            this.iniciar();
+        }
+
+        private void inicializar()
+        {
+            if (this.getObjDbPrincipal() != null)
+            {
+                this.inicializarLstTbl(this.lstTbl);
+            }
+        }
+
+        private void iniciar()
+        {
+            this.inicializar();
         }
 
         #endregion Construtores
@@ -308,18 +320,6 @@ namespace NetZ.Web
                     this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
                     return;
             }
-        }
-
-        private void carregarTbl(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            Tabela tbl = this.getTbl(objSolicitacaoAjaxDb.strData);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            objSolicitacaoAjaxDb.strData = Json.i.toJson(tbl.tblWeb);
         }
 
         /// <summary>
@@ -518,6 +518,18 @@ namespace NetZ.Web
 
         private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
+        }
+
+        private void carregarTbl(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            Tabela tbl = this.getTbl(objSolicitacaoAjaxDb.strData);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            objSolicitacaoAjaxDb.strData = Json.i.toJson(tbl.tblWeb);
         }
 
         private Tabela getTbl(string strTblNome, Tabela tbl)

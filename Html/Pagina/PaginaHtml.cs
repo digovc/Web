@@ -722,8 +722,6 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/LayoutFixo.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/LayoutFixoManager.js", 1));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxErroArg.js", 105));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/server/OnAjaxSucessoArg.js", 105));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
                 lstJs.Add(this.tagJs);
@@ -990,7 +988,7 @@ namespace NetZ.Web.Html.Pagina
                 return;
             }
 
-            string strJq = "NetZ_Web_TypeScript.LayoutFixoManager.i.addLayoutFixo(new NetZ_Web_TypeScript.LayoutFixo('_class_nome', '_componente_html'));";
+            string strJq = "NetZ_Web.LayoutFixoManager.i.addLayoutFixo(new NetZ_Web.LayoutFixo('_class_nome', '_componente_html'));";
 
             strJq = strJq.Replace("_class_nome", cls.Name);
             strJq = strJq.Replace("_componente_html", (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
