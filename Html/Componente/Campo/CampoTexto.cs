@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -46,6 +47,20 @@ namespace NetZ.Web.Html.Componente.Campo
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.TEXT_AREA;
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.intTamanhoVertical = 2;
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.tagInput.addCss(css.setMinHeight(this.intTamanhoVertical * 100 - 35));
         }
 
         #endregion Métodos

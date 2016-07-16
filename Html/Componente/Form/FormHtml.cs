@@ -509,13 +509,7 @@ namespace NetZ.Web.Html.Componente.Form
 
             if (tag.intNivel > pnlNivel.intNivel)
             {
-                pnlNivel = new PainelNivel();
-
-                pnlNivel.intNivel = tag.intNivel;
-
-                pnlNivel.setPai(this.divConteudo);
-
-                this.lstPnlNivel.Add(pnlNivel);
+                pnlNivel = this.getPnlNivel(tag);
             }
 
             (tag as Tag).setPai(pnlNivel);
@@ -561,6 +555,24 @@ namespace NetZ.Web.Html.Componente.Form
             this.tabHtml.intNivel = (this.intUltimoNivel + 1);
 
             this.tabHtml.setPai(this);
+        }
+
+        private PainelNivel getPnlNivel(ITagNivel tag)
+        {
+            PainelNivel pnlNivelResultado = new PainelNivel();
+
+            pnlNivelResultado.intNivel = tag.intNivel;
+
+            if (tag.intTamanhoVertical > 0)
+            {
+                pnlNivelResultado.intTamanhoVertical = tag.intTamanhoVertical;
+            }
+
+            pnlNivelResultado.setPai(this.divConteudo);
+
+            this.lstPnlNivel.Add(pnlNivelResultado);
+
+            return pnlNivelResultado;
         }
 
         #endregion Métodos

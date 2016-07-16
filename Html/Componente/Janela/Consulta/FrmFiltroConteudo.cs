@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using NetZ.Persistencia;
-using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
@@ -164,7 +163,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            CampoHtml cmpFiltro = this.inicializarLstCmpFiltro2(row, clnFiltrada);
+            CampoHtml cmpFiltro = this.inicializarLstCmpFiltro(clnFiltrada);
 
             if (cmpFiltro == null)
             {
@@ -182,8 +181,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.lstCmpFiltro.Add(cmpFiltro);
         }
 
-        private CampoHtml inicializarLstCmpFiltro2(DataRow row, Coluna clnFiltrada)
+        private CampoHtml inicializarLstCmpFiltro(Coluna clnFiltrada)
         {
+            if (clnFiltrada.lstKvpOpcao.Count > 0)
+            {
+                return this.inicializarLstCmpFiltroOpcao(clnFiltrada);
+            }
+
             switch (clnFiltrada.enmTipo)
             {
                 case Coluna.EnmTipo.BIGINT:
@@ -231,6 +235,15 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 default:
                     return null;
             }
+        }
+
+        private CampoHtml inicializarLstCmpFiltroOpcao(Coluna clnFiltrada)
+        {
+            CampoComboBox cmpComboBox = new CampoComboBox();
+
+            cmpComboBox.addOpcao(clnFiltrada.lstKvpOpcao);
+
+            return cmpComboBox;
         }
 
         private void montarLayoutLstCmpFiltro()

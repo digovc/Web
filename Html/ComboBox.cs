@@ -15,7 +15,7 @@ namespace NetZ.Web.Html
 
         private bool _booOpcaoVazia;
         private Coluna _cln;
-        private SortedDictionary<object, string> _dicOpcao;
+        private Dictionary<object, string> _dicOpcao;
         private DataTable _objDataTable;
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private SortedDictionary<object, string> dicOpcao
+        private Dictionary<object, string> dicOpcao
         {
             get
             {
@@ -87,7 +87,7 @@ namespace NetZ.Web.Html
                         return _dicOpcao;
                     }
 
-                    _dicOpcao = new SortedDictionary<object, string>();
+                    _dicOpcao = new Dictionary<object, string>();
                 }
                 catch (Exception ex)
                 {

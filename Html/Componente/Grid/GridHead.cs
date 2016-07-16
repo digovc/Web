@@ -69,6 +69,12 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
+            if (this.cln.lstKvpOpcao.Count > 0)
+            {
+                this.setCssClnAlfanumerico(css);
+                return;
+            }
+
             switch (this.cln.enmGrupo)
             {
                 case Coluna.EnmGrupo.ALFANUMERICO:

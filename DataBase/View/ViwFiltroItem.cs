@@ -265,7 +265,6 @@ namespace NetZ.Web.DataBase.View
             base.inicializar();
 
             this.clnIntFiltroItemFiltroId.clnRef = TblFiltro.i.clnIntId;
-
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.DIFERENTE, "Diferente");
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.IGUAL, "Igual");
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.IGUAL_CONSULTA, "Consulta");

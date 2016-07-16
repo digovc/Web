@@ -14,7 +14,7 @@ namespace NetZ.Web.Html.Componente.Grid
         private BotaoCircular _btnAdicionar;
         private BotaoCircular _btnAlterar;
         private BotaoCircular _btnApagar;
-        private BotaoCircular _btnOpcao;
+        private BotaoCircular _btnMenu;
 
         private BotaoCircular btnAdicionar
         {
@@ -61,18 +61,18 @@ namespace NetZ.Web.Html.Componente.Grid
             }
         }
 
-        private BotaoCircular btnOpcao
+        private BotaoCircular btnMenu
         {
             get
             {
-                if (_btnOpcao != null)
+                if (_btnMenu != null)
                 {
-                    return _btnOpcao;
+                    return _btnMenu;
                 }
 
-                _btnOpcao = new BotaoCircular();
+                _btnMenu = new BotaoCircular();
 
-                return _btnOpcao;
+                return _btnMenu;
             }
         }
 
@@ -94,15 +94,15 @@ namespace NetZ.Web.Html.Componente.Grid
             this.btnAlterar.strId = "_btn_alterar_str_id";
             this.btnApagar.strId = "_btn_apagar_str_id";
 
-            this.btnOpcao.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
-            this.btnOpcao.strId = "_btn_opcao_str_id";
+            this.btnMenu.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+            this.btnMenu.strId = "_btn_menu_str_id";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            this.btnOpcao.setPai(this);
+            this.btnMenu.setPai(this);
             this.btnApagar.setPai(this);
             this.btnAlterar.setPai(this);
             this.btnAdicionar.setPai(this);
@@ -116,18 +116,24 @@ namespace NetZ.Web.Html.Componente.Grid
             this.addCss(css.setPosition("absolute"));
             this.addCss(css.setTop(150));
 
-            this.btnOpcao.addCss(css.setRight(-150));
-            this.btnOpcao.addCss(css.setPosition("absolute"));
-            this.btnOpcao.addCss(css.setTop(-30));
+            this.btnMenu.addCss(css.setBackgroundImage("/res/media/png/btn_opcoes_30x30.png"));
+            this.btnMenu.addCss(css.setPosition("absolute"));
+            this.btnMenu.addCss(css.setRight(-150));
+            this.btnMenu.addCss(css.setTop(-30));
 
+            this.btnApagar.addCss(css.setDisplay("none"));
             this.btnApagar.addCss(css.setLeft(50));
             this.btnApagar.addCss(css.setPosition("absolute"));
             this.btnApagar.addCss(css.setTop(-50));
 
+            this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
+            this.btnAlterar.addCss(css.setBackgroundPosition("center"));
             this.btnAlterar.addCss(css.setLeft(0));
             this.btnAlterar.addCss(css.setPosition("absolute"));
             this.btnAlterar.addCss(css.setTop(-30));
 
+            this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
+            this.btnAdicionar.addCss(css.setBackgroundPosition("center"));
             this.btnAdicionar.addCss(css.setLeft(-20));
             this.btnAdicionar.addCss(css.setPosition("absolute"));
             this.btnAdicionar.addCss(css.setTop(20));

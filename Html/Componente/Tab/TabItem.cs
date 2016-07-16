@@ -82,6 +82,7 @@ namespace NetZ.Web.Html.Componente.Tab
             this.tbl = this.tbl.viwPrincipal;
 
             this.strId = ("tabItem_" + this.tbl.strNomeSql);
+
             this.strTitulo = this.tbl.strNomeExibicao;
 
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);

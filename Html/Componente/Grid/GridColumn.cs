@@ -99,6 +99,11 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
+            if (this.cln.lstKvpOpcao.Count > 0)
+            {
+                return;
+            }
+
             switch (this.cln.enmGrupo)
             {
                 case Coluna.EnmGrupo.NUMERICO_INTEIRO:

@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Botao;
+﻿using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
@@ -20,6 +19,8 @@ namespace NetZ.Web.Html.Componente.Tab
         private Div _divConteudo;
         private int _intNivel;
         private int _intTabQuantidade;
+
+        private int _intTamanhoVertical;
 
         public int intNivel
         {
@@ -47,6 +48,19 @@ namespace NetZ.Web.Html.Componente.Tab
             private set
             {
                 _intTabQuantidade = value;
+            }
+        }
+
+        public int intTamanhoVertical
+        {
+            get
+            {
+                return _intTamanhoVertical;
+            }
+
+            set
+            {
+                _intTamanhoVertical = value;
             }
         }
 

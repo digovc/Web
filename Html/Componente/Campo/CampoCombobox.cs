@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using System.Collections.Generic;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -54,6 +55,19 @@ namespace NetZ.Web.Html.Componente.Campo
             this.cmb.addOpcao(objValor, strNome);
         }
 
+        internal void addOpcao(List<KeyValuePair<object, string>> lstKvpOpcao)
+        {
+            if (lstKvpOpcao == null)
+            {
+                return;
+            }
+
+            foreach (KeyValuePair<object, string> kvpOpcao in lstKvpOpcao)
+            {
+                this.addOpcao(kvpOpcao);
+            }
+        }
+
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -81,6 +95,11 @@ namespace NetZ.Web.Html.Componente.Campo
         protected override void setCssTagInputHeight(CssArquivo css)
         {
             this.tagInput.addCss(css.setHeight(22));
+        }
+
+        private void addOpcao(KeyValuePair<object, string> kvpOpcao)
+        {
+            this.addOpcao(kvpOpcao.Key, kvpOpcao.Value);
         }
 
         #endregion Métodos

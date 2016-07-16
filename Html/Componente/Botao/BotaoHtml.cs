@@ -20,6 +20,8 @@ namespace NetZ.Web.Html.Componente.Botao
         private EnmLado _enmLado = EnmLado.DIREITA;
         private int _intNivel;
 
+        private int _intTamanhoVertical;
+
         /// <summary>
         /// Caso este botão esteja dentro de um formulário e não deseje que acione o submit do mesmo
         /// ao ser clicado (que é a ação padrão), basta alterar essa propriedade para false.
@@ -66,6 +68,19 @@ namespace NetZ.Web.Html.Componente.Botao
             set
             {
                 _intNivel = value;
+            }
+        }
+
+        public int intTamanhoVertical
+        {
+            get
+            {
+                return _intTamanhoVertical;
+            }
+
+            set
+            {
+                _intTamanhoVertical = value;
             }
         }
 

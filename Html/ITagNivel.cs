@@ -17,6 +17,12 @@
             set;
         }
 
+        int intTamanhoVertical
+        {
+            get;
+            set;
+        }
+
         #endregion Atributos
 
         #region Métodos

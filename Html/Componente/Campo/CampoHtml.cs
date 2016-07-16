@@ -52,6 +52,7 @@ namespace NetZ.Web.Html.Componente.Campo
         private Div _divTitulo;
         private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
         private int _intNivel;
+        private int _intTamanhoVertical;
         private string _strTitulo;
         private Input _tagInput;
 
@@ -211,6 +212,19 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        public int intTamanhoVertical
+        {
+            get
+            {
+                return _intTamanhoVertical;
+            }
+
+            set
+            {
+                _intTamanhoVertical = value;
+            }
+        }
+
         /// <summary>
         /// Título que será apresentado no canto superior esquerdo deste campo para que o usuário
         /// possa identificá-lo.
@@ -319,39 +333,6 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private Div divObrigatorio
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_divObrigatorio != null)
-                    {
-                        return _divObrigatorio;
-                    }
-
-                    _divObrigatorio = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _divObrigatorio;
-            }
-        }
-
         protected Div divTitulo
         {
             get
@@ -382,6 +363,39 @@ namespace NetZ.Web.Html.Componente.Campo
                 #endregion Ações
 
                 return _divTitulo;
+            }
+        }
+
+        private Div divObrigatorio
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divObrigatorio != null)
+                    {
+                        return _divObrigatorio;
+                    }
+
+                    _divObrigatorio = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divObrigatorio;
             }
         }
 
@@ -467,6 +481,30 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divObrigatorio.strId = (this.strId + "_divObrigatorio");
             this.divTitulo.strId = (this.strId + "_divTitulo");
             this.tagInput.strId = (this.strId + "_tagInput");
+        }
+
+        protected virtual void atualizarStrTitulo()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
+                this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
         }
 
         protected override void finalizar()
@@ -641,30 +679,6 @@ namespace NetZ.Web.Html.Componente.Campo
             strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
 
             this.strId = strId;
-        }
-
-        protected virtual void atualizarStrTitulo()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
-                this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void finalizarMostrarTituloSempre()

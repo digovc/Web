@@ -67,6 +67,7 @@ namespace NetZ.Web.Html.Componente.Tab
             }
 
             this.strConteudo = this.tabItem.strTitulo;
+
             this.strId = (this.tabItem.strId + "_tabItemHead");
         }
 
