@@ -151,9 +151,10 @@ namespace NetZ.Web.Html
                 srcResultado = srcResultado.Replace("res/js/netz/web", "res/js/Web.TypeScript");
 
                 // TODO: Essa lista têm de ser dinamizada.
-                srcResultado = srcResultado.Replace("res/js/cia", "res/js/Principal.TypeScript");
-                srcResultado = srcResultado.Replace("res/js/gti", "res/js/Principal.TypeScript");
                 srcResultado = srcResultado.Replace("res/js/atendimento_web", "res/js/Principal.TypeScript");
+                srcResultado = srcResultado.Replace("res/js/cia", "res/js/Principal.TypeScript");
+                srcResultado = srcResultado.Replace("res/js/comic_x", "res/js/Principal.TypeScript");
+                srcResultado = srcResultado.Replace("res/js/gti", "res/js/Principal.TypeScript");
                 srcResultado = srcResultado.Replace("+", ".");
 
                 return srcResultado;

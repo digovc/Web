@@ -20,7 +20,7 @@ namespace NetZ.Web
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
         private bool _booServerAjaxDbAtivar = true;
-        private int _intPorta = 8080;
+        private int _intPorta = 80;
         private int _intServerAjaxDbPorta = 8081;
         private int _intTimeOut = 5;
 

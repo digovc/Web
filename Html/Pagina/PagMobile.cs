@@ -10,24 +10,8 @@ namespace NetZ.Web.Html.Pagina
 
         #region Atributos
 
-        private ActionBar _divActionBar;
         private Tag _tagMetaMobile;
         private Tag _tagMetaViewPort;
-
-        private ActionBar divActionBar
-        {
-            get
-            {
-                if (_divActionBar != null)
-                {
-                    return _divActionBar;
-                }
-
-                _divActionBar = new ActionBar();
-
-                return _divActionBar;
-            }
-        }
 
         private Tag tagMetaMobile
         {
@@ -78,13 +62,6 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(PagMobile), 103));
         }
 
-        protected override void atualizarStrNome()
-        {
-            base.atualizarStrNome();
-
-            this.divActionBar.strTitulo = this.strNome;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -108,8 +85,6 @@ namespace NetZ.Web.Html.Pagina
 
             this.tagMetaMobile.setPai(this.tagHead);
             this.tagMetaViewPort.setPai(this.tagHead);
-
-            this.divActionBar.setPai(this);
         }
 
         #endregion Métodos
