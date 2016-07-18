@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -45,6 +46,7 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private byte[] _arrBteMsgCliente;
         private decimal _decHttpVersao;
         private Dictionary<string, string> _dicPost;
         private DateTime _dttUltimaModificacao = DateTime.MinValue;
@@ -506,6 +508,21 @@ namespace NetZ.Web.Server
             }
         }
 
+        internal byte[] arrBteMsgCliente
+        {
+            get
+            {
+                if (_arrBteMsgCliente != null)
+                {
+                    return _arrBteMsgCliente;
+                }
+
+                _arrBteMsgCliente = this.getArrBteMsgCliente();
+
+                return _arrBteMsgCliente;
+            }
+        }
+
         private decimal decHttpVersao
         {
             get
@@ -817,6 +834,32 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
+        }
+
+        private byte[] getArrBteMsgCliente()
+        {
+            if (!this.nts.CanRead)
+            {
+                return null;
+            }
+
+            while (!this.nts.DataAvailable)
+            {
+                Thread.Sleep(250);
+            }
+
+            byte[] arrBte = new byte[1024];
+            int intQuantidade = 0;
+            MemoryStream mmsResultado = new MemoryStream();
+
+            do
+            {
+                intQuantidade = this.nts.Read(arrBte, 0, arrBte.Length);
+
+                mmsResultado.Write(arrBte, 0, intQuantidade);
+            } while (this.nts.DataAvailable);
+
+            return mmsResultado.ToArray();
         }
 
         private decimal getDecHttpVersao()
@@ -1244,6 +1287,34 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
+        private Usuario getObjUsuario()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.strSessaoId))
+                {
+                    return null;
+                }
+
+                return AppWeb.i.getObjUsuario(this.strSessaoId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         private string getStrConteudo()
         {
             #region Variáveis
@@ -1375,54 +1446,17 @@ namespace NetZ.Web.Server
 
         private string getStrMsgCliente()
         {
-            #region Variáveis
-
-            byte[] arrBte;
-            byte[] arrBte2;
-            int intQtd;
-            StringBuilder stbMsg;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.arrBteMsgCliente == null)
             {
-                if (!this.nts.CanRead)
-                {
-                    return null;
-                }
-
-                while (!this.nts.DataAvailable)
-                {
-                    Thread.Sleep(250);
-                }
-
-                arrBte = new byte[1024];
-                stbMsg = new StringBuilder();
-
-                do
-                {
-                    intQtd = this.nts.Read(arrBte, 0, arrBte.Length);
-
-                    arrBte2 = new byte[intQtd];
-
-                    Array.Copy(arrBte, arrBte2, intQtd);
-
-                    stbMsg.Append(Encoding.UTF8.GetString(arrBte2));
-                } while (this.nts.DataAvailable);
-
-                return stbMsg.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.arrBteMsgCliente.Length < 1)
+            {
+                return null;
+            }
+
+            return Encoding.UTF8.GetString(this.arrBteMsgCliente);
         }
 
         private string getStrPagina()
@@ -1488,34 +1522,6 @@ namespace NetZ.Web.Server
                 }
 
                 return arrStr[1];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private Usuario getObjUsuario()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (string.IsNullOrEmpty(this.strSessaoId))
-                {
-                    return null;
-                }
-
-                return AppWeb.i.getObjUsuario(this.strSessaoId);
             }
             catch (Exception ex)
             {

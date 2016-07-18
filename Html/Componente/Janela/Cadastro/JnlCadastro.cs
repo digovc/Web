@@ -20,7 +20,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private CampoNumerico _cmpIntId;
         private FormHtml _frm;
         private Tabela _tbl;
-        private Tabela _tblPai;
         private TabelaWeb _tblWeb;
 
         public Tabela tbl
@@ -53,21 +52,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             set
             {
                 _tblWeb = value;
-            }
-        }
-
-        protected Tabela tblPai
-        {
-            get
-            {
-                if (_tblPai != null)
-                {
-                    return _tblPai;
-                }
-
-                _tblPai = this.getTblPai();
-
-                return _tblPai;
             }
         }
 
@@ -212,21 +196,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-        }
-
-        private Tabela getTblPai()
-        {
-            if (this.tblWeb == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrEmpty(this.tblWeb.strTblPaiNome))
-            {
-                return null;
-            }
-
-            return AppWeb.i.getTbl(this.tblWeb.strTblPaiNome);
         }
 
         private void inicializarCampos()

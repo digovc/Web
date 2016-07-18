@@ -28,6 +28,11 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
+        /// Switching Protocols (WebSocket).
+        /// </summary>
+        public const int INT_STATUS_CODE_101_SWITCHING_PROTOCOLS = 101;
+
+        /// <summary>
         /// Tudo certo.
         /// </summary>
         public const int INT_STATUS_CODE_200_OK = 200;
@@ -252,32 +257,11 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_mmsConteudo != null)
-                    {
-                        return _mmsConteudo;
-                    }
-
-                    _mmsConteudo = new MemoryStream();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
                 return _mmsConteudo;
+            }
+            set
+            {
+                _mmsConteudo = value;
             }
         }
 
@@ -638,6 +622,8 @@ namespace NetZ.Web.Server
                     return this;
                 }
 
+                this.mmsConteudo = new MemoryStream();
+
                 this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
 
                 return this;
@@ -718,6 +704,8 @@ namespace NetZ.Web.Server
                 }
 
                 arrBte = Encoding.UTF8.GetBytes(strConteudo);
+
+                this.mmsConteudo = new MemoryStream();
 
                 this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
             }
@@ -865,28 +853,31 @@ namespace NetZ.Web.Server
         {
             #region Variáveis
 
-            MemoryStream mmsResposta;
-            string strHeader;
-
             #endregion Variáveis
 
             #region Ações
 
             try
             {
-                strHeader = this.getStrHeader();
-                strHeader = strHeader.Replace((Environment.NewLine + Environment.NewLine), Environment.NewLine);
+                string strHeader = this.getStrHeader();
 
-                mmsResposta = new MemoryStream();
+                if (string.IsNullOrEmpty(strHeader))
+                {
+                    return null;
+                }
+
+                strHeader = strHeader.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+
+                MemoryStream mmsResposta = new MemoryStream();
 
                 mmsResposta.Write(Encoding.UTF8.GetBytes(strHeader), 0, Encoding.UTF8.GetByteCount(strHeader));
+                mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
 
-                if (!INT_STATUS_CODE_200_OK.Equals(this.intStatus))
+                if (this.mmsConteudo == null)
                 {
                     return mmsResposta.ToArray();
                 }
 
-                mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
                 mmsResposta.Write(this.mmsConteudo.ToArray(), 0, (int)this.mmsConteudo.Length);
 
                 return mmsResposta.ToArray();
@@ -958,6 +949,9 @@ namespace NetZ.Web.Server
 
                 switch (this.intStatus)
                 {
+                    case INT_STATUS_CODE_101_SWITCHING_PROTOCOLS:
+                        return this.getStrHeader101();
+
                     case INT_STATUS_CODE_204_NO_CONTENT:
                     case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
                         return this.getStrHeaderBasico();
@@ -978,6 +972,18 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
+        }
+
+        private string getStrHeader101()
+        {
+            StringBuilder stbResultado = new StringBuilder();
+
+            stbResultado.AppendLine(this.getStrHeaderStatus());
+            stbResultado.AppendLine("Upgrade: websocket");
+            stbResultado.AppendLine("Connection: Upgrade");
+            stbResultado.AppendLine(this.getStrHeaderDiverso());
+
+            return stbResultado.ToString();
         }
 
         private string getStrHeader200()
@@ -1091,7 +1097,7 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (this.mmsConteudo.Length < 1)
+                if (this.mmsConteudo == null)
                 {
                     return null;
                 }
@@ -1331,6 +1337,9 @@ namespace NetZ.Web.Server
 
                 switch (this.intStatus)
                 {
+                    case INT_STATUS_CODE_101_SWITCHING_PROTOCOLS:
+                        return strResultado.Replace("_status_code", "101 Switching Protocols");
+
                     case INT_STATUS_CODE_204_NO_CONTENT:
                         return strResultado.Replace("_status_code", "204 No Content");
 

@@ -22,6 +22,7 @@ namespace NetZ.Web
         private bool _booServerAjaxDbAtivar = true;
         private int _intPorta = 80;
         private int _intServerAjaxDbPorta = 8081;
+        private int _intServerWsPorta = 443;
         private int _intTimeOut = 5;
 
         public static new ConfigWeb i
@@ -138,6 +139,19 @@ namespace NetZ.Web
             set
             {
                 _intServerAjaxDbPorta = value;
+            }
+        }
+
+        public int intServerWsPorta
+        {
+            get
+            {
+                return _intServerWsPorta;
+            }
+
+            set
+            {
+                _intServerWsPorta = value;
             }
         }
 

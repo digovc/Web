@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using DigoFramework.Json;
+﻿using System.Collections.Generic;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Tabela;
-using NetZ.Web.Html.Componente.Grid;
-using NetZ.Web.Html.Componente.Janela.Cadastro;
-using NetZ.Web.Html.Componente.Janela.Consulta;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -37,6 +31,7 @@ namespace NetZ.Web
 
         private bool _booMostrarGrade;
         private List<Usuario> _lstObjUsuario;
+        private List<ServerBase> _lstSrv;
         private List<Tabela> _lstTbl;
         private Persistencia.DataBase _objDbPrincipal;
         private object _objLstObjUsuarioLock;
@@ -109,6 +104,21 @@ namespace NetZ.Web
                 _lstObjUsuario = new List<Usuario>();
 
                 return _lstObjUsuario;
+            }
+        }
+
+        private List<ServerBase> lstSrv
+        {
+            get
+            {
+                if (_lstSrv != null)
+                {
+                    return _lstSrv;
+                }
+
+                _lstSrv = this.getLstSrv();
+
+                return _lstSrv;
             }
         }
 
@@ -238,13 +248,11 @@ namespace NetZ.Web
         /// esteja marcada.
         /// </para>
         /// </summary>
-        public void inicializarServidor()
+        public virtual void inicializarServidor()
         {
-            ServerHttp.i.iniciar();
-
-            if (ConfigWeb.i.booServerAjaxDbAtivar)
+            foreach (ServerBase srv in this.lstSrv)
             {
-                ServerAjaxDb.i.iniciar();
+                this.inicializarServidor(srv);
             }
         }
 
@@ -253,73 +261,9 @@ namespace NetZ.Web
         /// </summary>
         public void pararServidor()
         {
-            ServerHttp.i.parar();
-        }
-
-        /// <summary>
-        /// Este método é disparado a acada vez que o cliente fizer uma solicitação de algum recurso
-        /// a este WEB server.
-        /// </summary>
-        /// <param name="objSolicitacao">
-        /// Classe que trás todas as informações da solicitação que foi encaminhada pelo servidor.
-        /// <para>
-        /// Uma das propriedades mais importantes que deve ser verificada é a <see
-        /// cref="Solicitacao.dttUltimaModificacao"/>, para evitar que recursos em cache sejam
-        /// enviados desnecessariamente para o cliente.
-        /// </para>
-        /// </param>
-        /// <returns></returns>
-        public abstract Resposta responder(Solicitacao objSolicitacao);
-
-        /// <summary>
-        /// Este método é disparado para todas as solicitações que são encaminhadas para o servidor
-        /// <see cref="ServerAjaxDb"/>. Estas solicitações estão diretamente ligadas às ações
-        /// relativas ao banco de dados como recuperar dados, salvar registros, etc.
-        /// <para>Essas solicitação são enviadas por AJAX para o servidor de forma assíncrona.</para>
-        /// </summary>
-        /// <param name="objSolicitacaoAjaxDb">
-        /// Solicitação contendo as informações da operação aguardada pelo usuário.
-        /// </param>
-        /// <returns>Retorna a resposta que será processada pelo browser do cliente.</returns>
-        public void responderAjaxDb(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            if (objSolicitacaoAjaxDb == null)
+            foreach (ServerBase srv in this.lstSrv)
             {
-                return;
-            }
-
-            switch (objSolicitacaoAjaxDb.enmMetodo)
-            {
-                case SolicitacaoAjaxDb.EnmMetodo.APAGAR:
-                    this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_JANELA_TAG:
-                    this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CONSULTA:
-                    this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.CARREGAR_TBL_WEB:
-                    this.carregarTbl(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID:
-                case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_COMBO_BOX:
-                    this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.RECUPERAR:
-                    this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.SALVAR:
-                    this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
+                this.pararServidor(srv);
             }
         }
 
@@ -384,6 +328,8 @@ namespace NetZ.Web
 
         protected abstract Persistencia.DataBase getObjDbPrincipal();
 
+        protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
+
         /// <summary>
         /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
         /// alterar, pesquisar) com o usuário.
@@ -395,179 +341,13 @@ namespace NetZ.Web
             lstTbl.Add(TblFiltroItem.i);
         }
 
-        private void abrirCadastro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private List<ServerBase> getLstSrv()
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
-            {
-                return;
-            }
+            var lstSrvResultado = new List<ServerBase>();
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+            this.inicializarLstSrv(lstSrvResultado);
 
-            switch (objSolicitacaoAjaxDb.enmMetodo)
-            {
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
-                    this.abrirCadastro(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
-                    this.abrirCadastroFiltroConteudo(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_JANELA_TAG:
-                    this.abrirJnlTag(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
-                    return;
-            }
-
-        }
-
-        private void abrirJnlTag(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
-        {
-            if (tblWeb == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(tblWeb.strNome))
-            {
-                return;
-            }
-
-            Tabela tbl = this.getTbl(tblWeb.strNome);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            tbl = tbl.tblPrincipal;
-
-            JnlTag jnlTag = new JnlTag();
-
-            jnlTag.tbl = tbl;
-            jnlTag.tblWeb = tblWeb;
-
-            objSolicitacaoAjaxDb.strData = jnlTag.toHtml();
-        }
-
-        private void abrirCadastro(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
-        {
-            if (tblWeb == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(tblWeb.strNome))
-            {
-                return;
-            }
-
-            Tabela tbl = this.getTbl(tblWeb.strNome);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            tbl = tbl.tblPrincipal;
-
-            if (tbl.clsJnlCadastro == null)
-            {
-                return;
-            }
-
-            JnlCadastro jnlCadastro = ((JnlCadastro)Activator.CreateInstance(tbl.clsJnlCadastro));
-
-            jnlCadastro.tbl = tbl;
-            jnlCadastro.tblWeb = tblWeb;
-
-            objSolicitacaoAjaxDb.strData = jnlCadastro.toHtml();
-        }
-
-        private void abrirCadastroFiltroConteudo(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWebFiltro)
-        {
-            if (tblWebFiltro == null)
-            {
-                return;
-            }
-
-            if (tblWebFiltro.arrFil == null)
-            {
-                return;
-            }
-
-            if (tblWebFiltro.arrFil.Length < 1)
-            {
-                return;
-            }
-
-            if (tblWebFiltro.arrFil[0].objValor == null)
-            {
-                return;
-            }
-
-            int intFiltroId = Convert.ToInt32(tblWebFiltro.arrFil[0].objValor);
-
-            if (intFiltroId < 1)
-            {
-                return;
-            }
-
-            FrmFiltroConteudo frm = new FrmFiltroConteudo();
-
-            frm.intFiltroId = intFiltroId;
-
-            objSolicitacaoAjaxDb.strData = frm.toHtml();
-        }
-
-        private void abrirConsulta(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
-            {
-                return;
-            }
-
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
-
-            this.abrirConsulta(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
-        }
-
-        private void abrirConsulta(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
-        {
-            if (tblWeb == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(tblWeb.strNome))
-            {
-                return;
-            }
-
-            Tabela tbl = this.getTbl(tblWeb.strNome);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            objSolicitacaoAjaxDb.strData = new JnlConsulta(tbl).toHtml();
-        }
-
-        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-        }
-
-        private void carregarTbl(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            Tabela tbl = this.getTbl(objSolicitacaoAjaxDb.strData);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            objSolicitacaoAjaxDb.strData = Json.i.toJson(tbl.tblWeb);
+            return lstSrvResultado;
         }
 
         private Tabela getTbl(string strTblNome, Tabela tbl)
@@ -590,130 +370,24 @@ namespace NetZ.Web
             return null;
         }
 
-        private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void inicializarServidor(ServerBase srv)
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            if (srv == null)
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
-
-            this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb, tblWeb);
+            srv.iniciar();
         }
 
-        private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb, TabelaWeb tblWeb)
+        private void pararServidor(ServerBase srv)
         {
-            if (tblWeb == null)
+            if (srv == null)
             {
                 return;
             }
 
-            Tabela tbl = this.getTbl(tblWeb);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            DataTable tblData = tbl.viwPrincipal.pesquisar(tblWeb);
-
-            if (tblData == null)
-            {
-                return;
-            }
-
-            if (SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID.Equals(objSolicitacaoAjaxDb.enmMetodo))
-            {
-                this.pesquisarGrid(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
-                return;
-            }
-
-            this.pesquisarComboBox(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
-        }
-
-        private void pesquisarComboBox(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
-        {
-            objSolicitacaoAjaxDb.strData = tblWeb.getJson(tbl, tblData);
-        }
-
-        private void pesquisarGrid(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
-        {
-            GridHtml tagGrid = new GridHtml();
-
-            tagGrid.tbl = tbl.viwPrincipal;
-            tagGrid.tblData = tblData;
-
-            objSolicitacaoAjaxDb.strData = tagGrid.toHtml();
-        }
-
-        private void recuperarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-        }
-
-        private void salvarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
-            {
-                return;
-            }
-
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
-
-            this.salvarRegistro(objSolicitacao, tblWeb);
-
-            objSolicitacaoAjaxDb.strData = Json.i.toJson(tblWeb);
-        }
-
-        private void salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb)
-        {
-            if (objSolicitacao == null)
-            {
-                return;
-            }
-
-            if (objSolicitacao.objUsuario == null)
-            {
-                return;
-            }
-
-            if (!objSolicitacao.objUsuario.booLogado)
-            {
-                return;
-            }
-
-            if (objSolicitacao.objUsuario.intId < 1)
-            {
-                return;
-            }
-
-            if (tblWeb == null)
-            {
-                return;
-            }
-
-            if (tblWeb.arrClnWeb == null)
-            {
-                return;
-            }
-
-            Tabela tbl = this.getTbl(tblWeb);
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            tblWeb.getClnWeb(tbl.clnDttAlteracao.strNomeSql).dttValor = DateTime.Now;
-            tblWeb.getClnWeb(tbl.clnIntUsuarioAlteracaoId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
-
-            if (0.Equals(tblWeb.getClnWeb(tbl.clnIntId.strNomeSql).intValor))
-            {
-                tblWeb.getClnWeb(tbl.clnDttCadastro.strNomeSql).dttValor = DateTime.Now;
-                tblWeb.getClnWeb(tbl.clnIntUsuarioCadastroId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
-            }
-
-            tbl.salvarWeb(tblWeb);
+            srv.parar();
         }
 
         #endregion Métodos

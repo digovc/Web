@@ -1,6 +1,5 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.Tabela;
-using NetZ.Web.Html.Componente.Janela.Cadastro;
 
 namespace NetZ.Web.DataBase.View
 {

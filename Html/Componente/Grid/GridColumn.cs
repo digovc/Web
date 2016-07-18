@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -106,11 +105,20 @@ namespace NetZ.Web.Html.Componente.Grid
 
             switch (this.cln.enmGrupo)
             {
+                case Coluna.EnmGrupo.ALFANUMERICO:
+                    this.setCssClnAlfanumerico(css);
+                    return;
+
                 case Coluna.EnmGrupo.NUMERICO_INTEIRO:
                 case Coluna.EnmGrupo.NUMERICO_PONTO_FLUTUANTE:
                     this.setCssClnNumerico(css);
                     return;
             }
+        }
+
+        private void setCssClnAlfanumerico(CssArquivo css)
+        {
+            this.addCss(css.setTextAlign("left"));
         }
 
         private void setCssClnNumerico(CssArquivo css)

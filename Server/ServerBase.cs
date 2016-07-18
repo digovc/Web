@@ -153,7 +153,7 @@ namespace NetZ.Web.Server
         /// Objeto que encapsula a solicitação que foi enviada pelo usuário.
         /// </param>
         /// <returns>Retorna o objeto contendo a responsta para o cliente.</returns>
-        internal abstract Resposta responder(Solicitacao objSolicitacao);
+        public abstract Resposta responder(Solicitacao objSolicitacao);
 
         protected abstract int getIntPort();
 
@@ -230,7 +230,7 @@ namespace NetZ.Web.Server
 
                 tcpClient.NoDelay = true;
 
-                objCliente = new Cliente(tcpClient, this);
+                objCliente = this.getObjCliente(tcpClient);
 
                 objCliente.iniciar();
 
@@ -245,6 +245,11 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
+        }
+
+        protected virtual Cliente getObjCliente(TcpClient tcpClient)
+        {
+            return new Cliente(tcpClient, this);
         }
 
         private void loop()

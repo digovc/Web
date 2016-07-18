@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace NetZ.Web.Server
 {
-    internal class Cliente : Servico
+    public class Cliente : Servico
     {
         #region Constantes
 
@@ -13,7 +13,6 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private DateTime _dttUltimaMensagemRecebida;
-        private Solicitacao _objSolicitacao;
         private ServerBase _srv;
         private TcpClient _tcpClient;
 
@@ -33,20 +32,7 @@ namespace NetZ.Web.Server
             }
         }
 
-        private Solicitacao objSolicitacao
-        {
-            get
-            {
-                return _objSolicitacao;
-            }
-
-            set
-            {
-                _objSolicitacao = value;
-            }
-        }
-
-        private ServerBase srv
+        protected ServerBase srv
         {
             get
             {
@@ -55,11 +41,18 @@ namespace NetZ.Web.Server
 
             set
             {
+                if (_srv == value)
+                {
+                    return;
+                }
+
                 _srv = value;
+
+                this.atualizarSrv();
             }
         }
 
-        private TcpClient tcpClient
+        protected TcpClient tcpClient
         {
             get
             {
@@ -78,115 +71,41 @@ namespace NetZ.Web.Server
 
         internal Cliente(TcpClient tcpClient, ServerBase srv) : base("Cliente")
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.srv = srv;
-                this.tcpClient = tcpClient;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.srv = srv;
+            this.tcpClient = tcpClient;
         }
 
         #endregion Construtores
 
         #region Métodos
 
-        protected override void servico()
+        protected virtual void atualizarSrv()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.tcpClient == null)
-                {
-                    return;
-                }
-
-                while (this.tcpClient.Connected)
-                {
-                    this.processarSolicitacao();
-                    this.responder();
-                }
-
-                this.tcpClient.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
-        private void carregarSolicitacao()
+        protected void enviar(byte[] arrBteData)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (arrBteData == null)
             {
-                if (this.tcpClient == null)
-                {
-                    return;
-                }
-
-                if (!this.tcpClient.Connected)
-                {
-                    return;
-                }
-
-                if (this.tcpClient.GetStream() == null)
-                {
-                    return;
-                }
-
-                if (!(this.tcpClient.GetStream().DataAvailable))
-                {
-                    return;
-                }
-
-                this.dttUltimaMensagemRecebida = DateTime.Now;
-                this.objSolicitacao = new Solicitacao(this.tcpClient.GetStream());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (arrBteData.Length < 1)
+            {
+                return;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return;
+            }
+
+            this.tcpClient.GetStream().Write(arrBteData, 0, arrBteData.Length);
         }
 
-        private void processarSolicitacao()
+        protected virtual void responder(Solicitacao objSolicitacao)
         {
             #region Variáveis
-
-            DateTime dtt;
 
             #endregion Variáveis
 
@@ -194,67 +113,12 @@ namespace NetZ.Web.Server
 
             try
             {
-                dtt = DateTime.Now;
-
-                this.objSolicitacao = null;
-
-                while (this.tcpClient.Connected)
-                {
-                    this.carregarSolicitacao();
-
-                    if (this.objSolicitacao != null)
-                    {
-                        return;
-                    }
-
-                    if ((DateTime.Now - dtt).Seconds > ConfigWeb.i.intTimeOut)
-                    {
-                        this.tcpClient.Close();
-                        return;
-                    }
-
-                    Thread.Sleep(1);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void responder()
-        {
-            #region Variáveis
-
-            Resposta objResposta;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.objSolicitacao == null)
+                if (!this.validar(objSolicitacao))
                 {
                     return;
                 }
 
-                if (!this.tcpClient.Connected)
-                {
-                    return;
-                }
-
-                if (!this.validarSolicitacao())
-                {
-                    return;
-                }
-
-                objResposta = this.srv.responder(this.objSolicitacao);
+                Resposta objResposta = this.srv.responder(objSolicitacao);
 
                 if (!this.validar(objResposta))
                 {
@@ -280,7 +144,18 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private void responder(Resposta objResposta)
+        protected void responder(Resposta objResposta)
+        {
+            if (objResposta == null)
+            {
+                // TODO: Quando a resposta estiver null enviar uma mensagem de erro no servidor.
+                return;
+            }
+
+            this.enviar(objResposta.arrBteResposta);
+        }
+
+        protected override void servico()
         {
             #region Variáveis
 
@@ -290,28 +165,105 @@ namespace NetZ.Web.Server
 
             try
             {
-                if (objResposta == null)
-                {
-                    // TODO: Quando a resposta estiver null enviar uma mensagem de erro no servidor.
-                    return;
-                }
-
-                if (objResposta.arrBteResposta == null)
+                if (this.tcpClient == null)
                 {
                     return;
                 }
 
-                if (objResposta.arrBteResposta.Length < 1)
+                Solicitacao objSolicitacao;
+
+                while (this.tcpClient.Connected)
                 {
-                    return;
+                    objSolicitacao = this.carregarSolicitacao();
+
+                    if (objSolicitacao == null)
+                    {
+                        Thread.Sleep(1); // TODO: Parar esse processo depois de um tempo excessivo.
+                        continue;
+                    }
+
+                    this.responder(objSolicitacao);
                 }
 
-                if (!this.tcpClient.GetStream().CanWrite)
+                this.tcpClient.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        protected virtual bool validar(Solicitacao objSolicitacao)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objSolicitacao == null)
                 {
-                    return;
+                    return false;
                 }
 
-                this.tcpClient.GetStream().Write(objResposta.arrBteResposta, 0, objResposta.arrBteResposta.Length);
+                if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(objSolicitacao.enmMetodo))
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+
+            return true;
+        }
+
+        private Solicitacao carregarSolicitacao()
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (this.tcpClient == null)
+                {
+                    return null;
+                }
+
+                if (!this.tcpClient.Connected)
+                {
+                    return null;
+                }
+
+                if (this.tcpClient.GetStream() == null)
+                {
+                    return null;
+                }
+
+                if (!(this.tcpClient.GetStream().DataAvailable))
+                {
+                    return null;
+                }
+
+                this.dttUltimaMensagemRecebida = DateTime.Now;
+
+                return new Solicitacao(this.tcpClient.GetStream());
             }
             catch (Exception ex)
             {
@@ -335,39 +287,6 @@ namespace NetZ.Web.Server
             try
             {
                 if (objResposta == null)
-                {
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-
-            return true;
-        }
-
-        private bool validarSolicitacao()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (this.objSolicitacao == null)
-                {
-                    return false;
-                }
-
-                if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(this.objSolicitacao.enmMetodo))
                 {
                     return false;
                 }
