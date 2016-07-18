@@ -156,16 +156,19 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             base.setCss(css);
 
             this.btnEsquerda.addCss(css.setBackgroundImage("/res/media/png/btn_voltar_30x30.png"));
+            this.btnEsquerda.addCss(css.setDisplay("none"));
             this.btnEsquerda.addCss(css.setLeft(10));
             this.btnEsquerda.addCss(css.setPosition("absolute"));
             this.btnEsquerda.addCss(css.setTop(10));
 
             this.btnDireita.addCss(css.setBackgroundImage("/res/media/png/btn_avancar_30x30.png"));
+            this.btnDireita.addCss(css.setDisplay("none"));
             this.btnDireita.addCss(css.setLeft(50));
             this.btnDireita.addCss(css.setPosition("absolute"));
             this.btnDireita.addCss(css.setTop(10));
 
             this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
+            this.btnAdicionar.addCss(css.setDisplay("none"));
             this.btnAdicionar.addCss(css.setPosition("absolute"));
             this.btnAdicionar.addCss(css.setRight(55));
             this.btnAdicionar.addCss(css.setTop(10));
@@ -175,6 +178,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.btnSalvar.addCss(css.setRight(5));
             this.btnSalvar.addCss(css.setTop(5));
 
+            this.btnTag.addCss(css.setBackgroundImage("/res/media/png/btn_tag_30x30.png"));
+            this.btnTag.addCss(css.setDisplay("none"));
             this.btnTag.addCss(css.setPosition("absolute"));
             this.btnTag.addCss(css.setRight(95));
             this.btnTag.addCss(css.setTop(10));
