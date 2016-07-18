@@ -122,19 +122,19 @@ namespace NetZ.Web.Html.Componente.Grid
             this.btnMenu.addCss(css.setTop(-30));
 
             this.btnApagar.addCss(css.setDisplay("none"));
-            this.btnApagar.addCss(css.setLeft(50));
+            this.btnApagar.addCss(css.setLeft(75));
             this.btnApagar.addCss(css.setPosition("absolute"));
             this.btnApagar.addCss(css.setTop(-50));
 
             this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
             this.btnAlterar.addCss(css.setBackgroundPosition("center"));
-            this.btnAlterar.addCss(css.setLeft(0));
+            this.btnAlterar.addCss(css.setLeft(25));
             this.btnAlterar.addCss(css.setPosition("absolute"));
             this.btnAlterar.addCss(css.setTop(-30));
 
             this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
             this.btnAdicionar.addCss(css.setBackgroundPosition("center"));
-            this.btnAdicionar.addCss(css.setLeft(-20));
+            this.btnAdicionar.addCss(css.setLeft(5));
             this.btnAdicionar.addCss(css.setPosition("absolute"));
             this.btnAdicionar.addCss(css.setTop(20));
         }

@@ -155,9 +155,11 @@ namespace NetZ.Web.Html.Pagina
 
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ColunaWeb.js", 101));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/FiltroWeb.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ParValorNome.js", 300));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TblFiltro.js", 300));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ParValorNome.js", 300));
+
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/grid/OnGridMenuClickArg.js", 300));
             }
             catch (Exception ex)
             {
