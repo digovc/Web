@@ -10,6 +10,7 @@ using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo.Css;
+using NetZ.Web.Server.WebSocket;
 
 namespace NetZ.Web.Html.Pagina
 {
@@ -730,6 +731,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
                 lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
                 lstJs.Add(new JavaScriptTag(typeof(ServerHttp), 102));
+                lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
                 lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjax), 105));
                 lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjaxDb), 105));
 

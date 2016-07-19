@@ -9,7 +9,7 @@ using NetZ.Web.Html.Componente.Janela.Consulta;
 
 namespace NetZ.Web.Server
 {
-    public abstract class ServerAjaxDb : ServerAjax
+    public sealed class ServerAjaxDb : ServerAjax
     {
         #region Constantes
 
@@ -17,11 +17,28 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private static ServerAjaxDb _i;
+
+        public static ServerAjaxDb i
+        {
+            get
+            {
+                if (_i != null)
+                {
+                    return _i;
+                }
+
+                _i = new ServerAjaxDb();
+
+                return _i;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
-        protected ServerAjaxDb(string strNome) : base(strNome)
+        private ServerAjaxDb() : base("Servidor AJAX para acesso ao banco de dados.")
         {
         }
 
@@ -66,38 +83,9 @@ namespace NetZ.Web.Server
             {
                 return this.responderErro(objSolicitacao, ex, objSolicitacaoAjaxDb);
             }
-            finally {
-            }
-        }
-
-        private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            if (objSolicitacao == null)
+            finally
             {
-                return null;
             }
-
-            string strErro = "Erro desconhecido.";
-
-            if (ex != null)
-            {
-                strErro = ex.Message;
-            }
-
-            if (objSolicitacaoAjaxDb == null)
-            {
-                objSolicitacaoAjaxDb = new SolicitacaoAjaxDb();
-            }
-
-            objSolicitacaoAjaxDb.strErro = strErro;
-
-            Resposta objResposta = new Resposta(objSolicitacao);
-
-            objResposta.addJson(objSolicitacaoAjaxDb);
-
-            this.addAcessControl(objResposta, objSolicitacao);
-
-            return objResposta;
         }
 
         protected override int getIntPort()
@@ -380,6 +368,36 @@ namespace NetZ.Web.Server
                     this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
                     return;
             }
+        }
+
+        private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            if (objSolicitacao == null)
+            {
+                return null;
+            }
+
+            string strErro = "Erro desconhecido.";
+
+            if (ex != null)
+            {
+                strErro = ex.Message;
+            }
+
+            if (objSolicitacaoAjaxDb == null)
+            {
+                objSolicitacaoAjaxDb = new SolicitacaoAjaxDb();
+            }
+
+            objSolicitacaoAjaxDb.strErro = strErro;
+
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            objResposta.addJson(objSolicitacaoAjaxDb);
+
+            this.addAcessControl(objResposta, objSolicitacao);
+
+            return objResposta;
         }
 
         private void salvarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
