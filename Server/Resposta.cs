@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using DigoFramework;
 using DigoFramework.Json;
+using NetZ.Web.Dominio;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo;
 
@@ -259,6 +260,7 @@ namespace NetZ.Web.Server
             {
                 return _mmsConteudo;
             }
+
             set
             {
                 _mmsConteudo = value;
@@ -673,7 +675,40 @@ namespace NetZ.Web.Server
                 objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
 
                 this.addCookie(objCookieSessaoId);
-                this.addUsr(objCookieSessaoId);
+                this.addObjUsuario(objCookieSessaoId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
+        private void addObjUsuario(Cookie objCookieSessaoId)
+        {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                if (objCookieSessaoId == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objCookieSessaoId.strValor))
+                {
+                    return;
+                }
+
+                AppWeb.i.addObjUsuario(new UsuarioDominio() { strSessaoId = objCookieSessaoId.strValor });
             }
             catch (Exception ex)
             {
@@ -708,39 +743,6 @@ namespace NetZ.Web.Server
                 this.mmsConteudo = new MemoryStream();
 
                 this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private void addUsr(Cookie objCookieSessaoId)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                if (objCookieSessaoId == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(objCookieSessaoId.strValor))
-                {
-                    return;
-                }
-
-                AppWeb.i.addObjUsuario(new Usuario(objCookieSessaoId.strValor));
             }
             catch (Exception ex)
             {

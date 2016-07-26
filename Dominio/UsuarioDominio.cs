@@ -1,12 +1,11 @@
 ﻿using System;
-using NetZ.SistemaBase;
 
-namespace NetZ.Web.Server
+namespace NetZ.Web.Dominio
 {
     /// <summary>
     /// Representa o usuário que está utilizando este sistema.
     /// </summary>
-    public class Usuario : Objeto
+    public class UsuarioDominio : DominioBase
     {
         #region Constantes
 
@@ -16,9 +15,7 @@ namespace NetZ.Web.Server
 
         private bool _booLogado;
         private DateTime _dttLogin;
-        private DateTime _dttPrimeiroAcesso;
         private DateTime _dttUltimoAcesso;
-        private int _intId;
         private string _strSessaoId;
 
         /// <summary>
@@ -54,22 +51,6 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Data e hora do primeiro acesso deste usuário na sessão atual.
-        /// </summary>
-        public DateTime dttPrimeiroAcesso
-        {
-            get
-            {
-                return _dttPrimeiroAcesso;
-            }
-
-            private set
-            {
-                _dttPrimeiroAcesso = value;
-            }
-        }
-
-        /// <summary>
         /// Data e hora do último acesso deste usuário na sessão atual.
         /// </summary>
         public DateTime dttUltimoAcesso
@@ -86,22 +67,6 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Código deste usuário dentro do banco de dados.
-        /// </summary>
-        public int intId
-        {
-            get
-            {
-                return _intId;
-            }
-
-            set
-            {
-                _intId = value;
-            }
-        }
-
-        /// <summary>
         /// Valor do cookie que mantém a sessão atual do usuário.
         /// </summary>
         public string strSessaoId
@@ -111,7 +76,7 @@ namespace NetZ.Web.Server
                 return _strSessaoId;
             }
 
-            private set
+            set
             {
                 _strSessaoId = value;
             }
@@ -121,29 +86,8 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Usuario(string strSessaoId)
+        public UsuarioDominio()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.dttPrimeiroAcesso = DateTime.Now;
-                this.dttUltimoAcesso = DateTime.Now;
-                this.strSessaoId = strSessaoId;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         #endregion Construtores

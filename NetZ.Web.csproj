@@ -52,6 +52,7 @@
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />
     <Compile Include="DataBase\Tabela\TblFiltroItem.cs" />
+    <Compile Include="DataBase\Tabela\TblUsuarioBase.cs" />
     <Compile Include="DataBase\Tabela\TblWebBase.cs" />
     <Compile Include="DataBase\View\ViwFiltroItem.cs" />
     <Compile Include="DataBase\View\ViwWebBase.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Server\Cookie.cs" />
     <Compile Include="Server\EnmContentType.cs" />
     <Compile Include="Server\Field.cs" />
+    <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\ServerHttp.cs" />
@@ -151,14 +153,15 @@
     <Compile Include="Server\WebSocket\ServerWs.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
-    <Compile Include="Server\Ajax\SolicitacaoAjax.cs" />
-    <Compile Include="Server\Ajax\SolicitacaoAjaxDb.cs" />
-    <Compile Include="Server\Usuario.cs" />
+    <Compile Include="Server\Ajax\InterlocutorAjax.cs" />
+    <Compile Include="Server\Ajax\InterlocutorAjaxDb.cs" />
+    <Compile Include="Dominio\UsuarioDominio.cs" />
     <Compile Include="Properties\View.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>View.resx</DependentUpon>
     </Compile>
+    <Compile Include="Server\WebSocket\InterlocutorWs.cs" />
     <Compile Include="WinService\NetZWebServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

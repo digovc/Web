@@ -3,6 +3,7 @@ using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Tabela;
+using NetZ.Web.Dominio;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -30,7 +31,7 @@ namespace NetZ.Web
         private static AppWeb _i;
 
         private bool _booMostrarGrade;
-        private List<Usuario> _lstObjUsuario;
+        private List<UsuarioDominio> _lstObjUsuario;
         private List<ServerBase> _lstSrv;
         private List<Tabela> _lstTbl;
         private Persistencia.DataBase _objDbPrincipal;
@@ -92,7 +93,7 @@ namespace NetZ.Web
             }
         }
 
-        internal List<Usuario> lstObjUsuario
+        internal List<UsuarioDominio> lstObjUsuario
         {
             get
             {
@@ -101,7 +102,7 @@ namespace NetZ.Web
                     return _lstObjUsuario;
                 }
 
-                _lstObjUsuario = new List<Usuario>();
+                _lstObjUsuario = new List<UsuarioDominio>();
 
                 return _lstObjUsuario;
             }
@@ -270,9 +271,14 @@ namespace NetZ.Web
         /// <summary>
         /// Adiciona um usuário para a lista de usuários.
         /// </summary>
-        internal void addObjUsuario(Usuario objUsuario)
+        internal void addObjUsuario(UsuarioDominio objUsuario)
         {
             if (objUsuario == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objUsuario.strSessaoId))
             {
                 return;
             }
@@ -289,7 +295,7 @@ namespace NetZ.Web
         /// <summary>
         /// Busca o usuário que pertence a <param name="strSessaoId"/>.
         /// </summary>
-        internal Usuario getObjUsuario(string strSessaoId)
+        internal UsuarioDominio getObjUsuario(string strSessaoId)
         {
             lock (this.objLstObjUsuarioLock)
             {
@@ -298,7 +304,7 @@ namespace NetZ.Web
                     return null;
                 }
 
-                foreach (Usuario objUsuario in this.lstObjUsuario)
+                foreach (UsuarioDominio objUsuario in this.lstObjUsuario)
                 {
                     if (objUsuario == null)
                     {
@@ -318,7 +324,9 @@ namespace NetZ.Web
                     return objUsuario;
                 }
 
-                Usuario objUsuarioNovo = new Usuario(strSessaoId);
+                UsuarioDominio objUsuarioNovo = new UsuarioDominio();
+
+                objUsuarioNovo.strSessaoId = strSessaoId;
 
                 this.addObjUsuario(objUsuarioNovo);
 

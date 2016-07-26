@@ -3,6 +3,8 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using DigoFramework.Json;
+using NetZ.Web.DataBase.Tabela;
+using NetZ.Web.Dominio;
 
 namespace NetZ.Web.Server.WebSocket
 {
@@ -15,9 +17,25 @@ namespace NetZ.Web.Server.WebSocket
         #region Atributos
 
         private bool _booHandshake;
+        private UsuarioDominio _objUsuario;
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
         private string _strSessaoId;
+
+        public UsuarioDominio objUsuario
+        {
+            get
+            {
+                if (_objUsuario != null)
+                {
+                    return _objUsuario;
+                }
+
+                _objUsuario = this.getObjUsuario();
+
+                return _objUsuario;
+            }
+        }
 
         protected string strSessaoId
         {
@@ -72,6 +90,18 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
+        private bool _booConectado;
+
+        public bool booConectado
+        {
+            get
+            {
+                _booConectado = this.getBooConectado();
+
+                return _booConectado;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -83,6 +113,16 @@ namespace NetZ.Web.Server.WebSocket
         #endregion Construtores
 
         #region Métodos
+
+        private bool getBooConectado()
+        {
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
+        }
 
         /// <summary>
         /// Envia uma mensagem contendo a estrutura de um objeto JSON para este cliente.
@@ -175,6 +215,16 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             return true;
+        }
+
+        private UsuarioDominio getObjUsuario()
+        {
+            if (TblUsuarioBase.i == null)
+            {
+                return null;
+            }
+
+            return TblUsuarioBase.i.getObjUsuario(this.strSessaoId);
         }
 
         private string getStrSecWebSocketAccept()

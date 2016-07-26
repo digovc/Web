@@ -741,6 +741,10 @@ namespace NetZ.Web.Html.Pagina
             try
             {
                 lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
+                lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
+                lstJs.Add(new JavaScriptTag(typeof(InterlocutorAjax), 106));
+                lstJs.Add(new JavaScriptTag(typeof(InterlocutorAjaxDb), 107));
+                lstJs.Add(new JavaScriptTag(typeof(InterlocutorWs), 106));
                 lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
@@ -752,8 +756,6 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
                 lstJs.Add(new JavaScriptTag(typeof(ServerHttp), 102));
                 lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
-                lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjax), 105));
-                lstJs.Add(new JavaScriptTag(typeof(SolicitacaoAjaxDb), 105));
 
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));

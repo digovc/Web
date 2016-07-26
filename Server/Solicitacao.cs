@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using NetZ.SistemaBase;
+using NetZ.Web.DataBase.Tabela;
+using NetZ.Web.Dominio;
 
 namespace NetZ.Web.Server
 {
@@ -55,7 +57,7 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
-        private Usuario _objUsuario;
+        private UsuarioDominio _objUsuario;
         private string _strConteudo;
         private string _strHeaderLinhaCabecalho;
         private string _strHost;
@@ -253,7 +255,7 @@ namespace NetZ.Web.Server
         /// <summary>
         /// Usuário referênte a esta solicitação.
         /// </summary>
-        public Usuario objUsuario
+        public UsuarioDominio objUsuario
         {
             get
             {
@@ -1287,7 +1289,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private Usuario getObjUsuario()
+        private UsuarioDominio getObjUsuario()
         {
             #region Variáveis
 

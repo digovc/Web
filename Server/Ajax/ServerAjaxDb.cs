@@ -46,7 +46,7 @@ namespace NetZ.Web.Server.Ajax
 
         public override Resposta responder(Solicitacao objSolicitacao)
         {
-            SolicitacaoAjaxDb objSolicitacaoAjaxDb = null;
+            InterlocutorAjaxDb objInterlocutorAjaxDb = null;
 
             try
             {
@@ -60,18 +60,18 @@ namespace NetZ.Web.Server.Ajax
                     return null;
                 }
 
-                objSolicitacaoAjaxDb = Json.i.fromJson<SolicitacaoAjaxDb>(objSolicitacao.jsn);
+                objInterlocutorAjaxDb = Json.i.fromJson<InterlocutorAjaxDb>(objSolicitacao.jsn);
 
-                if (objSolicitacaoAjaxDb == null)
+                if (objInterlocutorAjaxDb == null)
                 {
                     return null;
                 }
 
-                this.responder(objSolicitacao, objSolicitacaoAjaxDb);
+                this.responder(objSolicitacao, objInterlocutorAjaxDb);
 
                 Resposta objResposta = new Resposta(objSolicitacao);
 
-                objResposta.addJson(objSolicitacaoAjaxDb);
+                objResposta.addJson(objInterlocutorAjaxDb);
 
                 this.addAcessControl(objResposta, objSolicitacao);
 
@@ -79,7 +79,7 @@ namespace NetZ.Web.Server.Ajax
             }
             catch (Exception ex)
             {
-                return this.responderErro(objSolicitacao, ex, objSolicitacaoAjaxDb);
+                return this.responderErro(objSolicitacao, ex, objInterlocutorAjaxDb);
             }
             finally
             {
@@ -91,117 +91,117 @@ namespace NetZ.Web.Server.Ajax
             return ConfigWeb.i.intServerAjaxDbPorta;
         }
 
-        protected virtual bool responder(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        protected virtual bool responder(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            if (objSolicitacaoAjaxDb == null)
+            if (objInterlocutorAjaxDb == null)
             {
                 return false;
             }
 
-            switch (objSolicitacaoAjaxDb.strMetodo)
+            switch (objInterlocutorAjaxDb.strMetodo)
             {
                 case STR_METODO_APAGAR:
-                    this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.apagarRegistro(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_ABRIR_CADASTRO:
                 case STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO:
                 case STR_METODO_ABRIR_JANELA_TAG:
-                    this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.abrirCadastro(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_ABRIR_CONSULTA:
-                    this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.abrirConsulta(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_CARREGAR_TBL_WEB:
-                    this.carregarTbl(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.carregarTbl(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_PESQUISAR_GRID:
                 case STR_METODO_PESQUISAR_COMBO_BOX:
-                    this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.pesquisar(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_RECUPERAR:
-                    this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.recuperarRegistro(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_SALVAR:
-                    this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.salvarRegistro(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
 
                 case STR_METODO_SALVAR_DOMINIO:
-                    this.salvarDominio(objSolicitacao, objSolicitacaoAjaxDb);
+                    this.salvarDominio(objSolicitacao, objInterlocutorAjaxDb);
                     return true;
             }
 
             return false;
         }
 
-        private void salvarDominio(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void salvarDominio(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            if (string.IsNullOrEmpty(objInterlocutorAjaxDb.strData))
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strJsonTipo))
+            if (string.IsNullOrEmpty(objInterlocutorAjaxDb.strJsonTipo))
             {
                 return;
             }
 
-            Tabela tbl = AppWeb.i.getTblPorDominio(objSolicitacaoAjaxDb.strJsonTipo);
+            Tabela tbl = AppWeb.i.getTblPorDominio(objInterlocutorAjaxDb.strJsonTipo);
 
             if (tbl == null)
             {
-                objSolicitacaoAjaxDb.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objSolicitacaoAjaxDb.strJsonTipo);
+                objInterlocutorAjaxDb.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objInterlocutorAjaxDb.strJsonTipo);
                 return;
             }
 
             MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
             MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
 
-            Persistencia.Dominio objDominio = (Persistencia.Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objSolicitacaoAjaxDb.strData });
+            Persistencia.Dominio objDominio = (Persistencia.Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutorAjaxDb.strData });
 
             int intId = tbl.salvar(objDominio);
 
             if (intId > 0)
             {
-                objSolicitacaoAjaxDb.strData = "Registro salvo com sucesso.";
+                objInterlocutorAjaxDb.strData = "Registro salvo com sucesso.";
             }
             else
             {
-                objSolicitacaoAjaxDb.strErro = "Erro ao salvar o registro.";
+                objInterlocutorAjaxDb.strErro = "Erro ao salvar o registro.";
             }
         }
 
-        private void abrirCadastro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void abrirCadastro(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            if (string.IsNullOrEmpty(objInterlocutorAjaxDb.strData))
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutorAjaxDb.strData);
 
-            switch (objSolicitacaoAjaxDb.strMetodo)
+            switch (objInterlocutorAjaxDb.strMetodo)
             {
                 case STR_METODO_ABRIR_CADASTRO:
-                    this.abrirCadastro(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                    this.abrirCadastro(objInterlocutorAjaxDb, objSolicitacao, tblWeb);
                     return;
 
                 case STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO:
-                    this.abrirCadastroFiltroConteudo(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                    this.abrirCadastroFiltroConteudo(objInterlocutorAjaxDb, objSolicitacao, tblWeb);
                     return;
 
                 case STR_METODO_ABRIR_JANELA_TAG:
-                    this.abrirJnlTag(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+                    this.abrirJnlTag(objInterlocutorAjaxDb, objSolicitacao, tblWeb);
                     return;
             }
         }
 
-        private void abrirCadastro(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirCadastro(InterlocutorAjaxDb objInterlocutorAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
             {
@@ -232,10 +232,10 @@ namespace NetZ.Web.Server.Ajax
             jnlCadastro.tbl = tbl;
             jnlCadastro.tblWeb = tblWeb;
 
-            objSolicitacaoAjaxDb.strData = jnlCadastro.toHtml();
+            objInterlocutorAjaxDb.strData = jnlCadastro.toHtml();
         }
 
-        private void abrirCadastroFiltroConteudo(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWebFiltro)
+        private void abrirCadastroFiltroConteudo(InterlocutorAjaxDb objInterlocutorAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWebFiltro)
         {
             if (tblWebFiltro == null)
             {
@@ -268,22 +268,22 @@ namespace NetZ.Web.Server.Ajax
 
             frm.intFiltroId = intFiltroId;
 
-            objSolicitacaoAjaxDb.strData = frm.toHtml();
+            objInterlocutorAjaxDb.strData = frm.toHtml();
         }
 
-        private void abrirConsulta(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void abrirConsulta(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            if (string.IsNullOrEmpty(objInterlocutorAjaxDb.strData))
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutorAjaxDb.strData);
 
-            this.abrirConsulta(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
+            this.abrirConsulta(objInterlocutorAjaxDb, objSolicitacao, tblWeb);
         }
 
-        private void abrirConsulta(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirConsulta(InterlocutorAjaxDb objInterlocutorAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
             {
@@ -302,10 +302,10 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            objSolicitacaoAjaxDb.strData = new JnlConsulta(tbl).toHtml();
+            objInterlocutorAjaxDb.strData = new JnlConsulta(tbl).toHtml();
         }
 
-        private void abrirJnlTag(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirJnlTag(InterlocutorAjaxDb objInterlocutorAjaxDb, Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
             {
@@ -331,38 +331,38 @@ namespace NetZ.Web.Server.Ajax
             jnlTag.tbl = tbl;
             jnlTag.tblWeb = tblWeb;
 
-            objSolicitacaoAjaxDb.strData = jnlTag.toHtml();
+            objInterlocutorAjaxDb.strData = jnlTag.toHtml();
         }
 
-        private void apagarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void apagarRegistro(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
         }
 
-        private void carregarTbl(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void carregarTbl(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            Tabela tbl = AppWeb.i.getTbl(objSolicitacaoAjaxDb.strData);
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutorAjaxDb.strData);
 
             if (tbl == null)
             {
                 return;
             }
 
-            objSolicitacaoAjaxDb.strData = Json.i.toJson(tbl.tblWeb);
+            objInterlocutorAjaxDb.strData = Json.i.toJson(tbl.tblWeb);
         }
 
-        private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void pesquisar(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            if (string.IsNullOrEmpty(objInterlocutorAjaxDb.strData))
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutorAjaxDb.strData);
 
-            this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb, tblWeb);
+            this.pesquisar(objSolicitacao, objInterlocutorAjaxDb, tblWeb);
         }
 
-        private void pesquisar(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb, TabelaWeb tblWeb)
+        private void pesquisar(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
             {
@@ -383,35 +383,35 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            if (STR_METODO_PESQUISAR_GRID.Equals(objSolicitacaoAjaxDb.strMetodo))
+            if (STR_METODO_PESQUISAR_GRID.Equals(objInterlocutorAjaxDb.strMetodo))
             {
-                this.pesquisarGrid(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
+                this.pesquisarGrid(objInterlocutorAjaxDb, tbl, tblWeb, tblData);
                 return;
             }
 
-            this.pesquisarComboBox(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
+            this.pesquisarComboBox(objInterlocutorAjaxDb, tbl, tblWeb, tblData);
         }
 
-        private void pesquisarComboBox(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
+        private void pesquisarComboBox(InterlocutorAjaxDb objInterlocutorAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
         {
-            objSolicitacaoAjaxDb.strData = tblWeb.getJson(tbl, tblData);
+            objInterlocutorAjaxDb.strData = tblWeb.getJson(tbl, tblData);
         }
 
-        private void pesquisarGrid(SolicitacaoAjaxDb objSolicitacaoAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
+        private void pesquisarGrid(InterlocutorAjaxDb objInterlocutorAjaxDb, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
         {
             GridHtml tagGrid = new GridHtml();
 
             tagGrid.tbl = tbl.viwPrincipal;
             tagGrid.tblData = tblData;
 
-            objSolicitacaoAjaxDb.strData = tagGrid.toHtml();
+            objInterlocutorAjaxDb.strData = tagGrid.toHtml();
         }
 
-        private void recuperarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void recuperarRegistro(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
         }
 
-        private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
             if (objSolicitacao == null)
             {
@@ -425,34 +425,34 @@ namespace NetZ.Web.Server.Ajax
                 strErro = ex.Message;
             }
 
-            if (objSolicitacaoAjaxDb == null)
+            if (objInterlocutorAjaxDb == null)
             {
-                objSolicitacaoAjaxDb = new SolicitacaoAjaxDb();
+                objInterlocutorAjaxDb = new InterlocutorAjaxDb();
             }
 
-            objSolicitacaoAjaxDb.strErro = strErro;
+            objInterlocutorAjaxDb.strErro = strErro;
 
             Resposta objResposta = new Resposta(objSolicitacao);
 
-            objResposta.addJson(objSolicitacaoAjaxDb);
+            objResposta.addJson(objInterlocutorAjaxDb);
 
             this.addAcessControl(objResposta, objSolicitacao);
 
             return objResposta;
         }
 
-        private void salvarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        private void salvarRegistro(Solicitacao objSolicitacao, InterlocutorAjaxDb objInterlocutorAjaxDb)
         {
-            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            if (string.IsNullOrEmpty(objInterlocutorAjaxDb.strData))
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutorAjaxDb.strData);
 
             this.salvarRegistro(objSolicitacao, tblWeb);
 
-            objSolicitacaoAjaxDb.strData = Json.i.toJson(tblWeb);
+            objInterlocutorAjaxDb.strData = Json.i.toJson(tblWeb);
         }
 
         private void salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace NetZ.Web.Server.WebSocket
@@ -39,6 +40,51 @@ namespace NetZ.Web.Server.WebSocket
         #endregion Construtores
 
         #region Métodos
+
+        protected ClienteWs getObjClienteWs(int intUsuarioId)
+        {
+            if (intUsuarioId < 1)
+            {
+                return null;
+            }
+
+            foreach (ClienteWs objClienteWs in this.lstObjClienteWs)
+            {
+                ClienteWs objClienteWs2 = this.getObjClienteWs(objClienteWs, intUsuarioId);
+
+                if (objClienteWs2 != null)
+                {
+                    return objClienteWs2;
+                }
+            }
+
+            return null;
+        }
+
+        private ClienteWs getObjClienteWs(ClienteWs objClienteWs, int intUsuarioId)
+        {
+            if (objClienteWs == null)
+            {
+                return null;
+            }
+
+            if (!objClienteWs.booConectado)
+            {
+                return null;
+            }
+
+            if (objClienteWs.objUsuario == null)
+            {
+                return null;
+            }
+
+            if (!objClienteWs.objUsuario.intId.Equals(intUsuarioId))
+            {
+                return null;
+            }
+
+            return objClienteWs;
+        }
 
         public override Resposta responder(Solicitacao objSolicitacao)
         {

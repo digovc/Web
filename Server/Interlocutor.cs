@@ -1,10 +1,9 @@
-﻿using System;
-using DigoFramework.Json;
+﻿using DigoFramework.Json;
 using NetZ.SistemaBase;
 
-namespace NetZ.Web.Server.Ajax
+namespace NetZ.Web.Server
 {
-    public class SolicitacaoAjax : Objeto
+    public abstract class Interlocutor : Objeto
     {
         #region Constantes
 
@@ -15,6 +14,8 @@ namespace NetZ.Web.Server.Ajax
         private string _strData;
         private string _strErro;
         private string _strJsonTipo;
+
+        private string _strMetodo;
 
         /// <summary>
         /// Propriedade que serve para intercâmbio de informações entre o servidor e o cliente.
@@ -64,6 +65,22 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
+        /// <summary>
+        /// Enumerado que indica o método que deve ser executado por esta solicitação.
+        /// </summary>
+        public string strMetodo
+        {
+            get
+            {
+                return _strMetodo;
+            }
+
+            set
+            {
+                _strMetodo = value;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -72,38 +89,30 @@ namespace NetZ.Web.Server.Ajax
 
         #region Métodos
 
+        public void addJson(object obj)
+        {
+            if (obj == null)
+            {
+                return;
+            }
+
+            this.strData = Json.i.toJson(obj);
+        }
+
         /// <summary>
         /// Retorna o objeto que foi enviado pelo browser do tipo indicado em T.
         /// <para>
-        /// Caso a propriedade <see cref="SolicitacaoAjax.strData"/> esteja vazia retorna null.
+        /// Caso a propriedade <see cref="InterlocutorAjax.strData"/> esteja vazia retorna null.
         /// </para>
         /// </summary>
         public T getObjJson<T>()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strData))
             {
-                if (string.IsNullOrEmpty(this.strData))
-                {
-                    return default(T);
-                }
-
-                return Json.i.fromJson<T>(this.strData);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return default(T);
             }
 
-            #endregion Ações
+            return Json.i.fromJson<T>(this.strData);
         }
 
         #endregion Métodos
