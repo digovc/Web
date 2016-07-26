@@ -9,6 +9,7 @@ using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
+using NetZ.Web.Server.Ajax;
 using NetZ.Web.Server.Arquivo.Css;
 using NetZ.Web.Server.WebSocket;
 
@@ -25,6 +26,7 @@ namespace NetZ.Web.Html.Pagina
         private static PaginaHtml _i;
 
         private bool _booPagSimples;
+        private Div _divNotificacao;
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
         private string _srcIcone = "res/media/ico/favicon.ico";
@@ -259,6 +261,21 @@ namespace NetZ.Web.Html.Pagina
             set
             {
                 _booPagSimples = value;
+            }
+        }
+
+        private Div divNotificacao
+        {
+            get
+            {
+                if (_divNotificacao != null)
+                {
+                    return _divNotificacao;
+                }
+
+                _divNotificacao = new Div();
+
+                return _divNotificacao;
             }
         }
 
@@ -541,23 +558,6 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private Div _divNotificacao;
-
-        private Div divNotificacao
-        {
-            get
-            {
-                if (_divNotificacao != null)
-                {
-                    return _divNotificacao;
-                }
-
-                _divNotificacao = new Div();
-
-                return _divNotificacao;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -673,6 +673,26 @@ namespace NetZ.Web.Html.Pagina
             #endregion Ações
         }
 
+        protected void addConstante(string strNome, string strValor)
+        {
+            if (string.IsNullOrEmpty(strNome))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return;
+            }
+
+            string strJq = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
+
+            strJq = strJq.Replace("_constante_nome", strNome);
+            strJq = strJq.Replace("_constante_valor", strValor);
+
+            this.addJs(strJq);
+        }
+
         /// <summary>
         /// Adiciona uma classe para lista de classes da tag body desta página para fazer referência
         /// a algum estilo CSS.
@@ -740,8 +760,8 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/LayoutFixo.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/LayoutFixoManager.js", 1));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Constante.js", 0));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/ConstanteManager.js", 1));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
@@ -998,7 +1018,7 @@ namespace NetZ.Web.Html.Pagina
             #endregion Ações
         }
 
-        private void addLayoutFixo()
+        protected virtual void addLayoutFixo()
         {
             this.addLayoutFixo(typeof(Mensagem));
             this.addLayoutFixo(typeof(MenuContexto));
@@ -1008,7 +1028,7 @@ namespace NetZ.Web.Html.Pagina
             this.addLayoutFixo(typeof(TagCard));
         }
 
-        private void addLayoutFixo(Type cls)
+        protected void addLayoutFixo(Type cls)
         {
             if (cls == null)
             {
@@ -1020,12 +1040,7 @@ namespace NetZ.Web.Html.Pagina
                 return;
             }
 
-            string strJq = "NetZ_Web.LayoutFixoManager.i.addLayoutFixo(new NetZ_Web.LayoutFixo('_class_nome', '_componente_html'));";
-
-            strJq = strJq.Replace("_class_nome", cls.Name);
-            strJq = strJq.Replace("_componente_html", (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
-
-            this.addJs(strJq);
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
         }
 
         private string getStrTituloFormatado()

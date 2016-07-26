@@ -1139,6 +1139,26 @@ namespace NetZ.Web.Html
             #endregion Ações
         }
 
+        protected void addConstante(string strNome, string strValor)
+        {
+            if (string.IsNullOrEmpty(strNome))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return;
+            }
+
+            string strJq = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
+
+            strJq = strJq.Replace("_constante_nome", strNome);
+            strJq = strJq.Replace("_constante_valor", strValor);
+
+            this.addJs(PaginaHtml.i.tagJs);
+        }
+
         /// <summary>
         /// Método que serve para adicionar arquivos CSS estáticos para lista que será carregada pelo
         /// browser do usuário.

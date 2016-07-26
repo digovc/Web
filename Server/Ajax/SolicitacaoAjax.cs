@@ -2,7 +2,7 @@
 using DigoFramework.Json;
 using NetZ.SistemaBase;
 
-namespace NetZ.Web.Server
+namespace NetZ.Web.Server.Ajax
 {
     public class SolicitacaoAjax : Objeto
     {
@@ -14,6 +14,7 @@ namespace NetZ.Web.Server
 
         private string _strData;
         private string _strErro;
+        private string _strJsonTipo;
 
         /// <summary>
         /// Propriedade que serve para intercâmbio de informações entre o servidor e o cliente.
@@ -44,6 +45,22 @@ namespace NetZ.Web.Server
             set
             {
                 _strErro = value;
+            }
+        }
+
+        /// <summary>
+        /// Indica o nome do tipo do objeto que a propriedade <see cref="strData"/> possui.
+        /// </summary>
+        public string strJsonTipo
+        {
+            get
+            {
+                return _strJsonTipo;
+            }
+
+            set
+            {
+                _strJsonTipo = value;
             }
         }
 

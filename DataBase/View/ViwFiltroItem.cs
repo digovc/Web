@@ -66,7 +66,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnDttFiltroItemAlteracao;
                 }
 
-                _clnDttFiltroItemAlteracao = new Coluna("dtt_filtro_item_alteracao", this, Coluna.EnmTipo.TIMESTAMP);
+                _clnDttFiltroItemAlteracao = new Coluna("dtt_filtro_item_alteracao", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttFiltroItemAlteracao;
             }
@@ -81,7 +81,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnDttFiltroItemCadastro;
                 }
 
-                _clnDttFiltroItemCadastro = new Coluna("dtt_filtro_item_cadastro", this, Coluna.EnmTipo.TIMESTAMP);
+                _clnDttFiltroItemCadastro = new Coluna("dtt_filtro_item_cadastro", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttFiltroItemCadastro;
             }

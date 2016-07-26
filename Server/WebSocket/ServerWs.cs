@@ -42,7 +42,7 @@ namespace NetZ.Web.Server.WebSocket
 
         public override Resposta responder(Solicitacao objSolicitacao)
         {
-            // A solicitação e resposta é sempre processada pelo classe ClienteWs.
+            // A solicitação e resposta é sempre processada pela classe ClienteWs.
             return null;
         }
 

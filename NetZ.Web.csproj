@@ -55,6 +55,7 @@
     <Compile Include="DataBase\Tabela\TblWebBase.cs" />
     <Compile Include="DataBase\View\ViwFiltroItem.cs" />
     <Compile Include="DataBase\View\ViwWebBase.cs" />
+    <Compile Include="Dominio\DominioBase.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
@@ -143,15 +144,15 @@
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\ServerHttp.cs" />
-    <Compile Include="Server\ServerAjax.cs" />
-    <Compile Include="Server\ServerAjaxDb.cs" />
+    <Compile Include="Server\Ajax\ServerAjax.cs" />
+    <Compile Include="Server\Ajax\ServerAjaxDb.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\ServerWs.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
-    <Compile Include="Server\SolicitacaoAjax.cs" />
-    <Compile Include="Server\SolicitacaoAjaxDb.cs" />
+    <Compile Include="Server\Ajax\SolicitacaoAjax.cs" />
+    <Compile Include="Server\Ajax\SolicitacaoAjaxDb.cs" />
     <Compile Include="Server\Usuario.cs" />
     <Compile Include="Properties\View.Designer.cs">
       <AutoGen>True</AutoGen>

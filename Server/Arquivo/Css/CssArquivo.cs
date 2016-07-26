@@ -956,30 +956,22 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setFontStyle(string strFontStyle)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strFontStyle))
             {
-                if (string.IsNullOrEmpty(strFontStyle))
-                {
-                    return null;
-                }
-
-                return this.addCss("font-style", strFontStyle);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("font-style", strFontStyle);
+        }
+
+        public string setFontWeight(string strFontWeight)
+        {
+            if (string.IsNullOrEmpty(strFontWeight))
+            {
+                return null;
+            }
+
+            return this.addCss("font-weight", strFontWeight);
         }
 
         public string setHeight(decimal decHeight, string strGrandeza = "px")

@@ -24,6 +24,8 @@ namespace NetZ.Web.Html.Componente.Menu.Contexto
 
             this.strConteudo = "_conteudo";
             this.strId = "_id";
+
+            this.addAtt("oncontextmenu", "return false");
         }
 
         protected override void setCss(CssArquivo css)

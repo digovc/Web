@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetZ.Web.Server
+namespace NetZ.Web.Server.Ajax
 {
     public abstract class ServerAjax : ServerBase
     {

@@ -326,6 +326,34 @@ namespace NetZ.Web
             }
         }
 
+        /// <summary>
+        /// Pesquisa na lista de tabelas da aplicação e retorna a tabela que o tipo do seu domínio
+        /// tem o mesmo nome passado no parâmetro <paramref name="strDominioNome"/>.
+        /// </summary>
+        /// <param name="strDominioNome">Nome do domínio que pertence a tabela.</param>
+        /// <returns>
+        /// a tabela que o tipo do seu domínio tem o mesmo nome passado no parâmetro <paramref name="strDominioNome"/>.
+        /// </returns>
+        internal Tabela getTblPorDominio(string strDominioNome)
+        {
+            if (string.IsNullOrEmpty(strDominioNome))
+            {
+                return null;
+            }
+
+            foreach (Tabela tbl in this.lstTbl)
+            {
+                Tabela tblTemp = this.getTblPorDominio(tbl, strDominioNome);
+
+                if (tblTemp != null)
+                {
+                    return tblTemp;
+                }
+            }
+
+            return null;
+        }
+
         protected abstract Persistencia.DataBase getObjDbPrincipal();
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
@@ -368,6 +396,26 @@ namespace NetZ.Web
             }
 
             return null;
+        }
+
+        private Tabela getTblPorDominio(Tabela tbl, string strDominioNome)
+        {
+            if (tbl == null)
+            {
+                return null;
+            }
+
+            if (tbl.clsDominio == null)
+            {
+                return null;
+            }
+
+            if (!tbl.clsDominio.Name.ToLower().Equals(strDominioNome.ToLower()))
+            {
+                return null;
+            }
+
+            return tbl;
         }
 
         private void inicializarServidor(ServerBase srv)

@@ -226,7 +226,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 case Coluna.EnmTipo.TIME:
                     return null;
 
-                case Coluna.EnmTipo.TIMESTAMP:
+                case Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE:
                     return null;
 
                 case Coluna.EnmTipo.XML:

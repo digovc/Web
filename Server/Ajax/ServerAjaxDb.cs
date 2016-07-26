@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Reflection;
 using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
@@ -7,38 +8,35 @@ using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
 
-namespace NetZ.Web.Server
+namespace NetZ.Web.Server.Ajax
 {
-    public sealed class ServerAjaxDb : ServerAjax
+    public abstract class ServerAjaxDb : ServerAjax
     {
         #region Constantes
+
+        public const string STR_METODO_ABRIR_CADASTRO = "ABRIR_CADASTRO";
+        public const string STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO = "ABRIR_CADASTRO_FILTRO_CONTEUDO";
+        public const string STR_METODO_ABRIR_CONSULTA = "ABRIR_CONSULTA";
+        public const string STR_METODO_ABRIR_JANELA_TAG = "ABRIR_JANELA_TAG";
+        public const string STR_METODO_ADICIONAR = "ADICIONAR";
+        public const string STR_METODO_APAGAR = "APAGAR";
+        public const string STR_METODO_CARREGAR_TBL_WEB = "CARREGAR_TBL_WEB";
+        public const string STR_METODO_FILTRO = "FILTRO";
+        public const string STR_METODO_PESQUISAR_COMBO_BOX = "PESQUISAR_COMBO_BOX";
+        public const string STR_METODO_PESQUISAR_GRID = "PESQUISAR_GRID";
+        public const string STR_METODO_RECUPERAR = "RECUPERAR";
+        public const string STR_METODO_SALVAR = "SALVAR";
+        public const string STR_METODO_SALVAR_DOMINIO = "SALVAR_DOMINIO";
 
         #endregion Constantes
 
         #region Atributos
 
-        private static ServerAjaxDb _i;
-
-        public static ServerAjaxDb i
-        {
-            get
-            {
-                if (_i != null)
-                {
-                    return _i;
-                }
-
-                _i = new ServerAjaxDb();
-
-                return _i;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
 
-        private ServerAjaxDb() : base("Servidor AJAX para acesso ao banco de dados.")
+        protected ServerAjaxDb(string strNome) : base(strNome)
         {
         }
 
@@ -69,7 +67,7 @@ namespace NetZ.Web.Server
                     return null;
                 }
 
-                this.responderAjaxDb(objSolicitacao, objSolicitacaoAjaxDb);
+                this.responder(objSolicitacao, objSolicitacaoAjaxDb);
 
                 Resposta objResposta = new Resposta(objSolicitacao);
 
@@ -93,6 +91,91 @@ namespace NetZ.Web.Server
             return ConfigWeb.i.intServerAjaxDbPorta;
         }
 
+        protected virtual bool responder(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            if (objSolicitacaoAjaxDb == null)
+            {
+                return false;
+            }
+
+            switch (objSolicitacaoAjaxDb.strMetodo)
+            {
+                case STR_METODO_APAGAR:
+                    this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_ABRIR_CADASTRO:
+                case STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO:
+                case STR_METODO_ABRIR_JANELA_TAG:
+                    this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_ABRIR_CONSULTA:
+                    this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_CARREGAR_TBL_WEB:
+                    this.carregarTbl(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_PESQUISAR_GRID:
+                case STR_METODO_PESQUISAR_COMBO_BOX:
+                    this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_RECUPERAR:
+                    this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_SALVAR:
+                    this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+
+                case STR_METODO_SALVAR_DOMINIO:
+                    this.salvarDominio(objSolicitacao, objSolicitacaoAjaxDb);
+                    return true;
+            }
+
+            return false;
+        }
+
+        private void salvarDominio(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
+        {
+            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strJsonTipo))
+            {
+                return;
+            }
+
+            Tabela tbl = AppWeb.i.getTblPorDominio(objSolicitacaoAjaxDb.strJsonTipo);
+
+            if (tbl == null)
+            {
+                objSolicitacaoAjaxDb.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objSolicitacaoAjaxDb.strJsonTipo);
+                return;
+            }
+
+            MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
+            MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
+
+            Persistencia.Dominio objDominio = (Persistencia.Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objSolicitacaoAjaxDb.strData });
+
+            int intId = tbl.salvar(objDominio);
+
+            if (intId > 0)
+            {
+                objSolicitacaoAjaxDb.strData = "Registro salvo com sucesso.";
+            }
+            else
+            {
+                objSolicitacaoAjaxDb.strErro = "Erro ao salvar o registro.";
+            }
+        }
+
         private void abrirCadastro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
             if (string.IsNullOrEmpty(objSolicitacaoAjaxDb.strData))
@@ -102,17 +185,17 @@ namespace NetZ.Web.Server
 
             TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objSolicitacaoAjaxDb.strData);
 
-            switch (objSolicitacaoAjaxDb.enmMetodo)
+            switch (objSolicitacaoAjaxDb.strMetodo)
             {
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
+                case STR_METODO_ABRIR_CADASTRO:
                     this.abrirCadastro(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
                     return;
 
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
+                case STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO:
                     this.abrirCadastroFiltroConteudo(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
                     return;
 
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_JANELA_TAG:
+                case STR_METODO_ABRIR_JANELA_TAG:
                     this.abrirJnlTag(objSolicitacaoAjaxDb, objSolicitacao, tblWeb);
                     return;
             }
@@ -300,7 +383,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID.Equals(objSolicitacaoAjaxDb.enmMetodo))
+            if (STR_METODO_PESQUISAR_GRID.Equals(objSolicitacaoAjaxDb.strMetodo))
             {
                 this.pesquisarGrid(objSolicitacaoAjaxDb, tbl, tblWeb, tblData);
                 return;
@@ -326,48 +409,6 @@ namespace NetZ.Web.Server
 
         private void recuperarRegistro(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
         {
-        }
-
-        private void responderAjaxDb(Solicitacao objSolicitacao, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
-        {
-            if (objSolicitacaoAjaxDb == null)
-            {
-                return;
-            }
-
-            switch (objSolicitacaoAjaxDb.enmMetodo)
-            {
-                case SolicitacaoAjaxDb.EnmMetodo.APAGAR:
-                    this.apagarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO:
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CADASTRO_FILTRO_CONTEUDO:
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_JANELA_TAG:
-                    this.abrirCadastro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.ABRIR_CONSULTA:
-                    this.abrirConsulta(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.CARREGAR_TBL_WEB:
-                    this.carregarTbl(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_GRID:
-                case SolicitacaoAjaxDb.EnmMetodo.PESQUISAR_COMBO_BOX:
-                    this.pesquisar(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.RECUPERAR:
-                    this.recuperarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-
-                case SolicitacaoAjaxDb.EnmMetodo.SALVAR:
-                    this.salvarRegistro(objSolicitacao, objSolicitacaoAjaxDb);
-                    return;
-            }
         }
 
         private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, SolicitacaoAjaxDb objSolicitacaoAjaxDb)
