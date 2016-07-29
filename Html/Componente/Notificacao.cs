@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente
 {
@@ -10,25 +11,55 @@ namespace NetZ.Web.Html.Componente
 
         #region Atributos
 
-        private Div _divAdiar;
+        private BotaoMini _btnAdiar;
+        private BotaoMini _btnFechar;
+        private BotaoMini _btnLink;
         private Div _divComando;
-        private Div _divFechar;
         private Div _divIcone;
-        private Div _divLink;
         private Div _divTexto;
 
-        private Div divAdiar
+        private BotaoMini btnAdiar
         {
             get
             {
-                if (_divAdiar != null)
+                if (_btnAdiar != null)
                 {
-                    return _divAdiar;
+                    return _btnAdiar;
                 }
 
-                _divAdiar = new Div();
+                _btnAdiar = new BotaoMini();
 
-                return _divAdiar;
+                return _btnAdiar;
+            }
+        }
+
+        private BotaoMini btnFechar
+        {
+            get
+            {
+                if (_btnFechar != null)
+                {
+                    return _btnFechar;
+                }
+
+                _btnFechar = new BotaoMini();
+
+                return _btnFechar;
+            }
+        }
+
+        private BotaoMini btnLink
+        {
+            get
+            {
+                if (_btnLink != null)
+                {
+                    return _btnLink;
+                }
+
+                _btnLink = new BotaoMini();
+
+                return _btnLink;
             }
         }
 
@@ -47,21 +78,6 @@ namespace NetZ.Web.Html.Componente
             }
         }
 
-        private Div divFechar
-        {
-            get
-            {
-                if (_divFechar != null)
-                {
-                    return _divFechar;
-                }
-
-                _divFechar = new Div();
-
-                return _divFechar;
-            }
-        }
-
         private Div divIcone
         {
             get
@@ -74,21 +90,6 @@ namespace NetZ.Web.Html.Componente
                 _divIcone = new Div();
 
                 return _divIcone;
-            }
-        }
-
-        private Div divLink
-        {
-            get
-            {
-                if (_divLink != null)
-                {
-                    return _divLink;
-                }
-
-                _divLink = new Div();
-
-                return _divLink;
             }
         }
 
@@ -121,13 +122,13 @@ namespace NetZ.Web.Html.Componente
 
             this.strId = "_str_id";
 
-            this.divAdiar.strId = "_str_div_adiar_id";
+            this.btnAdiar.strId = "_str_div_adiar_id";
 
-            this.divFechar.strId = "_str_div_fechar_id";
+            this.btnFechar.strId = "_str_div_fechar_id";
 
             this.divIcone.strId = "_str_div_icone_id";
 
-            this.divLink.strId = "_str_div_link_id";
+            this.btnLink.strId = "_str_div_link_id";
 
             this.divTexto.strConteudo = "_str_div_texto_conteudo";
         }
@@ -138,9 +139,9 @@ namespace NetZ.Web.Html.Componente
 
             this.divComando.setPai(this);
 
-            this.divAdiar.setPai(this.divComando);
-            this.divLink.setPai(this.divComando);
-            this.divFechar.setPai(this.divComando);
+            this.btnAdiar.setPai(this.divComando);
+            this.btnLink.setPai(this.divComando);
+            this.btnFechar.setPai(this.divComando);
 
             this.divIcone.setPai(this);
 
@@ -159,19 +160,13 @@ namespace NetZ.Web.Html.Componente
             this.addCss(css.setMarginTop(10));
             this.addCss(css.setWidth(400));
 
-            this.divAdiar.addCss(css.setDisplay("none"));
-            this.divAdiar.addCss(css.setFloat("left"));
-            this.divAdiar.addCss(css.setHeight(100, "%"));
-            this.divAdiar.addCss(css.setMarginRight(5));
-            this.divAdiar.addCss(css.setWidth(20));
+            this.btnAdiar.addCss(css.setFloat("left"));
 
             this.divComando.addCss(css.setHeight(20));
             this.divComando.addCss(css.setPosition("absolute"));
             this.divComando.addCss(css.setRight(0));
 
-            this.divFechar.addCss(css.setFloat("left"));
-            this.divFechar.addCss(css.setHeight(100, "%"));
-            this.divFechar.addCss(css.setWidth(20));
+            this.btnFechar.addCss(css.setFloat("left"));
 
             this.divIcone.addCss(css.setBackgroundColor("#f4f5f5"));
             this.divIcone.addCss(css.setBorderRight(5, "solid", "#4caf50"));
@@ -179,11 +174,7 @@ namespace NetZ.Web.Html.Componente
             this.divIcone.addCss(css.setHeight(100, "%"));
             this.divIcone.addCss(css.setWidth(100));
 
-            this.divLink.addCss(css.setDisplay("none"));
-            this.divLink.addCss(css.setFloat("left"));
-            this.divLink.addCss(css.setHeight(100, "%"));
-            this.divLink.addCss(css.setMarginRight(5));
-            this.divLink.addCss(css.setWidth(20));
+            this.btnLink.addCss(css.setFloat("left"));
 
             this.divTexto.addCss(css.setMarginLeft(110));
             this.divTexto.addCss(css.setPadding(20));
