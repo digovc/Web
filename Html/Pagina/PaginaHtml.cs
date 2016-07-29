@@ -24,24 +24,44 @@ namespace NetZ.Web.Html.Pagina
         #region Atributos
 
         private static PaginaHtml _i;
+        private bool _booEstatica = true;
 
         private bool _booPagSimples;
+
         private Div _divNotificacao;
+
         private LstTag<CssTag> _lstCss;
+
         private LstTag<JavaScriptTag> _lstJs;
+
         private string _srcIcone = "res/media/ico/favicon.ico";
+
+        private string _strHtmlEstatico;
+
         private string _strTitulo;
+
         private Tag _tagBody;
+
         private CssTag _tagCssMain;
+
         private CssTag _tagCssPrint;
+
         private Tag _tagDocType;
+
         private Tag _tagHead;
+
         private Tag _tagHtml;
+
         private Tag _tagIcon;
+
         private JavaScriptTag _tagJs;
+
         private Tag _tagMetaContent;
+
         private Tag _tagMetaHttpEquiv;
+
         private Tag _tagThemaColor;
+
         private Tag _tagTitle;
 
         public static PaginaHtml i
@@ -251,6 +271,19 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
+        private bool booEstatica
+        {
+            get
+            {
+                return _booEstatica;
+            }
+
+            set
+            {
+                _booEstatica = value;
+            }
+        }
+
         private bool booPagSimples
         {
             get
@@ -276,6 +309,19 @@ namespace NetZ.Web.Html.Pagina
                 _divNotificacao = new Div();
 
                 return _divNotificacao;
+            }
+        }
+
+        private string strHtmlEstatico
+        {
+            get
+            {
+                return _strHtmlEstatico;
+            }
+
+            set
+            {
+                _strHtmlEstatico = value;
             }
         }
 
@@ -622,55 +668,14 @@ namespace NetZ.Web.Html.Pagina
 
         public string toHtml()
         {
-            #region Variáveis
+            string strResultado = this.toHtmlEstatico();
 
-            string strBody;
-            string strHead;
-            StringBuilder stbConteudo;
-            StringBuilder stbResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!string.IsNullOrEmpty(strResultado))
             {
-                this.iniciar();
-
-                strBody = this.tagBody.toHtml();
-
-                this.addCss();
-                this.addJs();
-
-                strHead = this.tagHead.toHtml();
-
-                stbConteudo = new StringBuilder();
-
-                stbConteudo.Append("_head_body");
-
-                stbConteudo.Replace("_head", strHead);
-                stbConteudo.Replace("_body", strBody);
-
-                this.tagHtml.strConteudo = stbConteudo.ToString();
-
-                stbResultado = new StringBuilder();
-
-                stbResultado.Append("_tag_doc_type_tag_html");
-
-                stbResultado.Replace("_tag_doc_type", this.tagDocType.toHtml());
-                stbResultado.Replace("_tag_html", this.tagHtml.toHtml());
-
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return strResultado;
             }
 
-            #endregion Ações
+            return this.toHtmlDinamico();
         }
 
         protected void addConstante(string strNome, string strValor)
@@ -691,6 +696,10 @@ namespace NetZ.Web.Html.Pagina
             strJq = strJq.Replace("_constante_valor", strValor);
 
             this.addJs(strJq);
+        }
+
+        protected virtual void addConstante()
+        {
         }
 
         /// <summary>
@@ -742,9 +751,6 @@ namespace NetZ.Web.Html.Pagina
             {
                 lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
                 lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
-                lstJs.Add(new JavaScriptTag(typeof(InterlocutorAjax), 106));
-                lstJs.Add(new JavaScriptTag(typeof(InterlocutorAjaxDb), 107));
-                lstJs.Add(new JavaScriptTag(typeof(InterlocutorWs), 106));
                 lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
                 lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
@@ -784,6 +790,31 @@ namespace NetZ.Web.Html.Pagina
         {
             // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
             //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
+        }
+
+        protected virtual void addLayoutFixo()
+        {
+            this.addLayoutFixo(typeof(Mensagem));
+            this.addLayoutFixo(typeof(MenuContexto));
+            this.addLayoutFixo(typeof(MenuContextoItem));
+            this.addLayoutFixo(typeof(MenuGrid));
+            this.addLayoutFixo(typeof(Notificacao));
+            this.addLayoutFixo(typeof(TagCard));
+        }
+
+        protected void addLayoutFixo(Type cls)
+        {
+            if (cls == null)
+            {
+                return;
+            }
+
+            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
+            {
+                return;
+            }
+
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
         }
 
         /// <summary>
@@ -1020,31 +1051,6 @@ namespace NetZ.Web.Html.Pagina
             #endregion Ações
         }
 
-        protected virtual void addLayoutFixo()
-        {
-            this.addLayoutFixo(typeof(Mensagem));
-            this.addLayoutFixo(typeof(MenuContexto));
-            this.addLayoutFixo(typeof(MenuContextoItem));
-            this.addLayoutFixo(typeof(MenuGrid));
-            this.addLayoutFixo(typeof(Notificacao));
-            this.addLayoutFixo(typeof(TagCard));
-        }
-
-        protected void addLayoutFixo(Type cls)
-        {
-            if (cls == null)
-            {
-                return;
-            }
-
-            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
-            {
-                return;
-            }
-
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
-        }
-
         private string getStrTituloFormatado()
         {
             #region Variáveis
@@ -1083,6 +1089,54 @@ namespace NetZ.Web.Html.Pagina
             this.finalizar();
             this.finalizarCss(CssPrint.i);
             this.addLayoutFixo();
+            this.addConstante();
+        }
+
+        private string toHtmlDinamico()
+        {
+            this.iniciar();
+
+            string strBody = this.tagBody.toHtml();
+
+            this.addCss();
+            this.addJs();
+
+            string strHead = this.tagHead.toHtml();
+
+            StringBuilder stbConteudo = new StringBuilder();
+
+            stbConteudo.Append("_head_body");
+
+            stbConteudo.Replace("_head", strHead);
+            stbConteudo.Replace("_body", strBody);
+
+            this.tagHtml.strConteudo = stbConteudo.ToString();
+
+            StringBuilder stbResultado = new StringBuilder();
+
+            stbResultado.Append("_tag_doc_type_tag_html");
+
+            stbResultado.Replace("_tag_doc_type", this.tagDocType.toHtml());
+            stbResultado.Replace("_tag_html", this.tagHtml.toHtml());
+
+            this.strHtmlEstatico = stbResultado.ToString();
+
+            return this.strHtmlEstatico;
+        }
+
+        private string toHtmlEstatico()
+        {
+            if (!this.booEstatica)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(this.strHtmlEstatico))
+            {
+                return null;
+            }
+
+            return this.strHtmlEstatico;
         }
 
         #endregion Métodos

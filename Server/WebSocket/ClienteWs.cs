@@ -3,8 +3,8 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using DigoFramework.Json;
+using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
-using NetZ.Web.Dominio;
 
 namespace NetZ.Web.Server.WebSocket
 {
@@ -16,11 +16,22 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Atributos
 
+        private bool _booConectado;
         private bool _booHandshake;
         private UsuarioDominio _objUsuario;
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
         private string _strSessaoId;
+
+        public bool booConectado
+        {
+            get
+            {
+                _booConectado = this.getBooConectado();
+
+                return _booConectado;
+            }
+        }
 
         public UsuarioDominio objUsuario
         {
@@ -90,18 +101,6 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
-        private bool _booConectado;
-
-        public bool booConectado
-        {
-            get
-            {
-                _booConectado = this.getBooConectado();
-
-                return _booConectado;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -114,37 +113,21 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Métodos
 
-        private bool getBooConectado()
-        {
-            if (this.tcpClient == null)
-            {
-                return false;
-            }
-
-            return this.tcpClient.Connected;
-        }
-
         /// <summary>
-        /// Envia uma mensagem contendo a estrutura de um objeto JSON para este cliente.
+        /// Envia uma mensagem contendo a estrutura do interlocutor em JSON para este cliente.
         /// </summary>
-        /// <param name="objJson">Objeto que será serializado e enviado para este cliente.</param>
-        public void enviar(object objJson)
+        /// <param name="objInterlocutor">Interlocutor que será serializado e enviado para este cliente.</param>
+        public void enviar(Interlocutor objInterlocutor)
         {
-            if (objJson == null)
+            if (objInterlocutor == null)
             {
                 return;
             }
 
-            this.enviar(Json.i.toJson(objJson));
+            this.enviar(Json.i.toJson(objInterlocutor));
         }
 
-        /// <summary>
-        /// Envia uma mensagem de texto para este cliente.
-        /// </summary>
-        /// <param name="strMensagem">
-        /// Texto contendo a mensagem que se deseja enviar para este cliente.
-        /// </param>
-        public void enviar(string strMensagem)
+        private void enviar(string strMensagem)
         {
             if (string.IsNullOrEmpty(strMensagem))
             {
@@ -185,14 +168,6 @@ namespace NetZ.Web.Server.WebSocket
         {
         }
 
-        /// <summary>
-        /// Método disparado quando este cliente envia uma mensagem contento texto.
-        /// </summary>
-        /// <param name="strMensagem">Mensagem enviada pelo cliente.</param>
-        protected virtual void onMensagemText(string strMensagem)
-        {
-        }
-
         protected override void responder(Solicitacao objSolicitacao)
         {
             //base.responder();
@@ -215,6 +190,16 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             return true;
+        }
+
+        private bool getBooConectado()
+        {
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
         }
 
         private UsuarioDominio getObjUsuario()
@@ -333,7 +318,22 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            this.onMensagemText(fme.strMensagem);
+            this.processarOnMensagem(fme.strMensagem);
+        }
+
+        private void processarOnMensagem(string strMensagem)
+        {
+            if (this.srv == null)
+            {
+                return;
+            }
+
+            if (!(this.srv is ServerWs))
+            {
+                return;
+            }
+
+            (this.srv as ServerWs).processarOnMensagemLocal(this, strMensagem);
         }
 
         #endregion Métodos

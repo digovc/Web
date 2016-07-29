@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
+using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
-using NetZ.Web.Dominio;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -132,7 +133,7 @@ namespace NetZ.Web
                     return _lstTbl;
                 }
 
-                _lstTbl = new List<Tabela>();
+                _lstTbl = this.getLstTbl();
 
                 return _lstTbl;
             }
@@ -157,26 +158,20 @@ namespace NetZ.Web
 
         #region Construtores
 
+        private List<Tabela> getLstTbl()
+        {
+            List<Tabela> lstTblResultado = new List<Tabela>();
+
+            this.inicializarLstTbl(lstTblResultado);
+
+            return lstTblResultado;
+        }
+
         protected AppWeb(string strNome)
         {
             i = this;
 
             this.strNome = strNome;
-
-            this.iniciar();
-        }
-
-        private void inicializar()
-        {
-            if (this.getObjDbPrincipal() != null)
-            {
-                this.inicializarLstTbl(this.lstTbl);
-            }
-        }
-
-        private void iniciar()
-        {
-            this.inicializar();
         }
 
         #endregion Construtores
@@ -251,10 +246,8 @@ namespace NetZ.Web
         /// </summary>
         public virtual void inicializarServidor()
         {
-            foreach (ServerBase srv in this.lstSrv)
-            {
-                this.inicializarServidor(srv);
-            }
+            this.inicializarConfig();
+            this.inicializarLstSrv();
         }
 
         /// <summary>
@@ -362,6 +355,8 @@ namespace NetZ.Web
             return null;
         }
 
+        protected abstract ConfigWeb getObjConfig();
+
         protected abstract Persistencia.DataBase getObjDbPrincipal();
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
@@ -426,7 +421,25 @@ namespace NetZ.Web
             return tbl;
         }
 
-        private void inicializarServidor(ServerBase srv)
+        private void inicializarConfig()
+        {
+            this.getObjConfig();
+        }
+
+        private void inicializarLstSrv()
+        {
+            if (this.lstSrv == null)
+            {
+                return;
+            }
+
+            foreach (ServerBase srv in this.lstSrv)
+            {
+                this.inicializarLstSrv(srv);
+            }
+        }
+
+        private void inicializarLstSrv(ServerBase srv)
         {
             if (srv == null)
             {

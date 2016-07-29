@@ -148,13 +148,6 @@ namespace NetZ.Web.Server
             try
             {
                 this.booParar = true;
-
-                if (this.thr.IsAlive)
-                {
-                    this.thr.Abort();
-                }
-
-                this.thr = null;
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
-﻿namespace NetZ.Web.Server.WebSocket
+﻿namespace NetZ.Web.DataBase.Dominio
 {
-    public class InterlocutorWs : Interlocutor
+    public abstract class DominioWeb : Persistencia.Dominio
     {
         #region Constantes
 

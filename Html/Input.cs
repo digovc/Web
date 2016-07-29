@@ -221,6 +221,11 @@ namespace NetZ.Web.Html
 
             set
             {
+                if (_strValor == value)
+                {
+                    return;
+                }
+
                 _strValor = value;
 
                 this.atualizarStrValor();
@@ -236,9 +241,7 @@ namespace NetZ.Web.Html
                     return _attValue;
                 }
 
-                _attValue = new Atributo("value");
-
-                this.addAtt(_attValue);
+                _attValue = this.getAttValue();
 
                 return _attValue;
             }
@@ -306,6 +309,15 @@ namespace NetZ.Web.Html
                     this.setCssTextArea(css);
                     return;
             }
+        }
+
+        private Atributo getAttValue()
+        {
+            Atributo attResultado = new Atributo("value");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
         }
 
         private void inicializarEnmTipo()

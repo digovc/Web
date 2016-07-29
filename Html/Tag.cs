@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
@@ -52,7 +51,6 @@ namespace NetZ.Web.Html
         private Atributo _attTitle;
         private Atributo _attType;
         private bool _booBarraFinal = true;
-        private bool _booClicavel;
         private bool _booDupla = true;
         private bool _booMostrarClazz = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
@@ -76,32 +74,14 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attType != null)
                 {
-                    if (_attType != null)
-                    {
-                        return _attType;
-                    }
-
-                    _attType = new Atributo("type");
-
-                    this.addAtt(_attType);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attType;
                 }
 
-                #endregion Ações
+                _attType = new Atributo("type");
+
+                this.addAtt(_attType);
 
                 return _attType;
             }
@@ -188,27 +168,9 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
+                _intTabStop = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _intTabStop = value;
-
-                    this.atualizarIntTabStop();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                this.atualizarIntTabStop();
             }
         }
 
@@ -224,34 +186,16 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
+                _src = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (string.IsNullOrEmpty(_src))
                 {
-                    _src = value;
-
-                    if (string.IsNullOrEmpty(_src))
-                    {
-                        return;
-                    }
-
-                    // TODO: Avaliar a necessidade de adicionar a versão da aplicação para que
-                    // recursos não fiquem defasados por conta do cache do navegador.
-                    this.attSrc.strValor = _src;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                // TODO: Avaliar a necessidade de adicionar a versão da aplicação para que recursos
+                // não fiquem defasados por conta do cache do navegador.
+                this.attSrc.strValor = _src;
             }
         }
 
@@ -278,59 +222,28 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strId != null)
                 {
-                    if (_strId != null)
-                    {
-                        return _strId;
-                    }
-
-                    _strId = this.getStrId();
-
-                    this.attId.strValor = _strId;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strId;
                 }
 
-                #endregion Ações
+                _strId = this.getStrId();
+
+                this.attId.strValor = _strId;
 
                 return _strId;
             }
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strId == value)
                 {
-                    _strId = value;
-
-                    this.atualizarStrId();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strId = value;
+
+                this.atualizarStrId();
             }
         }
 
@@ -362,32 +275,14 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strTitle == value)
                 {
-                    _strTitle = value;
-
-                    if (string.IsNullOrEmpty(_strTitle))
-                    {
-                        return;
-                    }
-
-                    this.attTitle.strValor = _strTitle;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strTitle = value;
+
+                this.atualizarStrTitle();
             }
         }
 
@@ -395,32 +290,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attClass != null)
                 {
-                    if (_attClass != null)
-                    {
-                        return _attClass;
-                    }
-
-                    _attClass = new Atributo("class");
-
-                    this.addAtt(_attClass);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attClass;
                 }
 
-                #endregion Ações
+                _attClass = this.getAttClass();
 
                 return _attClass;
             }
@@ -430,32 +305,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attId != null)
                 {
-                    if (_attId != null)
-                    {
-                        return _attId;
-                    }
-
-                    _attId = new Atributo("id");
-
-                    this.addAtt(_attId);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attId;
                 }
 
-                #endregion Ações
+                _attId = this.getAttId();
 
                 return _attId;
             }
@@ -465,32 +320,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attName != null)
                 {
-                    if (_attName != null)
-                    {
-                        return _attName;
-                    }
-
-                    _attName = new Atributo("name");
-
-                    this.addAtt(_attName);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attName;
                 }
 
-                #endregion Ações
+                _attName = this.getAttName();
 
                 return _attName;
             }
@@ -500,32 +335,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attSrc != null)
                 {
-                    if (_attSrc != null)
-                    {
-                        return _attSrc;
-                    }
-
-                    _attSrc = new Atributo("src");
-
-                    this.addAtt(_attSrc);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attSrc;
                 }
 
-                #endregion Ações
+                _attSrc = this.getAttSrc();
 
                 return _attSrc;
             }
@@ -535,32 +350,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attTabIndex != null)
                 {
-                    if (_attTabIndex != null)
-                    {
-                        return _attTabIndex;
-                    }
-
-                    _attTabIndex = new Atributo("tabindex");
-
-                    this.addAtt(_attTabIndex);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attTabIndex;
                 }
 
-                #endregion Ações
+                _attTabIndex = this.getAttTabIndex();
 
                 return _attTabIndex;
             }
@@ -570,73 +365,14 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attTitle != null)
                 {
-                    if (_attTitle != null)
-                    {
-                        return _attTitle;
-                    }
-
-                    _attTitle = new Atributo("title");
-
-                    this.addAtt(_attTitle);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attTitle;
                 }
 
-                #endregion Ações
+                _attTitle = this.getAttTitle();
 
                 return _attTitle;
-            }
-        }
-
-        private bool booClicavel
-        {
-            get
-            {
-                return _booClicavel;
-            }
-
-            set
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _booClicavel = value;
-
-                    if (!_booClicavel)
-                    {
-                        return;
-                    }
-
-                    // TODO: Descomentar.
-                    //this.addCss(CssTag.i.setCursor(CssTag.EnmCursor.POINTER));
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
             }
         }
 
@@ -644,30 +380,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstAtt != null)
                 {
-                    if (_lstAtt != null)
-                    {
-                        return _lstAtt;
-                    }
-
-                    _lstAtt = new List<Atributo>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstAtt;
                 }
 
-                #endregion Ações
+                _lstAtt = new List<Atributo>();
 
                 return _lstAtt;
             }
@@ -677,30 +395,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstTag != null)
                 {
-                    if (_lstTag != null)
-                    {
-                        return _lstTag;
-                    }
-
-                    _lstTag = new List<Tag>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstTag;
                 }
 
-                #endregion Ações
+                _lstTag = new List<Tag>();
 
                 return _lstTag;
             }
@@ -741,32 +441,14 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strName == value)
                 {
-                    _strName = value;
-
-                    if (string.IsNullOrEmpty(_strName))
-                    {
-                        return;
-                    }
-
-                    this.attName.strValor = _strName;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strName = value;
+
+                this.atualizarStrName();
             }
         }
 
@@ -779,32 +461,14 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagPai == value)
                 {
-                    if (_tagPai == value)
-                    {
-                        return;
-                    }
-
-                    _tagPai = value;
-
-                    this.atualizarPagPai();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _tagPai = value;
+
+                this.atualizarPagPai();
             }
         }
 
@@ -814,25 +478,7 @@ namespace NetZ.Web.Html
 
         public Tag(string strNome)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = strNome;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = strNome;
         }
 
         #endregion Construtores
@@ -845,51 +491,33 @@ namespace NetZ.Web.Html
         /// <param name="att">Atributo que será adicionado para esta tag.</param>
         public void addAtt(Atributo att)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (att == null)
             {
-                if (att == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(att.strNome))
-                {
-                    return;
-                }
-
-                foreach (Atributo att2 in this.lstAtt)
-                {
-                    if (att2 == null)
-                    {
-                        continue;
-                    }
-
-                    if (!att2.strNome.Equals(att.strNome))
-                    {
-                        continue;
-                    }
-
-                    this.lstAtt.Remove(att2);
-                    break;
-                }
-
-                this.lstAtt.Add(att);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(att.strNome))
+            {
+                return;
+            }
+
+            foreach (Atributo att2 in this.lstAtt)
+            {
+                if (att2 == null)
+                {
+                    continue;
+                }
+
+                if (!att2.strNome.ToLower().Equals(att.strNome.ToLower()))
+                {
+                    continue;
+                }
+
+                this.lstAtt.Remove(att2);
+                break;
+            }
+
+            this.lstAtt.Add(att);
         }
 
         /// <summary>
@@ -897,30 +525,12 @@ namespace NetZ.Web.Html
         /// </summary>
         public void addAtt(string strAttNome, string strValor = null)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strAttNome))
             {
-                if (string.IsNullOrEmpty(strAttNome))
-                {
-                    return;
-                }
-
-                this.addAtt(new Atributo(strAttNome, strValor));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addAtt(new Atributo(strAttNome, strValor));
         }
 
         public void addAtt(string strAttNome, decimal decValor)
@@ -951,95 +561,46 @@ namespace NetZ.Web.Html
         /// <param name="strCssClass">Classe que está ligada à propriedade CSS.</param>
         public void addCss(string strCssClass)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strCssClass))
             {
-                if (string.IsNullOrEmpty(strCssClass))
-                {
-                    return;
-                }
-
-                this.attClass.addValor(strCssClass);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.attClass.addValor(strCssClass);
         }
 
         public void apagarAtt(string strAttNome)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strAttNome))
             {
-                if (string.IsNullOrEmpty(strAttNome))
+                return;
+            }
+
+            foreach (Atributo att in this.lstAtt)
+            {
+                if (att == null)
                 {
-                    return;
+                    continue;
                 }
 
-                foreach (Atributo att in this.lstAtt)
+                if (string.IsNullOrEmpty(att.strNome))
                 {
-                    if (att == null)
-                    {
-                        continue;
-                    }
-
-                    if (!strAttNome.Equals(att))
-                    {
-                        continue;
-                    }
-
-                    this.lstAtt.Remove(att);
-                    return;
+                    continue;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+                if (!att.strNome.ToLower().Equals(strAttNome.ToLower()))
+                {
+                    continue;
+                }
+
+                this.lstAtt.Remove(att);
+                return;
+            }
         }
 
         public void limparClass()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.attClass.strValor = null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.attClass.strValor = null;
         }
 
         /// <summary>
@@ -1048,30 +609,12 @@ namespace NetZ.Web.Html
         /// </summary>
         public virtual void setPai(Tag tagPai)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tagPai == null)
             {
-                if (tagPai == null)
-                {
-                    return;
-                }
-
-                this.tagPai = tagPai;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.tagPai = tagPai;
         }
 
         /// <summary>
@@ -1080,30 +623,12 @@ namespace NetZ.Web.Html
         /// </summary>
         public void setPai(PaginaHtml pagPai)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (pagPai == null)
             {
-                if (pagPai == null)
-                {
-                    return;
-                }
-
-                this.tagPai = pagPai.tagBody;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.tagPai = pagPai.tagBody;
         }
 
         /// <summary>
@@ -1112,31 +637,15 @@ namespace NetZ.Web.Html
         /// <returns>Retorna esta TAG formatada em HTML.</returns>
         public virtual string toHtml()
         {
-            #region Variáveis
+            // TODO: Criar processo para persistir as tags que não mudam durante o ciclo de uso da aplicação.
 
-            #endregion Variáveis
+            this.inicializar();
+            this.montarLayout();
+            this.setCss(CssMain.i);
+            this.finalizar();
+            this.finalizarCss(CssMain.i);
 
-            #region Ações
-
-            try
-            {
-                this.inicializar();
-                this.montarLayout();
-                this.setCss(CssMain.i);
-                this.finalizar();
-                this.finalizarCss(CssMain.i);
-
-                return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
         }
 
         protected void addConstante(string strNome, string strValor)
@@ -1200,30 +709,12 @@ namespace NetZ.Web.Html
         /// <param name="tag">Tag que será contida por esta tag.</param>
         protected virtual void addTag(Tag tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                this.lstTag.Add(tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.lstTag.Add(tag);
         }
 
         /// <summary>
@@ -1231,25 +722,7 @@ namespace NetZ.Web.Html
         /// </summary>
         protected virtual void atualizarStrId()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.attId.strValor = this.strId;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.attId.strValor = this.strId;
         }
 
         /// <summary>
@@ -1274,29 +747,11 @@ namespace NetZ.Web.Html
         /// </summary>
         protected virtual void inicializar()
         {
-            #region Variáveis
+            this.addCss(PaginaHtml.i.lstCss);
+            this.addJs(PaginaHtml.i.lstJs);
+            this.addJs(PaginaHtml.i.tagJs);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(PaginaHtml.i.lstCss);
-                this.addJs(PaginaHtml.i.lstJs);
-                this.addJs(PaginaHtml.i.tagJs);
-
-                this.inicializarClazz();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializarClazz();
         }
 
         protected virtual void montarLayout()
@@ -1309,472 +764,269 @@ namespace NetZ.Web.Html
         /// <param name="css">Tag CSS principal da página onde serão adicionado todo o design.</param>
         protected virtual void setCss(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.setCssBooMostrarGrade(css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.setCssBooMostrarGrade(css);
         }
 
         private void atualizarIntTabStop()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.intTabStop < 1)
             {
-                if (this.intTabStop < 1)
-                {
-                    return;
-                }
-
-                this.attTabIndex.intValor = this.intTabStop;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.attTabIndex.intValor = this.intTabStop;
         }
 
         private void atualizarPagPai()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tagPai == null)
             {
-                if (this.tagPai == null)
-                {
-                    return;
-                }
-
-                this.tagPai.addTag(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.tagPai.addTag(this);
+        }
+
+        private void atualizarStrName()
+        {
+            if (string.IsNullOrEmpty(this.strName))
+            {
+                return;
+            }
+
+            this.attName.strValor = this.strName;
+        }
+
+        private void atualizarStrTitle()
+        {
+            if (string.IsNullOrEmpty(this.strTitle))
+            {
+                return;
+            }
+
+            this.attTitle.strValor = this.strTitle;
+        }
+
+        private Atributo getAttClass()
+        {
+            Atributo attResultado = new Atributo("class");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
+        }
+
+        private Atributo getAttId()
+        {
+            Atributo attResultado = new Atributo("id");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
+        }
+
+        private Atributo getAttName()
+        {
+            Atributo attResultado = new Atributo("name");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
+        }
+
+        private Atributo getAttSrc()
+        {
+            Atributo attResultado = new Atributo("src");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
+        }
+
+        private Atributo getAttTabIndex()
+        {
+            Atributo attResultado = new Atributo("tabindex");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
+        }
+
+        private Atributo getAttTitle()
+        {
+            Atributo attResultado = new Atributo("title");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
         }
 
         private bool getBooTagDupla()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.booDupla)
             {
-                if (this.booDupla)
-                {
-                    return true;
-                }
-
-                if (!string.IsNullOrEmpty(this.strConteudo))
-                {
-                    return true;
-                }
-
-                if (this.lstTag.Count > 0)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return true;
             }
 
-            #endregion Ações
+            if (!string.IsNullOrEmpty(this.strConteudo))
+            {
+                return true;
+            }
+
+            if (this.lstTag.Count > 0)
+            {
+                return true;
+            }
 
             return false;
         }
 
         private string getStrId()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                strResultado = "id_int_id";
-                strResultado = strResultado.Replace("_int_id", this.intObjetoId.ToString());
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        private string getStrJsClasse()
-        {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                strResultado = this.GetType().Namespace;
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return string.Format("i{0}", this.intObjetoId);
         }
 
         private string getStrLinkTipo()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            switch (this.enmLinkTipo)
             {
-                switch (this.enmLinkTipo)
-                {
-                    case EnmLinkTipo.BLANK:
-                        return "_blank";
+                case EnmLinkTipo.BLANK:
+                    return "_blank";
 
-                    case EnmLinkTipo.FRAMENAME:
-                        return "framename";
+                case EnmLinkTipo.FRAMENAME:
+                    return "framename";
 
-                    case EnmLinkTipo.PARENT:
-                        return "_parent";
+                case EnmLinkTipo.PARENT:
+                    return "_parent";
 
-                    case EnmLinkTipo.TOP:
-                        return "_top";
+                case EnmLinkTipo.TOP:
+                    return "_top";
 
-                    default:
-                        return "_self";
-                }
+                default:
+                    return "_self";
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void inicializarClazz()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!this.booMostrarClazz)
             {
-                if (!this.booMostrarClazz)
-                {
-                    return;
-                }
-
-                this.addAtt("clazz", this.GetType().Name);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addAtt("clazz", this.GetType().Name);
         }
 
         private void setCssBooMostrarGrade(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!AppWeb.i.booMostrarGrade)
             {
-                if (!AppWeb.i.booMostrarGrade)
-                {
-                    return;
-                }
-
-                this.addCss(css.setBorder(1, "dashed", "#ababab"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addCss(css.setBorder(1, "dashed", "#ababab"));
         }
 
         private string toHtmlAtributo()
         {
-            #region Variáveis
-
-            List<string> lstStrAtrAdicionado;
-            List<string> lstStrAtrFormatado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.lstAtt == null)
             {
-                if (this.lstAtt == null)
+                return null;
+            }
+
+            List<string> lstStrAtrAdicionado = new List<string>();
+            List<string> lstStrAtrFormatado = new List<string>();
+
+            foreach (Atributo att in this.lstAtt.OrderBy((o) => o.strNome))
+            {
+                if (att == null)
                 {
-                    return null;
+                    continue;
                 }
 
-                lstStrAtrAdicionado = new List<string>();
-                lstStrAtrFormatado = new List<string>();
-
-                foreach (Atributo att in this.lstAtt.OrderBy((o) => o.strNome))
+                if (string.IsNullOrEmpty(att.strNome))
                 {
-                    if (att == null)
-                    {
-                        continue;
-                    }
-
-                    if (string.IsNullOrEmpty(att.strNome))
-                    {
-                        continue;
-                    }
-
-                    if (lstStrAtrAdicionado.Contains(att.strNome))
-                    {
-                        continue;
-                    }
-
-                    lstStrAtrFormatado.Add(att.getStrFormatado());
+                    continue;
                 }
 
-                return string.Join(" ", lstStrAtrFormatado.ToArray());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                if (lstStrAtrAdicionado.Contains(att.strNome))
+                {
+                    continue;
+                }
+
+                lstStrAtrFormatado.Add(att.getStrFormatado());
             }
 
-            #endregion Ações
+            return string.Join(" ", lstStrAtrFormatado.ToArray());
         }
 
         private string toHtmlTagDupla()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
+            stbResultado.Append(this.toHtmlTagDuplaLinkIn());
+            stbResultado.Append(this.strAbertura);
+            stbResultado.Append(this.strNome);
+            stbResultado.Append((0.Equals(this.lstAtt.Count)) ? null : " ");
+            stbResultado.Append(this.toHtmlAtributo());
+            stbResultado.Append(this.strFechamento);
+            stbResultado.Append(this.strConteudo);
+            stbResultado.Append(this.toHtmlTagFilho());
+            stbResultado.Append(this.strAbertura);
+            stbResultado.Append((!this.booBarraFinal) ? null : "/");
+            stbResultado.Append(this.strNome);
+            stbResultado.Append(this.strFechamento);
+            stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                stbResultado = new StringBuilder();
-
-                stbResultado.Append(this.toHtmlTagDuplaLinkIn());
-                stbResultado.Append(this.strAbertura);
-                stbResultado.Append(this.strNome);
-                stbResultado.Append((0.Equals(this.lstAtt.Count)) ? null : " ");
-                stbResultado.Append(this.toHtmlAtributo());
-                stbResultado.Append(this.strFechamento);
-                stbResultado.Append(this.strConteudo);
-                stbResultado.Append(this.toHtmlTagFilho());
-                stbResultado.Append(this.strAbertura);
-                stbResultado.Append((!this.booBarraFinal) ? null : "/");
-                stbResultado.Append(this.strNome);
-                stbResultado.Append(this.strFechamento);
-                stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
-
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return stbResultado.ToString();
         }
 
         private string toHtmlTagDuplaLinkIn()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strLink))
             {
-                if (string.IsNullOrEmpty(this.strLink))
-                {
-                    return null;
-                }
-
-                strResultado = "<a href=\"_link_valor\" target=\"_target_valor\">";
-
-                strResultado = strResultado.Replace("_link_valor", this.strLink);
-                strResultado = strResultado.Replace("_target_valor", this.getStrLinkTipo());
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string strResultado = "<a href=\"_link_valor\" target=\"_target_valor\">";
+
+            strResultado = strResultado.Replace("_link_valor", this.strLink);
+            strResultado = strResultado.Replace("_target_valor", this.getStrLinkTipo());
+
+            return strResultado;
         }
 
         private string toHtmlTagFilho()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (Tag tag in this.lstTag)
             {
-                stbResultado = new StringBuilder();
-
-                foreach (Tag tag in this.lstTag)
+                if (tag == null)
                 {
-                    if (tag == null)
-                    {
-                        continue;
-                    }
-
-                    stbResultado.Append(tag.toHtml());
+                    continue;
                 }
 
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                stbResultado.Append(tag.toHtml());
             }
 
-            #endregion Ações
+            return stbResultado.ToString();
         }
 
         private string toHtmlTagUnica()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
+            stbResultado.Append(this.toHtmlTagDuplaLinkIn());
+            stbResultado.Append(this.strAbertura);
+            stbResultado.Append(this.strNome);
+            stbResultado.Append((0.Equals(this.lstAtt.Count)) ? null : " ");
+            stbResultado.Append(this.toHtmlAtributo());
+            stbResultado.Append((!this.booBarraFinal) ? null : "/");
+            stbResultado.Append(this.strFechamento);
+            stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                stbResultado = new StringBuilder();
-
-                stbResultado.Append(this.toHtmlTagDuplaLinkIn());
-                stbResultado.Append(this.strAbertura);
-                stbResultado.Append(this.strNome);
-                stbResultado.Append((0.Equals(this.lstAtt.Count)) ? null : " ");
-                stbResultado.Append(this.toHtmlAtributo());
-                stbResultado.Append((!this.booBarraFinal) ? null : "/");
-                stbResultado.Append(this.strFechamento);
-                stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
-
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return stbResultado.ToString();
         }
 
         #endregion Métodos

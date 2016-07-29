@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Html
 {
     public class CssTag : Tag
     {
@@ -22,27 +20,14 @@ namespace NetZ.Web.Html
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strHref == value)
                 {
-                    _strHref = value;
-
-                    this.atualizarStrHref();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strHref = value;
+
+                this.atualizarStrHref();
             }
         }
 
@@ -50,32 +35,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attHref != null)
                 {
-                    if (_attHref != null)
-                    {
-                        return _attHref;
-                    }
-
-                    _attHref = new Atributo("href");
-
-                    this.addAtt(_attHref);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attHref;
                 }
 
-                #endregion Ações
+                _attHref = this.getAttHref();
 
                 return _attHref;
             }
@@ -87,25 +52,7 @@ namespace NetZ.Web.Html
 
         public CssTag() : base("link")
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booMostrarClazz = false;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.booMostrarClazz = false;
         }
 
         #endregion Construtores
@@ -116,51 +63,29 @@ namespace NetZ.Web.Html
         {
             base.inicializar();
 
-            #region Variáveis
+            this.booDupla = false;
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booDupla = false;
-
-                this.addAtt("rel", "stylesheet");
-                this.addAtt("type", "text/css");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addAtt("rel", "stylesheet");
+            this.addAtt("type", "text/css");
         }
 
         private void atualizarStrHref()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strHref))
             {
-                this.attHref.strValor = _strHref;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.attHref.strValor = this.strHref;
+        }
+
+        private Atributo getAttHref()
+        {
+            Atributo attResultado = new Atributo("href");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
         }
 
         #endregion Métodos

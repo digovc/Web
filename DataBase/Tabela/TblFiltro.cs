@@ -22,30 +22,12 @@ namespace NetZ.Web.DataBase.Tabela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_i != null)
                 {
-                    if (_i != null)
-                    {
-                        return _i;
-                    }
-
-                    _i = new TblFiltro();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _i;
                 }
 
-                #endregion Ações
+                _i = new TblFiltro();
 
                 return _i;
             }
@@ -55,30 +37,12 @@ namespace NetZ.Web.DataBase.Tabela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_clnStrDescricao != null)
                 {
-                    if (_clnStrDescricao != null)
-                    {
-                        return _clnStrDescricao;
-                    }
-
-                    _clnStrDescricao = new Coluna("str_descricao", this, Coluna.EnmTipo.TEXT);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _clnStrDescricao;
                 }
 
-                #endregion Ações
+                _clnStrDescricao = new Coluna("str_descricao", this, Coluna.EnmTipo.TEXT);
 
                 return _clnStrDescricao;
             }
@@ -88,30 +52,12 @@ namespace NetZ.Web.DataBase.Tabela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_clnStrNome != null)
                 {
-                    if (_clnStrNome != null)
-                    {
-                        return _clnStrNome;
-                    }
-
-                    _clnStrNome = new Coluna("str_nome", this, Coluna.EnmTipo.TEXT);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _clnStrNome;
                 }
 
-                #endregion Ações
+                _clnStrNome = new Coluna("str_nome", this, Coluna.EnmTipo.TEXT);
 
                 return _clnStrNome;
             }
@@ -121,30 +67,12 @@ namespace NetZ.Web.DataBase.Tabela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_clnStrTabelaNome != null)
                 {
-                    if (_clnStrTabelaNome != null)
-                    {
-                        return _clnStrTabelaNome;
-                    }
-
-                    _clnStrTabelaNome = new Coluna("str_tabela_nome", this, Coluna.EnmTipo.TEXT);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _clnStrTabelaNome;
                 }
 
-                #endregion Ações
+                _clnStrTabelaNome = new Coluna("str_tabela_nome", this, Coluna.EnmTipo.TEXT);
 
                 return _clnStrTabelaNome;
             }
@@ -178,29 +106,11 @@ namespace NetZ.Web.DataBase.Tabela
 
         protected override int inicializarColunas(int intOrdem)
         {
-            #region Variáveis
+            intOrdem = base.inicializarColunas(intOrdem);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                intOrdem = base.inicializarColunas(intOrdem);
-
-                this.clnStrDescricao.intOrdem = ++intOrdem;
-                this.clnStrNome.intOrdem = ++intOrdem;
-                this.clnStrTabelaNome.intOrdem = ++intOrdem;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.clnStrDescricao.intOrdem = ++intOrdem;
+            this.clnStrNome.intOrdem = ++intOrdem;
+            this.clnStrTabelaNome.intOrdem = ++intOrdem;
 
             return intOrdem;
         }

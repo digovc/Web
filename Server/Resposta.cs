@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using DigoFramework;
 using DigoFramework.Json;
-using NetZ.Web.Dominio;
+using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo;
 
@@ -961,6 +961,9 @@ namespace NetZ.Web.Server
                     case INT_STATUS_CODE_302_FOUND:
                         return this.getStrHeader302();
 
+                    case INT_STATUS_CODE_404_NOT_FOUND:
+                        return this.getStrHeader404();
+
                     default:
                         return this.getStrHeader200();
                 }
@@ -1056,6 +1059,20 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
+        private string getStrHeader404()
+        {
+            StringBuilder stbResultado = new StringBuilder();
+
+            stbResultado.AppendLine(this.getStrHeaderStatus());
+            stbResultado.AppendLine(this.getStrHeaderData("Date", DateTime.Now));
+            stbResultado.AppendLine(this.getStrHeaderServer());
+            stbResultado.AppendLine(this.getStrHeaderSetCookie());
+            stbResultado.AppendLine(this.getStrHeaderContentType());
+            stbResultado.AppendLine(this.getStrHeaderContentLength());
+
+            return stbResultado.ToString();
+        }
+
         private string getStrHeaderBasico()
         {
             #region Variáveis
@@ -1101,7 +1118,7 @@ namespace NetZ.Web.Server
             {
                 if (this.mmsConteudo == null)
                 {
-                    return null;
+                    return "Content-Length: 0";
                 }
 
                 strResultado = "Content-Length: _content_length";
@@ -1252,32 +1269,7 @@ namespace NetZ.Web.Server
 
         private string getStrHeaderServer()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                //strResultado = "Server: _server_nome";
-                //strResultado = strResultado.Replace("_server_nome", AppWeb.i.strNomeExibicao);
-
-                //return strResultado;
-
-                return "Server: NetZ.Web Server";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return "Server: NetZ.Web Server";
         }
 
         private string getStrHeaderSetCookie()

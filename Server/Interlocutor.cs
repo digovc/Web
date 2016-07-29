@@ -3,7 +3,7 @@ using NetZ.SistemaBase;
 
 namespace NetZ.Web.Server
 {
-    public abstract class Interlocutor : Objeto
+    public class Interlocutor : Objeto
     {
         #region Constantes
 

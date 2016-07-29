@@ -8,7 +8,7 @@ using System.Threading;
 using System.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Tabela;
-using NetZ.Web.Dominio;
+using NetZ.Web.DataBase.Dominio;
 
 namespace NetZ.Web.Server
 {

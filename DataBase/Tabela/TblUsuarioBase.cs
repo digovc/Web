@@ -1,6 +1,6 @@
 ﻿using System;
 using NetZ.Persistencia;
-using NetZ.Web.Dominio;
+using NetZ.Web.DataBase.Dominio;
 
 namespace NetZ.Web.DataBase.Tabela
 {

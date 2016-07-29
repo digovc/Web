@@ -56,7 +56,7 @@
     <Compile Include="DataBase\Tabela\TblWebBase.cs" />
     <Compile Include="DataBase\View\ViwFiltroItem.cs" />
     <Compile Include="DataBase\View\ViwWebBase.cs" />
-    <Compile Include="Dominio\DominioBase.cs" />
+    <Compile Include="DataBase\Dominio\DominioWeb.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
@@ -127,7 +127,6 @@
     <Compile Include="Html\ITagNivel.cs" />
     <Compile Include="Html\JavaScriptTag.cs" />
     <Compile Include="Html\Componente\LimiteFloat.cs" />
-    <Compile Include="Html\Label.cs" />
     <Compile Include="Html\LstTag.cs" />
     <Compile Include="Html\Pagina\PaginaHtml.cs" />
     <Compile Include="Html\Componente\Painel\PainelHtml.cs" />
@@ -153,15 +152,12 @@
     <Compile Include="Server\WebSocket\ServerWs.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
-    <Compile Include="Server\Ajax\InterlocutorAjax.cs" />
-    <Compile Include="Server\Ajax\InterlocutorAjaxDb.cs" />
-    <Compile Include="Dominio\UsuarioDominio.cs" />
+    <Compile Include="DataBase\Dominio\UsuarioDominio.cs" />
     <Compile Include="Properties\View.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>View.resx</DependentUpon>
     </Compile>
-    <Compile Include="Server\WebSocket\InterlocutorWs.cs" />
     <Compile Include="WinService\NetZWebServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

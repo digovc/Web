@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using NetZ.Persistencia;
 
@@ -74,30 +73,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_dicOpcao != null)
                 {
-                    if (_dicOpcao != null)
-                    {
-                        return _dicOpcao;
-                    }
-
-                    _dicOpcao = new Dictionary<object, string>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _dicOpcao;
                 }
 
-                #endregion Ações
+                _dicOpcao = new Dictionary<object, string>();
 
                 return _dicOpcao;
             }
@@ -109,25 +90,7 @@ namespace NetZ.Web.Html
 
         public ComboBox()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = "select";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = "select";
         }
 
         #endregion Construtores
@@ -136,80 +99,31 @@ namespace NetZ.Web.Html
 
         public void addOpcao(object objValor, string strNome)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objValor == null)
             {
-                if (this.dicOpcao.ContainsKey(objValor))
-                {
-                    return;
-                }
-
-                this.dicOpcao.Add(objValor, strNome);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.dicOpcao.ContainsKey(objValor))
+            {
+                return;
+            }
+
+            this.dicOpcao.Add(objValor, strNome);
         }
 
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.montarLayoutItens();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.montarLayoutItens();
         }
 
         private void atualizarCln()
@@ -242,81 +156,43 @@ namespace NetZ.Web.Html
 
         private Tag getTagOption(object objValor, string strNome)
         {
-            #region Variáveis
-
-            Tag tagResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objValor == null)
             {
-                if (objValor == null)
-                {
-                    return null;
-                }
-
-                tagResultado = new Tag("option");
-
-                if (this.strValor == objValor.ToString())
-                {
-                    tagResultado.addAtt("selected", null);
-                }
-
-                tagResultado.addAtt("value", objValor.ToString());
-                tagResultado.strConteudo = strNome;
-                tagResultado.setPai(this);
-
-                return tagResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            Tag tagResultado = new Tag("option");
+
+            if (objValor.ToString().Equals(this.strValor))
+            {
+                tagResultado.addAtt("selected", null);
+            }
+
+            tagResultado.addAtt("value", objValor.ToString());
+            tagResultado.strConteudo = strNome;
+            tagResultado.setPai(this);
+
+            return tagResultado;
         }
 
         private void montarLayoutItens()
         {
-            #region Variáveis
+            Tag tagOption = null;
 
-            Tag tagOption;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if ((this.dicOpcao.Count < 1) || this.booOpcaoVazia)
             {
-                if ((this.dicOpcao.Count < 1) || this.booOpcaoVazia)
+                tagOption = this.getTagOption(-1, null);
+            }
+
+            foreach (KeyValuePair<object, string> kpv in this.dicOpcao)
+            {
+                if (kpv.Key == null)
                 {
-                    tagOption = this.getTagOption(-1, null);
+                    continue;
                 }
 
-                foreach (KeyValuePair<object, string> kpv in this.dicOpcao)
-                {
-                    if (kpv.Key == null)
-                    {
-                        continue;
-                    }
-
-                    tagOption = this.getTagOption(kpv.Key, kpv.Value);
-                }
+                tagOption = this.getTagOption(kpv.Key, kpv.Value);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         #endregion Métodos

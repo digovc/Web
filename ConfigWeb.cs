@@ -1,13 +1,8 @@
-﻿using System;
-using DigoFramework;
+﻿using DigoFramework;
 
 namespace NetZ.Web
 {
-    /// <summary>
-    /// Esta classe mantém uma instância do arquivo AppConfig.xml, localizado na pasta onde fica esta biblioteca.
-    /// <para>Este arquivo contém as configurações para que este servidor WEB possa funcionar.</para>
-    /// </summary>
-    public class ConfigWeb : ConfigMain
+    public abstract class ConfigWeb : ConfigMain
     {
         #region Constantes
 
@@ -22,39 +17,18 @@ namespace NetZ.Web
         private bool _booServerAjaxDbAtivar = true;
         private int _intPorta = 80;
         private int _intServerAjaxDbPorta = 8081;
-        private int _intServerWsPorta = 443;
         private int _intTimeOut = 5;
 
         public static new ConfigWeb i
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_i != null)
-                    {
-                        return _i;
-                    }
-
-                    _i = new ConfigWeb();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
                 return _i;
+            }
+
+            private set
+            {
+                _i = value;
             }
         }
 
@@ -142,19 +116,6 @@ namespace NetZ.Web
             }
         }
 
-        public int intServerWsPorta
-        {
-            get
-            {
-                return _intServerWsPorta;
-            }
-
-            set
-            {
-                _intServerWsPorta = value;
-            }
-        }
-
         /// <summary>
         /// Tempo em segundos que o servidor esperará pela mensagem vinda do cliente após este ter
         /// começado uma conexão. Caso nada tenha sido enviado pelo cliente neste período a conexão é
@@ -177,8 +138,9 @@ namespace NetZ.Web
 
         #region Construtores
 
-        private ConfigWeb()
+        protected ConfigWeb()
         {
+            i = this;
         }
 
         #endregion Construtores

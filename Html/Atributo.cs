@@ -28,52 +28,23 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
                 try
                 {
                     _intValor = Convert.ToInt32(this.strValor);
                 }
                 catch
                 {
-                    return 0;
+                    _intValor = 0;
                 }
-                finally
-                {
-                }
-
-                #endregion Ações
 
                 return _intValor;
             }
 
             set
             {
-                #region Variáveis
+                _intValor = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _intValor = value;
-
-                    this.strValor = Convert.ToString(_intValor);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                this.strValor = Convert.ToString(_intValor);
             }
         }
 
@@ -100,53 +71,21 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _strValor = string.Join(this.strSeparador, this.lstStrValor.ToArray());
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                _strValor = string.Join(this.strSeparador, this.lstStrValor.ToArray());
 
                 return _strValor;
             }
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strValor == value)
                 {
-                    _strValor = value;
-
-                    this.lstStrValor.Clear();
-                    this.addValor(_strValor);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strValor = value;
+
+                this.atualizarStrValor();
             }
         }
 
@@ -157,30 +96,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstStrValor != null)
                 {
-                    if (_lstStrValor != null)
-                    {
-                        return _lstStrValor;
-                    }
-
-                    _lstStrValor = new List<string>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstStrValor;
                 }
 
-                #endregion Ações
+                _lstStrValor = new List<string>();
 
                 return _lstStrValor;
             }
@@ -192,50 +113,15 @@ namespace NetZ.Web.Html
 
         public Atributo(string strNome, string strValor = null)
         {
-            #region Variáveis
+            this.strNome = strNome;
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = strNome;
-                this.addValor(strValor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addValor(strValor);
         }
 
         public Atributo(string strNome, int intValor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strNome = strNome;
-                this.addValor(intValor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = strNome;
+            this.addValor(intValor);
         }
 
         #endregion Construtores
@@ -248,35 +134,17 @@ namespace NetZ.Web.Html
         /// <param name="strValor">Valor que será adicionado para lista de valores deste atributo.</param>
         public void addValor(string strValor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strValor))
             {
-                if (string.IsNullOrEmpty(strValor))
-                {
-                    return;
-                }
-
-                if (this.lstStrValor.Contains(strValor))
-                {
-                    return;
-                }
-
-                this.lstStrValor.Add(strValor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (this.lstStrValor.Contains(strValor))
+            {
+                return;
+            }
+
+            this.lstStrValor.Add(strValor);
         }
 
         /// <summary>
@@ -301,38 +169,25 @@ namespace NetZ.Web.Html
         /// <returns></returns>
         public virtual string getStrFormatado()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strNome))
             {
-                if (string.IsNullOrEmpty(this.strNome))
-                {
-                    return null;
-                }
-
-                strResultado = "_atributo_nome=\"_atributo_valor\"";
-
-                strResultado = strResultado.Replace("_atributo_nome", this.strNome.ToLower());
-                strResultado = strResultado.Replace("_atributo_valor", string.Join(this.strSeparador, this.lstStrValor.ToArray()));
-                strResultado = strResultado.Replace("=\"\"", null);
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string strResultado = "_atributo_nome=\"_atributo_valor\"";
+
+            strResultado = strResultado.Replace("_atributo_nome", this.strNome.ToLower());
+            strResultado = strResultado.Replace("_atributo_valor", string.Join(this.strSeparador, this.lstStrValor.ToArray()));
+            strResultado = strResultado.Replace("=\"\"", null);
+
+            return strResultado;
+        }
+
+        private void atualizarStrValor()
+        {
+            this.lstStrValor.Clear();
+
+            this.addValor(_strValor);
         }
 
         #endregion Métodos

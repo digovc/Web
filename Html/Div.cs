@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Html
 {
     public class Div : Tag
     {
@@ -26,25 +24,7 @@ namespace NetZ.Web.Html
         {
             base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(Div), 109));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(Div), 109));
         }
 
         #endregion Métodos

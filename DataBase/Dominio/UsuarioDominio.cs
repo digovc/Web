@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace NetZ.Web.Dominio
+namespace NetZ.Web.DataBase.Dominio
 {
     /// <summary>
     /// Representa o usuário que está utilizando este sistema.
     /// </summary>
-    public class UsuarioDominio : DominioBase
+    public class UsuarioDominio : DominioWeb
     {
         #region Constantes
 

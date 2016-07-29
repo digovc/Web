@@ -13,7 +13,6 @@ namespace NetZ.Web.Html
 
         private int _intOrdem;
         private List<string> _lstStrCodigo;
-        private Type type;
 
         /// <summary>
         /// Todas as tags de JavaScript são executados pelo browser na ordem que estão dispostas na
@@ -39,30 +38,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstStrCodigo != null)
                 {
-                    if (_lstStrCodigo != null)
-                    {
-                        return _lstStrCodigo;
-                    }
-
-                    _lstStrCodigo = new List<string>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstStrCodigo;
                 }
 
-                #endregion Ações
+                _lstStrCodigo = new List<string>();
 
                 return _lstStrCodigo;
             }
@@ -74,52 +55,16 @@ namespace NetZ.Web.Html
 
         public JavaScriptTag(string src = null, int intOrdem = 200) : base("script")
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booMostrarClazz = false;
-                this.intOrdem = intOrdem;
-                this.src = src;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.booMostrarClazz = false;
+            this.intOrdem = intOrdem;
+            this.src = src;
         }
 
         public JavaScriptTag(Type cls, int intOrdem = 200) : base("script")
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booMostrarClazz = false;
-                this.intOrdem = intOrdem;
-                this.src = getSrc(cls);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.booMostrarClazz = false;
+            this.intOrdem = intOrdem;
+            this.src = getSrc(cls);
         }
 
         #endregion Construtores
@@ -128,113 +73,55 @@ namespace NetZ.Web.Html
 
         public static string getSrc(Type cls)
         {
-            #region Variáveis
-
-            string srcResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (cls == null)
             {
-                if (cls == null)
-                {
-                    return null;
-                }
-
-                srcResultado = "res/js/_cls_namespace/_cls_nome+js";
-
-                srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
-                srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
-                srcResultado = srcResultado.Replace(".", "/");
-                srcResultado = srcResultado.Replace("res/js/netz/web", "res/js/Web.TypeScript");
-
-                // TODO: Essa lista têm de ser dinamizada.
-                srcResultado = srcResultado.Replace("res/js/atendimento_web", "res/js/Principal.TypeScript");
-                srcResultado = srcResultado.Replace("res/js/cia", "res/js/Principal.TypeScript");
-                srcResultado = srcResultado.Replace("res/js/comic_x", "res/js/Principal.TypeScript");
-                srcResultado = srcResultado.Replace("res/js/gti", "res/js/Principal.TypeScript");
-                srcResultado = srcResultado.Replace("+", ".");
-
-                return srcResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string srcResultado = "res/js/_cls_namespace/_cls_nome+js";
+
+            srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
+            srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
+            srcResultado = srcResultado.Replace(".", "/");
+            srcResultado = srcResultado.Replace("res/js/netz/web", "res/js/Web.TypeScript");
+
+            // TODO: Essa lista têm de ser dinamizada.
+            srcResultado = srcResultado.Replace("res/js/atendimento_web", "res/js/Principal.TypeScript");
+            srcResultado = srcResultado.Replace("res/js/cia", "res/js/Principal.TypeScript");
+            srcResultado = srcResultado.Replace("res/js/comic_x", "res/js/Principal.TypeScript");
+            srcResultado = srcResultado.Replace("res/js/gti", "res/js/Principal.TypeScript");
+            srcResultado = srcResultado.Replace("+", ".");
+
+            return srcResultado;
         }
 
         public void addJs(string strJs)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strJs))
             {
-                if (string.IsNullOrEmpty(strJs))
-                {
-                    return;
-                }
-
-                this.lstStrCodigo.Add(strJs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.lstStrCodigo.Add(strJs);
         }
 
         public override string toHtml()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.lstStrCodigo.Count < 1 && string.IsNullOrEmpty(this.src))
             {
-                if (this.lstStrCodigo.Count < 1 && string.IsNullOrEmpty(this.src))
-                {
-                    return null;
-                }
-
-                if (this.lstStrCodigo.Count < 1)
-                {
-                    return base.toHtml();
-                }
-
-                strResultado = "$(document).ready(function(){_js_codigo});";
-
-                strResultado = strResultado.Replace("_js_codigo", string.Join(string.Empty, this.lstStrCodigo.ToArray()));
-
-                this.strConteudo = strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.lstStrCodigo.Count < 1)
+            {
+                return base.toHtml();
+            }
+
+            string strResultado = "$(document).ready(function(){_js_codigo});";
+
+            strResultado = strResultado.Replace("_js_codigo", string.Join(string.Empty, this.lstStrCodigo.ToArray()));
+
+            this.strConteudo = strResultado;
 
             return base.toHtml();
         }
@@ -252,25 +139,7 @@ namespace NetZ.Web.Html
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addAtt("type", "text/javascript");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addAtt("type", "text/javascript");
         }
 
         #endregion Métodos

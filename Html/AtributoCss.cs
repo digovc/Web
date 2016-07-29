@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Html
 {
     public class AtributoCss : Atributo
     {
@@ -31,25 +29,7 @@ namespace NetZ.Web.Html
 
         public AtributoCss(string strClass, string strNome, string strValor = null) : base(strNome, strValor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strClass = strClass;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strClass = strClass;
         }
 
         #endregion Construtores
@@ -58,43 +38,23 @@ namespace NetZ.Web.Html
 
         public override string getStrFormatado()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strClass))
             {
-                if (string.IsNullOrEmpty(this.strClass))
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(this.strNome))
-                {
-                    return null;
-                }
-
-                strResultado = "._class_nome{_att_nome:_att_valor}";
-
-                strResultado = strResultado.Replace("_class_nome", this.strClass);
-                strResultado = strResultado.Replace("_att_nome", this.strNome);
-                strResultado = strResultado.Replace("_att_valor", string.Join(this.strSeparador, this.lstStrValor.ToArray()));
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(this.strNome))
+            {
+                return null;
+            }
+
+            string strResultado = "._class_nome{_att_nome:_att_valor}";
+
+            strResultado = strResultado.Replace("_class_nome", this.strClass);
+            strResultado = strResultado.Replace("_att_nome", this.strNome);
+            strResultado = strResultado.Replace("_att_valor", string.Join(this.strSeparador, this.lstStrValor.ToArray()));
+
+            return strResultado;
         }
 
         #endregion Métodos
