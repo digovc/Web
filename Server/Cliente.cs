@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Threading;
+using NetZ.Web.Html.Pagina;
 
 namespace NetZ.Web.Server
 {
@@ -105,12 +106,6 @@ namespace NetZ.Web.Server
 
         protected virtual void responder(Solicitacao objSolicitacao)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
             try
             {
                 if (!this.validar(objSolicitacao))
@@ -127,21 +122,15 @@ namespace NetZ.Web.Server
 
                 this.responder(objResposta);
 
-                if (Resposta.INT_STATUS_CODE_302_FOUND.Equals(objResposta.intStatus))
-                {
-                    this.tcpClient.Close();
-                }
+                //if (Resposta.INT_STATUS_CODE_302_FOUND.Equals(objResposta.intStatus))
+                //{
+                //    this.tcpClient.Close();
+                //}
             }
             catch (Exception ex)
             {
-                // TODO: Enviar os eventuais erros para o cliente.
-                throw ex;
+                this.responderErro(objSolicitacao, ex);
             }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         protected void responder(Resposta objResposta)
@@ -274,6 +263,16 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
+        }
+
+        private void responderErro(Solicitacao objSolicitacao, Exception ex)
+        {
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            objResposta.addHtml(new PagError(ex));
+            objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
+
+            this.responder(objResposta);
         }
 
         private bool validar(Resposta objResposta)

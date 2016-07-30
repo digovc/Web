@@ -59,6 +59,11 @@ namespace NetZ.Web.Server
         public const int INT_STATUS_CODE_404_NOT_FOUND = 404;
 
         /// <summary>
+        /// Ocorreu um erro no servidor.
+        /// </summary>
+        public const int INT_STATUS_CODE_500_INTERNAL_ERROR = 500;
+
+        /// <summary>
         /// O recurso solicitado pelo cliente ainda não está implementado.
         /// </summary>
         public const int INT_STATUS_CODE_501_NOT_IMPLEMENTED = 501;
@@ -962,7 +967,8 @@ namespace NetZ.Web.Server
                         return this.getStrHeader302();
 
                     case INT_STATUS_CODE_404_NOT_FOUND:
-                        return this.getStrHeader404();
+                    case INT_STATUS_CODE_500_INTERNAL_ERROR:
+                        return this.getStrHeader404_500();
 
                     default:
                         return this.getStrHeader200();
@@ -1059,7 +1065,7 @@ namespace NetZ.Web.Server
             #endregion Ações
         }
 
-        private string getStrHeader404()
+        private string getStrHeader404_500()
         {
             StringBuilder stbResultado = new StringBuilder();
 
@@ -1342,6 +1348,9 @@ namespace NetZ.Web.Server
 
                     case INT_STATUS_CODE_404_NOT_FOUND:
                         return strResultado.Replace("_status_code", "404 Not Found");
+
+                    case INT_STATUS_CODE_500_INTERNAL_ERROR:
+                        return strResultado.Replace("_status_code", "500 Internal Error");
 
                     case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
                         return strResultado.Replace("_status_code", "501 Not Implemented");
