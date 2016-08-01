@@ -604,7 +604,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divInputContainer.addCss(css.setFontSize(15));
                 this.divInputContainer.addCss(css.setLeft(5));
                 this.divInputContainer.addCss(css.setPosition("absolute"));
-                this.divInputContainer.addCss(css.setRight(10));
+                this.divInputContainer.addCss(css.setRight(5));
                 this.divInputContainer.addCss(css.setTextAlign("left"));
 
                 this.divObrigatorio.addCss(css.setColor("red"));
@@ -617,7 +617,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divTitulo.addCss(css.setHeight(15));
                 this.divTitulo.addCss(css.setLineHeight(15));
                 this.divTitulo.addCss(css.setOpacity(0));
-                this.divTitulo.addCss(css.setPaddingTop(5));
+                this.divTitulo.addCss(css.setPaddingTop(10));
                 this.divTitulo.addCss(css.setTextAlign("left"));
 
                 this.setCssTagInputHeight(css);
