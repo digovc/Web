@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -59,6 +60,11 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.inicializar();
 
+            this.inicializarStrConteudo();
+        }
+
+        private void inicializarStrConteudo()
+        {
             if (this.cln == null)
             {
                 return;
@@ -75,7 +81,6 @@ namespace NetZ.Web.Html.Componente.Grid
             }
 
             this.cln.strValor = this.row[this.cln.strNomeSql].ToString();
-
             this.strConteudo = this.cln.strValorExibicao;
         }
 
@@ -83,7 +88,6 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
-            this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corBorda));
             this.addCss(css.setOverflowX("hidden"));
             this.addCss(css.setPaddingLeft(25));
             this.addCss(css.setPaddingRight(25));

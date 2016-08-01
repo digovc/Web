@@ -11,7 +11,7 @@ namespace NetZ.Web.Html.Componente.Campo
         public enum EnmTamanho
         {
             /// <summary>
-            /// Width 250px.
+            /// Width 400.
             /// </summary>
             GRANDE,
 
@@ -24,6 +24,11 @@ namespace NetZ.Web.Html.Componente.Campo
             /// Width 50px.
             /// </summary>
             MINIMO,
+
+            /// <summary>
+            /// Width 250px.
+            /// </summary>
+            NORMAL,
 
             /// <summary>
             /// Width 100px.
@@ -50,7 +55,7 @@ namespace NetZ.Web.Html.Componente.Campo
         private Div _divInputContainer;
         private Div _divObrigatorio;
         private Div _divTitulo;
-        private EnmTamanho _enmTamanho = EnmTamanho.MEDIO;
+        private EnmTamanho _enmTamanho = EnmTamanho.NORMAL;
         private int _intNivel;
         private int _intTamanhoVertical;
         private string _strTitulo;
@@ -607,7 +612,6 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.addCss(css.setRight(0));
 
                 this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
-                this.divTitulo.addCss(css.setFontSize(15));
                 this.divTitulo.addCss(css.setHeight(15));
                 this.divTitulo.addCss(css.setLineHeight(15));
                 this.divTitulo.addCss(css.setOpacity(0));
@@ -619,7 +623,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.tagInput.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
                 this.tagInput.addCss(css.setBorder(0));
-                this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
+                this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
                 this.tagInput.addCss(css.setOutLine("none"));
             }
             catch (Exception ex)

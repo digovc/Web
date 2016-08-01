@@ -152,7 +152,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.inicializarCampos();
 
-            this.intTamanhoHotizontal = 10;
             this.strId = this.GetType().Name;
             this.strTitulo = this.tbl.strNomeExibicao;
 

@@ -24,44 +24,26 @@ namespace NetZ.Web.Html.Pagina
         #region Atributos
 
         private static PaginaHtml _i;
+
         private bool _booEstatica = true;
-
         private bool _booPagSimples;
-
-        private Div _divNotificacao;
-
-        private LstTag<CssTag> _lstCss;
-
-        private LstTag<JavaScriptTag> _lstJs;
-
-        private string _srcIcone = "res/media/ico/favicon.ico";
-
-        private string _strHtmlEstatico;
-
-        private string _strTitulo;
-
-        private Tag _tagBody;
-
         private CssTag _tagCssMain;
-
         private CssTag _tagCssPrint;
-
-        private Tag _tagDocType;
-
-        private Tag _tagHead;
-
-        private Tag _tagHtml;
-
-        private Tag _tagIcon;
-
+        private Div _divNotificacao;
         private JavaScriptTag _tagJs;
-
+        private LstTag<CssTag> _lstCss;
+        private LstTag<JavaScriptTag> _lstJs;
+        private string _srcIcone = "/res/media/ico/favicon.ico";
+        private string _strHtmlEstatico;
+        private string _strTitulo;
+        private Tag _tagBody;
+        private Tag _tagDocType;
+        private Tag _tagHead;
+        private Tag _tagHtml;
+        private Tag _tagIcon;
         private Tag _tagMetaContent;
-
         private Tag _tagMetaHttpEquiv;
-
         private Tag _tagThemaColor;
-
         private Tag _tagTitle;
 
         public static PaginaHtml i
@@ -342,7 +324,7 @@ namespace NetZ.Web.Html.Pagina
                         return _tagCssMain;
                     }
 
-                    _tagCssMain = new CssTag();
+                    _tagCssMain = new CssTag(CssMain.i.strHref);
                 }
                 catch (Exception ex)
                 {
@@ -375,7 +357,7 @@ namespace NetZ.Web.Html.Pagina
                         return _tagCssPrint;
                     }
 
-                    _tagCssPrint = new CssTag();
+                    _tagCssPrint = new CssTag(CssPrint.i.strHref);
                 }
                 catch (Exception ex)
                 {
@@ -858,11 +840,8 @@ namespace NetZ.Web.Html.Pagina
 
                 this.tagCssMain.strId = CssMain.STR_CSS_ID;
 
-                this.tagCssMain.addAtt("href", CssMain.i.strHref);
-
                 this.tagCssPrint.strId = CssPrint.STR_CSS_ID;
 
-                this.tagCssPrint.addAtt("href", CssPrint.i.strHref);
                 this.tagCssPrint.addAtt("media", "print");
 
                 this.tagDocType.addAtt("html");

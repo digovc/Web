@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NetZ.Persistencia;
-
-namespace NetZ.Web.DataBase.View
+﻿namespace NetZ.Web.DataBase.View
 {
     public abstract class ViwWebBase : Persistencia.View
     {
-
         #region Constantes
+
         #endregion Constantes
 
         #region Atributos
+
         #endregion Atributos
 
         #region Construtores
@@ -25,9 +19,11 @@ namespace NetZ.Web.DataBase.View
         #endregion Construtores
 
         #region Métodos
+
         #endregion Métodos
 
         #region Eventos
+
         #endregion Eventos
     }
 }

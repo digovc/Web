@@ -244,7 +244,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.cmbStrViewNome.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.cmbStrViewNome.addCss(css.setBorder(0));
-            this.cmbStrViewNome.addCss(css.setFontSize(20));
             this.cmbStrViewNome.addCss(css.setHeight(100, "%"));
             this.cmbStrViewNome.addCss(css.setMinWidth(255));
         }

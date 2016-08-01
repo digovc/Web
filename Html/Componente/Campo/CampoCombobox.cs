@@ -94,7 +94,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected override void setCssTagInputHeight(CssArquivo css)
         {
-            this.tagInput.addCss(css.setHeight(22));
+            this.tagInput.addCss(css.setHeight(19));
         }
 
         private void addOpcao(KeyValuePair<object, string> kvpOpcao)

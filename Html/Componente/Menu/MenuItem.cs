@@ -455,7 +455,6 @@ namespace NetZ.Web.Html.Componente.Menu
             }
 
             this.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
-            this.addCss(css.setFontSize(18));
             this.addCss(css.setLineHeight(50));
             this.addCss(css.setMinHeight(50));
 

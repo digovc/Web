@@ -18,7 +18,7 @@ namespace NetZ.Web.Html.Componente.Janela
         private Div _divCabecalho;
         private Div _divInativa;
         private Div _divTitulo;
-        private int _intTamanhoHotizontal = 5;
+        private int _intTamanhoHotizontal;
         private string _strTitulo;
 
         /// <summary>
@@ -384,6 +384,11 @@ namespace NetZ.Web.Html.Componente.Janela
 
         protected virtual void finalizarCssWidth(CssArquivo css)
         {
+            if (this.intTamanhoHotizontal < 1)
+            {
+                return;
+            }
+
             this.addCss(css.setWidth(this.intTamanhoHotizontal * 50));
         }
 
@@ -463,7 +468,6 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divInativa.addCss(css.setWidth(100, "%"));
 
             this.divTitulo.addCss(css.setColor("white"));
-            this.divTitulo.addCss(css.setFontSize(18));
             this.divTitulo.addCss(css.setLineHeight(40));
             this.divTitulo.addCss(css.setPaddingLeft(10));
         }

@@ -197,13 +197,9 @@ namespace NetZ.Web.Html.Componente.Painel
                     return;
                 }
 
-                cssMarkdown = new CssTag();
+                cssMarkdown = new CssTag("res/css/markdown.css");
 
-                cssMarkdown.strHref = "res/css/markdown.css";
-
-                cssMarkdownMonoBlue = new CssTag();
-
-                cssMarkdownMonoBlue.strHref = "res/css/markdown-mono-blue.css";
+                cssMarkdownMonoBlue = new CssTag("res/css/markdown-mono-blue.css");
 
                 lstCss.Add(cssMarkdown);
                 lstCss.Add(cssMarkdownMonoBlue);

@@ -236,7 +236,7 @@ namespace NetZ.Web.Html.Pagina
 
             try
             {
-                this.divCadastro.addCss(css.setBackgroundColor("rgba(0,0,0,0.6)"));
+                this.divCadastro.addCss(css.setBackgroundColor("rgba(0,0,0,0.5)"));
                 this.divCadastro.addCss(css.setBottom(0));
                 this.divCadastro.addCss(css.setDisplay("none"));
                 this.divCadastro.addCss(css.setLeft(0));

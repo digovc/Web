@@ -769,11 +769,6 @@ namespace NetZ.Web.Html
 
         private void atualizarIntTabStop()
         {
-            if (this.intTabStop < 1)
-            {
-                return;
-            }
-
             this.attTabIndex.intValor = this.intTabStop;
         }
 

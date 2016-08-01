@@ -108,7 +108,7 @@ namespace NetZ.Web.Html.Componente.Botao
         {
             base.inicializar();
 
-            this.inicializarBooFrmSubmit();
+            this.addAtt("type", "button");
         }
 
         protected override void setCss(CssArquivo css)
@@ -162,16 +162,6 @@ namespace NetZ.Web.Html.Componente.Botao
             }
 
             return 175;
-        }
-
-        private void inicializarBooFrmSubmit()
-        {
-            if (this.booFrmSubmit)
-            {
-                return;
-            }
-
-            this.addAtt("onclick", "return false");
         }
 
         #endregion Métodos

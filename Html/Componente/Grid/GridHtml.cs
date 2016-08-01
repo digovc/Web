@@ -185,7 +185,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
             this.tagTable.addCss(css.addCss("border-spacing", "0"));
             this.tagTable.addCss(css.setBackgroundColor("white"));
-            this.tagTable.addCss(css.setBoxShadow(0, 2, 2, 0, AppWeb.i.objTema.corBorda));
+            this.tagTable.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.tagTable.addCss(css.setCenter());
             this.tagTable.addCss(css.setWhiteSpace("nowrap"));
 

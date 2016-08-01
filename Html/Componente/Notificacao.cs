@@ -11,27 +11,10 @@ namespace NetZ.Web.Html.Componente
 
         #region Atributos
 
-        private BotaoMini _btnAdiar;
         private BotaoMini _btnFechar;
-        private BotaoMini _btnLink;
         private Div _divComando;
         private Div _divIcone;
         private Div _divTexto;
-
-        private BotaoMini btnAdiar
-        {
-            get
-            {
-                if (_btnAdiar != null)
-                {
-                    return _btnAdiar;
-                }
-
-                _btnAdiar = new BotaoMini();
-
-                return _btnAdiar;
-            }
-        }
 
         private BotaoMini btnFechar
         {
@@ -45,21 +28,6 @@ namespace NetZ.Web.Html.Componente
                 _btnFechar = new BotaoMini();
 
                 return _btnFechar;
-            }
-        }
-
-        private BotaoMini btnLink
-        {
-            get
-            {
-                if (_btnLink != null)
-                {
-                    return _btnLink;
-                }
-
-                _btnLink = new BotaoMini();
-
-                return _btnLink;
             }
         }
 
@@ -122,13 +90,9 @@ namespace NetZ.Web.Html.Componente
 
             this.strId = "_str_id";
 
-            this.btnAdiar.strId = "_str_div_adiar_id";
-
             this.btnFechar.strId = "_str_div_fechar_id";
 
             this.divIcone.strId = "_str_div_icone_id";
-
-            this.btnLink.strId = "_str_div_link_id";
 
             this.divTexto.strConteudo = "_str_div_texto_conteudo";
         }
@@ -139,8 +103,6 @@ namespace NetZ.Web.Html.Componente
 
             this.divComando.setPai(this);
 
-            this.btnAdiar.setPai(this.divComando);
-            this.btnLink.setPai(this.divComando);
             this.btnFechar.setPai(this.divComando);
 
             this.divIcone.setPai(this);
@@ -160,12 +122,12 @@ namespace NetZ.Web.Html.Componente
             this.addCss(css.setMarginTop(10));
             this.addCss(css.setWidth(400));
 
-            this.btnAdiar.addCss(css.setFloat("left"));
-
             this.divComando.addCss(css.setHeight(20));
             this.divComando.addCss(css.setPosition("absolute"));
             this.divComando.addCss(css.setRight(0));
 
+            this.btnFechar.addCss(css.setBackgroundColor("white"));
+            this.btnFechar.addCss(css.setBackgroundImage("/res/media/png/btn_fechar_20x20.png"));
             this.btnFechar.addCss(css.setFloat("left"));
 
             this.divIcone.addCss(css.setBackgroundColor("#f4f5f5"));
@@ -173,8 +135,6 @@ namespace NetZ.Web.Html.Componente
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setHeight(100, "%"));
             this.divIcone.addCss(css.setWidth(100));
-
-            this.btnLink.addCss(css.setFloat("left"));
 
             this.divTexto.addCss(css.setMarginLeft(110));
             this.divTexto.addCss(css.setPadding(20));

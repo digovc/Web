@@ -11,7 +11,22 @@
         private Atributo _attHref;
         private string _strHref;
 
-        public string strHref
+        private Atributo attHref
+        {
+            get
+            {
+                if (_attHref != null)
+                {
+                    return _attHref;
+                }
+
+                _attHref = this.getAttHref();
+
+                return _attHref;
+            }
+        }
+
+        private string strHref
         {
             get
             {
@@ -31,28 +46,14 @@
             }
         }
 
-        private Atributo attHref
-        {
-            get
-            {
-                if (_attHref != null)
-                {
-                    return _attHref;
-                }
-
-                _attHref = this.getAttHref();
-
-                return _attHref;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
 
-        public CssTag() : base("link")
+        public CssTag(string strHref) : base("link")
         {
             this.booMostrarClazz = false;
+            this.strHref = strHref;
         }
 
         #endregion Construtores

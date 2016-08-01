@@ -1,5 +1,4 @@
-﻿using NetZ.Web.Html.Componente.Botao;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -11,21 +10,37 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private BotaoCircular _btnMenu;
+        private Tag _btnAcao;
+        private Input _txtIntId;
         private Input _txtPesquisa;
 
-        private BotaoCircular btnMenu
+        private Tag btnAcao
         {
             get
             {
-                if (_btnMenu != null)
+                if (_btnAcao != null)
                 {
-                    return _btnMenu;
+                    return _btnAcao;
                 }
 
-                _btnMenu = new BotaoCircular();
+                _btnAcao = new Tag("button");
 
-                return _btnMenu;
+                return _btnAcao;
+            }
+        }
+
+        private Input txtIntId
+        {
+            get
+            {
+                if (_txtIntId != null)
+                {
+                    return _txtIntId;
+                }
+
+                _txtIntId = new Input();
+
+                return _txtIntId;
             }
         }
 
@@ -80,7 +95,9 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.btnMenu.strId = (this.strId + "_btnMenu");
+            this.btnAcao.strId = (this.strId + "_btnAcao");
+            this.txtIntId.strId = (this.strId + "_txtIntId");
+            this.txtIntId.strId = (this.strId + "_txtIntId");
             this.txtPesquisa.strId = (this.strId + "_txtPesquisa");
         }
 
@@ -93,7 +110,11 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.inicializar();
 
-            this.btnMenu.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+            this.btnAcao.intTabStop = -1;
+
+            this.btnAcao.addAtt("type", "button");
+
+            this.txtIntId.booDisabled = true;
         }
 
         protected override void montarLayout()
@@ -101,26 +122,35 @@ namespace NetZ.Web.Html.Componente.Campo
             base.montarLayout();
 
             this.txtPesquisa.setPai(this.divInputContainer);
-            this.btnMenu.setPai(this.divInputContainer);
+            this.txtIntId.setPai(this.divInputContainer);
+            this.btnAcao.setPai(this.divInputContainer);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
+            this.btnAcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.btnAcao.addCss(css.setHeight(22));
+            this.btnAcao.addCss(css.setPosition("absolute"));
+            this.btnAcao.addCss(css.setRight(-95));
+            this.btnAcao.addCss(css.setTop(-2));
+            this.btnAcao.addCss(css.setWidth(22));
+
             this.cmb.addCss(css.setDisplay("none"));
 
-            this.btnMenu.addCss(css.setBackgroundImage("/res/media/png/btn_opcoes_30x30.png"));
-            this.btnMenu.addCss(css.setBackgroundPosition("center"));
-            this.btnMenu.addCss(css.setBackgroundRepeat("no-repeat"));
-            this.btnMenu.addCss(css.setDisplay("none"));
-            this.btnMenu.addCss(css.setPosition("absolute"));
-            this.btnMenu.addCss(css.setRight(-30));
-            this.btnMenu.addCss(css.setTop(3));
+            this.divInputContainer.addCss(css.setMarginRight(95));
+
+            this.txtIntId.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.txtIntId.addCss(css.setPadding(2));
+            this.txtIntId.addCss(css.setPosition("absolute"));
+            this.txtIntId.addCss(css.setTextAlign("center"));
+            this.txtIntId.addCss(css.setTop(-2));
+            this.txtIntId.addCss(css.setWidth(70));
 
             this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.txtPesquisa.addCss(css.setBorder(0));
-            this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
+            this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.txtPesquisa.addCss(css.setOutLine("none"));
             this.txtPesquisa.addCss(css.setWidth(100, "%"));
         }

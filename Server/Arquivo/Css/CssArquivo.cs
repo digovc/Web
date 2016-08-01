@@ -358,6 +358,7 @@ namespace NetZ.Web.Server.Arquivo.Css
                 {
                     return null;
                 }
+
                 css = "url('_src_imagem')";
 
                 css = css.Replace("_src_imagem", srcImagem);

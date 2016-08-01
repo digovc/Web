@@ -76,7 +76,6 @@ namespace NetZ.Web.Html.Componente.Botao
             this.addCss(css.setBackgroundColor("rgb(248,248,248)"));
             this.addCss(css.setBorderRadius(50, "%"));
             this.addCss(css.setBoxShadow(0, 2, 1, 1, "rgba(0,0,0,0.25)"));
-            this.addCss(css.setFontSize(15));
             this.addCss(css.setHeight(this.getIntTamanho()));
             this.addCss(css.setOutLine("none"));
             this.addCss(css.setTextAlign("center"));

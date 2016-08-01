@@ -105,7 +105,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.intTamanhoVertical = -1;
             this.strId = "pnlFiltro";
 
-            this.divBarra.strConteudo = "===";
+            this.divBarra.strConteudo = "=============";
 
             this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
 
@@ -120,6 +120,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.frmFiltro.setPai(this.pnlSelecao);
             this.pnlCondicao.setPai(this);
             this.divBarra.setPai(this);
+
             new LimiteFloat().setPai(this);
         }
 
@@ -131,12 +132,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.addCss(css.setPosition("relative"));
 
             this.divBarra.addCss(css.setBackgroundColor("rgb(130,202,156)"));
-            this.divBarra.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corBorda));
+            this.divBarra.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.divBarra.addCss(css.setBottom(0));
-            this.divBarra.addCss(css.setColor(AppWeb.i.objTema.corBorda));
+            this.divBarra.addCss(css.setColor("#4ca06a"));
             this.divBarra.addCss(css.setCursor("pointer"));
-            this.divBarra.addCss(css.setFontSize(10));
             this.divBarra.addCss(css.setHeight(10));
+            this.divBarra.addCss(css.setLineHeight(10));
             this.divBarra.addCss(css.setPosition("absolute"));
             this.divBarra.addCss(css.setWidth(100, "%"));
 
