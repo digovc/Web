@@ -601,6 +601,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.addCss(css.setPaddingRight(5));
                 this.addCss(css.setPosition((EnmTamanho.TOTAL.Equals(this.enmTamanho)) ? "absolute" : "relative"));
 
+                this.divInputContainer.addCss(css.setFontSize(15));
                 this.divInputContainer.addCss(css.setLeft(5));
                 this.divInputContainer.addCss(css.setPosition("absolute"));
                 this.divInputContainer.addCss(css.setRight(10));
@@ -612,6 +613,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.divObrigatorio.addCss(css.setRight(0));
 
                 this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+                this.divTitulo.addCss(css.setFontSize(14));
                 this.divTitulo.addCss(css.setHeight(15));
                 this.divTitulo.addCss(css.setLineHeight(15));
                 this.divTitulo.addCss(css.setOpacity(0));
@@ -624,6 +626,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 this.tagInput.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
                 this.tagInput.addCss(css.setBorder(0));
                 this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
+                this.tagInput.addCss(css.setFontSize(15));
                 this.tagInput.addCss(css.setOutLine("none"));
             }
             catch (Exception ex)
