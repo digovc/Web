@@ -71,7 +71,7 @@ namespace NetZ.Web.Html.Componente.Menu
             }
         }
 
-        private DivCirculo divIcone
+        protected DivCirculo divIcone
         {
             get
             {
