@@ -164,7 +164,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.divContainer.addCss(css.setWidth(380));
 
             this.divTagConteudo.addCss(css.setBackgroundColor("white"));
-            this.divTagConteudo.addCss(css.setBorder(1, "solid", "gray"));
+            this.divTagConteudo.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.divTagConteudo.addCss(css.setBottom(10));
             this.divTagConteudo.addCss(css.setLeft(10));
             this.divTagConteudo.addCss(css.setOverflowX("auto"));

@@ -86,6 +86,11 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
+        protected virtual bool validarSalvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        {
+            return true;
+        }
+
         protected override int getIntPort()
         {
             return ConfigWeb.i.intServerAjaxDbPorta;
@@ -139,41 +144,19 @@ namespace NetZ.Web.Server.Ajax
             return false;
         }
 
-        private void salvarDominio(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        protected virtual bool validarAbrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.strData))
-            {
-                return;
-            }
+            return true;
+        }
 
-            if (string.IsNullOrEmpty(objInterlocutor.strJsonTipo))
-            {
-                return;
-            }
+        protected virtual bool validarAbrirConsulta(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        {
+            return true;
+        }
 
-            Tabela tbl = AppWeb.i.getTblPorDominio(objInterlocutor.strJsonTipo);
-
-            if (tbl == null)
-            {
-                objInterlocutor.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objInterlocutor.strJsonTipo);
-                return;
-            }
-
-            MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
-            MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
-
-            Persistencia.Dominio objDominio = (Persistencia.Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.strData });
-
-            int intId = tbl.salvar(objDominio);
-
-            if (intId > 0)
-            {
-                objInterlocutor.strData = "Registro salvo com sucesso.";
-            }
-            else
-            {
-                objInterlocutor.strErro = "Erro ao salvar o registro.";
-            }
+        protected virtual bool validarPesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        {
+            return true;
         }
 
         private void abrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -188,20 +171,20 @@ namespace NetZ.Web.Server.Ajax
             switch (objInterlocutor.strMetodo)
             {
                 case STR_METODO_ABRIR_CADASTRO:
-                    this.abrirCadastro(objInterlocutor, objSolicitacao, tblWeb);
+                    this.abrirCadastro(objSolicitacao, objInterlocutor, tblWeb);
                     return;
 
                 case STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO:
-                    this.abrirCadastroFiltroConteudo(objInterlocutor, objSolicitacao, tblWeb);
+                    this.abrirCadastroFiltroConteudo(objSolicitacao, objInterlocutor, tblWeb);
                     return;
 
                 case STR_METODO_ABRIR_JANELA_TAG:
-                    this.abrirJnlTag(objInterlocutor, objSolicitacao, tblWeb);
+                    this.abrirJnlTag(objSolicitacao, objInterlocutor, tblWeb);
                     return;
             }
         }
 
-        private void abrirCadastro(Interlocutor objInterlocutor, Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
             {
@@ -216,6 +199,11 @@ namespace NetZ.Web.Server.Ajax
             Tabela tbl = AppWeb.i.getTbl(tblWeb.strNome);
 
             if (tbl == null)
+            {
+                return;
+            }
+
+            if (!this.validarAbrirCadastro(objSolicitacao, objInterlocutor, tblWeb, tbl))
             {
                 return;
             }
@@ -235,7 +223,7 @@ namespace NetZ.Web.Server.Ajax
             objInterlocutor.strData = jnlCadastro.toHtml();
         }
 
-        private void abrirCadastroFiltroConteudo(Interlocutor objInterlocutor, Solicitacao objSolicitacao, TabelaWeb tblWebFiltro)
+        private void abrirCadastroFiltroConteudo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWebFiltro)
         {
             if (tblWebFiltro == null)
             {
@@ -302,10 +290,15 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
+            if (!this.validarAbrirConsulta(objSolicitacao, objInterlocutor, tblWeb, tbl))
+            {
+                return;
+            }
+
             objInterlocutor.strData = new JnlConsulta(tbl).toHtml();
         }
 
-        private void abrirJnlTag(Interlocutor objInterlocutor, Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void abrirJnlTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
             {
@@ -376,6 +369,11 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
+            if (!this.validarPesquisar(objSolicitacao, objInterlocutor, tblWeb, tbl))
+            {
+                return;
+            }
+
             DataTable tblData = tbl.viwPrincipal.pesquisar(tblWeb);
 
             if (tblData == null)
@@ -441,6 +439,43 @@ namespace NetZ.Web.Server.Ajax
             return objResposta;
         }
 
+        private void salvarDominio(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (string.IsNullOrEmpty(objInterlocutor.strData))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objInterlocutor.strJsonTipo))
+            {
+                return;
+            }
+
+            Tabela tbl = AppWeb.i.getTblPorDominio(objInterlocutor.strJsonTipo);
+
+            if (tbl == null)
+            {
+                objInterlocutor.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objInterlocutor.strJsonTipo);
+                return;
+            }
+
+            MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
+            MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
+
+            Persistencia.Dominio objDominio = (Persistencia.Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.strData });
+
+            int intId = tbl.salvar(objDominio);
+
+            if (intId > 0)
+            {
+                objInterlocutor.strData = "Registro salvo com sucesso.";
+            }
+            else
+            {
+                objInterlocutor.strErro = "Erro ao salvar o registro.";
+            }
+        }
+
         private void salvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
             if (string.IsNullOrEmpty(objInterlocutor.strData))
@@ -450,12 +485,12 @@ namespace NetZ.Web.Server.Ajax
 
             TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.strData);
 
-            this.salvarRegistro(objSolicitacao, tblWeb);
+            this.salvarRegistro(objSolicitacao, objInterlocutor, tblWeb);
 
             objInterlocutor.strData = Json.i.toJson(tblWeb);
         }
 
-        private void salvarRegistro(Solicitacao objSolicitacao, TabelaWeb tblWeb)
+        private void salvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
             if (objSolicitacao == null)
             {
@@ -490,6 +525,11 @@ namespace NetZ.Web.Server.Ajax
             Tabela tbl = AppWeb.i.getTbl(tblWeb);
 
             if (tbl == null)
+            {
+                return;
+            }
+
+            if (!this.validarSalvarRegistro(objSolicitacao, objInterlocutor, tblWeb, tbl))
             {
                 return;
             }

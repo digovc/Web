@@ -172,7 +172,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             cmpFiltro.booMostrarTituloSempre = true;
             cmpFiltro.cln = clnFiltrada;
-            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.NORMAL;
             cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);
 
             cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql]));

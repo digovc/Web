@@ -13,10 +13,27 @@ namespace NetZ.Web.DataBase.Dominio
 
         #region Atributos
 
+        private bool _booAdministrador;
         private bool _booLogado;
         private DateTime _dttLogin;
         private DateTime _dttUltimoAcesso;
         private string _strSessaoId;
+
+        /// <summary>
+        /// Indica se o usuário é administrador do sistema.
+        /// </summary>
+        public bool booAdministrador
+        {
+            get
+            {
+                return _booAdministrador;
+            }
+
+            set
+            {
+                _booAdministrador = value;
+            }
+        }
 
         /// <summary>
         /// Indica se este usuário está logado no sistema.
