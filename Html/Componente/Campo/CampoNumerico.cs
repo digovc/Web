@@ -1,4 +1,4 @@
-﻿using System;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -22,25 +22,14 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 130));
+        }
 
-            #endregion Variáveis
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
 
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 130));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tagInput.addCss(css.setTextAlign("right"));
         }
 
         #endregion Métodos

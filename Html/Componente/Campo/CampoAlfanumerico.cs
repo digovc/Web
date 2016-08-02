@@ -33,7 +33,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 130));
+                lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
             }
             catch (Exception ex)
             {

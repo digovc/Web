@@ -124,7 +124,7 @@ namespace NetZ.Web
             }
         }
 
-        private List<Tabela> lstTbl
+        public List<Tabela> lstTbl
         {
             get
             {

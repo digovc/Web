@@ -14,6 +14,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         private static TblUsuarioBase _i;
 
+        private Coluna _clnBooAdministrador;
         private Coluna _clnDttLogin;
         private Coluna _clnDttUltimoAcesso;
         private Coluna _clnStrSessaoId;
@@ -33,6 +34,21 @@ namespace NetZ.Web.DataBase.Tabela
                 }
 
                 _i = value;
+            }
+        }
+
+        public Coluna clnBooAdministrador
+        {
+            get
+            {
+                if (_clnBooAdministrador != null)
+                {
+                    return _clnBooAdministrador;
+                }
+
+                _clnBooAdministrador = new Coluna("boo_administrador", this, Coluna.EnmTipo.BOOLEAN);
+
+                return _clnBooAdministrador;
             }
         }
 
@@ -120,6 +136,7 @@ namespace NetZ.Web.DataBase.Tabela
         {
             intOrdem = base.inicializarColunas(intOrdem);
 
+            this.clnBooAdministrador.intOrdem = ++intOrdem;
             this.clnDttLogin.intOrdem = ++intOrdem;
             this.clnDttUltimoAcesso.intOrdem = ++intOrdem;
             this.clnStrSessaoId.intOrdem = ++intOrdem;

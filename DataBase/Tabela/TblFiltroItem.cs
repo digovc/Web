@@ -59,7 +59,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnIntFiltroId;
                 }
 
-                _clnIntFiltroId = new Coluna("int_filtro_id", this, Coluna.EnmTipo.BIGINT);
+                _clnIntFiltroId = new Coluna("int_filtro_id", this, Coluna.EnmTipo.BIGINT, TblFiltro.i.clnIntId);
 
                 return _clnIntFiltroId;
             }
@@ -114,8 +114,6 @@ namespace NetZ.Web.DataBase.Tabela
             this.clsJnlCadastro = typeof(JnlFiltroItemCadastro);
 
             this.clnBooAnd.booValorDefault = true;
-
-            this.clnIntFiltroId.clnRef = TblFiltro.i.clnIntId;
 
             this.clnIntOperador.addOpcao((int)Filtro.EnmOperador.DIFERENTE, "Diferente");
             this.clnIntOperador.addOpcao((int)Filtro.EnmOperador.IGUAL, "Igual");

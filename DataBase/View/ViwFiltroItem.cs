@@ -96,7 +96,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnIntFiltroItemFiltroId;
                 }
 
-                _clnIntFiltroItemFiltroId = new Coluna("int_filtro_item_filtro_id", this, Coluna.EnmTipo.BIGINT);
+                _clnIntFiltroItemFiltroId = new Coluna("int_filtro_item_filtro_id", this, Coluna.EnmTipo.BIGINT, TblFiltro.i.clnIntId);
 
                 return _clnIntFiltroItemFiltroId;
             }
@@ -263,7 +263,6 @@ namespace NetZ.Web.DataBase.View
         {
             base.inicializar();
 
-            this.clnIntFiltroItemFiltroId.clnRef = TblFiltro.i.clnIntId;
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.DIFERENTE, "Diferente");
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.IGUAL, "Igual");
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.IGUAL_CONSULTA, "Consulta");

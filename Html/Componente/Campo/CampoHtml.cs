@@ -483,6 +483,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
+            this.divInputContainer.strId = (this.strId + "_divInputContainer");
             this.divObrigatorio.strId = (this.strId + "_divObrigatorio");
             this.divTitulo.strId = (this.strId + "_divTitulo");
             this.tagInput.strId = (this.strId + "_tagInput");
@@ -711,11 +712,15 @@ namespace NetZ.Web.Html.Componente.Campo
                 switch (this.enmTamanho)
                 {
                     case EnmTamanho.GRANDE:
-                        this.addCss(css.setWidth(250));
+                        this.addCss(css.setWidth(400));
                         return;
 
                     case EnmTamanho.MINIMO:
                         this.addCss(css.setWidth(50));
+                        return;
+
+                    case EnmTamanho.NORMAL:
+                        this.addCss(css.setWidth(200));
                         return;
 
                     case EnmTamanho.PEQUENO:

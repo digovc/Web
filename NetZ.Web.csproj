@@ -63,6 +63,7 @@
     <Compile Include="Html\Componente\ActionBar.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
+    <Compile Include="Html\Componente\Campo\CampoMapa.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
     <Compile Include="Html\Componente\Grafico\Canvas.cs" />
     <Compile Include="Html\Componente\Grid\MenuGrid.cs" />
