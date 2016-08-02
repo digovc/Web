@@ -75,8 +75,8 @@ namespace NetZ.Web.Html.Componente.Painel
             try
             {
                 this.addCss(css.setMinHeight(50));
-                this.addCss(css.setPaddingLeft(5));
-                this.addCss(css.setPaddingRight(5));
+                this.addCss(css.setPaddingLeft(0));
+                this.addCss(css.setPaddingRight(0));
                 this.addCss(css.setPosition("relative"));
             }
             catch (Exception ex)

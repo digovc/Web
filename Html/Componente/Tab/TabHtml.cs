@@ -231,19 +231,19 @@ namespace NetZ.Web.Html.Componente.Tab
         {
             base.setCss(css);
 
-            this.addCss(css.setHeight(250));
+            this.addCss(css.setHeight(200));
             this.addCss(css.setPosition("relative"));
 
             this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
-
+            
             this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
             this.btnAlterar.addCss(css.setBottom(40));
             this.btnAlterar.addCss(css.setPosition("absolute"));
             this.btnAlterar.addCss(css.setRight(0));
 
-            this.divCabecalho.addCss(css.setHeight(30));
+            this.divCabecalho.addCss(css.setHeight(0));
             this.divCabecalho.addCss(css.setPosition("absolute"));
-            this.divCabecalho.addCss(css.setTop(10));
+            this.divCabecalho.addCss(css.setTop(0));
 
             this.divComando.addCss(css.setBottom(10));
             this.divComando.addCss(css.setDisplay("none"));
@@ -254,7 +254,7 @@ namespace NetZ.Web.Html.Componente.Tab
             this.divConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
             this.divConteudo.addCss(css.setOverflow("auto"));
             this.divConteudo.addCss(css.setPosition("absolute"));
-            this.divConteudo.addCss(css.setTop(40));
+            this.divConteudo.addCss(css.setTop(30));
             this.divConteudo.addCss(css.setWidth(100, "%"));
         }
 
