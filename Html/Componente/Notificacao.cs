@@ -127,11 +127,12 @@ namespace NetZ.Web.Html.Componente
             this.divComando.addCss(css.setRight(0));
 
             this.btnFechar.addCss(css.setBackgroundColor("white"));
-            this.btnFechar.addCss(css.setBackgroundImage("/res/media/png/btn_fechar_20x20.png"));
+            this.btnFechar.addCss(css.setBackgroundImage("/res/media/png/btn_fechar_notificacao_20x20.png"));
             this.btnFechar.addCss(css.setFloat("left"));
 
-            this.divIcone.addCss(css.setBackgroundColor("#f4f5f5"));
-            this.divIcone.addCss(css.setBorderRight(5, "solid", "#4caf50"));
+            this.divIcone.addCss(css.setBackgroundColor("#F1F2F2"));
+            this.divIcone.addCss(css.setBackgroundImage("/res/media/png/img_notificacao_sucesso.png"));
+            this.divIcone.addCss(css.setBorderRight(5, "solid", "#49AC81"));
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setHeight(100, "%"));
             this.divIcone.addCss(css.setWidth(100));
