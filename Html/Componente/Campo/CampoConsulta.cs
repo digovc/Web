@@ -131,6 +131,7 @@ namespace NetZ.Web.Html.Componente.Campo
             base.setCss(css);
 
             this.btnAcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.btnAcao.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisa_25x25.png"));
             this.btnAcao.addCss(css.setHeight(25));
             this.btnAcao.addCss(css.setPosition("absolute"));
             this.btnAcao.addCss(css.setRight(-95));
