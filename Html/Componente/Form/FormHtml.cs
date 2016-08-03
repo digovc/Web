@@ -27,13 +27,13 @@ namespace NetZ.Web.Html.Componente.Form
         private bool _booJnlCadastro;
         private DivComando _divComando;
         private Div _divConteudo;
+        private DivDica _divDica;
         private LimiteFloat _divLimiteFloat;
         private EnmMetodo _enmMetodo;
         private int _intUltimoNivel = 1;
         private List<CampoHtml> _lstCmp;
         private List<PainelNivel> _lstPnlNivel;
         private List<ITagNivel> _lstTagNivel;
-        private PainelNivel _pnlDica;
         private string _strAction;
         private TabHtml _tabHtml;
 
@@ -168,6 +168,21 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
+        private DivDica divDica
+        {
+            get
+            {
+                if (_divDica != null)
+                {
+                    return _divDica;
+                }
+
+                _divDica = new DivDica();
+
+                return _divDica;
+            }
+        }
+
         private LimiteFloat divLimiteFloat
         {
             get
@@ -223,21 +238,6 @@ namespace NetZ.Web.Html.Componente.Form
                 _lstTagNivel = new List<ITagNivel>();
 
                 return _lstTagNivel;
-            }
-        }
-
-        private PainelNivel pnlDica
-        {
-            get
-            {
-                if (_pnlDica != null)
-                {
-                    return _pnlDica;
-                }
-
-                _pnlDica = new PainelNivel();
-
-                return _pnlDica;
             }
         }
 
@@ -331,7 +331,7 @@ namespace NetZ.Web.Html.Componente.Form
             }
 
             this.divComando.strId = (this.strId + "_divComando");
-            this.pnlDica.strId = (this.strId + "_pnlDica");
+            this.divDica.strId = (this.strId + "_divDica");
             this.tabHtml.strId = (this.strId + "_tabHtml");
         }
 
@@ -353,10 +353,6 @@ namespace NetZ.Web.Html.Componente.Form
         protected override void finalizarCss(CssArquivo css)
         {
             base.finalizarCss(css);
-
-            this.pnlDica.addCss(css.setLineHeight(30));
-            this.pnlDica.addCss(css.setMinHeight(30));
-            this.pnlDica.addCss(css.setTextAlign("left"));
 
             this.finalizarCssNivel(css);
         }
@@ -458,7 +454,6 @@ namespace NetZ.Web.Html.Componente.Form
         private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)
         {
             pnlNivelDica.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
-            pnlNivelDica.addCss(css.setMarginTop(10));
         }
 
         private void finalizarCssNivelTabHtml(CssArquivo css, PainelNivel pnlNivelTabHtml)
@@ -469,7 +464,6 @@ namespace NetZ.Web.Html.Componente.Form
             }
 
             pnlNivelTabHtml.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
-            pnlNivelTabHtml.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corFundoBorda));
             pnlNivelTabHtml.addCss(css.setMarginTop(10));
             pnlNivelTabHtml.addCss(css.setPaddingLeft(10));
             pnlNivelTabHtml.addCss(css.setPaddingRight(10));
@@ -537,9 +531,9 @@ namespace NetZ.Web.Html.Componente.Form
                 return;
             }
 
-            this.pnlDica.intNivel = (this.intUltimoNivel + 2);
+            this.divDica.intNivel = (this.intUltimoNivel + 2);
 
-            this.pnlDica.setPai(this);
+            this.divDica.setPai(this);
         }
 
         private void finalizarTabHtml()

@@ -598,14 +598,14 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 this.addCss(css.setFloat(this.booDireita ? "right" : "left"));
                 this.addCss(css.setHeight(100, "%"));
-                this.addCss(css.setPaddingLeft(5));
-                this.addCss(css.setPaddingRight(5));
+                this.addCss(css.setPaddingLeft(10));
+                this.addCss(css.setPaddingRight(10));
                 this.addCss(css.setPosition((EnmTamanho.TOTAL.Equals(this.enmTamanho)) ? "absolute" : "relative"));
 
                 this.divInputContainer.addCss(css.setFontSize(15));
-                this.divInputContainer.addCss(css.setLeft(5));
+                this.divInputContainer.addCss(css.setLeft(10));
                 this.divInputContainer.addCss(css.setPosition("absolute"));
-                this.divInputContainer.addCss(css.setRight(5));
+                this.divInputContainer.addCss(css.setRight(10));
                 this.divInputContainer.addCss(css.setTextAlign("left"));
 
                 this.divObrigatorio.addCss(css.setColor("red"));
@@ -757,8 +757,8 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                this.addCss(css.setLeft(5));
-                this.addCss(css.setRight(5));
+                this.addCss(css.setLeft(0));
+                this.addCss(css.setRight(0));
             }
             catch (Exception ex)
             {
