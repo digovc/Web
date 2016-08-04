@@ -167,7 +167,7 @@ namespace NetZ.Web.Server
 
                     if (objSolicitacao == null)
                     {
-                        Thread.Sleep(1); // TODO: Parar esse processo depois de um tempo excessivo.
+                        Thread.Sleep(10); // TODO: Parar esse processo depois de um tempo excessivo.
                         continue;
                     }
 

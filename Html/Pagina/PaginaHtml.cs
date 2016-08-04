@@ -680,6 +680,16 @@ namespace NetZ.Web.Html.Pagina
             this.addJs(strJq);
         }
 
+        protected void addConstante(string strNome, int intValor)
+        {
+            this.addConstante(strNome, intValor.ToString());
+        }
+
+        protected void addConstante(string strNome, decimal decValor)
+        {
+            this.addConstante(strNome, decValor.ToString());
+        }
+
         protected virtual void addConstante()
         {
         }
