@@ -128,7 +128,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.addCss(css.setMinHeight(10));
             this.addCss(css.setPosition("relative"));
-            this.addCss(css.setBackgroundColor("#E0E0E0"));
 
             this.divBarra.addCss(css.setBackgroundColor("rgb(130,202,156)"));
             this.divBarra.addCss(css.setBackgroundImage("/res/media/png/btn_ocultar_filtro_40x40.png"));
