@@ -865,7 +865,7 @@ namespace NetZ.Web.Html.Pagina
                 this.tagHtml.addAtt("lang", "pt-br");
                 this.tagHtml.booMostrarClazz = false;
 
-                this.tagIcon.addAtt("rel", "shortcut icon");
+                this.tagIcon.addAtt("rel", "icon");
                 this.tagIcon.addAtt("href", this.srcIcone);
                 this.tagIcon.addAtt("type", "image/x-icon");
                 this.tagIcon.booMostrarClazz = false;
