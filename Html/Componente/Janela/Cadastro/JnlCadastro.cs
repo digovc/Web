@@ -174,6 +174,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.setCss(css);
 
+            this.addCss(css.setDisplay("none"));
             this.addCss(css.setMinWidth(500));
         }
 
@@ -194,6 +195,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
+            this.addAtt("somente_leitura", this.tbl.booSomenteLeitura);
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
