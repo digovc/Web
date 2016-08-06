@@ -137,8 +137,9 @@ namespace NetZ.Web.Html.Componente.Grid
 
             this.attIntId.addValor(intId);
 
-            strId = "tagGridRow__registro_id";
+            strId = "tagGridRow___tbl_nome__registro_id";
 
+            strId = strId.Replace("_tbl_nome", this.tbl.strNomeSql);
             strId = strId.Replace("_registro_id", intId.ToString());
 
             this.strId = strId;

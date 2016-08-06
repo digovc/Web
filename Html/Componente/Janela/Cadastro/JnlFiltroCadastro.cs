@@ -73,7 +73,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.inicializar();
 
-            this.cmpStrNome.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+            this.cmpStrNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
             this.cmpStrNome.intNivel = 1;
 
             this.cmpStrDescricao.enmTamanho = CampoHtml.EnmTamanho.TOTAL;

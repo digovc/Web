@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using NetZ.Web.Html.Pagina;
@@ -70,7 +71,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Cliente(TcpClient tcpClient, ServerBase srv) : base("Cliente")
+        internal Cliente(TcpClient tcpClient, ServerBase srv) : base(string.Format("Cliente ({0})", ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString()))
         {
             this.srv = srv;
             this.tcpClient = tcpClient;
@@ -121,11 +122,6 @@ namespace NetZ.Web.Server
                 }
 
                 this.responder(objResposta);
-
-                //if (Resposta.INT_STATUS_CODE_302_FOUND.Equals(objResposta.intStatus))
-                //{
-                //    this.tcpClient.Close();
-                //}
             }
             catch (Exception ex)
             {

@@ -183,6 +183,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.divGrid.addCss(css.setTop(190));
 
             this.pnlAcaoConsulta.addCss(css.setBottom(25));
+            this.pnlAcaoConsulta.addCss(css.setDisplay("none"));
             this.pnlAcaoConsulta.addCss(css.setRight(50));
 
             this.setCssCmbStrViewNome(css);

@@ -83,14 +83,14 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.intTamanhoHotizontal = 7;
 
-            this.cmpBooAnd.booDireita = true;
-            this.cmpBooAnd.intNivel = 2;
+            this.cmpStrColunaNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
+            this.cmpStrColunaNome.intNivel = 1;
 
             this.cmpIntOperador.enmTamanho = CampoHtml.EnmTamanho.MEDIO;
             this.cmpIntOperador.intNivel = 2;
 
-            this.cmpStrColunaNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
-            this.cmpStrColunaNome.intNivel = 1;
+            this.cmpBooAnd.booDireita = true;
+            this.cmpBooAnd.intNivel = 2;
         }
 
         protected override void montarLayout()

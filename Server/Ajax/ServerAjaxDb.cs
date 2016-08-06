@@ -4,6 +4,7 @@ using System.Reflection;
 using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
+using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
@@ -220,7 +221,14 @@ namespace NetZ.Web.Server.Ajax
             jnlCadastro.tbl = tbl;
             jnlCadastro.tblWeb = tblWeb;
 
-            objInterlocutor.strData = jnlCadastro.toHtml();
+            try
+            {
+                objInterlocutor.strData = jnlCadastro.toHtml();
+            }
+            finally
+            {
+                tbl.liberar();
+            }
         }
 
         private void abrirCadastroFiltroConteudo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWebFiltro)
@@ -256,7 +264,14 @@ namespace NetZ.Web.Server.Ajax
 
             frm.intFiltroId = intFiltroId;
 
-            objInterlocutor.strData = frm.toHtml();
+            try
+            {
+                objInterlocutor.strData = frm.toHtml();
+            }
+            finally
+            {
+                TblFiltro.i.liberar();
+            }
         }
 
         private void abrirConsulta(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -462,11 +477,15 @@ namespace NetZ.Web.Server.Ajax
             MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
             MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
 
-            Persistencia.Dominio objDominio = (Persistencia.Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.strData });
+            Dominio objDominio = (Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.strData });
 
-            int intId = tbl.salvar(objDominio);
+            if (objDominio == null)
+            {
+                objInterlocutor.strErro = string.Format("Erro ao tentar instanciar o domínio {0}.", objInterlocutor.strJsonTipo);
+                return;
+            }
 
-            if (intId > 0)
+            if (tbl.salvar(objDominio).intId > 0)
             {
                 objInterlocutor.strData = "Registro salvo com sucesso.";
             }

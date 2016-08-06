@@ -92,10 +92,10 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
+            this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
+
             this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
             this.btnAlterar.addCss(css.setDisplay("none"));
-
-            this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
         }
 
         #endregion Métodos

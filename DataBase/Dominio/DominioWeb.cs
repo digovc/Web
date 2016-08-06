@@ -8,6 +8,21 @@
 
         #region Atributos
 
+        private bool _booAtivo = true;
+
+        public bool booAtivo
+        {
+            get
+            {
+                return _booAtivo;
+            }
+
+            set
+            {
+                _booAtivo = value;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
