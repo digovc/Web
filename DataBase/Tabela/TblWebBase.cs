@@ -59,6 +59,8 @@ namespace NetZ.Web.DataBase.Tabela
         {
             base.inicializar();
 
+            this.clnBooAtivo.booValorDefault = true;
+            this.clnBooAtivo.strValorDefaultSql = "true";
             this.clnDttExclusao.strNomeExibicao = STR_DTT_EXCLUSAO_NOME_EXIBICAO;
         }
 
