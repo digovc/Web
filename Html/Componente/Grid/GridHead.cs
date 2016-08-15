@@ -54,9 +54,9 @@ namespace NetZ.Web.Html.Componente.Grid
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
-            
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
-            this.addCss(css.setColor("white"));
+
+            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
+            this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.addCss(css.setFontWeight("normal"));
             this.addCss(css.setPaddingLeft(10));
             this.addCss(css.setPaddingRight(10));
