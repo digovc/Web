@@ -396,6 +396,12 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
+            if (tblData.Rows.Count < 1)
+            {
+                objInterlocutor.strData = STR_RESULTADO_VAZIO;
+                return;
+            }
+
             if (STR_METODO_PESQUISAR_GRID.Equals(objInterlocutor.strMetodo))
             {
                 this.pesquisarGrid(objInterlocutor, tbl, tblWeb, tblData);

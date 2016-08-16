@@ -6,6 +6,8 @@ namespace NetZ.Web.Server.Ajax
     {
         #region Constantes
 
+        protected const string STR_RESULTADO_VAZIO = "_____null_____";
+
         #endregion Constantes
 
         #region Atributos
