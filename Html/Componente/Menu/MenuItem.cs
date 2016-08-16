@@ -13,6 +13,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Atributos
 
+        private bool _booFilho;
         private DivCirculo _divIcone;
         private Div _divItemConteudo;
         private Div _divTitulo;
@@ -64,6 +65,14 @@ namespace NetZ.Web.Html.Componente.Menu
                 _divIcone = new DivCirculo();
 
                 return _divIcone;
+            }
+        }
+
+        private bool booFilho
+        {
+            get
+            {
+                return _booFilho = 0.Equals(this.lstMni.Count);
             }
         }
 
@@ -215,7 +224,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
         private void setCssFilho(CssArquivo css)
         {
-            if (this.lstMni.Count > 0)
+            if (!this.booFilho)
             {
                 return;
             }
@@ -233,7 +242,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
         private void setCssPai(CssArquivo css)
         {
-            if (this.lstMni.Count < 1)
+            if (this.booFilho)
             {
                 return;
             }

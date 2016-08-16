@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
-    internal class GridHead : Tag
+    internal class GridHead : ComponenteHtml
     {
         #region Constantes
 
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Construtores
 
-        public GridHead(Coluna cln) : base("th")
+        internal GridHead(Coluna cln)
         {
             this.cln = cln;
         }
@@ -42,6 +42,8 @@ namespace NetZ.Web.Html.Componente.Grid
         protected override void inicializar()
         {
             base.inicializar();
+
+            this.strNome = "th";
 
             if (this.cln == null)
             {
