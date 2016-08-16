@@ -44,6 +44,13 @@ namespace NetZ.Web.Html.Componente.Circulo
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(DivCirculo), 110));
+        }
+
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
