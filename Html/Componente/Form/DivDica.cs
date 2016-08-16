@@ -52,7 +52,7 @@ namespace NetZ.Web.Html.Componente.Form
             base.setCss(css);
 
             this.addCss(css.setFontSize(12));
-            this.addCss(css.setPadding(10));
+            this.addCss(css.setPaddingTop(8));
             this.addCss(css.setTextAlign("center"));
         }
 
