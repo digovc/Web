@@ -756,12 +756,13 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
 
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Constante.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/ConstanteManager.js", 1));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Historico.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
