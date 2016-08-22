@@ -120,6 +120,7 @@
     <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
     <Compile Include="Html\Componente\Menu\Menu.cs" />
     <Compile Include="Html\Componente\Menu\MenuItem.cs" />
+    <Compile Include="Html\Componente\ProgressBar.cs" />
     <Compile Include="Html\Componente\Tab\TabHtml.cs" />
     <Compile Include="Html\Componente\Tab\TabItem.cs" />
     <Compile Include="Html\Componente\Tab\TabItemHead.cs" />

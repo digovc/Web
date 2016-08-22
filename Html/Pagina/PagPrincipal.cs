@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
@@ -151,6 +152,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(PainelFiltro), 115));
                 lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
                 lstJs.Add(new JavaScriptTag(typeof(PainelNivel), 115));
+                lstJs.Add(new JavaScriptTag(typeof(ProgressBar), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabItem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 111));

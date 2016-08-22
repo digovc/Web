@@ -17,6 +17,7 @@ namespace NetZ.Web.Html.Componente.Campo
         private Div _divArquivoNome;
         private Div _divArquivoTamanho;
         private Div _divIcone;
+        private ProgressBar _divProgressBar;
         private ITblArquivo _tblArquivo;
 
         private BotaoCircular btnDownload
@@ -94,6 +95,21 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        private ProgressBar divProgressBar
+        {
+            get
+            {
+                if (_divProgressBar != null)
+                {
+                    return _divProgressBar;
+                }
+
+                _divProgressBar = new ProgressBar();
+
+                return _divProgressBar;
+            }
+        }
+
         private ITblArquivo tblArquivo
         {
             get
@@ -148,6 +164,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divArquivoNome.strId = (this.strId + "_divArquivoNome");
             this.divArquivoTamanho.strId = (this.strId + "_divArquivoTamanho");
             this.divIcone.strId = (this.strId + "_divIcone");
+            this.divProgressBar.strId = (this.strId + "_divProgressBar");
         }
 
         protected override Input.EnmTipo getEnmTipo()
@@ -171,6 +188,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.btnPesquisar.setPai(this.divComando);
 
             this.divIcone.setPai(this.divContent);
+            this.divProgressBar.setPai(this.divContent);
             this.divArquivoNome.setPai(this.divContent);
             this.divArquivoTamanho.setPai(this.divContent);
         }
@@ -192,8 +210,12 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divIcone.addCss(css.setDisplay("none"));
             this.divIcone.addCss(css.setFontSize(20));
             this.divIcone.addCss(css.setFontWeight("bold"));
-            this.divIcone.addCss(css.setHeight(175));
-            this.divIcone.addCss(css.setLineHeight(175));
+            this.divIcone.addCss(css.setHeight(170));
+            this.divIcone.addCss(css.setLineHeight(170));
+
+            this.divProgressBar.addCss(css.setDisplay("none"));
+            this.divProgressBar.addCss(css.setMarginLeft(150));
+            this.divProgressBar.addCss(css.setMarginRight(150));
         }
 
         private void atualizarTblArquivo()
