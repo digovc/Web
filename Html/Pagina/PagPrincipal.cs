@@ -119,6 +119,7 @@ namespace NetZ.Web.Html.Pagina
                 // principal diminui a performance neste ponto da aplicação.
                 lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 118));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
+                lstJs.Add(new JavaScriptTag(typeof(BtnFavorito), 119));
                 lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoAnexo), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 131));

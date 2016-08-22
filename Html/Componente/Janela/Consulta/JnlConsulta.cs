@@ -1,4 +1,5 @@
 ﻿using NetZ.Persistencia;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -12,12 +13,28 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Atributos
 
+        private BtnFavorito _btnFavorito;
         private ComboBox _cmbStrViewNome;
         private Div _divGrid;
         private GridHtml _grdDados;
         private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
         private Tabela _tbl;
+
+        private BtnFavorito btnFavorito
+        {
+            get
+            {
+                if (_btnFavorito != null)
+                {
+                    return _btnFavorito;
+                }
+
+                _btnFavorito = new BtnFavorito();
+
+                return _btnFavorito;
+            }
+        }
 
         private ComboBox cmbStrViewNome
         {
@@ -136,6 +153,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
+            this.btnFavorito.strId = (this.strId + "_btnFavorito");
             this.cmbStrViewNome.strId = (this.strId + "_cmbStrViewNome");
             this.divGrid.strId = (this.strId + "_divGrid");
             this.pnlAcaoConsulta.strId = (this.strId + "_pnlAcaoConsulta");
@@ -150,11 +168,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            this.strId = "jnlConsulta";
+            this.strId = "jnlConsulta"; // TODO: Colocar o id desta janela baseado no nome da sua tabela.
         }
 
         protected override void montarLayout()
         {
+            this.btnFavorito.setPai(this.divCabecalho);
+
             base.montarLayout();
 
             this.pnlFiltro.setPai(this);

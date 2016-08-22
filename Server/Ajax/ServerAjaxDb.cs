@@ -29,6 +29,8 @@ namespace NetZ.Web.Server.Ajax
         public const string STR_METODO_RECUPERAR = "RECUPERAR";
         public const string STR_METODO_SALVAR = "SALVAR";
         public const string STR_METODO_SALVAR_DOMINIO = "SALVAR_DOMINIO";
+        public const string STR_METODO_TABELA_FAVORITO_ADD = "TABELA_FAVORITO_ADD";
+        public const string STR_METODO_TABELA_FAVORITO_VERIFICAR = "TABELA_FAVORITO_VERIFICAR";
 
         #endregion Constantes
 
@@ -95,11 +97,6 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
-        protected virtual bool validarSalvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
-        {
-            return true;
-        }
-
         protected override int getIntPort()
         {
             return ConfigWeb.i.intServerAjaxDbPorta;
@@ -148,9 +145,44 @@ namespace NetZ.Web.Server.Ajax
                 case STR_METODO_SALVAR_DOMINIO:
                     this.salvarDominio(objSolicitacao, objInterlocutor);
                     return true;
+
+                case STR_METODO_TABELA_FAVORITO_ADD:
+                    this.favoritarTabela(objSolicitacao, objInterlocutor);
+                    return true;
+
+                case STR_METODO_TABELA_FAVORITO_VERIFICAR:
+                    this.verificarFavorito(objSolicitacao, objInterlocutor);
+                    return true;
             }
 
             return false;
+        }
+
+        private void verificarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (objInterlocutor.objData == null)
+            {
+                return;
+            }
+
+            if (objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (objSolicitacao.objUsuario.intId < 1)
+            {
+                return;
+            }
+
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.strNomeSql);
         }
 
         protected virtual bool validarAbrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
@@ -164,6 +196,11 @@ namespace NetZ.Web.Server.Ajax
         }
 
         protected virtual bool validarPesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        {
+            return true;
+        }
+
+        protected virtual bool validarSalvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
         {
             return true;
         }
@@ -354,6 +391,21 @@ namespace NetZ.Web.Server.Ajax
         {
         }
 
+        private void carregarArquivoUpload(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        {
+            if (!(tbl is ITblArquivo))
+            {
+                return;
+            }
+
+            if (DateTime.MinValue.Equals(tblWeb.dttUpload))
+            {
+                return;
+            }
+
+            objSolicitacao.objUsuario.carregarArquivo(objSolicitacao, objInterlocutor, tblWeb, tbl);
+        }
+
         private void carregarTbl(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
             Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
@@ -364,6 +416,33 @@ namespace NetZ.Web.Server.Ajax
             }
 
             objInterlocutor.objData = Json.i.toJson(tbl.tblWeb);
+        }
+
+        private void favoritarTabela(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (!objSolicitacao.objUsuario.booLogado)
+            {
+                return;
+            }
+
+            if (objInterlocutor.objData == null)
+            {
+                return;
+            }
+
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            TblFavorito.i.favoritar(objSolicitacao, objInterlocutor, tbl);
         }
 
         private void pesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -579,21 +658,6 @@ namespace NetZ.Web.Server.Ajax
             this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
 
             tbl.salvarWeb(tblWeb);
-        }
-
-        private void carregarArquivoUpload(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
-        {
-            if (!(tbl is ITblArquivo))
-            {
-                return;
-            }
-
-            if (DateTime.MinValue.Equals(tblWeb.dttUpload))
-            {
-                return;
-            }
-
-            objSolicitacao.objUsuario.carregarArquivo(objSolicitacao, objInterlocutor, tblWeb, tbl);
         }
 
         #endregion Métodos

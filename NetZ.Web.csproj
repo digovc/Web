@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AppWeb.cs" />
     <Compile Include="ConfigWeb.cs" />
+    <Compile Include="DataBase\Tabela\TblFavorito.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />
     <Compile Include="DataBase\Tabela\TblFiltroItem.cs" />
     <Compile Include="DataBase\Tabela\TblUsuarioBase.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroItemCadastro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlTag.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\BtnFavorito.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
