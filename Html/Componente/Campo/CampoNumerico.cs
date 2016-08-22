@@ -25,6 +25,11 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 130));
         }
 
+        protected override Input.EnmTipo getEnmTipo()
+        {
+            return Input.EnmTipo.NUMBER;
+        }
+
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);

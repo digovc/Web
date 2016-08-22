@@ -27,20 +27,20 @@ namespace NetZ.Web.Html.Pagina
 
         private bool _booEstatica = true;
         private bool _booPagSimples;
-        private CssTag _tagCssMain;
-        private CssTag _tagCssPrint;
         private Div _divNotificacao;
-        private JavaScriptTag _tagJs;
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
         private string _srcIcone = "/res/media/ico/favicon.ico";
         private string _strHtmlEstatico;
         private string _strTitulo;
         private Tag _tagBody;
+        private CssTag _tagCssMain;
+        private CssTag _tagCssPrint;
         private Tag _tagDocType;
         private Tag _tagHead;
         private Tag _tagHtml;
         private Tag _tagIcon;
+        private JavaScriptTag _tagJs;
         private Tag _tagMetaContent;
         private Tag _tagMetaHttpEquiv;
         private Tag _tagThemaColor;

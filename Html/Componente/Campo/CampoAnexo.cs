@@ -1,8 +1,10 @@
-﻿using System;
+﻿using NetZ.Persistencia.Interface;
+using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoAnexo : CampoHtml
+    public class CampoAnexo : CampoMedia
     {
         #region Constantes
 
@@ -10,9 +12,116 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
+        private BotaoCircular _btnDownload;
+        private BotaoCircular _btnPesquisar;
+        private Div _divArquivoNome;
+        private Div _divArquivoTamanho;
+        private Div _divIcone;
+        private ITblArquivo _tblArquivo;
+
+        private BotaoCircular btnDownload
+        {
+            get
+            {
+                if (_btnDownload != null)
+                {
+                    return _btnDownload;
+                }
+
+                _btnDownload = new BotaoCircular();
+
+                return _btnDownload;
+            }
+        }
+
+        private BotaoCircular btnPesquisar
+        {
+            get
+            {
+                if (_btnPesquisar != null)
+                {
+                    return _btnPesquisar;
+                }
+
+                _btnPesquisar = new BotaoCircular();
+
+                return _btnPesquisar;
+            }
+        }
+
+        private Div divArquivoNome
+        {
+            get
+            {
+                if (_divArquivoNome != null)
+                {
+                    return _divArquivoNome;
+                }
+
+                _divArquivoNome = new Div();
+
+                return _divArquivoNome;
+            }
+        }
+
+        private Div divArquivoTamanho
+        {
+            get
+            {
+                if (_divArquivoTamanho != null)
+                {
+                    return _divArquivoTamanho;
+                }
+
+                _divArquivoTamanho = new Div();
+
+                return _divArquivoTamanho;
+            }
+        }
+
+        private Div divIcone
+        {
+            get
+            {
+                if (_divIcone != null)
+                {
+                    return _divIcone;
+                }
+
+                _divIcone = new Div();
+
+                return _divIcone;
+            }
+        }
+
+        private ITblArquivo tblArquivo
+        {
+            get
+            {
+                return _tblArquivo;
+            }
+
+            set
+            {
+                if (_tblArquivo == value)
+                {
+                    return;
+                }
+
+                _tblArquivo = value;
+
+                this.atualizarTblArquivo();
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
+
+        public CampoAnexo(ITblArquivo tblArquivo)
+        {
+            this.tblArquivo = tblArquivo;
+        }
 
         #endregion Construtores
 
@@ -22,30 +131,111 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(CampoAnexo), 132));
+        }
 
-            #endregion Variáveis
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
 
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strId))
             {
-                lstJs.Add(new JavaScriptTag(typeof(CampoAnexo), 130));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.btnDownload.strId = (this.strId + "_btnDownload");
+            this.btnPesquisar.strId = (this.strId + "_btnPesquisar");
+            this.divArquivoNome.strId = (this.strId + "_divArquivoNome");
+            this.divArquivoTamanho.strId = (this.strId + "_divArquivoTamanho");
+            this.divIcone.strId = (this.strId + "_divIcone");
         }
 
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.FILE;
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.btnDownload.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+            this.btnPesquisar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.btnDownload.setPai(this.divComando);
+            this.btnPesquisar.setPai(this.divComando);
+
+            this.divIcone.setPai(this.divContent);
+            this.divArquivoNome.setPai(this.divContent);
+            this.divArquivoTamanho.setPai(this.divContent);
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.btnDownload.addCss(css.setBackgroundImage("/res/media/png/btn_download_30x30.png"));
+
+            this.btnPesquisar.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisar_30x30.png"));
+
+            this.divArquivoTamanho.addCss(css.setFontSize(12));
+
+            this.divIcone.addCss(css.setBackgroundImage("/res/media/png/file_100x100.png"));
+            this.divIcone.addCss(css.setBackgroundPosition("center"));
+            this.divIcone.addCss(css.setBackgroundRepeat("no-repeat"));
+            this.divIcone.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divIcone.addCss(css.setDisplay("none"));
+            this.divIcone.addCss(css.setFontSize(20));
+            this.divIcone.addCss(css.setFontWeight("bold"));
+            this.divIcone.addCss(css.setHeight(175));
+            this.divIcone.addCss(css.setLineHeight(175));
+        }
+
+        private void atualizarTblArquivo()
+        {
+            if (this.tblArquivo == null)
+            {
+                return;
+            }
+
+            this.atualizarTblArquivoModificacao();
+            this.atualizarTblArquivoNome();
+            this.atualizarTblArquivoTamanho();
+        }
+
+        private void atualizarTblArquivoModificacao()
+        {
+            if (this.tblArquivo.getClnDttArquivoModificacao() == null)
+            {
+                return;
+            }
+
+            this.addAtt("cln_web_arquivo_modificacao_nome", this.tblArquivo.getClnDttArquivoModificacao().strNomeSql);
+        }
+
+        private void atualizarTblArquivoNome()
+        {
+            if (this.tblArquivo.getClnStrArquivoNome() == null)
+            {
+                return;
+            }
+
+            this.addAtt("cln_web_arquivo_nome_nome", this.tblArquivo.getClnStrArquivoNome().strNomeSql);
+        }
+
+        private void atualizarTblArquivoTamanho()
+        {
+            if (this.tblArquivo.getClnIntArquivoTamanho() == null)
+            {
+                return;
+            }
+
+            this.addAtt("cln_web_arquivo_tamanho_nome", this.tblArquivo.getClnIntArquivoTamanho().strNomeSql);
         }
 
         #endregion Métodos

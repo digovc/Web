@@ -18,7 +18,6 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Atributos
 
         private CultureInfo _ctiUsa;
-        private DateTime _dttCssUltimaAdicao;
         private List<AtributoCss> _lstAttCss;
         private StringBuilder _stbConteudo;
         private string _strHref;
@@ -56,19 +55,6 @@ namespace NetZ.Web.Server.Arquivo.Css
                 _ctiUsa = CultureInfo.CreateSpecificCulture("en-US");
 
                 return _ctiUsa;
-            }
-        }
-
-        private DateTime dttCssUltimaAdicao
-        {
-            get
-            {
-                return _dttCssUltimaAdicao;
-            }
-
-            set
-            {
-                _dttCssUltimaAdicao = value;
             }
         }
 
@@ -607,11 +593,6 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("z-index", intZIndex.ToString());
         }
 
-        internal override byte[] getArrBte()
-        {
-            return Encoding.UTF8.GetBytes(this.stbConteudo.ToString());
-        }
-
         protected void addCssPuro(string css)
         {
             if (string.IsNullOrEmpty(css))
@@ -620,12 +601,14 @@ namespace NetZ.Web.Server.Arquivo.Css
             }
 
             this.stbConteudo.Append(css);
-            this.dttCssUltimaAdicao = DateTime.Now;
+
+            this.arrBteConteudo = null;
+            this.dttUltimaModificacao = DateTime.Now;
         }
 
-        protected override DateTime getDttUltimaModificacao()
+        protected override byte[] getArrBteConteudo()
         {
-            return this.dttCssUltimaAdicao;
+            return Encoding.UTF8.GetBytes(this.stbConteudo.ToString());
         }
 
         protected override void inicializar()
@@ -651,7 +634,9 @@ namespace NetZ.Web.Server.Arquivo.Css
 
             this.lstAttCss.Add(atrCss);
             this.stbConteudo.Append(atrCss.getStrFormatado());
-            this.dttCssUltimaAdicao = DateTime.Now;
+
+            this.arrBteConteudo = null;
+            this.dttUltimaModificacao = DateTime.Now;
 
             return atrCss.strClass;
         }

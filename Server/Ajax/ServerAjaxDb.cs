@@ -3,6 +3,7 @@ using System.Data;
 using System.Reflection;
 using DigoFramework.Json;
 using NetZ.Persistencia;
+using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
 using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
@@ -47,6 +48,13 @@ namespace NetZ.Web.Server.Ajax
 
         public override Resposta responder(Solicitacao objSolicitacao)
         {
+            Resposta objResposta = base.responder(objSolicitacao);
+
+            if (objResposta != null)
+            {
+                return objResposta;
+            }
+
             Interlocutor objInterlocutor = null;
 
             try
@@ -70,11 +78,11 @@ namespace NetZ.Web.Server.Ajax
 
                 this.responder(objSolicitacao, objInterlocutor);
 
-                Resposta objResposta = new Resposta(objSolicitacao);
+                objResposta = new Resposta(objSolicitacao);
 
                 objResposta.addJson(objInterlocutor);
 
-                this.addAcessControl(objResposta, objSolicitacao);
+                this.addAcessControl(objResposta);
 
                 return objResposta;
             }
@@ -162,12 +170,12 @@ namespace NetZ.Web.Server.Ajax
 
         private void abrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.strData))
+            if (objInterlocutor.objData == null)
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             switch (objInterlocutor.strMetodo)
             {
@@ -223,7 +231,7 @@ namespace NetZ.Web.Server.Ajax
 
             try
             {
-                objInterlocutor.strData = jnlCadastro.toHtml();
+                objInterlocutor.objData = jnlCadastro.toHtml();
             }
             finally
             {
@@ -266,7 +274,7 @@ namespace NetZ.Web.Server.Ajax
 
             try
             {
-                objInterlocutor.strData = frm.toHtml();
+                objInterlocutor.objData = frm.toHtml();
             }
             finally
             {
@@ -276,12 +284,12 @@ namespace NetZ.Web.Server.Ajax
 
         private void abrirConsulta(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.strData))
+            if (objInterlocutor.objData == null)
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             this.abrirConsulta(objInterlocutor, objSolicitacao, tblWeb);
         }
@@ -310,7 +318,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            objInterlocutor.strData = new JnlConsulta(tbl).toHtml();
+            objInterlocutor.objData = new JnlConsulta(tbl).toHtml();
         }
 
         private void abrirJnlTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
@@ -339,7 +347,7 @@ namespace NetZ.Web.Server.Ajax
             jnlTag.tbl = tbl;
             jnlTag.tblWeb = tblWeb;
 
-            objInterlocutor.strData = jnlTag.toHtml();
+            objInterlocutor.objData = jnlTag.toHtml();
         }
 
         private void apagarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -348,24 +356,24 @@ namespace NetZ.Web.Server.Ajax
 
         private void carregarTbl(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.strData);
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
 
             if (tbl == null)
             {
                 return;
             }
 
-            objInterlocutor.strData = Json.i.toJson(tbl.tblWeb);
+            objInterlocutor.objData = Json.i.toJson(tbl.tblWeb);
         }
 
         private void pesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.strData))
+            if (string.IsNullOrEmpty(objInterlocutor.objData.ToString()))
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             this.pesquisar(objSolicitacao, objInterlocutor, tblWeb);
         }
@@ -398,7 +406,7 @@ namespace NetZ.Web.Server.Ajax
 
             if (tblData.Rows.Count < 1)
             {
-                objInterlocutor.strData = STR_RESULTADO_VAZIO;
+                objInterlocutor.objData = STR_RESULTADO_VAZIO;
                 return;
             }
 
@@ -413,7 +421,7 @@ namespace NetZ.Web.Server.Ajax
 
         private void pesquisarComboBox(Interlocutor objInterlocutor, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
         {
-            objInterlocutor.strData = tblWeb.getJson(tbl, tblData);
+            objInterlocutor.objData = tblWeb.getJson(tbl, tblData);
         }
 
         private void pesquisarGrid(Interlocutor objInterlocutor, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
@@ -423,7 +431,7 @@ namespace NetZ.Web.Server.Ajax
             tagGrid.tbl = tbl.viwPrincipal;
             tagGrid.tblData = tblData;
 
-            objInterlocutor.strData = tagGrid.toHtml();
+            objInterlocutor.objData = tagGrid.toHtml();
         }
 
         private void recuperarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -455,45 +463,45 @@ namespace NetZ.Web.Server.Ajax
 
             objResposta.addJson(objInterlocutor);
 
-            this.addAcessControl(objResposta, objSolicitacao);
+            this.addAcessControl(objResposta);
 
             return objResposta;
         }
 
         private void salvarDominio(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.strData))
+            if (string.IsNullOrEmpty(objInterlocutor.objData.ToString()))
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(objInterlocutor.strJsonTipo))
+            if (string.IsNullOrEmpty(objInterlocutor.strClazz))
             {
                 return;
             }
 
-            Tabela tbl = AppWeb.i.getTblPorDominio(objInterlocutor.strJsonTipo);
+            Tabela tbl = AppWeb.i.getTblPorDominio(objInterlocutor.strClazz);
 
             if (tbl == null)
             {
-                objInterlocutor.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objInterlocutor.strJsonTipo);
+                objInterlocutor.strErro = string.Format("Não foi encontrado uma tabela relacionada ao domínio {0}.", objInterlocutor.strClazz);
                 return;
             }
 
             MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
             MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
 
-            Dominio objDominio = (Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.strData });
+            Dominio objDominio = (Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.objData });
 
             if (objDominio == null)
             {
-                objInterlocutor.strErro = string.Format("Erro ao tentar instanciar o domínio {0}.", objInterlocutor.strJsonTipo);
+                objInterlocutor.strErro = string.Format("Erro ao tentar instanciar o domínio {0}.", objInterlocutor.strClazz);
                 return;
             }
 
             if (tbl.salvar(objDominio).intId > 0)
             {
-                objInterlocutor.strData = "Registro salvo com sucesso.";
+                objInterlocutor.objData = "Registro salvo com sucesso.";
             }
             else
             {
@@ -503,16 +511,16 @@ namespace NetZ.Web.Server.Ajax
 
         private void salvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.strData))
+            if (objInterlocutor.objData == null)
             {
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.strData);
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             this.salvarRegistro(objSolicitacao, objInterlocutor, tblWeb);
 
-            objInterlocutor.strData = Json.i.toJson(tblWeb);
+            objInterlocutor.objData = Json.i.toJson(tblWeb);
         }
 
         private void salvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
@@ -568,7 +576,24 @@ namespace NetZ.Web.Server.Ajax
                 tblWeb.getClnWeb(tbl.clnIntUsuarioCadastroId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
             }
 
+            this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
+
             tbl.salvarWeb(tblWeb);
+        }
+
+        private void carregarArquivoUpload(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        {
+            if (!(tbl is ITblArquivo))
+            {
+                return;
+            }
+
+            if (DateTime.MinValue.Equals(tblWeb.dttUpload))
+            {
+                return;
+            }
+
+            objSolicitacao.objUsuario.carregarArquivo(objSolicitacao, objInterlocutor, tblWeb, tbl);
         }
 
         #endregion Métodos

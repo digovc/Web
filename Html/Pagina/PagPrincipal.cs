@@ -119,6 +119,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 118));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
                 lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
+                lstJs.Add(new JavaScriptTag(typeof(CampoAnexo), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
@@ -126,6 +127,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
                 lstJs.Add(new JavaScriptTag(typeof(CampoMapa), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoMarkdown), 132));
+                lstJs.Add(new JavaScriptTag(typeof(CampoMedia), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoSenha), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoTexto), 131));

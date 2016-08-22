@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using DigoFramework.Arquivo;
+﻿using DigoFramework.Arquivo;
 
 namespace NetZ.Web.Server.Arquivo
 {
@@ -18,40 +16,12 @@ namespace NetZ.Web.Server.Arquivo
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_dirWeb != null)
                 {
-                    if (_dirWeb != null)
-                    {
-                        return _dirWeb;
-                    }
-
-                    if (string.IsNullOrEmpty(this.dirCompleto))
-                    {
-                        return null;
-                    }
-
-                    _dirWeb = "/_dir_completo";
-
-                    _dirWeb = _dirWeb.Replace("_dir_completo", this.dirCompleto);
-                    _dirWeb = _dirWeb.Replace("\\", "/");
-
-                    _dirWeb = _dirWeb.Substring(_dirWeb.IndexOf("/res/"));
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _dirWeb;
                 }
 
-                #endregion Ações
+                _dirWeb = this.getDirWeb();
 
                 return _dirWeb;
             }
@@ -61,63 +31,30 @@ namespace NetZ.Web.Server.Arquivo
 
         #region Construtores
 
-        public ArquivoEstatico() : base(EnmMimeTipo.TEXT_PLAIN)
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.iniciar();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         #endregion Construtores
 
         #region Métodos
 
-        internal virtual byte[] getArrBte()
+        private string getDirWeb()
         {
-            return File.ReadAllBytes(this.dirCompleto); // TODO: Manter o arquivo na memória RAM.
-        }
+            if (string.IsNullOrEmpty(this.dirCompleto))
+            {
+                return null;
+            }
 
-        protected virtual void inicializar()
-        {
+            string dirWebResultado = "/_dir_completo";
+
+            dirWebResultado = dirWebResultado.Replace("_dir_completo", this.dirCompleto);
+            dirWebResultado = dirWebResultado.Replace("\\", "/");
+
+            dirWebResultado = dirWebResultado.Substring(dirWebResultado.IndexOf("/res/"));
+
+            return dirWebResultado;
         }
 
         private void iniciar()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.inicializar();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializar();
         }
 
         #endregion Métodos

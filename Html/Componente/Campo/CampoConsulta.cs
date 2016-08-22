@@ -11,7 +11,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private BotaoMini _btnAcao;
+        private BotaoMini _btnAcao; // TODO: Trocar este botão por dois botões, um de pesquisar e outro de limpar o campo.
         private Input _txtIntId;
         private Input _txtPesquisa;
 
@@ -136,7 +136,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.btnAcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.btnAcao.addCss(css.setHeight(25));
             this.btnAcao.addCss(css.setPosition("absolute"));
-            this.btnAcao.addCss(css.setRight(-95));
+            this.btnAcao.addCss(css.setRight(-100));
             this.btnAcao.addCss(css.setTop(-3));
             this.btnAcao.addCss(css.setWidth(25));
 

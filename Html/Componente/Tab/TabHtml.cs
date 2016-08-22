@@ -11,7 +11,7 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Atributos
 
-        private BotaoCircular _btnAdicionar;
+        private BotaoCircular _btnAdicionar; // TODO: Colocar o comando dentro do item.
         private BotaoCircular _btnAlterar;
         private BotaoCircular _btnApagar;
         private Div _divCabecalho;

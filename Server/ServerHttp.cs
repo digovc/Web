@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using NetZ.Persistencia;
+using NetZ.Persistencia.Interface;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -19,6 +21,8 @@ namespace NetZ.Web.Server
         #region Constantes
 
         public const string STR_COOKIE_SESSAO_ID_NOME = "sessao_id";
+        private const string STR_GET_SCRIPT = "get-script";
+        private const string URL_DATA_BASE_FILE_DOWNLOAD = "/data-base-file-download";
 
         #endregion Constantes
 
@@ -78,12 +82,18 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            if (!objSolicitacao.strPaginaCompleta.StartsWith("/res"))
+            if (objSolicitacao.strPaginaCompleta.ToLower().StartsWith("/res/"))
             {
-                return null;
+                return this.responderArquivoEstatico(objSolicitacao);
             }
 
-            return this.responderArquivoEstatico(objSolicitacao);
+            switch (objSolicitacao.strPagina)
+            {
+                case URL_DATA_BASE_FILE_DOWNLOAD:
+                    return this.responderDbFileDownload(objSolicitacao);
+            }
+
+            return null;
         }
 
         protected override int getIntPort()
@@ -224,7 +234,7 @@ namespace NetZ.Web.Server
                 return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
             }
 
-            if ("getScript".Equals(objSolicitacao.getStrGetValue("method")))
+            if (STR_GET_SCRIPT.Equals(objSolicitacao.getStrGetValue("method")))
             {
                 return this.responderArquivoEstaticoGetScript(objSolicitacao);
             }
@@ -303,6 +313,77 @@ namespace NetZ.Web.Server
         private Resposta responderArquivoEstaticoNaoEncontrado(Solicitacao objSolicitacao)
         {
             return new Resposta(objSolicitacao) { intStatus = 404 };
+        }
+
+        private Resposta responderDbFileDownload(Solicitacao objSolicitacao)
+        {
+            if (objSolicitacao == null)
+            {
+                return null;
+            }
+
+            if (objSolicitacao.objUsuario == null)
+            {
+                return null;
+            }
+
+            if (!objSolicitacao.objUsuario.booLogado)
+            {
+                return new Resposta(objSolicitacao).addHtml("Usuário não autorizado."); // TODO: Criar uma página de "sem permissão de acesso ao recurso".
+            }
+
+            int intRegistroId = objSolicitacao.getIntGetValue("registro_id");
+
+            if (intRegistroId < 1)
+            {
+                return null;
+            }
+
+            string strTblNome = objSolicitacao.getStrGetValue("tbl_web_nome");
+
+            if (string.IsNullOrEmpty(strTblNome))
+            {
+                return null;
+            }
+
+            Tabela tbl = AppWeb.i.getTbl(strTblNome);
+
+            if (tbl == null)
+            {
+                return null;
+            }
+
+            if (!(tbl is ITblArquivo))
+            {
+                return null;
+            }
+
+            tbl.recuperar(intRegistroId);
+
+            if (!intRegistroId.Equals(tbl.clnIntId.intValor))
+            {
+                return null;
+            }
+
+            if ((tbl as ITblArquivo).getClnArq().arrBteValor == null)
+            {
+                return null;
+            }
+
+            if ((tbl as ITblArquivo).getClnArq().arrBteValor.Length < 1)
+            {
+                return null;
+            }
+
+            ArquivoEstatico arqDownload = new ArquivoEstatico();
+
+            arqDownload.arrBteConteudo = (tbl as ITblArquivo).getClnArq().arrBteValor;
+            arqDownload.dttUltimaModificacao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
+            arqDownload.strNome = (tbl as ITblArquivo).getClnStrArquivoNome().strValor;
+
+            tbl.liberar();
+
+            return this.responderArquivoEstatico(objSolicitacao, arqDownload);
         }
 
         #endregion Métodos

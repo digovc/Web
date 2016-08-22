@@ -11,25 +11,24 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
-        private string _strData;
+        private object _objData;
         private string _strErro;
-        private string _strJsonTipo;
-
+        private string _strClazz;
         private string _strMetodo;
 
         /// <summary>
         /// Propriedade que serve para intercâmbio de informações entre o servidor e o cliente.
         /// </summary>
-        public string strData
+        public object objData
         {
             get
             {
-                return _strData;
+                return _objData;
             }
 
             set
             {
-                _strData = value;
+                _objData = value;
             }
         }
 
@@ -50,18 +49,18 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Indica o nome do tipo do objeto que a propriedade <see cref="strData"/> possui.
+        /// Indica o nome do tipo do objeto que a propriedade <see cref="objData"/> possui.
         /// </summary>
-        public string strJsonTipo
+        public string strClazz
         {
             get
             {
-                return _strJsonTipo;
+                return _strClazz;
             }
 
             set
             {
-                _strJsonTipo = value;
+                _strClazz = value;
             }
         }
 
@@ -96,7 +95,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            this.strData = Json.i.toJson(obj);
+            this.objData = Json.i.toJson(obj);
         }
 
         /// <summary>
@@ -107,12 +106,12 @@ namespace NetZ.Web.Server
         /// </summary>
         public T getObjJson<T>()
         {
-            if (string.IsNullOrEmpty(this.strData))
+            if (this.objData == null)
             {
                 return default(T);
             }
 
-            return Json.i.fromJson<T>(this.strData);
+            return Json.i.fromJson<T>(this.objData.ToString());
         }
 
         #endregion Métodos
