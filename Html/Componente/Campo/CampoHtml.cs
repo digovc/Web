@@ -49,6 +49,7 @@ namespace NetZ.Web.Html.Componente.Campo
         private bool _booDireita;
         private bool _booMostrarTituloSempre;
         private bool _booObrigatorio;
+        private bool _booPermitirAlterar;
         private bool _booSomenteLeitura;
         private Coluna _cln;
         private Div _divInputContainer;
@@ -261,6 +262,19 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        private bool booPermitirAlterar
+        {
+            get
+            {
+                return _booPermitirAlterar;
+            }
+
+            set
+            {
+                _booPermitirAlterar = value;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -287,6 +301,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addAtt("str_dica", this.cln.strDica);
 
             this.booObrigatorio = this.cln.booObrigatorio;
+            this.booPermitirAlterar = this.cln.booPermitirAlterar;
             this.booSomenteLeitura = this.cln.booSomenteLeitura;
             this.strTitulo = this.cln.strNomeExibicao;
 
@@ -319,7 +334,9 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.finalizar();
 
-            this.finalizarRequired();
+            this.addAtt("permitir_alterar", this.booPermitirAlterar);
+
+            this.finalizarBooObrigatorio();
 
             this.finalizarMostrarTituloSempre();
         }
@@ -413,6 +430,16 @@ namespace NetZ.Web.Html.Componente.Campo
             this.strId = strId;
         }
 
+        private void finalizarBooObrigatorio()
+        {
+            if (!this.booObrigatorio)
+            {
+                return;
+            }
+
+            this.addAtt("required", true);
+        }
+
         private void finalizarMostrarTituloSempre()
         {
             if (!this.booMostrarTituloSempre)
@@ -421,16 +448,6 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             this.addAtt("mostrar_titulo_sempre", true);
-        }
-
-        private void finalizarRequired()
-        {
-            if (!this.booObrigatorio)
-            {
-                return;
-            }
-
-            this.addAtt("required", true);
         }
 
         private void setCssWidth(CssArquivo css)

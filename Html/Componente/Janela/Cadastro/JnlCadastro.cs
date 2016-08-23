@@ -195,7 +195,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            this.addAtt("somente_leitura", this.tbl.booSomenteLeitura);
+            this.addAtt("permitir_alterar", this.tbl.booPermitirAlterar);
             this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
