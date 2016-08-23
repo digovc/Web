@@ -241,7 +241,7 @@ namespace NetZ.Web.DataBase.View
 
         #region Construtores
 
-        public ViwFiltroItem() : base("viw_filtro_item")
+        public ViwFiltroItem() : base(AppWeb.i.getObjDbPrincipal(), "viw_filtro_item")
         {
         }
 

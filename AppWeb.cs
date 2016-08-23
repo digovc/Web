@@ -35,7 +35,6 @@ namespace NetZ.Web
         private List<UsuarioDominio> _lstObjUsuario;
         private List<ServerBase> _lstSrv;
         private List<Tabela> _lstTbl;
-        private Persistencia.DataBase _objDbPrincipal;
         private object _objLstObjUsuarioLock;
 
         public new static AppWeb i
@@ -79,18 +78,18 @@ namespace NetZ.Web
             }
         }
 
-        public Persistencia.DataBase objDbPrincipal
+        public List<Tabela> lstTbl
         {
             get
             {
-                if (_objDbPrincipal != null)
+                if (_lstTbl != null)
                 {
-                    return _objDbPrincipal;
+                    return _lstTbl;
                 }
 
-                _objDbPrincipal = this.getObjDbPrincipal();
+                _lstTbl = this.getLstTbl();
 
-                return _objDbPrincipal;
+                return _lstTbl;
             }
         }
 
@@ -124,21 +123,6 @@ namespace NetZ.Web
             }
         }
 
-        public List<Tabela> lstTbl
-        {
-            get
-            {
-                if (_lstTbl != null)
-                {
-                    return _lstTbl;
-                }
-
-                _lstTbl = this.getLstTbl();
-
-                return _lstTbl;
-            }
-        }
-
         private object objLstObjUsuarioLock
         {
             get
@@ -158,6 +142,13 @@ namespace NetZ.Web
 
         #region Construtores
 
+        protected AppWeb(string strNome)
+        {
+            i = this;
+
+            this.strNome = strNome;
+        }
+
         private List<Tabela> getLstTbl()
         {
             List<Tabela> lstTblResultado = new List<Tabela>();
@@ -165,13 +156,6 @@ namespace NetZ.Web
             this.inicializarLstTbl(lstTblResultado);
 
             return lstTblResultado;
-        }
-
-        protected AppWeb(string strNome)
-        {
-            i = this;
-
-            this.strNome = strNome;
         }
 
         #endregion Construtores
@@ -285,6 +269,11 @@ namespace NetZ.Web
             this.lstObjUsuario.Add(objUsuario);
         }
 
+        internal virtual Persistencia.DataBase getObjDbPrincipal()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Busca o usuário que pertence a <param name="strSessaoId"/>.
         /// </summary>
@@ -356,8 +345,6 @@ namespace NetZ.Web
         }
 
         protected abstract ConfigWeb getObjConfig();
-
-        protected abstract Persistencia.DataBase getObjDbPrincipal();
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
 
