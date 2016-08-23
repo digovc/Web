@@ -12,7 +12,7 @@
 
         #region Construtores
 
-        public ViwWebBase(string strNome) : base(AppWeb.i.objDbPrincipal, strNome)
+        public ViwWebBase(Persistencia.DataBase dbe, string strNome) : base(dbe, strNome)
         {
         }
 

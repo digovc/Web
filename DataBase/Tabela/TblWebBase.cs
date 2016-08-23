@@ -47,7 +47,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        public TblWebBase(string strNome) : base(AppWeb.i.objDbPrincipal, strNome)
+        public TblWebBase(string strNome) : base(AppWeb.i.getObjDbPrincipal(), strNome)
         {
         }
 
