@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Circulo;
 using NetZ.Web.Server.Arquivo.Css;
@@ -14,6 +13,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Atributos
 
+        private bool _booFilho;
         private DivCirculo _divIcone;
         private Div _divItemConteudo;
         private Div _divTitulo;
@@ -47,27 +47,9 @@ namespace NetZ.Web.Html.Componente.Menu
 
             set
             {
-                #region Variáveis
+                _tbl = value;
 
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    _tbl = value;
-
-                    this.atualizarTbl();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
+                this.atualizarTbl();
             }
         }
 
@@ -75,32 +57,22 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divIcone != null)
                 {
-                    if (_divIcone != null)
-                    {
-                        return _divIcone;
-                    }
-
-                    _divIcone = new DivCirculo();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divIcone;
                 }
 
-                #endregion Ações
+                _divIcone = new DivCirculo();
 
                 return _divIcone;
+            }
+        }
+
+        private bool booFilho
+        {
+            get
+            {
+                return _booFilho = 0.Equals(this.lstMni.Count);
             }
         }
 
@@ -108,30 +80,12 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divItemConteudo != null)
                 {
-                    if (_divItemConteudo != null)
-                    {
-                        return _divItemConteudo;
-                    }
-
-                    _divItemConteudo = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divItemConteudo;
                 }
 
-                #endregion Ações
+                _divItemConteudo = new Div();
 
                 return _divItemConteudo;
             }
@@ -141,30 +95,12 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divTitulo != null)
                 {
-                    if (_divTitulo != null)
-                    {
-                        return _divTitulo;
-                    }
-
-                    _divTitulo = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divTitulo;
                 }
 
-                #endregion Ações
+                _divTitulo = new Div();
 
                 return _divTitulo;
             }
@@ -197,241 +133,98 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             base.addJs(lstJs);
 
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
-
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if (!typeof(MenuItem).IsAssignableFrom(tag.GetType()))
-                {
-                    base.addTag(tag);
-                    return;
-                }
-
-                tag.setPai(this.divItemConteudo);
-
-                this.lstMni.Add(tag as MenuItem);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (!typeof(MenuItem).IsAssignableFrom(tag.GetType()))
+            {
+                base.addTag(tag);
+                return;
+            }
+
+            tag.setPai(this.divItemConteudo);
+
+            this.lstMni.Add(tag as MenuItem);
         }
 
         protected override void atualizarStrId()
         {
             base.atualizarStrId();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strId))
             {
-                if (string.IsNullOrEmpty(this.strId))
-                {
-                    return;
-                }
-
-                this.divItemConteudo.strId = this.strId + "_divItemConteudo";
-                this.divTitulo.strId = this.strId + "_divTitulo";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.divIcone.strId = (this.strId + "_divIcone");
+            this.divItemConteudo.strId = (this.strId + "_divItemConteudo");
+            this.divTitulo.strId = (this.strId + "_divTitulo");
         }
 
         protected override void finalizar()
         {
             base.finalizar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divTitulo.strConteudo = this.strTitulo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divTitulo.strConteudo = this.strTitulo;
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.intTabStop = 1;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.intTabStop = 1;
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divIcone.setPai(this);
-                this.divTitulo.setPai(this);
-                this.divItemConteudo.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divIcone.setPai(this);
+            this.divTitulo.setPai(this);
+            this.divItemConteudo.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setCursor("pointer"));
+            this.addCss(css.setFontFamily("ubuntu"));
+            this.addCss(css.setFontStyle("ligth"));
+            this.addCss(css.setOutLine("none"));
 
-            #endregion Variáveis
+            this.setCssPai(css);
+            this.setCssFilho(css);
 
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setCursor("pointer"));
-                this.addCss(css.setFontFamily("ubuntu"));
-                this.addCss(css.setFontStyle("ligth"));
-                this.addCss(css.setOutLine("none"));
-
-                this.setCssPai(css);
-                this.setCssFilho(css);
-                                
-                this.divItemConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
-                this.divItemConteudo.addCss(css.setDisplay("none"));
-                this.divItemConteudo.addCss(css.setFontSize(14));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divItemConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divItemConteudo.addCss(css.setDisplay("none"));
+            this.divItemConteudo.addCss(css.setFontSize(14));
         }
 
         private void atualizarTbl()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tbl == null)
             {
-                if (this.tbl == null)
-                {
-                    return;
-                }
-
-                this.strTitulo = this.tbl.strNomeExibicao;
-
-                this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.strTitulo = this.tbl.strNomeExibicao;
+
+            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
         }
 
         private void setCssFilho(CssArquivo css)
         {
-            if (this.lstMni.Count > 0)
+            if (!this.booFilho)
             {
                 return;
             }
@@ -441,7 +234,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setHeight(40));
             this.addCss(css.setMinHeight(40));
             this.addCss(css.setPaddingLeft(60));
-            
+
             this.divIcone.addCss(css.setDisplay("none"));
 
             this.divTitulo.addCss(css.setLineHeight(40));
@@ -449,7 +242,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
         private void setCssPai(CssArquivo css)
         {
-            if (this.lstMni.Count < 1)
+            if (this.booFilho)
             {
                 return;
             }

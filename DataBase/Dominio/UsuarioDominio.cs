@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using NetZ.Persistencia;
+using NetZ.Persistencia.Web;
+using NetZ.Web.Server;
+using NetZ.Web.Server.Arquivo;
 
 namespace NetZ.Web.DataBase.Dominio
 {
@@ -17,6 +22,7 @@ namespace NetZ.Web.DataBase.Dominio
         private bool _booLogado;
         private DateTime _dttLogin;
         private DateTime _dttUltimoAcesso;
+        private List<ArqUpload> _lstArqUpload;
         private string _strSessaoId;
 
         /// <summary>
@@ -99,6 +105,21 @@ namespace NetZ.Web.DataBase.Dominio
             }
         }
 
+        private List<ArqUpload> lstArqUpload
+        {
+            get
+            {
+                if (_lstArqUpload != null)
+                {
+                    return _lstArqUpload;
+                }
+
+                _lstArqUpload = new List<ArqUpload>();
+
+                return _lstArqUpload;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -110,6 +131,50 @@ namespace NetZ.Web.DataBase.Dominio
         #endregion Construtores
 
         #region Métodos
+
+        public void addArqUpload(ArqUpload arqUpload)
+        {
+            if (arqUpload == null)
+            {
+                return;
+            }
+
+            if (arqUpload.objSolicitacao == null)
+            {
+                return;
+            }
+
+            if (arqUpload.objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (!this.Equals(arqUpload.objSolicitacao.objUsuario))
+            {
+                return;
+            }
+
+            this.lstArqUpload.Add(arqUpload);
+        }
+
+        internal void carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Persistencia.Tabela tbl)
+        {
+            foreach (ArqUpload arqUpload in this.lstArqUpload)
+            {
+                if (arqUpload == null)
+                {
+                    continue;
+                }
+
+                if (!arqUpload.carregarArquivo(objSolicitacao, objInterlocutor, tblWeb, tbl))
+                {
+                    continue;
+                }
+
+                this.lstArqUpload.Remove(arqUpload);
+                return;
+            }
+        }
 
         #endregion Métodos
 

@@ -18,7 +18,6 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Atributos
 
         private CultureInfo _ctiUsa;
-        private DateTime _dttCssUltimaAdicao;
         private List<AtributoCss> _lstAttCss;
         private StringBuilder _stbConteudo;
         private string _strHref;
@@ -32,27 +31,14 @@ namespace NetZ.Web.Server.Arquivo.Css
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strHref == value)
                 {
-                    _strHref = value;
-
-                    this.atualizarStrHref();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strHref = value;
+
+                this.atualizarStrHref();
             }
         }
 
@@ -60,45 +46,15 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_ctiUsa != null)
                 {
-                    if (_ctiUsa != null)
-                    {
-                        return _ctiUsa;
-                    }
-
-                    _ctiUsa = CultureInfo.CreateSpecificCulture("en-US");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _ctiUsa;
                 }
 
-                #endregion Ações
+                // TODO: Centralizar as possíveis culturas que os sistemas geralmente utilizam.
+                _ctiUsa = CultureInfo.CreateSpecificCulture("en-US");
 
                 return _ctiUsa;
-            }
-        }
-
-        private DateTime dttCssUltimaAdicao
-        {
-            get
-            {
-                return _dttCssUltimaAdicao;
-            }
-
-            set
-            {
-                _dttCssUltimaAdicao = value;
             }
         }
 
@@ -106,30 +62,12 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstAttCss != null)
                 {
-                    if (_lstAttCss != null)
-                    {
-                        return _lstAttCss;
-                    }
-
-                    _lstAttCss = new List<AtributoCss>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstAttCss;
                 }
 
-                #endregion Ações
+                _lstAttCss = new List<AtributoCss>();
 
                 return _lstAttCss;
             }
@@ -139,30 +77,12 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_stbConteudo != null)
                 {
-                    if (_stbConteudo != null)
-                    {
-                        return _stbConteudo;
-                    }
-
-                    _stbConteudo = new StringBuilder();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _stbConteudo;
                 }
 
-                #endregion Ações
+                _stbConteudo = new StringBuilder();
 
                 return _stbConteudo;
             }
@@ -185,116 +105,62 @@ namespace NetZ.Web.Server.Arquivo.Css
         /// <returns>Classe atribuída a este atributo CSS.</returns>
         public string addCss(string strNome, string strValor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strNome))
             {
-                if (string.IsNullOrEmpty(strNome))
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(strValor))
-                {
-                    return null;
-                }
-
-                foreach (AtributoCss attCss in this.lstAttCss)
-                {
-                    if (attCss == null)
-                    {
-                        continue;
-                    }
-
-                    if (!strNome.Equals(attCss.strNome))
-                    {
-                        continue;
-                    }
-
-                    if (!strValor.Equals(attCss.strValor))
-                    {
-                        continue;
-                    }
-
-                    return attCss.strClass;
-                }
-
-                return this.addCssNovo(strNome, strValor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return null;
+            }
+
+            foreach (AtributoCss attCss in this.lstAttCss)
+            {
+                if (attCss == null)
+                {
+                    continue;
+                }
+
+                if (!strNome.Equals(attCss.strNome))
+                {
+                    continue;
+                }
+
+                if (!strValor.Equals(attCss.strValor))
+                {
+                    continue;
+                }
+
+                return attCss.strClass;
+            }
+
+            return this.addCssNovo(strNome, strValor);
         }
 
-        public new string getStrConteudo()
+        public override string getStrConteudo()
         {
             return this.stbConteudo.ToString();
         }
 
         public string setBackgroundAttachment(string css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(css))
             {
-                if (string.IsNullOrEmpty(css))
-                {
-                    return null;
-                }
-
-                return this.addCss("background-attachment", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("background-attachment", css);
         }
 
         public string setBackgroundColor(string cor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(cor))
             {
-                if (string.IsNullOrEmpty(cor))
-                {
-                    return null;
-                }
-
-                return this.addCss("background-color", cor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("background-color", cor);
         }
 
         public string setBackgroundColor(Color cor)
@@ -304,191 +170,62 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBackgroundGradiente(string cor, string cor2)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(cor))
             {
-                if (string.IsNullOrEmpty(cor))
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(cor2))
-                {
-                    return null;
-                }
-
-                css = "linear-gradient(to bottom,_cor_1,_cor_2)";
-
-                css = css.Replace("_cor_1", cor);
-                css = css.Replace("_cor_2", cor2);
-
-                return this.addCss("background", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(cor2))
+            {
+                return null;
+            }
+
+            return this.addCss("background", string.Format("linear-gradient(to bottom,{0},{1})", cor, cor2));
         }
 
         public string setBackgroundImage(string srcImagem)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(srcImagem))
             {
-                if (string.IsNullOrEmpty(srcImagem))
-                {
-                    return null;
-                }
-
-                css = "url('_src_imagem')";
-
-                css = css.Replace("_src_imagem", srcImagem);
-
-                return this.addCss("background-image", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("background-image", string.Format("url('{0}')", srcImagem));
         }
 
         public string setBackgroundPosition(string css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(css))
             {
-                if (string.IsNullOrEmpty(css))
-                {
-                    return null;
-                }
-
-                return this.addCss("background-position", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("background-position", css);
         }
 
         public string setBackgroundRepeat(string css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(css))
             {
-                if (string.IsNullOrEmpty(css))
-                {
-                    return null;
-                }
-
-                return this.addCss("background-repeat", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("background-repeat", css);
         }
 
         public string setBackgroundSize(string css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(css))
             {
-                if (string.IsNullOrEmpty(css))
-                {
-                    return null;
-                }
-
-                return this.addCss("background-size", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("background-size", css);
         }
 
         public string setBorder(int intBorderPx, string strTipo = "solid", string cor = null)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_border_pxpx _tipo _cor";
-
-                css = css.Replace("_border_px", intBorderPx.ToString());
-                css = css.Replace("_tipo", strTipo);
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("border", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border", string.Format("{0}px {1} {2}", intBorderPx, strTipo, cor));
         }
 
         public string setBorder(int intBorderPx, string strTipo, Color cor)
@@ -498,33 +235,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderBottom(int intBottomPx, string strTipo, string cor)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_border_bottom_pxpx _border_tipo _cor";
-
-                css = css.Replace("_border_bottom_px", intBottomPx.ToString());
-                css = css.Replace("_border_tipo", strTipo);
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("border-bottom", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border-bottom", string.Format("{0}px {1} {2}", intBottomPx, strTipo, cor));
         }
 
         public string setBorderBottom(int intRightPx, string strTipo, Color cor)
@@ -534,33 +245,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderLeft(int intLeftPx, string strTipo, string cor)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_border_left_pxpx _border_tipo _cor";
-
-                css = css.Replace("_border_left_px", intLeftPx.ToString());
-                css = css.Replace("_border_tipo", strTipo);
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("border-left", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border-left", string.Format("{0}px {1} {2}", intLeftPx, strTipo, cor));
         }
 
         public string setBorderLeft(int intRightPx, string strTipo, Color cor)
@@ -570,95 +255,17 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderRadius(int intTopLeftPx, int intTopRightPx, int intBottomRightPx, int intBottomLeftPx)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_top_left_pxpx _top_right_pxpx _bottom_right_pxpx _bottom_left_pxpx";
-
-                css = css.Replace("_top_left_px", intTopLeftPx.ToString());
-                css = css.Replace("_top_right_px", intTopRightPx.ToString());
-                css = css.Replace("_bottom_right_px", intBottomRightPx.ToString());
-                css = css.Replace("_bottom_left_px", intBottomLeftPx.ToString());
-
-                return this.addCss("border-radius", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border-radius", string.Format("{0}px {1}px {2}px {3}px", intTopLeftPx, intTopRightPx, intBottomRightPx, intBottomLeftPx));
         }
 
         public string setBorderRadius(int intBorderRadius, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_border_radius_grandeza";
-
-                css = css.Replace("_border_radius", intBorderRadius.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("border-radius", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border-radius", string.Format("{0}{1}", intBorderRadius, strGrandeza));
         }
 
         public string setBorderRight(int intRightPx, string strTipo, string cor)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_border_tight_pxpx _border_tipo _cor";
-
-                css = css.Replace("_border_tight_px", intRightPx.ToString());
-                css = css.Replace("_border_tipo", strTipo);
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("border-right", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border-right", string.Format("{0}px {1} {2}", intRightPx, strTipo, cor));
         }
 
         public string setBorderRight(int intRightPx, string strTipo, Color cor)
@@ -673,96 +280,17 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBorderTop(int intTopPx, string strTipo, string cor)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_border_top_pxpx _border_tipo _cor";
-
-                css = css.Replace("_border_top_px", intTopPx.ToString());
-                css = css.Replace("_border_tipo", strTipo);
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("border-top", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("border-top", string.Format("{0}px {1} {2}", intTopPx, strTipo, cor));
         }
 
         public string setBottom(int intBottom, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_bottom_grandeza";
-
-                css = css.Replace("_bottom", intBottom.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("bottom", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("bottom", string.Format("{0}{1}", intBottom, strGrandeza));
         }
 
         public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_horizontal_pxpx _vertical_pxpx _blur_pxpx _spread_pxpx _cor";
-
-                css = css.Replace("_horizontal_px", intHorizontalPx.ToString());
-                css = css.Replace("_vertical_px", intVerticalPx.ToString());
-                css = css.Replace("_blur_px", intBlurPx.ToString());
-                css = css.Replace("_spread_px", intSpreadPx.ToString());
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("box-shadow", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("box-shadow", string.Format("{0}px {1}px {2}px {3}px {4}", intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, cor));
         }
 
         public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, Color cor)
@@ -782,30 +310,12 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setColor(string cor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(cor))
             {
-                if (string.IsNullOrEmpty(cor))
-                {
-                    return null;
-                }
-
-                return this.addCss("color", cor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("color", cor);
         }
 
         public string setColor(Color cor)
@@ -815,144 +325,47 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setCursor(string strCursor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strCursor))
             {
-                if (string.IsNullOrEmpty(strCursor))
-                {
-                    return null;
-                }
-
-                return this.addCss("cursor", strCursor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("cursor", strCursor);
         }
 
         public string setDisplay(string strDisplay)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strDisplay))
             {
-                if (string.IsNullOrEmpty(strDisplay))
-                {
-                    return null;
-                }
-
-                return this.addCss("display", strDisplay);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("display", strDisplay);
         }
 
         public string setFloat(string strFloat)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strFloat))
             {
-                if (string.IsNullOrEmpty(strFloat))
-                {
-                    return null;
-                }
-
-                return this.addCss("float", strFloat);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("float", strFloat);
         }
 
         public string setFontFamily(string strFontFamily)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strFontFamily))
             {
-                if (string.IsNullOrEmpty(strFontFamily))
-                {
-                    return null;
-                }
-
-                return this.addCss("font-family", strFontFamily);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("font-family", strFontFamily);
         }
 
         public string setFontSize(decimal decFontSize, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_font_size_font_grandeza";
-
-                css = css.Replace("_font_size", decFontSize.ToString(this.ctiUsa));
-                css = css.Replace("_font_grandeza", strGrandeza);
-
-                return this.addCss("font-size", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("font-size", string.Format("{0}{1}", decFontSize.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setFontStyle(string strFontStyle)
@@ -977,328 +390,57 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setHeight(decimal decHeight, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_height_grandeza";
-
-                css = css.Replace("_height", decHeight.ToString(this.ctiUsa));
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("height", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setLeft(int intLeft, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_right_px_grandeza";
-
-                css = css.Replace("_right_px", intLeft.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("left", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("left", string.Format("{0}{1}", intLeft, strGrandeza));
         }
 
         public string setLineHeight(decimal decLineHeight, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_line_height_grandeza";
-
-                css = css.Replace("_line_height", decLineHeight.ToString(this.ctiUsa));
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("line-height", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("line-height", string.Format("{0}{1}", decLineHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setMargin(decimal decMargin, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_margin_grandeza";
-
-                css = css.Replace("_margin", decMargin.ToString(this.ctiUsa));
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("margin", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("margin", string.Format("{0}{1}", decMargin.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setMarginBottom(int intMarginBottom, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_margin_bottom_grandeza";
-
-                css = css.Replace("_margin_bottom", intMarginBottom.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("margin-bottom", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("margin-bottom", string.Format("{0}{1}", intMarginBottom, strGrandeza));
         }
 
         public string setMarginLeft(int intMarginLeft, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_margin_left_grandeza";
-
-                css = css.Replace("_margin_left", intMarginLeft.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("margin-left", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("margin-left", string.Format("{0}{1}", intMarginLeft, strGrandeza));
         }
 
         public string setMarginRight(int intMarginRight, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_margin_right_grandeza";
-
-                css = css.Replace("_margin_right", intMarginRight.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("margin-right", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("margin-right", string.Format("{0}{1}", intMarginRight, strGrandeza));
         }
 
         public string setMarginTop(int intMarginTop, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_margin_top_grandeza";
-
-                css = css.Replace("_margin_top", intMarginTop.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("margin-top", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("margin-top", string.Format("{0}{1}", intMarginTop, strGrandeza));
         }
 
         public string setMaxHeight(decimal decHeight, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_height_grandeza";
-
-                css = css.Replace("_height", decHeight.ToString(this.ctiUsa));
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("max-height", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("max-height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setMinHeight(decimal decMinHeight)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_min_height_pxpx";
-                css = css.Replace("_min_height_px", decMinHeight.ToString(this.ctiUsa));
-
-                return this.addCss("min-height", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("min-height", string.Format("{0}px", decMinHeight.ToString(this.ctiUsa)));
         }
 
         public string setMinWidth(decimal decMinWidth)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_min_width_pxpx";
-                css = css.Replace("_min_width_px", decMinWidth.ToString(this.ctiUsa));
-
-                return this.addCss("min-width", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("min-width", string.Format("{0}px", decMinWidth.ToString(this.ctiUsa)));
         }
 
         public string setNegrito()
@@ -1313,503 +455,137 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setOutLine(string strOutLine)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strOutLine))
             {
-                if (string.IsNullOrEmpty(strOutLine))
-                {
-                    return null;
-                }
-
-                return this.addCss("outline", strOutLine);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("outline", strOutLine);
         }
 
         public string setOverflow(string strOverflowPx)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strOverflowPx))
             {
-                if (string.IsNullOrEmpty(strOverflowPx))
-                {
-                    return null;
-                }
-
-                return this.addCss("overflow", strOverflowPx);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("overflow", strOverflowPx);
         }
 
-        public string setOverflowX(string strOverflowPx)
+        public string setOverflowX(string strOverflowX)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strOverflowX))
             {
-                if (string.IsNullOrEmpty(strOverflowPx))
-                {
-                    return null;
-                }
-
-                return this.addCss("overflow-x", strOverflowPx);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("overflow-x", strOverflowX);
         }
 
-        public string setOverflowY(string strOverflowPx)
+        public string setOverflowY(string strOverflowY)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strOverflowY))
             {
-                if (string.IsNullOrEmpty(strOverflowPx))
-                {
-                    return null;
-                }
-
-                return this.addCss("overflow-y", strOverflowPx);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("overflow-y", strOverflowY);
         }
 
         public string setPadding(int intPadding, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_padding_grandeza";
-
-                css = css.Replace("_padding", intPadding.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("padding", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("padding", string.Format("{0}{1}", intPadding, strGrandeza));
         }
 
         public string setPaddingBottom(int intPaddingBottom, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_padding_bottom_grandeza";
-
-                css = css.Replace("_padding_bottom", intPaddingBottom.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("padding-bottom", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("padding-bottom", string.Format("{0}{1}", intPaddingBottom, strGrandeza));
         }
 
         public string setPaddingLeft(int intPaddingLeft, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_padding_left_grandeza";
-
-                css = css.Replace("_padding_left", intPaddingLeft.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("padding-left", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("padding-left", string.Format("{0}{1}", intPaddingLeft, strGrandeza));
         }
 
         public string setPaddingRight(int intPaddingRight, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_padding_right_grandeza";
-
-                css = css.Replace("_padding_right", intPaddingRight.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("padding-right", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("padding-right", string.Format("{0}{1}", intPaddingRight, strGrandeza));
         }
 
         public string setPaddingTop(int intPaddingTop, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_padding_top_grandeza";
-
-                css = css.Replace("_padding_top", intPaddingTop.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("padding-top", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("padding-top", string.Format("{0}{1}", intPaddingTop, strGrandeza));
         }
 
         public string setPosition(string strPosition)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strPosition))
             {
-                if (string.IsNullOrEmpty(strPosition))
-                {
-                    return null;
-                }
-
-                return this.addCss("position", strPosition);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("position", strPosition);
         }
 
         public string setRight(int intRight, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_right_grandeza";
-
-                css = css.Replace("_right", intRight.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("right", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("right", string.Format("{0}{1}", intRight, strGrandeza));
         }
 
         public string setTextAlign(string strTextAlign)
         {
+            if (string.IsNullOrEmpty(strTextAlign))
+            {
+                return null;
+            }
+
             return this.addCss("text-align", strTextAlign);
         }
 
         public string setTextDecoration(string strTextDecoration)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strTextDecoration))
             {
-                if (string.IsNullOrEmpty(strTextDecoration))
-                {
-                    return null;
-                }
-
-                return this.addCss("text-decoration", strTextDecoration);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("text-decoration", strTextDecoration);
         }
 
         public string setTextShadow(int intX, int intY, int intBlur, string cor)
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_x_pxpx _y_pxpx _blur_pxpx _cor";
-
-                css = css.Replace("_x_px", intX.ToString());
-                css = css.Replace("_y_px", intY.ToString());
-                css = css.Replace("_blur_px", intBlur.ToString());
-                css = css.Replace("_cor", cor);
-
-                return this.addCss("text-shadow", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("text-shadow", string.Format("{0}px {1}px {2}px {3}", intX, intY, intBlur, cor));
         }
 
         public string setTop(int intTop, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_top_px_grandeza";
-
-                css = css.Replace("_top_px", intTop.ToString());
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("top", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("top", string.Format("{0}{1}", intTop, strGrandeza));
         }
 
         public string setVisibility(string strVisibility)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strVisibility))
             {
-                if (string.IsNullOrEmpty(strVisibility))
-                {
-                    return null;
-                }
-
-                return this.addCss("visibility", strVisibility);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("visibility", strVisibility);
         }
 
         public string setWhiteSpace(string strWhiteSpace)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strWhiteSpace))
             {
-                if (string.IsNullOrEmpty(strWhiteSpace))
-                {
-                    return null;
-                }
-
-                return this.addCss("white-space", strWhiteSpace);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return this.addCss("white-space", strWhiteSpace);
         }
 
         public string setWidth(decimal decWidth, string strGrandeza = "px")
         {
-            #region Variáveis
-
-            string css;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                css = "_width_grandeza";
-
-                css = css.Replace("_width", decWidth.ToString(this.ctiUsa));
-                css = css.Replace("_grandeza", strGrandeza);
-
-                return this.addCss("width", css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return this.addCss("width", string.Format("{0}{1}", decWidth.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setZIndex(int intZIndex)
@@ -1817,146 +593,64 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("z-index", intZIndex.ToString());
         }
 
-        internal override byte[] getArrBte()
-        {
-            return Encoding.UTF8.GetBytes(this.stbConteudo.ToString());
-        }
-
         protected void addCssPuro(string css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(css))
             {
-                if (string.IsNullOrEmpty(css))
-                {
-                    return;
-                }
-
-                this.stbConteudo.Append(css);
-                this.dttCssUltimaAdicao = DateTime.Now;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.stbConteudo.Append(css);
+
+            this.arrBteConteudo = null;
+            this.dttUltimaModificacao = DateTime.Now;
         }
 
-        protected override DateTime getDttUltimaModificacao()
+        protected override byte[] getArrBteConteudo()
         {
-            return this.dttCssUltimaAdicao;
+            return Encoding.UTF8.GetBytes(this.stbConteudo.ToString());
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booNaoCriarDiretorio = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.booNaoCriarDiretorio = true;
         }
 
         private string addCssNovo(string strNome, string strValor)
         {
-            #region Variáveis
-
-            AtributoCss atrCss;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strNome))
             {
-                if (string.IsNullOrEmpty(strNome))
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(strValor))
-                {
-                    return null;
-                }
-
-                atrCss = new AtributoCss((STR_CLASS_NOME_SUFIXO + this.lstAttCss.Count), strNome, strValor);
-
-                this.lstAttCss.Add(atrCss);
-                this.stbConteudo.Append(atrCss.getStrFormatado());
-                this.dttCssUltimaAdicao = DateTime.Now;
-
-                return atrCss.strClass;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return null;
+            }
+
+            AtributoCss atrCss = new AtributoCss((STR_CLASS_NOME_SUFIXO + this.lstAttCss.Count), strNome, strValor);
+
+            this.lstAttCss.Add(atrCss);
+            this.stbConteudo.Append(atrCss.getStrFormatado());
+
+            this.arrBteConteudo = null;
+            this.dttUltimaModificacao = DateTime.Now;
+
+            return atrCss.strClass;
         }
 
         private void atualizarStrHref()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.dirCompleto = this.strHref;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.dirCompleto = this.strHref;
         }
 
         private string corToRgba(Color cor)
         {
             double dblAlpha = (cor.A < 255) ? (cor.A / 255d) : 1;
 
-            string strResultado = "rgba(_r,_g,_b,_a)";
-
-            strResultado = strResultado.Replace("_r", cor.R.ToString());
-            strResultado = strResultado.Replace("_g", cor.G.ToString());
-            strResultado = strResultado.Replace("_b", cor.B.ToString());
-            strResultado = strResultado.Replace("_a", dblAlpha.ToString("n2", CultureInfo.CreateSpecificCulture("en-USA")));
-
-            return strResultado;
+            return string.Format("rgba({0},{1},{2},{3})", cor.R, cor.G, cor.B, dblAlpha.ToString(this.ctiUsa));
         }
 
         #endregion Métodos

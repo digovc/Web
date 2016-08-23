@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using NetZ.Web.Html.Pagina;
@@ -70,7 +71,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Cliente(TcpClient tcpClient, ServerBase srv) : base("Cliente")
+        internal Cliente(TcpClient tcpClient, ServerBase srv) : base(string.Format("Cliente ({0})", ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString()))
         {
             this.srv = srv;
             this.tcpClient = tcpClient;
@@ -121,11 +122,6 @@ namespace NetZ.Web.Server
                 }
 
                 this.responder(objResposta);
-
-                //if (Resposta.INT_STATUS_CODE_302_FOUND.Equals(objResposta.intStatus))
-                //{
-                //    this.tcpClient.Close();
-                //}
             }
             catch (Exception ex)
             {
@@ -146,123 +142,69 @@ namespace NetZ.Web.Server
 
         protected override void servico()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tcpClient == null)
             {
-                if (this.tcpClient == null)
+                return;
+            }
+
+            Solicitacao objSolicitacao;
+
+            while (this.tcpClient.Connected)
+            {
+                objSolicitacao = this.carregarSolicitacao();
+
+                if (objSolicitacao == null)
                 {
-                    return;
+                    Thread.Sleep(10); // TODO: Parar esse processo depois de um tempo excessivo.
+                    continue;
                 }
 
-                Solicitacao objSolicitacao;
-
-                while (this.tcpClient.Connected)
-                {
-                    objSolicitacao = this.carregarSolicitacao();
-
-                    if (objSolicitacao == null)
-                    {
-                        Thread.Sleep(10); // TODO: Parar esse processo depois de um tempo excessivo.
-                        continue;
-                    }
-
-                    this.responder(objSolicitacao);
-                }
-
-                this.tcpClient.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                this.responder(objSolicitacao);
             }
 
-            #endregion Ações
+            this.tcpClient.Close();
         }
 
         protected virtual bool validar(Solicitacao objSolicitacao)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objSolicitacao == null)
             {
-                if (objSolicitacao == null)
-                {
-                    return false;
-                }
-
-                if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(objSolicitacao.enmMetodo))
-                {
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return false;
             }
 
-            #endregion Ações
+            if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(objSolicitacao.enmMetodo))
+            {
+                return false;
+            }
 
             return true;
         }
 
         private Solicitacao carregarSolicitacao()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.tcpClient == null)
             {
-                if (this.tcpClient == null)
-                {
-                    return null;
-                }
-
-                if (!this.tcpClient.Connected)
-                {
-                    return null;
-                }
-
-                if (this.tcpClient.GetStream() == null)
-                {
-                    return null;
-                }
-
-                if (!(this.tcpClient.GetStream().DataAvailable))
-                {
-                    return null;
-                }
-
-                this.dttUltimaMensagemRecebida = DateTime.Now;
-
-                return new Solicitacao(this.tcpClient.GetStream());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (!this.tcpClient.Connected)
+            {
+                return null;
+            }
+
+            if (!this.tcpClient.GetStream().DataAvailable)
+            {
+                return null;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return null;
+            }
+
+            this.dttUltimaMensagemRecebida = DateTime.Now;
+
+            return new Solicitacao(this.tcpClient.GetStream());
         }
 
         private void responderErro(Solicitacao objSolicitacao, Exception ex)
@@ -277,28 +219,10 @@ namespace NetZ.Web.Server
 
         private bool validar(Resposta objResposta)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objResposta == null)
             {
-                if (objResposta == null)
-                {
-                    return false;
-                }
+                return false;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
 
             return true;
         }

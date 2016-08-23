@@ -114,6 +114,7 @@ namespace NetZ.Web.DataBase.Tabela
             this.clsJnlCadastro = typeof(JnlFiltroItemCadastro);
 
             this.clnBooAnd.booValorDefault = true;
+            this.clnBooAnd.strNomeExibicao = "E";
 
             this.clnIntOperador.addOpcao((int)Filtro.EnmOperador.DIFERENTE, "Diferente");
             this.clnIntOperador.addOpcao((int)Filtro.EnmOperador.IGUAL, "Igual");

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Web;
-using NetZ.SistemaBase;
-using NetZ.Web.DataBase.Tabela;
+using DigoFramework;
 using NetZ.Web.DataBase.Dominio;
 
 namespace NetZ.Web.Server
@@ -29,7 +29,7 @@ namespace NetZ.Web.Server
     /// pasta "res", dentro da localidade onde está rodando este servidor WEB serão tratador automaticamente.
     /// </para>
     /// </summary>
-    public class Solicitacao : Objeto
+    public class Solicitacao : SistemaBase.Objeto
     {
         #region Constantes
 
@@ -41,6 +41,7 @@ namespace NetZ.Web.Server
             DESCONHECIDO,
             GET,
             NONE,
+            OPTIONS,
             POST,
         }
 
@@ -48,11 +49,13 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private byte[] _arrBteConteudo;
         private byte[] _arrBteMsgCliente;
         private decimal _decHttpVersao;
         private Dictionary<string, string> _dicPost;
         private DateTime _dttUltimaModificacao = DateTime.MinValue;
         private EnmMetodo _enmMetodo = EnmMetodo.NONE;
+        private FormData _frmData;
         private string _jsn;
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
@@ -74,30 +77,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_dicPost != null)
                 {
-                    if (_dicPost != null)
-                    {
-                        return _dicPost;
-                    }
-
-                    _dicPost = this.getDicPost();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _dicPost;
                 }
 
-                #endregion Ações
+                _dicPost = this.getDicPost();
 
                 return _dicPost;
             }
@@ -117,30 +102,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_dttUltimaModificacao != DateTime.MinValue)
                 {
-                    if (_dttUltimaModificacao != DateTime.MinValue)
-                    {
-                        return _dttUltimaModificacao;
-                    }
-
-                    _dttUltimaModificacao = this.getDttUltimaModificacao();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _dttUltimaModificacao;
                 }
 
-                #endregion Ações
+                _dttUltimaModificacao = this.getDttUltimaModificacao();
 
                 return _dttUltimaModificacao;
             }
@@ -153,32 +120,29 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_enmMetodo != EnmMetodo.NONE)
                 {
-                    if (_enmMetodo != EnmMetodo.NONE)
-                    {
-                        return _enmMetodo;
-                    }
-
-                    _enmMetodo = this.getEnmMetodo();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _enmMetodo;
                 }
 
-                #endregion Ações
+                _enmMetodo = this.getEnmMetodo();
 
                 return _enmMetodo;
+            }
+        }
+
+        public FormData frmData
+        {
+            get
+            {
+                if (_frmData != null)
+                {
+                    return _frmData;
+                }
+
+                _frmData = this.getFrmData();
+
+                return _frmData;
             }
         }
 
@@ -190,30 +154,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_jsn != null)
                 {
-                    if (_jsn != null)
-                    {
-                        return _jsn;
-                    }
-
-                    _jsn = this.getJsn();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _jsn;
                 }
 
-                #endregion Ações
+                _jsn = this.getJsn();
 
                 return _jsn;
             }
@@ -223,30 +169,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstObjCookie != null)
                 {
-                    if (_lstObjCookie != null)
-                    {
-                        return _lstObjCookie;
-                    }
-
-                    _lstObjCookie = this.getLstObjCookie();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstObjCookie;
                 }
 
-                #endregion Ações
+                _lstObjCookie = this.getLstObjCookie();
 
                 return _lstObjCookie;
             }
@@ -259,30 +187,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_objUsuario != null)
                 {
-                    if (_objUsuario != null)
-                    {
-                        return _objUsuario;
-                    }
-
-                    _objUsuario = this.getObjUsuario();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _objUsuario;
                 }
 
-                #endregion Ações
+                _objUsuario = this.getObjUsuario();
 
                 return _objUsuario;
             }
@@ -296,30 +206,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strConteudo != null)
                 {
-                    if (_strConteudo != null)
-                    {
-                        return _strConteudo;
-                    }
-
-                    _strConteudo = this.getStrConteudo();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strConteudo;
                 }
 
-                #endregion Ações
+                _strConteudo = this.getStrConteudo();
 
                 return _strConteudo;
             }
@@ -332,30 +224,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strHeaderLinhaCabecalho != null)
                 {
-                    if (_strHeaderLinhaCabecalho != null)
-                    {
-                        return _strHeaderLinhaCabecalho;
-                    }
-
-                    _strHeaderLinhaCabecalho = this.getStrHeaderLinhaCabecalho();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strHeaderLinhaCabecalho;
                 }
 
-                #endregion Ações
+                _strHeaderLinhaCabecalho = this.getStrHeaderLinhaCabecalho();
 
                 return _strHeaderLinhaCabecalho;
             }
@@ -368,30 +242,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strHost != null)
                 {
-                    if (_strHost != null)
-                    {
-                        return _strHost;
-                    }
-
-                    _strHost = this.getStrHost();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strHost;
                 }
 
-                #endregion Ações
+                _strHost = this.getStrHost();
 
                 return _strHost;
             }
@@ -404,30 +260,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strPagina != null)
                 {
-                    if (_strPagina != null)
-                    {
-                        return _strPagina;
-                    }
-
-                    _strPagina = this.getStrPagina();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strPagina;
                 }
 
-                #endregion Ações
+                _strPagina = this.getStrPagina();
 
                 return _strPagina;
             }
@@ -440,30 +278,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strPaginaCompleta != null)
                 {
-                    if (_strPaginaCompleta != null)
-                    {
-                        return _strPaginaCompleta;
-                    }
-
-                    _strPaginaCompleta = this.getStrPaginaCompleta();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strPaginaCompleta;
                 }
 
-                #endregion Ações
+                _strPaginaCompleta = this.getStrPaginaCompleta();
 
                 return _strPaginaCompleta;
             }
@@ -481,30 +301,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strSessaoId != null)
                 {
-                    if (_strSessaoId != null)
-                    {
-                        return _strSessaoId;
-                    }
-
-                    _strSessaoId = this.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strSessaoId;
                 }
 
-                #endregion Ações
+                _strSessaoId = this.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME);
 
                 return _strSessaoId;
             }
@@ -525,34 +327,31 @@ namespace NetZ.Web.Server
             }
         }
 
+        private byte[] arrBteConteudo
+        {
+            get
+            {
+                if (_arrBteConteudo != null)
+                {
+                    return _arrBteConteudo;
+                }
+
+                _arrBteConteudo = this.getArrBteConteudo();
+
+                return _arrBteConteudo;
+            }
+        }
+
         private decimal decHttpVersao
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_decHttpVersao > 0)
                 {
-                    if (_decHttpVersao > 0)
-                    {
-                        return _decHttpVersao;
-                    }
-
-                    _decHttpVersao = this.getDecHttpVersao();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _decHttpVersao;
                 }
 
-                #endregion Ações
+                _decHttpVersao = this.getDecHttpVersao();
 
                 return _decHttpVersao;
             }
@@ -562,30 +361,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstObjField != null)
                 {
-                    if (_lstObjField != null)
-                    {
-                        return _lstObjField;
-                    }
-
-                    _lstObjField = this.getLstObjField();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstObjField;
                 }
 
-                #endregion Ações
+                _lstObjField = this.getLstObjField();
 
                 return _lstObjField;
             }
@@ -608,30 +389,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strMsgCliente != null)
                 {
-                    if (_strMsgCliente != null)
-                    {
-                        return _strMsgCliente;
-                    }
-
-                    _strMsgCliente = this.getStrMsgCliente();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _strMsgCliente;
                 }
 
-                #endregion Ações
+                _strMsgCliente = this.getStrMsgCliente();
 
                 return _strMsgCliente;
             }
@@ -643,30 +406,26 @@ namespace NetZ.Web.Server
 
         internal Solicitacao(NetworkStream nts)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.nts = nts;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.nts = nts;
         }
 
         #endregion Construtores
 
         #region Métodos
+
+        public decimal getDecGetValue(string strGetParam)
+        {
+            decimal decValueResultado = 0;
+
+            decimal.TryParse(this.getStrGetValue(strGetParam), out decValueResultado);
+
+            return decValueResultado;
+        }
+
+        public int getIntGetValue(string strGetParam)
+        {
+            return (int)this.getDecGetValue(strGetParam);
+        }
 
         /// <summary>
         /// Retorna o valor do cookie que contém o nome indicado em <paramref name="strCookieNome"/>.
@@ -676,53 +435,35 @@ namespace NetZ.Web.Server
         /// <returns>Valor do cookie que contém o nome indicado em <paramref name="strCookieNome"/>.</returns>
         public string getStrCookieValor(string strCookieNome)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strCookieNome))
             {
-                if (string.IsNullOrEmpty(strCookieNome))
-                {
-                    return null;
-                }
-
-                if (this.lstObjCookie == null)
-                {
-                    return null;
-                }
-
-                if (this.lstObjCookie.Count < 1)
-                {
-                    return null;
-                }
-
-                foreach (Cookie objCookie in this.lstObjCookie)
-                {
-                    if (objCookie == null)
-                    {
-                        continue;
-                    }
-
-                    if (!strCookieNome.Equals(objCookie.strNome))
-                    {
-                        continue;
-                    }
-
-                    return objCookie.strValor;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.lstObjCookie == null)
+            {
+                return null;
+            }
+
+            if (this.lstObjCookie.Count < 1)
+            {
+                return null;
+            }
+
+            foreach (Cookie objCookie in this.lstObjCookie)
+            {
+                if (objCookie == null)
+                {
+                    continue;
+                }
+
+                if (!strCookieNome.Equals(objCookie.strNome))
+                {
+                    continue;
+                }
+
+                return objCookie.strValor;
+            }
 
             return null;
         }
@@ -732,47 +473,26 @@ namespace NetZ.Web.Server
         /// </summary>
         public string getStrGetValue(string strGetParam)
         {
-            #region Variáveis
-
-            string urlPagina;
-            Uri uri;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strGetParam))
             {
-                if (string.IsNullOrEmpty(strGetParam))
-                {
-                    return null;
-                }
-
-                urlPagina = this.strPaginaCompleta;
-
-                if (string.IsNullOrEmpty(urlPagina))
-                {
-                    return null;
-                }
-
-                if (urlPagina.StartsWith("/"))
-                {
-                    urlPagina = "http://localhost" + urlPagina;
-                }
-
-                uri = new Uri(urlPagina);
-
-                return HttpUtility.ParseQueryString(uri.Query).Get(strGetParam);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string urlPagina = this.strPaginaCompleta;
+
+            if (string.IsNullOrEmpty(urlPagina))
+            {
+                return null;
+            }
+
+            if (urlPagina.StartsWith("/"))
+            {
+                urlPagina = "http://localhost" + urlPagina;
+            }
+
+            Uri uri = new Uri(urlPagina);
+
+            return HttpUtility.ParseQueryString(uri.Query).Get(strGetParam);
         }
 
         /// <summary>
@@ -782,668 +502,492 @@ namespace NetZ.Web.Server
         /// <returns>Retorna o valor do header, caso seja encontrado.</returns>
         public string getStrHeaderValor(string strHeaderNome)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strHeaderNome))
             {
-                if (string.IsNullOrEmpty(strHeaderNome))
-                {
-                    return null;
-                }
-
-                if (this.lstObjField == null)
-                {
-                    return null;
-                }
-
-                if (this.lstObjField.Count < 1)
-                {
-                    return null;
-                }
-
-                foreach (Field objField in this.lstObjField)
-                {
-                    if (objField == null)
-                    {
-                        continue;
-                    }
-
-                    if (string.IsNullOrEmpty(objField.strHeaderLinha))
-                    {
-                        continue;
-                    }
-
-                    if (!objField.strHeaderLinha.ToLower().StartsWith(strHeaderNome.ToLower()))
-                    {
-                        continue;
-                    }
-
-                    return objField.strValor;
-                }
-
                 return null;
             }
-            catch (Exception ex)
+
+            if (this.lstObjField == null)
             {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.lstObjField.Count < 1)
+            {
+                return null;
+            }
+
+            foreach (Field objField in this.lstObjField)
+            {
+                if (objField == null)
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(objField.strHeaderLinha))
+                {
+                    continue;
+                }
+
+                if (!objField.strHeaderLinha.ToLower().StartsWith(strHeaderNome.ToLower()))
+                {
+                    continue;
+                }
+
+                return objField.strValor;
+            }
+
+            return null;
+        }
+
+        private byte[] getArrBteConteudo()
+        {
+            if (this.arrBteMsgCliente == null)
+            {
+                return null;
+            }
+
+            if (this.arrBteMsgCliente.Length < 1)
+            {
+                return null;
+            }
+
+            int intIndexOf = Utils.indexOf(this.arrBteMsgCliente, Encoding.UTF8.GetBytes(Environment.NewLine + Environment.NewLine));
+
+            intIndexOf += 4;
+
+            if (intIndexOf >= this.arrBteMsgCliente.Length)
+            {
+                return null;
+            }
+
+            return this.arrBteMsgCliente.Skip(intIndexOf).Take(this.arrBteMsgCliente.Length - intIndexOf).ToArray();
         }
 
         private byte[] getArrBteMsgCliente()
         {
+            if (this.nts == null)
+            {
+                return null;
+            }
+
             if (!this.nts.CanRead)
             {
                 return null;
             }
 
-            while (!this.nts.DataAvailable)
-            {
-                Thread.Sleep(250);
-            }
-
-            byte[] arrBte = new byte[1024];
+            byte[] arrBte = new byte[1024000];
             int intQuantidade = 0;
-            MemoryStream mmsResultado = new MemoryStream();
+            MemoryStream mmsMsgCliente = new MemoryStream();
 
             do
             {
+                if (!this.nts.DataAvailable)
+                {
+                    Thread.Sleep(50);
+                    continue;
+                }
+
                 intQuantidade = this.nts.Read(arrBte, 0, arrBte.Length);
 
-                mmsResultado.Write(arrBte, 0, intQuantidade);
-            } while (this.nts.DataAvailable);
+                mmsMsgCliente.Write(arrBte, 0, intQuantidade);
+            }
+            while (!this.getArrBteMsgClienteCompleto(mmsMsgCliente));
 
-            return mmsResultado.ToArray();
+            return mmsMsgCliente.ToArray();
+        }
+
+        private bool getArrBteMsgClienteCompleto(MemoryStream mmsMsgClienteParcial)
+        {
+            if (mmsMsgClienteParcial == null)
+            {
+                return false;
+            }
+
+            if (mmsMsgClienteParcial.Length < 1)
+            {
+                return false;
+            }
+
+            string strMsgClienteParcial = Encoding.UTF8.GetString(mmsMsgClienteParcial.ToArray());
+
+            if (string.IsNullOrEmpty(strMsgClienteParcial))
+            {
+                return false;
+            }
+
+            if (!strMsgClienteParcial.ToLower().StartsWith("post"))
+            {
+                return true;
+            }
+
+            if (!strMsgClienteParcial.ToLower().Contains("content-length"))
+            {
+                return true;
+            }
+
+            int intContentLength = this.getIntMsgClienteContentLength(strMsgClienteParcial);
+
+            int intContentLengthRecebido = this.getIntMsgClienteContentLengthRecebido(mmsMsgClienteParcial);
+
+            if (intContentLength.Equals(intContentLengthRecebido))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private decimal getDecHttpVersao()
         {
-            #region Variáveis
-
-            string[] arrStr;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
             {
-                if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
-                {
-                    return 0;
-                }
-
-                arrStr = this.strHeaderLinhaCabecalho.Split(" ".ToCharArray());
-
-                if (arrStr == null)
-                {
-                    return 0;
-                }
-
-                if (arrStr.Length < 3)
-                {
-                    return 0;
-                }
-
-                return Convert.ToDecimal(arrStr[2].ToLower().Replace("http/", null), CultureInfo.CreateSpecificCulture("en-USA"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return 0;
             }
 
-            #endregion Ações
+            string[] arrStr = this.strHeaderLinhaCabecalho.Split(" ".ToCharArray());
+
+            if (arrStr == null)
+            {
+                return 0;
+            }
+
+            if (arrStr.Length < 3)
+            {
+                return 0;
+            }
+
+            return Convert.ToDecimal(arrStr[2].ToLower().Replace("http/", null), CultureInfo.CreateSpecificCulture("en-USA"));
         }
 
         private Dictionary<string, string> getDicPost()
         {
-            #region Variáveis
-
-            Dictionary<string, string> dicResultado;
-            string[] arrStrKeyValue;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!EnmMetodo.POST.Equals(this.enmMetodo))
             {
-                if (!EnmMetodo.POST.Equals(this.enmMetodo))
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(this.strConteudo))
-                {
-                    return null;
-                }
-
-                arrStrKeyValue = this.strConteudo.Split("&".ToCharArray());
-
-                if (arrStrKeyValue == null)
-                {
-                    return null;
-                }
-
-                dicResultado = new Dictionary<string, string>();
-
-                foreach (string strKeyValue in arrStrKeyValue)
-                {
-                    this.getDicPost(dicResultado, strKeyValue);
-                }
-
-                return dicResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(this.strConteudo))
+            {
+                return null;
+            }
+
+            string[] arrStrKeyValue = this.strConteudo.Split("&".ToCharArray());
+
+            if (arrStrKeyValue == null)
+            {
+                return null;
+            }
+
+            Dictionary<string, string> dicResultado = new Dictionary<string, string>();
+
+            foreach (string strKeyValue in arrStrKeyValue)
+            {
+                this.getDicPost(dicResultado, strKeyValue);
+            }
+
+            return dicResultado;
         }
 
         private void getDicPost(Dictionary<string, string> dicResultado, string strKeyValue)
         {
-            #region Variáveis
-
-            string[] arrStrKeyValue;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strKeyValue))
             {
-                if (string.IsNullOrEmpty(strKeyValue))
-                {
-                    return;
-                }
-
-                strKeyValue = HttpUtility.UrlDecode(strKeyValue);
-
-                arrStrKeyValue = strKeyValue.Split("=".ToCharArray());
-
-                if (arrStrKeyValue == null)
-                {
-                    return;
-                }
-
-                if (arrStrKeyValue.Length < 2)
-                {
-                    return;
-                }
-
-                dicResultado.Add(arrStrKeyValue[0], arrStrKeyValue[1]);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            strKeyValue = HttpUtility.UrlDecode(strKeyValue);
+
+            string[] arrStrKeyValue = strKeyValue.Split("=".ToCharArray());
+
+            if (arrStrKeyValue == null)
+            {
+                return;
+            }
+
+            if (arrStrKeyValue.Length < 2)
+            {
+                return;
+            }
+
+            dicResultado.Add(arrStrKeyValue[0], arrStrKeyValue[1]);
         }
 
         private DateTime getDttUltimaModificacao()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.lstObjField == null)
             {
-                if (this.lstObjField == null)
-                {
-                    return DateTime.MinValue;
-                }
-
-                foreach (Field objField in this.lstObjField)
-                {
-                    if (objField == null)
-                    {
-                        continue;
-                    }
-
-                    if (!Field.EnmTipo.IF_MODIFIED_SINCE.Equals(objField.enmTipo))
-                    {
-                        continue;
-                    }
-
-                    return objField.dttValor;
-                }
-
                 return DateTime.MinValue;
             }
-            catch (Exception ex)
+
+            foreach (Field objField in this.lstObjField)
             {
-                throw ex;
-            }
-            finally
-            {
+                if (objField == null)
+                {
+                    continue;
+                }
+
+                if (!Field.EnmTipo.IF_MODIFIED_SINCE.Equals(objField.enmTipo))
+                {
+                    continue;
+                }
+
+                return objField.dttValor;
             }
 
-            #endregion Ações
+            return DateTime.MinValue;
         }
 
         private EnmMetodo getEnmMetodo()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
             {
-                if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
-                {
-                    return EnmMetodo.DESCONHECIDO;
-                }
-
-                if (this.strHeaderLinhaCabecalho.ToLower().Contains("get"))
-                {
-                    return EnmMetodo.GET;
-                }
-
-                if (this.strHeaderLinhaCabecalho.ToLower().Contains("post"))
-                {
-                    return EnmMetodo.POST;
-                }
-
                 return EnmMetodo.DESCONHECIDO;
             }
-            catch (Exception ex)
+
+            if (this.strHeaderLinhaCabecalho.ToLower().Contains("get"))
             {
-                throw ex;
-            }
-            finally
-            {
+                return EnmMetodo.GET;
             }
 
-            #endregion Ações
+            if (this.strHeaderLinhaCabecalho.ToLower().Contains("post"))
+            {
+                return EnmMetodo.POST;
+            }
+
+            if (this.strHeaderLinhaCabecalho.ToLower().Contains("options"))
+            {
+                return EnmMetodo.OPTIONS;
+            }
+
+            return EnmMetodo.DESCONHECIDO;
+        }
+
+        private FormData getFrmData()
+        {
+            string strContentType = this.getStrHeaderValor("Content-Type");
+
+            if (string.IsNullOrEmpty(strContentType))
+            {
+                return null;
+            }
+
+            if (!strContentType.ToLower().Contains("multipart/form-data"))
+            {
+                return null;
+            }
+
+            if (this.arrBteConteudo == null)
+            {
+                return null;
+            }
+
+            return new FormData(this.arrBteConteudo);
+        }
+
+        private int getIntMsgClienteContentLength(string strMsgClienteParcial)
+        {
+            int intIndexOfStart = strMsgClienteParcial.ToLower().IndexOf("content-length: ");
+
+            if (intIndexOfStart < 0)
+            {
+                return 0;
+            }
+
+            intIndexOfStart += "content-length: ".Length;
+
+            int intIndexOfEnd = strMsgClienteParcial.IndexOf(Environment.NewLine, intIndexOfStart);
+
+            if (intIndexOfEnd < 0)
+            {
+                return 0;
+            }
+
+            int intResultado = 0;
+
+            int.TryParse(strMsgClienteParcial.Substring(intIndexOfStart, (intIndexOfEnd - intIndexOfStart)), out intResultado);
+
+            return intResultado;
+        }
+
+        private int getIntMsgClienteContentLengthRecebido(MemoryStream mmsMsgClienteParcial)
+        {
+            int intIndexOfStart = Utils.indexOf(mmsMsgClienteParcial.ToArray(), Encoding.UTF8.GetBytes(Environment.NewLine + Environment.NewLine));
+
+            if (intIndexOfStart < 0)
+            {
+                return 0;
+            }
+
+            intIndexOfStart += 4;
+
+            return (int)(mmsMsgClienteParcial.Length - intIndexOfStart);
         }
 
         private string getJsn()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!EnmMetodo.POST.Equals(this.enmMetodo))
             {
-                if (!EnmMetodo.POST.Equals(this.enmMetodo))
-                {
-                    return null;
-                }
-
-                if (this.lstObjField == null)
-                {
-                    return null;
-                }
-
-                if (this.lstObjField.Count < 1)
-                {
-                    return null;
-                }
-
-                return this.lstObjField[this.lstObjField.Count - 1].strHeaderLinha;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.lstObjField == null)
+            {
+                return null;
+            }
+
+            if (this.lstObjField.Count < 1)
+            {
+                return null;
+            }
+
+            return this.lstObjField[this.lstObjField.Count - 1].strHeaderLinha;
         }
 
         private List<Cookie> getLstObjCookie()
         {
-            #region Variáveis
+            List<Cookie> lstObjCookieResultado = new List<Cookie>();
 
-            List<Cookie> lstObjCookieResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (Field objField in this.lstObjField)
             {
-                lstObjCookieResultado = new List<Cookie>();
-
-                foreach (Field objField in this.lstObjField)
-                {
-                    this.getLstObjCookie(lstObjCookieResultado, objField);
-                }
-
-                return lstObjCookieResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                this.getLstObjCookie(lstObjCookieResultado, objField);
             }
 
-            #endregion Ações
+            return lstObjCookieResultado;
         }
 
         private void getLstObjCookie(List<Cookie> lstObjCookieResultado, Field objField)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (lstObjCookieResultado == null)
             {
-                if (lstObjCookieResultado == null)
-                {
-                    return;
-                }
-
-                if (objField == null)
-                {
-                    return;
-                }
-
-                if (!Field.EnmTipo.COOKIE.Equals(objField.enmTipo))
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(objField.strValor))
-                {
-                    return;
-                }
-
-                if (objField.strValor.IndexOf('=') < 0)
-                {
-                    return;
-                }
-
-                if (objField.strValor.Split('=').Length < 2)
-                {
-                    return;
-                }
-
-                lstObjCookieResultado.Add(new Cookie(objField.strValor.Split('=')[0], objField.strValor.Split('=')[1]));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (objField == null)
+            {
+                return;
+            }
+
+            if (!Field.EnmTipo.COOKIE.Equals(objField.enmTipo))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objField.strValor))
+            {
+                return;
+            }
+
+            if (objField.strValor.IndexOf('=') < 0)
+            {
+                return;
+            }
+
+            if (objField.strValor.Split('=').Length < 2)
+            {
+                return;
+            }
+
+            lstObjCookieResultado.Add(new Cookie(objField.strValor.Split('=')[0], objField.strValor.Split('=')[1]));
         }
 
         private List<Field> getLstObjField()
         {
-            #region Variáveis
-
-            string[] arrStrLinha;
-            List<Field> lstObjFieldResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strMsgCliente))
             {
-                if (string.IsNullOrEmpty(this.strMsgCliente))
-                {
-                    return null;
-                }
-
-                arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
-
-                if (arrStrLinha == null)
-                {
-                    return null;
-                }
-
-                if (arrStrLinha.Length < 1)
-                {
-                    return null;
-                }
-
-                lstObjFieldResultado = new List<Field>();
-
-                foreach (string strlinha in arrStrLinha)
-                {
-                    this.getLstObjField(lstObjFieldResultado, strlinha);
-                }
-
-                return lstObjFieldResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string[] arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
+
+            if (arrStrLinha == null)
+            {
+                return null;
+            }
+
+            if (arrStrLinha.Length < 1)
+            {
+                return null;
+            }
+
+            List<Field> lstObjFieldResultado = new List<Field>();
+
+            foreach (string strlinha in arrStrLinha)
+            {
+                this.getLstObjField(lstObjFieldResultado, strlinha);
+            }
+
+            return lstObjFieldResultado;
         }
 
         private void getLstObjField(List<Field> lstObjField, string strLinha)
         {
-            #region Variáveis
-
-            Field objFieldHeader;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strLinha))
             {
-                if (string.IsNullOrEmpty(strLinha))
-                {
-                    return;
-                }
-
-                objFieldHeader = new Field();
-
-                objFieldHeader.objSolicitacao = this;
-                objFieldHeader.strHeaderLinha = strLinha;
-
-                lstObjField.Add(objFieldHeader);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            Field objFieldHeader = new Field();
+
+            objFieldHeader.objSolicitacao = this;
+            objFieldHeader.strHeaderLinha = strLinha;
+
+            lstObjField.Add(objFieldHeader);
         }
 
         private UsuarioDominio getObjUsuario()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strSessaoId))
             {
-                if (string.IsNullOrEmpty(this.strSessaoId))
-                {
-                    return null;
-                }
-
-                return AppWeb.i.getObjUsuario(this.strSessaoId);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return AppWeb.i.getObjUsuario(this.strSessaoId);
         }
 
         private string getStrConteudo()
         {
-            #region Variáveis
-
-            bool booConteudo;
-            string[] arrStrLinha;
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.arrBteConteudo == null)
             {
-                if (string.IsNullOrEmpty(this.strMsgCliente))
-                {
-                    return null;
-                }
-
-                arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
-
-                if (arrStrLinha == null)
-                {
-                    return null;
-                }
-
-                booConteudo = false;
-                strResultado = string.Empty;
-
-                foreach (string strLinha in arrStrLinha)
-                {
-                    if (string.IsNullOrEmpty(strLinha))
-                    {
-                        booConteudo = true;
-                        continue;
-                    }
-
-                    if (!booConteudo)
-                    {
-                        continue;
-                    }
-
-                    strResultado += strLinha;
-                }
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            return Encoding.UTF8.GetString(this.arrBteConteudo);
         }
 
         private string getStrHeaderLinhaCabecalho()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.lstObjField == null)
             {
-                if (this.lstObjField == null)
-                {
-                    return null;
-                }
-
-                if (this.lstObjField.Count < 1)
-                {
-                    return null;
-                }
-
-                return this.lstObjField[0].strHeaderLinha;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.lstObjField.Count < 1)
+            {
+                return null;
+            }
+
+            return this.lstObjField[0].strHeaderLinha;
         }
 
         private string getStrHost()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (Field objField in this.lstObjField)
             {
-                foreach (Field objField in this.lstObjField)
+                if (objField == null)
                 {
-                    if (objField == null)
-                    {
-                        continue;
-                    }
-
-                    if (!Field.EnmTipo.HOST.Equals(objField.enmTipo))
-                    {
-                        continue;
-                    }
-
-                    return objField.strValor;
+                    continue;
                 }
 
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                if (!Field.EnmTipo.HOST.Equals(objField.enmTipo))
+                {
+                    continue;
+                }
+
+                return objField.strValor;
             }
 
-            #endregion Ações
+            return null;
         }
 
         private string getStrMsgCliente()
@@ -1463,157 +1007,66 @@ namespace NetZ.Web.Server
 
         private string getStrPagina()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strPaginaCompleta))
             {
-                if (string.IsNullOrEmpty(this.strPaginaCompleta))
-                {
-                    return null;
-                }
-
-                if (this.strPaginaCompleta.IndexOf("?") < 0)
-                {
-                    return this.strPaginaCompleta;
-                }
-
-                return this.strPaginaCompleta.Split('?')[0];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (this.strPaginaCompleta.IndexOf("?") < 0)
+            {
+                return this.strPaginaCompleta;
+            }
+
+            return this.strPaginaCompleta.Split('?')[0];
         }
 
         private string getStrPaginaCompleta()
         {
-            #region Variáveis
-
-            string[] arrStr;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
             {
-                if (string.IsNullOrEmpty(this.strHeaderLinhaCabecalho))
-                {
-                    return null;
-                }
-
-                arrStr = this.strHeaderLinhaCabecalho.Split(" ".ToCharArray());
-
-                if (arrStr == null)
-                {
-                    return null;
-                }
-
-                if (arrStr.Length < 2)
-                {
-                    return null;
-                }
-
-                return arrStr[1];
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string[] arrStr = this.strHeaderLinhaCabecalho.Split(" ".ToCharArray());
+
+            if (arrStr == null)
+            {
+                return null;
+            }
+
+            if (arrStr.Length < 2)
+            {
+                return null;
+            }
+
+            return arrStr[1];
         }
 
         private void processarHeaderCookie(Field objFieldHeader)
         {
-            #region Variáveis
-
-            Cookie objCookie;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objFieldHeader == null)
             {
-                if (objFieldHeader == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(objFieldHeader.strValor))
-                {
-                    return;
-                }
-
-                if (objFieldHeader.strValor.IndexOf('=') < 0)
-                {
-                    return;
-                }
-
-                if (objFieldHeader.strValor.Split('=').Length < 2)
-                {
-                    return;
-                }
-
-                objCookie = new Cookie(objFieldHeader.strValor.Split('=')[0], objFieldHeader.strValor.Split('=')[1]);
-
-                this.lstObjCookie.Add(objCookie);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
-        }
-
-        private bool validarDados()
-        {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(objFieldHeader.strValor))
             {
-                if (this.nts == null)
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(this.strMsgCliente))
-                {
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (objFieldHeader.strValor.IndexOf('=') < 0)
+            {
+                return;
+            }
 
-            return true;
+            if (objFieldHeader.strValor.Split('=').Length < 2)
+            {
+                return;
+            }
+
+            Cookie objCookie = new Cookie(objFieldHeader.strValor.Split('=')[0], objFieldHeader.strValor.Split('=')[1]);
+
+            this.lstObjCookie.Add(objCookie);
         }
 
         #endregion Métodos

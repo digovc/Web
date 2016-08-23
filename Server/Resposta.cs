@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using DigoFramework;
+using DigoFramework.Arquivo;
 using DigoFramework.Json;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Html.Pagina;
@@ -151,30 +152,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_arrBteResposta != null)
                 {
-                    if (_arrBteResposta != null)
-                    {
-                        return _arrBteResposta;
-                    }
-
-                    _arrBteResposta = this.getArrBteResposta();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _arrBteResposta;
                 }
 
-                #endregion Ações
+                _arrBteResposta = this.getArrBteResposta();
 
                 return _arrBteResposta;
             }
@@ -197,30 +180,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstObjCookie != null)
                 {
-                    if (_lstObjCookie != null)
-                    {
-                        return _lstObjCookie;
-                    }
-
-                    _lstObjCookie = new List<Cookie>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstObjCookie;
                 }
 
-                #endregion Ações
+                _lstObjCookie = new List<Cookie>();
 
                 return _lstObjCookie;
             }
@@ -230,30 +195,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstStrHeaderDiverso != null)
                 {
-                    if (_lstStrHeaderDiverso != null)
-                    {
-                        return _lstStrHeaderDiverso;
-                    }
-
-                    _lstStrHeaderDiverso = new List<string>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstStrHeaderDiverso;
                 }
 
-                #endregion Ações
+                _lstStrHeaderDiverso = new List<string>();
 
                 return _lstStrHeaderDiverso;
             }
@@ -291,25 +238,7 @@ namespace NetZ.Web.Server
 
         public Resposta(Solicitacao objSolicitacao)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.objSolicitacao = objSolicitacao;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.objSolicitacao = objSolicitacao;
         }
 
         #endregion Construtores
@@ -322,47 +251,29 @@ namespace NetZ.Web.Server
         /// <returns>Retorna esta mesma instância.</returns>
         public Resposta addCookie(Cookie objCookie)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objCookie == null)
             {
-                if (objCookie == null)
-                {
-                    return this;
-                }
-
-                if (string.IsNullOrEmpty(objCookie.strNome))
-                {
-                    return this;
-                }
-
-                if (string.IsNullOrEmpty(objCookie.strValor))
-                {
-                    return this;
-                }
-
-                if (objCookie.dttValidade < DateTime.Now)
-                {
-                    return this;
-                }
-
-                this.lstObjCookie.Add(objCookie);
-
                 return this;
             }
-            catch (Exception ex)
+
+            if (string.IsNullOrEmpty(objCookie.strNome))
             {
-                throw ex;
-            }
-            finally
-            {
+                return this;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(objCookie.strValor))
+            {
+                return this;
+            }
+
+            if (objCookie.dttValidade < DateTime.Now)
+            {
+                return this;
+            }
+
+            this.lstObjCookie.Add(objCookie);
+
+            return this;
         }
 
         /// <summary>
@@ -376,47 +287,27 @@ namespace NetZ.Web.Server
         /// <param name="strValor">Valor do header que será adicionado.</param>
         public void addHeader(string strNome, string strValor)
         {
-            #region Variáveis
-
-            string strHeader;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strNome))
             {
-                if (string.IsNullOrEmpty(strNome))
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(strValor))
-                {
-                    return;
-                }
-
-                strHeader = "_header_nome: _header_valor";
-
-                strHeader = strHeader.Replace("_header_nome", strNome);
-                strHeader = strHeader.Replace("_header_valor", strValor);
-
-                if (this.lstStrHeaderDiverso.Contains(strHeader))
-                {
-                    return;
-                }
-
-                this.lstStrHeaderDiverso.Add(strHeader);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return;
+            }
+
+            string strHeader = "_header_nome: _header_valor";
+
+            strHeader = strHeader.Replace("_header_nome", strNome);
+            strHeader = strHeader.Replace("_header_valor", strValor);
+
+            if (this.lstStrHeaderDiverso.Contains(strHeader))
+            {
+                return;
+            }
+
+            this.lstStrHeaderDiverso.Add(strHeader);
         }
 
         /// <summary>
@@ -427,35 +318,17 @@ namespace NetZ.Web.Server
         /// <returns>Retorna esta mesma instância.</returns>
         public Resposta addHtml(string strHtml)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strHtml))
             {
-                if (string.IsNullOrEmpty(strHtml))
-                {
-                    return this;
-                }
-
-                this.enmContentType = EnmContentType.HTML_TEXT_HTML;
-                this.enmEncoding = EnmEncoding.UTF_8;
-
-                this.addStrConteudo(strHtml);
-
                 return this;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+            this.enmContentType = EnmContentType.HTML_TEXT_HTML;
+            this.enmEncoding = EnmEncoding.UTF_8;
+
+            this.addStrConteudo(strHtml);
+
+            return this;
         }
 
         /// <summary>
@@ -465,32 +338,14 @@ namespace NetZ.Web.Server
         /// <returns>Retorna esta mesma instância.</returns>
         public Resposta addHtml(PaginaHtml pagHtml)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (pagHtml == null)
             {
-                if (pagHtml == null)
-                {
-                    return this;
-                }
-
-                this.addHtml(pagHtml.toHtml());
-
                 return this;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+            this.addHtml(pagHtml.toHtml());
+
+            return this;
         }
 
         /// <summary>
@@ -507,44 +362,24 @@ namespace NetZ.Web.Server
         /// <returns>Retorna esta mesma instância.</returns>
         public Resposta addJson(object obj)
         {
-            #region Variáveis
-
-            string jsn;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (obj == null)
             {
-                if (obj == null)
-                {
-                    return this;
-                }
-
-                jsn = Json.i.toJson(obj);
-
-                if (string.IsNullOrEmpty(jsn))
-                {
-                    return this;
-                }
-
-                this.enmContentType = EnmContentType.JSON_APPLICATION_JSON;
-                this.enmEncoding = EnmEncoding.UTF_8;
-
-                this.addStrConteudo(jsn);
-
                 return this;
             }
-            catch (Exception ex)
+
+            string jsn = Json.i.toJson(obj);
+
+            if (string.IsNullOrEmpty(jsn))
             {
-                throw ex;
-            }
-            finally
-            {
+                return this;
             }
 
-            #endregion Ações
+            this.enmContentType = EnmContentType.JSON_APPLICATION_JSON;
+            this.enmEncoding = EnmEncoding.UTF_8;
+
+            this.addStrConteudo(jsn);
+
+            return this;
         }
 
         /// <summary>
@@ -563,426 +398,189 @@ namespace NetZ.Web.Server
         /// <returns>Retorna esta mesma instância.</returns>
         public Resposta redirecionar(string url)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(url))
             {
-                if (string.IsNullOrEmpty(url))
-                {
-                    return this;
-                }
-
-                this.intStatus = INT_STATUS_CODE_302_FOUND;
-                this.strRedirecionamento = url;
-
                 return this;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+            this.intStatus = INT_STATUS_CODE_302_FOUND;
+            this.strRedirecionamento = url;
+
+            return this;
         }
 
         internal Resposta addArquivo(ArquivoEstatico arq)
         {
-            #region Variáveis
-
-            byte[] arrBte;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (arq == null)
             {
-                if (arq == null)
-                {
-                    return this;
-                }
-
-                this.dttUltimaModificacao = arq.dttUltimaModificacao;
-                this.atualizarEnmContentType(arq);
-
-                if (this.objSolicitacao.dttUltimaModificacao.ToString().Equals(this.dttUltimaModificacao.ToString()))
-                {
-                    return this;
-                }
-
-                arrBte = arq.getArrBte();
-
-                if (arrBte == null)
-                {
-                    return this;
-                }
-
-                if (arrBte.Length < 1)
-                {
-                    return this;
-                }
-
-                this.mmsConteudo = new MemoryStream();
-
-                this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
-
                 return this;
             }
-            catch (Exception ex)
+
+            this.dttUltimaModificacao = arq.dttUltimaModificacao;
+            this.atualizarEnmContentType(arq);
+
+            if (this.objSolicitacao.dttUltimaModificacao.ToString().Equals(this.dttUltimaModificacao.ToString()))
             {
-                throw ex;
-            }
-            finally
-            {
+                return this;
             }
 
-            #endregion Ações
+            if (arq.arrBteConteudo == null)
+            {
+                return this;
+            }
+
+            if (arq.arrBteConteudo.Length < 1)
+            {
+                return this;
+            }
+
+            this.mmsConteudo = new MemoryStream();
+
+            this.mmsConteudo.Write(arq.arrBteConteudo, 0, arq.arrBteConteudo.Length);
+
+            return this;
         }
 
         private void addCookieSessaoId()
         {
-            #region Variáveis
-
-            Cookie objCookieSessaoId;
-            string strSessaoId;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.objSolicitacao == null)
             {
-                if (this.objSolicitacao == null)
-                {
-                    return;
-                }
-
-                if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME)))
-                {
-                    return;
-                }
-
-                strSessaoId = "_dtt_agora+_solicitacao_id";
-
-                strSessaoId = strSessaoId.Replace("_dtt_agora", DateTime.Now.ToString());
-                strSessaoId = strSessaoId.Replace("_solicitacao_id", this.objSolicitacao.intObjetoId.ToString());
-
-                strSessaoId = Utils.getStrMd5(strSessaoId);
-
-                objCookieSessaoId = new Cookie(ServerHttp.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
-                objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
-
-                this.addCookie(objCookieSessaoId);
-                this.addObjUsuario(objCookieSessaoId);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME)))
+            {
+                return;
+            }
+
+            string strSessaoId = "_dtt_agora+_solicitacao_id";
+
+            strSessaoId = strSessaoId.Replace("_dtt_agora", DateTime.Now.ToString());
+            strSessaoId = strSessaoId.Replace("_solicitacao_id", this.objSolicitacao.intObjetoId.ToString());
+
+            strSessaoId = Utils.getStrMd5(strSessaoId);
+
+            Cookie objCookieSessaoId = new Cookie(ServerHttp.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
+
+            objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
+
+            this.addCookie(objCookieSessaoId);
+            this.addObjUsuario(objCookieSessaoId);
         }
 
         private void addObjUsuario(Cookie objCookieSessaoId)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (objCookieSessaoId == null)
             {
-                if (objCookieSessaoId == null)
-                {
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(objCookieSessaoId.strValor))
-                {
-                    return;
-                }
-
-                AppWeb.i.addObjUsuario(new UsuarioDominio() { strSessaoId = objCookieSessaoId.strValor });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(objCookieSessaoId.strValor))
+            {
+                return;
+            }
+
+            AppWeb.i.addObjUsuario(new UsuarioDominio() { strSessaoId = objCookieSessaoId.strValor });
         }
 
         private void addStrConteudo(string strConteudo)
         {
-            #region Variáveis
-
-            byte[] arrBte;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strConteudo))
             {
-                if (string.IsNullOrEmpty(strConteudo))
-                {
-                    return;
-                }
-
-                arrBte = Encoding.UTF8.GetBytes(strConteudo);
-
-                this.mmsConteudo = new MemoryStream();
-
-                this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            byte[] arrBte = Encoding.UTF8.GetBytes(strConteudo);
+
+            this.mmsConteudo = new MemoryStream();
+
+            this.mmsConteudo.Write(arrBte, 0, arrBte.Length);
         }
 
         private void atualizarEnmContentType(ArquivoEstatico arq)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (arq == null)
             {
-                if (arq == null)
-                {
-                    this.enmContentType = EnmContentType.TXT_TEXT_PLAIN;
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(arq.dirCompleto))
-                {
-                    this.enmContentType = EnmContentType.TXT_TEXT_PLAIN;
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(Path.GetExtension(arq.dirCompleto)))
-                {
-                    this.enmContentType = EnmContentType.TXT_TEXT_PLAIN;
-                    return;
-                }
-
-                switch (Path.GetExtension(arq.dirCompleto).ToLower())
-                {
-                    case ".js":
-                        this.enmContentType = EnmContentType.JS_APPLICATION_JAVASCRIPT;
-                        return;
-
-                    case ".css":
-                        this.enmContentType = EnmContentType.CSS_TEXT_CSS;
-                        return;
-
-                    case ".htm":
-                    case ".html":
-                        this.enmContentType = EnmContentType.HTML_TEXT_HTML;
-                        return;
-
-                    case ".exe":
-                        this.enmContentType = EnmContentType.EXE_APPLICATION_X_MSDOWNLOAD;
-                        return;
-
-                    case ".dll":
-                        this.enmContentType = EnmContentType.EXE_APPLICATION_X_MSDOWNLOAD;
-                        return;
-
-                    case ".pdf":
-                        this.enmContentType = EnmContentType.PDF_APPLICATION_PDF;
-                        return;
-
-                    case ".png":
-                        this.enmContentType = EnmContentType.PNG_IMAGE_PNG;
-                        return;
-
-                    case ".bmp":
-                        this.enmContentType = EnmContentType.BMP_IMAGE_BMP;
-                        return;
-
-                    case ".tif":
-                        this.enmContentType = EnmContentType.TIFF_IMAGE_TIFF;
-                        return;
-
-                    case ".jpg":
-                        this.enmContentType = EnmContentType.JPEG_JPG_IMAGE_JPEG;
-                        return;
-
-                    case ".mp4":
-                        this.enmContentType = EnmContentType.MP4_VIDEO_MP4;
-                        return;
-
-                    case ".ico":
-                        this.enmContentType = EnmContentType.ICO_IMAGE_X_ICON;
-                        //this.enmEncoding = EnmEncoding.NONE;
-                        return;
-
-                    default:
-                        this.enmContentType = EnmContentType.TXT_TEXT_PLAIN;
-                        return;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                this.enmContentType = EnmContentType.TXT_TEXT_PLAIN;
+                return;
             }
 
-            #endregion Ações
+            this.enmContentType = arq.enmContentType;
         }
 
         private byte[] getArrBteResposta()
         {
-            #region Variáveis
+            string strHeader = this.getStrHeader();
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strHeader))
             {
-                string strHeader = this.getStrHeader();
+                return null;
+            }
 
-                if (string.IsNullOrEmpty(strHeader))
-                {
-                    return null;
-                }
+            strHeader = strHeader.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
 
-                strHeader = strHeader.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+            MemoryStream mmsResposta = new MemoryStream();
 
-                MemoryStream mmsResposta = new MemoryStream();
+            mmsResposta.Write(Encoding.UTF8.GetBytes(strHeader), 0, Encoding.UTF8.GetByteCount(strHeader));
+            mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
 
-                mmsResposta.Write(Encoding.UTF8.GetBytes(strHeader), 0, Encoding.UTF8.GetByteCount(strHeader));
-                mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
-
-                if (this.mmsConteudo == null)
-                {
-                    return mmsResposta.ToArray();
-                }
-
-                mmsResposta.Write(this.mmsConteudo.ToArray(), 0, (int)this.mmsConteudo.Length);
-
+            if (this.mmsConteudo == null)
+            {
                 return mmsResposta.ToArray();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
 
-            #endregion Ações
+            mmsResposta.Write(this.mmsConteudo.ToArray(), 0, (int)this.mmsConteudo.Length);
+
+            return mmsResposta.ToArray();
         }
 
         private string getStrEnmEncoding()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            switch (this.enmEncoding)
             {
-                switch (this.enmEncoding)
-                {
-                    case EnmEncoding._8859:
-                        return "8859";
+                case EnmEncoding._8859:
+                    return "8859";
 
-                    case EnmEncoding.ANSI:
-                        return "ANSI";
+                case EnmEncoding.ANSI:
+                    return "ANSI";
 
-                    case EnmEncoding.ASCII:
-                        return "ASCII";
+                case EnmEncoding.ASCII:
+                    return "ASCII";
 
-                    case EnmEncoding.NUMB:
-                        return "Numb";
+                case EnmEncoding.NUMB:
+                    return "Numb";
 
-                    case EnmEncoding.UTF_16:
-                        return "UTF-16";
+                case EnmEncoding.UTF_16:
+                    return "UTF-16";
 
-                    default:
-                        return "UTF-8";
-                }
+                default:
+                    return "UTF-8";
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private string getStrHeader()
         {
-            #region Variáveis
+            this.addCookieSessaoId();
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            switch (this.intStatus)
             {
-                this.addCookieSessaoId();
+                case INT_STATUS_CODE_101_SWITCHING_PROTOCOLS:
+                    return this.getStrHeader101();
 
-                switch (this.intStatus)
-                {
-                    case INT_STATUS_CODE_101_SWITCHING_PROTOCOLS:
-                        return this.getStrHeader101();
+                case INT_STATUS_CODE_204_NO_CONTENT:
+                case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
+                    return this.getStrHeaderDefault();
 
-                    case INT_STATUS_CODE_204_NO_CONTENT:
-                    case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
-                        return this.getStrHeaderBasico();
+                case INT_STATUS_CODE_302_FOUND:
+                    return this.getStrHeader302();
 
-                    case INT_STATUS_CODE_302_FOUND:
-                        return this.getStrHeader302();
+                case INT_STATUS_CODE_404_NOT_FOUND:
+                case INT_STATUS_CODE_500_INTERNAL_ERROR:
+                    return this.getStrHeader404_500();
 
-                    case INT_STATUS_CODE_404_NOT_FOUND:
-                    case INT_STATUS_CODE_500_INTERNAL_ERROR:
-                        return this.getStrHeader404_500();
-
-                    default:
-                        return this.getStrHeader200();
-                }
+                default:
+                    return this.getStrHeader200();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private string getStrHeader101()
@@ -999,70 +597,30 @@ namespace NetZ.Web.Server
 
         private string getStrHeader200()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
+            stbResultado.AppendLine(this.getStrHeaderStatus());
+            stbResultado.AppendLine(this.getStrHeaderData("Date", DateTime.Now));
+            stbResultado.AppendLine(this.getStrHeaderServer());
+            stbResultado.AppendLine(this.getStrHeaderSetCookie());
+            stbResultado.AppendLine(this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao));
+            stbResultado.AppendLine(this.getStrHeaderContentType());
+            stbResultado.AppendLine(this.getStrHeaderContentLength());
+            stbResultado.AppendLine(this.getStrHeaderDiverso());
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                stbResultado = new StringBuilder();
-
-                stbResultado.AppendLine(this.getStrHeaderStatus());
-                stbResultado.AppendLine(this.getStrHeaderData("Date", DateTime.Now));
-                stbResultado.AppendLine(this.getStrHeaderServer());
-                stbResultado.AppendLine(this.getStrHeaderSetCookie());
-                stbResultado.AppendLine(this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao));
-                stbResultado.AppendLine(this.getStrHeaderContentType());
-                stbResultado.AppendLine(this.getStrHeaderContentLength());
-                stbResultado.AppendLine(this.getStrHeaderDiverso());
-
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return stbResultado.ToString();
         }
 
         private string getStrHeader302()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
+            stbResultado.AppendLine(this.getStrHeaderStatus());
+            stbResultado.AppendLine(this.getStrHeaderServer());
+            stbResultado.AppendLine(this.getStrHeaderSetCookie());
+            stbResultado.AppendLine(this.getStrHeaderLocation());
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                stbResultado = new StringBuilder();
-
-                stbResultado.AppendLine(this.getStrHeaderStatus());
-                stbResultado.AppendLine(this.getStrHeaderServer());
-                stbResultado.AppendLine(this.getStrHeaderSetCookie());
-                stbResultado.AppendLine(this.getStrHeaderLocation());
-
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return stbResultado.ToString();
         }
 
         private string getStrHeader404_500()
@@ -1079,198 +637,78 @@ namespace NetZ.Web.Server
             return stbResultado.ToString();
         }
 
-        private string getStrHeaderBasico()
-        {
-            #region Variáveis
-
-            StringBuilder stbResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                stbResultado = new StringBuilder();
-
-                stbResultado.AppendLine(this.getStrHeaderStatus());
-                stbResultado.AppendLine(this.getStrHeaderServer());
-                stbResultado.AppendLine(this.getStrHeaderSetCookie());
-
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
         private string getStrHeaderContentLength()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.mmsConteudo == null)
             {
-                if (this.mmsConteudo == null)
-                {
-                    return "Content-Length: 0";
-                }
-
-                strResultado = "Content-Length: _content_length";
-                strResultado = strResultado.Replace("_content_length", this.mmsConteudo.Length.ToString());
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return "Content-Length: 0";
             }
 
-            #endregion Ações
+            string strResultado = "Content-Length: _content_length";
+            strResultado = strResultado.Replace("_content_length", this.mmsConteudo.Length.ToString());
+
+            return strResultado;
         }
 
         private string getStrHeaderContentType()
         {
-            #region Variáveis
+            string strResultado = "Content-Type: _content_type; charset=_char_set";
 
-            string strResultado;
+            strResultado = strResultado.Replace("_content_type", EnmContentTypeManager.getStrContentType(this.enmContentType));
+            strResultado = strResultado.Replace("_char_set", this.getStrEnmEncoding());
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                strResultado = "Content-Type: _content_type; charset=_char_set";
-
-                strResultado = strResultado.Replace("_content_type", EnmContentTypeManager.getStrEnmContentType(this.enmContentType));
-                strResultado = strResultado.Replace("_char_set", this.getStrEnmEncoding());
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return strResultado;
         }
 
         private string getStrHeaderData(string strFieldNome, DateTime dtt)
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strFieldNome))
             {
-                if (string.IsNullOrEmpty(strFieldNome))
-                {
-                    return null;
-                }
-
-                strResultado = "_str_date_nome: _date_valor";
-
-                strResultado = strResultado.Replace("_str_date_nome", strFieldNome);
-                strResultado = strResultado.Replace("_date_valor", dtt.ToUniversalTime().ToString("r"));
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            string strResultado = "_str_date_nome: _date_valor";
+
+            strResultado = strResultado.Replace("_str_date_nome", strFieldNome);
+            strResultado = strResultado.Replace("_date_valor", dtt.ToUniversalTime().ToString("r"));
+
+            return strResultado;
+        }
+
+        private string getStrHeaderDefault()
+        {
+            StringBuilder stbResultado = new StringBuilder();
+
+            stbResultado.AppendLine(this.getStrHeaderStatus());
+            stbResultado.AppendLine(this.getStrHeaderServer());
+            stbResultado.AppendLine(this.getStrHeaderSetCookie());
+
+            return stbResultado.ToString();
         }
 
         private string getStrHeaderDiverso()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (string strHeaderDiverso in this.lstStrHeaderDiverso)
             {
-                stbResultado = new StringBuilder();
-
-                foreach (string strHeaderDiverso in this.lstStrHeaderDiverso)
+                if (string.IsNullOrEmpty(strHeaderDiverso))
                 {
-                    if (string.IsNullOrEmpty(strHeaderDiverso))
-                    {
-                        continue;
-                    }
-
-                    stbResultado.AppendLine(strHeaderDiverso);
+                    continue;
                 }
 
-                return stbResultado.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                stbResultado.AppendLine(strHeaderDiverso);
             }
 
-            #endregion Ações
+            return stbResultado.ToString();
         }
 
         private string getStrHeaderLocation()
         {
-            #region Variáveis
+            string strResultado = "Location: _location";
+            strResultado = strResultado.Replace("_location", !string.IsNullOrEmpty(this.strRedirecionamento) ? this.strRedirecionamento : "/");
 
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                strResultado = "Location: _location";
-                strResultado = strResultado.Replace("_location", !string.IsNullOrEmpty(this.strRedirecionamento) ? this.strRedirecionamento : "/");
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return strResultado;
         }
 
         private string getStrHeaderServer()
@@ -1280,95 +718,55 @@ namespace NetZ.Web.Server
 
         private string getStrHeaderSetCookie()
         {
-            #region Variáveis
+            StringBuilder stbResultado = new StringBuilder();
 
-            StringBuilder stbResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            foreach (Cookie objCookie in this.lstObjCookie)
             {
-                stbResultado = new StringBuilder();
-
-                foreach (Cookie objCookie in this.lstObjCookie)
+                if (objCookie == null)
                 {
-                    if (objCookie == null)
-                    {
-                        continue;
-                    }
-
-                    stbResultado.AppendLine(objCookie.getStrFormatado());
+                    continue;
                 }
 
-                return (stbResultado.Length > 5) ? stbResultado.ToString() : null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                stbResultado.AppendLine(objCookie.getStrFormatado());
             }
 
-            #endregion Ações
+            return (stbResultado.Length > 5) ? stbResultado.ToString() : null;
         }
 
         private string getStrHeaderStatus()
         {
-            #region Variáveis
+            string strResultado = "HTTP/1.1 _status_code";
 
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.dttUltimaModificacao.ToString().Equals(this.objSolicitacao.dttUltimaModificacao.ToString()))
             {
-                strResultado = "HTTP/1.1 _status_code";
-
-                if (this.dttUltimaModificacao.ToString().Equals(this.objSolicitacao.dttUltimaModificacao.ToString()))
-                {
-                    this.intStatus = INT_STATUS_CODE_304_NOT_MODIFIED;
-                    return strResultado.Replace("_status_code", "304 Not Modified");
-                }
-
-                switch (this.intStatus)
-                {
-                    case INT_STATUS_CODE_101_SWITCHING_PROTOCOLS:
-                        return strResultado.Replace("_status_code", "101 Switching Protocols");
-
-                    case INT_STATUS_CODE_204_NO_CONTENT:
-                        return strResultado.Replace("_status_code", "204 No Content");
-
-                    case INT_STATUS_CODE_302_FOUND:
-                        return strResultado.Replace("_status_code", "302 Found");
-
-                    case INT_STATUS_CODE_404_NOT_FOUND:
-                        return strResultado.Replace("_status_code", "404 Not Found");
-
-                    case INT_STATUS_CODE_500_INTERNAL_ERROR:
-                        return strResultado.Replace("_status_code", "500 Internal Error");
-
-                    case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
-                        return strResultado.Replace("_status_code", "501 Not Implemented");
-
-                    default:
-                        this.intStatus = INT_STATUS_CODE_200_OK;
-                        return strResultado.Replace("_status_code", "200 OK");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                this.intStatus = INT_STATUS_CODE_304_NOT_MODIFIED;
+                return strResultado.Replace("_status_code", "304 Not Modified");
             }
 
-            #endregion Ações
+            switch (this.intStatus)
+            {
+                case INT_STATUS_CODE_101_SWITCHING_PROTOCOLS:
+                    return strResultado.Replace("_status_code", "101 Switching Protocols");
+
+                case INT_STATUS_CODE_204_NO_CONTENT:
+                    return strResultado.Replace("_status_code", "204 No Content");
+
+                case INT_STATUS_CODE_302_FOUND:
+                    return strResultado.Replace("_status_code", "302 Found");
+
+                case INT_STATUS_CODE_404_NOT_FOUND:
+                    return strResultado.Replace("_status_code", "404 Not Found");
+
+                case INT_STATUS_CODE_500_INTERNAL_ERROR:
+                    return strResultado.Replace("_status_code", "500 Internal Error");
+
+                case INT_STATUS_CODE_501_NOT_IMPLEMENTED:
+                    return strResultado.Replace("_status_code", "501 Not Implemented");
+
+                default:
+                    this.intStatus = INT_STATUS_CODE_200_OK;
+                    return strResultado.Replace("_status_code", "200 OK");
+            }
         }
 
         #endregion Métodos

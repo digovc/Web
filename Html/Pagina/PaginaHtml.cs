@@ -27,20 +27,20 @@ namespace NetZ.Web.Html.Pagina
 
         private bool _booEstatica = true;
         private bool _booPagSimples;
-        private CssTag _tagCssMain;
-        private CssTag _tagCssPrint;
         private Div _divNotificacao;
-        private JavaScriptTag _tagJs;
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
         private string _srcIcone = "/res/media/ico/favicon.ico";
         private string _strHtmlEstatico;
         private string _strTitulo;
         private Tag _tagBody;
+        private CssTag _tagCssMain;
+        private CssTag _tagCssPrint;
         private Tag _tagDocType;
         private Tag _tagHead;
         private Tag _tagHtml;
         private Tag _tagIcon;
+        private JavaScriptTag _tagJs;
         private Tag _tagMetaContent;
         private Tag _tagMetaHttpEquiv;
         private Tag _tagThemaColor;
@@ -756,12 +756,13 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
 
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Constante.js", 0));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/ConstanteManager.js", 1));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Historico.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
+                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
                 lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
@@ -865,7 +866,7 @@ namespace NetZ.Web.Html.Pagina
                 this.tagHtml.addAtt("lang", "pt-br");
                 this.tagHtml.booMostrarClazz = false;
 
-                this.tagIcon.addAtt("rel", "shortcut icon");
+                this.tagIcon.addAtt("rel", "icon");
                 this.tagIcon.addAtt("href", this.srcIcone);
                 this.tagIcon.addAtt("type", "image/x-icon");
                 this.tagIcon.booMostrarClazz = false;

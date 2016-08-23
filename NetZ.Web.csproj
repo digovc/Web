@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AppWeb.cs" />
     <Compile Include="ConfigWeb.cs" />
+    <Compile Include="DataBase\Tabela\TblFavorito.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />
     <Compile Include="DataBase\Tabela\TblFiltroItem.cs" />
     <Compile Include="DataBase\Tabela\TblUsuarioBase.cs" />
@@ -65,6 +66,8 @@
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
     <Compile Include="Html\Componente\Campo\CampoMapa.cs" />
     <Compile Include="Html\Componente\Campo\CampoMarkdown.cs" />
+    <Compile Include="Html\Componente\Campo\CampoMedia.cs" />
+    <Compile Include="Html\Componente\Form\DivCritica.cs" />
     <Compile Include="Html\Componente\Form\DivDica.cs" />
     <Compile Include="Html\Componente\Grafico\Canvas.cs" />
     <Compile Include="Html\Componente\Grid\MenuGrid.cs" />
@@ -72,6 +75,7 @@
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroItemCadastro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlTag.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
+    <Compile Include="Html\Componente\Janela\Consulta\BtnFavorito.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
@@ -118,12 +122,14 @@
     <Compile Include="Html\Componente\Janela\JnlMensagem.cs" />
     <Compile Include="Html\Componente\Menu\Menu.cs" />
     <Compile Include="Html\Componente\Menu\MenuItem.cs" />
+    <Compile Include="Html\Componente\ProgressBar.cs" />
     <Compile Include="Html\Componente\Tab\TabHtml.cs" />
     <Compile Include="Html\Componente\Tab\TabItem.cs" />
     <Compile Include="Html\Componente\Tab\TabItemHead.cs" />
     <Compile Include="Html\CssTag.cs" />
     <Compile Include="Html\Pagina\PagError.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />
+    <Compile Include="Server\Arquivo\ArqUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Hr.cs" />
@@ -144,8 +150,9 @@
     <Compile Include="Server\Arquivo\Css\CssPrint.cs" />
     <Compile Include="Server\Cliente.cs" />
     <Compile Include="Server\Cookie.cs" />
-    <Compile Include="Server\EnmContentType.cs" />
     <Compile Include="Server\Field.cs" />
+    <Compile Include="Server\FormData.cs" />
+    <Compile Include="Server\FormDataItem.cs" />
     <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />

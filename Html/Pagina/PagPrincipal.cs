@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
@@ -118,7 +119,9 @@ namespace NetZ.Web.Html.Pagina
                 // principal diminui a performance neste ponto da aplicação.
                 lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 118));
                 lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
+                lstJs.Add(new JavaScriptTag(typeof(BtnFavorito), 119));
                 lstJs.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
+                lstJs.Add(new JavaScriptTag(typeof(CampoAnexo), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoCheckBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
@@ -126,18 +129,20 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
                 lstJs.Add(new JavaScriptTag(typeof(CampoMapa), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoMarkdown), 132));
+                lstJs.Add(new JavaScriptTag(typeof(CampoMedia), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CampoSenha), 132));
                 lstJs.Add(new JavaScriptTag(typeof(CampoTexto), 131));
                 lstJs.Add(new JavaScriptTag(typeof(CheckBox), 111));
                 lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
                 lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
+                lstJs.Add(new JavaScriptTag(typeof(DivCritica), 112));
                 lstJs.Add(new JavaScriptTag(typeof(DivDica), 111));
                 lstJs.Add(new JavaScriptTag(typeof(FormHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(FrmFiltro), 112));
                 lstJs.Add(new JavaScriptTag(typeof(FrmFiltroConteudo), 112));
                 lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
-                lstJs.Add(new JavaScriptTag(typeof(GridRow), 104));
+                lstJs.Add(new JavaScriptTag(typeof(GridRow), 111));
                 lstJs.Add(new JavaScriptTag(typeof(Input), 110));
                 lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
                 lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
@@ -149,6 +154,7 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag(typeof(PainelFiltro), 115));
                 lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
                 lstJs.Add(new JavaScriptTag(typeof(PainelNivel), 115));
+                lstJs.Add(new JavaScriptTag(typeof(ProgressBar), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabHtml), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabItem), 111));
                 lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 111));

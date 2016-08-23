@@ -140,7 +140,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.divBarra.addCss(css.setPosition("absolute"));
             this.divBarra.addCss(css.setWidth(100, "%"));
 
-            this.pnlCondicao.addCss(css.setLeft(210));
+            this.pnlCondicao.addCss(css.setLeft(220));
             this.pnlCondicao.addCss(css.setPosition("absolute"));
             this.pnlCondicao.addCss(css.setRight(0));
             

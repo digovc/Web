@@ -89,8 +89,8 @@ namespace NetZ.Web.Html.Componente.Grid
             base.setCss(css);
 
             this.addCss(css.setOverflowX("hidden"));
-            this.addCss(css.setPaddingLeft(25));
-            this.addCss(css.setPaddingRight(25));
+            this.addCss(css.setPaddingLeft(10));
+            this.addCss(css.setPaddingRight(10));
 
             this.setCssCln(css);
         }

@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -10,11 +11,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private Tag _btnAcao;
+        private BotaoMini _btnAcao; // TODO: Trocar este botão por dois botões, um de pesquisar e outro de limpar o campo.
         private Input _txtIntId;
         private Input _txtPesquisa;
 
-        private Tag btnAcao
+        private BotaoMini btnAcao
         {
             get
             {
@@ -23,7 +24,7 @@ namespace NetZ.Web.Html.Componente.Campo
                     return _btnAcao;
                 }
 
-                _btnAcao = new Tag("button");
+                _btnAcao = new BotaoMini();
 
                 return _btnAcao;
             }
@@ -130,11 +131,12 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.setCss(css);
 
+            this.btnAcao.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisar_25x25.png"));
+            this.btnAcao.addCss(css.setBackgroundPosition("-1px -1px"));
             this.btnAcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
-            this.btnAcao.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisa_25x25.png"));
             this.btnAcao.addCss(css.setHeight(25));
             this.btnAcao.addCss(css.setPosition("absolute"));
-            this.btnAcao.addCss(css.setRight(-95));
+            this.btnAcao.addCss(css.setRight(-100));
             this.btnAcao.addCss(css.setTop(-3));
             this.btnAcao.addCss(css.setWidth(25));
 

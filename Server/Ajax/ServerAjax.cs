@@ -1,10 +1,13 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo;
 
 namespace NetZ.Web.Server.Ajax
 {
     public abstract class ServerAjax : ServerBase
     {
         #region Constantes
+
+        protected const string STR_RESULTADO_VAZIO = "_____null_____";
 
         #endregion Constantes
 
@@ -22,7 +25,27 @@ namespace NetZ.Web.Server.Ajax
 
         #region Métodos
 
-        protected void addAcessControl(Resposta objResposta, Solicitacao objSolicitacao)
+        public override Resposta responder(Solicitacao objSolicitacao)
+        {
+            if (objSolicitacao == null)
+            {
+                return null;
+            }
+
+            if (Solicitacao.EnmMetodo.OPTIONS.Equals(objSolicitacao.enmMetodo))
+            {
+                return this.responderOptions(objSolicitacao);
+            }
+
+            if ("/?upload-file".Equals(objSolicitacao.strPaginaCompleta))
+            {
+                return this.responderUploadFile(objSolicitacao);
+            }
+
+            return null;
+        }
+
+        protected void addAcessControl(Resposta objResposta)
         {
             if (objResposta == null)
             {
@@ -34,12 +57,12 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            if (objSolicitacao == null)
+            if (objResposta.objSolicitacao == null)
             {
                 return;
             }
 
-            string strReferer = objSolicitacao.getStrHeaderValor("referer");
+            string strReferer = objResposta.objSolicitacao.getStrHeaderValor("referer");
 
             if (string.IsNullOrEmpty(strReferer))
             {
@@ -55,8 +78,53 @@ namespace NetZ.Web.Server.Ajax
                 strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWeb.i.intPorta);
             }
 
-            objResposta.addHeader("Access-Control-Allow-Origin", strHost);
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");
+            objResposta.addHeader("Access-Control-Allow-Methods", "POST");
+            objResposta.addHeader("Access-Control-Allow-Origin", strHost);
+        }
+
+        private Resposta responderOptions(Solicitacao objSolicitacao)
+        {
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            this.addAcessControl(objResposta);
+
+            return objResposta;
+        }
+
+        private Resposta responderUploadFile(Solicitacao objSolicitacao)
+        {
+            Interlocutor objInterlocutor = new Interlocutor();
+
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            this.addAcessControl(objResposta);
+
+            if (objSolicitacao == null)
+            {
+                objInterlocutor.strErro = "Erro ao processar arquivo.";
+
+                return objResposta.addJson(objInterlocutor);
+            }
+
+            if (objSolicitacao.objUsuario == null)
+            {
+                objInterlocutor.strErro = "Usuário desconhecido não pode fazer upload de arquivos.";
+
+                return objResposta.addJson(objInterlocutor);
+            }
+
+            if (!objSolicitacao.objUsuario.booLogado)
+            {
+                objInterlocutor.strErro = "Usuário deslogado não pode fazer upload de arquivos.";
+                return objResposta.addJson(objInterlocutor);
+            }
+
+            objSolicitacao.objUsuario.addArqUpload(new ArqUpload(objSolicitacao));
+
+            objInterlocutor.objData = "Arquivo recebido com sucesso.";
+
+            return objResposta.addJson(objInterlocutor);
         }
 
         #endregion Métodos

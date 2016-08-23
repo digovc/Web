@@ -11,7 +11,7 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Atributos
 
-        private BotaoCircular _btnAdicionar;
+        private BotaoCircular _btnAdicionar; // TODO: Colocar o comando dentro do item.
         private BotaoCircular _btnAlterar;
         private BotaoCircular _btnApagar;
         private Div _divCabecalho;
@@ -238,6 +238,7 @@ namespace NetZ.Web.Html.Componente.Tab
             
             this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
             this.btnAlterar.addCss(css.setBottom(40));
+            this.btnAlterar.addCss(css.setDisplay("none"));
             this.btnAlterar.addCss(css.setPosition("absolute"));
             this.btnAlterar.addCss(css.setRight(0));
 

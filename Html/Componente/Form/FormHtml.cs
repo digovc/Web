@@ -27,6 +27,7 @@ namespace NetZ.Web.Html.Componente.Form
         private bool _booJnlCadastro;
         private DivComando _divComando;
         private Div _divConteudo;
+        private DivCritica _divCritica;
         private DivDica _divDica;
         private LimiteFloat _divLimiteFloat;
         private EnmMetodo _enmMetodo;
@@ -165,6 +166,21 @@ namespace NetZ.Web.Html.Componente.Form
                 _divConteudo = new Div();
 
                 return _divConteudo;
+            }
+        }
+
+        private DivCritica divCritica
+        {
+            get
+            {
+                if (_divCritica != null)
+                {
+                    return _divCritica;
+                }
+
+                _divCritica = new DivCritica();
+
+                return _divCritica;
             }
         }
 
@@ -331,6 +347,7 @@ namespace NetZ.Web.Html.Componente.Form
             }
 
             this.divComando.strId = (this.strId + "_divComando");
+            this.divCritica.strId = (this.strId + "_divCritica");
             this.divDica.strId = (this.strId + "_divDica");
             this.tabHtml.strId = (this.strId + "_tabHtml");
         }
@@ -341,7 +358,7 @@ namespace NetZ.Web.Html.Componente.Form
 
             this.finalizarTabHtml();
 
-            this.finalizarPnlDica();
+            this.finalizarPnlDicaCritica();
 
             this.finalizarDivComando();
 
@@ -524,7 +541,7 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
-        private void finalizarPnlDica()
+        private void finalizarPnlDicaCritica()
         {
             if (!this.booJnlCadastro)
             {
@@ -532,8 +549,10 @@ namespace NetZ.Web.Html.Componente.Form
             }
 
             this.divDica.intNivel = (this.intUltimoNivel + 2);
+            this.divCritica.intNivel = (this.intUltimoNivel + 2);
 
             this.divDica.setPai(this);
+            this.divCritica.setPai(this);
         }
 
         private void finalizarTabHtml()

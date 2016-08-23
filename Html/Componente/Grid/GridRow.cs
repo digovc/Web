@@ -5,7 +5,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
-    internal class GridRow : Tag
+    internal class GridRow : ComponenteHtml
     {
         #region Constantes
 
@@ -64,7 +64,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Construtores
 
-        public GridRow() : base("tr")
+        internal GridRow()
         {
         }
 
@@ -75,6 +75,8 @@ namespace NetZ.Web.Html.Componente.Grid
         protected override void inicializar()
         {
             base.inicializar();
+
+            this.strNome = "tr";
 
             this.inicializarIntId();
         }
@@ -137,8 +139,9 @@ namespace NetZ.Web.Html.Componente.Grid
 
             this.attIntId.addValor(intId);
 
-            strId = "tagGridRow__registro_id";
+            strId = "tagGridRow___tbl_nome__registro_id";
 
+            strId = strId.Replace("_tbl_nome", this.tbl.strNomeSql);
             strId = strId.Replace("_registro_id", intId.ToString());
 
             this.strId = strId;
