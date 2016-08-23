@@ -92,7 +92,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addCss(css.setHeight(250));
             this.addCss(css.setWidth(500));
 
-            this.divComando.addCss(css.setBottom(10));
+            this.divComando.addCss(css.setBottom(8));
             this.divComando.addCss(css.setPadding(10));
             this.divComando.addCss(css.setPosition("absolute"));
             this.divComando.addCss(css.setRight(10));

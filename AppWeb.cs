@@ -269,7 +269,7 @@ namespace NetZ.Web
             this.lstObjUsuario.Add(objUsuario);
         }
 
-        internal virtual Persistencia.DataBase getObjDbPrincipal()
+        public virtual Persistencia.DataBase getObjDbPrincipal()
         {
             throw new NotImplementedException();
         }
