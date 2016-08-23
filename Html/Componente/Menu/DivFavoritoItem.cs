@@ -119,9 +119,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 this.addCss(css.setFloat("left"));
                 this.addCss(css.setHeight(32, "%"));
                 this.addCss(css.setWidth(32, "%"));
-
-                this.imgIcone.addCss(css.setBorder(2, "solid", "#e7e8e9"));
-                this.imgIcone.addCss(css.setBorderRadius(50, "%"));
+                
                 this.imgIcone.addCss(css.setCursor("pointer"));
                 this.imgIcone.addCss(css.setHeight(75, "%"));
                 this.imgIcone.addCss(css.setMargin(12.5m, "%"));
