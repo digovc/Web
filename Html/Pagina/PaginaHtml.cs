@@ -63,30 +63,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagBody != null)
                 {
-                    if (_tagBody != null)
-                    {
-                        return _tagBody;
-                    }
-
-                    _tagBody = new Tag("body");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagBody;
                 }
 
-                #endregion Ações
+                _tagBody = new Tag("body");
 
                 return _tagBody;
             }
@@ -96,30 +78,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstCss != null)
                 {
-                    if (_lstCss != null)
-                    {
-                        return _lstCss;
-                    }
-
-                    _lstCss = new LstTag<CssTag>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstCss;
                 }
 
-                #endregion Ações
+                _lstCss = new LstTag<CssTag>();
 
                 return _lstCss;
             }
@@ -129,30 +93,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lstJs != null)
                 {
-                    if (_lstJs != null)
-                    {
-                        return _lstJs;
-                    }
-
-                    _lstJs = new LstTag<JavaScriptTag>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lstJs;
                 }
 
-                #endregion Ações
+                _lstJs = new LstTag<JavaScriptTag>();
 
                 return _lstJs;
             }
@@ -162,30 +108,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagJs != null)
                 {
-                    if (_tagJs != null)
-                    {
-                        return _tagJs;
-                    }
-
-                    _tagJs = new JavaScriptTag(string.Empty, 5000);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagJs;
                 }
 
-                #endregion Ações
+                _tagJs = new JavaScriptTag(string.Empty, 5000);
 
                 return _tagJs;
             }
@@ -224,30 +152,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagHead != null)
                 {
-                    if (_tagHead != null)
-                    {
-                        return _tagHead;
-                    }
-
-                    _tagHead = new Tag("head");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagHead;
                 }
 
-                #endregion Ações
+                _tagHead = new Tag("head");
 
                 return _tagHead;
             }
@@ -311,30 +221,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagCssMain != null)
                 {
-                    if (_tagCssMain != null)
-                    {
-                        return _tagCssMain;
-                    }
-
-                    _tagCssMain = new CssTag(CssMain.i.strHref);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagCssMain;
                 }
 
-                #endregion Ações
+                _tagCssMain = new CssTag(CssMain.i.strHref);
 
                 return _tagCssMain;
             }
@@ -344,30 +236,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagCssPrint != null)
                 {
-                    if (_tagCssPrint != null)
-                    {
-                        return _tagCssPrint;
-                    }
-
-                    _tagCssPrint = new CssTag(CssPrint.i.strHref);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagCssPrint;
                 }
 
-                #endregion Ações
+                _tagCssPrint = new CssTag(CssPrint.i.strHref);
 
                 return _tagCssPrint;
             }
@@ -377,30 +251,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagDocType != null)
                 {
-                    if (_tagDocType != null)
-                    {
-                        return _tagDocType;
-                    }
-
-                    _tagDocType = new Tag("!DOCTYPE");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagDocType;
                 }
 
-                #endregion Ações
+                _tagDocType = new Tag("!DOCTYPE");
 
                 return _tagDocType;
             }
@@ -410,30 +266,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagHtml != null)
                 {
-                    if (_tagHtml != null)
-                    {
-                        return _tagHtml;
-                    }
-
-                    _tagHtml = new Tag("html");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagHtml;
                 }
 
-                #endregion Ações
+                _tagHtml = new Tag("html");
 
                 return _tagHtml;
             }
@@ -443,30 +281,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagIcon != null)
                 {
-                    if (_tagIcon != null)
-                    {
-                        return _tagIcon;
-                    }
-
-                    _tagIcon = new Tag("link");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagIcon;
                 }
 
-                #endregion Ações
+                _tagIcon = new Tag("link");
 
                 return _tagIcon;
             }
@@ -476,30 +296,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagMetaContent != null)
                 {
-                    if (_tagMetaContent != null)
-                    {
-                        return _tagMetaContent;
-                    }
-
-                    _tagMetaContent = new Tag("meta");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagMetaContent;
                 }
 
-                #endregion Ações
+                _tagMetaContent = new Tag("meta");
 
                 return _tagMetaContent;
             }
@@ -509,30 +311,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagMetaHttpEquiv != null)
                 {
-                    if (_tagMetaHttpEquiv != null)
-                    {
-                        return _tagMetaHttpEquiv;
-                    }
-
-                    _tagMetaHttpEquiv = new Tag("meta");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagMetaHttpEquiv;
                 }
 
-                #endregion Ações
+                _tagMetaHttpEquiv = new Tag("meta");
 
                 return _tagMetaHttpEquiv;
             }
@@ -557,30 +341,12 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tagTitle != null)
                 {
-                    if (_tagTitle != null)
-                    {
-                        return _tagTitle;
-                    }
-
-                    _tagTitle = new Tag("title");
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tagTitle;
                 }
 
-                #endregion Ações
+                _tagTitle = new Tag("title");
 
                 return _tagTitle;
             }
@@ -592,28 +358,10 @@ namespace NetZ.Web.Html.Pagina
 
         public PaginaHtml(string strNome)
         {
-            #region Variáveis
+            i = this;
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                i = this;
-
-                this.strNome = strNome;
-                this.strTitulo = this.strNome;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strNome = strNome;
+            this.strTitulo = this.strNome;
         }
 
         #endregion Construtores
@@ -622,30 +370,12 @@ namespace NetZ.Web.Html.Pagina
 
         public void addJs(string strJsCodigo)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strJsCodigo))
             {
-                if (string.IsNullOrEmpty(strJsCodigo))
-                {
-                    return;
-                }
-
-                this.tagJs.addJs(strJsCodigo);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.tagJs.addJs(strJsCodigo);
         }
 
         public string toHtml()
@@ -701,30 +431,12 @@ namespace NetZ.Web.Html.Pagina
         /// <param name="strClassCss">Classe que faz referência a alguma regar CSS.</param>
         protected void addCss(string strClassCss)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(strClassCss))
             {
-                if (string.IsNullOrEmpty(strClassCss))
-                {
-                    return;
-                }
-
-                this.tagBody.addCss(strClassCss);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.tagBody.addCss(strClassCss);
         }
 
         protected virtual void addCss(LstTag<CssTag> lstCss)
@@ -733,50 +445,32 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            #region Variáveis
+            lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
+            lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
+            lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
+            lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
+            lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
+            lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
+            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
+            lstJs.Add(new JavaScriptTag(typeof(ServerHttp), 102));
+            lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
 
-            #endregion Variáveis
+            lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Constante.js", 0));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/ConstanteManager.js", 1));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Historico.js", 101));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
+            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
 
-            #region Ações
-
-            try
-            {
-                lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
-                lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
-                lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
-                lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
-                lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-                lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
-                lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
-                lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
-                lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
-                lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
-                lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
-                lstJs.Add(new JavaScriptTag(typeof(ServerHttp), 102));
-                lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
-
-                lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Constante.js", 0));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/ConstanteManager.js", 1));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Historico.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
-
-                lstJs.Add(this.tagJs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(this.tagJs);
         }
 
         protected void addJs(JavaScriptTag tagJs)
@@ -837,238 +531,126 @@ namespace NetZ.Web.Html.Pagina
         /// </summary>
         protected virtual void inicializar()
         {
-            #region Variáveis
+            this.divNotificacao.strId = "divNotificacao";
 
-            #endregion Variáveis
+            this.tagBody.booMostrarClazz = false;
 
-            #region Ações
+            this.tagCssMain.strId = CssMain.STR_CSS_ID;
 
-            try
-            {
-                this.divNotificacao.strId = "divNotificacao";
+            this.tagCssPrint.strId = CssPrint.STR_CSS_ID;
 
-                this.tagBody.booMostrarClazz = false;
+            this.tagCssPrint.addAtt("media", "print");
 
-                this.tagCssMain.strId = CssMain.STR_CSS_ID;
+            this.tagDocType.addAtt("html");
+            this.tagDocType.booBarraFinal = false;
+            this.tagDocType.booMostrarClazz = false;
+            this.tagDocType.booDupla = false;
 
-                this.tagCssPrint.strId = CssPrint.STR_CSS_ID;
+            this.tagHead.booMostrarClazz = false;
 
-                this.tagCssPrint.addAtt("media", "print");
+            this.tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
+            this.tagHtml.addAtt("lang", "pt-br");
+            this.tagHtml.booMostrarClazz = false;
 
-                this.tagDocType.addAtt("html");
-                this.tagDocType.booBarraFinal = false;
-                this.tagDocType.booMostrarClazz = false;
-                this.tagDocType.booDupla = false;
+            this.tagIcon.addAtt("rel", "icon");
+            this.tagIcon.addAtt("href", this.srcIcone);
+            this.tagIcon.addAtt("type", "image/x-icon");
+            this.tagIcon.booMostrarClazz = false;
 
-                this.tagHead.booMostrarClazz = false;
+            this.tagJs.intOrdem = 100;
 
-                this.tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
-                this.tagHtml.addAtt("lang", "pt-br");
-                this.tagHtml.booMostrarClazz = false;
+            this.tagMetaContent.addAtt("content", this.strNomeExibicao);
+            this.tagMetaContent.booMostrarClazz = false;
+            this.tagMetaContent.booDupla = false;
 
-                this.tagIcon.addAtt("rel", "icon");
-                this.tagIcon.addAtt("href", this.srcIcone);
-                this.tagIcon.addAtt("type", "image/x-icon");
-                this.tagIcon.booMostrarClazz = false;
+            this.tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
+            this.tagMetaHttpEquiv.booMostrarClazz = false;
+            this.tagMetaHttpEquiv.booDupla = false;
 
-                this.tagJs.intOrdem = 100;
+            this.tagMetaThemaColor.addAtt("name", "theme-color");
+            this.tagMetaThemaColor.addAtt("content", ColorTranslator.ToHtml(AppWeb.i.objTema.corTema));
+            this.tagMetaThemaColor.booMostrarClazz = false;
+            this.tagMetaThemaColor.booDupla = false;
 
-                this.tagMetaContent.addAtt("content", this.strNomeExibicao);
-                this.tagMetaContent.booMostrarClazz = false;
-                this.tagMetaContent.booDupla = false;
-
-                this.tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
-                this.tagMetaHttpEquiv.booMostrarClazz = false;
-                this.tagMetaHttpEquiv.booDupla = false;
-
-                this.tagMetaThemaColor.addAtt("name", "theme-color");
-                this.tagMetaThemaColor.addAtt("content", ColorTranslator.ToHtml(AppWeb.i.objTema.corTema));
-                this.tagMetaThemaColor.booMostrarClazz = false;
-                this.tagMetaThemaColor.booDupla = false;
-
-                this.tagTitle.booMostrarClazz = false;
-                this.tagTitle.booDupla = false;
-                this.tagTitle.strConteudo = this.getStrTituloFormatado();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tagTitle.booMostrarClazz = false;
+            this.tagTitle.booDupla = false;
+            this.tagTitle.strConteudo = this.getStrTituloFormatado();
         }
 
         protected virtual void montarLayout()
         {
-            #region Variáveis
+            this.tagTitle.setPai(this.tagHead);
+            this.tagMetaContent.setPai(this.tagHead);
+            this.tagMetaHttpEquiv.setPai(this.tagHead);
+            this.tagMetaThemaColor.setPai(this.tagHead);
+            this.tagIcon.setPai(this.tagHead);
+            this.tagCssMain.setPai(this.tagHead);
+            this.tagCssPrint.setPai(this.tagHead);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tagTitle.setPai(this.tagHead);
-                this.tagMetaContent.setPai(this.tagHead);
-                this.tagMetaHttpEquiv.setPai(this.tagHead);
-                this.tagMetaThemaColor.setPai(this.tagHead);
-                this.tagIcon.setPai(this.tagHead);
-                this.tagCssMain.setPai(this.tagHead);
-                this.tagCssPrint.setPai(this.tagHead);
-
-                this.divNotificacao.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divNotificacao.setPai(this);
         }
 
         protected virtual void setCss(CssArquivo css)
         {
-            #region Variáveis
+            this.tagBody.addCss(css.setMargin(0));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tagBody.addCss(css.setMargin(0));
-
-                this.divNotificacao.addCss(css.setBottom(20));
-                this.divNotificacao.addCss(css.setPosition("absolute"));
-                this.divNotificacao.addCss(css.setRight(20));
-                this.divNotificacao.addCss(css.setZIndex(100));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divNotificacao.addCss(css.setBottom(20));
+            this.divNotificacao.addCss(css.setPosition("absolute"));
+            this.divNotificacao.addCss(css.setRight(20));
+            this.divNotificacao.addCss(css.setZIndex(100));
         }
 
         private void addCss()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.booPagSimples)
             {
-                if (this.booPagSimples)
+                return;
+            }
+
+            this.addCss(this.lstCss);
+
+            foreach (CssTag cssTag in this.lstCss)
+            {
+                if (cssTag == null)
                 {
-                    return;
+                    continue;
                 }
 
-                this.addCss(this.lstCss);
-
-                foreach (CssTag cssTag in this.lstCss)
-                {
-                    if (cssTag == null)
-                    {
-                        continue;
-                    }
-
-                    cssTag.setPai(this.tagHead);
-                }
+                cssTag.setPai(this.tagHead);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void addJs()
         {
-            #region Variáveis
-
-            List<JavaScriptTag> lstJsOrdenado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.booPagSimples)
             {
-                if (this.booPagSimples)
+                return;
+            }
+
+            this.addJs(this.lstJs);
+            this.addJs(this.tagJs);
+
+            List<JavaScriptTag> lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
+
+            foreach (JavaScriptTag tagJs in lstJsOrdenado)
+            {
+                if (tagJs == null)
                 {
-                    return;
+                    continue;
                 }
 
-                this.addJs(this.lstJs);
-                this.addJs(this.tagJs);
-
-                lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
-
-                foreach (JavaScriptTag tagJs in lstJsOrdenado)
-                {
-                    if (tagJs == null)
-                    {
-                        continue;
-                    }
-
-                    tagJs.setPai(this.tagHead);
-                }
+                tagJs.setPai(this.tagHead);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private string getStrTituloFormatado()
         {
-            #region Variáveis
+            string strResultado = "_titulo - _app_nome";
 
-            string strResultado;
+            strResultado = strResultado.Replace("_titulo", this.strTitulo);
+            strResultado = strResultado.Replace("_app_nome", AppWeb.i.strNome);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                strResultado = "_titulo - _app_nome";
-
-                strResultado = strResultado.Replace("_titulo", this.strTitulo);
-                strResultado = strResultado.Replace("_app_nome", AppWeb.i.strNome);
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            return strResultado;
         }
 
         private void iniciar()
