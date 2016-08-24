@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NetZ.Persistencia;
+using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Server;
 
 namespace NetZ.Web.DataBase.Tabela
@@ -16,6 +18,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         private Coluna _clnIntUsuarioId;
         private Coluna _clnStrNome;
+        private Coluna _clnStrTitulo;
 
         public static TblFavorito i
         {
@@ -62,6 +65,21 @@ namespace NetZ.Web.DataBase.Tabela
             }
         }
 
+        public Coluna clnStrTitulo
+        {
+            get
+            {
+                if (_clnStrTitulo != null)
+                {
+                    return _clnStrTitulo;
+                }
+
+                _clnStrTitulo = new Coluna("str_titulo", this, Coluna.EnmTipo.TEXT);
+
+                return _clnStrTitulo;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -85,10 +103,40 @@ namespace NetZ.Web.DataBase.Tabela
 
             this.clnIntUsuarioId.intValor = objSolicitacao.objUsuario.intId;
             this.clnStrNome.strValor = tbl.strNomeSql;
+            this.clnStrTitulo.strValor = tbl.strNomeExibicao;
 
             this.salvar();
 
             this.liberar();
+        }
+
+        internal void pesquisarFavorito(int intUsuarioId, Interlocutor objInterlocutor)
+        {
+            if (intUsuarioId < 1)
+            {
+                return;
+            }
+
+            if (objInterlocutor == null)
+            {
+                return;
+            }
+
+            List<FavoritoDominio> lstObjFavorito = this.pesquisarDominio<FavoritoDominio>(this.clnIntUsuarioId, intUsuarioId);
+
+            if (lstObjFavorito == null)
+            {
+                return;
+            }
+
+            if (lstObjFavorito.Count < 8)
+            {
+                objInterlocutor.objData = lstObjFavorito;
+            }
+            else
+            {
+                objInterlocutor.objData = lstObjFavorito.Take(8);
+            }
         }
 
         internal bool verificarFavorito(int intUsuarioId, string strTblNomeSql)
@@ -117,6 +165,7 @@ namespace NetZ.Web.DataBase.Tabela
 
             this.clnIntUsuarioId.intOrdem += intOrdem;
             this.clnStrNome.intOrdem += intOrdem;
+            this.clnStrTitulo.intOrdem += intOrdem;
 
             return intOrdem;
         }

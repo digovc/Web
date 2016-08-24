@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AppWeb.cs" />
     <Compile Include="ConfigWeb.cs" />
+    <Compile Include="DataBase\Dominio\FavoritoDominio.cs" />
     <Compile Include="DataBase\Tabela\TblFavorito.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />
     <Compile Include="DataBase\Tabela\TblFiltroItem.cs" />

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
@@ -17,30 +17,12 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divContainer != null)
                 {
-                    if (_divContainer != null)
-                    {
-                        return _divContainer;
-                    }
-
-                    _divContainer = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divContainer;
                 }
 
-                #endregion Ações
+                _divContainer = new Div();
 
                 return _divContainer;
             }
@@ -54,94 +36,58 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(DivFavorito), 111));
+            lstJs.Add(new JavaScriptTag(typeof(DominioWeb), 101));
+            lstJs.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.strId = "divFavorito";
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.divContainer.setPai(this);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divContainer.setPai(this);
-
-                this.montarLayoutItem();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.montarLayoutItem();
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setBottom(0));
+            this.addCss(css.setLeft(0));
+            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setRight(0));
+            this.addCss(css.setTop(0));
+            this.addCss(css.setZIndex(-1));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setHeight(100, "%"));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setWidth(100, "%"));
-                this.addCss(css.setZIndex(-1));
-
-                this.divContainer.addCss(css.setBottom(0));
-                this.divContainer.addCss(css.setCenter());
-                this.divContainer.addCss(css.setHeight(380));
-                this.divContainer.addCss(css.setLeft(0));
-                this.divContainer.addCss(css.setPosition("absolute"));
-                this.divContainer.addCss(css.setRight(0));
-                this.divContainer.addCss(css.setTop(0));
-                this.divContainer.addCss(css.setWidth(380));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divContainer.addCss(css.setBottom(0));
+            this.divContainer.addCss(css.setCenter());
+            this.divContainer.addCss(css.setHeight(380));
+            this.divContainer.addCss(css.setLeft(0));
+            this.divContainer.addCss(css.setPosition("absolute"));
+            this.divContainer.addCss(css.setRight(0));
+            this.divContainer.addCss(css.setTop(0));
+            this.divContainer.addCss(css.setWidth(380));
         }
 
         private void montarLayoutItem()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            for (int i = 0; i < 9; i++)
             {
-                for (int i = 0; i < 9; i++)
-                {
-                    new DivFavoritoItem().setPai(this.divContainer);
-                }
+                new DivFavoritoItem(i).setPai(this.divContainer);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         #endregion Métodos

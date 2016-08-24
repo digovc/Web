@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
@@ -11,36 +10,34 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Atributos
 
+        private Div _divTitulo;
         private Imagem _imgIcone;
+
+        private Div divTitulo
+        {
+            get
+            {
+                if (_divTitulo != null)
+                {
+                    return _divTitulo;
+                }
+
+                _divTitulo = new Div();
+
+                return _divTitulo;
+            }
+        }
 
         private Imagem imgIcone
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_imgIcone != null)
                 {
-                    if (_imgIcone != null)
-                    {
-                        return _imgIcone;
-                    }
-
-                    _imgIcone = new Imagem();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _imgIcone;
                 }
 
-                #endregion Ações
+                _imgIcone = new Imagem();
 
                 return _imgIcone;
             }
@@ -50,90 +47,71 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Construtores
 
+        public DivFavoritoItem(int intIndex)
+        {
+            this.strId = string.Format("divFavoritoItem_{0}", intIndex);
+        }
+
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(DivFavoritoItem), 111));
+        }
+
+        protected override void atualizarStrId()
+        {
+            base.atualizarStrId();
+
+            if (string.IsNullOrEmpty(this.strId))
+            {
+                return;
+            }
+
+            this.divTitulo.strId = (this.strId + "_divTitulo");
+            this.imgIcone.strId = (this.strId + "_imgIcone");
+        }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.imgIcone.src = "res/media/png/btn_favorito_novo_80x80.png";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.imgIcone.src = "/res/media/png/btn_favorito_novo_80x80.png";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            #region Variáveis
+            this.imgIcone.setPai(this);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.imgIcone.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divTitulo.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setFloat("left"));
+            this.addCss(css.setHeight(32, "%"));
+            this.addCss(css.setPosition("relative"));
+            this.addCss(css.setWidth(32, "%"));
 
-            #endregion Variáveis
+            this.divTitulo.addCss(css.setBottom(0));
+            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divTitulo.addCss(css.setLeft(0));
+            this.divTitulo.addCss(css.setPosition("absolute"));
+            this.divTitulo.addCss(css.setRight(0));
+            this.divTitulo.addCss(css.setTextAlign("center"));
 
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setFloat("left"));
-                this.addCss(css.setHeight(32, "%"));
-                this.addCss(css.setWidth(32, "%"));
-                
-                this.imgIcone.addCss(css.setCursor("pointer"));
-                this.imgIcone.addCss(css.setHeight(75, "%"));
-                this.imgIcone.addCss(css.setMargin(12.5m, "%"));
-                this.imgIcone.addCss(css.setWidth(75, "%"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.imgIcone.addCss(css.setCursor("pointer"));
+            this.imgIcone.addCss(css.setHeight(75, "%"));
+            this.imgIcone.addCss(css.setMargin(12.5m, "%"));
+            this.imgIcone.addCss(css.setWidth(75, "%"));
         }
 
         #endregion Métodos

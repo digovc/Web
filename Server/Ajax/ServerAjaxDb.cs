@@ -30,6 +30,7 @@ namespace NetZ.Web.Server.Ajax
         public const string STR_METODO_SALVAR = "SALVAR";
         public const string STR_METODO_SALVAR_DOMINIO = "SALVAR_DOMINIO";
         public const string STR_METODO_TABELA_FAVORITO_ADD = "TABELA_FAVORITO_ADD";
+        public const string STR_METODO_TABELA_FAVORITO_PESQUISAR = "TABELA_FAVORITO_PESQUISAR";
         public const string STR_METODO_TABELA_FAVORITO_VERIFICAR = "TABELA_FAVORITO_VERIFICAR";
 
         #endregion Constantes
@@ -150,6 +151,10 @@ namespace NetZ.Web.Server.Ajax
                     this.favoritarTabela(objSolicitacao, objInterlocutor);
                     return true;
 
+                case STR_METODO_TABELA_FAVORITO_PESQUISAR:
+                    this.pesquisarFavorito(objSolicitacao, objInterlocutor);
+                    return true;
+
                 case STR_METODO_TABELA_FAVORITO_VERIFICAR:
                     this.verificarFavorito(objSolicitacao, objInterlocutor);
                     return true;
@@ -158,14 +163,14 @@ namespace NetZ.Web.Server.Ajax
             return false;
         }
 
-        private void verificarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        private void pesquisarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (objInterlocutor.objData == null)
+            if (objSolicitacao.objUsuario == null)
             {
                 return;
             }
 
-            if (objSolicitacao.objUsuario == null)
+            if (!objSolicitacao.objUsuario.booLogado)
             {
                 return;
             }
@@ -175,14 +180,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
-
-            if (tbl == null)
-            {
-                return;
-            }
-
-            objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.strNomeSql);
+            TblFavorito.i.pesquisarFavorito(objSolicitacao.objUsuario.intId, objInterlocutor);
         }
 
         protected virtual bool validarAbrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
@@ -658,6 +656,33 @@ namespace NetZ.Web.Server.Ajax
             this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
 
             tbl.salvarWeb(tblWeb);
+        }
+
+        private void verificarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (objInterlocutor.objData == null)
+            {
+                return;
+            }
+
+            if (objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (objSolicitacao.objUsuario.intId < 1)
+            {
+                return;
+            }
+
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.strNomeSql);
         }
 
         #endregion Métodos
