@@ -157,7 +157,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.addAtt("src_js", JavaScriptTag.getSrc(this.GetType()));
 
-            this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
+            this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.MEDIO;
 
             this.carregarDados();
         }
