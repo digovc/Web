@@ -136,13 +136,13 @@ namespace NetZ.Web.Html.Componente.Campo
             this.btnAcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.btnAcao.addCss(css.setHeight(25));
             this.btnAcao.addCss(css.setPosition("absolute"));
-            this.btnAcao.addCss(css.setRight(-100));
+            this.btnAcao.addCss(css.setRight(-115));
             this.btnAcao.addCss(css.setTop(-3));
             this.btnAcao.addCss(css.setWidth(25));
 
             this.cmb.addCss(css.setDisplay("none"));
 
-            this.divInputContainer.addCss(css.setMarginRight(95));
+            this.divInputContainer.addCss(css.setMarginRight(110));
 
             this.txtIntId.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.txtIntId.addCss(css.setHeight(19));
@@ -150,7 +150,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.txtIntId.addCss(css.setPosition("absolute"));
             this.txtIntId.addCss(css.setTextAlign("center"));
             this.txtIntId.addCss(css.setTop(-3));
-            this.txtIntId.addCss(css.setWidth(65));
+            this.txtIntId.addCss(css.setWidth(80));
 
             this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.txtPesquisa.addCss(css.setBorder(0));
