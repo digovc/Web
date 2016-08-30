@@ -265,7 +265,7 @@ namespace NetZ.Web.Html
 
             lstJs.Add(new JavaScriptTag(typeof(Input), 110));
 
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/OnValorAlteradoArg.js", 110));
+            lstJs.Add(new JavaScriptTag("res/js/web/OnValorAlteradoArg.js", 110));
         }
 
         protected void atualizarStrValor()
