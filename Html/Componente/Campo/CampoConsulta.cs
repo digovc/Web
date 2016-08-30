@@ -182,9 +182,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private void atualizarClnClnRefStrTitulo()
         {
-            string strTitulo = "cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
+            string strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
 
-            strTitulo = strTitulo.Replace("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
+            strTitulo = strTitulo.Replace("_cln_ref_nome_exibicao", this.cln.booNomeExibicaoAutomatico ? this.cln.clnRef.tbl.strNomeExibicao : this.cln.strNomeExibicao);
             strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", this.cln.clnRef.tbl.viwPrincipal.clnNome.strNomeExibicao);
 
             this.strTitulo = strTitulo;
