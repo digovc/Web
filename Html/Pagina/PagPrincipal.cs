@@ -163,13 +163,13 @@ namespace NetZ.Web.Html.Pagina
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.fixedheadertable.min.js"));
                 lstJs.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
 
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ColunaWeb.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/FiltroWeb.js", 101));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ParValorNome.js", 300));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js", 102));
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TblFiltro.js", 300));
+                lstJs.Add(new JavaScriptTag("res/js/web/database/ColunaWeb.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/web/database/FiltroWeb.js", 101));
+                lstJs.Add(new JavaScriptTag("res/js/web/database/ParValorNome.js", 300));
+                lstJs.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js", 102));
+                lstJs.Add(new JavaScriptTag("res/js/web/database/TblFiltro.js", 300));
 
-                lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/componente/grid/OnGridMenuClickArg.js", 300));
+                lstJs.Add(new JavaScriptTag("res/js/web/html/componente/grid/OnGridMenuClickArg.js", 300));
             }
             catch (Exception ex)
             {
