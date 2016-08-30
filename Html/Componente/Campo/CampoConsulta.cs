@@ -200,6 +200,8 @@ namespace NetZ.Web.Html.Componente.Campo
             this.cln.clnRef.tbl.viwPrincipal.recuperar(this.tagInput.intValor);
 
             this.cmb.addOpcao(this.cln.intValor, this.cln.clnRef.tbl.viwPrincipal.clnNome.strValor);
+
+            this.cln.clnRef.tbl.viwPrincipal.liberar();
         }
 
         #endregion Métodos
