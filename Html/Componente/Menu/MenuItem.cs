@@ -252,7 +252,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setMinHeight(50));
 
             this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
-            this.divIcone.addCss(css.setBorder(1, "solid", "rgb(130,202,156)"));
+            this.divIcone.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corTema));
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setMarginLeft(5));
             this.divIcone.addCss(css.setMarginRight(15));

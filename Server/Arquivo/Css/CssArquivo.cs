@@ -558,6 +558,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("text-shadow", string.Format("{0}px {1}px {2}px {3}", intX, intY, intBlur, cor));
         }
 
+        public string setTextShadow(int intX, int intY, int intBlur, Color cor)
+        {
+            return this.addCss("text-shadow", string.Format("{0}px {1}px {2}px {3}", intX, intY, intBlur, this.corToRgba(cor)));
+        }
+
         public string setTop(int intTop, string strGrandeza = "px")
         {
             return this.addCss("top", string.Format("{0}{1}", intTop, strGrandeza));

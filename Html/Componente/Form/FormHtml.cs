@@ -465,7 +465,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         private void finalizarCssNivelComando(CssArquivo css, PainelNivel pnlNivelComando)
         {
-            pnlNivelComando.addCss(css.setBackgroundColor("rgb(130,202,156)"));
+            pnlNivelComando.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
         }
 
         private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)

@@ -62,7 +62,7 @@ namespace NetZ.Web.Html.Componente
             this.addCss(css.setBorderRadius(5));
             this.addCss(css.setHeight(5));
 
-            this.divProgresso.addCss(css.setBackgroundColor("rgb(130,202,156)"));
+            this.divProgresso.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
             this.divProgresso.addCss(css.setBorderRadius(5));
             this.divProgresso.addCss(css.setHeight(100, "%"));
         }

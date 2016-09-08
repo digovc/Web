@@ -272,7 +272,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+                this.divGaveta.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
                 this.divGaveta.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corSombra));
                 this.divGaveta.addCss(css.setBorderLeft(1, "solid", AppWeb.i.objTema.corSombra));
                 this.divGaveta.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corSombra));

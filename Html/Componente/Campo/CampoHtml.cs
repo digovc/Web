@@ -382,7 +382,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divInputContainer.addCss(css.setRight(10));
             this.divInputContainer.addCss(css.setTextAlign("left"));
 
-            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setFontSize(14));
             this.divTitulo.addCss(css.setHeight(15));
             this.divTitulo.addCss(css.setLineHeight(15));
