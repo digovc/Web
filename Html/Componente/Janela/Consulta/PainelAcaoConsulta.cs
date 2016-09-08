@@ -53,6 +53,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
+        }
+
         protected override void atualizarStrId()
         {
             base.atualizarStrId();
@@ -60,13 +67,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
 
             this.btnAlterar.strId = (this.strId + "_btnAlterar");
-        }
-
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
         }
 
         protected override void inicializar()
