@@ -102,12 +102,11 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setWidth(32, "%"));
 
             this.divTitulo.addCss(css.setBottom(0));
-            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corFonte));
+            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setLeft(0));
             this.divTitulo.addCss(css.setPosition("absolute"));
             this.divTitulo.addCss(css.setRight(0));
             this.divTitulo.addCss(css.setTextAlign("center"));
-            this.divTitulo.addCss(css.setTextShadow(0, 0, 3, AppWeb.i.objTema.corSombra));
 
             this.imgIcone.addCss(css.setCursor("pointer"));
             this.imgIcone.addCss(css.setHeight(75, "%"));
