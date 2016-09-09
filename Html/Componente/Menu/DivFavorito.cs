@@ -36,13 +36,13 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(DivFavorito), 111));
-            lstJs.Add(new JavaScriptTag(typeof(DominioWeb), 101));
-            lstJs.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(DivFavorito), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(DominioWeb), 101));
+            lstJsDebug.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
         }
 
         protected override void inicializar()

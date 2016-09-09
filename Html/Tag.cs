@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
@@ -686,7 +687,7 @@ namespace NetZ.Web.Html
         /// <param name="lstJs">
         /// Lista de <see cref="JavaScriptTag"/> que será carregada pelo browser do usuário.
         /// </param>
-        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
+        protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
         }
 
@@ -748,10 +749,15 @@ namespace NetZ.Web.Html
         protected virtual void inicializar()
         {
             this.addCss(PaginaHtml.i.lstCss);
-            this.addJs(PaginaHtml.i.lstJs);
+            this.addJsLib(PaginaHtml.i.lstJsLib);
+            this.addJsDebug(PaginaHtml.i.lstJsDebug);
             this.addJs(PaginaHtml.i.tagJs);
 
             this.inicializarClazz();
+        }
+
+        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
+        {            
         }
 
         protected virtual void montarLayout()

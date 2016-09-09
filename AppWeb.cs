@@ -5,6 +5,7 @@ using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
+using NetZ.Web.Html;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -36,6 +37,7 @@ namespace NetZ.Web
         private List<ServerBase> _lstSrv;
         private List<Tabela> _lstTbl;
         private object _objLstObjUsuarioLock;
+        private JavaScriptTag _tagJsRelease;
 
         public new static AppWeb i
         {
@@ -108,6 +110,21 @@ namespace NetZ.Web
             }
         }
 
+        internal JavaScriptTag tagJsRelease
+        {
+            get
+            {
+                if (_tagJsRelease != null)
+                {
+                    return _tagJsRelease;
+                }
+
+                _tagJsRelease = this.getTagJsRelease();
+
+                return _tagJsRelease;
+            }
+        }
+
         private List<ServerBase> lstSrv
         {
             get
@@ -161,6 +178,11 @@ namespace NetZ.Web
         #endregion Construtores
 
         #region Métodos
+
+        public virtual Persistencia.DataBase getObjDbPrincipal()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Pesquisa na lista de tabelas da aplicação a que corresponde a <paramref name="tblWeb"/>,
@@ -269,11 +291,6 @@ namespace NetZ.Web
             this.lstObjUsuario.Add(objUsuario);
         }
 
-        public virtual Persistencia.DataBase getObjDbPrincipal()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Busca o usuário que pertence a <param name="strSessaoId"/>.
         /// </summary>
@@ -345,6 +362,11 @@ namespace NetZ.Web
         }
 
         protected abstract ConfigWeb getObjConfig();
+
+        protected virtual JavaScriptTag getTagJsRelease()
+        {
+            return null;
+        }
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
 
