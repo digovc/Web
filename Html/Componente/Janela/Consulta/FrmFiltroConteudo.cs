@@ -172,7 +172,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             cmpFiltro.booMostrarTituloSempre = true;
             cmpFiltro.cln = clnFiltrada;
-            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.NORMAL;
+            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
             cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);
 
             cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql]));
@@ -188,49 +188,20 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return this.inicializarLstCmpFiltroOpcao(clnFiltrada);
             }
 
-            switch (clnFiltrada.enmTipo)
+            switch (clnFiltrada.enmGrupo)
             {
-                case Coluna.EnmTipo.BIGINT:
-                case Coluna.EnmTipo.BIGSERIAL:
-                case Coluna.EnmTipo.BYTEA:
-                case Coluna.EnmTipo.INTEGER:
-                case Coluna.EnmTipo.SERIAL:
-                case Coluna.EnmTipo.SMALLINT:
-                    return new CampoNumerico();
-
-                case Coluna.EnmTipo.BLOB:
-                    return null;
-
-                case Coluna.EnmTipo.BOOLEAN:
-                case Coluna.EnmTipo.BOOLEAN_ANTIGO:
-                    return null;
-
-                case Coluna.EnmTipo.CHAR:
-                case Coluna.EnmTipo.TEXT:
-                case Coluna.EnmTipo.VARCHAR:
+                case Coluna.EnmGrupo.ALFANUMERICO:
                     return new CampoAlfanumerico();
 
-                case Coluna.EnmTipo.DATE:
-                    return null;
+                case Coluna.EnmGrupo.BOOLEANO:
+                    return new CampoCheckBox();
 
-                case Coluna.EnmTipo.DECIMAL:
-                case Coluna.EnmTipo.DOUBLE:
-                case Coluna.EnmTipo.FLOAT:
-                case Coluna.EnmTipo.MONEY:
-                case Coluna.EnmTipo.NUMERIC:
+                case Coluna.EnmGrupo.NUMERICO_INTEIRO:
+                case Coluna.EnmGrupo.NUMERICO_PONTO_FLUTUANTE:
                     return new CampoNumerico();
 
-                case Coluna.EnmTipo.INET:
-                    return null;
-
-                case Coluna.EnmTipo.TIME:
-                    return null;
-
-                case Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE:
-                    return null;
-
-                case Coluna.EnmTipo.XML:
-                    return null;
+                case Coluna.EnmGrupo.TEMPORAL:
+                    return new CampoDataHora();
 
                 default:
                     return null;
