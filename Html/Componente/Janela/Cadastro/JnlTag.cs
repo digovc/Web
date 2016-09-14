@@ -194,7 +194,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            ColunaWeb clnWebIntId = this.tblWeb.getClnWeb(this.tbl.clnIntId.strNomeSql);
+            ColunaWeb clnWebIntId = this.tblWeb.getClnWeb(this.tbl.clnIntId.sqlNome);
 
             if (clnWebIntId == null)
             {
@@ -203,7 +203,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             string strId = "jnlTag__tbl_nome__int_registro_id";
 
-            strId = strId.Replace("_tbl_nome", this.tbl.strNomeSql);
+            strId = strId.Replace("_tbl_nome", this.tbl.sqlNome);
             strId = strId.Replace("_int_registro_id", clnWebIntId.strValor);
 
             this.strId = strId;

@@ -216,8 +216,8 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-            this.addAtt("viw_web_nome", this.tbl.viwPrincipal.strNomeSql);
+            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
+            this.addAtt("viw_web_nome", this.tbl.viwPrincipal.sqlNome);
 
             this.atualizarTblLstViw();
         }

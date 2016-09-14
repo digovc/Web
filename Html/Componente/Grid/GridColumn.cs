@@ -75,12 +75,12 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            if (this.row[this.cln.strNomeSql] == null)
+            if (this.row[this.cln.sqlNome] == null)
             {
                 return;
             }
 
-            this.cln.strValor = this.row[this.cln.strNomeSql].ToString();
+            this.cln.strValor = this.row[this.cln.sqlNome].ToString();
             this.strConteudo = this.cln.strValorExibicao;
         }
 

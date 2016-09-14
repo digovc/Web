@@ -159,10 +159,10 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            this.strId = ("tagGridHtml_" + this.tbl.strNomeSql);
+            this.strId = ("tagGridHtml_" + this.tbl.sqlNome);
 
-            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.strNomeSql);
+            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
+            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.sqlNome);
         }
 
         protected override void montarLayout()

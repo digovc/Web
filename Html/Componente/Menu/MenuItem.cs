@@ -219,7 +219,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             this.strTitulo = this.tbl.strNomeExibicao;
 
-            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
         }
 
         private void setCssFilho(CssArquivo css)

@@ -84,7 +84,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFavorito() : base("tbl_favorito")
+        private TblFavorito() : base(AppWeb.i.dbe, "tbl_favorito")
         {
         }
 
@@ -102,7 +102,7 @@ namespace NetZ.Web.DataBase.Tabela
             this.limparDados();
 
             this.clnIntUsuarioId.intValor = objSolicitacao.objUsuario.intId;
-            this.clnStrNome.strValor = tbl.strNomeSql;
+            this.clnStrNome.strValor = tbl.sqlNome;
             this.clnStrTitulo.strValor = tbl.strNomeExibicao;
 
             this.salvar();

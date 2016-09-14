@@ -237,7 +237,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.addAtt("cln_web_arquivo_modificacao_nome", this.tblArquivo.getClnDttArquivoModificacao().strNomeSql);
+            this.addAtt("cln_web_arquivo_modificacao_nome", this.tblArquivo.getClnDttArquivoModificacao().sqlNome);
         }
 
         private void atualizarTblArquivoNome()
@@ -247,7 +247,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.addAtt("cln_web_arquivo_nome_nome", this.tblArquivo.getClnStrArquivoNome().strNomeSql);
+            this.addAtt("cln_web_arquivo_nome_nome", this.tblArquivo.getClnStrArquivoNome().sqlNome);
         }
 
         private void atualizarTblArquivoTamanho()
@@ -257,7 +257,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.addAtt("cln_web_arquivo_tamanho_nome", this.tblArquivo.getClnIntArquivoTamanho().strNomeSql);
+            this.addAtt("cln_web_arquivo_tamanho_nome", this.tblArquivo.getClnIntArquivoTamanho().sqlNome);
         }
 
         #endregion Métodos

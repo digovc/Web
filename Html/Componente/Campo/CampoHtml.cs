@@ -297,7 +297,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.addAtt("cln_web_nome", this.cln.strNomeSql);
+            this.addAtt("cln_web_nome", this.cln.sqlNome);
             this.addAtt("str_dica", this.cln.strDica);
 
             this.booObrigatorio = this.cln.booObrigatorio;
@@ -424,7 +424,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             string strId = "cmp__cln_nome__obj_id";
 
-            strId = strId.Replace("_cln_nome", this.cln.strNomeSql);
+            strId = strId.Replace("_cln_nome", this.cln.sqlNome);
             strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
 
             this.strId = strId;

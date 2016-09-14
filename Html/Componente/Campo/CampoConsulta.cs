@@ -177,7 +177,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.atualizarClnClnRefStrValor();
 
             this.addAtt("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
-            this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.strNomeSql);
+            this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.sqlNome);
         }
 
         private void atualizarClnClnRefStrTitulo()

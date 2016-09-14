@@ -92,13 +92,23 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             string strResultado = "_cln_filtrada_nome (_operador_nome)";
 
             strResultado = strResultado.Replace("_cln_filtrada_nome", clnFiltrada.strNomeExibicao);
-            strResultado = strResultado.Replace("_operador_nome", Filtro.getStrOperadorNome(Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql])));
+            strResultado = strResultado.Replace("_operador_nome", Filtro.getStrOperadorNome(Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.sqlNome])));
 
             return strResultado;
         }
 
         private Tabela getTblFiltrada()
         {
+            if (AppWeb.i == null)
+            {
+                return null;
+            }
+
+            if (AppWeb.i.dbe == null)
+            {
+                return null;
+            }
+
             if (this.intFiltroId < 1)
             {
                 return null;
@@ -106,7 +116,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             TblFiltro.i.recuperar(this.intFiltroId);
 
-            return AppWeb.i.getTbl(TblFiltro.i.clnStrTabelaNome.strValor);
+            return AppWeb.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
         }
 
         private void inicializarLstCmpFiltro()
@@ -146,12 +156,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            if (DBNull.Value.Equals(row[TblFiltroItem.i.clnStrColunaNome.strNomeSql]))
+            if (DBNull.Value.Equals(row[TblFiltroItem.i.clnStrColunaNome.sqlNome]))
             {
                 return;
             }
 
-            Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(row[TblFiltroItem.i.clnStrColunaNome.strNomeSql])];
+            Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(row[TblFiltroItem.i.clnStrColunaNome.sqlNome])];
 
             this.inicializarLstCmpFiltro(row, clnFiltrada);
         }
@@ -175,8 +185,8 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.NORMAL;
             cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);
 
-            cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql]));
-            cmpFiltro.addAtt("int_filtro_item_id", Convert.ToInt32(row[TblFiltroItem.i.clnIntId.strNomeSql]));
+            cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.sqlNome]));
+            cmpFiltro.addAtt("int_filtro_item_id", Convert.ToInt32(row[TblFiltroItem.i.clnIntId.sqlNome]));
 
             this.lstCmpFiltro.Add(cmpFiltro);
         }
