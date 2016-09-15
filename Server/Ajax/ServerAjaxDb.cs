@@ -641,7 +641,7 @@ namespace NetZ.Web.Server.Ajax
             MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
             MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
 
-            Dominio objDominio = (Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.objData });
+            DominioBase objDominio = (DominioBase)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.objData });
 
             if (objDominio == null)
             {
