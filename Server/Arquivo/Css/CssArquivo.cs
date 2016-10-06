@@ -223,7 +223,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("background-size", css);
         }
 
-        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = null)
+        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "gray")
         {
             return this.addCss("border", string.Format("{0}px {1} {2}", intBorderPx, strTipo, cor));
         }
