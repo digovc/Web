@@ -18,9 +18,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
             #region Variáveis
 
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(CampoRadioButton), 130));
+                lstJsDebug.Add(new JavaScriptTag(typeof(CampoRadioButton), 130));
             }
             catch (Exception ex)
             {

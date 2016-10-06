@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace NetZ.Web.Html
@@ -34,30 +33,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_lst != null)
                 {
-                    if (_lst != null)
-                    {
-                        return _lst;
-                    }
-
-                    _lst = new List<T>();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _lst;
                 }
 
-                #endregion Ações
+                _lst = new List<T>();
 
                 return _lst;
             }
@@ -73,35 +54,17 @@ namespace NetZ.Web.Html
 
         public void Add(T tag)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tag == null)
             {
-                if (tag == null)
-                {
-                    return;
-                }
-
-                if (!string.IsNullOrEmpty(tag.src) && (this.lst.FindIndex(i => tag.src.Equals(i.src)) > -1))
-                {
-                    return;
-                }
-
-                this.lst.Add(tag);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            if (!string.IsNullOrEmpty(tag.src) && (this.lst.FindIndex(i => tag.src.Equals(i.src)) > -1))
+            {
+                return;
+            }
+
+            this.lst.Add(tag);
         }
 
         public void Clear()

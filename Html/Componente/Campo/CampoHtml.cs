@@ -283,11 +283,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoHtml), 130));
         }
 
         protected virtual void atualizarCln()
@@ -382,7 +382,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divInputContainer.addCss(css.setRight(10));
             this.divInputContainer.addCss(css.setTextAlign("left"));
 
-            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setFontSize(14));
             this.divTitulo.addCss(css.setHeight(15));
             this.divTitulo.addCss(css.setLineHeight(15));

@@ -215,14 +215,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void abrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-            }
             if (tblWeb == null)
             {
                 return;
@@ -233,7 +225,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[tblWeb.strNome];
+            Tabela tbl = AppWeb.i.getTbl(tblWeb.strNome);
 
             if (tbl == null)
             {
@@ -324,16 +316,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void abrirConsulta(Interlocutor objInterlocutor, Solicitacao objSolicitacao, TabelaWeb tblWeb)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (tblWeb == null)
             {
                 return;
@@ -344,7 +326,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[tblWeb.strNome];
+            Tabela tbl = AppWeb.i.getTbl(tblWeb.strNome);
 
             if (tbl == null)
             {
@@ -361,16 +343,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void abrirJnlTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (tblWeb == null)
             {
                 return;
@@ -381,7 +353,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[tblWeb.strNome];
+            Tabela tbl = AppWeb.i.getTbl(tblWeb.strNome);
 
             if (tbl == null)
             {
@@ -419,17 +391,7 @@ namespace NetZ.Web.Server.Ajax
 
         private void carregarTbl(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
-            Tabela tbl = AppWeb.i.dbe[objInterlocutor.objData.ToString()];
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
 
             if (tbl == null)
             {
@@ -441,16 +403,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void favoritarTabela(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (objSolicitacao.objUsuario == null)
             {
                 return;
@@ -466,7 +418,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[objInterlocutor.objData.ToString()];
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
 
             if (tbl == null)
             {
@@ -490,22 +442,12 @@ namespace NetZ.Web.Server.Ajax
 
         private void pesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (tblWeb == null)
             {
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[tblWeb.strNome];
+            Tabela tbl = AppWeb.i.getTbl(tblWeb);
 
             if (tbl == null)
             {
@@ -610,16 +552,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void salvarDominio(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (string.IsNullOrEmpty(objInterlocutor.objData.ToString()))
             {
                 return;
@@ -630,7 +562,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe.getTblPorDominio(objInterlocutor.strClazz);
+            Tabela tbl = AppWeb.i.getTblPorDominio(objInterlocutor.strClazz);
 
             if (tbl == null)
             {
@@ -641,7 +573,7 @@ namespace NetZ.Web.Server.Ajax
             MethodInfo objMethodInfo = typeof(Json).GetMethod("fromJson");
             MethodInfo objMethodInfoGeneric = objMethodInfo.MakeGenericMethod(tbl.clsDominio);
 
-            DominioBase objDominio = (DominioBase)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.objData });
+            Dominio objDominio = (Dominio)objMethodInfoGeneric.Invoke(Json.i, new object[] { objInterlocutor.objData });
 
             if (objDominio == null)
             {
@@ -675,16 +607,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void salvarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (objSolicitacao == null)
             {
                 return;
@@ -715,7 +637,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[tblWeb.strNome];
+            Tabela tbl = AppWeb.i.getTbl(tblWeb);
 
             if (tbl == null)
             {
@@ -728,32 +650,24 @@ namespace NetZ.Web.Server.Ajax
             }
 
             // TODO: Reavaliar a necessidade de carregar os valores destas colunas.
-            tblWeb.getClnWeb(tbl.clnDttAlteracao.sqlNome).dttValor = DateTime.Now;
-            tblWeb.getClnWeb(tbl.clnIntUsuarioAlteracaoId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
+            tblWeb.getClnWeb(tbl.clnDttAlteracao.strNomeSql).dttValor = DateTime.Now;
+            tblWeb.getClnWeb(tbl.clnIntUsuarioAlteracaoId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
 
-            if (0.Equals(tblWeb.getClnWeb(tbl.clnIntId.sqlNome).intValor))
+            if (0.Equals(tblWeb.getClnWeb(tbl.clnIntId.strNomeSql).intValor))
             {
-                tblWeb.getClnWeb(tbl.clnDttCadastro.sqlNome).dttValor = DateTime.Now;
-                tblWeb.getClnWeb(tbl.clnIntUsuarioCadastroId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
+                tblWeb.getClnWeb(tbl.clnDttCadastro.strNomeSql).dttValor = DateTime.Now;
+                tblWeb.getClnWeb(tbl.clnIntUsuarioCadastroId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
             }
 
             this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
 
             tbl.salvarWeb(tblWeb);
+
+            tbl.liberar();
         }
 
         private void salvarTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (AppWeb.i == null)
-            {
-                return;
-            }
-
-            if (AppWeb.i.dbe == null)
-            {
-                return;
-            }
-
             if (objSolicitacao.objUsuario == null)
             {
                 return;
@@ -781,14 +695,14 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[tblWeb.strNome];
+            Tabela tbl = AppWeb.i.getTbl(tblWeb);
 
             if (tbl == null)
             {
                 return;
             }
 
-            tbl.salvarTag(tblWeb.clnWebIntId.intValor, tblWeb.getClnWeb(tbl.clnStrTag.sqlNome).strValor);
+            tbl.salvarTag(tblWeb.clnWebIntId.intValor, tblWeb.getClnWeb(tbl.clnStrTag.strNomeSql).strValor);
         }
 
         private void verificarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -808,14 +722,16 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Tabela tbl = AppWeb.i.dbe[objInterlocutor.objData.ToString()];
+            Tabela tbl = AppWeb.i.getTbl(objInterlocutor.objData.ToString());
 
             if (tbl == null)
             {
                 return;
             }
 
-            objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.sqlNome);
+            objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.strNomeSql);
+
+            TblFavorito.i.liberar();
         }
 
         #endregion Métodos

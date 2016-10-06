@@ -129,13 +129,13 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
+            lstJsDebug.Add(new JavaScriptTag(typeof(MenuItem), 151));
 
-            lstJs.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
@@ -252,7 +252,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setMinHeight(50));
 
             this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
-            this.divIcone.addCss(css.setBorder(1, "solid", "rgb(130,202,156)"));
+            this.divIcone.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corTema));
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setMarginLeft(5));
             this.divIcone.addCss(css.setMarginRight(15));

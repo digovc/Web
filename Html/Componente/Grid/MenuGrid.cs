@@ -112,31 +112,37 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
+            this.addCss(css.setBackgroundImage("/res/media/png/base_btn_grid.png"));
+            this.addCss(css.setBackgroundPosition("center"));
+            this.addCss(css.setBackgroundRepeat("no-repeat"));
+            this.addCss(css.setDisplay("none"));
+            this.addCss(css.setHeight(100));
             this.addCss(css.setLeft(350));
             this.addCss(css.setPosition("absolute"));
             this.addCss(css.setTop(150));
+            this.addCss(css.setWidth(130));
 
             this.btnMenu.addCss(css.setBackgroundImage("/res/media/png/btn_opcoes_30x30.png"));
             this.btnMenu.addCss(css.setPosition("absolute"));
-            this.btnMenu.addCss(css.setRight(-150));
-            this.btnMenu.addCss(css.setTop(-30));
+            this.btnMenu.addCss(css.setRight(-20));
+            this.btnMenu.addCss(css.setTop(0));
 
             this.btnApagar.addCss(css.setDisplay("none"));
             this.btnApagar.addCss(css.setLeft(75));
             this.btnApagar.addCss(css.setPosition("absolute"));
-            this.btnApagar.addCss(css.setTop(-50));
+            this.btnApagar.addCss(css.setTop(0));
 
             this.btnAlterar.addCss(css.setBackgroundImage("/res/media/png/btn_alterar_30x30.png"));
             this.btnAlterar.addCss(css.setBackgroundPosition("center"));
-            this.btnAlterar.addCss(css.setLeft(25));
+            this.btnAlterar.addCss(css.setLeft(0));
             this.btnAlterar.addCss(css.setPosition("absolute"));
-            this.btnAlterar.addCss(css.setTop(-30));
+            this.btnAlterar.addCss(css.setTop(0));
 
             this.btnAdicionar.addCss(css.setBackgroundImage("/res/media/png/btn_adicionar_30x30.png"));
             this.btnAdicionar.addCss(css.setBackgroundPosition("center"));
-            this.btnAdicionar.addCss(css.setLeft(5));
+            this.btnAdicionar.addCss(css.setLeft(-25));
             this.btnAdicionar.addCss(css.setPosition("absolute"));
-            this.btnAdicionar.addCss(css.setTop(20));
+            this.btnAdicionar.addCss(css.setTop(50));
         }
 
         #endregion Métodos

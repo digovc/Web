@@ -156,7 +156,11 @@ namespace NetZ.Web.DataBase.Tabela
             lstFil.Add(new Filtro(this.clnIntUsuarioId, intUsuarioId));
             lstFil.Add(new Filtro(this.clnStrNome, strTblNomeSql));
 
-            return (this.recuperar(lstFil).clnIntId.intValor > 0);
+            bool booResultado = (this.recuperar(lstFil).clnIntId.intValor > 0);
+
+            this.liberar();
+
+            return booResultado;
         }
 
         protected override int inicializarColunas(int intOrdem)

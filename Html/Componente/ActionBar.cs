@@ -84,11 +84,11 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(ActionBar), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ActionBar), 111));
         }
 
         protected override void inicializar()
