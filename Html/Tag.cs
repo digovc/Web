@@ -473,6 +473,22 @@ namespace NetZ.Web.Html
             }
         }
 
+        private object _lckLstAtt;
+
+        private object lckLstAtt
+        {
+            get
+            {
+                if (_lckLstAtt != null)
+                {
+                    return _lckLstAtt;
+                }
+
+                _lckLstAtt = new object();
+
+                return _lckLstAtt;
+            }
+        }
         #endregion Atributos
 
         #region Construtores
@@ -502,20 +518,23 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            foreach (Atributo att2 in this.lstAtt)
+            lock (this.lckLstAtt)
             {
-                if (att2 == null)
+                foreach (Atributo att2 in this.lstAtt)
                 {
-                    continue;
-                }
+                    if (att2 == null)
+                    {
+                        continue;
+                    }
 
-                if (!att2.strNome.ToLower().Equals(att.strNome.ToLower()))
-                {
-                    continue;
-                }
+                    if (!att2.strNome.ToLower().Equals(att.strNome.ToLower()))
+                    {
+                        continue;
+                    }
 
-                this.lstAtt.Remove(att2);
-                break;
+                    this.lstAtt.Remove(att2);
+                    break;
+                }
             }
 
             this.lstAtt.Add(att);
@@ -757,7 +776,7 @@ namespace NetZ.Web.Html
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
-        {            
+        {
         }
 
         protected virtual void montarLayout()
