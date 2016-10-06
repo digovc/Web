@@ -662,6 +662,8 @@ namespace NetZ.Web.Server.Ajax
             this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
 
             tbl.salvarWeb(tblWeb);
+
+            tbl.liberar();
         }
 
         private void salvarTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -728,6 +730,8 @@ namespace NetZ.Web.Server.Ajax
             }
 
             objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.strNomeSql);
+
+            TblFavorito.i.liberar();
         }
 
         #endregion Métodos

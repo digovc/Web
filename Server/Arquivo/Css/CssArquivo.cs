@@ -18,6 +18,7 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Atributos
 
         private CultureInfo _ctiUsa;
+        private object _lckLstAttCss;
         private List<AtributoCss> _lstAttCss;
         private StringBuilder _stbConteudo;
         private string _strHref;
@@ -55,6 +56,21 @@ namespace NetZ.Web.Server.Arquivo.Css
                 _ctiUsa = CultureInfo.CreateSpecificCulture("en-US");
 
                 return _ctiUsa;
+            }
+        }
+
+        private object lckLstAttCss
+        {
+            get
+            {
+                if (_lckLstAttCss != null)
+                {
+                    return _lckLstAttCss;
+                }
+
+                _lckLstAttCss = new object();
+
+                return _lckLstAttCss;
             }
         }
 
@@ -115,27 +131,30 @@ namespace NetZ.Web.Server.Arquivo.Css
                 return null;
             }
 
-            foreach (AtributoCss attCss in this.lstAttCss)
+            lock (this.lckLstAttCss)
             {
-                if (attCss == null)
+                foreach (AtributoCss attCss in this.lstAttCss)
                 {
-                    continue;
+                    if (attCss == null)
+                    {
+                        continue;
+                    }
+
+                    if (!strNome.Equals(attCss.strNome))
+                    {
+                        continue;
+                    }
+
+                    if (!strValor.Equals(attCss.strValor))
+                    {
+                        continue;
+                    }
+
+                    return attCss.strClass;
                 }
 
-                if (!strNome.Equals(attCss.strNome))
-                {
-                    continue;
-                }
-
-                if (!strValor.Equals(attCss.strValor))
-                {
-                    continue;
-                }
-
-                return attCss.strClass;
+                return this.addCssNovo(strNome, strValor);
             }
-
-            return this.addCssNovo(strNome, strValor);
         }
 
         public override string getStrConteudo()
