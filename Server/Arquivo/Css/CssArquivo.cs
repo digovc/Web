@@ -408,6 +408,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("margin", string.Format("{0}{1}", decMargin.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setMargin(string strMargin)
+        {
+            return this.addCss("margin", strMargin);
+        }
+
         public string setMarginBottom(int intMarginBottom, string strGrandeza = "px")
         {
             return this.addCss("margin-bottom", string.Format("{0}{1}", intMarginBottom, strGrandeza));
