@@ -102,11 +102,11 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
+            lstJsDebug.Add(new JavaScriptTag(typeof(DivComando), 116));
         }
 
         protected override void atualizarStrId()

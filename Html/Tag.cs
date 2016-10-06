@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
@@ -472,6 +473,22 @@ namespace NetZ.Web.Html
             }
         }
 
+        private object _lckLstAtt;
+
+        private object lckLstAtt
+        {
+            get
+            {
+                if (_lckLstAtt != null)
+                {
+                    return _lckLstAtt;
+                }
+
+                _lckLstAtt = new object();
+
+                return _lckLstAtt;
+            }
+        }
         #endregion Atributos
 
         #region Construtores
@@ -501,20 +518,23 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            foreach (Atributo att2 in this.lstAtt)
+            lock (this.lckLstAtt)
             {
-                if (att2 == null)
+                foreach (Atributo att2 in this.lstAtt)
                 {
-                    continue;
-                }
+                    if (att2 == null)
+                    {
+                        continue;
+                    }
 
-                if (!att2.strNome.ToLower().Equals(att.strNome.ToLower()))
-                {
-                    continue;
-                }
+                    if (!att2.strNome.ToLower().Equals(att.strNome.ToLower()))
+                    {
+                        continue;
+                    }
 
-                this.lstAtt.Remove(att2);
-                break;
+                    this.lstAtt.Remove(att2);
+                    break;
+                }
             }
 
             this.lstAtt.Add(att);
@@ -686,7 +706,7 @@ namespace NetZ.Web.Html
         /// <param name="lstJs">
         /// Lista de <see cref="JavaScriptTag"/> que será carregada pelo browser do usuário.
         /// </param>
-        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
+        protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
         }
 
@@ -748,10 +768,15 @@ namespace NetZ.Web.Html
         protected virtual void inicializar()
         {
             this.addCss(PaginaHtml.i.lstCss);
-            this.addJs(PaginaHtml.i.lstJs);
+            this.addJsLib(PaginaHtml.i.lstJsLib);
+            this.addJsDebug(PaginaHtml.i.lstJsDebug);
             this.addJs(PaginaHtml.i.tagJs);
 
             this.inicializarClazz();
+        }
+
+        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
+        {
         }
 
         protected virtual void montarLayout()

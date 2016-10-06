@@ -111,11 +111,21 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            this.cmpStrColunaNome.addOpcao(cln.strNomeSql, cln.strNomeExibicao);
+            this.cmpStrColunaNome.addOpcao(cln.sqlNome, cln.strNomeExibicao);
         }
 
         private void carregarDadosCmpStrColunaNome()
         {
+            if (AppWeb.i == null)
+            {
+                return;
+            }
+
+            if (AppWeb.i.dbe == null)
+            {
+                return;
+            }
+
             if (this.tblWeb == null)
             {
                 return;
@@ -133,7 +143,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            Tabela tblFiltrada = AppWeb.i.getTbl(TblFiltro.i.clnStrTabelaNome.strValor);
+            Tabela tblFiltrada = AppWeb.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
 
             if (tblFiltrada == null)
             {

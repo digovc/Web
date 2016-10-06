@@ -60,11 +60,11 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(TabItem), 110));
+            lstJsDebug.Add(new JavaScriptTag(typeof(TabItem), 110));
         }
 
         protected override void montarLayout()
@@ -81,12 +81,12 @@ namespace NetZ.Web.Html.Componente.Tab
 
             this.tbl = this.tbl.viwPrincipal;
 
-            this.strId = ("tabItem_" + this.tbl.strNomeSql);
+            this.strId = ("tabItem_" + this.tbl.sqlNome);
 
             this.strTitulo = this.tbl.strNomeExibicao;
 
-            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
-            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.strNomeSql);
+            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
+            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.sqlNome);
         }
 
         #endregion Métodos

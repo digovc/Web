@@ -179,9 +179,9 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
             #region Variáveis
 
@@ -191,7 +191,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(Menu), 150));
+                lstJsDebug.Add(new JavaScriptTag(typeof(Menu), 150));
             }
             catch (Exception ex)
             {
@@ -272,7 +272,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             try
             {
-                this.divGaveta.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+                this.divGaveta.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
                 this.divGaveta.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corSombra));
                 this.divGaveta.addCss(css.setBorderLeft(1, "solid", AppWeb.i.objTema.corSombra));
                 this.divGaveta.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corSombra));

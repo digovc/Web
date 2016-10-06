@@ -120,17 +120,17 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            if (this.row[this.tbl.clnIntId.strNomeSql] == null)
+            if (this.row[this.tbl.clnIntId.sqlNome] == null)
             {
                 return;
             }
 
-            if (DBNull.Value.Equals(this.row[this.tbl.clnIntId.strNomeSql]))
+            if (DBNull.Value.Equals(this.row[this.tbl.clnIntId.sqlNome]))
             {
                 return;
             }
 
-            long intId = (long)this.row[this.tbl.clnIntId.strNomeSql];
+            long intId = (long)this.row[this.tbl.clnIntId.sqlNome];
 
             if (intId < 1)
             {
@@ -141,7 +141,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
             strId = "tagGridRow___tbl_nome__registro_id";
 
-            strId = strId.Replace("_tbl_nome", this.tbl.strNomeSql);
+            strId = strId.Replace("_tbl_nome", this.tbl.sqlNome);
             strId = strId.Replace("_registro_id", intId.ToString());
 
             this.strId = strId;

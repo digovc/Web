@@ -68,11 +68,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
         }
 
         protected override void atualizarCln()
@@ -136,13 +136,13 @@ namespace NetZ.Web.Html.Componente.Campo
             this.btnAcao.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.btnAcao.addCss(css.setHeight(25));
             this.btnAcao.addCss(css.setPosition("absolute"));
-            this.btnAcao.addCss(css.setRight(-100));
+            this.btnAcao.addCss(css.setRight(-115));
             this.btnAcao.addCss(css.setTop(-3));
             this.btnAcao.addCss(css.setWidth(25));
 
             this.cmb.addCss(css.setDisplay("none"));
 
-            this.divInputContainer.addCss(css.setMarginRight(95));
+            this.divInputContainer.addCss(css.setMarginRight(110));
 
             this.txtIntId.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
             this.txtIntId.addCss(css.setHeight(19));
@@ -150,7 +150,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.txtIntId.addCss(css.setPosition("absolute"));
             this.txtIntId.addCss(css.setTextAlign("center"));
             this.txtIntId.addCss(css.setTop(-3));
-            this.txtIntId.addCss(css.setWidth(65));
+            this.txtIntId.addCss(css.setWidth(80));
 
             this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.txtPesquisa.addCss(css.setBorder(0));
@@ -177,14 +177,14 @@ namespace NetZ.Web.Html.Componente.Campo
             this.atualizarClnClnRefStrValor();
 
             this.addAtt("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
-            this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.strNomeSql);
+            this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.sqlNome);
         }
 
         private void atualizarClnClnRefStrTitulo()
         {
-            string strTitulo = "cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
+            string strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
 
-            strTitulo = strTitulo.Replace("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
+            strTitulo = strTitulo.Replace("_cln_ref_nome_exibicao", this.cln.booNomeExibicaoAutomatico ? this.cln.clnRef.tbl.strNomeExibicao : this.cln.strNomeExibicao);
             strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", this.cln.clnRef.tbl.viwPrincipal.clnNome.strNomeExibicao);
 
             this.strTitulo = strTitulo;
@@ -200,6 +200,8 @@ namespace NetZ.Web.Html.Componente.Campo
             this.cln.clnRef.tbl.viwPrincipal.recuperar(this.tagInput.intValor);
 
             this.cmb.addOpcao(this.cln.intValor, this.cln.clnRef.tbl.viwPrincipal.clnNome.strValor);
+
+            this.cln.clnRef.tbl.viwPrincipal.liberar();
         }
 
         #endregion Métodos

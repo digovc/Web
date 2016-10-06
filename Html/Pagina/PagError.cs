@@ -76,8 +76,26 @@ namespace NetZ.Web.Html.Pagina
         {
             base.inicializar();
 
+
+
             this.divMensagem.strConteudo = "Algo deu errado no servidor. Se o problema persistir entre em contato com o administrador do sistema.";
-            this.divError.strConteudo = this.ex?.Message;
+
+            this.inicializarDivError();
+        }
+
+        private void inicializarDivError()
+        {
+            if (this.ex == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.ex.StackTrace))
+            {
+                return;
+            }
+
+            this.divError.strConteudo = this.ex?.StackTrace.Replace(Environment.NewLine, "<br/>");
         }
 
         protected override void montarLayout()

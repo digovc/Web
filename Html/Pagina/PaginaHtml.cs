@@ -29,7 +29,8 @@ namespace NetZ.Web.Html.Pagina
         private bool _booPagSimples;
         private Div _divNotificacao;
         private LstTag<CssTag> _lstCss;
-        private LstTag<JavaScriptTag> _lstJs;
+        private LstTag<JavaScriptTag> _lstJsDebug;
+        private LstTag<JavaScriptTag> _lstJsLib;
         private string _srcIcone = "/res/media/ico/favicon.ico";
         private string _strHtmlEstatico;
         private string _strTitulo;
@@ -89,18 +90,33 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        internal LstTag<JavaScriptTag> lstJs
+        internal LstTag<JavaScriptTag> lstJsDebug
         {
             get
             {
-                if (_lstJs != null)
+                if (_lstJsDebug != null)
                 {
-                    return _lstJs;
+                    return _lstJsDebug;
                 }
 
-                _lstJs = new LstTag<JavaScriptTag>();
+                _lstJsDebug = new LstTag<JavaScriptTag>();
 
-                return _lstJs;
+                return _lstJsDebug;
+            }
+        }
+
+        internal LstTag<JavaScriptTag> lstJsLib
+        {
+            get
+            {
+                if (_lstJsLib != null)
+                {
+                    return _lstJsLib;
+                }
+
+                _lstJsLib = new LstTag<JavaScriptTag>();
+
+                return _lstJsLib;
             }
         }
 
@@ -443,40 +459,40 @@ namespace NetZ.Web.Html.Pagina
         {
         }
 
-        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
+        protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            lstJs.Add(new JavaScriptTag(typeof(AppWeb), 104));
-            lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
-            lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
-            lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
-            lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
-            lstJs.Add(new JavaScriptTag(typeof(ServerAjax), 102));
-            lstJs.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
-            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJs.Add(new JavaScriptTag(typeof(ServerHttp), 102));
-            lstJs.Add(new JavaScriptTag(typeof(ServerWs), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(AppWeb), 104));
+            lstJsDebug.Add(new JavaScriptTag(typeof(Interlocutor), 105));
+            lstJsDebug.Add(new JavaScriptTag(typeof(Mensagem), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(MenuContexto), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(MenuGrid), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(Notificacao), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjax), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttp), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerWs), 102));
 
-            lstJs.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Constante.js", 0));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/ConstanteManager.js", 1));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/design/TemaDefault.js", 100));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/erro/Erro.js", 102));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Historico.js", 101));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/html/Tag.js", 103));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Keys.js", 100));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Objeto.js", 100));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/Utils.js", 101));
-
-            lstJs.Add(this.tagJs);
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/Constante.js", 0));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/ConstanteManager.js", 1));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/design/TemaDefault.js", 100));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/erro/Erro.js", 102));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/Historico.js", 101));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/html/Tag.js", 103));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/Keys.js", 100));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/Objeto.js", 100));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/Utils.js", 101));
         }
 
         protected void addJs(JavaScriptTag tagJs)
         {
             // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
             //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
+
+            this.tagJs.setPai(this.tagHead);
+
         }
 
         protected virtual void addLayoutFixo()
@@ -627,12 +643,22 @@ namespace NetZ.Web.Html.Pagina
                 return;
             }
 
-            this.addJs(this.lstJs);
+            this.addJsLib();
+
             this.addJs(this.tagJs);
 
-            List<JavaScriptTag> lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
+            this.addJsRelease();
 
-            foreach (JavaScriptTag tagJs in lstJsOrdenado)
+            this.addJsDebug();
+        }
+
+        private void addJsLib()
+        {
+            this.addJsLib(this.lstJsLib);
+
+            List<JavaScriptTag> lstJsLibOrdenado = this.lstJsLib.OrderBy((o) => o.intOrdem).ToList();
+
+            foreach (JavaScriptTag tagJs in lstJsLibOrdenado)
             {
                 if (tagJs == null)
                 {
@@ -641,6 +667,48 @@ namespace NetZ.Web.Html.Pagina
 
                 tagJs.setPai(this.tagHead);
             }
+        }
+
+        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
+        {
+            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
+        }
+
+        private void addJsDebug()
+        {
+            if (AppWeb.i.booProducao)
+            {
+                return;
+            }
+
+            this.addJsDebug(this.lstJsDebug);
+
+            List<JavaScriptTag> lstJsDebugOrdenado = this.lstJsDebug.OrderBy((o) => o.intOrdem).ToList();
+
+            foreach (JavaScriptTag tagJs in lstJsDebugOrdenado)
+            {
+                if (tagJs == null)
+                {
+                    continue;
+                }
+
+                tagJs.setPai(this.tagHead);
+            }
+        }
+
+        private void addJsRelease()
+        {
+            if (!AppWeb.i.booProducao)
+            {
+                return;
+            }
+
+            if (AppWeb.i.tagJsRelease == null)
+            {
+                return;
+            }
+
+            AppWeb.i.tagJsRelease.setPai(this.tagHead);
         }
 
         private string getStrTituloFormatado()

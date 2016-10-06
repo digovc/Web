@@ -92,13 +92,23 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             string strResultado = "_cln_filtrada_nome (_operador_nome)";
 
             strResultado = strResultado.Replace("_cln_filtrada_nome", clnFiltrada.strNomeExibicao);
-            strResultado = strResultado.Replace("_operador_nome", Filtro.getStrOperadorNome(Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql])));
+            strResultado = strResultado.Replace("_operador_nome", Filtro.getStrOperadorNome(Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.sqlNome])));
 
             return strResultado;
         }
 
         private Tabela getTblFiltrada()
         {
+            if (AppWeb.i == null)
+            {
+                return null;
+            }
+
+            if (AppWeb.i.dbe == null)
+            {
+                return null;
+            }
+
             if (this.intFiltroId < 1)
             {
                 return null;
@@ -106,7 +116,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             TblFiltro.i.recuperar(this.intFiltroId);
 
-            return AppWeb.i.getTbl(TblFiltro.i.clnStrTabelaNome.strValor);
+            return AppWeb.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
         }
 
         private void inicializarLstCmpFiltro()
@@ -146,12 +156,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            if (DBNull.Value.Equals(row[TblFiltroItem.i.clnStrColunaNome.strNomeSql]))
+            if (DBNull.Value.Equals(row[TblFiltroItem.i.clnStrColunaNome.sqlNome]))
             {
                 return;
             }
 
-            Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(row[TblFiltroItem.i.clnStrColunaNome.strNomeSql])];
+            Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(row[TblFiltroItem.i.clnStrColunaNome.sqlNome])];
 
             this.inicializarLstCmpFiltro(row, clnFiltrada);
         }
@@ -172,11 +182,11 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             cmpFiltro.booMostrarTituloSempre = true;
             cmpFiltro.cln = clnFiltrada;
-            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.NORMAL;
+            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
             cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);
 
-            cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.strNomeSql]));
-            cmpFiltro.addAtt("int_filtro_item_id", Convert.ToInt32(row[TblFiltroItem.i.clnIntId.strNomeSql]));
+            cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.sqlNome]));
+            cmpFiltro.addAtt("int_filtro_item_id", Convert.ToInt32(row[TblFiltroItem.i.clnIntId.sqlNome]));
 
             this.lstCmpFiltro.Add(cmpFiltro);
         }
@@ -188,49 +198,20 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return this.inicializarLstCmpFiltroOpcao(clnFiltrada);
             }
 
-            switch (clnFiltrada.enmTipo)
+            switch (clnFiltrada.enmGrupo)
             {
-                case Coluna.EnmTipo.BIGINT:
-                case Coluna.EnmTipo.BIGSERIAL:
-                case Coluna.EnmTipo.BYTEA:
-                case Coluna.EnmTipo.INTEGER:
-                case Coluna.EnmTipo.SERIAL:
-                case Coluna.EnmTipo.SMALLINT:
-                    return new CampoNumerico();
-
-                case Coluna.EnmTipo.BLOB:
-                    return null;
-
-                case Coluna.EnmTipo.BOOLEAN:
-                case Coluna.EnmTipo.BOOLEAN_ANTIGO:
-                    return null;
-
-                case Coluna.EnmTipo.CHAR:
-                case Coluna.EnmTipo.TEXT:
-                case Coluna.EnmTipo.VARCHAR:
+                case Coluna.EnmGrupo.ALFANUMERICO:
                     return new CampoAlfanumerico();
 
-                case Coluna.EnmTipo.DATE:
-                    return null;
+                case Coluna.EnmGrupo.BOOLEANO:
+                    return new CampoCheckBox();
 
-                case Coluna.EnmTipo.DECIMAL:
-                case Coluna.EnmTipo.DOUBLE:
-                case Coluna.EnmTipo.FLOAT:
-                case Coluna.EnmTipo.MONEY:
-                case Coluna.EnmTipo.NUMERIC:
+                case Coluna.EnmGrupo.NUMERICO_INTEIRO:
+                case Coluna.EnmGrupo.NUMERICO_PONTO_FLUTUANTE:
                     return new CampoNumerico();
 
-                case Coluna.EnmTipo.INET:
-                    return null;
-
-                case Coluna.EnmTipo.TIME:
-                    return null;
-
-                case Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE:
-                    return null;
-
-                case Coluna.EnmTipo.XML:
-                    return null;
+                case Coluna.EnmGrupo.TEMPORAL:
+                    return new CampoDataHora();
 
                 default:
                     return null;

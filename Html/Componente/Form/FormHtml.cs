@@ -308,11 +308,11 @@ namespace NetZ.Web.Html.Componente.Form
             this.booJnlCadastro = (tagPai is JnlCadastro);
         }
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(FormHtml)));
+            lstJsDebug.Add(new JavaScriptTag(typeof(FormHtml)));
         }
 
         protected override void addTag(Tag tag)
@@ -465,7 +465,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         private void finalizarCssNivelComando(CssArquivo css, PainelNivel pnlNivelComando)
         {
-            pnlNivelComando.addCss(css.setBackgroundColor("rgb(130,202,156)"));
+            pnlNivelComando.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
         }
 
         private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)

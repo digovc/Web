@@ -56,11 +56,11 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(DivFavoritoItem), 111));
+            lstJsDebug.Add(new JavaScriptTag(typeof(DivFavoritoItem), 111));
         }
 
         protected override void atualizarStrId()
@@ -102,7 +102,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setWidth(32, "%"));
 
             this.divTitulo.addCss(css.setBottom(0));
-            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setLeft(0));
             this.divTitulo.addCss(css.setPosition("absolute"));
             this.divTitulo.addCss(css.setRight(0));

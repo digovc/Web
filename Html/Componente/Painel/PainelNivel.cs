@@ -37,9 +37,9 @@ namespace NetZ.Web.Html.Componente.Painel
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
             #region Variáveis
 
@@ -49,7 +49,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
             try
             {
-                lstJs.Add(new JavaScriptTag(typeof(PainelNivel), 115));
+                lstJsDebug.Add(new JavaScriptTag(typeof(PainelNivel), 115));
             }
             catch (Exception ex)
             {

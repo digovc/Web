@@ -78,19 +78,15 @@ namespace NetZ.Web.Html
                 return null;
             }
 
-            string srcResultado = "res/js/_cls_namespace/_cls_nome+js";
+            string srcResultado = "res/js/_cls_namespace/_cls_nome_ponto_finaljs";
 
             srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
             srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
             srcResultado = srcResultado.Replace(".", "/");
-            srcResultado = srcResultado.Replace("res/js/netz/web", "res/js/Web.TypeScript");
 
-            // TODO: Essa lista têm de ser dinamizada.
-            srcResultado = srcResultado.Replace("res/js/atendimento_web", "res/js/Principal.TypeScript");
-            srcResultado = srcResultado.Replace("res/js/cia", "res/js/Principal.TypeScript");
-            srcResultado = srcResultado.Replace("res/js/comic_x", "res/js/Principal.TypeScript");
-            srcResultado = srcResultado.Replace("res/js/gti", "res/js/Principal.TypeScript");
-            srcResultado = srcResultado.Replace("+", ".");
+            srcResultado = srcResultado.Replace("/netz/web/", "/web/");
+
+            srcResultado = srcResultado.Replace("_ponto_final", ".");
 
             return srcResultado;
         }
@@ -130,7 +126,7 @@ namespace NetZ.Web.Html
         /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
         /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
         /// </summary>
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
             // Não fazer nada.
         }

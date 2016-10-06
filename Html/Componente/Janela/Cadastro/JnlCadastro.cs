@@ -93,15 +93,15 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
-            lstJs.Add(new JavaScriptTag(this.GetType(), 112));
+            lstJsDebug.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
+            lstJsDebug.Add(new JavaScriptTag(this.GetType(), 112));
 
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/TabelaWeb.js"));
-            lstJs.Add(new JavaScriptTag("res/js/Web.TypeScript/database/ColunaWeb.js"));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
+            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/ColunaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
@@ -157,7 +157,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.addAtt("src_js", JavaScriptTag.getSrc(this.GetType()));
 
-            this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.PEQUENO;
+            this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.MEDIO;
 
             this.carregarDados();
         }
@@ -196,7 +196,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             }
 
             this.addAtt("permitir_alterar", this.tbl.booPermitirAlterar);
-            this.addAtt("tbl_web_nome", this.tbl.strNomeSql);
+            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
         }
 
         private void inicializarCampos()
@@ -211,9 +211,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (this.tblWeb.getClnWeb(tbl.clnIntId.strNomeSql).intValor > 0)
+            if (this.tblWeb.getClnWeb(tbl.clnIntId.sqlNome).intValor > 0)
             {
-                this.tbl.recuperar(this.tblWeb.getClnWeb(tbl.clnIntId.strNomeSql).intValor);
+                this.tbl.recuperar(this.tblWeb.getClnWeb(tbl.clnIntId.sqlNome).intValor);
             }
             else
             {

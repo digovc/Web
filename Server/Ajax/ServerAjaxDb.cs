@@ -19,7 +19,6 @@ namespace NetZ.Web.Server.Ajax
         public const string STR_METODO_ABRIR_CADASTRO = "ABRIR_CADASTRO";
         public const string STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO = "ABRIR_CADASTRO_FILTRO_CONTEUDO";
         public const string STR_METODO_ABRIR_CONSULTA = "ABRIR_CONSULTA";
-        public const string STR_METODO_ABRIR_JANELA_TAG = "ABRIR_JANELA_TAG";
         public const string STR_METODO_ADICIONAR = "ADICIONAR";
         public const string STR_METODO_APAGAR = "APAGAR";
         public const string STR_METODO_CARREGAR_TBL_WEB = "CARREGAR_TBL_WEB";
@@ -32,6 +31,8 @@ namespace NetZ.Web.Server.Ajax
         public const string STR_METODO_TABELA_FAVORITO_ADD = "TABELA_FAVORITO_ADD";
         public const string STR_METODO_TABELA_FAVORITO_PESQUISAR = "TABELA_FAVORITO_PESQUISAR";
         public const string STR_METODO_TABELA_FAVORITO_VERIFICAR = "TABELA_FAVORITO_VERIFICAR";
+        public const string STR_METODO_TAG_ABRIR_JANELA = "TAG_ABRIR_JANELA";
+        public const string STR_METODO_TAG_SALVAR = "TAG_SALVAR";
 
         #endregion Constantes
 
@@ -118,7 +119,7 @@ namespace NetZ.Web.Server.Ajax
 
                 case STR_METODO_ABRIR_CADASTRO:
                 case STR_METODO_ABRIR_CADASTRO_FILTRO_CONTEUDO:
-                case STR_METODO_ABRIR_JANELA_TAG:
+                case STR_METODO_TAG_ABRIR_JANELA:
                     this.abrirCadastro(objSolicitacao, objInterlocutor);
                     return true;
 
@@ -158,29 +159,13 @@ namespace NetZ.Web.Server.Ajax
                 case STR_METODO_TABELA_FAVORITO_VERIFICAR:
                     this.verificarFavorito(objSolicitacao, objInterlocutor);
                     return true;
+
+                case STR_METODO_TAG_SALVAR:
+                    this.salvarTag(objSolicitacao, objInterlocutor);
+                    return true;
             }
 
             return false;
-        }
-
-        private void pesquisarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
-        {
-            if (objSolicitacao.objUsuario == null)
-            {
-                return;
-            }
-
-            if (!objSolicitacao.objUsuario.booLogado)
-            {
-                return;
-            }
-
-            if (objSolicitacao.objUsuario.intId < 1)
-            {
-                return;
-            }
-
-            TblFavorito.i.pesquisarFavorito(objSolicitacao.objUsuario.intId, objInterlocutor);
         }
 
         protected virtual bool validarAbrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
@@ -222,7 +207,7 @@ namespace NetZ.Web.Server.Ajax
                     this.abrirCadastroFiltroConteudo(objSolicitacao, objInterlocutor, tblWeb);
                     return;
 
-                case STR_METODO_ABRIR_JANELA_TAG:
+                case STR_METODO_TAG_ABRIR_JANELA:
                     this.abrirJnlTag(objSolicitacao, objInterlocutor, tblWeb);
                     return;
             }
@@ -247,12 +232,12 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
+            tbl = tbl.tblPrincipal;
+
             if (!this.validarAbrirCadastro(objSolicitacao, objInterlocutor, tblWeb, tbl))
             {
                 return;
             }
-
-            tbl = tbl.tblPrincipal;
 
             if (tbl.clsJnlCadastro == null)
             {
@@ -501,6 +486,26 @@ namespace NetZ.Web.Server.Ajax
             objInterlocutor.objData = tblWeb.getJson(tbl, tblData);
         }
 
+        private void pesquisarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (!objSolicitacao.objUsuario.booLogado)
+            {
+                return;
+            }
+
+            if (objSolicitacao.objUsuario.intId < 1)
+            {
+                return;
+            }
+
+            TblFavorito.i.pesquisarFavorito(objSolicitacao.objUsuario.intId, objInterlocutor);
+        }
+
         private void pesquisarGrid(Interlocutor objInterlocutor, Tabela tbl, TabelaWeb tblWeb, DataTable tblData)
         {
             GridHtml tagGrid = new GridHtml();
@@ -644,6 +649,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
+            // TODO: Reavaliar a necessidade de carregar os valores destas colunas.
             tblWeb.getClnWeb(tbl.clnDttAlteracao.strNomeSql).dttValor = DateTime.Now;
             tblWeb.getClnWeb(tbl.clnIntUsuarioAlteracaoId.strNomeSql).intValor = objSolicitacao.objUsuario.intId;
 
@@ -656,6 +662,47 @@ namespace NetZ.Web.Server.Ajax
             this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
 
             tbl.salvarWeb(tblWeb);
+
+            tbl.liberar();
+        }
+
+        private void salvarTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (objSolicitacao.objUsuario == null)
+            {
+                return;
+            }
+
+            if (!objSolicitacao.objUsuario.booLogado)
+            {
+                return;
+            }
+
+            if (objInterlocutor.objData == null)
+            {
+                return;
+            }
+
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
+
+            if (tblWeb == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(tblWeb.strNome))
+            {
+                return;
+            }
+
+            Tabela tbl = AppWeb.i.getTbl(tblWeb);
+
+            if (tbl == null)
+            {
+                return;
+            }
+
+            tbl.salvarTag(tblWeb.clnWebIntId.intValor, tblWeb.getClnWeb(tbl.clnStrTag.strNomeSql).strValor);
         }
 
         private void verificarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -683,6 +730,8 @@ namespace NetZ.Web.Server.Ajax
             }
 
             objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.strNomeSql);
+
+            TblFavorito.i.liberar();
         }
 
         #endregion Métodos

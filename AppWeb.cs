@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NetZ.Persistencia;
-using NetZ.Persistencia.Web;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
+using NetZ.Web.Html;
 using NetZ.Web.Server;
 
 namespace NetZ.Web
@@ -32,10 +31,11 @@ namespace NetZ.Web
         private static AppWeb _i;
 
         private bool _booMostrarGrade;
+        private Persistencia.DataBase _dbe;
         private List<UsuarioDominio> _lstObjUsuario;
         private List<ServerBase> _lstSrv;
-        private List<Tabela> _lstTbl;
         private object _objLstObjUsuarioLock;
+        private JavaScriptTag _tagJsRelease;
 
         public new static AppWeb i
         {
@@ -78,18 +78,18 @@ namespace NetZ.Web
             }
         }
 
-        public List<Tabela> lstTbl
+        public Persistencia.DataBase dbe
         {
             get
             {
-                if (_lstTbl != null)
+                if (_dbe != null)
                 {
-                    return _lstTbl;
+                    return _dbe;
                 }
 
-                _lstTbl = this.getLstTbl();
+                _dbe = this.getDbe();
 
-                return _lstTbl;
+                return _dbe;
             }
         }
 
@@ -105,6 +105,21 @@ namespace NetZ.Web
                 _lstObjUsuario = new List<UsuarioDominio>();
 
                 return _lstObjUsuario;
+            }
+        }
+
+        internal JavaScriptTag tagJsRelease
+        {
+            get
+            {
+                if (_tagJsRelease != null)
+                {
+                    return _tagJsRelease;
+                }
+
+                _tagJsRelease = this.getTagJsRelease();
+
+                return _tagJsRelease;
             }
         }
 
@@ -149,71 +164,13 @@ namespace NetZ.Web
             this.strNome = strNome;
         }
 
-        private List<Tabela> getLstTbl()
-        {
-            List<Tabela> lstTblResultado = new List<Tabela>();
-
-            this.inicializarLstTbl(lstTblResultado);
-
-            return lstTblResultado;
-        }
-
         #endregion Construtores
 
         #region Métodos
 
-        /// <summary>
-        /// Pesquisa na lista de tabelas da aplicação a que corresponde a <paramref name="tblWeb"/>,
-        /// segundo o nome dessa.
-        /// </summary>
-        /// <param name="tblWeb">Tabela web que se pretende encontar a correlativa do lado do servidor.</param>
-        /// <returns>Retorna a tabela correlativa à tabela web passada por parâmetro.</returns>
-        public Tabela getTbl(TabelaWeb tblWeb)
+        public virtual Persistencia.DataBase getObjDbPrincipal()
         {
-            if (tblWeb == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrEmpty(tblWeb.strNome))
-            {
-                return null;
-            }
-
-            return this.getTbl(tblWeb.strNome);
-        }
-
-        /// <summary>
-        /// Pesquisa na lista de tabelas da aplicação e retorna a tabela que corresponde a este nome
-        /// passado por parâmetro.
-        /// </summary>
-        /// <param name="strTblNome">Nome da tabela que se pretende encontrar.</param>
-        /// <returns>Retorna a tabela que corresponde a este nome passado por parâmetro.</returns>
-        public Tabela getTbl(string strTblNome)
-        {
-            if (string.IsNullOrEmpty(strTblNome))
-            {
-                return null;
-            }
-
-            if (this.lstTbl == null)
-            {
-                return null;
-            }
-
-            foreach (Tabela tbl in this.lstTbl)
-            {
-                Tabela tblResultado = this.getTbl(strTblNome, tbl);
-
-                if (tblResultado == null)
-                {
-                    continue;
-                }
-
-                return tblResultado;
-            }
-
-            return null;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -269,11 +226,6 @@ namespace NetZ.Web
             this.lstObjUsuario.Add(objUsuario);
         }
 
-        public virtual Persistencia.DataBase getObjDbPrincipal()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Busca o usuário que pertence a <param name="strSessaoId"/>.
         /// </summary>
@@ -316,48 +268,19 @@ namespace NetZ.Web
             }
         }
 
-        /// <summary>
-        /// Pesquisa na lista de tabelas da aplicação e retorna a tabela que o tipo do seu domínio
-        /// tem o mesmo nome passado no parâmetro <paramref name="strDominioNome"/>.
-        /// </summary>
-        /// <param name="strDominioNome">Nome do domínio que pertence a tabela.</param>
-        /// <returns>
-        /// a tabela que o tipo do seu domínio tem o mesmo nome passado no parâmetro <paramref name="strDominioNome"/>.
-        /// </returns>
-        internal Tabela getTblPorDominio(string strDominioNome)
+        protected virtual Persistencia.DataBase getDbe()
         {
-            if (string.IsNullOrEmpty(strDominioNome))
-            {
-                return null;
-            }
-
-            foreach (Tabela tbl in this.lstTbl)
-            {
-                Tabela tblTemp = this.getTblPorDominio(tbl, strDominioNome);
-
-                if (tblTemp != null)
-                {
-                    return tblTemp;
-                }
-            }
-
             return null;
         }
 
         protected abstract ConfigWeb getObjConfig();
 
-        protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
-
-        /// <summary>
-        /// Este método deve inicializar a lista com todas as tabelas que têm interação (adicionar,
-        /// alterar, pesquisar) com o usuário.
-        /// </summary>
-        /// <param name="lstTbl"></param>
-        protected virtual void inicializarLstTbl(List<Tabela> lstTbl)
+        protected virtual JavaScriptTag getTagJsRelease()
         {
-            lstTbl.Add(TblFiltro.i);
-            lstTbl.Add(TblFiltroItem.i);
+            return null;
         }
+
+        protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
 
         private List<ServerBase> getLstSrv()
         {
@@ -366,46 +289,6 @@ namespace NetZ.Web
             this.inicializarLstSrv(lstSrvResultado);
 
             return lstSrvResultado;
-        }
-
-        private Tabela getTbl(string strTblNome, Tabela tbl)
-        {
-            if (tbl.strNomeSql.ToLower().Equals(strTblNome.ToLower()))
-            {
-                return tbl;
-            }
-
-            foreach (View viw in tbl.lstViw)
-            {
-                if (!viw.strNomeSql.ToLower().Equals(strTblNome.ToLower()))
-                {
-                    continue;
-                }
-
-                return viw;
-            }
-
-            return null;
-        }
-
-        private Tabela getTblPorDominio(Tabela tbl, string strDominioNome)
-        {
-            if (tbl == null)
-            {
-                return null;
-            }
-
-            if (tbl.clsDominio == null)
-            {
-                return null;
-            }
-
-            if (!tbl.clsDominio.Name.ToLower().Equals(strDominioNome.ToLower()))
-            {
-                return null;
-            }
-
-            return tbl;
         }
 
         private void inicializarConfig()

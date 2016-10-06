@@ -10,27 +10,27 @@ namespace NetZ.Web.Html.Componente.Campo
         public enum EnmTamanho
         {
             /// <summary>
-            /// Width 400.
+            /// Width 370px.
+            /// </summary>
+            EXTRA,
+
+            /// <summary>
+            /// Width 240.
             /// </summary>
             GRANDE,
 
             /// <summary>
-            /// Width 150px.
+            /// Width 110px.
             /// </summary>
             MEDIO,
 
             /// <summary>
-            /// Width 50px.
-            /// </summary>
-            MINIMO,
-
-            /// <summary>
-            /// Width 250px.
+            /// Width 175px.
             /// </summary>
             NORMAL,
 
             /// <summary>
-            /// Width 100px.
+            /// Width 45px.
             /// </summary>
             PEQUENO,
 
@@ -283,11 +283,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoHtml), 130));
         }
 
         protected virtual void atualizarCln()
@@ -297,7 +297,7 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.addAtt("cln_web_nome", this.cln.strNomeSql);
+            this.addAtt("cln_web_nome", this.cln.sqlNome);
             this.addAtt("str_dica", this.cln.strDica);
 
             this.booObrigatorio = this.cln.booObrigatorio;
@@ -382,7 +382,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divInputContainer.addCss(css.setRight(10));
             this.divInputContainer.addCss(css.setTextAlign("left"));
 
-            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setFontSize(14));
             this.divTitulo.addCss(css.setHeight(15));
             this.divTitulo.addCss(css.setLineHeight(15));
@@ -424,7 +424,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             string strId = "cmp__cln_nome__obj_id";
 
-            strId = strId.Replace("_cln_nome", this.cln.strNomeSql);
+            strId = strId.Replace("_cln_nome", this.cln.sqlNome);
             strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
 
             this.strId = strId;
@@ -454,20 +454,20 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             switch (this.enmTamanho)
             {
-                case EnmTamanho.GRANDE:
-                    this.addCss(css.setWidth(400));
+                case EnmTamanho.EXTRA:
+                    this.addCss(css.setWidth(370));
                     return;
 
-                case EnmTamanho.MINIMO:
-                    this.addCss(css.setWidth(50));
+                case EnmTamanho.GRANDE:
+                    this.addCss(css.setWidth(240));
                     return;
 
                 case EnmTamanho.NORMAL:
-                    this.addCss(css.setWidth(200));
+                    this.addCss(css.setWidth(175));
                     return;
 
                 case EnmTamanho.PEQUENO:
-                    this.addCss(css.setWidth(100));
+                    this.addCss(css.setWidth(45));
                     return;
 
                 case EnmTamanho.TOTAL:
@@ -475,7 +475,7 @@ namespace NetZ.Web.Html.Componente.Campo
                     return;
 
                 default:
-                    this.addCss(css.setWidth(150));
+                    this.addCss(css.setWidth(110));
                     return;
             }
         }

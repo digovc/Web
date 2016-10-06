@@ -51,11 +51,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJs(lstJs);
+            base.addJsDebug(lstJsDebug);
 
-            lstJs.Add(new JavaScriptTag(typeof(CampoMedia), 131));
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoMedia), 131));
         }
 
         protected override void atualizarStrId()

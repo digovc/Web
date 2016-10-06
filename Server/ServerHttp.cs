@@ -317,6 +317,16 @@ namespace NetZ.Web.Server
 
         private Resposta responderDbFileDownload(Solicitacao objSolicitacao)
         {
+            if (AppWeb.i == null)
+            {
+                return null;
+            }
+
+            if (AppWeb.i.dbe == null)
+            {
+                return null;
+            }
+
             if (objSolicitacao == null)
             {
                 return null;
@@ -346,7 +356,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            Tabela tbl = AppWeb.i.getTbl(strTblNome);
+            Tabela tbl = AppWeb.i.dbe[strTblNome];
 
             if (tbl == null)
             {

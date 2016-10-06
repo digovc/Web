@@ -82,7 +82,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFiltro() : base("tbl_filtro")
+        private TblFiltro() : base(AppWeb.i.dbe, "tbl_filtro")
         {
         }
 

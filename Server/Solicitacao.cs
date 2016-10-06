@@ -422,6 +422,21 @@ namespace NetZ.Web.Server
             return decValueResultado;
         }
 
+        /// <summary>
+        /// Retorna o valor do parâmetro GET caso esteja presente na URL solicitada ou null caso não encontre.
+        /// </summary>
+        public DateTime getDttGetValue(string strGetParam)
+        {
+            string strResultado = this.getStrGetValue(strGetParam);
+
+            if (string.IsNullOrEmpty(strResultado))
+            {
+                return DateTime.MinValue;
+            }
+
+            return Convert.ToDateTime(strResultado);
+        }
+
         public int getIntGetValue(string strGetParam)
         {
             return (int)this.getDecGetValue(strGetParam);
