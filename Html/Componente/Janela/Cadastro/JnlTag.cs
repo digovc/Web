@@ -16,10 +16,10 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private Div _divContainer;
         private Div _divTagConteudo;
         private Input _tagInputTag;
-        private Tabela _tbl;
+        private TabelaBase _tbl;
         private TabelaWeb _tblWeb;
 
-        public Tabela tbl
+        public TabelaBase tbl
         {
             get
             {
@@ -164,7 +164,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.divContainer.addCss(css.setWidth(380));
 
             this.divTagConteudo.addCss(css.setBackgroundColor("white"));
-            this.divTagConteudo.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.divTagConteudo.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.divTagConteudo.addCss(css.setBottom(10));
             this.divTagConteudo.addCss(css.setLeft(10));
             this.divTagConteudo.addCss(css.setOverflowX("auto"));

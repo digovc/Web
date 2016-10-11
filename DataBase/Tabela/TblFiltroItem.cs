@@ -99,7 +99,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFiltroItem() : base(AppWeb.i.dbe, "tbl_filtro_item")
+        private TblFiltroItem() : base("tbl_filtro_item")
         {
         }
 
@@ -140,7 +140,7 @@ namespace NetZ.Web.DataBase.Tabela
             return intOrdem;
         }
 
-        protected override void inicializarViews(List<Persistencia.View> lstViw)
+        protected override void inicializarViews(List<Persistencia.ViewBase> lstViw)
         {
             base.inicializarViews(lstViw);
 

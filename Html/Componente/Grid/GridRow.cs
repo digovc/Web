@@ -15,7 +15,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         private Atributo _attIntId;
         private DataRow _row;
-        private Tabela _tbl;
+        private TabelaBase _tbl;
 
         internal DataRow row
         {
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Grid
             }
         }
 
-        internal Tabela tbl
+        internal TabelaBase tbl
         {
             get
             {

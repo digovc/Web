@@ -2,7 +2,7 @@
 
 namespace NetZ.Web
 {
-    public abstract class ConfigWeb : ConfigMain
+    public abstract class ConfigWebBase : ConfigBase
     {
         #region Constantes
 
@@ -10,7 +10,7 @@ namespace NetZ.Web
 
         #region Atributos
 
-        private static ConfigWeb _i;
+        private static ConfigWebBase _i;
 
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
@@ -19,7 +19,7 @@ namespace NetZ.Web
         private int _intServerAjaxDbPorta = 8081;
         private int _intTimeOut = 5;
 
-        public static new ConfigWeb i
+        public static new ConfigWebBase i
         {
             get
             {
@@ -138,7 +138,7 @@ namespace NetZ.Web
 
         #region Construtores
 
-        protected ConfigWeb()
+        protected ConfigWebBase()
         {
             i = this;
         }

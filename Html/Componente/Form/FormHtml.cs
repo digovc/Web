@@ -465,12 +465,12 @@ namespace NetZ.Web.Html.Componente.Form
 
         private void finalizarCssNivelComando(CssArquivo css, PainelNivel pnlNivelComando)
         {
-            pnlNivelComando.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            pnlNivelComando.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
         }
 
         private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)
         {
-            pnlNivelDica.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            pnlNivelDica.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo1));
         }
 
         private void finalizarCssNivelTabHtml(CssArquivo css, PainelNivel pnlNivelTabHtml)
@@ -480,7 +480,7 @@ namespace NetZ.Web.Html.Componente.Form
                 return;
             }
 
-            pnlNivelTabHtml.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            pnlNivelTabHtml.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo1));
             pnlNivelTabHtml.addCss(css.setMarginTop(10));
             pnlNivelTabHtml.addCss(css.setPaddingLeft(10));
             pnlNivelTabHtml.addCss(css.setPaddingRight(10));

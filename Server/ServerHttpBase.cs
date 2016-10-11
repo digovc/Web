@@ -13,10 +13,10 @@ namespace NetZ.Web.Server
     /// processa e responde as solicitações destes.
     /// <para>
     /// A aplicação que fazer uso desta biblioteca não precisa interagir diretamente com esta classe,
-    /// implementando sua lógica a partir da class <see cref="AppWeb"/> e seu método <see cref="AppWeb.responder(Solicitacao)"/>.
+    /// implementando sua lógica a partir da class <see cref="AppWebBase"/> e seu método <see cref="AppWebBase.responder(Solicitacao)"/>.
     /// </para>
     /// </summary>
-    public abstract class ServerHttp : ServerBase
+    public abstract class ServerHttpBase : ServerBase
     {
         #region Constantes
 
@@ -49,7 +49,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        protected ServerHttp(string strNome) : base(strNome)
+        protected ServerHttpBase(string strNome) : base(strNome)
         {
         }
 
@@ -98,7 +98,7 @@ namespace NetZ.Web.Server
 
         protected override int getIntPort()
         {
-            return ConfigWeb.i.intServerHttpPorta;
+            return ConfigWebBase.i.intServerHttpPorta;
         }
 
         protected override void inicializar()
@@ -317,12 +317,12 @@ namespace NetZ.Web.Server
 
         private Resposta responderDbFileDownload(Solicitacao objSolicitacao)
         {
-            if (AppWeb.i == null)
+            if (AppWebBase.i == null)
             {
                 return null;
             }
 
-            if (AppWeb.i.dbe == null)
+            if (AppWebBase.i.dbe == null)
             {
                 return null;
             }
@@ -356,7 +356,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            Tabela tbl = AppWeb.i.dbe[strTblNome];
+            TabelaBase tbl = AppWebBase.i.dbe[strTblNome];
 
             if (tbl == null)
             {

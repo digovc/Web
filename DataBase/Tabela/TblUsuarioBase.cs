@@ -101,7 +101,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        protected TblUsuarioBase(string strNome) : base(AppWeb.i.dbe, strNome)
+        protected TblUsuarioBase(string strNome) : base(strNome)
         {
             i = this;
         }

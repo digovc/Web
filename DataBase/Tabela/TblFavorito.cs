@@ -84,7 +84,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFavorito() : base(AppWeb.i.dbe, "tbl_favorito")
+        private TblFavorito() : base("tbl_favorito")
         {
         }
 
@@ -92,7 +92,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Métodos
 
-        internal void favoritar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, Persistencia.Tabela tbl)
+        internal void favoritar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, Persistencia.TabelaBase tbl)
         {
             if (!this.favoritarValidar(objSolicitacao, objInterlocutor, tbl))
             {
@@ -174,7 +174,7 @@ namespace NetZ.Web.DataBase.Tabela
             return intOrdem;
         }
 
-        private bool favoritarValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, Persistencia.Tabela tbl)
+        private bool favoritarValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, Persistencia.TabelaBase tbl)
         {
             if (objSolicitacao == null)
             {

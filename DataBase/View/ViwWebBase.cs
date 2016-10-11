@@ -1,6 +1,8 @@
-﻿namespace NetZ.Web.DataBase.View
+﻿using NetZ.Persistencia;
+
+namespace NetZ.Web.DataBase.View
 {
-    public abstract class ViwWebBase : Persistencia.View
+    public abstract class ViwWebBase : ViewBase
     {
         #region Constantes
 
@@ -12,7 +14,7 @@
 
         #region Construtores
 
-        public ViwWebBase(Persistencia.DataBase dbe, string strNome) : base(dbe, strNome)
+        public ViwWebBase(string strNome) : base(strNome, AppWebBase.i.dbe)
         {
         }
 

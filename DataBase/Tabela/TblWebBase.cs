@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.DataBase.Tabela
 {
-    public abstract class TblWebBase : Persistencia.Tabela
+    public abstract class TblWebBase : TabelaBase
     {
         #region Constantes
 
@@ -47,7 +47,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        public TblWebBase(Persistencia.DataBase dbe, string strNome) : base(dbe, strNome)
+        public TblWebBase(string strNome) : base(strNome, AppWebBase.i.dbe)
         {
         }
 

@@ -191,7 +191,7 @@ namespace NetZ.Web.Html.Componente.Janela
                 this.addCss(css.setWidth(600));
 
                 this.imgLateral.addCss(css.setBackgroundColor("white"));
-                this.imgLateral.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corBorda));
+                this.imgLateral.addCss(css.setBorderRight(1, "solid", AppWebBase.i.objTema.corBorda));
                 this.imgLateral.addCss(css.setFloat("left"));
                 this.imgLateral.addCss(css.setHeight(250));
                 this.imgLateral.addCss(css.setPosition("relative"));

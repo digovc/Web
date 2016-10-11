@@ -63,7 +63,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.setCss(css);
 
-            this.ckb.addCss(css.setBorderBottom(0, "solid", AppWeb.i.objTema.corTema));
+            this.ckb.addCss(css.setBorderBottom(0, "solid", AppWebBase.i.objTema.corTema));
         }
 
         #endregion Métodos

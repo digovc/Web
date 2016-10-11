@@ -19,7 +19,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         private GridHtml _grdDados;
         private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
-        private Tabela _tbl;
+        private TabelaBase _tbl;
 
         private BtnFavorito btnFavorito
         {
@@ -111,7 +111,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private Tabela tbl
+        private TabelaBase tbl
         {
             get
             {
@@ -135,7 +135,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Construtores
 
-        public JnlConsulta(Tabela tbl)
+        public JnlConsulta(TabelaBase tbl)
         {
             this.tbl = tbl;
         }
@@ -188,7 +188,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
             this.addCss(css.setBottom(0));
             this.addCss(css.setLeft(0));
             this.addCss(css.setPosition("absolute"));
@@ -230,13 +230,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            foreach (View viw in this.tbl.lstViw)
+            foreach (ViewBase viw in this.tbl.lstViw)
             {
                 this.atualizarTblLstViw(viw);
             }
         }
 
-        private void atualizarTblLstViw(View viw)
+        private void atualizarTblLstViw(ViewBase viw)
         {
             if (viw == null)
             {

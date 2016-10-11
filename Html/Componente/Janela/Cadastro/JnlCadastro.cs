@@ -19,10 +19,10 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         private CampoNumerico _cmpIntId;
         private FormHtml _frm;
-        private Tabela _tbl;
+        private TabelaBase _tbl;
         private TabelaWeb _tblWeb;
 
-        public Tabela tbl
+        public TabelaBase tbl
         {
             get
             {

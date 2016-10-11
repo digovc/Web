@@ -58,11 +58,11 @@ namespace NetZ.Web.Html.Componente
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo1));
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo1));
             this.addCss(css.setBorderRadius(5));
             this.addCss(css.setHeight(5));
 
-            this.divProgresso.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.divProgresso.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
             this.divProgresso.addCss(css.setBorderRadius(5));
             this.divProgresso.addCss(css.setHeight(100, "%"));
         }

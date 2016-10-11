@@ -431,21 +431,21 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
             this.addCss(css.setBorder(1, "solid", "#2e2e2e"));
-            this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWeb.i.objTema.corSombra));
+            this.addCss(css.setBoxShadow(0, 5, 10, 0, AppWebBase.i.objTema.corSombra));
             this.addCss(css.setCenter());
             this.addCss(css.setPosition("absolute"));
 
-            this.divBtnFechar.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divBtnFechar.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTelaFundo));
             this.divBtnFechar.addCss(css.setBackgroundImage("/res/media/png/btn_fechar_25x25.png"));
             this.divBtnFechar.addCss(css.setBackgroundPosition("center"));
             this.divBtnFechar.addCss(css.setBackgroundRepeat("no-repeat"));
-            this.divBtnFechar.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corTema));
-            this.divBtnFechar.addCss(css.setBorderLeft(1, "solid", AppWeb.i.objTema.corTema));
+            this.divBtnFechar.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corTema));
+            this.divBtnFechar.addCss(css.setBorderLeft(1, "solid", AppWebBase.i.objTema.corTema));
             this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 5, 5));
-            this.divBtnFechar.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corTema));
-            this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWeb.i.objTema.corSombra));
+            this.divBtnFechar.addCss(css.setBorderRight(1, "solid", AppWebBase.i.objTema.corTema));
+            this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWebBase.i.objTema.corSombra));
             this.divBtnFechar.addCss(css.setHeight(25));
             this.divBtnFechar.addCss(css.setMarginRight(8));
             this.divBtnFechar.addCss(css.setTextAlign("center"));
@@ -456,7 +456,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divAcao.addCss(css.setRight(0));
             this.divAcao.addCss(css.setTop(0));
 
-            this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divCabecalho.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTelaFundo));
             this.divCabecalho.addCss(css.setCursor("default"));
             this.divCabecalho.addCss(css.setHeight(40));
             this.divCabecalho.addCss(css.setPosition("relative"));

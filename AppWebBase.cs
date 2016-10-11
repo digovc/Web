@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NetZ.Persistencia;
 using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Dominio;
@@ -20,7 +21,7 @@ namespace NetZ.Web
     /// capaz através disto, construir as respostas adequadas para os clientes e suas solicitações.
     /// </para>
     /// </summary>
-    public abstract class AppWeb : App
+    public abstract class AppWebBase : App
     {
         #region Constantes
 
@@ -28,16 +29,16 @@ namespace NetZ.Web
 
         #region Atributos
 
-        private static AppWeb _i;
+        private static AppWebBase _i;
 
         private bool _booMostrarGrade;
-        private Persistencia.DataBase _dbe;
+        private DbeBase _dbe;
         private List<UsuarioDominio> _lstObjUsuario;
         private List<ServerBase> _lstSrv;
         private object _objLstObjUsuarioLock;
         private JavaScriptTag _tagJsRelease;
 
-        public new static AppWeb i
+        public new static AppWebBase i
         {
             get
             {
@@ -78,7 +79,7 @@ namespace NetZ.Web
             }
         }
 
-        public Persistencia.DataBase dbe
+        public DbeBase dbe
         {
             get
             {
@@ -157,7 +158,7 @@ namespace NetZ.Web
 
         #region Construtores
 
-        protected AppWeb(string strNome)
+        protected AppWebBase(string strNome)
         {
             i = this;
 
@@ -168,7 +169,7 @@ namespace NetZ.Web
 
         #region Métodos
 
-        public virtual Persistencia.DataBase getObjDbPrincipal()
+        public virtual Persistencia.DbeBase getObjDbPrincipal()
         {
             throw new NotImplementedException();
         }
@@ -177,11 +178,11 @@ namespace NetZ.Web
         /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
         /// ficarão disponíveis para servir esta aplicação para os cliente.
         /// <para>
-        /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWeb"/>.
+        /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
         /// </para>
         /// <para>
         /// O servidor der solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
-        /// inicializado, caso a configuração <seealso cref="ConfigWeb.booServerAjaxDbAtivar"/>
+        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booServerAjaxDbAtivar"/>
         /// esteja marcada.
         /// </para>
         /// </summary>
@@ -268,12 +269,12 @@ namespace NetZ.Web
             }
         }
 
-        protected virtual Persistencia.DataBase getDbe()
+        protected virtual DbeBase getDbe()
         {
             return null;
         }
 
-        protected abstract ConfigWeb getObjConfig();
+        protected abstract ConfigWebBase getObjConfig();
 
         protected virtual JavaScriptTag getTagJsRelease()
         {

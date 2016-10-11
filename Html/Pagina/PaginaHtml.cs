@@ -408,22 +408,7 @@ namespace NetZ.Web.Html.Pagina
 
         protected void addConstante(string strNome, string strValor)
         {
-            if (string.IsNullOrEmpty(strNome))
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(strValor))
-            {
-                return;
-            }
-
-            string strJq = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
-
-            strJq = strJq.Replace("_constante_nome", strNome);
-            strJq = strJq.Replace("_constante_valor", strValor);
-
-            this.addJs(strJq);
+            this.tagJs.addConstante(strNome, strValor);
         }
 
         protected void addConstante(string strNome, int intValor)
@@ -436,7 +421,7 @@ namespace NetZ.Web.Html.Pagina
             this.addConstante(strNome, decValor.ToString());
         }
 
-        protected virtual void addConstante()
+        protected virtual void addConstante(JavaScriptTag tagJs)
         {
         }
 
@@ -461,7 +446,7 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
-            lstJsDebug.Add(new JavaScriptTag(typeof(AppWeb), 104));
+            lstJsDebug.Add(new JavaScriptTag(typeof(AppWebBase), 104));
             lstJsDebug.Add(new JavaScriptTag(typeof(Interlocutor), 105));
             lstJsDebug.Add(new JavaScriptTag(typeof(Mensagem), 111));
             lstJsDebug.Add(new JavaScriptTag(typeof(MenuContexto), 111));
@@ -472,7 +457,7 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjax), 102));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttp), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttpBase), 102));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerWs), 102));
 
             lstJsDebug.Add(new JavaScriptTag("res/js/web/Constante.js", 0));
@@ -495,29 +480,15 @@ namespace NetZ.Web.Html.Pagina
 
         }
 
-        protected virtual void addLayoutFixo()
+        protected virtual void addLayoutFixo(JavaScriptTag tagJs)
         {
-            this.addLayoutFixo(typeof(Mensagem));
-            this.addLayoutFixo(typeof(MenuContexto));
-            this.addLayoutFixo(typeof(MenuContextoItem));
-            this.addLayoutFixo(typeof(MenuGrid));
-            this.addLayoutFixo(typeof(Notificacao));
-            this.addLayoutFixo(typeof(TagCard));
-        }
-
-        protected void addLayoutFixo(Type cls)
-        {
-            if (cls == null)
-            {
-                return;
-            }
-
-            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
-            {
-                return;
-            }
-
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
+            // Revisar a real necessidade de enviar esses layouts sempre.
+            tagJs.addLayoutFixo(typeof(Mensagem));
+            tagJs.addLayoutFixo(typeof(MenuContexto));
+            tagJs.addLayoutFixo(typeof(MenuContextoItem));
+            tagJs.addLayoutFixo(typeof(MenuGrid));
+            tagJs.addLayoutFixo(typeof(Notificacao));
+            tagJs.addLayoutFixo(typeof(TagCard));
         }
 
         /// <summary>
@@ -584,7 +555,7 @@ namespace NetZ.Web.Html.Pagina
             this.tagMetaHttpEquiv.booDupla = false;
 
             this.tagMetaThemaColor.addAtt("name", "theme-color");
-            this.tagMetaThemaColor.addAtt("content", ColorTranslator.ToHtml(AppWeb.i.objTema.corTema));
+            this.tagMetaThemaColor.addAtt("content", ColorTranslator.ToHtml(AppWebBase.i.objTema.corTema));
             this.tagMetaThemaColor.booMostrarClazz = false;
             this.tagMetaThemaColor.booDupla = false;
 
@@ -676,7 +647,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsDebug()
         {
-            if (AppWeb.i.booProducao)
+            if (AppWebBase.i.booProducao)
             {
                 return;
             }
@@ -698,17 +669,17 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsRelease()
         {
-            if (!AppWeb.i.booProducao)
+            if (!AppWebBase.i.booProducao)
             {
                 return;
             }
 
-            if (AppWeb.i.tagJsRelease == null)
+            if (AppWebBase.i.tagJsRelease == null)
             {
                 return;
             }
 
-            AppWeb.i.tagJsRelease.setPai(this.tagHead);
+            AppWebBase.i.tagJsRelease.setPai(this.tagHead);
         }
 
         private string getStrTituloFormatado()
@@ -716,7 +687,7 @@ namespace NetZ.Web.Html.Pagina
             string strResultado = "_titulo - _app_nome";
 
             strResultado = strResultado.Replace("_titulo", this.strTitulo);
-            strResultado = strResultado.Replace("_app_nome", AppWeb.i.strNome);
+            strResultado = strResultado.Replace("_app_nome", AppWebBase.i.strNome);
 
             return strResultado;
         }
@@ -728,8 +699,8 @@ namespace NetZ.Web.Html.Pagina
             this.setCss(CssMain.i);
             this.finalizar();
             this.finalizarCss(CssPrint.i);
-            this.addLayoutFixo();
-            this.addConstante();
+            this.addLayoutFixo(this.tagJs);
+            this.addConstante(this.tagJs);
         }
 
         private string toHtmlDinamico()

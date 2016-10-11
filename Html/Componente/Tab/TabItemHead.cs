@@ -51,7 +51,7 @@ namespace NetZ.Web.Html.Componente.Tab
         {
             base.setCss(css);
 
-            this.addCss(css.setBorderRight(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.addCss(css.setBorderRight(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.addCss(css.setCursor("pointer"));
             this.addCss(css.setFloat("left"));
             this.addCss(css.setLineHeight(30));

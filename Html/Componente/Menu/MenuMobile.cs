@@ -109,7 +109,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setPosition("fixed"));
             this.addCss(css.setWidth(100, "%"));
 
-            this.divCabecalho.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.divCabecalho.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
             this.divCabecalho.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
             this.divCabecalho.addCss(css.setHeight(150));
             this.divCabecalho.addCss(css.setMarginBottom(25));

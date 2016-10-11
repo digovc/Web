@@ -115,9 +115,9 @@ namespace NetZ.Web.Html.Componente
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
             this.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
-            this.addCss(css.setColor(AppWeb.i.objTema.corFonte));
+            this.addCss(css.setColor(AppWebBase.i.objTema.corFonte));
             this.addCss(css.setHeight(50, "px"));
             this.addCss(css.setPosition("fixed"));
             this.addCss(css.setWidth(100, "%"));

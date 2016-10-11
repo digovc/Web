@@ -20,7 +20,7 @@ namespace NetZ.Web.Html.Componente.Menu
         private List<MenuItem> _lstMni;
         private string _strTitulo;
 
-        private Tabela _tbl;
+        private TabelaBase _tbl;
 
         /// <summary>
         /// Texto que será apresentado para o usuário.
@@ -38,7 +38,7 @@ namespace NetZ.Web.Html.Componente.Menu
             }
         }
 
-        public Tabela tbl
+        public TabelaBase tbl
         {
             get
             {
@@ -205,7 +205,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.setCssPai(css);
             this.setCssFilho(css);
 
-            this.divItemConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.divItemConteudo.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTelaFundo));
             this.divItemConteudo.addCss(css.setDisplay("none"));
             this.divItemConteudo.addCss(css.setFontSize(14));
         }
@@ -229,7 +229,7 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corSombra));
+            this.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corSombra));
             this.addCss(css.setBorderBottom(0, "solid", null));
             this.addCss(css.setHeight(40));
             this.addCss(css.setMinHeight(40));
@@ -247,12 +247,12 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderTop(1, "solid", AppWeb.i.objTema.corSombra));
+            this.addCss(css.setBorderTop(1, "solid", AppWebBase.i.objTema.corSombra));
             this.addCss(css.setLineHeight(50));
             this.addCss(css.setMinHeight(50));
 
-            this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
-            this.divIcone.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corTema));
+            this.divIcone.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTelaFundo));
+            this.divIcone.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corTema));
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setMarginLeft(5));
             this.divIcone.addCss(css.setMarginRight(15));

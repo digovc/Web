@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetZ.Web.Html.Componente;
 
 namespace NetZ.Web.Html
 {
@@ -136,6 +137,41 @@ namespace NetZ.Web.Html
             base.inicializar();
 
             this.addAtt("type", "text/javascript");
+        }
+
+        internal new void addConstante(string strNome, string strValor)
+        {
+            if (string.IsNullOrEmpty(strNome))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return;
+            }
+
+            string strJs = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
+
+            strJs = strJs.Replace("_constante_nome", strNome);
+            strJs = strJs.Replace("_constante_valor", strValor);
+
+            this.addJs(strJs);
+        }
+
+        internal void addLayoutFixo(Type cls)
+        {
+            if (cls == null)
+            {
+                return;
+            }
+
+            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
+            {
+                return;
+            }
+
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
         }
 
         #endregion Métodos

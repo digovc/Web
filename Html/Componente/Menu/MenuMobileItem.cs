@@ -106,7 +106,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setMarginBottom(10));
             this.addCss(css.setWidth(100, "%"));
 
-            this.divIcone.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTema));
+            this.divIcone.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
             this.divIcone.addCss(css.setBorderRadius(50, "%"));
             this.divIcone.addCss(css.setFloat("left"));
             this.divIcone.addCss(css.setHeight(50));

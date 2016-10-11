@@ -75,7 +75,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor("#f7f7f7"));
-            this.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setFloat("left"));
             this.addCss(css.setMarginBottom(5));
@@ -83,7 +83,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.divFechar.addCss(css.setBackgroundColor("#dddddd"));
             this.divFechar.addCss(css.setBackgroundImage("/res/media/png/btn_limpar_25x25.png"));
-            this.divFechar.addCss(css.setBorderLeft(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.divFechar.addCss(css.setBorderLeft(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.divFechar.addCss(css.setCursor("pointer"));
             this.divFechar.addCss(css.setFloat("right"));
             this.divFechar.addCss(css.setHeight(25));

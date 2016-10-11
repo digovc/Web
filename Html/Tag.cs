@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetZ.SistemaBase;
@@ -56,6 +55,7 @@ namespace NetZ.Web.Html
         private bool _booMostrarClazz = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
+        private object _lckLstAtt;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
         private string _src;
@@ -377,6 +377,21 @@ namespace NetZ.Web.Html
             }
         }
 
+        private object lckLstAtt
+        {
+            get
+            {
+                if (_lckLstAtt != null)
+                {
+                    return _lckLstAtt;
+                }
+
+                _lckLstAtt = new object();
+
+                return _lckLstAtt;
+            }
+        }
+
         private List<Atributo> lstAtt
         {
             get
@@ -473,22 +488,6 @@ namespace NetZ.Web.Html
             }
         }
 
-        private object _lckLstAtt;
-
-        private object lckLstAtt
-        {
-            get
-            {
-                if (_lckLstAtt != null)
-                {
-                    return _lckLstAtt;
-                }
-
-                _lckLstAtt = new object();
-
-                return _lckLstAtt;
-            }
-        }
         #endregion Atributos
 
         #region Construtores
@@ -664,28 +663,14 @@ namespace NetZ.Web.Html
             this.setCss(CssMain.i);
             this.finalizar();
             this.finalizarCss(CssMain.i);
+            this.addLayoutFixo(PaginaHtml.i.tagJs);
+            this.addConstante(PaginaHtml.i.tagJs);
 
             return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
         }
 
-        protected void addConstante(string strNome, string strValor)
+        protected virtual void addConstante(JavaScriptTag tagJs)
         {
-            if (string.IsNullOrEmpty(strNome))
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(strValor))
-            {
-                return;
-            }
-
-            string strJq = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
-
-            strJq = strJq.Replace("_constante_nome", strNome);
-            strJq = strJq.Replace("_constante_valor", strValor);
-
-            this.addJs(PaginaHtml.i.tagJs);
         }
 
         /// <summary>
@@ -700,6 +685,18 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Este método deve ser utilizado para adicionar código JavaScript que será executado assim
+        /// que o carregamento da página estiver concluído.
+        /// </summary>
+        /// <param name="js">
+        /// É uma tag JavaScript inline que serve para adicionar código que será executado quando o
+        /// carregamento da página estiver concluído.
+        /// </param>
+        protected virtual void addJs(JavaScriptTag js)
+        {
+        }
+
+        /// <summary>
         /// Método que serve para adicionar arquivos JavaScript estáticos para lista de que será
         /// carregada pelo browser do usuário.
         /// </summary>
@@ -710,15 +707,11 @@ namespace NetZ.Web.Html
         {
         }
 
-        /// <summary>
-        /// Este método deve ser utilizado para adicionar código JavaScript que será executado assim
-        /// que o carregamento da página estiver concluído.
-        /// </summary>
-        /// <param name="js">
-        /// É uma tag JavaScript inline que serve para adicionar código que será executado quando o
-        /// carregamento da página estiver concluído.
-        /// </param>
-        protected virtual void addJs(JavaScriptTag js)
+        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
+        {
+        }
+
+        protected virtual void addLayoutFixo(JavaScriptTag tagJs)
         {
         }
 
@@ -773,10 +766,6 @@ namespace NetZ.Web.Html
             this.addJs(PaginaHtml.i.tagJs);
 
             this.inicializarClazz();
-        }
-
-        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
-        {
         }
 
         protected virtual void montarLayout()
@@ -939,7 +928,7 @@ namespace NetZ.Web.Html
 
         private void setCssBooMostrarGrade(CssArquivo css)
         {
-            if (!AppWeb.i.booMostrarGrade)
+            if (!AppWebBase.i.booMostrarGrade)
             {
                 return;
             }

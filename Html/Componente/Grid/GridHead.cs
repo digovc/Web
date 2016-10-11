@@ -57,8 +57,8 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
-            this.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
+            this.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.addCss(css.setFontWeight("normal"));
             this.addCss(css.setPaddingLeft(10));
             this.addCss(css.setPaddingRight(10));

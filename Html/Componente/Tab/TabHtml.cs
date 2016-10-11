@@ -252,7 +252,7 @@ namespace NetZ.Web.Html.Componente.Tab
             this.divComando.addCss(css.setRight(5));
 
             this.divConteudo.addCss(css.setBottom(0));
-            this.divConteudo.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
+            this.divConteudo.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
             this.divConteudo.addCss(css.setOverflow("auto"));
             this.divConteudo.addCss(css.setPosition("absolute"));
             this.divConteudo.addCss(css.setTop(30));

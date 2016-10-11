@@ -98,7 +98,7 @@ namespace NetZ.Web.Server.Arquivo
 
         #region Métodos
 
-        internal bool carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        internal bool carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)
         {
             if (!this.carregarArquivoValidar(objSolicitacao, objInterlocutor, tblWeb, tbl))
             {
@@ -174,7 +174,7 @@ namespace NetZ.Web.Server.Arquivo
             return this.objSolicitacao.frmData.getStrFrmItemValor("tbl_web_nome");
         }
 
-        private bool carregarArquivoValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Tabela tbl)
+        private bool carregarArquivoValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)
         {
             if (this.objSolicitacao == null)
             {

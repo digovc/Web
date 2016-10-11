@@ -97,7 +97,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divComando.addCss(css.setPosition("absolute"));
             this.divComando.addCss(css.setRight(10));
 
-            this.divContent.addCss(css.setBorder(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.divContent.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.divContent.addCss(css.setHeight(210));
             this.divContent.addCss(css.setMarginTop(5));
 

@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppWeb.cs" />
+    <Compile Include="AppWebBase.cs" />
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="DataBase\Dominio\FavoritoDominio.cs" />
     <Compile Include="DataBase\Tabela\TblFavorito.cs" />
@@ -127,6 +127,8 @@
     <Compile Include="Html\Componente\Tab\TabHtml.cs" />
     <Compile Include="Html\Componente\Tab\TabItem.cs" />
     <Compile Include="Html\Componente\Tab\TabItemHead.cs" />
+    <Compile Include="Html\Componente\TreeView\TreeViewHtml.cs" />
+    <Compile Include="Html\Componente\TreeView\TreeViewNode.cs" />
     <Compile Include="Html\CssTag.cs" />
     <Compile Include="Html\Pagina\PagError.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />
@@ -157,7 +159,7 @@
     <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
-    <Compile Include="Server\ServerHttp.cs" />
+    <Compile Include="Server\ServerHttpBase.cs" />
     <Compile Include="Server\Ajax\ServerAjax.cs" />
     <Compile Include="Server\Ajax\ServerAjaxDb.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
@@ -212,6 +214,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\viw_filtro_item.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="res\media\png\tree_view_icon_default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

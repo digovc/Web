@@ -382,7 +382,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divInputContainer.addCss(css.setRight(10));
             this.divInputContainer.addCss(css.setTextAlign("left"));
 
-            this.divTitulo.addCss(css.setColor(AppWeb.i.objTema.corTelaFundo));
+            this.divTitulo.addCss(css.setColor(AppWebBase.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setFontSize(14));
             this.divTitulo.addCss(css.setHeight(15));
             this.divTitulo.addCss(css.setLineHeight(15));
@@ -395,7 +395,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.tagInput.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.tagInput.addCss(css.setBorder(0));
-            this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.tagInput.addCss(css.setFontSize(15));
             this.tagInput.addCss(css.setOutLine("none"));
         }

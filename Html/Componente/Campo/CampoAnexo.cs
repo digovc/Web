@@ -206,7 +206,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divIcone.addCss(css.setBackgroundImage("/res/media/png/file_100x100.png"));
             this.divIcone.addCss(css.setBackgroundPosition("center"));
             this.divIcone.addCss(css.setBackgroundRepeat("no-repeat"));
-            this.divIcone.addCss(css.setColor(AppWeb.i.objTema.corTema));
+            this.divIcone.addCss(css.setColor(AppWebBase.i.objTema.corTema));
             this.divIcone.addCss(css.setDisplay("none"));
             this.divIcone.addCss(css.setFontSize(20));
             this.divIcone.addCss(css.setFontWeight("bold"));

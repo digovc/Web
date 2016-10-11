@@ -116,12 +116,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         private void carregarDadosCmpStrColunaNome()
         {
-            if (AppWeb.i == null)
+            if (AppWebBase.i == null)
             {
                 return;
             }
 
-            if (AppWeb.i.dbe == null)
+            if (AppWebBase.i.dbe == null)
             {
                 return;
             }
@@ -143,7 +143,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            Tabela tblFiltrada = AppWeb.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
+            TabelaBase tblFiltrada = AppWebBase.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
 
             if (tblFiltrada == null)
             {

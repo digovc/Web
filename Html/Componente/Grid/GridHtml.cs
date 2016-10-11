@@ -19,13 +19,13 @@ namespace NetZ.Web.Html.Componente.Grid
         private Tag _tagTfoot;
         private Tag _tagThead;
         private Tag _tagTrHead;
-        private Tabela _tbl;
+        private TabelaBase _tbl;
         private DataTable _tblData;
 
         /// <summary>
         /// Tabela que este grid irá representar.
         /// </summary>
-        public Tabela tbl
+        public TabelaBase tbl
         {
             get
             {
@@ -184,8 +184,8 @@ namespace NetZ.Web.Html.Componente.Grid
             base.setCss(css);
 
             this.tagTable.addCss(css.addCss("border-spacing", "0"));
-            this.tagTable.addCss(css.setBackgroundColor(AppWeb.i.objTema.corFundo));
-            this.tagTable.addCss(css.setBorderBottom(1, "solid", AppWeb.i.objTema.corFundoBorda));
+            this.tagTable.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
+            this.tagTable.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.tagTable.addCss(css.setCenter());
             this.tagTable.addCss(css.setWhiteSpace("nowrap"));
 

@@ -11,7 +11,7 @@ namespace NetZ.Web.Html.Componente.Tab
         #region Atributos
 
         private string _strTitulo = "Tab desconhecida";
-        private Tabela _tbl;
+        private TabelaBase _tbl;
 
         /// <summary>
         /// Título que ficará visível para o usuário e identificará esta tab na tela.
@@ -32,7 +32,7 @@ namespace NetZ.Web.Html.Componente.Tab
         /// <summary>
         /// Tabela que esta tab representa.
         /// </summary>
-        public Tabela tbl
+        public TabelaBase tbl
         {
             get
             {

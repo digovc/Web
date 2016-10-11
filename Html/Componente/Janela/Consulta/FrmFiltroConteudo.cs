@@ -18,7 +18,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         private int _intFiltroId;
         private List<CampoHtml> _lstCmpFiltro;
-        private Tabela _tblFiltrada;
+        private TabelaBase _tblFiltrada;
 
         public int intFiltroId
         {
@@ -48,7 +48,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private Tabela tblFiltrada
+        private TabelaBase tblFiltrada
         {
             get
             {
@@ -97,14 +97,14 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             return strResultado;
         }
 
-        private Tabela getTblFiltrada()
+        private TabelaBase getTblFiltrada()
         {
-            if (AppWeb.i == null)
+            if (AppWebBase.i == null)
             {
                 return null;
             }
 
-            if (AppWeb.i.dbe == null)
+            if (AppWebBase.i.dbe == null)
             {
                 return null;
             }
@@ -116,7 +116,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             TblFiltro.i.recuperar(this.intFiltroId);
 
-            return AppWeb.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
+            return AppWebBase.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
         }
 
         private void inicializarLstCmpFiltro()

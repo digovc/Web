@@ -15,7 +15,7 @@ namespace NetZ.Web.Server
     /// <summary>
     /// Classe que abstrae cada solicitação que foi encaminhada pelo cliente e precisa ser respondida.
     /// <para>
-    /// Esta solicitação deve ser verificada em <see cref="AppWeb.responder(Solicitacao)"/>, para que
+    /// Esta solicitação deve ser verificada em <see cref="AppWebBase.responder(Solicitacao)"/>, para que
     /// seja construída a resposta adequeda aguardada pelo cliente.
     /// </para>
     /// <para>
@@ -293,7 +293,7 @@ namespace NetZ.Web.Server
         /// Código único que identifica o cliente. Todas as solicitações enviadas pelo cliente
         /// através de um mesmo browser terão o mesmo valor.
         /// <para>
-        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="ServerHttp.STR_COOKIE_SESSAO_ID_NOME"/>.
+        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="ServerHttpBase.STR_COOKIE_SESSAO_ID_NOME"/>.
         /// </para>
         /// <para>Esse cookie fica salvo no browser do cliente durante 8 (oito) horas.</para>
         /// </summary>
@@ -306,7 +306,7 @@ namespace NetZ.Web.Server
                     return _strSessaoId;
                 }
 
-                _strSessaoId = this.getStrCookieValor(ServerHttp.STR_COOKIE_SESSAO_ID_NOME);
+                _strSessaoId = this.getStrCookieValor(ServerHttpBase.STR_COOKIE_SESSAO_ID_NOME);
 
                 return _strSessaoId;
             }
@@ -957,7 +957,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            return AppWeb.i.getObjUsuario(this.strSessaoId);
+            return AppWebBase.i.getObjUsuario(this.strSessaoId);
         }
 
         private string getStrConteudo()

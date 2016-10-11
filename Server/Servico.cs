@@ -5,7 +5,7 @@ namespace NetZ.Web.Server
 {
     /// <summary>
     /// Classe base para todos os serviços assíncronos que precisam funcionar sem atrapalhar os
-    /// outros, como por exemplo a classe <see cref="ServerHttp"/> que se mantém ativa aguardando
+    /// outros, como por exemplo a classe <see cref="ServerHttpBase"/> que se mantém ativa aguardando
     /// chamadas de entrada dos clientes, ou a classe <see cref="Cliente"/> que é um processo que
     /// processa a solicitação de cada um cliente que solicitar algum recurso deste servidor.
     /// </summary>

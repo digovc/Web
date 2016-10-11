@@ -11,9 +11,9 @@ namespace NetZ.Web.WinService
 
         #region Atributos
 
-        private AppWeb _appWeb;
+        private AppWebBase _appWeb;
 
-        private AppWeb appWeb
+        private AppWebBase appWeb
         {
             get
             {
@@ -86,7 +86,7 @@ namespace NetZ.Web.WinService
 
         #region Métodos
 
-        protected abstract AppWeb getAppWeb();
+        protected abstract AppWebBase getAppWeb();
 
         private void inicializar()
         {

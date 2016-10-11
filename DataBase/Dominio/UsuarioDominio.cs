@@ -157,7 +157,7 @@ namespace NetZ.Web.DataBase.Dominio
             this.lstArqUpload.Add(arqUpload);
         }
 
-        internal void carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Persistencia.Tabela tbl)
+        internal void carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Persistencia.TabelaBase tbl)
         {
             foreach (ArqUpload arqUpload in this.lstArqUpload)
             {

@@ -31,7 +31,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWeb.i.objTema.corTelaFundo));
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTelaFundo));
             this.addCss(css.setBackgroundImage("/res/media/png/bnt_favorito_desmarcado_30x30.png"));
             this.addCss(css.setBackgroundPosition("center"));
             this.addCss(css.setBackgroundRepeat("no-repeat"));

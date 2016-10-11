@@ -252,7 +252,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorder(intBorderPx, strTipo = "solid", this.corToRgba(cor));
         }
 
-        public string setBorderBottom(int intBottomPx, string strTipo, string cor)
+        public string setBorderBottom(int intBottomPx, string strTipo = "solid", string cor = "gray")
         {
             return this.addCss("border-bottom", string.Format("{0}px {1} {2}", intBottomPx, strTipo, cor));
         }
@@ -282,7 +282,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("border-radius", string.Format("{0}{1}", intBorderRadius, strGrandeza));
         }
 
-        public string setBorderRight(int intRightPx, string strTipo, string cor)
+        public string setBorderRight(int intRightPx, string strTipo = "solid", string cor = "gray")
         {
             return this.addCss("border-right", string.Format("{0}px {1} {2}", intRightPx, strTipo, cor));
         }
