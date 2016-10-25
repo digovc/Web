@@ -7,7 +7,7 @@ using DigoFramework;
 
 namespace NetZ.Web.Server
 {
-    public class FormData : SistemaBase.Objeto
+    public class FormData : Objeto
     {
         #region Constantes
 

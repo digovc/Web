@@ -1,5 +1,5 @@
 ﻿using System;
-using NetZ.SistemaBase;
+using DigoFramework;
 
 namespace NetZ.Web.Server
 {

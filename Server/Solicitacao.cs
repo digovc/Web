@@ -29,7 +29,7 @@ namespace NetZ.Web.Server
     /// pasta "res", dentro da localidade onde está rodando este servidor WEB serão tratador automaticamente.
     /// </para>
     /// </summary>
-    public class Solicitacao : SistemaBase.Objeto
+    public class Solicitacao : Objeto
     {
         #region Constantes
 

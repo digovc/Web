@@ -36,16 +36,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppWebBase.cs" />
@@ -203,10 +197,6 @@
     <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
       <Project>{5fdebacf-1812-47a0-8fba-25db3ad2b31c}</Project>
       <Name>NetZ.Persistencia</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SistemaBase\NetZ.SistemaBase.csproj">
-      <Project>{4ec8339f-4e73-4786-b3bc-073690d9528e}</Project>
-      <Name>NetZ.SistemaBase</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using NetZ.SistemaBase;
+using DigoFramework;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
@@ -647,7 +647,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsDebug()
         {
-            if (AppWebBase.i.booProducao)
+            if (!AppWebBase.i.booDesenvolvimento)
             {
                 return;
             }
@@ -669,7 +669,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsRelease()
         {
-            if (!AppWebBase.i.booProducao)
+            if (!AppWebBase.i.booDesenvolvimento)
             {
                 return;
             }

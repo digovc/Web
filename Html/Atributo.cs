@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using NetZ.SistemaBase;
+using DigoFramework;
 
 namespace NetZ.Web.Html
 {

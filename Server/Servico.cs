@@ -189,13 +189,10 @@ namespace NetZ.Web.Server
             {
                 this.servico();
             }
-            catch (Exception ex)
+            catch
             {
                 // TODO: Tratar esta exceção.
                 //throw ex;
-            }
-            finally
-            {
             }
 
             #endregion Ações

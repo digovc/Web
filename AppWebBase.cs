@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DigoFramework;
 using NetZ.Persistencia;
-using NetZ.SistemaBase;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html;
@@ -21,7 +21,7 @@ namespace NetZ.Web
     /// capaz através disto, construir as respostas adequadas para os clientes e suas solicitações.
     /// </para>
     /// </summary>
-    public abstract class AppWebBase : App
+    public abstract class AppWebBase : AppBase
     {
         #region Constantes
 
@@ -38,7 +38,7 @@ namespace NetZ.Web
         private object _objLstObjUsuarioLock;
         private JavaScriptTag _tagJsRelease;
 
-        public new static AppWebBase i
+        public static AppWebBase i
         {
             get
             {
@@ -158,11 +158,9 @@ namespace NetZ.Web
 
         #region Construtores
 
-        protected AppWebBase(string strNome)
+        protected AppWebBase(string strNome) : base(strNome)
         {
             i = this;
-
-            this.strNome = strNome;
         }
 
         #endregion Construtores

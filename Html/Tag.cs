@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NetZ.SistemaBase;
+using DigoFramework;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
 

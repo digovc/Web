@@ -1,9 +1,8 @@
 ﻿using DigoFramework.Json;
-using NetZ.SistemaBase;
 
 namespace NetZ.Web.Server
 {
-    public class Interlocutor : Objeto
+    public class Interlocutor
     {
         #region Constantes
 

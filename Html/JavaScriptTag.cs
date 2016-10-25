@@ -139,7 +139,7 @@ namespace NetZ.Web.Html
             this.addAtt("type", "text/javascript");
         }
 
-        internal new void addConstante(string strNome, string strValor)
+        internal void addConstante(string strNome, string strValor)
         {
             if (string.IsNullOrEmpty(strNome))
             {
