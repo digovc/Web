@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NetZ.Persistencia">
+      <HintPath>lib\NetZ\NetZ.Persistencia.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
@@ -193,10 +196,6 @@
     <ProjectReference Include="..\DigoFramework\DigoFramework.csproj">
       <Project>{93078de5-a910-4ad6-a942-657582105493}</Project>
       <Name>DigoFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
-      <Project>{5fdebacf-1812-47a0-8fba-25db3ad2b31c}</Project>
-      <Name>NetZ.Persistencia</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
