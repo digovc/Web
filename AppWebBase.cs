@@ -167,11 +167,6 @@ namespace NetZ.Web
 
         #region Métodos
 
-        public virtual Persistencia.DbeBase getObjDbPrincipal()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
         /// ficarão disponíveis para servir esta aplicação para os cliente.
