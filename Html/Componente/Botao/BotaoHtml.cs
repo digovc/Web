@@ -19,7 +19,6 @@ namespace NetZ.Web.Html.Componente.Botao
         private bool _booFrmSubmit;
         private EnmLado _enmLado = EnmLado.DIREITA;
         private int _intNivel;
-
         private int _intTamanhoVertical;
 
         /// <summary>
