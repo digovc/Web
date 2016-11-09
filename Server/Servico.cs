@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -37,33 +36,14 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_thr != null)
                 {
-                    if (_thr != null)
-                    {
-                        return _thr;
-                    }
-
-                    _thr = new Thread(this.inicializarServio);
-
-                    _thr.IsBackground = true;
-                    //_thr.Priority = ThreadPriority.Normal;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _thr;
                 }
 
-                #endregion Ações
+                _thr = new Thread(this.inicializarServio);
+
+                _thr.IsBackground = true;
 
                 return _thr;
             }
@@ -80,25 +60,7 @@ namespace NetZ.Web.Server
 
         protected Servico(string strNome)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.thr.Name = strNome;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.thr.Name = strNome;
         }
 
         #endregion Construtores
@@ -111,26 +73,8 @@ namespace NetZ.Web.Server
         /// </summary>
         public void iniciar()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.inicializar();
-                this.thr.Start();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializar();
+            this.thr.Start();
         }
 
         /// <summary>
@@ -139,25 +83,7 @@ namespace NetZ.Web.Server
         /// </summary>
         public void parar()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.booParar = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.booParar = true;
         }
 
         /// <summary>
