@@ -38,7 +38,7 @@ namespace NetZ.Web
         private object _objLstObjUsuarioLock;
         private JavaScriptTag _tagJsRelease;
 
-        public static AppWebBase i
+        public new static AppWebBase i
         {
             get
             {
