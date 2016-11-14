@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -121,28 +120,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.inicializarStrTag();
         }
 
-        private void inicializarStrTag()
-        {
-            if (this.tbl == null)
-            {
-                return;
-            }
-
-            if (this.tblWeb.clnWebIntId.intValor < 1)
-            {
-                return;
-            }
-
-            this.tbl.recuperar(this.tblWeb.clnWebIntId.intValor);
-
-            if (string.IsNullOrEmpty(this.tbl.clnStrTag.strValor))
-            {
-                return;
-            }
-
-            this.addAtt("str_tag", this.tbl.clnStrTag.strValor);
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -207,6 +184,28 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             strId = strId.Replace("_int_registro_id", clnWebIntId.strValor);
 
             this.strId = strId;
+        }
+
+        private void inicializarStrTag()
+        {
+            if (this.tbl == null)
+            {
+                return;
+            }
+
+            if (this.tblWeb.clnWebIntId.intValor < 1)
+            {
+                return;
+            }
+
+            this.tbl.recuperar(this.tblWeb.clnWebIntId.intValor);
+
+            if (string.IsNullOrEmpty(this.tbl.clnStrTag.strValor))
+            {
+                return;
+            }
+
+            this.addAtt("str_tag", this.tbl.clnStrTag.strValor);
         }
 
         private void inicializarStrTitulo()

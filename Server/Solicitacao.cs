@@ -15,8 +15,8 @@ namespace NetZ.Web.Server
     /// <summary>
     /// Classe que abstrae cada solicitação que foi encaminhada pelo cliente e precisa ser respondida.
     /// <para>
-    /// Esta solicitação deve ser verificada em <see cref="AppWebBase.responder(Solicitacao)"/>, para que
-    /// seja construída a resposta adequeda aguardada pelo cliente.
+    /// Esta solicitação deve ser verificada em <see cref="AppWebBase.responder(Solicitacao)"/>, para
+    /// que seja construída a resposta adequeda aguardada pelo cliente.
     /// </para>
     /// <para>
     /// Um dos pontos mais cruciais do sistema para ser estável, consumir poucos recursos é a

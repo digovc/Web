@@ -1,6 +1,4 @@
-﻿using NetZ.Web.Html.Componente;
-
-namespace NetZ.Web.Html.Pagina
+﻿namespace NetZ.Web.Html.Pagina
 {
     public class PagMobile : PaginaHtml
     {

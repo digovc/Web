@@ -76,11 +76,17 @@ namespace NetZ.Web.Html.Pagina
         {
             base.inicializar();
 
-
-
             this.divMensagem.strConteudo = "Algo deu errado no servidor. Se o problema persistir entre em contato com o administrador do sistema.";
 
             this.inicializarDivError();
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.divMensagem.setPai(this);
+            this.divError.setPai(this);
         }
 
         private void inicializarDivError()
@@ -96,14 +102,6 @@ namespace NetZ.Web.Html.Pagina
             }
 
             this.divError.strConteudo = this.ex?.StackTrace.Replace(Environment.NewLine, "<br/>");
-        }
-
-        protected override void montarLayout()
-        {
-            base.montarLayout();
-
-            this.divMensagem.setPai(this);
-            this.divError.setPai(this);
         }
 
         #endregion Métodos

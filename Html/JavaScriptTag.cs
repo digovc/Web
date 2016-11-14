@@ -123,22 +123,6 @@ namespace NetZ.Web.Html
             return base.toHtml();
         }
 
-        /// <summary>
-        /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
-        /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
-        /// </summary>
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
-        {
-            // Não fazer nada.
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.addAtt("type", "text/javascript");
-        }
-
         internal void addConstante(string strNome, string strValor)
         {
             if (string.IsNullOrEmpty(strNome))
@@ -172,6 +156,22 @@ namespace NetZ.Web.Html
             }
 
             this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
+        }
+
+        /// <summary>
+        /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
+        /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
+        /// </summary>
+        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        {
+            // Não fazer nada.
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.addAtt("type", "text/javascript");
         }
 
         #endregion Métodos

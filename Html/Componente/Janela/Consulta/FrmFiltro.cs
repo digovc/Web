@@ -113,7 +113,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.btnAlterar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
             this.btnAlterar.intNivel = 1;
 
-            this.btnApagar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;        
+            this.btnApagar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
             this.btnApagar.intNivel = 1;
 
             this.cmpIntFiltroId.enmTamanho = CampoHtml.EnmTamanho.NORMAL;

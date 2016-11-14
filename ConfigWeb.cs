@@ -15,8 +15,8 @@ namespace NetZ.Web
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
         private bool _booServerAjaxDbAtivar = true;
-        private int _intServerHttpPorta = 80;
         private int _intServerAjaxDbPorta = 8081;
+        private int _intServerHttpPorta = 80;
         private int _intTimeOut = 5;
 
         public static new ConfigWebBase i
@@ -85,22 +85,6 @@ namespace NetZ.Web
         }
 
         /// <summary>
-        /// Porta TCP que será utilizada para rodar o servidor WEB.
-        /// </summary>
-        public int intServerHttpPorta
-        {
-            get
-            {
-                return _intServerHttpPorta;
-            }
-
-            set
-            {
-                _intServerHttpPorta = value;
-            }
-        }
-
-        /// <summary>
         /// Porta que será utilizada pelo servidor <see cref="ServerAjaxDb"/>.
         /// </summary>
         public int intServerAjaxDbPorta
@@ -113,6 +97,22 @@ namespace NetZ.Web
             set
             {
                 _intServerAjaxDbPorta = value;
+            }
+        }
+
+        /// <summary>
+        /// Porta TCP que será utilizada para rodar o servidor WEB.
+        /// </summary>
+        public int intServerHttpPorta
+        {
+            get
+            {
+                return _intServerHttpPorta;
+            }
+
+            set
+            {
+                _intServerHttpPorta = value;
             }
         }
 

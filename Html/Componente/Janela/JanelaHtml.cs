@@ -79,6 +79,39 @@ namespace NetZ.Web.Html.Componente.Janela
             }
         }
 
+        protected Div divCabecalho
+        {
+            get
+            {
+                #region Variáveis
+
+                #endregion Variáveis
+
+                #region Ações
+
+                try
+                {
+                    if (_divCabecalho != null)
+                    {
+                        return _divCabecalho;
+                    }
+
+                    _divCabecalho = new Div();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                }
+
+                #endregion Ações
+
+                return _divCabecalho;
+            }
+        }
+
         private Atributo attHeight
         {
             get
@@ -212,39 +245,6 @@ namespace NetZ.Web.Html.Componente.Janela
                 #endregion Ações
 
                 return _divBtnFechar;
-            }
-        }
-
-        protected Div divCabecalho
-        {
-            get
-            {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
-                {
-                    if (_divCabecalho != null)
-                    {
-                        return _divCabecalho;
-                    }
-
-                    _divCabecalho = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                }
-
-                #endregion Ações
-
-                return _divCabecalho;
             }
         }
 
@@ -460,7 +460,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divCabecalho.addCss(css.setCursor("default"));
             this.divCabecalho.addCss(css.setHeight(40));
             this.divCabecalho.addCss(css.setPosition("relative"));
-            
+
             this.divInativa.addCss(css.setDisplay("none"));
             this.divInativa.addCss(css.setHeight(100, "%"));
             this.divInativa.addCss(css.setPosition("absolute"));

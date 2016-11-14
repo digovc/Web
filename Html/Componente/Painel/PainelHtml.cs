@@ -98,6 +98,31 @@ namespace NetZ.Web.Html.Componente.Painel
             #endregion Ações
         }
 
+        protected override void addJs(JavaScriptTag js)
+        {
+            base.addJs(js);
+
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
+            try
+            {
+                this.addJsMarkdown(js);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+
+            #endregion Ações
+        }
+
         protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
             base.addJsDebug(lstJsDebug);
@@ -113,31 +138,6 @@ namespace NetZ.Web.Html.Componente.Painel
                 lstJsDebug.Add(new JavaScriptTag(typeof(PainelHtml), 114));
 
                 this.addJsMarkdown(lstJsDebug);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
-        }
-
-        protected override void addJs(JavaScriptTag js)
-        {
-            base.addJs(js);
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addJsMarkdown(js);
             }
             catch (Exception ex)
             {

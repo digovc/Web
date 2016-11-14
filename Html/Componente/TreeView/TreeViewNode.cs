@@ -11,8 +11,8 @@ namespace NetZ.Web.Html.Componente.TreeView
         #region Atributos
 
         private Div _divCabecalho;
-        private Div _divNodeContainer;
         private Div _divIcone;
+        private Div _divNodeContainer;
         private Div _divSeta;
         private Div _divTitulo;
 
@@ -31,21 +31,6 @@ namespace NetZ.Web.Html.Componente.TreeView
             }
         }
 
-        private Div divNodeContainer
-        {
-            get
-            {
-                if (_divNodeContainer != null)
-                {
-                    return _divNodeContainer;
-                }
-
-                _divNodeContainer = new Div();
-
-                return _divNodeContainer;
-            }
-        }
-
         private Div divIcone
         {
             get
@@ -58,6 +43,21 @@ namespace NetZ.Web.Html.Componente.TreeView
                 _divIcone = new Div();
 
                 return _divIcone;
+            }
+        }
+
+        private Div divNodeContainer
+        {
+            get
+            {
+                if (_divNodeContainer != null)
+                {
+                    return _divNodeContainer;
+                }
+
+                _divNodeContainer = new Div();
+
+                return _divNodeContainer;
             }
         }
 
@@ -108,6 +108,7 @@ namespace NetZ.Web.Html.Componente.TreeView
             this.divNodeContainer.strId = "_node_container_id";
             // TODO: Colocar o icode dinâmico.
         }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -142,7 +143,7 @@ namespace NetZ.Web.Html.Componente.TreeView
             this.divSeta.addCss(css.setPosition("absolute"));
             this.divSeta.addCss(css.setWidth(10));
 
-            this.divTitulo.addCss(css. setLineHeight(25));
+            this.divTitulo.addCss(css.setLineHeight(25));
             this.divTitulo.addCss(css.setLeft(35));
             this.divTitulo.addCss(css.setPosition("absolute"));
         }

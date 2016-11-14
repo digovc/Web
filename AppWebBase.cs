@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DigoFramework;
 using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
-using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html;
 using NetZ.Web.Server;
 

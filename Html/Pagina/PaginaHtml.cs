@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -444,6 +443,14 @@ namespace NetZ.Web.Html.Pagina
         {
         }
 
+        protected void addJs(JavaScriptTag tagJs)
+        {
+            // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
+            //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
+
+            this.tagJs.setPai(this.tagHead);
+        }
+
         protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
             lstJsDebug.Add(new JavaScriptTag(typeof(AppWebBase), 104));
@@ -471,13 +478,9 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag("res/js/web/Utils.js", 101));
         }
 
-        protected void addJs(JavaScriptTag tagJs)
+        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
-            // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
-            //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
-
-            this.tagJs.setPai(this.tagHead);
-
+            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
         }
 
         protected virtual void addLayoutFixo(JavaScriptTag tagJs)
@@ -623,28 +626,6 @@ namespace NetZ.Web.Html.Pagina
             this.addJsDebug();
         }
 
-        private void addJsLib()
-        {
-            this.addJsLib(this.lstJsLib);
-
-            List<JavaScriptTag> lstJsLibOrdenado = this.lstJsLib.OrderBy((o) => o.intOrdem).ToList();
-
-            foreach (JavaScriptTag tagJs in lstJsLibOrdenado)
-            {
-                if (tagJs == null)
-                {
-                    continue;
-                }
-
-                tagJs.setPai(this.tagHead);
-            }
-        }
-
-        protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
-        {
-            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
-        }
-
         private void addJsDebug()
         {
             if (!AppWebBase.i.booDesenvolvimento)
@@ -657,6 +638,23 @@ namespace NetZ.Web.Html.Pagina
             List<JavaScriptTag> lstJsDebugOrdenado = this.lstJsDebug.OrderBy((o) => o.intOrdem).ToList();
 
             foreach (JavaScriptTag tagJs in lstJsDebugOrdenado)
+            {
+                if (tagJs == null)
+                {
+                    continue;
+                }
+
+                tagJs.setPai(this.tagHead);
+            }
+        }
+
+        private void addJsLib()
+        {
+            this.addJsLib(this.lstJsLib);
+
+            List<JavaScriptTag> lstJsLibOrdenado = this.lstJsLib.OrderBy((o) => o.intOrdem).ToList();
+
+            foreach (JavaScriptTag tagJs in lstJsLibOrdenado)
             {
                 if (tagJs == null)
                 {

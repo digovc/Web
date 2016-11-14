@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Html
 {
     public class Imagem : Tag
     {

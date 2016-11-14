@@ -17,6 +17,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         private BotaoCircular _btnEsquerda;
         private BotaoCircular _btnSalvar;
 
+        private BotaoCircular _btnTag;
+
         private BotaoCircular btnAdicionar
         {
             get
@@ -76,8 +78,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return _btnSalvar;
             }
         }
-
-        private BotaoCircular _btnTag;
 
         private BotaoCircular btnTag
         {

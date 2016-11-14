@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 
 namespace NetZ.Web.DataBase.Tabela

@@ -157,6 +157,11 @@ namespace NetZ.Web.Server
 
         protected abstract int getIntPort();
 
+        protected virtual Cliente getObjCliente(TcpClient tcpClient)
+        {
+            return new Cliente(tcpClient, this);
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -245,11 +250,6 @@ namespace NetZ.Web.Server
             }
 
             #endregion Ações
-        }
-
-        protected virtual Cliente getObjCliente(TcpClient tcpClient)
-        {
-            return new Cliente(tcpClient, this);
         }
 
         private void loop()

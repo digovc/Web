@@ -104,7 +104,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.intTamanhoVertical = -1;
             this.strId = "pnlFiltro";
-            
+
             this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
 
             this.pnlSelecao.intTamanhoVertical = this.intTamanhoVertical;
@@ -144,7 +144,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.pnlCondicao.addCss(css.setLeft(220));
             this.pnlCondicao.addCss(css.setPosition("absolute"));
             this.pnlCondicao.addCss(css.setRight(0));
-            
+
             this.pnlSelecao.addCss(css.setFloat("left"));
         }
 

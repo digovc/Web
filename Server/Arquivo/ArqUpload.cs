@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using DigoFramework.Arquivo;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
@@ -129,51 +128,6 @@ namespace NetZ.Web.Server.Arquivo
             this.strNome = this.objSolicitacao.frmData.getStrFrmItemValor("arq_nome");
         }
 
-        private DateTime getDttUpload()
-        {
-            if (this.objSolicitacao == null)
-            {
-                return DateTime.MinValue;
-            }
-
-            if (this.objSolicitacao.frmData == null)
-            {
-                return DateTime.MinValue;
-            }
-
-            return this.objSolicitacao.frmData.getDttFrmItemValor("dtt_upload");
-        }
-
-        private string getStrClnWebNome()
-        {
-            if (this.objSolicitacao == null)
-            {
-                return null;
-            }
-
-            if (this.objSolicitacao.frmData == null)
-            {
-                return null;
-            }
-
-            return this.objSolicitacao.frmData.getStrFrmItemValor("cln_web_nome");
-        }
-
-        private string getStrTblWebNome()
-        {
-            if (this.objSolicitacao == null)
-            {
-                return null;
-            }
-
-            if (this.objSolicitacao.frmData == null)
-            {
-                return null;
-            }
-
-            return this.objSolicitacao.frmData.getStrFrmItemValor("tbl_web_nome");
-        }
-
         private bool carregarArquivoValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)
         {
             if (this.objSolicitacao == null)
@@ -232,6 +186,51 @@ namespace NetZ.Web.Server.Arquivo
             }
 
             return true;
+        }
+
+        private DateTime getDttUpload()
+        {
+            if (this.objSolicitacao == null)
+            {
+                return DateTime.MinValue;
+            }
+
+            if (this.objSolicitacao.frmData == null)
+            {
+                return DateTime.MinValue;
+            }
+
+            return this.objSolicitacao.frmData.getDttFrmItemValor("dtt_upload");
+        }
+
+        private string getStrClnWebNome()
+        {
+            if (this.objSolicitacao == null)
+            {
+                return null;
+            }
+
+            if (this.objSolicitacao.frmData == null)
+            {
+                return null;
+            }
+
+            return this.objSolicitacao.frmData.getStrFrmItemValor("cln_web_nome");
+        }
+
+        private string getStrTblWebNome()
+        {
+            if (this.objSolicitacao == null)
+            {
+                return null;
+            }
+
+            if (this.objSolicitacao.frmData == null)
+            {
+                return null;
+            }
+
+            return this.objSolicitacao.frmData.getStrFrmItemValor("tbl_web_nome");
         }
 
         #endregion Métodos

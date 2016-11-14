@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NetZ.Persistencia;
 using NetZ.Persistencia.Web;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo;

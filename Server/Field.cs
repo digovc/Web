@@ -111,7 +111,7 @@ namespace NetZ.Web.Server
                     _dttValor = Convert.ToDateTime(this.strValor);
                 }
                 catch (Exception)
-                {                    
+                {
                     return DateTime.MinValue;
                 }
                 finally

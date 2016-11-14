@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
 using DigoFramework.Json;
 
@@ -139,18 +138,6 @@ namespace NetZ.Web.Server.WebSocket
             return false;
         }
 
-        private void processarOnMensagemWelcome(ClienteWs objClienteWs, Interlocutor objInterlocutor)
-        {
-            if (objClienteWs == null)
-            {
-                return;
-            }
-
-            objInterlocutor.strMetodo = STR_METODO_WELCOME;
-
-            objClienteWs.enviar(objInterlocutor);
-        }
-
         private ClienteWs getObjClienteWs(ClienteWs objClienteWs, int intUsuarioId)
         {
             if (objClienteWs == null)
@@ -174,6 +161,18 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             return objClienteWs;
+        }
+
+        private void processarOnMensagemWelcome(ClienteWs objClienteWs, Interlocutor objInterlocutor)
+        {
+            if (objClienteWs == null)
+            {
+                return;
+            }
+
+            objInterlocutor.strMetodo = STR_METODO_WELCOME;
+
+            objClienteWs.enviar(objInterlocutor);
         }
 
         #endregion Métodos

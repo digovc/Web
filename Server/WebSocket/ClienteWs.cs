@@ -116,7 +116,9 @@ namespace NetZ.Web.Server.WebSocket
         /// <summary>
         /// Envia uma mensagem contendo a estrutura do interlocutor em JSON para este cliente.
         /// </summary>
-        /// <param name="objInterlocutor">Interlocutor que será serializado e enviado para este cliente.</param>
+        /// <param name="objInterlocutor">
+        /// Interlocutor que será serializado e enviado para este cliente.
+        /// </param>
         public void enviar(Interlocutor objInterlocutor)
         {
             if (objInterlocutor == null)
@@ -125,20 +127,6 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.enviar(Json.i.toJson(objInterlocutor));
-        }
-
-        private void enviar(string strMensagem)
-        {
-            if (string.IsNullOrEmpty(strMensagem))
-            {
-                return;
-            }
-
-            Frame fme = new Frame(Encoding.UTF8.GetBytes(strMensagem));
-
-            fme.processarDadosOut();
-
-            this.enviar(fme.arrBteDataOut);
         }
 
         protected override void atualizarSrv()
@@ -190,6 +178,20 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             return true;
+        }
+
+        private void enviar(string strMensagem)
+        {
+            if (string.IsNullOrEmpty(strMensagem))
+            {
+                return;
+            }
+
+            Frame fme = new Frame(Encoding.UTF8.GetBytes(strMensagem));
+
+            fme.processarDadosOut();
+
+            this.enviar(fme.arrBteDataOut);
         }
 
         private bool getBooConectado()

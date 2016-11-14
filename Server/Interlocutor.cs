@@ -11,8 +11,8 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private object _objData;
-        private string _strErro;
         private string _strClazz;
+        private string _strErro;
         private string _strMetodo;
 
         /// <summary>
@@ -32,22 +32,6 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Caso haja algum erro no processamento desta solicitação.
-        /// </summary>
-        public string strErro
-        {
-            get
-            {
-                return _strErro;
-            }
-
-            set
-            {
-                _strErro = value;
-            }
-        }
-
-        /// <summary>
         /// Indica o nome do tipo do objeto que a propriedade <see cref="objData"/> possui.
         /// </summary>
         public string strClazz
@@ -60,6 +44,22 @@ namespace NetZ.Web.Server
             set
             {
                 _strClazz = value;
+            }
+        }
+
+        /// <summary>
+        /// Caso haja algum erro no processamento desta solicitação.
+        /// </summary>
+        public string strErro
+        {
+            get
+            {
+                return _strErro;
+            }
+
+            set
+            {
+                _strErro = value;
             }
         }
 
