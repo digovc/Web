@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html.Componente.Campo
+﻿namespace NetZ.Web.Html.Componente.Campo
 {
     /// <summary>
     /// Campo que pode ser utilizado para a entrada de senhas. Todo e qualquer caractere que o
@@ -27,25 +25,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(CampoSenha), 130));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoSenha), 130));
         }
 
         protected override Input.EnmTipo getEnmTipo()

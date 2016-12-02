@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente
 {
@@ -23,25 +22,7 @@ namespace NetZ.Web.Html.Componente
         {
             base.setCss(tagCss);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(tagCss.setClearBoth());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(tagCss.setClearBoth());
         }
 
         #endregion Métodos

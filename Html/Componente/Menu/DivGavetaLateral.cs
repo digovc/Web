@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Menu.Chat;
+﻿using NetZ.Web.Html.Componente.Menu.Chat;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
@@ -24,56 +23,20 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                new DivChatUsuario().setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            new DivChatUsuario().setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBackgroundColor("rgba(88,178,150,0.75)"));
-                this.addCss(css.setBottom(0));
-                this.addCss(css.setPadding(20));
-                this.addCss(css.setPosition("absolute"));
-                this.addCss(css.setRight(0));
-                this.addCss(css.setTop(50));
-                this.addCss(css.setWidth(300));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setBackgroundColor("rgba(88,178,150,0.75)"));
+            this.addCss(css.setBottom(0));
+            this.addCss(css.setPadding(20));
+            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setRight(0));
+            this.addCss(css.setTop(50));
+            this.addCss(css.setWidth(300));
         }
 
         #endregion Métodos

@@ -41,9 +41,7 @@ namespace NetZ.Web.Server
                     return _thr;
                 }
 
-                _thr = new Thread(this.inicializarServio);
-
-                _thr.IsBackground = true;
+                _thr = this.getThr();
 
                 return _thr;
             }
@@ -103,14 +101,17 @@ namespace NetZ.Web.Server
         /// </summary>
         protected abstract void servico();
 
+        private Thread getThr()
+        {
+            Thread thrResultado = new Thread(this.inicializarServio);
+
+            thrResultado.IsBackground = true;
+
+            return thrResultado;
+        }
+
         private void inicializarServio(object obj)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
             try
             {
                 this.servico();
@@ -120,8 +121,6 @@ namespace NetZ.Web.Server
                 // TODO: Tratar esta exceção.
                 //throw ex;
             }
-
-            #endregion Ações
         }
 
         #endregion Métodos

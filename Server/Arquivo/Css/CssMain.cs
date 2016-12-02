@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Server.Arquivo.Css
+﻿namespace NetZ.Web.Server.Arquivo.Css
 {
     public class CssMain : CssArquivo
     {
@@ -19,30 +17,12 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_i != null)
                 {
-                    if (_i != null)
-                    {
-                        return _i;
-                    }
-
-                    _i = new CssMain();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _i;
                 }
 
-                #endregion Ações
+                _i = new CssMain();
 
                 return _i;
             }
@@ -64,31 +44,13 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             base.inicializar();
 
-            #region Variáveis
+            this.strHref = STR_CSS_SRC;
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strHref = STR_CSS_SRC;
-
-                this.addCssPuro("::-webkit-scrollbar-corner{background-color:rgb(239,239,239)}");
-                this.addCssPuro("::-webkit-scrollbar-thumb{background-color:rgb(215, 215, 215);border:1px solid rgb(195,195,195)}");
-                this.addCssPuro("::-webkit-scrollbar-track{background-color:rgb(239,239,239)}");
-                this.addCssPuro("::-webkit-scrollbar{height:12px;width:12px}");
-                this.addCssPuro("a{color:#428bca;text-decoration:none}");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCssPuro("::-webkit-scrollbar-corner{background-color:rgb(239,239,239)}");
+            this.addCssPuro("::-webkit-scrollbar-thumb{background-color:rgb(215, 215, 215);border:1px solid rgb(195,195,195)}");
+            this.addCssPuro("::-webkit-scrollbar-track{background-color:rgb(239,239,239)}");
+            this.addCssPuro("::-webkit-scrollbar{height:12px;width:12px}");
+            this.addCssPuro("a{color:#428bca;text-decoration:none}");
         }
 
         #endregion Métodos

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -67,30 +66,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_intPorta > 0)
                 {
-                    if (_intPorta > 0)
-                    {
-                        return _intPorta;
-                    }
-
-                    _intPorta = this.getIntPort();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _intPorta;
                 }
 
-                #endregion Ações
+                _intPorta = this.getIntPort();
 
                 return _intPorta;
             }
@@ -105,30 +86,12 @@ namespace NetZ.Web.Server
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_tcpListener != null)
                 {
-                    if (_tcpListener != null)
-                    {
-                        return _tcpListener;
-                    }
-
-                    _tcpListener = new TcpListener(IPAddress.Any, this.intPorta);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _tcpListener;
                 }
 
-                #endregion Ações
+                _tcpListener = new TcpListener(IPAddress.Any, this.intPorta);
 
                 return _tcpListener;
             }
@@ -166,113 +129,39 @@ namespace NetZ.Web.Server
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.tcpListener.Start();
-                this.enmStatus = EnmStatus.LIGADO;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.tcpListener.Start();
+            this.enmStatus = EnmStatus.LIGADO;
         }
 
         protected override void servico()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            while (!this.booParar)
             {
-                while (!this.booParar)
-                {
-                    this.loop();
+                this.loop();
 
-                    Thread.Sleep(1);
-                }
+                Thread.Sleep(1);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         private void addCliente(TcpClient tcpClient)
         {
-            #region Variáveis
-
-            Cliente objCliente;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (tcpClient == null)
             {
-                if (tcpClient == null)
-                {
-                    return;
-                }
-
-                tcpClient.NoDelay = true;
-
-                objCliente = this.getObjCliente(tcpClient);
-
-                objCliente.iniciar();
-
-                Thread.Sleep(1);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            tcpClient.NoDelay = true;
+
+            Cliente objCliente = this.getObjCliente(tcpClient);
+
+            objCliente.iniciar();
+
+            Thread.Sleep(1);
         }
 
         private void loop()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.validarAddCliente();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.validarAddCliente();
         }
 
         private void validarAddCliente()

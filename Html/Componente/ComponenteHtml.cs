@@ -22,25 +22,7 @@ namespace NetZ.Web.Html.Componente
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJsDebug.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
         }
 
         #endregion Métodos

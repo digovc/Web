@@ -45,11 +45,6 @@ namespace NetZ.Web
 
             set
             {
-                if (_i != null)
-                {
-                    return;
-                }
-
                 _i = value;
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu.Chat
 {
@@ -20,30 +19,12 @@ namespace NetZ.Web.Html.Componente.Menu.Chat
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divUsuarioNome != null)
                 {
-                    if (_divUsuarioNome != null)
-                    {
-                        return _divUsuarioNome;
-                    }
-
-                    _divUsuarioNome = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divUsuarioNome;
                 }
 
-                #endregion Ações
+                _divUsuarioNome = new Div();
 
                 return _divUsuarioNome;
             }
@@ -53,30 +34,12 @@ namespace NetZ.Web.Html.Componente.Menu.Chat
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_imgPerfil != null)
                 {
-                    if (_imgPerfil != null)
-                    {
-                        return _imgPerfil;
-                    }
-
-                    _imgPerfil = new Imagem();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _imgPerfil;
                 }
 
-                #endregion Ações
+                _imgPerfil = new Imagem();
 
                 return _imgPerfil;
             }
@@ -94,68 +57,32 @@ namespace NetZ.Web.Html.Componente.Menu.Chat
         {
             base.montarLayout();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.imgPerfil.setPai(this);
-                this.divUsuarioNome.setPai(this);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.imgPerfil.setPai(this);
+            this.divUsuarioNome.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setHeight(INT_TAMANHO));
+            this.addCss(css.setMarginTop(10));
+            this.addCss(css.setPosition("relative"));
 
-            #endregion Variáveis
+            this.divUsuarioNome.addCss(css.setBackgroundColor("#58b296"));
+            this.divUsuarioNome.addCss(css.setCursor("pointer"));
+            this.divUsuarioNome.addCss(css.setHeight(100, "%"));
+            this.divUsuarioNome.addCss(css.setLeft(25));
+            this.divUsuarioNome.addCss(css.setPosition("absolute"));
+            this.divUsuarioNome.addCss(css.setRight(0));
 
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setHeight(INT_TAMANHO));
-                this.addCss(css.setMarginTop(10));
-                this.addCss(css.setPosition("relative"));
-
-                this.divUsuarioNome.addCss(css.setBackgroundColor("#58b296"));
-                this.divUsuarioNome.addCss(css.setCursor("pointer"));
-                this.divUsuarioNome.addCss(css.setHeight(100, "%"));
-                this.divUsuarioNome.addCss(css.setLeft(25));
-                this.divUsuarioNome.addCss(css.setPosition("absolute"));
-                this.divUsuarioNome.addCss(css.setRight(0));
-
-                this.imgPerfil.addCss(css.setBackgroundColor("#009688"));
-                this.imgPerfil.addCss(css.setBorderRadius(50, "%"));
-                this.imgPerfil.addCss(css.setCursor("pointer"));
-                this.imgPerfil.addCss(css.setHeight(INT_TAMANHO));
-                this.imgPerfil.addCss(css.setPosition("absolute"));
-                this.imgPerfil.addCss(css.setWidth(INT_TAMANHO));
-                this.imgPerfil.addCss(css.setZIndex(1));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.imgPerfil.addCss(css.setBackgroundColor("#009688"));
+            this.imgPerfil.addCss(css.setBorderRadius(50, "%"));
+            this.imgPerfil.addCss(css.setCursor("pointer"));
+            this.imgPerfil.addCss(css.setHeight(INT_TAMANHO));
+            this.imgPerfil.addCss(css.setPosition("absolute"));
+            this.imgPerfil.addCss(css.setWidth(INT_TAMANHO));
+            this.imgPerfil.addCss(css.setZIndex(1));
         }
 
         #endregion Métodos

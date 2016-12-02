@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Botao.Atalho
 {
@@ -23,52 +22,16 @@ namespace NetZ.Web.Html.Componente.Botao.Atalho
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(BotaoAtalho), 120));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJsDebug.Add(new JavaScriptTag(typeof(BotaoAtalho), 120));
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBackgroundColor("#AFAFAF"));
-                this.addCss(css.setHeight(70));
-                this.addCss(css.setWidth(70));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setBackgroundColor("#AFAFAF"));
+            this.addCss(css.setHeight(70));
+            this.addCss(css.setWidth(70));
         }
 
         #endregion Métodos

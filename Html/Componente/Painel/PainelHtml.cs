@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
@@ -77,212 +76,81 @@ namespace NetZ.Web.Html.Componente.Painel
         {
             base.addCss(lstCss);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCssMarkdown(lstCss);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCssMarkdown(lstCss);
         }
 
         protected override void addJs(JavaScriptTag js)
         {
             base.addJs(js);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addJsMarkdown(js);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addJsMarkdown(js);
         }
 
         protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
+            lstJsDebug.Add(new JavaScriptTag(typeof(PainelHtml), 114));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(PainelHtml), 114));
-
-                this.addJsMarkdown(lstJsDebug);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addJsMarkdown(lstJsDebug);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.setCssWidth(css);
 
-            #endregion Variáveis
+            this.setCssMinHeight(css);
 
-            #region Ações
-
-            try
-            {
-                this.setCssWidth(css);
-
-                this.setCssMinHeight(css);
-
-                this.addCss(css.setTextAlign("center"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setTextAlign("center"));
         }
 
         private void addCssMarkdown(LstTag<CssTag> lstCss)
         {
-            #region Variáveis
-
-            CssTag cssMarkdown;
-            CssTag cssMarkdownMonoBlue;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!this.booMarkdown)
             {
-                if (!this.booMarkdown)
-                {
-                    return;
-                }
-
-                cssMarkdown = new CssTag("res/css/markdown.css");
-
-                cssMarkdownMonoBlue = new CssTag("res/css/markdown-mono-blue.css");
-
-                lstCss.Add(cssMarkdown);
-                lstCss.Add(cssMarkdownMonoBlue);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            CssTag cssMarkdown = new CssTag("res/css/markdown.css");
+
+            CssTag cssMarkdownMonoBlue = new CssTag("res/css/markdown-mono-blue.css");
+
+            lstCss.Add(cssMarkdown);
+            lstCss.Add(cssMarkdownMonoBlue);
         }
 
         private void addJsMarkdown(LstTag<JavaScriptTag> lstJs)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!this.booMarkdown)
             {
-                if (!this.booMarkdown)
-                {
-                    return;
-                }
-
-                lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/Markdown.Converter.js"));
-                lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/Markdown.Extra.js"));
-                lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/highlight.pack.js"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/Markdown.Converter.js"));
+            lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/Markdown.Extra.js"));
+            lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/highlight.pack.js"));
         }
 
         private void addJsMarkdown(JavaScriptTag js)
         {
-            string strJs;
-
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (!this.booMarkdown)
             {
-                if (!this.booMarkdown)
-                {
-                    return;
-                }
-
-                strJs = string.Empty;
-
-                strJs += "var objMdConverter = new Markdown.Converter();";
-                strJs += "Markdown.Extra.init(objMdConverter);";
-                strJs += "var strHtml = objMdConverter.makeHtml($('#_pnl_id').html());";
-                strJs += "$('#_pnl_id').html(strHtml);";
-                strJs += "hljs.initHighlightingOnLoad();";
-
-                strJs = strJs.Replace("_pnl_id", this.strId);
-
-                js.addJs(strJs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            string strJs = string.Empty;
+
+            strJs += "var objMdConverter = new Markdown.Converter();";
+            strJs += "Markdown.Extra.init(objMdConverter);";
+            strJs += "var strHtml = objMdConverter.makeHtml($('#_pnl_id').html());";
+            strJs += "$('#_pnl_id').html(strHtml);";
+            strJs += "hljs.initHighlightingOnLoad();";
+
+            strJs = strJs.Replace("_pnl_id", this.strId);
+
+            js.addJs(strJs);
         }
 
         private void setCssMinHeight(CssArquivo css)
@@ -297,31 +165,13 @@ namespace NetZ.Web.Html.Componente.Painel
 
         private void setCssWidth(CssArquivo css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.intTamanhoHorizontal < 1)
             {
-                if (this.intTamanhoHorizontal < 1)
-                {
-                    return;
-                }
-
-                this.addCss(css.setFloat("left"));
-                this.addCss(css.setWidth(200 * this.intTamanhoHorizontal));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return;
             }
 
-            #endregion Ações
+            this.addCss(css.setFloat("left"));
+            this.addCss(css.setWidth(200 * this.intTamanhoHorizontal));
         }
 
         #endregion Métodos

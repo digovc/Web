@@ -25,25 +25,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoAlfanumerico), 131));
         }
 
         protected override Input.EnmTipo getEnmTipo()

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html.Componente.Campo
+﻿namespace NetZ.Web.Html.Componente.Campo
 {
     public class CampoImagem : CampoHtml
     {
@@ -22,25 +20,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(CampoImagem), 130));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoImagem), 130));
         }
 
         protected override Input.EnmTipo getEnmTipo()

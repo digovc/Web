@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Server.Arquivo.Css
+﻿namespace NetZ.Web.Server.Arquivo.Css
 {
     public class CssPrint : CssArquivo
     {
@@ -19,30 +17,12 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_i != null)
                 {
-                    if (_i != null)
-                    {
-                        return _i;
-                    }
-
-                    _i = new CssPrint();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _i;
                 }
 
-                #endregion Ações
+                _i = new CssPrint();
 
                 return _i;
             }
@@ -64,25 +44,7 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strHref = STR_CSS_SRC;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strHref = STR_CSS_SRC;
         }
 
         #endregion Métodos
