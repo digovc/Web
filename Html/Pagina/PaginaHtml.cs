@@ -667,7 +667,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsRelease()
         {
-            if (!AppWebBase.i.booDesenvolvimento)
+            if (AppWebBase.i.booDesenvolvimento)
             {
                 return;
             }
