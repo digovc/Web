@@ -162,6 +162,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.stbConteudo.ToString();
         }
 
+        public string setBackground(string css)
+        {
+            if (string.IsNullOrEmpty(css))
+            {
+                return null;
+            }
+
+            return this.addCss("background", css);
+        }
+
         public string setBackgroundAttachment(string css)
         {
             if (string.IsNullOrEmpty(css))
