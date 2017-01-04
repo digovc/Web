@@ -18,26 +18,8 @@ namespace NetZ.Web.WinService
 
         public NetZWebServiceInstaller()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.InitializeComponent();
-                this.inicializar();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.InitializeComponent();
+            this.inicializar();
         }
 
         #endregion Construtores
@@ -50,146 +32,54 @@ namespace NetZ.Web.WinService
 
         protected virtual string getStrDescricao()
         {
-            return "NetZ.Web (Servidor HTTP para aplicações Web da empresa Relatar Sistemas).";
+            return "NetZ.Web (Servidor HTTP para aplicações Web).";
         }
 
         private string getStrNome()
         {
-            #region Variáveis
+            Type clsService = this.getClsService();
 
-            Type clsService;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (clsService == null)
             {
-                clsService = this.getClsService();
-
-                if (clsService == null)
-                {
-                    throw new NullReferenceException("Classe do serviço não indicada.");
-                }
-
-                if (!(typeof(ServiceBase).IsAssignableFrom(clsService)))
-                {
-                    throw new NullReferenceException("Classe do serviço não herda de \"ServiceBase\".");
-                }
-
-                return clsService.Name;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                throw new NullReferenceException("Classe do serviço não indicada.");
             }
 
-            #endregion Ações
+            if (!(typeof(ServiceBase).IsAssignableFrom(clsService)))
+            {
+                throw new NullReferenceException("Classe do serviço não herda de \"ServiceBase\".");
+            }
+
+            return clsService.Name;
         }
 
         private string getStrNomeExibicao()
         {
-            #region Variáveis
-
-            string strNomeExibicao;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.getStrAplicacaoNome()))
             {
-                strNomeExibicao = "NetZ.Web Service (_aplicacao_nome)";
-                strNomeExibicao = strNomeExibicao.Replace("_aplicacao_nome", this.getStrAplicacaoNome());
-
-                return strNomeExibicao;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return "NetZ.Web";
             }
 
-            #endregion Ações
+            return string.Format("{0} (NetZ.Web)", this.getStrAplicacaoNome());
         }
 
         private void inicializar()
         {
-            #region Variáveis
+            this.inicializarSpi();
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.inicializarSpi();
-
-                this.inicializarSvi();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializarSvi();
         }
 
         private void inicializarSpi()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.spi.Account = ServiceAccount.NetworkService;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.spi.Account = ServiceAccount.NetworkService;
         }
 
         private void inicializarSvi()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.svi.Description = this.getStrDescricao();
-                this.svi.DisplayName = this.getStrNomeExibicao();
-                this.svi.ServiceName = this.getStrNome();
-                this.svi.StartType = ServiceStartMode.Manual;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.svi.Description = this.getStrDescricao();
+            this.svi.DisplayName = this.getStrNomeExibicao();
+            this.svi.ServiceName = this.getStrNome();
+            this.svi.StartType = ServiceStartMode.Manual;
         }
 
         #endregion Métodos

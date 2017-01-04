@@ -199,10 +199,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ServiceInstall.bat" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\viw_filtro_item.sql" />
+    <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\media\png\tree_view_icon_default.png">

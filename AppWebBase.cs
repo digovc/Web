@@ -290,25 +290,7 @@ namespace NetZ.Web
 
         private void inicializarLstSrv()
         {
-            if (this.lstSrv == null)
-            {
-                return;
-            }
-
-            foreach (ServerBase srv in this.lstSrv)
-            {
-                this.inicializarLstSrv(srv);
-            }
-        }
-
-        private void inicializarLstSrv(ServerBase srv)
-        {
-            if (srv == null)
-            {
-                return;
-            }
-
-            srv.iniciar();
+            this.lstSrv?.ForEach((srv) => srv.iniciar());
         }
 
         private void pararServidor(ServerBase srv)

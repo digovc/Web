@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceProcess;
 
 namespace NetZ.Web.WinService
@@ -17,30 +18,12 @@ namespace NetZ.Web.WinService
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_appWeb != null)
                 {
-                    if (_appWeb != null)
-                    {
-                        return _appWeb;
-                    }
-
-                    _appWeb = this.getAppWeb();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _appWeb;
                 }
 
-                #endregion Ações
+                _appWeb = this.getAppWeb();
 
                 return _appWeb;
             }
@@ -52,34 +35,16 @@ namespace NetZ.Web.WinService
 
         public NetZWebService()
         {
-            #region Variáveis
+            this.InitializeComponent();
 
-            #endregion Variáveis
+            this.ServiceName = this.GetType().Name;
+            this.EventLog.Log = (this.GetType().Name + "_log");
 
-            #region Ações
-
-            try
-            {
-                this.InitializeComponent();
-
-                this.ServiceName = this.GetType().Name;
-                this.EventLog.Log = this.GetType().Name + "_log";
-
-                this.CanHandlePowerEvent = true;
-                this.CanHandleSessionChangeEvent = true;
-                this.CanPauseAndContinue = true;
-                this.CanShutdown = true;
-                this.CanStop = true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.CanHandlePowerEvent = true;
+            this.CanHandleSessionChangeEvent = true;
+            this.CanPauseAndContinue = true;
+            this.CanShutdown = true;
+            this.CanStop = true;
         }
 
         #endregion Construtores
@@ -90,30 +55,14 @@ namespace NetZ.Web.WinService
 
         private void inicializar()
         {
-            #region Variáveis
+            Console.WriteLine(this.appWeb);
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.appWeb == null)
             {
-                if (this.appWeb == null)
-                {
-                    throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
-                }
-
-                this.appWeb.inicializarServidor();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
             }
 
-            #endregion Ações
+            this.appWeb.inicializarServidor();
         }
 
         #endregion Métodos
@@ -124,58 +73,22 @@ namespace NetZ.Web.WinService
         {
             base.OnStart(args);
 
-            #region Variáveis
+            // Comentar sempre que não quiser debugar.
+            Debugger.Launch();
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                // Comentar sempre que não quiser debugar.
-                //Debugger.Launch();
-
-                this.inicializar();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.inicializar();
         }
 
         protected override void OnStop()
         {
             base.OnStop();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (this.appWeb == null)
             {
-                if (this.appWeb == null)
-                {
-                    throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
-                }
-
-                this.appWeb.pararServidor();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
             }
 
-            #endregion Ações
+            this.appWeb.pararServidor();
         }
 
         #endregion Eventos
