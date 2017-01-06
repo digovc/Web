@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using DigoFramework.Json;
+using System.Collections.Generic;
 using System.Net.Sockets;
-using DigoFramework.Json;
 
 namespace NetZ.Web.Server.WebSocket
 {
-    public abstract class ServerWs : ServerBase
+    public abstract class ServerWsBase : ServerBase
     {
         #region Constantes
 
@@ -35,7 +35,7 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Construtores
 
-        protected ServerWs(string strNome) : base(strNome)
+        protected ServerWsBase(string strNome) : base(strNome)
         {
         }
 
@@ -94,6 +94,21 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.processarOnMensagem(objClienteWs, objInterlocutor);
+        }
+
+        internal void removerObjClienteWs(ClienteWs objClienteWs)
+        {
+            if (objClienteWs == null)
+            {
+                return;
+            }
+
+            if (!this.lstObjClienteWs.Contains(objClienteWs))
+            {
+                return;
+            }
+
+            this.lstObjClienteWs.Remove(objClienteWs);
         }
 
         protected override Cliente getObjCliente(TcpClient tcpClient)

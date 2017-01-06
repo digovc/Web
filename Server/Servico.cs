@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using DigoFramework;
+using System;
+using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -8,7 +10,7 @@ namespace NetZ.Web.Server
     /// chamadas de entrada dos clientes, ou a classe <see cref="Cliente"/> que é um processo que
     /// processa a solicitação de cada um cliente que solicitar algum recurso deste servidor.
     /// </summary>
-    public abstract class Servico
+    public abstract class Servico : Objeto
     {
         #region Constantes
 
@@ -60,7 +62,7 @@ namespace NetZ.Web.Server
 
         protected Servico(string strNome)
         {
-            this.thr.Name = strNome;
+            this.strNome = strNome;
         }
 
         #endregion Construtores
@@ -86,6 +88,10 @@ namespace NetZ.Web.Server
             this.booParar = true;
         }
 
+        protected virtual void finalizar()
+        {
+        }
+
         /// <summary>
         /// Método que é chamado quando o método <see cref="iniciar"/> é chamado e pode ser
         /// sobescrito para inicializar algum valor antes que a thread seja ativa e o processo em
@@ -103,6 +109,13 @@ namespace NetZ.Web.Server
         /// </summary>
         protected abstract void servico();
 
+        protected override void setStrNome(string strNome)
+        {
+            base.setStrNome(strNome);
+
+            this.thr.Name = strNome;
+        }
+
         private void inicializarServio(object obj)
         {
             #region Variáveis
@@ -114,11 +127,16 @@ namespace NetZ.Web.Server
             try
             {
                 this.servico();
+                this.finalizar();
             }
-            catch
+            catch (Exception ex)
             {
                 // TODO: Tratar esta exceção.
-                //throw ex;
+                Console.Write(ex.StackTrace);
+            }
+            finally
+            {
+                this.finalizar();
             }
 
             #endregion Ações

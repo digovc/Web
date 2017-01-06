@@ -161,7 +161,7 @@
     <Compile Include="Server\Ajax\ServerAjaxDb.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
-    <Compile Include="Server\WebSocket\ServerWs.cs" />
+    <Compile Include="Server\WebSocket\ServerWsBase.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="Server\Servico.cs" />
     <Compile Include="DataBase\Dominio\UsuarioDominio.cs" />

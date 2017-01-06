@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using DigoFramework;
+﻿using DigoFramework;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
@@ -11,6 +7,10 @@ using NetZ.Web.Server;
 using NetZ.Web.Server.Ajax;
 using NetZ.Web.Server.Arquivo.Css;
 using NetZ.Web.Server.WebSocket;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 
 namespace NetZ.Web.Html.Pagina
 {
@@ -154,12 +154,26 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
+                if (_strTitulo != null)
+                {
+                    return _strTitulo;
+                }
+
+                _strTitulo = this.getStrTitulo();
+
                 return _strTitulo;
             }
 
             set
             {
+                if (_strTitulo == value)
+                {
+                    return;
+                }
+
                 _strTitulo = value;
+
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -465,7 +479,7 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttpBase), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerWs), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerWsBase), 102));
 
             lstJsDebug.Add(new JavaScriptTag("res/js/web/Constante.js", 0));
             lstJsDebug.Add(new JavaScriptTag("res/js/web/ConstanteManager.js", 1));
@@ -564,7 +578,7 @@ namespace NetZ.Web.Html.Pagina
 
             this.tagTitle.booMostrarClazz = false;
             this.tagTitle.booDupla = false;
-            this.tagTitle.strConteudo = this.getStrTituloFormatado();
+            this.tagTitle.strConteudo = this.strTitulo;
         }
 
         protected virtual void montarLayout()
@@ -680,7 +694,7 @@ namespace NetZ.Web.Html.Pagina
             AppWebBase.i.tagJsRelease.setPai(this.tagHead);
         }
 
-        private string getStrTituloFormatado()
+        private string getStrTitulo()
         {
             string strResultado = "_titulo - _app_nome";
 
@@ -699,6 +713,11 @@ namespace NetZ.Web.Html.Pagina
             this.finalizarCss(CssPrint.i);
             this.addLayoutFixo(this.tagJs);
             this.addConstante(this.tagJs);
+        }
+
+        private void setStrTitulo(string strTitulo)
+        {
+            this.tagTitle.strConteudo = strTitulo;
         }
 
         private string toHtmlDinamico()

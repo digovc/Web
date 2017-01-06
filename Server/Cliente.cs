@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NetZ.Web.Html.Pagina;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using NetZ.Web.Html.Pagina;
 
 namespace NetZ.Web.Server
 {
@@ -71,7 +71,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Cliente(TcpClient tcpClient, ServerBase srv) : base(string.Format("Cliente ({0})", ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString()))
+        internal Cliente(TcpClient tcpClient, ServerBase srv) : base(null)
         {
             this.srv = srv;
             this.tcpClient = tcpClient;
@@ -97,12 +97,31 @@ namespace NetZ.Web.Server
                 return;
             }
 
+            if (!this.tcpClient.Connected)
+            {
+                return;
+            }
+
             if (!this.tcpClient.GetStream().CanWrite)
             {
                 return;
             }
 
             this.tcpClient.GetStream().Write(arrBteData, 0, arrBteData.Length);
+        }
+
+        protected override void finalizar()
+        {
+            base.finalizar();
+
+            this.finalizarTcpClient();
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.inicializarStrNome();
         }
 
         protected virtual void responder(Solicitacao objSolicitacao)
@@ -161,8 +180,6 @@ namespace NetZ.Web.Server
 
                 this.responder(objSolicitacao);
             }
-
-            this.tcpClient.Close();
         }
 
         protected virtual bool validar(Solicitacao objSolicitacao)
@@ -205,6 +222,22 @@ namespace NetZ.Web.Server
             this.dttUltimaMensagemRecebida = DateTime.Now;
 
             return new Solicitacao(this.tcpClient.GetStream());
+        }
+
+        private void finalizarTcpClient()
+        {
+            if (this.tcpClient == null)
+            {
+                return;
+            }
+
+            this.tcpClient.Close();
+            this.tcpClient.Dispose();
+        }
+
+        private void inicializarStrNome()
+        {
+            this.strNome = string.Format("{0} ({1})", this.GetType().Name, ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString());
         }
 
         private void responderErro(Solicitacao objSolicitacao, Exception ex)

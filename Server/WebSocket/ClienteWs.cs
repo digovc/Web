@@ -105,13 +105,30 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Construtores
 
-        public ClienteWs(TcpClient tcpClient, ServerWs srv) : base(tcpClient, srv)
+        public ClienteWs(TcpClient tcpClient, ServerWsBase srv) : base(tcpClient, srv)
         {
         }
 
         #endregion Construtores
 
         #region Métodos
+
+        protected override void finalizar()
+        {
+            base.finalizar();
+
+            this.finalizarSrv();
+        }
+
+        private void finalizarSrv()
+        {
+            if (this.srv == null)
+            {
+                return;
+            }
+
+            (this.srv as ServerWsBase).removerObjClienteWs(this);
+        }
 
         /// <summary>
         /// Envia uma mensagem contendo a estrutura do interlocutor em JSON para este cliente.
@@ -138,7 +155,7 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-                    (this.srv as ServerWs).addObjClienteWs(this);
+            (this.srv as ServerWsBase).addObjClienteWs(this);
         }
 
         /// <summary>
@@ -330,12 +347,12 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            if (!(this.srv is ServerWs))
+            if (!(this.srv is ServerWsBase))
             {
                 return;
             }
 
-            (this.srv as ServerWs).processarOnMensagemLocal(this, strMensagem);
+            (this.srv as ServerWsBase).processarOnMensagemLocal(this, strMensagem);
         }
 
         #endregion Métodos
