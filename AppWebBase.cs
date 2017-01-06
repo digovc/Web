@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using DigoFramework;
+﻿using DigoFramework;
 using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Html;
 using NetZ.Web.Server;
+using System.Collections.Generic;
 
 namespace NetZ.Web
 {
@@ -179,6 +179,8 @@ namespace NetZ.Web
         /// </summary>
         public virtual void inicializarServidor()
         {
+            Log.i.info("Inicializando o servidor.");
+
             this.inicializarConfig();
             this.inicializarLstSrv();
         }

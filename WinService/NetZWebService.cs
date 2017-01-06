@@ -74,7 +74,7 @@ namespace NetZ.Web.WinService
             base.OnStart(args);
 
             // Comentar sempre que não quiser debugar.
-            Debugger.Launch();
+            //Debugger.Launch();
 
             this.inicializar();
         }
