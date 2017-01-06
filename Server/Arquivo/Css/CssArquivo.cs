@@ -252,7 +252,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("background-size", css);
         }
 
-        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "gray")
+        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border", string.Format("{0}px {1} {2}", intBorderPx, strTipo, cor));
         }
@@ -262,7 +262,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorder(intBorderPx, strTipo = "solid", this.corToRgba(cor));
         }
 
-        public string setBorderBottom(int intBottomPx, string strTipo = "solid", string cor = "gray")
+        public string setBorderBottom(int intBottomPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-bottom", string.Format("{0}px {1} {2}", intBottomPx, strTipo, cor));
         }
@@ -272,7 +272,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorderBottom(intRightPx, strTipo, this.corToRgba(cor));
         }
 
-        public string setBorderLeft(int intLeftPx, string strTipo, string cor)
+        public string setBorderLeft(int intLeftPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-left", string.Format("{0}px {1} {2}", intLeftPx, strTipo, cor));
         }
@@ -292,7 +292,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("border-radius", string.Format("{0}{1}", intBorderRadius, strGrandeza));
         }
 
-        public string setBorderRight(int intRightPx, string strTipo = "solid", string cor = "gray")
+        public string setBorderRight(int intRightPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-right", string.Format("{0}px {1} {2}", intRightPx, strTipo, cor));
         }
@@ -307,7 +307,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorderTop(intRightPx, strTipo, this.corToRgba(cor));
         }
 
-        public string setBorderTop(int intTopPx, string strTipo, string cor)
+        public string setBorderTop(int intTopPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-top", string.Format("{0}px {1} {2}", intTopPx, strTipo, cor));
         }

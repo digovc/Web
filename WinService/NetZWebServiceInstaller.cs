@@ -32,7 +32,7 @@ namespace NetZ.Web.WinService
 
         protected virtual string getStrDescricao()
         {
-            return "NetZ.Web (Servidor HTTP para aplicações Web da empresa Relatar Sistemas).";
+            return "NetZ.Web (Servidor HTTP para aplicações Web).";
         }
 
         private string getStrNome()
@@ -54,7 +54,12 @@ namespace NetZ.Web.WinService
 
         private string getStrNomeExibicao()
         {
-            return string.Format("NetZ.Web Service ({0})", this.getStrAplicacaoNome());
+            if (string.IsNullOrEmpty(this.getStrAplicacaoNome()))
+            {
+                return "NetZ.Web";
+        }
+
+            return string.Format("{0} (NetZ.Web)", this.getStrAplicacaoNome());
         }
 
         private void inicializar()

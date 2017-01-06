@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceProcess;
 
 namespace NetZ.Web.WinService
@@ -37,7 +38,7 @@ namespace NetZ.Web.WinService
             this.InitializeComponent();
 
             this.ServiceName = this.GetType().Name;
-            this.EventLog.Log = this.GetType().Name + "_log";
+            this.EventLog.Log = (this.GetType().Name + "_log");
 
             this.CanHandlePowerEvent = true;
             this.CanHandleSessionChangeEvent = true;
@@ -54,6 +55,8 @@ namespace NetZ.Web.WinService
 
         private void inicializar()
         {
+            Console.WriteLine(this.appWeb);
+
             if (this.appWeb == null)
             {
                 throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
