@@ -337,19 +337,19 @@ namespace NetZ.Web.Html.Componente.Form
             base.addTag(tag);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divComando.strId = (this.strId + "_divComando");
-            this.divCritica.strId = (this.strId + "_divCritica");
-            this.divDica.strId = (this.strId + "_divDica");
-            this.tabHtml.strId = (this.strId + "_tabHtml");
+            this.divComando.strId = (strId + "_divComando");
+            this.divCritica.strId = (strId + "_divCritica");
+            this.divDica.strId = (strId + "_divDica");
+            this.tabHtml.strId = (strId + "_tabHtml");
         }
 
         protected override void finalizar()

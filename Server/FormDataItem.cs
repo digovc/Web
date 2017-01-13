@@ -33,7 +33,7 @@ namespace NetZ.Web.Server
 
                 _arrBteConteudo = value;
 
-                this.atualizarArrBteConteudo();
+                this.setArrBteConteudo(_arrBteConteudo);
             }
         }
 
@@ -65,14 +65,14 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
-        private void atualizarArrBteConteudo()
+        private void setArrBteConteudo(byte[] arrBteConteudo)
         {
-            if (this.arrBteConteudo == null)
+            if (arrBteConteudo == null)
             {
                 return;
             }
 
-            string strConteudo = Encoding.UTF8.GetString(this.arrBteConteudo);
+            string strConteudo = Encoding.UTF8.GetString(arrBteConteudo);
 
             if (string.IsNullOrEmpty(strConteudo))
             {

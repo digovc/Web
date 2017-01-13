@@ -39,7 +39,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
                 _strHref = value;
 
-                this.atualizarStrHref();
+                this.setStrHref(_strHref);
             }
         }
 
@@ -680,9 +680,9 @@ namespace NetZ.Web.Server.Arquivo.Css
             return atrCss.strClass;
         }
 
-        private void atualizarStrHref()
+        private void setStrHref(string strHref)
         {
-            this.dirCompleto = this.strHref;
+            this.dirCompleto = strHref;
         }
 
         private string corToRgba(Color cor)

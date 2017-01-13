@@ -137,17 +137,17 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.tagTable.strId = (this.strId + "_table");
-            this.tagTbody.strId = (this.strId + "_tbody");
+            this.tagTable.strId = (strId + "_table");
+            this.tagTbody.strId = (strId + "_tbody");
         }
 
         protected override void inicializar()

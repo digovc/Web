@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AppWebBase.cs" />
     <Compile Include="ConfigWeb.cs" />
+    <Compile Include="DataBase\DbeWebBase.cs" />
     <Compile Include="DataBase\Dominio\FavoritoDominio.cs" />
     <Compile Include="DataBase\Tabela\TblFavorito.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />

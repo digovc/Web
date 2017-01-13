@@ -228,7 +228,7 @@ namespace NetZ.Web.Html
 
                 _strValor = value;
 
-                this.atualizarStrValor();
+                this.setStrValor(_strValor);
             }
         }
 
@@ -268,9 +268,9 @@ namespace NetZ.Web.Html
             lstJsDebug.Add(new JavaScriptTag("res/js/web/OnValorAlteradoArg.js", 110));
         }
 
-        protected void atualizarStrValor()
+        protected void setStrValor(string strValor)
         {
-            this.attValue.strValor = this.strValor;
+            this.attValue.strValor = strValor;
         }
 
         protected override void inicializar()

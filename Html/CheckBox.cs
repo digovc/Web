@@ -97,16 +97,16 @@ namespace NetZ.Web.Html
             lstJsDebug.Add(new JavaScriptTag(typeof(CheckBox), 111));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divSeletor.strId = (this.strId + "_divSeletor");
+            this.divSeletor.strId = (strId + "_divSeletor");
         }
 
         protected override void finalizar()

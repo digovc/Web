@@ -42,11 +42,11 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJsDebug.Add(new JavaScriptTag(typeof(CampoCheckBox), 130));
         }
 
-        protected override void atualizarStrTitulo()
+        protected override void setStrTitulo(string strTitulo)
         {
-            base.atualizarStrTitulo();
+            base.setStrTitulo(strTitulo);
 
-            this.ckb.strTitulo = this.strTitulo;
+            this.ckb.strTitulo = strTitulo;
         }
 
         protected override Input.EnmTipo getEnmTipo()

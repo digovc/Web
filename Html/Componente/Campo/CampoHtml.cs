@@ -120,7 +120,7 @@ namespace NetZ.Web.Html.Componente.Campo
             {
                 _booSomenteLeitura = value;
 
-                this.atualizarBooSomenteLeitura();
+                this.setBooSomenteLeitura(_booSomenteLeitura);
             }
         }
 
@@ -143,7 +143,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 _cln = value;
 
-                this.atualizarCln();
+                this.setCln(_cln);
             }
         }
 
@@ -213,7 +213,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 _strTitulo = value;
 
-                this.atualizarStrTitulo();
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -290,44 +290,44 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJsDebug.Add(new JavaScriptTag(typeof(CampoHtml), 130));
         }
 
-        protected virtual void atualizarCln()
+        protected virtual void setCln(Coluna cln)
         {
-            if (this.cln == null)
+            if (cln == null)
             {
                 return;
             }
 
-            this.addAtt("cln_web_nome", this.cln.sqlNome);
-            this.addAtt("str_dica", this.cln.strDica);
+            this.addAtt("cln_web_nome", cln.sqlNome);
+            this.addAtt("str_dica", cln.strDica);
 
-            this.booObrigatorio = this.cln.booObrigatorio;
-            this.booPermitirAlterar = this.cln.booPermitirAlterar;
-            this.booSomenteLeitura = this.cln.booSomenteLeitura;
-            this.strTitulo = this.cln.strNomeExibicao;
+            this.booObrigatorio = cln.booObrigatorio;
+            this.booPermitirAlterar = cln.booPermitirAlterar;
+            this.booSomenteLeitura = cln.booSomenteLeitura;
+            this.strTitulo = cln.strNomeExibicao;
 
             this.tagInput.strValor = cln.strValor;
 
-            this.atualizarClnStrId();
+            this.setClnStrId(cln);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divInputContainer.strId = (this.strId + "_divInputContainer");
-            this.divTitulo.strId = (this.strId + "_divTitulo");
-            this.tagInput.strId = (this.strId + "_tagInput");
+            this.divInputContainer.strId = (strId + "_divInputContainer");
+            this.divTitulo.strId = (strId + "_divTitulo");
+            this.tagInput.strId = (strId + "_tagInput");
         }
 
-        protected virtual void atualizarStrTitulo()
+        protected virtual void setStrTitulo(string strTitulo)
         {
-            this.divTitulo.strConteudo = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
-            this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(this.strTitulo)) ? this.strTitulo : STR_TITULO;
+            this.divTitulo.strConteudo = (!string.IsNullOrEmpty(strTitulo)) ? strTitulo : STR_TITULO;
+            this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(strTitulo)) ? strTitulo : STR_TITULO;
         }
 
         protected override void finalizar()
@@ -410,21 +410,21 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.addCss(css.setWidth(100, "%"));
         }
 
-        private void atualizarBooSomenteLeitura()
+        private void setBooSomenteLeitura(bool booSomenteLeitura)
         {
-            this.tagInput.booDisabled = this.booSomenteLeitura;
+            this.tagInput.booDisabled = booSomenteLeitura;
         }
 
-        private void atualizarClnStrId()
+        private void setClnStrId(Coluna cln)
         {
-            if (this.cln.tbl == null)
+            if (cln.tbl == null)
             {
                 return;
             }
 
             string strId = "cmp__cln_nome__obj_id";
 
-            strId = strId.Replace("_cln_nome", this.cln.sqlNome);
+            strId = strId.Replace("_cln_nome", cln.sqlNome);
             strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
 
             this.strId = strId;

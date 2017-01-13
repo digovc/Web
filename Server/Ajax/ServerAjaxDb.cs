@@ -451,7 +451,7 @@ namespace NetZ.Web.Server.Ajax
 
             if (tbl == null)
             {
-                return;
+                throw new Exception(string.Format("Tabela \"{0}\" não encontrada.", tblWeb.strNome));
             }
 
             if (!this.validarPesquisar(objSolicitacao, objInterlocutor, tblWeb, tbl))

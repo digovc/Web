@@ -85,7 +85,7 @@ namespace NetZ.Web.Html
 
                 _strValor = value;
 
-                this.atualizarStrValor();
+                this.setStrValor(_strValor);
             }
         }
 
@@ -183,11 +183,11 @@ namespace NetZ.Web.Html
             return strResultado;
         }
 
-        private void atualizarStrValor()
+        private void setStrValor(string strValor)
         {
             this.lstStrValor.Clear();
 
-            this.addValor(_strValor);
+            this.addValor(strValor);
         }
 
         #endregion Métodos
