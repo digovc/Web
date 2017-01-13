@@ -1,11 +1,11 @@
-﻿using DigoFramework.Service;
+﻿using DigoFramework.Servico;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
 namespace NetZ.Web.Server
 {
-    public abstract class ServerBase : ServiceBase
+    public abstract class ServerBase : ServicoBase
     {
         #region Constantes
 

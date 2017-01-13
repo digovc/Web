@@ -1,4 +1,4 @@
-﻿using DigoFramework.Service;
+﻿using DigoFramework.Servico;
 using NetZ.Web.Html.Pagina;
 using System;
 using System.Net;
@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace NetZ.Web.Server
 {
-    public class Cliente : ServiceBase
+    public class Cliente : ServicoBase
     {
         #region Constantes
 
