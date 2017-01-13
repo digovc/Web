@@ -1,16 +1,19 @@
-﻿using System;
+﻿using DigoFramework.Json;
+using NetZ.Web.DataBase.Dominio;
+using NetZ.Web.DataBase.Tabela;
+using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
-using DigoFramework.Json;
-using NetZ.Web.DataBase.Dominio;
-using NetZ.Web.DataBase.Tabela;
 
 namespace NetZ.Web.Server.WebSocket
 {
     public class ClienteWs : Cliente
     {
         #region Constantes
+
+        private const string STR_METODO_WELCOME = "WELCOME";
 
         #endregion Constantes
 
@@ -19,6 +22,7 @@ namespace NetZ.Web.Server.WebSocket
         private bool _booConectado;
         private bool _booHandshake;
         private UsuarioDominio _objUsuario;
+        private ServerWsBase _srvWs;
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
         private string _strSessaoId;
@@ -74,6 +78,26 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
+        private ServerWsBase srvWs
+        {
+            get
+            {
+                return _srvWs;
+            }
+
+            set
+            {
+                if (_srvWs == value)
+                {
+                    return;
+                }
+
+                _srvWs = value;
+
+                this.setSrvWs(_srvWs);
+            }
+        }
+
         private string strSecWebSocketAccept
         {
             get
@@ -84,6 +108,7 @@ namespace NetZ.Web.Server.WebSocket
                 }
 
                 _strSecWebSocketAccept = this.getStrSecWebSocketAccept();
+
                 return _strSecWebSocketAccept;
             }
         }
@@ -101,34 +126,32 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
+        private List<byte> _lstBteCache;
+
+        private List<byte> lstBteCache
+        {
+            get
+            {
+                return _lstBteCache;
+            }
+            set
+            {
+                _lstBteCache = value;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
-        public ClienteWs(TcpClient tcpClient, ServerWsBase srv) : base(tcpClient, srv)
+        public ClienteWs(TcpClient tcpClient, ServerWsBase srvWs) : base(tcpClient, srvWs)
         {
+            this.srvWs = srvWs;
         }
 
         #endregion Construtores
 
         #region Métodos
-
-        protected override void finalizar()
-        {
-            base.finalizar();
-
-            this.finalizarSrv();
-        }
-
-        private void finalizarSrv()
-        {
-            if (this.srv == null)
-            {
-                return;
-            }
-
-            (this.srv as ServerWsBase).removerObjClienteWs(this);
-        }
 
         /// <summary>
         /// Envia uma mensagem contendo a estrutura do interlocutor em JSON para este cliente.
@@ -146,16 +169,11 @@ namespace NetZ.Web.Server.WebSocket
             this.enviar(Json.i.toJson(objInterlocutor));
         }
 
-        protected override void atualizarSrv()
+        protected override void finalizar()
         {
-            base.atualizarSrv();
+            base.finalizar();
 
-            if (this.srv == null)
-            {
-                return;
-            }
-
-            (this.srv as ServerWsBase).addObjClienteWs(this);
+            this.finalizarSrv();
         }
 
         /// <summary>
@@ -173,9 +191,31 @@ namespace NetZ.Web.Server.WebSocket
         {
         }
 
+        protected virtual bool processarMensagem(byte[] arrBteData)
+        {
+            return false;
+        }
+
+        protected virtual bool processarMensagem(Interlocutor objInterlocutor)
+        {
+            switch (objInterlocutor.strMetodo)
+            {
+                case STR_METODO_WELCOME:
+                    this.processarOnMensagemWelcome(objInterlocutor);
+                    return true;
+            }
+
+            return false;
+        }
+
+        protected virtual bool processarMensagem(string strMensagem)
+        {
+            return false;
+        }
+
         protected override void responder(Solicitacao objSolicitacao)
         {
-            //base.responder();
+            // base.responder();
 
             if (!this.validar(objSolicitacao))
             {
@@ -187,7 +227,7 @@ namespace NetZ.Web.Server.WebSocket
 
         protected override bool validar(Solicitacao objSolicitacao)
         {
-            //base.validar(objSolicitacao);
+            // base.validar(objSolicitacao);
 
             if (objSolicitacao == null)
             {
@@ -209,6 +249,16 @@ namespace NetZ.Web.Server.WebSocket
             fme.processarDadosOut();
 
             this.enviar(fme.arrBteDataOut);
+        }
+
+        private void finalizarSrv()
+        {
+            if (this.srvWs == null)
+            {
+                return;
+            }
+
+            this.srvWs.removerObjClienteWs(this);
         }
 
         private bool getBooConectado()
@@ -261,12 +311,25 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            Frame fme = new Frame(objSolicitacao.arrBteMsgCliente);
+            List<byte> lstBteData = new List<byte>();
 
-            fme.processarDadosIn();
+            if (this.lstBteCache != null && this.lstBteCache.Count > 0)
+            {
+                lstBteData.AddRange(this.lstBteCache);
+            }
+
+            lstBteData.AddRange(objSolicitacao.arrBteMsgCliente);
+
+            Frame fme = new Frame(lstBteData.ToArray());
+
+            this.lstBteCache = new List<byte>(fme.processarDadosIn());
 
             switch (fme.enmTipo)
             {
+                case Frame.EnmTipo.BINARY:
+                    this.processarMensagemByte(fme);
+                    return;
+
                 case Frame.EnmTipo.TEXT:
                     this.processarMensagemText(fme);
                     return;
@@ -275,6 +338,21 @@ namespace NetZ.Web.Server.WebSocket
                     this.processarMensagemClose();
                     return;
             }
+        }
+
+        private void processarMensagemByte(Frame fme)
+        {
+            if (fme.arrBteMensagem == null)
+            {
+                return;
+            }
+
+            if (fme.arrBteMensagem.Length < 1)
+            {
+                return;
+            }
+
+            this.processarMensagem(fme.arrBteMensagem);
         }
 
         private void processarMensagemClose()
@@ -293,11 +371,6 @@ namespace NetZ.Web.Server.WebSocket
 
         private void processarMensagemHandshake(Solicitacao objSolicitacao)
         {
-            if (string.IsNullOrEmpty(objSolicitacao.strSessaoId))
-            {
-                return;
-            }
-
             if (!"websocket".Equals(objSolicitacao.getStrHeaderValor("Upgrade")))
             {
                 return;
@@ -327,32 +400,50 @@ namespace NetZ.Web.Server.WebSocket
 
         private void processarMensagemText(Frame fme)
         {
-            if (fme == null)
-            {
-                return;
-            }
-
             if (string.IsNullOrEmpty(fme.strMensagem))
             {
                 return;
             }
 
-            this.processarOnMensagem(fme.strMensagem);
+            Interlocutor objInterlocutor = null;
+
+            try
+            {
+                objInterlocutor = Json.i.fromJson<Interlocutor>(fme.strMensagem);
+            }
+            catch (Exception)
+            {
+                this.processarMensagem(fme.strMensagem);
+            }
+
+            if (objInterlocutor == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objInterlocutor.strMetodo))
+            {
+                return;
+            }
+
+            this.processarMensagem(objInterlocutor);
         }
 
-        private void processarOnMensagem(string strMensagem)
+        private void processarOnMensagemWelcome(Interlocutor objInterlocutor)
         {
-            if (this.srv == null)
+            objInterlocutor.strMetodo = STR_METODO_WELCOME;
+
+            this.enviar(objInterlocutor);
+        }
+
+        private void setSrvWs(ServerWsBase srvWs)
+        {
+            if (srvWs == null)
             {
                 return;
             }
 
-            if (!(this.srv is ServerWsBase))
-            {
-                return;
-            }
-
-            (this.srv as ServerWsBase).processarOnMensagemLocal(this, strMensagem);
+            srvWs.addObjClienteWs(this);
         }
 
         #endregion Métodos

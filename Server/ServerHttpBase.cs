@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace NetZ.Web.Server
 {
@@ -49,7 +49,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        protected ServerHttpBase(string strNome) : base(strNome)
+        protected ServerHttpBase() : base("Servidor HTTP")
         {
         }
 

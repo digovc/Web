@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Html.Pagina;
+﻿using DigoFramework.Service;
+using NetZ.Web.Html.Pagina;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -6,7 +7,7 @@ using System.Threading;
 
 namespace NetZ.Web.Server
 {
-    public class Cliente : Servico
+    public class Cliente : ServiceBase
     {
         #region Constantes
 
@@ -43,14 +44,7 @@ namespace NetZ.Web.Server
 
             set
             {
-                if (_srv == value)
-                {
-                    return;
-                }
-
                 _srv = value;
-
-                this.atualizarSrv();
             }
         }
 
@@ -80,10 +74,6 @@ namespace NetZ.Web.Server
         #endregion Construtores
 
         #region Métodos
-
-        protected virtual void atualizarSrv()
-        {
-        }
 
         protected void enviar(byte[] arrBteData)
         {

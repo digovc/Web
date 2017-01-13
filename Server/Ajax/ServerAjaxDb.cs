@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Reflection;
-using DigoFramework.Json;
+﻿using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
@@ -9,6 +6,9 @@ using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
+using System;
+using System.Data;
+using System.Reflection;
 
 namespace NetZ.Web.Server.Ajax
 {

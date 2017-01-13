@@ -163,7 +163,6 @@
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\ServerWsBase.cs" />
     <Compile Include="Server\Solicitacao.cs" />
-    <Compile Include="Server\Servico.cs" />
     <Compile Include="DataBase\Dominio\UsuarioDominio.cs" />
     <Compile Include="Properties\View.Designer.cs">
       <AutoGen>True</AutoGen>

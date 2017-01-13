@@ -99,7 +99,7 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
-        private byte[] arrBteMensagem
+        public byte[] arrBteMensagem
         {
             get
             {
@@ -138,11 +138,11 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Métodos
 
-        internal void processarDadosIn()
+        internal byte[] processarDadosIn()
         {
             if (!this.validar())
             {
-                return;
+                return null;
             }
 
             List<byte> lstBteData = new List<byte>(this.arrBteData);
@@ -154,6 +154,13 @@ namespace NetZ.Web.Server.WebSocket
             this.processarDadosArrBteKey(lstBteData);
 
             this.processarDadosArrBteMensagem(lstBteData);
+
+            if (this.arrBteMensagem == null)
+            {
+                return this.arrBteData;
+            }
+
+            return lstBteData.ToArray();
         }
 
         internal void processarDadosOut()
@@ -217,14 +224,18 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            this.arrBteKey = new byte[4];
+            //this.arrBteKey = new byte[4];
 
-            for (int i = 0; i < 4; i++)
-            {
-                this.arrBteKey[i] = lstBteData[0];
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    this.arrBteKey[i] = lstBteData[0];
 
-                lstBteData.RemoveAt(0);
-            }
+            //    lstBteData.RemoveAt(0);
+            //}
+
+            this.arrBteKey = lstBteData.GetRange(0, 4).ToArray();
+
+            lstBteData.RemoveRange(0, 4);
         }
 
         private void processarDadosArrBteMensagem(List<byte> lstBteData)
@@ -271,6 +282,11 @@ namespace NetZ.Web.Server.WebSocket
                     this.enmTipo = EnmTipo.BINARY;
                     return;
 
+                default:
+                case 132:
+                    this.enmTipo = EnmTipo.NONE;
+                    return;
+
                 case 136:
                     this.enmTipo = EnmTipo.CLOSE;
                     return;
@@ -281,9 +297,6 @@ namespace NetZ.Web.Server.WebSocket
 
                 case 138:
                     this.enmTipo = EnmTipo.PONG;
-                    return;
-
-                default:
                     return;
             }
         }

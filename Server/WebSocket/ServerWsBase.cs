@@ -1,4 +1,4 @@
-﻿using DigoFramework.Json;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
@@ -16,7 +16,7 @@ namespace NetZ.Web.Server.WebSocket
 
         private List<ClienteWs> _lstObjClienteWs;
 
-        protected List<ClienteWs> lstObjClienteWs
+        public List<ClienteWs> lstObjClienteWs
         {
             get
             {
@@ -62,38 +62,8 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.lstObjClienteWs.Add(objClienteWs);
-        }
 
-        internal virtual void processarOnMensagemLocal(ClienteWs objClienteWs, string jsnInterlocutor)
-        {
-            if (objClienteWs == null)
-            {
-                return;
-            }
-
-            if (!this.lstObjClienteWs.Contains(objClienteWs))
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(jsnInterlocutor))
-            {
-                return;
-            }
-
-            Interlocutor objInterlocutor = Json.i.fromJson<Interlocutor>(jsnInterlocutor);
-
-            if (objInterlocutor == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(objInterlocutor.strMetodo))
-            {
-                return;
-            }
-
-            this.processarOnMensagem(objClienteWs, objInterlocutor);
+            this.processarOnClienteWsAdd(objClienteWs);
         }
 
         internal void removerObjClienteWs(ClienteWs objClienteWs)
@@ -109,6 +79,11 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.lstObjClienteWs.Remove(objClienteWs);
+        }
+
+        protected override int getIntPort()
+        {
+            return 443;
         }
 
         protected override Cliente getObjCliente(TcpClient tcpClient)
@@ -136,21 +111,9 @@ namespace NetZ.Web.Server.WebSocket
             return null;
         }
 
-        protected virtual bool processarOnMensagem(ClienteWs objClienteWs, Interlocutor objInterlocutor)
+        protected virtual void processarOnClienteWsAdd(ClienteWs objClienteWs)
         {
-            if (objInterlocutor == null)
-            {
-                return false;
-            }
-
-            switch (objInterlocutor.strMetodo)
-            {
-                case STR_METODO_WELCOME:
-                    this.processarOnMensagemWelcome(objClienteWs, objInterlocutor);
-                    return true;
-            }
-
-            return false;
+            this.onClienteWsAdd?.Invoke(this, objClienteWs);
         }
 
         private ClienteWs getObjClienteWs(ClienteWs objClienteWs, int intUsuarioId)
@@ -178,21 +141,11 @@ namespace NetZ.Web.Server.WebSocket
             return objClienteWs;
         }
 
-        private void processarOnMensagemWelcome(ClienteWs objClienteWs, Interlocutor objInterlocutor)
-        {
-            if (objClienteWs == null)
-            {
-                return;
-            }
-
-            objInterlocutor.strMetodo = STR_METODO_WELCOME;
-
-            objClienteWs.enviar(objInterlocutor);
-        }
-
         #endregion Métodos
 
         #region Eventos
+
+        public event EventHandler<ClienteWs> onClienteWsAdd;
 
         #endregion Eventos
     }

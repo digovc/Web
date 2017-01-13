@@ -1,5 +1,5 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo;
+﻿using NetZ.Web.Server.Arquivo;
+using System;
 
 namespace NetZ.Web.Server.Ajax
 {

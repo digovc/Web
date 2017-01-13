@@ -1,10 +1,11 @@
-﻿using System.Net;
+﻿using DigoFramework.Service;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
 namespace NetZ.Web.Server
 {
-    public abstract class ServerBase : Servico
+    public abstract class ServerBase : ServiceBase
     {
         #region Constantes
 
@@ -130,6 +131,7 @@ namespace NetZ.Web.Server
             base.inicializar();
 
             this.tcpListener.Start();
+
             this.enmStatus = EnmStatus.LIGADO;
         }
 
