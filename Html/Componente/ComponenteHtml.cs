@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetZ.Web.Html.Componente
+﻿namespace NetZ.Web.Html.Componente
 {
     public abstract class ComponenteHtml : Div
     {
@@ -23,6 +21,16 @@ namespace NetZ.Web.Html.Componente
             base.addJsDebug(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
+
+            if (this.getBooJs())
+            {
+                lstJsDebug.Add(new JavaScriptTag(this.GetType()));
+            }
+        }
+
+        protected virtual bool getBooJs()
+        {
+            return false;
         }
 
         #endregion Métodos

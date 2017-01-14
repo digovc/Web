@@ -101,7 +101,7 @@ namespace NetZ.Web.Server.Ajax
 
         protected override int getIntPort()
         {
-            return ConfigWebBase.i.intServerAjaxDbPorta;
+            return ConfigWebBase.i.intSrvAjaxDbPorta;
         }
 
         protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)

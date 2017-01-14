@@ -98,7 +98,7 @@ namespace NetZ.Web.Server
 
         protected override int getIntPort()
         {
-            return ConfigWebBase.i.intServerHttpPorta;
+            return ConfigWebBase.i.intSrvHttpPorta;
         }
 
         protected override void inicializar()

@@ -1,8 +1,10 @@
-﻿namespace NetZ.Web.DataBase.Dominio
+﻿using NetZ.Persistencia;
+
+namespace NetZ.Web.DataBase.Dominio
 {
     // TODO: O namespace do domínio deve ficar na raíz do projeto.
     // TODO: Todas as classes abstratas devem ter o sufixo "base" no nome.
-    public abstract class DominioWeb : Persistencia.DominioBase
+    public abstract class DominioWeb : DominioBase
     {
         #region Constantes
 
