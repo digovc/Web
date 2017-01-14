@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NetZ.Web.Html;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
-using NetZ.Web.Html;
 
 namespace NetZ.Web.Server.Arquivo.Css
 {
@@ -562,6 +562,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("position", strPosition);
         }
 
+        public string setResize(string strResize)
+        {
+            if (string.IsNullOrEmpty(strResize))
+            {
+                return null;
+            }
+
+            return this.addCss("resize", strResize);
+        }
+
         public string setRight(int intRight, string strGrandeza = "px")
         {
             return this.addCss("right", string.Format("{0}{1}", intRight, strGrandeza));
@@ -680,16 +690,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return atrCss.strClass;
         }
 
-        private void setStrHref(string strHref)
-        {
-            this.dirCompleto = strHref;
-        }
-
         private string corToRgba(Color cor)
         {
             double dblAlpha = (cor.A < 255) ? (cor.A / 255d) : 1;
 
             return string.Format("rgba({0},{1},{2},{3})", cor.R, cor.G, cor.B, dblAlpha.ToString(this.ctiUsa));
+        }
+
+        private void setStrHref(string strHref)
+        {
+            this.dirCompleto = strHref;
         }
 
         #endregion Métodos
