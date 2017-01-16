@@ -101,7 +101,9 @@ namespace NetZ.Web.Html.Pagina
                 return;
             }
 
-            this.divError.strConteudo = this.ex?.StackTrace.Replace(Environment.NewLine, "<br/>");
+            this.divError.strConteudo = (this.ex.Message + "<br/>");
+
+            this.divError.strConteudo += this.ex.StackTrace.Replace(Environment.NewLine, "<br/>");
         }
 
         #endregion Métodos
