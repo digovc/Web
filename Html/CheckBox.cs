@@ -97,25 +97,6 @@ namespace NetZ.Web.Html
             lstJsDebug.Add(new JavaScriptTag(typeof(CheckBox), 111));
         }
 
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.divSeletor.strId = (strId + "_divSeletor");
-        }
-
-        protected override void finalizar()
-        {
-            base.finalizar();
-
-            this.divTitulo.strConteudo = this.strTitulo;
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -151,9 +132,22 @@ namespace NetZ.Web.Html
             this.divSeletor.addCss(css.setTop(1));
             this.divSeletor.addCss(css.setWidth(14));
 
+            this.divTitulo.addCss(css.setLineHeight(13));
             this.divTitulo.addCss(css.setPaddingLeft(25));
             this.divTitulo.addCss(css.setPaddingTop(2));
             this.divTitulo.addCss(css.setTextAlign("left"));
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            if (string.IsNullOrEmpty(strId))
+            {
+                return;
+            }
+
+            this.divSeletor.strId = (strId + "_divSeletor");
         }
 
         #endregion Métodos

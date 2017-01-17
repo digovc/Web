@@ -13,7 +13,7 @@ namespace NetZ.Web.Server.WebSocket
     {
         #region Constantes
 
-        private const string STR_METODO_WELCOME = "WELCOME";
+        private const string STR_METODO_WELCOME = "metodo_welcome";
 
         #endregion Constantes
 
@@ -78,7 +78,7 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
-        private ServerWsBase srvWs
+        protected ServerWsBase srvWs
         {
             get
             {
@@ -201,7 +201,7 @@ namespace NetZ.Web.Server.WebSocket
             switch (objInterlocutor.strMetodo)
             {
                 case STR_METODO_WELCOME:
-                    this.processarOnMensagemWelcome(objInterlocutor);
+                    this.processarMensagemWelcome(objInterlocutor);
                     return true;
             }
 
@@ -429,7 +429,7 @@ namespace NetZ.Web.Server.WebSocket
             this.processarMensagem(objInterlocutor);
         }
 
-        private void processarOnMensagemWelcome(Interlocutor objInterlocutor)
+        protected virtual void processarMensagemWelcome(Interlocutor objInterlocutor)
         {
             objInterlocutor.strMetodo = STR_METODO_WELCOME;
 

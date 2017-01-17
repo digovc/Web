@@ -8,7 +8,7 @@ namespace NetZ.Web.Server.WebSocket
     {
         #region Constantes
 
-        private const string STR_METODO_WELCOME = "WELCOME";
+        private const string STR_METODO_WELCOME = "metodo_welcome";
 
         #endregion Constantes
 
