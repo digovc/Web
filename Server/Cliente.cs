@@ -1,6 +1,8 @@
-﻿using DigoFramework.Servico;
+﻿using DigoFramework;
+using DigoFramework.Servico;
 using NetZ.Web.Html.Pagina;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -97,7 +99,19 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            this.tcpClient.GetStream().Write(arrBteData, 0, arrBteData.Length);
+            try
+            {
+                this.tcpClient.GetStream().Write(arrBteData, 0, arrBteData.Length);
+            }
+            catch (Exception ex)
+            {
+                if ((ex is IOException) || (ex is ObjectDisposedException))
+                {
+                    new Erro(string.Format("Erro ao tentar enviar dados para o \"{0}\".", this.strNome), ex);
+                }
+
+                throw;
+            }
         }
 
         protected override void finalizar()

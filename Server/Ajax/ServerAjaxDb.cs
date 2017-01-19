@@ -99,7 +99,7 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
-        protected override int getIntPort()
+        protected override int getIntPorta()
         {
             return ConfigWebBase.i.intSrvAjaxDbPorta;
         }

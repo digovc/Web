@@ -96,7 +96,7 @@ namespace NetZ.Web.Server
             return null;
         }
 
-        protected override int getIntPort()
+        protected override int getIntPorta()
         {
             return ConfigWebBase.i.intSrvHttpPorta;
         }

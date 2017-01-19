@@ -72,7 +72,7 @@ namespace NetZ.Web.Server
                     return _intPorta;
                 }
 
-                _intPorta = this.getIntPort();
+                _intPorta = this.getIntPorta();
 
                 return _intPorta;
             }
@@ -119,7 +119,7 @@ namespace NetZ.Web.Server
         /// <returns>Retorna o objeto contendo a responsta para o cliente.</returns>
         public abstract Resposta responder(Solicitacao objSolicitacao);
 
-        protected abstract int getIntPort();
+        protected abstract int getIntPorta();
 
         protected virtual Cliente getObjCliente(TcpClient tcpClient)
         {

@@ -21,6 +21,7 @@ namespace NetZ.Web.Server.WebSocket
 
         private bool _booConectado;
         private bool _booHandshake;
+        private List<byte> _lstBteCache;
         private UsuarioDominio _objUsuario;
         private ServerWsBase _srvWs;
         private string _strSecWebSocketAccept;
@@ -52,6 +53,26 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
+        protected ServerWsBase srvWs
+        {
+            get
+            {
+                return _srvWs;
+            }
+
+            set
+            {
+                if (_srvWs == value)
+                {
+                    return;
+                }
+
+                _srvWs = value;
+
+                this.setSrvWs(_srvWs);
+            }
+        }
+
         protected string strSessaoId
         {
             get
@@ -78,23 +99,16 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
-        protected ServerWsBase srvWs
+        private List<byte> lstBteCache
         {
             get
             {
-                return _srvWs;
+                return _lstBteCache;
             }
 
             set
             {
-                if (_srvWs == value)
-                {
-                    return;
-                }
-
-                _srvWs = value;
-
-                this.setSrvWs(_srvWs);
+                _lstBteCache = value;
             }
         }
 
@@ -123,20 +137,6 @@ namespace NetZ.Web.Server.WebSocket
             set
             {
                 _strSecWebSocketKey = value;
-            }
-        }
-
-        private List<byte> _lstBteCache;
-
-        private List<byte> lstBteCache
-        {
-            get
-            {
-                return _lstBteCache;
-            }
-            set
-            {
-                _lstBteCache = value;
             }
         }
 
@@ -211,6 +211,13 @@ namespace NetZ.Web.Server.WebSocket
         protected virtual bool processarMensagem(string strMensagem)
         {
             return false;
+        }
+
+        protected virtual void processarMensagemWelcome(Interlocutor objInterlocutor)
+        {
+            objInterlocutor.strMetodo = STR_METODO_WELCOME;
+
+            this.enviar(objInterlocutor);
         }
 
         protected override void responder(Solicitacao objSolicitacao)
@@ -427,13 +434,6 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.processarMensagem(objInterlocutor);
-        }
-
-        protected virtual void processarMensagemWelcome(Interlocutor objInterlocutor)
-        {
-            objInterlocutor.strMetodo = STR_METODO_WELCOME;
-
-            this.enviar(objInterlocutor);
         }
 
         private void setSrvWs(ServerWsBase srvWs)

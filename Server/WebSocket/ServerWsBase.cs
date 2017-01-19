@@ -81,7 +81,7 @@ namespace NetZ.Web.Server.WebSocket
             this.lstObjClienteWs.Remove(objClienteWs);
         }
 
-        protected override int getIntPort()
+        protected override int getIntPorta()
         {
             return 443;
         }
