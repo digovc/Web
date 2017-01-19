@@ -108,6 +108,7 @@ namespace NetZ.Web.Server
                 if ((ex is IOException) || (ex is ObjectDisposedException))
                 {
                     new Erro(string.Format("Erro ao tentar enviar dados para o \"{0}\".", this.strNome), ex);
+                    return;
                 }
 
                 throw;
