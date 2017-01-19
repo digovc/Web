@@ -494,7 +494,7 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
-            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
+            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-3.1.0.min.js", 0));
         }
 
         protected virtual void addLayoutFixo(JavaScriptTag tagJs)
