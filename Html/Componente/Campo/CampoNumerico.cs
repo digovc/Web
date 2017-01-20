@@ -22,7 +22,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(CampoNumerico), 130));
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoNumerico), 132));
         }
 
         protected override Input.EnmTipo getEnmTipo()
