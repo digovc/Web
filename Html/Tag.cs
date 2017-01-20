@@ -946,7 +946,9 @@ namespace NetZ.Web.Html
             List<string> lstStrAtrAdicionado = new List<string>();
             List<string> lstStrAtrFormatado = new List<string>();
 
-            foreach (Atributo att in this.lstAtt.OrderBy((o) => o.strNome))
+            List<Atributo> lstAtrOrdenado = this.lstAtt.OrderBy((att) => att.strNome).ToList();
+
+            foreach (Atributo att in lstAtrOrdenado)
             {
                 if (att == null)
                 {
