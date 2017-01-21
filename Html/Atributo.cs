@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DigoFramework;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using DigoFramework;
 
 namespace NetZ.Web.Html
 {
@@ -161,6 +161,23 @@ namespace NetZ.Web.Html
         public void addValor(int intValor)
         {
             this.addValor(intValor.ToString());
+        }
+
+        /// <summary>
+        /// Copia os valores de um atributo para o outro.
+        /// </summary>
+        /// <param name="att">Atributo que terá os seus valores copiados.</param>
+        public void copiar(Atributo att)
+        {
+            if (att == null)
+            {
+                return;
+            }
+
+            foreach (string strValor in att.lstStrValor)
+            {
+                this.addValor(strValor);
+            }
         }
 
         /// <summary>
