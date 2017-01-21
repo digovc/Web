@@ -43,7 +43,9 @@ namespace NetZ.Web.Server
                     return _thr;
                 }
 
-                _thr = this.getThr();
+                _thr = new Thread(this.inicializarServio);
+
+                _thr.IsBackground = true;
 
                 return _thr;
             }
@@ -73,6 +75,8 @@ namespace NetZ.Web.Server
         /// </summary>
         public void iniciar()
         {
+            Log.i.info("Inicializando o serviço {0}.", this.strNome ?? this.GetType().Name);
+
             this.inicializar();
             this.thr.Start();
         }
@@ -88,6 +92,7 @@ namespace NetZ.Web.Server
 
         protected virtual void finalizar()
         {
+            Log.i.info("Finalizando o serviço {0}.", this.strNome);
         }
 
         /// <summary>
@@ -114,17 +119,14 @@ namespace NetZ.Web.Server
             this.thr.Name = strNome;
         }
 
-        private Thread getThr()
-        {
-            Thread thrResultado = new Thread(this.inicializarServio);
-
-            thrResultado.IsBackground = true;
-
-            return thrResultado;
-        }
-
         private void inicializarServio(object obj)
         {
+            #region Variáveis
+
+            #endregion Variáveis
+
+            #region Ações
+
             try
             {
                 this.servico();
@@ -139,6 +141,8 @@ namespace NetZ.Web.Server
             {
                 this.finalizar();
             }
+
+            #endregion Ações
         }
 
         #endregion Métodos

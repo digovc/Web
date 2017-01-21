@@ -25,7 +25,7 @@
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(CampoSenha), 130));
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoSenha), 132));
         }
 
         protected override Input.EnmTipo getEnmTipo()

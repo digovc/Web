@@ -60,13 +60,13 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             lstJsDebug.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
+            this.btnAdicionar.strId = (strId + "_btnAdicionar");
 
-            this.btnAlterar.strId = (this.strId + "_btnAlterar");
+            this.btnAlterar.strId = (strId + "_btnAlterar");
         }
 
         protected override void inicializar()

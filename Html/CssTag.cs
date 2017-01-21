@@ -42,7 +42,7 @@
 
                 _strHref = value;
 
-                this.atualizarStrHref();
+                this.setStrHref(_strHref);
             }
         }
 
@@ -70,14 +70,14 @@
             this.addAtt("type", "text/css");
         }
 
-        private void atualizarStrHref()
+        private void setStrHref(string strHref)
         {
-            if (string.IsNullOrEmpty(this.strHref))
+            if (string.IsNullOrEmpty(strHref))
             {
                 return;
             }
 
-            this.attHref.strValor = this.strHref;
+            this.attHref.strValor = strHref;
         }
 
         private Atributo getAttHref()

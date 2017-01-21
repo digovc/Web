@@ -35,16 +35,16 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divProgresso.strId = (this.strId + "_divProgresso");
+            this.divProgresso.strId = (strId + "_divProgresso");
         }
 
         protected override void montarLayout()

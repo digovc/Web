@@ -126,11 +126,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            if (this.tblFiltrada == null)
-            {
-                return;
-            }
-
             DataTable tblFiltroItemData = TblFiltroItem.i.pesquisar(TblFiltroItem.i.clnIntFiltroId, this.intFiltroId);
 
             if (tblFiltroItemData == null)
@@ -151,6 +146,11 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         private void inicializarLstCmpFiltro(DataRow row)
         {
+            if (this.tblFiltrada == null)
+            {
+                throw new Exception(string.Format("A tabela não foi encontrada."));
+            }
+
             if (row == null)
             {
                 return;
@@ -161,7 +161,14 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(row[TblFiltroItem.i.clnStrColunaNome.sqlNome])];
+            string sqlClnNome = (string)row[TblFiltroItem.i.clnStrColunaNome.sqlNome];
+
+            Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(sqlClnNome)];
+
+            if (clnFiltrada == null)
+            {
+                throw new Exception(string.Format("A coluna \"{0}\" não foi encontrada.", sqlClnNome));
+            }
 
             this.inicializarLstCmpFiltro(row, clnFiltrada);
         }

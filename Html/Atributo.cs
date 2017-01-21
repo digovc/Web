@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DigoFramework;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using DigoFramework;
 
 namespace NetZ.Web.Html
 {
@@ -85,7 +85,7 @@ namespace NetZ.Web.Html
 
                 _strValor = value;
 
-                this.atualizarStrValor();
+                this.setStrValor(_strValor);
             }
         }
 
@@ -164,6 +164,23 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Copia os valores de um atributo para o outro.
+        /// </summary>
+        /// <param name="att">Atributo que terá os seus valores copiados.</param>
+        public void copiar(Atributo att)
+        {
+            if (att == null)
+            {
+                return;
+            }
+
+            foreach (string strValor in att.lstStrValor)
+            {
+                this.addValor(strValor);
+            }
+        }
+
+        /// <summary>
         /// Retorna este atributo formatado e pronto para ser utilizado dentro de uma
         /// </summary>
         /// <returns></returns>
@@ -183,11 +200,11 @@ namespace NetZ.Web.Html
             return strResultado;
         }
 
-        private void atualizarStrValor()
+        private void setStrValor(string strValor)
         {
             this.lstStrValor.Clear();
 
-            this.addValor(_strValor);
+            this.addValor(strValor);
         }
 
         #endregion Métodos

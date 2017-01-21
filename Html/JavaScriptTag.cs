@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NetZ.Web.Html.Componente;
+using System;
 using System.Collections.Generic;
-using NetZ.Web.Html.Componente;
 
 namespace NetZ.Web.Html
 {
@@ -87,6 +87,16 @@ namespace NetZ.Web.Html
             srcResultado = srcResultado.Replace("_ponto_final", ".");
 
             return srcResultado;
+        }
+
+        public void addConstante(string strNome, decimal decValor)
+        {
+            this.addConstante(strNome, decValor.ToString());
+        }
+
+        public void addConstante(string strNome, int intValor)
+        {
+            this.addConstante(strNome, intValor.ToString());
         }
 
         public void addConstante(string strNome, string strValor)

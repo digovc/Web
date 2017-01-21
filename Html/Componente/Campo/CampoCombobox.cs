@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NetZ.Web.Server.Arquivo.Css;
+using NetZ.Persistencia;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -75,11 +76,11 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJsDebug.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
         }
 
-        protected override void atualizarCln()
+        protected override void setCln(Coluna cln)
         {
-            base.atualizarCln();
+            base.setCln(cln);
 
-            this.cmb.cln = this.cln;
+            this.cmb.cln = cln;
         }
 
         protected override Input.EnmTipo getEnmTipo()

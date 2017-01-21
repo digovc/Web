@@ -97,16 +97,16 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.tagInputTag.strId = (this.strId + "_tagInputTag");
+            this.tagInputTag.strId = (strId + "_tagInputTag");
         }
 
         protected override void inicializar()

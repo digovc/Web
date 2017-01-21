@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NetZ.Web.Html;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
-using NetZ.Web.Html;
 
 namespace NetZ.Web.Server.Arquivo.Css
 {
@@ -39,7 +39,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
                 _strHref = value;
 
-                this.atualizarStrHref();
+                this.setStrHref(_strHref);
             }
         }
 
@@ -317,7 +317,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("bottom", string.Format("{0}{1}", intBottom, strGrandeza));
         }
 
-        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor)
+        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor = "grey")
         {
             return this.addCss("box-shadow", string.Format("{0}px {1}px {2}px {3}px {4}", intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, cor));
         }
@@ -562,6 +562,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("position", strPosition);
         }
 
+        public string setResize(string strResize)
+        {
+            if (string.IsNullOrEmpty(strResize))
+            {
+                return null;
+            }
+
+            return this.addCss("resize", strResize);
+        }
+
         public string setRight(int intRight, string strGrandeza = "px")
         {
             return this.addCss("right", string.Format("{0}{1}", intRight, strGrandeza));
@@ -680,16 +690,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return atrCss.strClass;
         }
 
-        private void atualizarStrHref()
-        {
-            this.dirCompleto = this.strHref;
-        }
-
         private string corToRgba(Color cor)
         {
             double dblAlpha = (cor.A < 255) ? (cor.A / 255d) : 1;
 
             return string.Format("rgba({0},{1},{2},{3})", cor.R, cor.G, cor.B, dblAlpha.ToString(this.ctiUsa));
+        }
+
+        private void setStrHref(string strHref)
+        {
+            this.dirCompleto = strHref;
         }
 
         #endregion Métodos

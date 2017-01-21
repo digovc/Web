@@ -63,17 +63,17 @@ namespace NetZ.Web.Html.Componente.Menu
             lstJsDebug.Add(new JavaScriptTag(typeof(DivFavoritoItem), 111));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divTitulo.strId = (this.strId + "_divTitulo");
-            this.imgIcone.strId = (this.strId + "_imgIcone");
+            this.divTitulo.strId = (strId + "_divTitulo");
+            this.imgIcone.strId = (strId + "_imgIcone");
         }
 
         protected override void inicializar()
