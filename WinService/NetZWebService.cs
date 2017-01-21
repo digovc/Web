@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceProcess;
 
 namespace NetZ.Web.WinService
@@ -12,23 +11,6 @@ namespace NetZ.Web.WinService
 
         #region Atributos
 
-        private AppWebBase _appWeb;
-
-        private AppWebBase appWeb
-        {
-            get
-            {
-                if (_appWeb != null)
-                {
-                    return _appWeb;
-                }
-
-                _appWeb = this.getAppWeb();
-
-                return _appWeb;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -36,15 +18,6 @@ namespace NetZ.Web.WinService
         public NetZWebService()
         {
             this.InitializeComponent();
-
-            this.ServiceName = this.GetType().Name;
-            this.EventLog.Log = (this.GetType().Name + "_log");
-
-            this.CanHandlePowerEvent = true;
-            this.CanHandleSessionChangeEvent = true;
-            this.CanPauseAndContinue = true;
-            this.CanShutdown = true;
-            this.CanStop = true;
         }
 
         #endregion Construtores
@@ -55,14 +28,21 @@ namespace NetZ.Web.WinService
 
         private void inicializar()
         {
-            Console.WriteLine(this.appWeb);
-
-            if (this.appWeb == null)
+            if (this.getAppWeb() == null)
             {
-                throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
+                throw new NullReferenceException("A instância da aplicação não foi indicada.");
             }
 
-            this.appWeb.inicializarServidor();
+            this.ServiceName = this.getAppWeb().strNomeSimplificado;
+
+            this.CanHandlePowerEvent = false;
+            this.CanHandleSessionChangeEvent = false;
+            this.CanPauseAndContinue = false;
+            this.CanShutdown = false;
+            this.CanStop = true;
+            this.EventLog.Log = (this.ServiceName + "_log");
+
+            this.getAppWeb().inicializarServidor();
         }
 
         #endregion Métodos
@@ -73,9 +53,6 @@ namespace NetZ.Web.WinService
         {
             base.OnStart(args);
 
-            // Comentar sempre que não quiser debugar.
-            //Debugger.Launch();
-
             this.inicializar();
         }
 
@@ -83,12 +60,7 @@ namespace NetZ.Web.WinService
         {
             base.OnStop();
 
-            if (this.appWeb == null)
-            {
-                throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
-            }
-
-            this.appWeb.pararServidor();
+            this.getAppWeb().pararServidor();
         }
 
         #endregion Eventos

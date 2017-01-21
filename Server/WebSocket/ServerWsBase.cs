@@ -20,14 +20,17 @@ namespace NetZ.Web.Server.WebSocket
         {
             get
             {
-                if (_lstObjClienteWs != null)
+                lock (this)
                 {
+                    if (_lstObjClienteWs != null)
+                    {
+                        return _lstObjClienteWs;
+                    }
+
+                    _lstObjClienteWs = new List<ClienteWs>();
+
                     return _lstObjClienteWs;
                 }
-
-                _lstObjClienteWs = new List<ClienteWs>();
-
-                return _lstObjClienteWs;
             }
         }
 

@@ -26,41 +26,7 @@ namespace NetZ.Web.WinService
 
         #region Métodos
 
-        protected abstract Type getClsService();
-
-        protected abstract string getStrAplicacaoNome();
-
-        protected virtual string getStrDescricao()
-        {
-            return "NetZ.Web (Servidor HTTP para aplicações Web).";
-        }
-
-        private string getStrNome()
-        {
-            Type clsService = this.getClsService();
-
-            if (clsService == null)
-            {
-                throw new NullReferenceException("Classe do serviço não indicada.");
-            }
-
-            if (!(typeof(ServiceBase).IsAssignableFrom(clsService)))
-            {
-                throw new NullReferenceException("Classe do serviço não herda de \"ServiceBase\".");
-            }
-
-            return clsService.Name;
-        }
-
-        private string getStrNomeExibicao()
-        {
-            if (string.IsNullOrEmpty(this.getStrAplicacaoNome()))
-            {
-                return "NetZ.Web";
-        }
-
-            return string.Format("{0} (NetZ.Web)", this.getStrAplicacaoNome());
-        }
+        protected abstract AppWebBase getAppWeb();
 
         private void inicializar()
         {
@@ -71,15 +37,20 @@ namespace NetZ.Web.WinService
 
         private void inicializarSpi()
         {
-            this.spi.Account = ServiceAccount.NetworkService;
+            this.spi.Account = ServiceAccount.User;
         }
 
         private void inicializarSvi()
         {
-            this.svi.Description = this.getStrDescricao();
-            this.svi.DisplayName = this.getStrNomeExibicao();
-            this.svi.ServiceName = this.getStrNome();
-            this.svi.StartType = ServiceStartMode.Manual;
+            if (this.getAppWeb() == null)
+            {
+                throw new NullReferenceException("A instância da aplicação não foi indicada.");
+            }
+
+            this.svi.Description = this.getAppWeb().strDescricao ?? "A descrição do serviço não foi indicada.";
+            this.svi.DisplayName = this.getAppWeb().strNome;
+            this.svi.ServiceName = this.getAppWeb().strNomeSimplificado;
+            this.svi.StartType = ServiceStartMode.Automatic;
         }
 
         #endregion Métodos
