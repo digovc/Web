@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DigoFramework;
+﻿using DigoFramework;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace NetZ.Web.Html
 {
@@ -67,6 +67,21 @@ namespace NetZ.Web.Html
         private string _strName;
         private string _strTitle;
         private Tag _tagPai;
+
+        public Atributo attClass
+        {
+            get
+            {
+                if (_attClass != null)
+                {
+                    return _attClass;
+                }
+
+                _attClass = this.getAttClass();
+
+                return _attClass;
+            }
+        }
 
         /// <summary>
         /// Atributo "type" desta tag.
@@ -284,21 +299,6 @@ namespace NetZ.Web.Html
                 _strTitle = value;
 
                 this.setStrTitle(_strTitle);
-            }
-        }
-
-        private Atributo attClass
-        {
-            get
-            {
-                if (_attClass != null)
-                {
-                    return _attClass;
-                }
-
-                _attClass = this.getAttClass();
-
-                return _attClass;
             }
         }
 
@@ -586,6 +586,21 @@ namespace NetZ.Web.Html
             }
 
             this.attClass.addValor(strCssClass);
+        }
+
+
+        /// <summary>
+        /// Adiciona todos os atributos css que o <paramref name="tag"/> possui.
+        /// </summary>
+        /// <param name="tag">Tag terá os atributos css copiados.</param>
+        public void addCss(Tag tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            this.attClass.copiar(tag.attClass);
         }
 
         public void apagarAtt(string strAttNome)

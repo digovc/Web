@@ -23,6 +23,8 @@ namespace NetZ.Web
     {
         #region Constantes
 
+        public const string DIR_MEDIA_PNG = "/res/media/png/";
+
         #endregion Constantes
 
         #region Atributos

@@ -317,7 +317,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("bottom", string.Format("{0}{1}", intBottom, strGrandeza));
         }
 
-        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor)
+        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor = "grey")
         {
             return this.addCss("box-shadow", string.Format("{0}px {1}px {2}px {3}px {4}", intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, cor));
         }
