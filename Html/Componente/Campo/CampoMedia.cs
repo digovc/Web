@@ -58,16 +58,16 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJsDebug.Add(new JavaScriptTag(typeof(CampoMedia), 131));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divContent.strId = (this.strId + "_divContent");
+            this.divContent.strId = (strId + "_divContent");
         }
 
         protected override void inicializar()

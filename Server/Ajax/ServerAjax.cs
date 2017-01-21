@@ -1,5 +1,5 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo;
+﻿using NetZ.Web.Server.Arquivo;
+using System;
 
 namespace NetZ.Web.Server.Ajax
 {
@@ -73,9 +73,9 @@ namespace NetZ.Web.Server.Ajax
 
             string strHost = ("http://" + uri.Host);
 
-            if (ConfigWebBase.i.intServerHttpPorta != 80)
+            if (ConfigWebBase.i.intSrvHttpPorta != 80)
             {
-                strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWebBase.i.intServerHttpPorta);
+                strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWebBase.i.intSrvHttpPorta);
             }
 
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");

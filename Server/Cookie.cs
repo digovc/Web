@@ -70,27 +70,9 @@ namespace NetZ.Web.Server
 
         public Cookie(string strNome, string strValor)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.dttValidade = DateTime.Now.AddHours(1);
-                this.strValor = strValor;
-                this.strNome = strNome;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.dttValidade = DateTime.Now.AddHours(1);
+            this.strValor = strValor;
+            this.strNome = strNome;
         }
 
         #endregion Construtores
@@ -99,44 +81,24 @@ namespace NetZ.Web.Server
 
         internal string getStrFormatado()
         {
-            #region Variáveis
-
-            string strResultado;
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            if (string.IsNullOrEmpty(this.strNome))
             {
-                if (string.IsNullOrEmpty(this.strNome))
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(this.strValor))
-                {
-                    return null;
-                }
-
-                strResultado = "Set-Cookie: _cookie_name=_cookie_valor; Path=_cookie_path; expires=_cookie_validade";
-
-                strResultado = strResultado.Replace("_cookie_name", this.strNome);
-                strResultado = strResultado.Replace("_cookie_valor", this.strValor);
-                strResultado = strResultado.Replace("_cookie_path", this.strPath);
-                strResultado = strResultado.Replace("_cookie_validade", this.dttValidade.ToUniversalTime().ToString("r"));
-
-                return strResultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+                return null;
             }
 
-            #endregion Ações
+            if (string.IsNullOrEmpty(this.strValor))
+            {
+                return null;
+            }
+
+            string strResultado = "Set-Cookie: _cookie_name=_cookie_valor; Path=_cookie_path; expires=_cookie_validade";
+
+            strResultado = strResultado.Replace("_cookie_name", this.strNome);
+            strResultado = strResultado.Replace("_cookie_valor", this.strValor);
+            strResultado = strResultado.Replace("_cookie_path", this.strPath);
+            strResultado = strResultado.Replace("_cookie_validade", this.dttValidade.ToUniversalTime().ToString("r"));
+
+            return strResultado;
         }
 
         #endregion Métodos

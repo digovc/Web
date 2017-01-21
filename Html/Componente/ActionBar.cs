@@ -27,7 +27,7 @@ namespace NetZ.Web.Html.Componente
             {
                 _strTitulo = value;
 
-                this.atualizarStrTitulo();
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -133,9 +133,9 @@ namespace NetZ.Web.Html.Componente
             this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 
-        private void atualizarStrTitulo()
+        private void setStrTitulo(string strTitulo)
         {
-            this.divTitulo.strConteudo = this.strTitulo;
+            this.divTitulo.strConteudo = strTitulo;
         }
 
         #endregion Métodos

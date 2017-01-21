@@ -1,4 +1,5 @@
 ﻿using System;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
 {
@@ -101,9 +102,16 @@ namespace NetZ.Web.Html.Pagina
                 return;
             }
 
-            this.divError.strConteudo = (this.ex.Message + "<br/>");
+            string strStack = this.ex?.StackTrace.Replace(Environment.NewLine, "<br/>");
 
-            this.divError.strConteudo += this.ex.StackTrace.Replace(Environment.NewLine, "<br/>");
+            this.divError.strConteudo = string.Format("{0} ({1})<br/><br/>{2}", this.ex.Message, this.ex.GetType().FullName, strStack);
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.divError.addCss(css.setPadding(25));
         }
 
         #endregion Métodos

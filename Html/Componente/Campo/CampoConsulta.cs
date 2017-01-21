@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Html.Componente.Botao;
+﻿using NetZ.Persistencia;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
@@ -75,31 +76,31 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJsDebug.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
         }
 
-        protected override void atualizarCln()
+        protected override void setCln(Coluna cln)
         {
-            base.atualizarCln();
+            base.setCln(cln);
 
-            if (this.cln == null)
+            if (cln == null)
             {
                 return;
             }
 
-            this.atualizarClnClnRef();
+            this.setClnClnRef(cln);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnAcao.strId = (this.strId + "_btnAcao");
-            this.txtIntId.strId = (this.strId + "_txtIntId");
-            this.txtIntId.strId = (this.strId + "_txtIntId");
-            this.txtPesquisa.strId = (this.strId + "_txtPesquisa");
+            this.btnAcao.strId = (strId + "_btnAcao");
+            this.txtIntId.strId = (strId + "_txtIntId");
+            this.txtIntId.strId = (strId + "_txtIntId");
+            this.txtPesquisa.strId = (strId + "_txtPesquisa");
         }
 
         protected override Input.EnmTipo getEnmTipo()
@@ -161,47 +162,47 @@ namespace NetZ.Web.Html.Componente.Campo
             this.txtPesquisa.addCss(css.setWidth(100, "%"));
         }
 
-        private void atualizarClnClnRef()
+        private void setClnClnRef(Coluna cln)
         {
-            if (this.cln.clnRef == null)
+            if (cln.clnRef == null)
             {
                 return;
             }
 
-            if (this.cln.clnRef.tbl == null)
+            if (cln.clnRef.tbl == null)
             {
                 return;
             }
 
-            this.atualizarClnClnRefStrTitulo();
-            this.atualizarClnClnRefStrValor();
+            this.setClnClnRefStrTitulo(cln);
+            this.setClnClnRefStrValor(cln);
 
-            this.addAtt("cln_ref_nome_exibicao", this.cln.clnRef.tbl.strNomeExibicao);
-            this.addAtt("tbl_web_ref_nome", this.cln.clnRef.tbl.viwPrincipal.sqlNome);
+            this.addAtt("cln_ref_nome_exibicao", cln.clnRef.tbl.strNomeExibicao);
+            this.addAtt("tbl_web_ref_nome", cln.clnRef.tbl.viwPrincipal.sqlNome);
         }
 
-        private void atualizarClnClnRefStrTitulo()
+        private void setClnClnRefStrTitulo(Coluna cln)
         {
             string strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
 
-            strTitulo = strTitulo.Replace("_cln_ref_nome_exibicao", this.cln.booNomeExibicaoAutomatico ? this.cln.clnRef.tbl.strNomeExibicao : this.cln.strNomeExibicao);
-            strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", this.cln.clnRef.tbl.viwPrincipal.clnNome.strNomeExibicao);
+            strTitulo = strTitulo.Replace("_cln_ref_nome_exibicao", cln.booNomeExibicaoAutomatico ? cln.clnRef.tbl.strNomeExibicao : cln.strNomeExibicao);
+            strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", cln.clnRef.tbl.viwPrincipal.clnNome.strNomeExibicao);
 
             this.strTitulo = strTitulo;
         }
 
-        private void atualizarClnClnRefStrValor()
+        private void setClnClnRefStrValor(Coluna cln)
         {
             if (this.tagInput.intValor < 1)
             {
                 return;
             }
 
-            this.cln.clnRef.tbl.viwPrincipal.recuperar(this.tagInput.intValor);
+            cln.clnRef.tbl.viwPrincipal.recuperar(this.tagInput.intValor);
 
-            this.cmb.addOpcao(this.cln.intValor, this.cln.clnRef.tbl.viwPrincipal.clnNome.strValor);
+            this.cmb.addOpcao(cln.intValor, cln.clnRef.tbl.viwPrincipal.clnNome.strValor);
 
-            this.cln.clnRef.tbl.viwPrincipal.liberar();
+            cln.clnRef.tbl.viwPrincipal.liberar();
         }
 
         #endregion Métodos

@@ -57,7 +57,7 @@ namespace NetZ.Web.WinService
             if (string.IsNullOrEmpty(this.getStrAplicacaoNome()))
             {
                 return "NetZ.Web";
-            }
+        }
 
             return string.Format("{0} (NetZ.Web)", this.getStrAplicacaoNome());
         }

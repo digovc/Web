@@ -22,25 +22,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.addJsDebug(lstJsDebug);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(CampoDataHora), 130));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJsDebug.Add(new JavaScriptTag(typeof(CampoDataHora), 130));
         }
 
         protected override Input.EnmTipo getEnmTipo()

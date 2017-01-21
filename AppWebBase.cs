@@ -23,6 +23,8 @@ namespace NetZ.Web
     {
         #region Constantes
 
+        public const string DIR_MEDIA_PNG = "/res/media/png/";
+
         #endregion Constantes
 
         #region Atributos
@@ -45,11 +47,6 @@ namespace NetZ.Web
 
             set
             {
-                if (_i != null)
-                {
-                    return;
-                }
-
                 _i = value;
             }
         }
@@ -173,7 +170,7 @@ namespace NetZ.Web
         /// </para>
         /// <para>
         /// O servidor der solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
-        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booServerAjaxDbAtivar"/>
+        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbAtivar"/>
         /// esteja marcada.
         /// </para>
         /// </summary>

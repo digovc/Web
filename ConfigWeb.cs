@@ -14,9 +14,9 @@ namespace NetZ.Web
 
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
-        private bool _booServerAjaxDbAtivar = true;
-        private int _intServerAjaxDbPorta = 8081;
-        private int _intServerHttpPorta = 80;
+        private bool _booSrvAjaxDbAtivar = true;
+        private int _intSrvAjaxDbPorta = 8081;
+        private int _intSrvHttpPorta = 80;
         private int _intTimeOut = 5;
 
         public static new ConfigWebBase i
@@ -71,48 +71,48 @@ namespace NetZ.Web
         /// Indica se ao inicializar o servidor HTTP, o servidor de solicitações AJAX do banco de
         /// dados será ativo também.
         /// </summary>
-        public bool booServerAjaxDbAtivar
+        public bool booSrvAjaxDbAtivar
         {
             get
             {
-                return _booServerAjaxDbAtivar;
+                return _booSrvAjaxDbAtivar;
             }
 
             set
             {
-                _booServerAjaxDbAtivar = value;
+                _booSrvAjaxDbAtivar = value;
             }
         }
 
         /// <summary>
         /// Porta que será utilizada pelo servidor <see cref="ServerAjaxDb"/>.
         /// </summary>
-        public int intServerAjaxDbPorta
+        public int intSrvAjaxDbPorta
         {
             get
             {
-                return _intServerAjaxDbPorta;
+                return _intSrvAjaxDbPorta;
             }
 
             set
             {
-                _intServerAjaxDbPorta = value;
+                _intSrvAjaxDbPorta = value;
             }
         }
 
         /// <summary>
         /// Porta TCP que será utilizada para rodar o servidor WEB.
         /// </summary>
-        public int intServerHttpPorta
+        public int intSrvHttpPorta
         {
             get
             {
-                return _intServerHttpPorta;
+                return _intSrvHttpPorta;
             }
 
             set
             {
-                _intServerHttpPorta = value;
+                _intSrvHttpPorta = value;
             }
         }
 
