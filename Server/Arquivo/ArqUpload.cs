@@ -35,7 +35,7 @@ namespace NetZ.Web.Server.Arquivo
 
                 _objSolicitacao = value;
 
-                this.atualizarObjSolicitacao();
+                this.setObjSolicitacao(_objSolicitacao);
             }
         }
 
@@ -112,20 +112,20 @@ namespace NetZ.Web.Server.Arquivo
             return true;
         }
 
-        private void atualizarObjSolicitacao()
+        private void setObjSolicitacao(Solicitacao objSolicitacao)
         {
-            if (this.objSolicitacao == null)
+            if (objSolicitacao == null)
             {
                 return;
             }
 
-            if (this.objSolicitacao.frmData == null)
+            if (objSolicitacao.frmData == null)
             {
                 return;
             }
 
-            this.arrBteConteudo = this.objSolicitacao.frmData.getArrBteFrmItemValor("arq_conteudo");
-            this.strNome = this.objSolicitacao.frmData.getStrFrmItemValor("arq_nome");
+            this.arrBteConteudo = objSolicitacao.frmData.getArrBteFrmItemValor("arq_conteudo");
+            this.strNome = objSolicitacao.frmData.getStrFrmItemValor("arq_nome");
         }
 
         private bool carregarArquivoValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)

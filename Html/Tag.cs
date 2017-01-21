@@ -186,7 +186,7 @@ namespace NetZ.Web.Html
             {
                 _intTabStop = value;
 
-                this.atualizarIntTabStop();
+                this.setIntTabStop(_intTabStop);
             }
         }
 
@@ -259,7 +259,7 @@ namespace NetZ.Web.Html
 
                 _strId = value;
 
-                this.atualizarStrId();
+                this.setStrId(_strId);
             }
         }
 
@@ -298,7 +298,7 @@ namespace NetZ.Web.Html
 
                 _strTitle = value;
 
-                this.atualizarStrTitle();
+                this.setStrTitle(_strTitle);
             }
         }
 
@@ -464,7 +464,7 @@ namespace NetZ.Web.Html
 
                 _strName = value;
 
-                this.atualizarStrName();
+                this.setStrName(_strName);
             }
         }
 
@@ -484,7 +484,7 @@ namespace NetZ.Web.Html
 
                 _tagPai = value;
 
-                this.atualizarPagPai();
+                this.setPagPai(_tagPai);
             }
         }
 
@@ -748,9 +748,9 @@ namespace NetZ.Web.Html
         /// <summary>
         /// Disparado toda vez que o atributo <see cref="strId"/> for alterado.
         /// </summary>
-        protected virtual void atualizarStrId()
+        protected virtual void setStrId(string strId)
         {
-            this.attId.strValor = this.strId;
+            this.attId.strValor = strId;
         }
 
         /// <summary>
@@ -796,39 +796,39 @@ namespace NetZ.Web.Html
             this.setCssBooMostrarGrade(css);
         }
 
-        private void atualizarIntTabStop()
+        private void setIntTabStop(int intTabStop)
         {
-            this.attTabIndex.intValor = this.intTabStop;
+            this.attTabIndex.intValor = intTabStop;
         }
 
-        private void atualizarPagPai()
+        private void setPagPai(Tag tagPai)
         {
-            if (this.tagPai == null)
+            if (tagPai == null)
             {
                 return;
             }
 
-            this.tagPai.addTag(this);
+            tagPai.addTag(this);
         }
 
-        private void atualizarStrName()
+        private void setStrName(string strName)
         {
-            if (string.IsNullOrEmpty(this.strName))
+            if (string.IsNullOrEmpty(strName))
             {
                 return;
             }
 
-            this.attName.strValor = this.strName;
+            this.attName.strValor = strName;
         }
 
-        private void atualizarStrTitle()
+        private void setStrTitle(string strTitle)
         {
-            if (string.IsNullOrEmpty(this.strTitle))
+            if (string.IsNullOrEmpty(strTitle))
             {
                 return;
             }
 
-            this.attTitle.strValor = this.strTitle;
+            this.attTitle.strValor = strTitle;
         }
 
         private Atributo getAttClass()

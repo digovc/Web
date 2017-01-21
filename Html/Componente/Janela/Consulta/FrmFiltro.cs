@@ -86,19 +86,19 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
-            this.btnAlterar.strId = (this.strId + "_btnAlterar");
-            this.btnApagar.strId = (this.strId + "_btnApagar");
-            this.cmpIntFiltroId.strId = (this.strId + "_cmpIntFiltroId");
+            this.btnAdicionar.strId = (strId + "_btnAdicionar");
+            this.btnAlterar.strId = (strId + "_btnAlterar");
+            this.btnApagar.strId = (strId + "_btnApagar");
+            this.cmpIntFiltroId.strId = (strId + "_cmpIntFiltroId");
         }
 
         protected override void inicializar()

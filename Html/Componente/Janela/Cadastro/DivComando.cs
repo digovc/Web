@@ -109,20 +109,20 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             lstJsDebug.Add(new JavaScriptTag(typeof(DivComando), 116));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
-            this.btnDireita.strId = (this.strId + "_btnDireita");
-            this.btnEsquerda.strId = (this.strId + "_btnEsquerda");
-            this.btnSalvar.strId = (this.strId + "_btnSalvar");
-            this.btnTag.strId = (this.strId + "_btnTag");
+            this.btnAdicionar.strId = (strId + "_btnAdicionar");
+            this.btnDireita.strId = (strId + "_btnDireita");
+            this.btnEsquerda.strId = (strId + "_btnEsquerda");
+            this.btnSalvar.strId = (strId + "_btnSalvar");
+            this.btnTag.strId = (strId + "_btnTag");
         }
 
         protected override void inicializar()

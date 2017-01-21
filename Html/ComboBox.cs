@@ -65,7 +65,7 @@ namespace NetZ.Web.Html
 
                 _cln = value;
 
-                this.atualizarCln();
+                this.setCln(_cln);
             }
         }
 
@@ -126,32 +126,14 @@ namespace NetZ.Web.Html
             this.montarLayoutItens();
         }
 
-        private void atualizarCln()
+        private void setCln(Coluna cln)
         {
-            if (this.cln == null)
+            if (cln == null)
             {
                 return;
             }
 
-            this.atualizarClnAddOpcao();
-        }
-
-        private void atualizarClnAddOpcao()
-        {
-            if (this.cln.lstKvpOpcao.Count < 1)
-            {
-                return;
-            }
-
-            foreach (KeyValuePair<object, string> kpv in this.cln.lstKvpOpcao)
-            {
-                this.atualizarClnAddOpcao(kpv);
-            }
-        }
-
-        private void atualizarClnAddOpcao(KeyValuePair<object, string> kpv)
-        {
-            this.addOpcao(kpv.Key, kpv.Value);
+            cln.lstKvpOpcao?.ForEach((kpv) => this.addOpcao(kpv.Key, kpv.Value));
         }
 
         private Tag getTagOption(object objValor, string strNome)

@@ -34,9 +34,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NetZ.Persistencia">
-      <HintPath>lib\NetZ\NetZ.Persistencia.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
@@ -47,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AppWebBase.cs" />
     <Compile Include="ConfigWeb.cs" />
+    <Compile Include="DataBase\DbeWebBase.cs" />
     <Compile Include="DataBase\Dominio\FavoritoDominio.cs" />
     <Compile Include="DataBase\Tabela\TblFavorito.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />
@@ -163,7 +161,6 @@
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\ServerWsBase.cs" />
     <Compile Include="Server\Solicitacao.cs" />
-    <Compile Include="Server\Servico.cs" />
     <Compile Include="DataBase\Dominio\UsuarioDominio.cs" />
     <Compile Include="Properties\View.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -196,6 +193,10 @@
     <ProjectReference Include="..\DigoFramework\DigoFramework.csproj">
       <Project>{93078de5-a910-4ad6-a942-657582105493}</Project>
       <Name>DigoFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
+      <Project>{5fdebacf-1812-47a0-8fba-25db3ad2b31c}</Project>
+      <Name>NetZ.Persistencia</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

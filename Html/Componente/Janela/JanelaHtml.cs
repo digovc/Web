@@ -56,7 +56,7 @@ namespace NetZ.Web.Html.Componente.Janela
 
                 _strTitulo = value;
 
-                this.atualizarStrTitulo();
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -189,20 +189,20 @@ namespace NetZ.Web.Html.Componente.Janela
             lstJsDebug.Add(new JavaScriptTag(typeof(JanelaHtml), 111));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divAcao.strId = (this.strId + "_divAcao");
-            this.divBtnFechar.strId = (this.strId + "_divBtnFechar");
-            this.divCabecalho.strId = (this.strId + "_divCabecalho");
-            this.divInativa.strId = (this.strId + "_divInativa");
-            this.divTitulo.strId = (this.strId + "_divTitulo");
+            this.divAcao.strId = (strId + "_divAcao");
+            this.divBtnFechar.strId = (strId + "_divBtnFechar");
+            this.divCabecalho.strId = (strId + "_divCabecalho");
+            this.divInativa.strId = (strId + "_divInativa");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         protected override void finalizar()
@@ -291,9 +291,9 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divTitulo.addCss(css.setPaddingLeft(10));
         }
 
-        private void atualizarStrTitulo()
+        private void setStrTitulo(string strTitulo)
         {
-            this.divTitulo.strConteudo = this.strTitulo;
+            this.divTitulo.strConteudo = strTitulo;
         }
 
         #endregion Métodos

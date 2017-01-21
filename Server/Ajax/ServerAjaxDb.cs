@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Reflection;
-using DigoFramework.Json;
+﻿using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
@@ -9,6 +6,9 @@ using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
+using System;
+using System.Data;
+using System.Reflection;
 
 namespace NetZ.Web.Server.Ajax
 {
@@ -99,9 +99,9 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
-        protected override int getIntPort()
+        protected override int getIntPorta()
         {
-            return ConfigWebBase.i.intServerAjaxDbPorta;
+            return ConfigWebBase.i.intSrvAjaxDbPorta;
         }
 
         protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -451,7 +451,7 @@ namespace NetZ.Web.Server.Ajax
 
             if (tbl == null)
             {
-                return;
+                throw new Exception(string.Format("Tabela \"{0}\" não encontrada.", tblWeb.strNome));
             }
 
             if (!this.validarPesquisar(objSolicitacao, objInterlocutor, tblWeb, tbl))

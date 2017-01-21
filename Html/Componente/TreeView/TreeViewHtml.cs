@@ -64,16 +64,16 @@
             tagJs.addLayoutFixo(typeof(TreeViewNode));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divNodeContainer.strId = (this.strId + "_divNodeContainer");
+            this.divNodeContainer.strId = (strId + "_divNodeContainer");
         }
 
         protected override void montarLayout()

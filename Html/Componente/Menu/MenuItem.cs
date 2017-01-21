@@ -49,7 +49,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 _tbl = value;
 
-                this.atualizarTbl();
+                this.setTbl(_tbl);
             }
         }
 
@@ -156,18 +156,18 @@ namespace NetZ.Web.Html.Componente.Menu
             this.lstMni.Add(tag as MenuItem);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divIcone.strId = (this.strId + "_divIcone");
-            this.divItemConteudo.strId = (this.strId + "_divItemConteudo");
-            this.divTitulo.strId = (this.strId + "_divTitulo");
+            this.divIcone.strId = (strId + "_divIcone");
+            this.divItemConteudo.strId = (strId + "_divItemConteudo");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         protected override void finalizar()
@@ -210,16 +210,16 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divItemConteudo.addCss(css.setFontSize(14));
         }
 
-        private void atualizarTbl()
+        private void setTbl(TabelaBase tbl)
         {
-            if (this.tbl == null)
+            if (tbl == null)
             {
                 return;
             }
 
-            this.strTitulo = this.tbl.strNomeExibicao;
+            this.strTitulo = tbl.strNomeExibicao;
 
-            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
+            this.addAtt("tbl_web_nome", tbl.sqlNome);
         }
 
         private void setCssFilho(CssArquivo css)

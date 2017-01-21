@@ -39,7 +39,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 _strTitulo = value;
 
-                this.atualizarStrTitulo();
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -116,9 +116,9 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divTitulo.addCss(css.setLineHeight(50));
         }
 
-        private void atualizarStrTitulo()
+        private void setStrTitulo(string strTitulo)
         {
-            this.divTitulo.strConteudo = this.strTitulo;
+            this.divTitulo.strConteudo = strTitulo;
         }
 
         #endregion Métodos
