@@ -253,6 +253,8 @@ namespace NetZ.Web.Server
             objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
 
             this.responder(objResposta);
+
+            Log.i.erro(ex);
         }
 
         private bool validar(Resposta objResposta)

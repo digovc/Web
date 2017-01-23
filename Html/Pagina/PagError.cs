@@ -104,7 +104,7 @@ namespace NetZ.Web.Html.Pagina
 
             string strStack = this.ex?.StackTrace.Replace(Environment.NewLine, "<br/>");
 
-            this.divError.strConteudo = string.Format("{0} ({1})<br/><br/>{2}", this.ex.Message, this.ex.GetType().Name, strStack);
+            this.divError.strConteudo = string.Format("{0} ({1})<br/><br/>{2}", this.ex.Message, this.ex.GetType().FullName, strStack);
         }
 
         protected override void setCss(CssArquivo css)
