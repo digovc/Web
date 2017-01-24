@@ -29,7 +29,16 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "<desconhecido>";
+
+            this.ServiceName = this.getAppWeb().strNome;
+
+            this.CanHandlePowerEvent = true;
+            this.CanHandleSessionChangeEvent = true;
+            this.CanPauseAndContinue = true;
+            this.CanShutdown = true;
+            this.CanStop = true;
+            this.CanStop = true;
+            this.EventLog.Log = (this.ServiceName + "_log");
         }
 
         #endregion

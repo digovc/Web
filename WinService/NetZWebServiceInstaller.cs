@@ -37,7 +37,7 @@ namespace NetZ.Web.WinService
 
         private void inicializarSpi()
         {
-            this.spi.Account = ServiceAccount.User;
+            this.spi.Account = ServiceAccount.NetworkService;
         }
 
         private void inicializarSvi()

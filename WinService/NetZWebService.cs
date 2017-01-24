@@ -28,20 +28,6 @@ namespace NetZ.Web.WinService
 
         private void inicializar()
         {
-            if (this.getAppWeb() == null)
-            {
-                throw new NullReferenceException("A instância da aplicação não foi indicada.");
-            }
-
-            this.ServiceName = this.getAppWeb().strNomeSimplificado;
-
-            this.CanHandlePowerEvent = false;
-            this.CanHandleSessionChangeEvent = false;
-            this.CanPauseAndContinue = false;
-            this.CanShutdown = false;
-            this.CanStop = true;
-            this.EventLog.Log = (this.ServiceName + "_log");
-
             this.getAppWeb().inicializarServidor();
         }
 
