@@ -275,6 +275,21 @@ namespace NetZ.Web.Server.WebSocket
                 return false;
             }
 
+            if (this.tcpClient.GetStream() == null)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return false;
+            }
+
             return this.tcpClient.Connected;
         }
 
