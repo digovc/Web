@@ -24,6 +24,7 @@ namespace NetZ.Web
         #region Constantes
 
         public const string DIR_MEDIA_PNG = "/res/media/png/";
+        public const string DIR_JS_LIB = "/res/js/lib/";
 
         #endregion Constantes
 
