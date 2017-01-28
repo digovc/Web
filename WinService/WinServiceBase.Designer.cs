@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.WinService
 {
-    partial class NetZWebService
+    partial class WinServiceBase
     {
         /// <summary> 
         /// Required designer variable.

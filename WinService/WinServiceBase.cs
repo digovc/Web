@@ -1,9 +1,8 @@
-﻿using System;
-using System.ServiceProcess;
+﻿using System.ServiceProcess;
 
 namespace NetZ.Web.WinService
 {
-    public abstract partial class NetZWebService : ServiceBase
+    public abstract partial class WinServiceBase : ServiceBase
     {
         #region Constantes
 
@@ -15,7 +14,7 @@ namespace NetZ.Web.WinService
 
         #region Construtores
 
-        public NetZWebService()
+        public WinServiceBase()
         {
             this.InitializeComponent();
         }

@@ -167,17 +167,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>View.resx</DependentUpon>
     </Compile>
-    <Compile Include="WinService\NetZWebServiceInstaller.cs">
+    <Compile Include="WinService\WinServiceInstallerBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinService\NetZWebServiceInstaller.Designer.cs">
-      <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
+    <Compile Include="WinService\WinServiceInstallerBase.Designer.cs">
+      <DependentUpon>WinServiceInstallerBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinService\NetZWebService.cs">
+    <Compile Include="WinService\WinServiceBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinService\NetZWebService.Designer.cs">
-      <DependentUpon>NetZWebService.cs</DependentUpon>
+    <Compile Include="WinService\WinServiceBase.Designer.cs">
+      <DependentUpon>WinServiceBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinService\WinService.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -185,8 +188,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>View.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinService\NetZWebServiceInstaller.resx">
-      <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
+    <EmbeddedResource Include="WinService\WinServiceInstallerBase.resx">
+      <DependentUpon>WinServiceInstallerBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
