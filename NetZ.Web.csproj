@@ -73,6 +73,8 @@
     <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\BtnFavorito.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
+    <Compile Include="Html\Componente\Markdown\SumarioMarkdown.cs" />
+    <Compile Include="Html\Componente\Markdown\SumarioMarkdownItem.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContexto.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Html\Componente\TreeView\TreeViewNode.cs" />
     <Compile Include="Html\CssTag.cs" />
     <Compile Include="Html\Pagina\PagError.cs" />
+    <Compile Include="Html\Pagina\PagMarkdownBase.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />
     <Compile Include="Server\Arquivo\ArqUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
