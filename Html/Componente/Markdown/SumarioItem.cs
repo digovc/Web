@@ -122,6 +122,13 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Métodos
 
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(IndiceItem));
+        }
+
         protected override bool getBooJs()
         {
             return true;
@@ -174,6 +181,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             }
 
             this.divConteudo.strId = (strId + "_divConteudo");
+            this.divIndice.strId = (strId + "_divIndice");
             this.divTitulo.strId = (strId + "_divTitulo");
         }
 
