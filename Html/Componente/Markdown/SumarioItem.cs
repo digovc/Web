@@ -1,6 +1,5 @@
 ﻿using DigoFramework;
 using NetZ.Web.Server.Arquivo.Css;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,6 +16,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         private string _dirMarkdown;
         private Div _divConteudo;
+        private Div _divIndice;
         private Div _divTitulo;
         private List<SumarioItem> _lstDivItem;
         private string _mkd;
@@ -46,6 +46,21 @@ namespace NetZ.Web.Html.Componente.Markdown
                 _divConteudo = new Div();
 
                 return _divConteudo;
+            }
+        }
+
+        private Div divIndice
+        {
+            get
+            {
+                if (_divIndice != null)
+                {
+                    return _divIndice;
+                }
+
+                _divIndice = new Div();
+
+                return _divIndice;
             }
         }
 
@@ -121,7 +136,6 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.addAtt("url-markdown", this.dirMarkdown.Replace("\\", "/"));
 
             this.inicializarDivTitulo();
-
         }
 
         protected override void montarLayout()
@@ -131,6 +145,8 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.divTitulo.setPai(this);
 
             this.divConteudo.setPai(this);
+
+            this.divIndice.setPai(this.divConteudo);
 
             this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divConteudo));
         }
