@@ -135,7 +135,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             lstJsDebug.Add(new JavaScriptTag(typeof(MenuItem), 151));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js"));
         }
 
         protected override void addTag(Tag tag)

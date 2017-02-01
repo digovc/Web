@@ -113,9 +113,9 @@ namespace NetZ.Web.Html.Componente.Painel
                 return;
             }
 
-            CssTag cssMarkdown = new CssTag("res/css/markdown.css");
+            CssTag cssMarkdown = new CssTag("/res/css/markdown.css");
 
-            CssTag cssMarkdownMonoBlue = new CssTag("res/css/markdown-mono-blue.css");
+            CssTag cssMarkdownMonoBlue = new CssTag("/res/css/markdown-mono-blue.css");
 
             lstCss.Add(cssMarkdown);
             lstCss.Add(cssMarkdownMonoBlue);
@@ -128,9 +128,9 @@ namespace NetZ.Web.Html.Componente.Painel
                 return;
             }
 
-            lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/Markdown.Converter.js"));
-            lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/Markdown.Extra.js"));
-            lstJs.Add(new JavaScriptTag("res/js/lib/JDigo/lib/highlight.pack.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/lib/JDigo/lib/Markdown.Converter.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/lib/JDigo/lib/Markdown.Extra.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/lib/JDigo/lib/highlight.pack.js"));
         }
 
         private void addJsMarkdown(JavaScriptTag js)

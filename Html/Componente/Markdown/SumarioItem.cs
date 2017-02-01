@@ -140,7 +140,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             this.strId = ("SumarioMarkdownItem_" + Utils.simplificar(this.dirMarkdown));
 
-            this.addAtt("url-markdown", this.dirMarkdown.Replace("\\", "/"));
+            this.addAtt("url-markdown", ("/" + this.dirMarkdown.Replace("\\", "/")));
 
             this.inicializarDivTitulo();
         }

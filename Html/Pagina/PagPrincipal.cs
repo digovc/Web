@@ -115,16 +115,16 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag(typeof(TabItemHead), 111));
             lstJsDebug.Add(new JavaScriptTag(typeof(TagCard), 111));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/lib/jquery.fixedheadertable.min.js"));
-            lstJsDebug.Add(new JavaScriptTag("res/js/lib/jquery.floatThead.min.js"));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/lib/jquery.fixedheadertable.min.js"));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/lib/jquery.floatThead.min.js"));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/ColunaWeb.js", 101));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/FiltroWeb.js", 101));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/ParValorNome.js", 300));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js", 102));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TblFiltro.js", 300));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/ColunaWeb.js", 101));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/FiltroWeb.js", 101));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/ParValorNome.js", 300));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js", 102));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/TblFiltro.js", 300));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/html/componente/grid/OnGridMenuClickArg.js", 300));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/html/componente/grid/OnGridMenuClickArg.js", 300));
         }
 
         protected override void inicializar()

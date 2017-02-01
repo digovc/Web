@@ -76,7 +76,7 @@ namespace NetZ.Web.Html
                 return null;
             }
 
-            string srcResultado = "res/js/_cls_namespace/_cls_nome_ponto_finaljs";
+            string srcResultado = "/res/js/_cls_namespace/_cls_nome_ponto_finaljs";
 
             srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
             srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
