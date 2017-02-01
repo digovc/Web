@@ -1,11 +1,13 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using DigoFramework;
+using NetZ.Web.Server.Arquivo.Css;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace NetZ.Web.Html.Componente.Markdown
 {
-    internal class SumarioMarkdownItem : ComponenteHtml
+    internal class SumarioItem : ComponenteHtml
     {
         #region Constantes
 
@@ -14,9 +16,9 @@ namespace NetZ.Web.Html.Componente.Markdown
         #region Atributos
 
         private string _dirMarkdown;
-        private Div _divItemContainer;
+        private Div _divConteudo;
         private Div _divTitulo;
-        private List<SumarioMarkdownItem> _lstDivItem;
+        private List<SumarioItem> _lstDivItem;
         private string _mkd;
 
         private string dirMarkdown
@@ -32,18 +34,18 @@ namespace NetZ.Web.Html.Componente.Markdown
             }
         }
 
-        private Div divItemContainer
+        private Div divConteudo
         {
             get
             {
-                if (_divItemContainer != null)
+                if (_divConteudo != null)
                 {
-                    return _divItemContainer;
+                    return _divConteudo;
                 }
 
-                _divItemContainer = new Div();
+                _divConteudo = new Div();
 
-                return _divItemContainer;
+                return _divConteudo;
             }
         }
 
@@ -62,7 +64,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             }
         }
 
-        private List<SumarioMarkdownItem> lstDivItem
+        private List<SumarioItem> lstDivItem
         {
             get
             {
@@ -96,7 +98,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Construtores
 
-        public SumarioMarkdownItem(string dirMarkdown)
+        public SumarioItem(string dirMarkdown)
         {
             this.dirMarkdown = dirMarkdown;
         }
@@ -105,11 +107,21 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Métodos
 
+        protected override bool getBooJs()
+        {
+            return true;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
+            this.strId = ("SumarioMarkdownItem_" + Utils.simplificar(this.dirMarkdown));
+
+            this.addAtt("url-markdown", this.dirMarkdown.Replace("\\", "/"));
+
             this.inicializarDivTitulo();
+
         }
 
         protected override void montarLayout()
@@ -118,22 +130,38 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             this.divTitulo.setPai(this);
 
-            this.divItemContainer.setPai(this);
+            this.divConteudo.setPai(this);
 
-            this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divItemContainer));
+            this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divConteudo));
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.divItemContainer.addCss(css.setPaddingLeft(10));
+            this.addCss(css.setCursor("pointer"));
+
+            this.divConteudo.addCss(css.setDisplay("none"));
+            this.divConteudo.addCss(css.setPaddingLeft(10));
 
             this.divTitulo.addCss(css.setPadding(10));
             this.divTitulo.addCss(css.setPaddingLeft(20));
         }
 
-        private List<SumarioMarkdownItem> getLstDivItem()
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            if (string.IsNullOrEmpty(strId))
+            {
+                return;
+            }
+
+            this.divConteudo.strId = (strId + "_divConteudo");
+            this.divTitulo.strId = (strId + "_divTitulo");
+        }
+
+        private List<SumarioItem> getLstDivItem()
         {
             var dirMarkdownFolder = this.dirMarkdown?.Replace(".md", null);
 
@@ -142,7 +170,7 @@ namespace NetZ.Web.Html.Componente.Markdown
                 return null;
             }
 
-            var lstDivItemResultado = new List<SumarioMarkdownItem>();
+            var lstDivItemResultado = new List<SumarioItem>();
 
             foreach (string dirMarkdown in Directory.GetFiles(dirMarkdownFolder))
             {
@@ -152,7 +180,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             return lstDivItemResultado;
         }
 
-        private void getLstDivItem(List<SumarioMarkdownItem> lstDivItem, string dirMarkdown)
+        private void getLstDivItem(List<SumarioItem> lstDivItem, string dirMarkdown)
         {
             if (string.IsNullOrEmpty(dirMarkdown))
             {
@@ -164,7 +192,7 @@ namespace NetZ.Web.Html.Componente.Markdown
                 return;
             }
 
-            lstDivItem.Add(new SumarioMarkdownItem(dirMarkdown));
+            lstDivItem.Add(new SumarioItem(dirMarkdown));
         }
 
         private string getMkd()

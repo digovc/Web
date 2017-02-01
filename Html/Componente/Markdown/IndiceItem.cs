@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Html.Componente.Markdown
 {
-    public class Div : Tag
+    internal class IndiceItem : ComponenteHtml
     {
         #region Constantes
 
@@ -14,19 +12,20 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public Div() : base("div")
-        {
-        }
-
         #endregion Construtores
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override bool getBooJs()
         {
-            base.addJsDebug(lstJsDebug);
+            return true;
+        }
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(Div), 109));
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.strConteudo = "_conteudo";
         }
 
         #endregion Métodos

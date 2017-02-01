@@ -573,6 +573,16 @@ namespace NetZ.Web.Html
             this.addAtt(new Atributo(strAttNome, intValor.ToString()));
         }
 
+        public void addClass(string strClass)
+        {
+            if (string.IsNullOrEmpty(strClass))
+            {
+                return;
+            }
+
+            this.attClass.addValor(strClass);
+        }
+
         /// <summary>
         /// Adiciona uma classe para lista de classes desta tag que está diretamente vinculada com
         /// uma propriedade CSS da aplicação.
@@ -587,7 +597,6 @@ namespace NetZ.Web.Html
 
             this.attClass.addValor(strCssClass);
         }
-
 
         /// <summary>
         /// Adiciona todos os atributos css que o <paramref name="tag"/> possui.
@@ -746,14 +755,6 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Disparado toda vez que o atributo <see cref="strId"/> for alterado.
-        /// </summary>
-        protected virtual void setStrId(string strId)
-        {
-            this.attId.strValor = strId;
-        }
-
-        /// <summary>
         /// Método que será chamado após <see cref="montarLayout"/> para que os ajustes finais sejam feitos.
         /// </summary>
         protected virtual void finalizar()
@@ -796,39 +797,12 @@ namespace NetZ.Web.Html
             this.setCssBooMostrarGrade(css);
         }
 
-        private void setIntTabStop(int intTabStop)
+        /// <summary>
+        /// Disparado toda vez que o atributo <see cref="strId"/> for alterado.
+        /// </summary>
+        protected virtual void setStrId(string strId)
         {
-            this.attTabIndex.intValor = intTabStop;
-        }
-
-        private void setPagPai(Tag tagPai)
-        {
-            if (tagPai == null)
-            {
-                return;
-            }
-
-            tagPai.addTag(this);
-        }
-
-        private void setStrName(string strName)
-        {
-            if (string.IsNullOrEmpty(strName))
-            {
-                return;
-            }
-
-            this.attName.strValor = strName;
-        }
-
-        private void setStrTitle(string strTitle)
-        {
-            if (string.IsNullOrEmpty(strTitle))
-            {
-                return;
-            }
-
-            this.attTitle.strValor = strTitle;
+            this.attId.strValor = strId;
         }
 
         private Atributo getAttClass()
@@ -949,6 +923,41 @@ namespace NetZ.Web.Html
             }
 
             this.addCss(css.setBorder(1, "dashed", "#ababab"));
+        }
+
+        private void setIntTabStop(int intTabStop)
+        {
+            this.attTabIndex.intValor = intTabStop;
+        }
+
+        private void setPagPai(Tag tagPai)
+        {
+            if (tagPai == null)
+            {
+                return;
+            }
+
+            tagPai.addTag(this);
+        }
+
+        private void setStrName(string strName)
+        {
+            if (string.IsNullOrEmpty(strName))
+            {
+                return;
+            }
+
+            this.attName.strValor = strName;
+        }
+
+        private void setStrTitle(string strTitle)
+        {
+            if (string.IsNullOrEmpty(strTitle))
+            {
+                return;
+            }
+
+            this.attTitle.strValor = strTitle;
         }
 
         private string toHtmlAtributo()

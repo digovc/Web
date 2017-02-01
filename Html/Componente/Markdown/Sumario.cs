@@ -5,7 +5,7 @@ using System.IO;
 
 namespace NetZ.Web.Html.Componente.Markdown
 {
-    internal class SumarioMarkdown : ComponenteHtml
+    internal class Sumario : ComponenteHtml
     {
         #region Constantes
 
@@ -13,8 +13,9 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Atributos
 
+        private Div _divConteudo;
         private Div _divTitulo;
-        private List<SumarioMarkdownItem> _lstDivItem;
+        private List<SumarioItem> _lstDivItem;
         private PagMarkdownBase _pagMarkdown;
 
         public PagMarkdownBase pagMarkdown
@@ -27,6 +28,21 @@ namespace NetZ.Web.Html.Componente.Markdown
             set
             {
                 _pagMarkdown = value;
+            }
+        }
+
+        private Div divConteudo
+        {
+            get
+            {
+                if (_divConteudo != null)
+                {
+                    return _divConteudo;
+                }
+
+                _divConteudo = new Div();
+
+                return _divConteudo;
             }
         }
 
@@ -45,7 +61,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             }
         }
 
-        private List<SumarioMarkdownItem> lstDivItem
+        private List<SumarioItem> lstDivItem
         {
             get
             {
@@ -64,7 +80,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Construtores
 
-        public SumarioMarkdown(PagMarkdownBase pagMarkdown)
+        public Sumario(PagMarkdownBase pagMarkdown)
         {
             this.pagMarkdown = pagMarkdown;
         }
@@ -73,11 +89,18 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Métodos
 
+        protected override bool getBooJs()
+        {
+            return true;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.divTitulo.strConteudo = this.pagMarkdown.strNome;
+            this.strId = this.GetType().Name;
+
+            this.divTitulo.strConteudo = "Sumário";
         }
 
         protected override void montarLayout()
@@ -86,12 +109,16 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             this.divTitulo.setPai(this);
 
-            this.lstDivItem?.ForEach((divItem) => divItem.setPai(this));
+            this.divConteudo.setPai(this);
+
+            this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divConteudo));
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
+
+            this.addCss(css.setCursor("pointer"));
 
             this.addCss(css.setBackgroundColor("#e3e3e3"));
             this.addCss(css.setBottom(0));
@@ -105,7 +132,14 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.divTitulo.addCss(css.setPadding(10));
         }
 
-        private List<SumarioMarkdownItem> getLstDivItem()
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            this.divConteudo.strId = (strId + "_divConteudo");
+        }
+
+        private List<SumarioItem> getLstDivItem()
         {
             if (this.pagMarkdown == null)
             {
@@ -117,7 +151,7 @@ namespace NetZ.Web.Html.Componente.Markdown
                 return null;
             }
 
-            var lstDivItemResultado = new List<SumarioMarkdownItem>();
+            var lstDivItemResultado = new List<SumarioItem>();
 
             foreach (string dirMarkdown in Directory.GetFiles(this.pagMarkdown.dirRepositorio))
             {
@@ -127,7 +161,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             return lstDivItemResultado;
         }
 
-        private void getLstDivItem(List<SumarioMarkdownItem> lstDivItem, string dirMarkdown)
+        private void getLstDivItem(List<SumarioItem> lstDivItem, string dirMarkdown)
         {
             if (string.IsNullOrEmpty(dirMarkdown))
             {
@@ -139,7 +173,7 @@ namespace NetZ.Web.Html.Componente.Markdown
                 return;
             }
 
-            lstDivItem.Add(new SumarioMarkdownItem(dirMarkdown));
+            lstDivItem.Add(new SumarioItem(dirMarkdown));
         }
 
         #endregion Métodos

@@ -1,7 +1,7 @@
 ﻿using NetZ.Web.Html.Componente.Botao.ActionBar;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Mobile
 {
     public class ActionBar : ComponenteHtml
     {
@@ -95,7 +95,7 @@ namespace NetZ.Web.Html.Componente
         {
             base.inicializar();
 
-            this.strId = "divActionBar";
+            this.strId = this.GetType().Name;
 
             this.btnMenu.strId = (this.strId + "_btnMenu");
             this.btnVoltar.strId = (this.strId + "_btnVoltar");
@@ -129,7 +129,7 @@ namespace NetZ.Web.Html.Componente
 
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setLineHeight(50));
-            //this.divTitulo.addCss(css.setPosition("absolute"));
+            this.divTitulo.addCss(css.setPaddingLeft(65));
             this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 

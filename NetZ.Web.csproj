@@ -57,7 +57,8 @@
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
-    <Compile Include="Html\Componente\ActionBar.cs" />
+    <Compile Include="Html\Componente\Markdown\IndiceItem.cs" />
+    <Compile Include="Html\Componente\Mobile\ActionBar.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
     <Compile Include="Html\Componente\Campo\CampoMapa.cs" />
@@ -73,8 +74,9 @@
     <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\BtnFavorito.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
-    <Compile Include="Html\Componente\Markdown\SumarioMarkdown.cs" />
-    <Compile Include="Html\Componente\Markdown\SumarioMarkdownItem.cs" />
+    <Compile Include="Html\Componente\Markdown\Sumario.cs" />
+    <Compile Include="Html\Componente\Markdown\SumarioItem.cs" />
+    <Compile Include="Html\Componente\Markdown\Viewer.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContexto.cs" />
@@ -210,6 +212,9 @@
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\css\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\png\tree_view_icon_default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
