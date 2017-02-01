@@ -69,6 +69,8 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.addCss(css.setZIndex(-1));
 
             this.divConteudo.addCss(css.setDisplay("none"));
+            this.divConteudo.addCss(css.setMargin("auto"));
+            this.divConteudo.addCss(css.setMaxWidth(640));
             this.divConteudo.addCss(css.setPadding(15));
         }
 

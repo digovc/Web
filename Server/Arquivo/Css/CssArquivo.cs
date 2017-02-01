@@ -467,6 +467,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("max-height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setMaxWidth(int intMaxWidth, string strGrandeza = "px")
+        {
+            return this.addCss("max-width", string.Format("{0}{1}", intMaxWidth, strGrandeza));
+        }
+
         public string setMinHeight(decimal decMinHeight)
         {
             return this.addCss("min-height", string.Format("{0}px", decMinHeight.ToString(this.ctiUsa)));
