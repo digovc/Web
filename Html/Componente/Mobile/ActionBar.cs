@@ -76,6 +76,23 @@ namespace NetZ.Web.Html.Componente.Mobile
             }
         }
 
+        private Div _divLinha;
+
+        private Div divLinha
+        {
+            get
+            {
+                if (_divLinha != null)
+                {
+                    return _divLinha;
+                }
+
+                _divLinha = new Div();
+
+                return _divLinha;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -108,6 +125,7 @@ namespace NetZ.Web.Html.Componente.Mobile
 
             this.btnMenu.setPai(this);
             this.btnVoltar.setPai(this);
+            this.divLinha.setPai(this);
             this.divTitulo.setPai(this);
         }
 
@@ -117,7 +135,7 @@ namespace NetZ.Web.Html.Componente.Mobile
 
             this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
             this.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
-            this.addCss(css.setColor(AppWebBase.i.objTema.corFonte));
+            this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setHeight(50, "px"));
             this.addCss(css.setPosition("fixed"));
             this.addCss(css.setWidth(100, "%"));
@@ -126,6 +144,13 @@ namespace NetZ.Web.Html.Componente.Mobile
 
             this.btnVoltar.addCss(css.setDisplay("none"));
             this.btnVoltar.addCss(css.setFloat("left"));
+
+            this.divLinha.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFonteTema));
+            this.divLinha.addCss(css.setFloat("left"));
+            this.divLinha.addCss(css.setHeight(30));
+            this.divLinha.addCss(css.setMarginLeft(5));
+            this.divLinha.addCss(css.setMarginTop(10));
+            this.divLinha.addCss(css.setWidth(1));
 
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setLineHeight(50));

@@ -544,6 +544,7 @@
   box-sizing: content-box;
   background-color: #dfdfdf;
   border: 5px solid #dfdfdf;
+  border-radius: 5px;
 }
 
 .markdown-body code {
