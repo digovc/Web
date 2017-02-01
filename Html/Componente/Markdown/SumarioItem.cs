@@ -153,7 +153,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             this.divConteudo.setPai(this);
 
-            this.divIndice.setPai(this.divConteudo);
+            this.divIndice.setPai(this);
 
             this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divConteudo));
         }
@@ -166,6 +166,10 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             this.divConteudo.addCss(css.setDisplay("none"));
             this.divConteudo.addCss(css.setPaddingLeft(10));
+
+            this.divIndice.addCss(css.setDisplay("none"));
+            this.divIndice.addCss(css.setFontStyle("italic"));
+            this.divIndice.addCss(css.setMarginLeft(30));
 
             this.divTitulo.addCss(css.setPadding(10));
             this.divTitulo.addCss(css.setPaddingLeft(20));
