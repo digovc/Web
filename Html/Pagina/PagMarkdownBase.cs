@@ -14,7 +14,7 @@ namespace NetZ.Web.Html.Pagina
         private string _dirRepositorio;
         private ActionBar _divActionBar;
         private Sumario _divSumario;
-        private Viewer _divViwer;
+        private Viewer _divViewer;
 
         internal string dirRepositorio
         {
@@ -61,18 +61,18 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private Viewer divViwer
+        private Viewer divViewer
         {
             get
             {
-                if (_divViwer != null)
+                if (_divViewer != null)
                 {
-                    return _divViwer;
+                    return _divViewer;
                 }
 
-                _divViwer = new Viewer();
+                _divViewer = new Viewer();
 
-                return _divViwer;
+                return _divViewer;
             }
         }
 
@@ -120,7 +120,7 @@ namespace NetZ.Web.Html.Pagina
             this.divActionBar.setPai(this);
             this.divSumario.setPai(this);
 
-            this.divViwer.setPai(this);
+            this.divViewer.setPai(this);
         }
 
         #endregion Métodos

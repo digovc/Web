@@ -119,6 +119,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             base.setCss(css);
 
             this.addCss(css.setCursor("pointer"));
+            this.addCss(css.setZIndex(2));
 
             this.addCss(css.setBackgroundColor("#e3e3e3"));
             this.addCss(css.setBottom(0));

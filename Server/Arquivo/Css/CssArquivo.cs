@@ -164,31 +164,16 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBackground(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background", css);
         }
 
         public string setBackgroundAttachment(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-attachment", css);
         }
 
         public string setBackgroundColor(string cor)
         {
-            if (string.IsNullOrEmpty(cor))
-            {
-                return null;
-            }
-
             return this.addCss("background-color", cor);
         }
 
@@ -224,31 +209,16 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setBackgroundPosition(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-position", css);
         }
 
         public string setBackgroundRepeat(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-repeat", css);
         }
 
         public string setBackgroundSize(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-size", css);
         }
 
@@ -339,11 +309,6 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setColor(string cor)
         {
-            if (string.IsNullOrEmpty(cor))
-            {
-                return null;
-            }
-
             return this.addCss("color", cor);
         }
 
@@ -354,41 +319,26 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setCursor(string strCursor)
         {
-            if (string.IsNullOrEmpty(strCursor))
-            {
-                return null;
-            }
-
             return this.addCss("cursor", strCursor);
         }
 
         public string setDisplay(string strDisplay)
         {
-            if (string.IsNullOrEmpty(strDisplay))
-            {
-                return null;
-            }
-
             return this.addCss("display", strDisplay);
+        }
+
+        public string setFilter(string strFilter)
+        {
+            return this.addCss("filter", strFilter);
         }
 
         public string setFloat(string strFloat)
         {
-            if (string.IsNullOrEmpty(strFloat))
-            {
-                return null;
-            }
-
             return this.addCss("float", strFloat);
         }
 
         public string setFontFamily(string strFontFamily)
         {
-            if (string.IsNullOrEmpty(strFontFamily))
-            {
-                return null;
-            }
-
             return this.addCss("font-family", strFontFamily);
         }
 
@@ -399,21 +349,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setFontStyle(string strFontStyle)
         {
-            if (string.IsNullOrEmpty(strFontStyle))
-            {
-                return null;
-            }
-
             return this.addCss("font-style", strFontStyle);
         }
 
         public string setFontWeight(string strFontWeight)
         {
-            if (string.IsNullOrEmpty(strFontWeight))
-            {
-                return null;
-            }
-
             return this.addCss("font-weight", strFontWeight);
         }
 
@@ -494,41 +434,21 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setOutLine(string strOutLine)
         {
-            if (string.IsNullOrEmpty(strOutLine))
-            {
-                return null;
-            }
-
             return this.addCss("outline", strOutLine);
         }
 
-        public string setOverflow(string strOverflowPx)
+        public string setOverflow(string strOverflow)
         {
-            if (string.IsNullOrEmpty(strOverflowPx))
-            {
-                return null;
-            }
-
-            return this.addCss("overflow", strOverflowPx);
+            return this.addCss("overflow", strOverflow);
         }
 
         public string setOverflowX(string strOverflowX)
         {
-            if (string.IsNullOrEmpty(strOverflowX))
-            {
-                return null;
-            }
-
             return this.addCss("overflow-x", strOverflowX);
         }
 
         public string setOverflowY(string strOverflowY)
         {
-            if (string.IsNullOrEmpty(strOverflowY))
-            {
-                return null;
-            }
-
             return this.addCss("overflow-y", strOverflowY);
         }
 
@@ -559,21 +479,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setPosition(string strPosition)
         {
-            if (string.IsNullOrEmpty(strPosition))
-            {
-                return null;
-            }
-
             return this.addCss("position", strPosition);
         }
 
         public string setResize(string strResize)
         {
-            if (string.IsNullOrEmpty(strResize))
-            {
-                return null;
-            }
-
             return this.addCss("resize", strResize);
         }
 
@@ -584,21 +494,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setTextAlign(string strTextAlign)
         {
-            if (string.IsNullOrEmpty(strTextAlign))
-            {
-                return null;
-            }
-
             return this.addCss("text-align", strTextAlign);
         }
 
         public string setTextDecoration(string strTextDecoration)
         {
-            if (string.IsNullOrEmpty(strTextDecoration))
-            {
-                return null;
-            }
-
             return this.addCss("text-decoration", strTextDecoration);
         }
 
@@ -619,21 +519,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setVisibility(string strVisibility)
         {
-            if (string.IsNullOrEmpty(strVisibility))
-            {
-                return null;
-            }
-
             return this.addCss("visibility", strVisibility);
         }
 
         public string setWhiteSpace(string strWhiteSpace)
         {
-            if (string.IsNullOrEmpty(strWhiteSpace))
-            {
-                return null;
-            }
-
             return this.addCss("white-space", strWhiteSpace);
         }
 

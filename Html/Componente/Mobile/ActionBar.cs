@@ -13,6 +13,7 @@ namespace NetZ.Web.Html.Componente.Mobile
 
         private BotaoActionBar _btnMenu;
         private BotaoActionBar _btnVoltar;
+        private Div _divLinha;
         private Div _divTitulo;
         private string _strTitulo;
 
@@ -61,23 +62,6 @@ namespace NetZ.Web.Html.Componente.Mobile
             }
         }
 
-        private Div divTitulo
-        {
-            get
-            {
-                if (_divTitulo != null)
-                {
-                    return _divTitulo;
-                }
-
-                _divTitulo = new Div();
-
-                return _divTitulo;
-            }
-        }
-
-        private Div _divLinha;
-
         private Div divLinha
         {
             get
@@ -90,6 +74,21 @@ namespace NetZ.Web.Html.Componente.Mobile
                 _divLinha = new Div();
 
                 return _divLinha;
+            }
+        }
+
+        private Div divTitulo
+        {
+            get
+            {
+                if (_divTitulo != null)
+                {
+                    return _divTitulo;
+                }
+
+                _divTitulo = new Div();
+
+                return _divTitulo;
             }
         }
 
@@ -140,6 +139,9 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setPosition("fixed"));
             this.addCss(css.setWidth(100, "%"));
 
+            this.btnMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_PNG + "icon-menu-action-bar.png"));
+            this.btnMenu.addCss(css.setBackgroundPosition("center"));
+            this.btnMenu.addCss(css.setBackgroundRepeat("no-repeat"));
             this.btnMenu.addCss(css.setFloat("left"));
 
             this.btnVoltar.addCss(css.setDisplay("none"));
