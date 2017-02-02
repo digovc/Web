@@ -397,7 +397,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.addCss(css.setBorder(0));
             this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.tagInput.addCss(css.setFontSize(15));
-            this.tagInput.addCss(css.setOutLine("none"));
+            this.tagInput.addCss(css.setOutline("none"));
         }
 
         protected virtual void setCssTagInputHeight(CssArquivo css)

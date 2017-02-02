@@ -3,7 +3,7 @@ using NetZ.Web.Html.Componente.Mobile;
 
 namespace NetZ.Web.Html.Pagina
 {
-    public abstract class PagMarkdownBase : PagMobile
+    public abstract class PagDocumentacaoBase : PagMobile
     {
         #region Constantes
 
@@ -80,7 +80,7 @@ namespace NetZ.Web.Html.Pagina
 
         #region Construtores
 
-        protected PagMarkdownBase(string strNome) : base(strNome)
+        protected PagDocumentacaoBase(string strNome) : base(strNome)
         {
         }
 
@@ -99,7 +99,7 @@ namespace NetZ.Web.Html.Pagina
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(PagMarkdownBase), 104));
+            lstJsDebug.Add(new JavaScriptTag(typeof(PagDocumentacaoBase), 104));
 
             lstJsDebug.Add(new JavaScriptTag((AppWebBase.DIR_JS_LIB + "marked.min.js")));
         }

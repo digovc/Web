@@ -57,6 +57,7 @@
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
+    <Compile Include="Html\Componente\Markdown\EmailRegistro.cs" />
     <Compile Include="Html\Componente\Markdown\IndiceItem.cs" />
     <Compile Include="Html\Componente\Mobile\ActionBar.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
@@ -130,8 +131,9 @@
     <Compile Include="Html\Componente\TreeView\TreeViewNode.cs" />
     <Compile Include="Html\CssTag.cs" />
     <Compile Include="Html\Pagina\PagError.cs" />
-    <Compile Include="Html\Pagina\PagMarkdownBase.cs" />
+    <Compile Include="Html\Pagina\PagDocumentacaoBase.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />
+    <Compile Include="Server\Ajax\SrvAjaxDocumentacao.cs" />
     <Compile Include="Server\Arquivo\ArqUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
     <Compile Include="Html\Div.cs" />
@@ -159,12 +161,12 @@
     <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
-    <Compile Include="Server\ServerHttpBase.cs" />
-    <Compile Include="Server\Ajax\ServerAjax.cs" />
-    <Compile Include="Server\Ajax\ServerAjaxDb.cs" />
+    <Compile Include="Server\SrvHttpBase.cs" />
+    <Compile Include="Server\Ajax\ServerAjaxBase.cs" />
+    <Compile Include="Server\Ajax\SrvAjaxDbeBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
-    <Compile Include="Server\WebSocket\ServerWsBase.cs" />
+    <Compile Include="Server\WebSocket\SrvWsBase.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="DataBase\Dominio\UsuarioDominio.cs" />
     <Compile Include="Properties\View.Designer.cs">

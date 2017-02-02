@@ -3,7 +3,7 @@ using System;
 
 namespace NetZ.Web.Server.Ajax
 {
-    public abstract class ServerAjax : ServerBase
+    public abstract class ServerAjaxBase : ServerBase
     {
         #region Constantes
 
@@ -17,7 +17,7 @@ namespace NetZ.Web.Server.Ajax
 
         #region Construtores
 
-        protected ServerAjax(string strNome) : base(strNome)
+        protected ServerAjaxBase(string strNome) : base(strNome)
         {
         }
 

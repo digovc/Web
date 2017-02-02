@@ -200,7 +200,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setCursor("pointer"));
             this.addCss(css.setFontFamily("ubuntu"));
             this.addCss(css.setFontStyle("ligth"));
-            this.addCss(css.setOutLine("none"));
+            this.addCss(css.setOutline("none"));
 
             this.setCssPai(css);
             this.setCssFilho(css);

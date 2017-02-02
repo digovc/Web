@@ -23,7 +23,7 @@ namespace NetZ.Web.Server.WebSocket
         private bool _booHandshake;
         private List<byte> _lstBteCache;
         private UsuarioDominio _objUsuario;
-        private ServerWsBase _srvWs;
+        private SrvWsBase _srvWs;
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
         private string _strSessaoId;
@@ -53,7 +53,7 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
-        protected ServerWsBase srvWs
+        protected SrvWsBase srvWs
         {
             get
             {
@@ -144,7 +144,7 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Construtores
 
-        public ClienteWs(TcpClient tcpClient, ServerWsBase srvWs) : base(tcpClient, srvWs)
+        public ClienteWs(TcpClient tcpClient, SrvWsBase srvWs) : base(tcpClient, srvWs)
         {
             this.srvWs = srvWs;
         }
@@ -451,7 +451,7 @@ namespace NetZ.Web.Server.WebSocket
             this.processarMensagem(objInterlocutor);
         }
 
-        private void setSrvWs(ServerWsBase srvWs)
+        private void setSrvWs(SrvWsBase srvWs)
         {
             if (srvWs == null)
             {

@@ -16,9 +16,9 @@ namespace NetZ.Web.Html.Componente.Markdown
         private Div _divConteudo;
         private Div _divTitulo;
         private List<SumarioItem> _lstDivItem;
-        private PagMarkdownBase _pagMarkdown;
+        private PagDocumentacaoBase _pagMarkdown;
 
-        public PagMarkdownBase pagMarkdown
+        public PagDocumentacaoBase pagMarkdown
         {
             get
             {
@@ -76,11 +76,28 @@ namespace NetZ.Web.Html.Componente.Markdown
             }
         }
 
+        private EmailRegistro _divEmailRegistro;
+
+        private EmailRegistro divEmailRegistro
+        {
+            get
+            {
+                if (_divEmailRegistro != null)
+                {
+                    return _divEmailRegistro;
+                }
+
+                _divEmailRegistro = new EmailRegistro();
+
+                return _divEmailRegistro;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
 
-        public Sumario(PagMarkdownBase pagMarkdown)
+        public Sumario(PagDocumentacaoBase pagMarkdown)
         {
             this.pagMarkdown = pagMarkdown;
         }
@@ -112,13 +129,14 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.divConteudo.setPai(this);
 
             this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divConteudo));
+
+            this.divEmailRegistro.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.addCss(css.setCursor("pointer"));
             this.addCss(css.setZIndex(2));
 
             this.addCss(css.setBackgroundColor("#e3e3e3"));

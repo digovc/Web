@@ -432,7 +432,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("opacity", decOpacity.ToString(this.ctiUsa));
         }
 
-        public string setOutLine(string strOutLine)
+        public string setOutline(string strOutLine)
         {
             return this.addCss("outline", strOutLine);
         }

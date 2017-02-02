@@ -475,11 +475,11 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag(typeof(MenuGrid), 111));
             lstJsDebug.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJsDebug.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjax), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxBase), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttpBase), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerWsBase), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
 
             lstJsDebug.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
             lstJsDebug.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));

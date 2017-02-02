@@ -16,7 +16,7 @@ namespace NetZ.Web.Server
     /// implementando sua lógica a partir da class <see cref="AppWebBase"/> e seu método <see cref="AppWebBase.responder(Solicitacao)"/>.
     /// </para>
     /// </summary>
-    public abstract class ServerHttpBase : ServerBase
+    public abstract class SrvHttpBase : ServerBase
     {
         #region Constantes
 
@@ -49,7 +49,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        protected ServerHttpBase() : base("Servidor HTTP")
+        protected SrvHttpBase() : base("Servidor HTTP")
         {
         }
 

@@ -55,7 +55,7 @@ namespace NetZ.Web.Html.Componente.Circulo
             base.setCss(css);
 
             this.addCss(css.setBorderRadius(50, "%"));
-            this.addCss(css.setOutLine("none"));
+            this.addCss(css.setOutline("none"));
 
             this.setCssEnmTamanho(css);
         }

@@ -448,7 +448,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(ServerHttpBase.STR_COOKIE_SESSAO_ID_NOME)))
+            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME)))
             {
                 return;
             }
@@ -460,7 +460,7 @@ namespace NetZ.Web.Server
 
             strSessaoId = Utils.getStrMd5(strSessaoId);
 
-            Cookie objCookieSessaoId = new Cookie(ServerHttpBase.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
+            Cookie objCookieSessaoId = new Cookie(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
 
             objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
 

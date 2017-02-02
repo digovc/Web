@@ -158,7 +158,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.txtPesquisa.addCss(css.setFontSize(15));
             this.txtPesquisa.addCss(css.setHeight(19));
-            this.txtPesquisa.addCss(css.setOutLine("none"));
+            this.txtPesquisa.addCss(css.setOutline("none"));
             this.txtPesquisa.addCss(css.setWidth(100, "%"));
         }
 

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace NetZ.Web.Server.WebSocket
 {
-    public abstract class ServerWsBase : ServerBase
+    public abstract class SrvWsBase : ServerBase
     {
         #region Constantes
 
@@ -38,7 +38,7 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Construtores
 
-        protected ServerWsBase(string strNome) : base(strNome)
+        protected SrvWsBase(string strNome) : base(strNome)
         {
         }
 
