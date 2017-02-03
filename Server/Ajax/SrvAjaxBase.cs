@@ -1,9 +1,10 @@
-﻿using NetZ.Web.Server.Arquivo;
+﻿using DigoFramework.Json;
+using NetZ.Web.Server.Arquivo;
 using System;
 
 namespace NetZ.Web.Server.Ajax
 {
-    public abstract class ServerAjaxBase : ServerBase
+    public abstract class SrvAjaxBase : ServerBase
     {
         #region Constantes
 
@@ -17,7 +18,7 @@ namespace NetZ.Web.Server.Ajax
 
         #region Construtores
 
-        protected ServerAjaxBase(string strNome) : base(strNome)
+        protected SrvAjaxBase(string strNome) : base(strNome)
         {
         }
 
@@ -40,6 +41,40 @@ namespace NetZ.Web.Server.Ajax
             if ("/?upload-file".Equals(objSolicitacao.strPaginaCompleta))
             {
                 return this.responderUploadFile(objSolicitacao);
+            }
+
+            Interlocutor objInterlocutor = null;
+
+            try
+            {
+                if (string.IsNullOrEmpty(objSolicitacao.jsn))
+                {
+                    return null;
+                }
+
+                objInterlocutor = Json.i.fromJson<Interlocutor>(objSolicitacao.jsn);
+
+                if (objInterlocutor == null)
+                {
+                    return null;
+                }
+
+                if (!this.responder(objSolicitacao, objInterlocutor))
+                {
+                    return null;
+                }
+
+                var objResposta = new Resposta(objSolicitacao);
+
+                objResposta.addJson(objInterlocutor);
+
+                this.addAcessControl(objResposta);
+
+                return objResposta;
+            }
+            catch (Exception ex)
+            {
+                this.responderErro(objSolicitacao, ex, objInterlocutor);
             }
 
             return null;
@@ -81,6 +116,41 @@ namespace NetZ.Web.Server.Ajax
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");
             objResposta.addHeader("Access-Control-Allow-Methods", "POST");
             objResposta.addHeader("Access-Control-Allow-Origin", strHost);
+        }
+
+        protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            return false;
+        }
+
+        protected Resposta responderErro(Solicitacao objSolicitacao, Exception ex, Interlocutor objInterlocutor)
+        {
+            if (objSolicitacao == null)
+            {
+                return null;
+            }
+
+            string strErro = "Erro desconhecido.";
+
+            if (ex != null)
+            {
+                strErro = ex.Message;
+            }
+
+            if (objInterlocutor == null)
+            {
+                objInterlocutor = new Interlocutor();
+            }
+
+            objInterlocutor.strErro = strErro;
+
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            objResposta.addJson(objInterlocutor);
+
+            this.addAcessControl(objResposta);
+
+            return objResposta;
         }
 
         private Resposta responderOptions(Solicitacao objSolicitacao)

@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace NetZ.Web.Server.Ajax
 {
-    public abstract class SrvAjaxDbeBase : ServerAjaxBase
+    public abstract class SrvAjaxDbeBase : SrvAjaxBase
     {
         #region Constantes
 
@@ -50,62 +50,18 @@ namespace NetZ.Web.Server.Ajax
 
         #region Métodos
 
-        public override Resposta responder(Solicitacao objSolicitacao)
-        {
-            Resposta objResposta = base.responder(objSolicitacao);
-
-            if (objResposta != null)
-            {
-                return objResposta;
-            }
-
-            Interlocutor objInterlocutor = null;
-
-            try
-            {
-                if (objSolicitacao == null)
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(objSolicitacao.jsn))
-                {
-                    return null;
-                }
-
-                objInterlocutor = Json.i.fromJson<Interlocutor>(objSolicitacao.jsn);
-
-                if (objInterlocutor == null)
-                {
-                    return null;
-                }
-
-                this.responder(objSolicitacao, objInterlocutor);
-
-                objResposta = new Resposta(objSolicitacao);
-
-                objResposta.addJson(objInterlocutor);
-
-                this.addAcessControl(objResposta);
-
-                return objResposta;
-            }
-            catch (Exception ex)
-            {
-                return this.responderErro(objSolicitacao, ex, objInterlocutor);
-            }
-            finally
-            {
-            }
-        }
-
         protected override int getIntPorta()
         {
             return ConfigWebBase.i.intSrvAjaxDbePorta;
         }
 
-        protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        protected override bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
+            if (base.responder(objSolicitacao, objInterlocutor))
+            {
+                return true;
+            }
+
             if (objInterlocutor == null)
             {
                 return false;
@@ -518,36 +474,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void recuperarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-        }
-
-        private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, Interlocutor objInterlocutor)
-        {
-            if (objSolicitacao == null)
-            {
-                return null;
-            }
-
-            string strErro = "Erro desconhecido.";
-
-            if (ex != null)
-            {
-                strErro = ex.Message;
-            }
-
-            if (objInterlocutor == null)
-            {
-                objInterlocutor = new Interlocutor();
-            }
-
-            objInterlocutor.strErro = strErro;
-
-            Resposta objResposta = new Resposta(objSolicitacao);
-
-            objResposta.addJson(objInterlocutor);
-
-            this.addAcessControl(objResposta);
-
-            return objResposta;
         }
 
         private void salvarDominio(Solicitacao objSolicitacao, Interlocutor objInterlocutor)

@@ -45,6 +45,9 @@
     <Compile Include="AppWebBase.cs" />
     <Compile Include="ConfigWeb.cs" />
     <Compile Include="DataBase\DbeWebBase.cs" />
+    <Compile Include="DataBase\Dominio\Documentacao\DocumentacaoDominioBase.cs" />
+    <Compile Include="DataBase\Dominio\Documentacao\MarkdownDominio.cs" />
+    <Compile Include="DataBase\Dominio\Documentacao\EmailRegistroDominio.cs" />
     <Compile Include="DataBase\Dominio\FavoritoDominio.cs" />
     <Compile Include="DataBase\Tabela\TblFavorito.cs" />
     <Compile Include="DataBase\Tabela\TblFiltro.cs" />
@@ -53,7 +56,7 @@
     <Compile Include="DataBase\Tabela\TblWebBase.cs" />
     <Compile Include="DataBase\View\ViwFiltroItem.cs" />
     <Compile Include="DataBase\View\ViwWebBase.cs" />
-    <Compile Include="DataBase\Dominio\DominioWeb.cs" />
+    <Compile Include="DataBase\Dominio\DominioWebBase.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
@@ -133,6 +136,11 @@
     <Compile Include="Html\Pagina\PagError.cs" />
     <Compile Include="Html\Pagina\PagDocumentacaoBase.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Server\Ajax\SrvAjaxDocumentacao.cs" />
     <Compile Include="Server\Arquivo\ArqUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
@@ -162,7 +170,7 @@
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\SrvHttpBase.cs" />
-    <Compile Include="Server\Ajax\ServerAjaxBase.cs" />
+    <Compile Include="Server\Ajax\SrvAjaxBase.cs" />
     <Compile Include="Server\Ajax\SrvAjaxDbeBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
@@ -195,6 +203,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>View.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinService\WinServiceInstallerBase.resx">
       <DependentUpon>WinServiceInstallerBase.cs</DependentUpon>
     </EmbeddedResource>
@@ -210,10 +222,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\viw_filtro_item.sql" />
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\documentacao_email.html" />
+    <None Include="Resources\documentacao_email_item.html" />
+    <None Include="Resources\viw_filtro_item.sql" />
     <Content Include="res\css\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

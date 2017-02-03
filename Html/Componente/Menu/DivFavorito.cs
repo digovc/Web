@@ -41,7 +41,7 @@ namespace NetZ.Web.Html.Componente.Menu
             base.addJsDebug(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(DivFavorito), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(DominioWeb), 101));
+            lstJsDebug.Add(new JavaScriptTag(typeof(DominioWebBase), 101));
             lstJsDebug.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
         }
 

@@ -14,20 +14,21 @@ namespace NetZ.Web.Html.Componente.Markdown
         #region Atributos
 
         private Div _divConteudo;
+        private EmailRegistro _divEmailRegistro;
         private Div _divTitulo;
         private List<SumarioItem> _lstDivItem;
-        private PagDocumentacaoBase _pagMarkdown;
+        private PagDocumentacaoBase _pagDoc;
 
-        public PagDocumentacaoBase pagMarkdown
+        public PagDocumentacaoBase pagDoc
         {
             get
             {
-                return _pagMarkdown;
+                return _pagDoc;
             }
 
             set
             {
-                _pagMarkdown = value;
+                _pagDoc = value;
             }
         }
 
@@ -43,6 +44,21 @@ namespace NetZ.Web.Html.Componente.Markdown
                 _divConteudo = new Div();
 
                 return _divConteudo;
+            }
+        }
+
+        private EmailRegistro divEmailRegistro
+        {
+            get
+            {
+                if (_divEmailRegistro != null)
+                {
+                    return _divEmailRegistro;
+                }
+
+                _divEmailRegistro = new EmailRegistro();
+
+                return _divEmailRegistro;
             }
         }
 
@@ -76,30 +92,13 @@ namespace NetZ.Web.Html.Componente.Markdown
             }
         }
 
-        private EmailRegistro _divEmailRegistro;
-
-        private EmailRegistro divEmailRegistro
-        {
-            get
-            {
-                if (_divEmailRegistro != null)
-                {
-                    return _divEmailRegistro;
-                }
-
-                _divEmailRegistro = new EmailRegistro();
-
-                return _divEmailRegistro;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
 
         public Sumario(PagDocumentacaoBase pagMarkdown)
         {
-            this.pagMarkdown = pagMarkdown;
+            this.pagDoc = pagMarkdown;
         }
 
         #endregion Construtores
@@ -116,6 +115,8 @@ namespace NetZ.Web.Html.Componente.Markdown
             base.inicializar();
 
             this.strId = this.GetType().Name;
+
+            this.addAtt("dir-documentacao", this.pagDoc.getDirDocumentacao());
 
             this.divTitulo.strConteudo = "Sumário";
         }
@@ -160,19 +161,19 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         private List<SumarioItem> getLstDivItem()
         {
-            if (this.pagMarkdown == null)
+            if (this.pagDoc == null)
             {
                 return null;
             }
 
-            if (!Directory.Exists(this.pagMarkdown.dirRepositorio))
+            if (!Directory.Exists(this.pagDoc.dirDocumentacao))
             {
                 return null;
             }
 
             var lstDivItemResultado = new List<SumarioItem>();
 
-            foreach (string dirMarkdown in Directory.GetFiles(this.pagMarkdown.dirRepositorio))
+            foreach (string dirMarkdown in Directory.GetFiles(this.pagDoc.dirDocumentacao))
             {
                 this.getLstDivItem(lstDivItemResultado, dirMarkdown);
             }

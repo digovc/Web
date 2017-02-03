@@ -1,6 +1,10 @@
-﻿namespace NetZ.Web.DataBase.Dominio
+﻿using NetZ.Persistencia;
+
+namespace NetZ.Web.DataBase.Dominio
 {
-    public class FavoritoDominio : DominioWebBase
+    // TODO: O namespace do domínio deve ficar na raíz do projeto.
+    // TODO: Todas as classes abstratas devem ter o sufixo "base" no nome.
+    public abstract class DominioWebBase : DominioBase
     {
         #region Constantes
 
@@ -8,18 +12,18 @@
 
         #region Atributos
 
-        private string _strTitulo;
+        private bool _booAtivo = true;
 
-        public string strTitulo
+        public bool booAtivo
         {
             get
             {
-                return _strTitulo;
+                return _booAtivo;
             }
 
             set
             {
-                _strTitulo = value;
+                _booAtivo = value;
             }
         }
 

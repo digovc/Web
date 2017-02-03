@@ -3,7 +3,9 @@ using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Html;
 using NetZ.Web.Server;
+using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 
 namespace NetZ.Web
 {
@@ -25,6 +27,7 @@ namespace NetZ.Web
 
         public const string DIR_CSS = "/res/css/";
         public const string DIR_JS_LIB = "/res/js/lib/";
+        public const string DIR_JSON_CONFIG = "JSON Config/";
         public const string DIR_MEDIA_PNG = "/res/media/png/";
 
         #endregion Constantes
@@ -38,6 +41,8 @@ namespace NetZ.Web
         private List<UsuarioDominio> _lstObjUsuario;
         private List<ServerBase> _lstSrv;
         private object _objLstObjUsuarioLock;
+        private SmtpClient _objSmtpClient;
+        private string _strEmail;
         private JavaScriptTag _tagJsRelease;
 
         public new static AppWebBase i
@@ -88,6 +93,39 @@ namespace NetZ.Web
                 _dbe = this.getDbe();
 
                 return _dbe;
+            }
+        }
+
+        /// <summary>
+        /// Conta de email que será utilizada para envio de emails pela aplicação.
+        /// </summary>
+        public SmtpClient objSmtpClient
+        {
+            get
+            {
+                if (_objSmtpClient != null)
+                {
+                    return _objSmtpClient;
+                }
+
+                _objSmtpClient = this.getObjSmtpClient();
+
+                return _objSmtpClient;
+            }
+        }
+
+        public string strEmail
+        {
+            get
+            {
+                if (_strEmail != null)
+                {
+                    return _strEmail;
+                }
+
+                _strEmail = this.getStrEmail();
+
+                return _strEmail;
             }
         }
 
@@ -267,6 +305,16 @@ namespace NetZ.Web
         }
 
         protected abstract ConfigWebBase getObjConfig();
+
+        protected virtual SmtpClient getObjSmtpClient()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual string getStrEmail()
+        {
+            throw new NotFiniteNumberException();
+        }
 
         protected virtual JavaScriptTag getTagJsRelease()
         {
