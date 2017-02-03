@@ -440,7 +440,6 @@ namespace NetZ.Web.Server.WebSocket
             this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
         }
 
-        private void setSrvWs(ServerWsBase srvWs)
         private void setSrvWs(SrvWsBase srvWs)
         {
             if (srvWs == null)

@@ -239,9 +239,9 @@ namespace NetZ.Web.Server.Ajax
 
             this.lstObjEmailRegistro.Remove(objEmailRegistroLocal);
 
-            objInterlocutor.objData = string.Format("O email \"{0}\" não irá mais receber atualizações da documentação \"{1}\".", objEmailRegistroLocal.strEmail, objEmailRegistroLocal.strDocumentacaoTitulo);
-
             this.salvarArquivo();
+
+            objInterlocutor.objData = string.Format("O email \"{0}\" não irá mais receber atualizações da documentação \"{1}\".", objEmailRegistroLocal.strEmail, objEmailRegistroLocal.strDocumentacaoTitulo);
 
             return true;
         }
@@ -448,6 +448,8 @@ namespace NetZ.Web.Server.Ajax
 
         private void salvarArquivo()
         {
+            File.Delete(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO);
+
             if (this.lstObjEmailRegistro == null)
             {
                 return;
@@ -457,8 +459,6 @@ namespace NetZ.Web.Server.Ajax
             {
                 return;
             }
-
-            File.Delete(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO);
 
             File.WriteAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO, Json.i.toJson(this.lstObjEmailRegistro));
         }

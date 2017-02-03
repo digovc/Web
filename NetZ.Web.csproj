@@ -228,31 +228,7 @@
     <None Include="Resources\documentacao_email.html" />
     <None Include="Resources\documentacao_email_item.html" />
     <None Include="Resources\viw_filtro_item.sql" />
-<<<<<<< .mine
-    <Content Include="res\media\png\img_notificacao_info.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="res\media\png\img_notificacao_negativa.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="res\media\png\img_notificacao_positiva.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-=======
-    <Content Include="res\css\github-markdown.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="res\media\png\icon-menu-action-bar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-
-
-
->>>>>>> .theirs
-    <Content Include="res\css\github-markdown.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="res\media\png\icon-menu-action-bar.png">
+    <Content Include="res\media\png\btn_cancelar_30x30.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\png\img_notificacao_info.png">
@@ -262,6 +238,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\png\img_notificacao_positiva.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\css\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\png\icon-menu-action-bar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\css\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\png\tree_view_icon_default.png">
