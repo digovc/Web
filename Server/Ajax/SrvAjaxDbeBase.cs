@@ -211,7 +211,7 @@ namespace NetZ.Web.Server.Ajax
             }
             finally
             {
-                tbl.liberar();
+                tbl.liberarThread();
             }
         }
 
@@ -254,7 +254,7 @@ namespace NetZ.Web.Server.Ajax
             }
             finally
             {
-                TblFiltro.i.liberar();
+                TblFiltro.i.liberarThread();
             }
         }
 
@@ -589,7 +589,7 @@ namespace NetZ.Web.Server.Ajax
 
             tbl.salvarWeb(tblWeb);
 
-            tbl.liberar();
+            tbl.liberarThread();
         }
 
         private void salvarTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -657,7 +657,7 @@ namespace NetZ.Web.Server.Ajax
 
             objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.sqlNome);
 
-            TblFavorito.i.liberar();
+            TblFavorito.i.liberarThread();
         }
 
         #endregion Métodos

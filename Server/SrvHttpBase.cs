@@ -391,7 +391,7 @@ namespace NetZ.Web.Server
             arqDownload.dttUltimaModificacao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
             arqDownload.strNome = (tbl as ITblArquivo).getClnStrArquivoNome().strValor;
 
-            tbl.liberar();
+            tbl.liberarThread();
 
             return this.responderArquivoEstatico(objSolicitacao, arqDownload);
         }

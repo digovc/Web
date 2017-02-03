@@ -202,7 +202,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.cmb.addOpcao(cln.intValor, cln.clnRef.tbl.viwPrincipal.clnNome.strValor);
 
-            cln.clnRef.tbl.viwPrincipal.liberar();
+            cln.clnRef.tbl.viwPrincipal.liberarThread();
         }
 
         #endregion Métodos

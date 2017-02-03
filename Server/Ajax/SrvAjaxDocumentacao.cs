@@ -248,19 +248,28 @@ namespace NetZ.Web.Server.Ajax
 
         private List<EmailRegistroDominio> getLstObjEmailRegistro()
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO));
-
-            if (!File.Exists(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO))
+            try
             {
-                File.Create(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO).Close();
-            }
+                this.bloquearThread();
 
-            if (string.IsNullOrEmpty(File.ReadAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO)))
+                Directory.CreateDirectory(Path.GetDirectoryName(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO));
+
+                if (!File.Exists(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO))
+                {
+                    File.Create(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO).Close();
+                }
+
+                if (string.IsNullOrEmpty(File.ReadAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO)))
+                {
+                    return new List<EmailRegistroDominio>();
+                }
+
+                return Json.i.fromJson<List<EmailRegistroDominio>>(File.ReadAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO));
+            }
+            finally
             {
-                return new List<EmailRegistroDominio>();
+                this.liberarThread();
             }
-
-            return Json.i.fromJson<List<EmailRegistroDominio>>(File.ReadAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO));
         }
 
         private List<MarkdownDominio> getLstObjMd()
@@ -448,19 +457,28 @@ namespace NetZ.Web.Server.Ajax
 
         private void salvarArquivo()
         {
-            File.Delete(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO);
-
-            if (this.lstObjEmailRegistro == null)
+            try
             {
-                return;
-            }
+                this.bloquearThread();
 
-            if (this.lstObjEmailRegistro.Count < 1)
+                File.Delete(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO);
+
+                if (this.lstObjEmailRegistro == null)
+                {
+                    return;
+                }
+
+                if (this.lstObjEmailRegistro.Count < 1)
+                {
+                    return;
+                }
+
+                File.WriteAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO, Json.i.toJson(this.lstObjEmailRegistro));
+            }
+            finally
             {
-                return;
+                this.liberarThread();
             }
-
-            File.WriteAllText(DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO, Json.i.toJson(this.lstObjEmailRegistro));
         }
 
         #endregion Métodos
