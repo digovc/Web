@@ -15,7 +15,8 @@ namespace NetZ.Web
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
         private bool _booSrvAjaxDbAtivar = true;
-        private int _intSrvAjaxDbPorta = 8081;
+        private int _intSrvAjaxDbePorta = 8082;
+        private int _intSrvAjaxDocumentacao = 8081;
         private int _intSrvHttpPorta = 80;
         private int _intTimeOut = 5;
 
@@ -85,18 +86,34 @@ namespace NetZ.Web
         }
 
         /// <summary>
-        /// Porta que será utilizada pelo servidor <see cref="ServerAjaxDb"/>.
+        /// Porta que será utilizada pelo servidor <see cref="SrvAjaxDbe"/>.
         /// </summary>
-        public int intSrvAjaxDbPorta
+        public int intSrvAjaxDbePorta
         {
             get
             {
-                return _intSrvAjaxDbPorta;
+                return _intSrvAjaxDbePorta;
             }
 
             set
             {
-                _intSrvAjaxDbPorta = value;
+                _intSrvAjaxDbePorta = value;
+            }
+        }
+
+        /// <summary>
+        /// Porta que será utilizada pelo servidor <see cref="SrvAjaxDocumentacao"/>.
+        /// </summary>
+        public int intSrvAjaxDocumentacao
+        {
+            get
+            {
+                return _intSrvAjaxDocumentacao;
+            }
+
+            set
+            {
+                _intSrvAjaxDocumentacao = value;
             }
         }
 

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace NetZ.Web.Html
+﻿namespace NetZ.Web.Server.Ajax
 {
-    public class Div : Tag
+    public sealed class SrvAjaxDocumentacao : ServerAjaxBase
     {
         #region Constantes
 
@@ -14,7 +12,7 @@ namespace NetZ.Web.Html
 
         #region Construtores
 
-        public Div() : base("div")
+        public SrvAjaxDocumentacao() : base("Servidor AJAX (Geral)")
         {
         }
 
@@ -22,11 +20,9 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override int getIntPorta()
         {
-            base.addJsDebug(lstJsDebug);
-
-            lstJsDebug.Add(new JavaScriptTag(typeof(Div), 109));
+            return ConfigWebBase.i.intSrvAjaxDocumentacao;
         }
 
         #endregion Métodos

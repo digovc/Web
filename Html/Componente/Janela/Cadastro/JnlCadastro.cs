@@ -100,8 +100,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             lstJsDebug.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
             lstJsDebug.Add(new JavaScriptTag(this.GetType(), 112));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/ColunaWeb.js"));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js"));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/database/ColunaWeb.js"));
         }
 
         protected override void addTag(Tag tag)

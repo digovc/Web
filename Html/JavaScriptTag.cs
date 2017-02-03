@@ -76,7 +76,7 @@ namespace NetZ.Web.Html
                 return null;
             }
 
-            string srcResultado = "res/js/_cls_namespace/_cls_nome_ponto_finaljs";
+            string srcResultado = "/res/js/_cls_namespace/_cls_nome_ponto_finaljs";
 
             srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
             srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
@@ -111,7 +111,7 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            string strJs = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
+            string strJs = "Web.ConstanteManager.i.addConstante(new Web.Constante('_constante_nome', '_constante_valor'));";
 
             strJs = strJs.Replace("_constante_nome", strNome);
             strJs = strJs.Replace("_constante_valor", strValor);

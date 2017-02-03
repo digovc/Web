@@ -4,7 +4,7 @@ using System.ServiceProcess;
 
 namespace NetZ.Web.WinService
 {
-    public abstract partial class NetZWebServiceInstaller : Installer
+    public abstract partial class WinServiceInstallerBase : Installer
     {
         #region Constantes
 
@@ -16,7 +16,7 @@ namespace NetZ.Web.WinService
 
         #region Construtores
 
-        public NetZWebServiceInstaller()
+        public WinServiceInstallerBase()
         {
             this.InitializeComponent();
             this.inicializar();

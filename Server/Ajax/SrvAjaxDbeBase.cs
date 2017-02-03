@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace NetZ.Web.Server.Ajax
 {
-    public abstract class ServerAjaxDb : ServerAjax
+    public abstract class SrvAjaxDbeBase : ServerAjaxBase
     {
         #region Constantes
 
@@ -42,7 +42,7 @@ namespace NetZ.Web.Server.Ajax
 
         #region Construtores
 
-        protected ServerAjaxDb(string strNome) : base(strNome)
+        protected SrvAjaxDbeBase(string strNome) : base(strNome)
         {
         }
 
@@ -101,7 +101,7 @@ namespace NetZ.Web.Server.Ajax
 
         protected override int getIntPorta()
         {
-            return ConfigWebBase.i.intSrvAjaxDbPorta;
+            return ConfigWebBase.i.intSrvAjaxDbePorta;
         }
 
         protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)

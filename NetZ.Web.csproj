@@ -57,7 +57,9 @@
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
-    <Compile Include="Html\Componente\ActionBar.cs" />
+    <Compile Include="Html\Componente\Markdown\EmailRegistro.cs" />
+    <Compile Include="Html\Componente\Markdown\IndiceItem.cs" />
+    <Compile Include="Html\Componente\Mobile\ActionBar.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
     <Compile Include="Html\Componente\Campo\CampoMapa.cs" />
@@ -73,6 +75,9 @@
     <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\BtnFavorito.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
+    <Compile Include="Html\Componente\Markdown\Sumario.cs" />
+    <Compile Include="Html\Componente\Markdown\SumarioItem.cs" />
+    <Compile Include="Html\Componente\Markdown\Viewer.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContexto.cs" />
@@ -126,7 +131,9 @@
     <Compile Include="Html\Componente\TreeView\TreeViewNode.cs" />
     <Compile Include="Html\CssTag.cs" />
     <Compile Include="Html\Pagina\PagError.cs" />
+    <Compile Include="Html\Pagina\PagDocumentacaoBase.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />
+    <Compile Include="Server\Ajax\SrvAjaxDocumentacao.cs" />
     <Compile Include="Server\Arquivo\ArqUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivo.cs" />
     <Compile Include="Html\Div.cs" />
@@ -154,12 +161,12 @@
     <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
-    <Compile Include="Server\ServerHttpBase.cs" />
-    <Compile Include="Server\Ajax\ServerAjax.cs" />
-    <Compile Include="Server\Ajax\ServerAjaxDb.cs" />
+    <Compile Include="Server\SrvHttpBase.cs" />
+    <Compile Include="Server\Ajax\ServerAjaxBase.cs" />
+    <Compile Include="Server\Ajax\SrvAjaxDbeBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
-    <Compile Include="Server\WebSocket\ServerWsBase.cs" />
+    <Compile Include="Server\WebSocket\SrvWsBase.cs" />
     <Compile Include="Server\Solicitacao.cs" />
     <Compile Include="DataBase\Dominio\UsuarioDominio.cs" />
     <Compile Include="Properties\View.Designer.cs">
@@ -167,17 +174,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>View.resx</DependentUpon>
     </Compile>
-    <Compile Include="WinService\NetZWebServiceInstaller.cs">
+    <Compile Include="WinService\WinServiceInstallerBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinService\NetZWebServiceInstaller.Designer.cs">
-      <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
+    <Compile Include="WinService\WinServiceInstallerBase.Designer.cs">
+      <DependentUpon>WinServiceInstallerBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinService\NetZWebService.cs">
+    <Compile Include="WinService\WinServiceBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinService\NetZWebService.Designer.cs">
-      <DependentUpon>NetZWebService.cs</DependentUpon>
+    <Compile Include="WinService\WinServiceBase.Designer.cs">
+      <DependentUpon>WinServiceBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinService\WinService.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -185,8 +195,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>View.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinService\NetZWebServiceInstaller.resx">
-      <DependentUpon>NetZWebServiceInstaller.cs</DependentUpon>
+    <EmbeddedResource Include="WinService\WinServiceInstallerBase.resx">
+      <DependentUpon>WinServiceInstallerBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +214,33 @@
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< .mine
+    <Content Include="res\media\png\img_notificacao_info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\png\img_notificacao_negativa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\png\img_notificacao_positiva.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+=======
+    <Content Include="res\css\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\png\icon-menu-action-bar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+
+
+>>>>>>> .theirs
+    <Content Include="res\css\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\png\icon-menu-action-bar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\png\img_notificacao_info.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -153,7 +153,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.tagInputTag.addCss(css.setBorder(0));
             this.tagInputTag.addCss(css.setHeight(15));
             this.tagInputTag.addCss(css.setMinWidth(50));
-            this.tagInputTag.addCss(css.setOutLine("none"));
+            this.tagInputTag.addCss(css.setOutline("none"));
             this.tagInputTag.addCss(css.setPadding(7));
             this.tagInputTag.addCss(css.setPaddingLeft(10));
             this.tagInputTag.addCss(css.setPaddingRight(10));

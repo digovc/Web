@@ -1,7 +1,7 @@
 ﻿using NetZ.Web.Html.Componente.Botao.ActionBar;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente
+namespace NetZ.Web.Html.Componente.Mobile
 {
     public class ActionBar : ComponenteHtml
     {
@@ -13,6 +13,7 @@ namespace NetZ.Web.Html.Componente
 
         private BotaoActionBar _btnMenu;
         private BotaoActionBar _btnVoltar;
+        private Div _divLinha;
         private Div _divTitulo;
         private string _strTitulo;
 
@@ -61,6 +62,21 @@ namespace NetZ.Web.Html.Componente
             }
         }
 
+        private Div divLinha
+        {
+            get
+            {
+                if (_divLinha != null)
+                {
+                    return _divLinha;
+                }
+
+                _divLinha = new Div();
+
+                return _divLinha;
+            }
+        }
+
         private Div divTitulo
         {
             get
@@ -95,7 +111,7 @@ namespace NetZ.Web.Html.Componente
         {
             base.inicializar();
 
-            this.strId = "divActionBar";
+            this.strId = this.GetType().Name;
 
             this.btnMenu.strId = (this.strId + "_btnMenu");
             this.btnVoltar.strId = (this.strId + "_btnVoltar");
@@ -108,6 +124,7 @@ namespace NetZ.Web.Html.Componente
 
             this.btnMenu.setPai(this);
             this.btnVoltar.setPai(this);
+            this.divLinha.setPai(this);
             this.divTitulo.setPai(this);
         }
 
@@ -117,19 +134,29 @@ namespace NetZ.Web.Html.Componente
 
             this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
             this.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
-            this.addCss(css.setColor(AppWebBase.i.objTema.corFonte));
+            this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setHeight(50, "px"));
             this.addCss(css.setPosition("fixed"));
             this.addCss(css.setWidth(100, "%"));
 
+            this.btnMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_PNG + "icon-menu-action-bar.png"));
+            this.btnMenu.addCss(css.setBackgroundPosition("center"));
+            this.btnMenu.addCss(css.setBackgroundRepeat("no-repeat"));
             this.btnMenu.addCss(css.setFloat("left"));
 
             this.btnVoltar.addCss(css.setDisplay("none"));
             this.btnVoltar.addCss(css.setFloat("left"));
 
+            this.divLinha.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFonteTema));
+            this.divLinha.addCss(css.setFloat("left"));
+            this.divLinha.addCss(css.setHeight(30));
+            this.divLinha.addCss(css.setMarginLeft(5));
+            this.divLinha.addCss(css.setMarginTop(10));
+            this.divLinha.addCss(css.setWidth(1));
+
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setLineHeight(50));
-            //this.divTitulo.addCss(css.setPosition("absolute"));
+            this.divTitulo.addCss(css.setPaddingLeft(65));
             this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 

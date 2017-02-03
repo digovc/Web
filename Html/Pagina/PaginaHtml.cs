@@ -475,26 +475,26 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag(typeof(MenuGrid), 111));
             lstJsDebug.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJsDebug.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjax), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxBase), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
             lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttpBase), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerWsBase), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Constante.js", 0));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/ConstanteManager.js", 1));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/design/TemaDefault.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/erro/Erro.js", 102));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Historico.js", 101));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/html/Tag.js", 103));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Keys.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Objeto.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Utils.js", 101));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/html/Tag.js", 103));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
+            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
-            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-3.1.0.min.js", 0));
+            lstJsLib.Add(new JavaScriptTag("/res/js/lib/jquery-3.1.0.min.js", 0));
         }
 
         protected virtual void addLayoutFixo(JavaScriptTag tagJs)

@@ -293,7 +293,7 @@ namespace NetZ.Web.Server
         /// Código único que identifica o cliente. Todas as solicitações enviadas pelo cliente
         /// através de um mesmo browser terão o mesmo valor.
         /// <para>
-        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="ServerHttpBase.STR_COOKIE_SESSAO_ID_NOME"/>.
+        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME"/>.
         /// </para>
         /// <para>Esse cookie fica salvo no browser do cliente durante 8 (oito) horas.</para>
         /// </summary>
@@ -306,7 +306,7 @@ namespace NetZ.Web.Server
                     return _strSessaoId;
                 }
 
-                _strSessaoId = this.getStrCookieValor(ServerHttpBase.STR_COOKIE_SESSAO_ID_NOME);
+                _strSessaoId = this.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME);
 
                 return _strSessaoId;
             }
