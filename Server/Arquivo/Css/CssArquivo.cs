@@ -532,6 +532,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("width", string.Format("{0}{1}", decWidth.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setWordWrap(string strWordWrap)
+        {
+            if (string.IsNullOrEmpty(strWordWrap))
+            {
+                return null;
+            }
+
+            return this.addCss("word-wrap", strWordWrap);
+        }
+
         public string setZIndex(int intZIndex)
         {
             return this.addCss("z-index", intZIndex.ToString());

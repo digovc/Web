@@ -29,6 +29,7 @@ namespace NetZ.Web
         public const string DIR_JS_LIB = "/res/js/lib/";
         public const string DIR_JSON_CONFIG = "JSON Config/";
         public const string DIR_MEDIA_PNG = "/res/media/png/";
+        public const string DIR_JS_LIB = "/res/js/lib/";
 
         #endregion Constantes
 

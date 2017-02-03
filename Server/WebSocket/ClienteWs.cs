@@ -13,13 +13,13 @@ namespace NetZ.Web.Server.WebSocket
     {
         #region Constantes
 
-        private const string STR_METODO_WELCOME = "metodo_welcome";
+        private const string STR_METODO_ERRO = "STR_METODO_ERRO";
+        private const string STR_METODO_WELCOME = "STR_METODO_WELCOME";
 
         #endregion Constantes
 
         #region Atributos
 
-        private bool _booConectado;
         private bool _booHandshake;
         private List<byte> _lstBteCache;
         private UsuarioDominio _objUsuario;
@@ -27,16 +27,6 @@ namespace NetZ.Web.Server.WebSocket
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
         private string _strSessaoId;
-
-        public bool booConectado
-        {
-            get
-            {
-                _booConectado = this.getBooConectado();
-
-                return _booConectado;
-            }
-        }
 
         public UsuarioDominio objUsuario
         {
@@ -224,12 +214,19 @@ namespace NetZ.Web.Server.WebSocket
         {
             // base.responder();
 
-            if (!this.validar(objSolicitacao))
+            try
             {
-                return;
-            }
+                if (!this.validar(objSolicitacao))
+                {
+                    return;
+                }
 
-            this.processarMensagem(objSolicitacao);
+                this.processarMensagem(objSolicitacao);
+            }
+            catch (Exception ex)
+            {
+                this.responderErro(objSolicitacao, ex);
+            }
         }
 
         protected override bool validar(Solicitacao objSolicitacao)
@@ -266,31 +263,6 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.srvWs.removerObjClienteWs(this);
-        }
-
-        private bool getBooConectado()
-        {
-            if (this.tcpClient == null)
-            {
-                return false;
-            }
-
-            if (this.tcpClient.GetStream() == null)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanRead)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanWrite)
-            {
-                return false;
-            }
-
-            return this.tcpClient.Connected;
         }
 
         private UsuarioDominio getObjUsuario()
@@ -451,6 +423,24 @@ namespace NetZ.Web.Server.WebSocket
             this.processarMensagem(objInterlocutor);
         }
 
+        private void responderErro(Solicitacao objSolicitacao, Exception ex)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+
+            string strStack = ex.StackTrace;
+
+            if (!string.IsNullOrEmpty(strStack))
+            {
+                strStack = strStack.Replace(Environment.NewLine, "<br/>");
+            }
+
+            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
+        }
+
+        private void setSrvWs(ServerWsBase srvWs)
         private void setSrvWs(SrvWsBase srvWs)
         {
             if (srvWs == null)

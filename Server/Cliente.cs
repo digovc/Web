@@ -2,7 +2,6 @@
 using DigoFramework.Servico;
 using NetZ.Web.Html.Pagina;
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -17,9 +16,20 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private bool _booConectado;
         private DateTime _dttUltimaMensagemRecebida;
         private ServerBase _srv;
         private TcpClient _tcpClient;
+
+        public bool booConectado
+        {
+            get
+            {
+                _booConectado = this.getBooConectado();
+
+                return _booConectado;
+            }
+        }
 
         /// <summary>
         /// Data e hora em que a última mensagem foi enviada pelo cliente para este servidor.
@@ -89,12 +99,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (!this.tcpClient.Connected)
-            {
-                return;
-            }
-
-            if (!this.tcpClient.GetStream().CanWrite)
+            if (!this.booConectado)
             {
                 return;
             }
@@ -165,11 +170,9 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            Solicitacao objSolicitacao;
-
-            while (this.tcpClient.Connected)
+            while (!this.booParar && this.tcpClient.Connected)
             {
-                objSolicitacao = this.carregarSolicitacao();
+                var objSolicitacao = this.carregarSolicitacao();
 
                 if (objSolicitacao == null)
                 {
@@ -198,22 +201,12 @@ namespace NetZ.Web.Server
 
         private Solicitacao carregarSolicitacao()
         {
-            if (this.tcpClient == null)
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.Connected)
+            if (!this.booConectado)
             {
                 return null;
             }
 
             if (!this.tcpClient.GetStream().DataAvailable)
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.GetStream().CanRead)
             {
                 return null;
             }
@@ -232,6 +225,31 @@ namespace NetZ.Web.Server
 
             this.tcpClient.Close();
             this.tcpClient.Dispose();
+        }
+
+        private bool getBooConectado()
+        {
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            if (this.tcpClient.GetStream() == null)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
         }
 
         private void inicializarStrNome()
