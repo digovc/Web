@@ -168,6 +168,7 @@ namespace NetZ.Web.Server.Ajax
 
             strBodyItem = strBodyItem.Replace("_artigo_link", (objEmailRegistro.urlDocumentacao + URL_MARKDOWN_FOLDER + "/" + objMdAlterado.dir.Replace("\\", "/")));
             strBodyItem = strBodyItem.Replace("_artigo_nome", objMdAlterado.strNome);
+            strBodyItem = strBodyItem.Replace("_tipo_alteracao", (objMdAlterado.dttCadastro > objEmailRegistro.dttAtualizacao) ? "adicionado" : "alterado");
 
             stbBodyItem.Append(strBodyItem);
         }
