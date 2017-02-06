@@ -144,11 +144,11 @@ namespace NetZ.Web.Server.Ajax
 
             if (lstMdAlterado.Count < 2)
             {
-                stbBody.Replace("_email_descricao", string.Format("O seguinte artigo da documentação \"{0}\" foi atualizado:", objEmailRegistro.strDocumentacaoTitulo));
+                stbBody.Replace("_email_descricao", "Existe novo conteúdo no seguinte artigo:");
             }
             else
             {
-                stbBody.Replace("_email_descricao", string.Format("Os seguintes artigos da documentação \"{0}\" foram atualizados:", objEmailRegistro.strDocumentacaoTitulo));
+                stbBody.Replace("_email_descricao", "Existem novos conteúdos nos seguintes artigos:");
             }
 
             var objEmail = new MailMessage();
@@ -160,6 +160,10 @@ namespace NetZ.Web.Server.Ajax
             objEmail.To.Add(new MailAddress(objEmailRegistro.strEmail));
 
             AppWebBase.i.objSmtpClient.Send(objEmail);
+
+            objEmailRegistro.dttAtualizacao = DateTime.Now;
+
+            this.salvarArquivo();
         }
 
         private void alertar(EmailRegistroDominio objEmailRegistro, MarkdownDominio objMdAlterado, StringBuilder stbBodyItem)
