@@ -142,14 +142,22 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             this.addCss(css.setBackgroundColor("#e3e3e3"));
             this.addCss(css.setBottom(0));
+            this.addCss(css.setMaxWidth(250));
             this.addCss(css.setMinWidth(250));
             this.addCss(css.setPosition("absolute"));
             this.addCss(css.setTop(50));
 
+            this.divConteudo.addCss(css.setBottom(75));
+            this.divConteudo.addCss(css.setOverflow("auto"));
+            this.divConteudo.addCss(css.setPosition("absolute"));
+            this.divConteudo.addCss(css.setTop(40));
+
             this.divTitulo.addCss(css.setBackgroundColor("#cecece"));
             this.divTitulo.addCss(css.setFontSize(20));
             this.divTitulo.addCss(css.setFontWeight("bold"));
-            this.divTitulo.addCss(css.setPadding(10));
+            this.divTitulo.addCss(css.setHeight(40));
+            this.divTitulo.addCss(css.setLineHeight(36));
+            this.divTitulo.addCss(css.setPaddingLeft(10));
         }
 
         protected override void setStrId(string strId)
