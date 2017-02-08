@@ -157,6 +157,19 @@ namespace NetZ.Web.Server.Arquivo.Css
             }
         }
 
+        public void addCssPuro(string css)
+        {
+            if (string.IsNullOrEmpty(css))
+            {
+                return;
+            }
+
+            this.stbConteudo.Append(css);
+
+            this.arrBteConteudo = null;
+            this.dttUltimaModificacao = DateTime.Now;
+        }
+
         public override string getStrConteudo()
         {
             return this.stbConteudo.ToString();
@@ -545,19 +558,6 @@ namespace NetZ.Web.Server.Arquivo.Css
         public string setZIndex(int intZIndex)
         {
             return this.addCss("z-index", intZIndex.ToString());
-        }
-
-        protected void addCssPuro(string css)
-        {
-            if (string.IsNullOrEmpty(css))
-            {
-                return;
-            }
-
-            this.stbConteudo.Append(css);
-
-            this.arrBteConteudo = null;
-            this.dttUltimaModificacao = DateTime.Now;
         }
 
         protected override byte[] getArrBteConteudo()
