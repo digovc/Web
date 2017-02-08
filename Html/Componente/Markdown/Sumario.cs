@@ -144,7 +144,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.addCss(css.setBottom(0));
             this.addCss(css.setMaxWidth(250));
             this.addCss(css.setMinWidth(250));
-            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setPosition("fixed"));
             this.addCss(css.setTop(50));
 
             this.divConteudo.addCss(css.setBottom(75));
