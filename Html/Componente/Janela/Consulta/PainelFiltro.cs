@@ -102,12 +102,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            this.intTamanhoVertical = -1;
+            this.intTamanhoVerticalPx = -1;
             this.strId = "pnlFiltro";
 
-            this.pnlCondicao.intTamanhoVertical = this.intTamanhoVertical;
+            this.pnlCondicao.intTamanhoVerticalPx = this.intTamanhoVerticalPx;
 
-            this.pnlSelecao.intTamanhoVertical = this.intTamanhoVertical;
+            this.pnlSelecao.intTamanhoVerticalPx = this.intTamanhoVerticalPx;
         }
 
         protected override void montarLayout()

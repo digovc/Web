@@ -74,7 +74,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.inicializar();
 
-            this.intTamanhoVertical = 4;
+            this.intTamanhoVerticalPx = 4;
         }
 
         protected override void montarLayout()

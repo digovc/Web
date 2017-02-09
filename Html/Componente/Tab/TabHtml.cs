@@ -51,7 +51,7 @@ namespace NetZ.Web.Html.Componente.Tab
             }
         }
 
-        public int intTamanhoVertical
+        public int intTamanhoVerticalPx
         {
             get
             {

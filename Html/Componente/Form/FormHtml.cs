@@ -607,9 +607,9 @@ namespace NetZ.Web.Html.Componente.Form
 
             pnlNivelResultado.intNivel = tag.intNivel;
 
-            if (tag.intTamanhoVertical > 0)
+            if (tag.intTamanhoVerticalPx > 0)
             {
-                pnlNivelResultado.intTamanhoVertical = tag.intTamanhoVertical;
+                pnlNivelResultado.intTamanhoVerticalPx = tag.intTamanhoVerticalPx;
             }
 
             pnlNivelResultado.setPai(this.divConteudo);

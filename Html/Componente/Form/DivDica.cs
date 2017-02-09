@@ -26,7 +26,7 @@ namespace NetZ.Web.Html.Componente.Form
             }
         }
 
-        public int intTamanhoVertical
+        public int intTamanhoVerticalPx
         {
             get
             {

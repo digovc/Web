@@ -34,14 +34,14 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.inicializar();
 
-            this.intTamanhoVertical = 2;
+            this.intTamanhoVerticalPx = 2;
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.tagInput.addCss(css.setMinHeight(this.intTamanhoVertical * 100 - 35));
+            this.tagInput.addCss(css.setMinHeight(this.intTamanhoVerticalPx * 100 - 35));
         }
 
         #endregion Métodos

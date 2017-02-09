@@ -17,7 +17,7 @@
             set;
         }
 
-        int intTamanhoVertical
+        int intTamanhoVerticalPx
         {
             get;
             set;

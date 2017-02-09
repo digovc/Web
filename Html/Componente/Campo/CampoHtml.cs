@@ -180,7 +180,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        public int intTamanhoVertical
+        public int intTamanhoVerticalPx
         {
             get
             {

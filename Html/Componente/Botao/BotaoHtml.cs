@@ -19,7 +19,7 @@ namespace NetZ.Web.Html.Componente.Botao
         private bool _booFrmSubmit;
         private EnmLado _enmLado = EnmLado.DIREITA;
         private int _intNivel;
-        private int _intTamanhoVertical;
+        private int _intTamanhoVerticalPx;
 
         /// <summary>
         /// Caso este botão esteja dentro de um formulário e não deseje que acione o submit do mesmo
@@ -70,16 +70,19 @@ namespace NetZ.Web.Html.Componente.Botao
             }
         }
 
-        public int intTamanhoVertical
+        /// <summary>
+        /// Tamanho vertical do botão em pixels.
+        /// </summary>
+        public int intTamanhoVerticalPx
         {
             get
             {
-                return _intTamanhoVertical;
+                return _intTamanhoVerticalPx;
             }
 
             set
             {
-                _intTamanhoVertical = value;
+                _intTamanhoVerticalPx = value;
             }
         }
 
@@ -140,6 +143,11 @@ namespace NetZ.Web.Html.Componente.Botao
 
         private decimal getDecWidth()
         {
+            if (this.intTamanhoVerticalPx > 0)
+            {
+                return this.intTamanhoVerticalPx;
+            }
+
             if (string.IsNullOrEmpty(this.strConteudo))
             {
                 return 30;
@@ -160,7 +168,7 @@ namespace NetZ.Web.Html.Componente.Botao
                 return 150;
             }
 
-            return 175;
+            return 200;
         }
 
         #endregion Métodos
