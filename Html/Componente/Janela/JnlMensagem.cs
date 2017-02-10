@@ -72,7 +72,7 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.inicializar();
 
-            this.pnlConteudo.intTamanhoVerticalPx = 2;
+            this.pnlConteudo.intTamanhoVertical = 2;
         }
 
         protected override void montarLayout()

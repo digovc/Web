@@ -51,7 +51,7 @@ namespace NetZ.Web.Html.Componente.Painel
         /// Indica o tamanho vertical deste painel, tendo 50 pixels de altura cada unidade.
         /// <para>Esta propriedade adicionará o atributo CSS.min-height para tanto.</para>
         /// </summary>
-        public int intTamanhoVerticalPx
+        public int intTamanhoVertical
         {
             get
             {
@@ -155,12 +155,12 @@ namespace NetZ.Web.Html.Componente.Painel
 
         private void setCssMinHeight(CssArquivo css)
         {
-            if (this.intTamanhoVerticalPx < 1)
+            if (this.intTamanhoVertical < 1)
             {
                 return;
             }
 
-            this.addCss(css.setMinHeight(50 * this.intTamanhoVerticalPx));
+            this.addCss(css.setMinHeight(50 * this.intTamanhoVertical));
         }
 
         private void setCssWidth(CssArquivo css)
