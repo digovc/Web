@@ -1,4 +1,6 @@
-﻿using System.ServiceProcess;
+﻿using System;
+using System.IO;
+using System.ServiceProcess;
 
 namespace NetZ.Web.WinService
 {
@@ -27,6 +29,8 @@ namespace NetZ.Web.WinService
 
         private void inicializar()
         {
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
             this.getAppWeb().inicializarServidor();
         }
 
