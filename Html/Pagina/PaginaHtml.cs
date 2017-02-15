@@ -490,6 +490,11 @@ namespace NetZ.Web.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
             lstJsDebug.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
             lstJsDebug.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
+
+            if (this.getBooJs())
+            {
+                lstJsDebug.Add(new JavaScriptTag(this.GetType()));
+            }
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
@@ -522,6 +527,11 @@ namespace NetZ.Web.Html.Pagina
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
         protected virtual void finalizarCss(CssArquivo css)
         {
+        }
+
+        protected virtual bool getBooJs()
+        {
+            return false;
         }
 
         protected virtual string getSrcJsBoot()

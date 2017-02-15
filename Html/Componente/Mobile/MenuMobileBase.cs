@@ -1,8 +1,8 @@
 ﻿using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Menu
+namespace NetZ.Web.Html.Componente.Mobile
 {
-    public abstract class MenuMobile : ComponenteHtml
+    public abstract class MenuMobileBase : ComponenteHtml
     {
         #region Constantes
 
@@ -71,7 +71,7 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobile), 200));
+            lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobileBase), 111));
         }
 
         protected override void addTag(Tag tag)
@@ -117,7 +117,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
             this.divConteudo.addCss(css.setBackgroundColor("white"));
             this.divConteudo.addCss(css.setHeight(100, "%"));
-            this.divConteudo.addCss(css.setWidth(90, "%"));
+            this.divConteudo.addCss(css.setMaxWidth(250));
+            this.divConteudo.addCss(css.setMinWidth(250));
 
             this.divItemConteudo.addCss(css.setPadding(10));
         }

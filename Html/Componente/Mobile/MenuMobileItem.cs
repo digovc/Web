@@ -1,6 +1,6 @@
 ﻿using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Menu
+namespace NetZ.Web.Html.Componente.Mobile
 {
     public class MenuMobileItem : ComponenteHtml
     {
