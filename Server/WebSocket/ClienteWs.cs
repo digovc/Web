@@ -314,6 +314,22 @@ namespace NetZ.Web.Server.WebSocket
 
             lstBteData.AddRange(objSolicitacao.arrBteMsgCliente);
 
+            this.processarMensagem(lstBteData);
+            this.processarMensagem(this.lstBteCache);
+        }
+
+        private void processarMensagem(List<byte> lstBteData)
+        {
+            if (lstBteData == null)
+            {
+                return;
+            }
+
+            if (lstBteData.Count < 1)
+            {
+                return;
+            }
+
             Frame fme = new Frame(lstBteData.ToArray());
 
             this.lstBteCache = new List<byte>(fme.processarDadosIn());

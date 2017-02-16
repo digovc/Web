@@ -87,6 +87,7 @@
     <Compile Include="Html\Componente\Menu\Contexto\MenuContexto.cs" />
     <Compile Include="Html\Componente\Mobile\MenuMobileBase.cs" />
     <Compile Include="Html\Componente\Mobile\MenuMobileItem.cs" />
+    <Compile Include="Html\Componente\Mobile\TileBase.cs" />
     <Compile Include="Html\Componente\Notificacao.cs" />
     <Compile Include="Html\Componente\Painel\PainelAcao.cs" />
     <Compile Include="Html\Componente\Botao\BotaoCircular.cs" />

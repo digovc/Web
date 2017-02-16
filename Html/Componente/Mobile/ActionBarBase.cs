@@ -126,6 +126,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setHeight(50, "px"));
             this.addCss(css.setPosition("fixed"));
+            this.addCss(css.setTop(0));
             this.addCss(css.setWidth(100, "%"));
 
             this.btnMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_PNG + "icon-menu-action-bar.png"));

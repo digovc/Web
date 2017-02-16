@@ -107,6 +107,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setHeight(100, "%"));
             this.addCss(css.setPosition("fixed"));
+            this.addCss(css.setTop(0));
             this.addCss(css.setWidth(100, "%"));
 
             this.divCabecalho.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
