@@ -217,7 +217,7 @@ namespace NetZ.Web.Server.Arquivo.Css
                 return null;
             }
 
-            return this.addCss("background-image", string.Format("url('{0}')", srcImagem));
+            return this.addCss("background-image", string.Format("url({0})", srcImagem));
         }
 
         public string setBackgroundPosition(string css)
