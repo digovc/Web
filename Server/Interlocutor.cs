@@ -86,7 +86,15 @@ namespace NetZ.Web.Server
         public Interlocutor(string strMetodo = "<desconhecido>", object objJson = null)
         {
             this.strMetodo = strMetodo;
-            this.addJson(objJson);
+
+            if (objJson is string)
+            {
+                this.objData = objJson;
+            }
+            else
+            {
+                this.addJson(objJson);
+            }
         }
 
         #endregion Construtores
