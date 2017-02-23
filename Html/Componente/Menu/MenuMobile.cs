@@ -71,7 +71,7 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobile), 200));
+            lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobile), 111));
         }
 
         protected override void addTag(Tag tag)
