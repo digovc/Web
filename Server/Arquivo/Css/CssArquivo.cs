@@ -217,6 +217,11 @@ namespace NetZ.Web.Server.Arquivo.Css
                 return null;
             }
 
+            if (srcImagem.ToLower().StartsWith("url"))
+            {
+                return this.addCss("background-image", srcImagem);
+            }
+
             return this.addCss("background-image", string.Format("url({0})", srcImagem));
         }
 
@@ -233,6 +238,11 @@ namespace NetZ.Web.Server.Arquivo.Css
         public string setBackgroundSize(string css)
         {
             return this.addCss("background-size", css);
+        }
+
+        public string setBackgroundSize(int intWidth, int intHeight, string strGrandeza = "px")
+        {
+            return this.addCss("background-size", string.Format("{0}{2} {1}{2}", intWidth, intHeight, strGrandeza));
         }
 
         public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "grey")
@@ -425,14 +435,14 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("max-width", string.Format("{0}{1}", intMaxWidth, strGrandeza));
         }
 
-        public string setMinHeight(decimal decMinHeight)
+        public string setMinHeight(decimal decMinHeight, string strGrandeza = "px")
         {
-            return this.addCss("min-height", string.Format("{0}px", decMinHeight.ToString(this.ctiUsa)));
+            return this.addCss("min-height", string.Format("{0}{1}", decMinHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
-        public string setMinWidth(decimal decMinWidth)
+        public string setMinWidth(decimal decMinWidth, string strGrandeza = "px")
         {
-            return this.addCss("min-width", string.Format("{0}px", decMinWidth.ToString(this.ctiUsa)));
+            return this.addCss("min-width", string.Format("{0}{1}", decMinWidth.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setNegrito()

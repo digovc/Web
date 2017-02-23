@@ -950,7 +950,7 @@ namespace NetZ.Web.Html
             this.attName.strValor = strName;
         }
 
-        private void setStrTitle(string strTitle)
+        protected virtual void setStrTitle(string strTitle)
         {
             if (string.IsNullOrEmpty(strTitle))
             {
