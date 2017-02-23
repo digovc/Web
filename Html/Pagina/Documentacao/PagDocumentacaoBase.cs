@@ -1,11 +1,11 @@
 ﻿using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Dominio.Documentacao;
+using NetZ.Web.Html.Componente.Documentacao;
 using NetZ.Web.Html.Componente.Markdown;
-using NetZ.Web.Html.Componente.Mobile;
 using NetZ.Web.Server.Ajax;
 using System;
 
-namespace NetZ.Web.Html.Pagina
+namespace NetZ.Web.Html.Pagina.Documentacao
 {
     public abstract class PagDocumentacaoBase : PagMobile
     {
@@ -16,7 +16,7 @@ namespace NetZ.Web.Html.Pagina
         #region Atributos
 
         private string _dirDocumentacao;
-        private ActionBar _divActionBar;
+        private ActionBarDocumentacao _divActionBarDocumentacao;
         private Sumario _divSumario;
         private Viewer _divViewer;
 
@@ -35,18 +35,18 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private ActionBar divActionBar
+        private ActionBarDocumentacao divActionBarDocumentacao
         {
             get
             {
-                if (_divActionBar != null)
+                if (_divActionBarDocumentacao != null)
                 {
-                    return _divActionBar;
+                    return _divActionBarDocumentacao;
                 }
 
-                _divActionBar = new ActionBar();
+                _divActionBarDocumentacao = new ActionBarDocumentacao();
 
-                return _divActionBar;
+                return _divActionBarDocumentacao;
             }
         }
 
@@ -130,14 +130,14 @@ namespace NetZ.Web.Html.Pagina
                 throw new Exception(string.Format("O diretório da documentação precisa ser relativo à pasta \"{0}\".", SrvAjaxDocumentacao.DIR_MARKDOWN));
             }
 
-            this.divActionBar.strTitulo = this.strNome;
+            this.divActionBarDocumentacao.strTitulo = this.strNome;
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            this.divActionBar.setPai(this);
+            this.divActionBarDocumentacao.setPai(this);
             this.divSumario.setPai(this);
 
             this.divViewer.setPai(this);

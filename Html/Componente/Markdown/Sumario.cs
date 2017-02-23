@@ -1,4 +1,4 @@
-﻿using NetZ.Web.Html.Pagina;
+﻿using NetZ.Web.Html.Pagina.Documentacao;
 using NetZ.Web.Server.Arquivo.Css;
 using System.Collections.Generic;
 using System.IO;

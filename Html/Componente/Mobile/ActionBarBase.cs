@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Mobile
 {
-    public class ActionBar : ComponenteHtml
+    public abstract class ActionBarBase : ComponenteHtml
     {
         #region Constantes
 
@@ -104,18 +104,7 @@ namespace NetZ.Web.Html.Componente.Mobile
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(ActionBar), 111));
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.strId = this.GetType().Name;
-
-            this.btnMenu.strId = (this.strId + "_btnMenu");
-            this.btnVoltar.strId = (this.strId + "_btnVoltar");
-            this.divTitulo.strId = (this.strId + "_divTitulo");
+            lstJsDebug.Add(new JavaScriptTag(typeof(ActionBarBase), 111));
         }
 
         protected override void montarLayout()
@@ -158,6 +147,15 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divTitulo.addCss(css.setLineHeight(50));
             this.divTitulo.addCss(css.setPaddingLeft(65));
             this.divTitulo.addCss(css.setWidth(100, "%"));
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            this.btnMenu.strId = (strId + "_btnMenu");
+            this.btnVoltar.strId = (strId + "_btnVoltar");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         private void setStrTitulo(string strTitulo)
