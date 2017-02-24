@@ -144,6 +144,21 @@ namespace NetZ.Web.Server.WebSocket
         #region Métodos
 
         /// <summary>
+        /// Atalho para <see cref="enviar(Interlocutor)"/>
+        /// </summary>
+        /// <param name="strMetodo">Método que está sendo executado.</param>
+        /// <param name="objData">Data que será enviada junto do JSON para o cliente.</param>
+        public void enviar(string strMetodo, object objData = null)
+        {
+            if (string.IsNullOrEmpty(strMetodo))
+            {
+                return;
+            }
+
+            this.enviar(new Interlocutor(strMetodo, objData));
+        }
+
+        /// <summary>
         /// Envia uma mensagem contendo a estrutura do interlocutor em JSON para este cliente.
         /// </summary>
         /// <param name="objInterlocutor">
