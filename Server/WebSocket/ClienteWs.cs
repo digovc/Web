@@ -181,6 +181,11 @@ namespace NetZ.Web.Server.WebSocket
             this.finalizarSrv();
         }
 
+        protected override int getIntTempoInatividade()
+        {
+            return (60 * 60 * 5);
+        }
+
         /// <summary>
         /// Mensagem recebida quando este cliente solicita o fechamento da conexão.
         /// </summary>

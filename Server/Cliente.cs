@@ -17,7 +17,8 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private bool _booConectado;
-        private DateTime _dttUltimaMensagemRecebida;
+        private DateTime _dttUltimaMensagemRecebida = DateTime.Now;
+        private int _intTempoInatividade;
         private ServerBase _srv;
         private TcpClient _tcpClient;
 
@@ -73,6 +74,21 @@ namespace NetZ.Web.Server
             }
         }
 
+        private int intTempoInatividade
+        {
+            get
+            {
+                if (_intTempoInatividade != 0)
+                {
+                    return _intTempoInatividade;
+                }
+
+                _intTempoInatividade = this.getIntTempoInatividade();
+
+                return _intTempoInatividade;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -119,6 +135,11 @@ namespace NetZ.Web.Server
             base.finalizar();
 
             this.finalizarTcpClient();
+        }
+
+        protected virtual int getIntTempoInatividade()
+        {
+            return (60 * 5); // Aguardar no máximo 5 minutos de inatividade.
         }
 
         protected override void inicializar()
@@ -170,7 +191,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            while (!this.booParar && this.tcpClient.Connected)
+            while (this.validarContinuar())
             {
                 var objSolicitacao = this.carregarSolicitacao();
 
@@ -272,6 +293,26 @@ namespace NetZ.Web.Server
         private bool validar(Resposta objResposta)
         {
             if (objResposta == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool validarContinuar()
+        {
+            if (this.booParar)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.Connected)
+            {
+                return false;
+            }
+
+            if ((DateTime.Now - this.dttUltimaMensagemRecebida).Seconds > this.intTempoInatividade)
             {
                 return false;
             }
