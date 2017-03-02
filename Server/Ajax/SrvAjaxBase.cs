@@ -74,10 +74,8 @@ namespace NetZ.Web.Server.Ajax
             }
             catch (Exception ex)
             {
-                this.responderErro(objSolicitacao, ex, objInterlocutor);
+                return this.responderErro(objSolicitacao, ex, objInterlocutor);
             }
-
-            return null;
         }
 
         protected void addAcessControl(Resposta objResposta)
