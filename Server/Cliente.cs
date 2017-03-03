@@ -158,14 +158,7 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                Resposta objResposta = this.srv.responder(objSolicitacao);
-
-                if (!this.validar(objResposta))
-                {
-                    return;
-                }
-
-                this.responder(objResposta);
+                this.responder(this.srv.responder(objSolicitacao));
             }
             catch (Exception ex)
             {
@@ -177,11 +170,28 @@ namespace NetZ.Web.Server
         {
             if (objResposta == null)
             {
-                // TODO: Quando a resposta estiver null enviar uma mensagem de erro no servidor.
+                // TODO: Quando a resposta estiver null enviar uma mensagem 404 para o cliente.
                 return;
             }
 
             this.enviar(objResposta.arrBteResposta);
+        }
+
+        protected virtual void responderErro(Solicitacao objSolicitacao, Exception ex)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            objResposta.addHtml(new PagError(ex));
+            objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
+
+            this.responder(objResposta);
+
+            Log.i.erro(ex);
         }
 
         protected override void servico()
@@ -191,27 +201,11 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            while (this.validarContinuar())
-            {
-                var objSolicitacao = this.carregarSolicitacao();
-
-                if (objSolicitacao == null)
-                {
-                    Thread.Sleep(10); // TODO: Parar esse processo depois de um tempo excessivo.
-                    continue;
-                }
-
-                this.responder(objSolicitacao);
-            }
+            this.loop();
         }
 
         protected virtual bool validar(Solicitacao objSolicitacao)
         {
-            if (objSolicitacao == null)
-            {
-                return false;
-            }
-
             if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(objSolicitacao.enmMetodo))
             {
                 return false;
@@ -278,26 +272,21 @@ namespace NetZ.Web.Server
             this.strNome = string.Format("{0} ({1})", this.GetType().Name, ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString());
         }
 
-        private void responderErro(Solicitacao objSolicitacao, Exception ex)
+        private void loop()
         {
-            Resposta objResposta = new Resposta(objSolicitacao);
-
-            objResposta.addHtml(new PagError(ex));
-            objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
-
-            this.responder(objResposta);
-
-            Log.i.erro(ex);
-        }
-
-        private bool validar(Resposta objResposta)
-        {
-            if (objResposta == null)
+            do
             {
-                return false;
-            }
+                var objSolicitacao = this.carregarSolicitacao();
 
-            return true;
+                if (objSolicitacao == null)
+                {
+                    Thread.Sleep(10);
+                    continue;
+                }
+
+                this.responder(objSolicitacao);
+            }
+            while (this.validarContinuar());
         }
 
         private bool validarContinuar()

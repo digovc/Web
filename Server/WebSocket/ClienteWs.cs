@@ -1,4 +1,5 @@
-﻿using DigoFramework.Json;
+﻿using DigoFramework;
+using DigoFramework.Json;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
 using System;
@@ -249,14 +250,30 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
+        protected override void responderErro(Solicitacao objSolicitacao, Exception ex)
+        {
+            // base.responderErro(objSolicitacao, ex);
+
+            if (ex == null)
+            {
+                return;
+            }
+
+            string strStack = ex.StackTrace;
+
+            if (!string.IsNullOrEmpty(strStack))
+            {
+                strStack = strStack.Replace(Environment.NewLine, "<br/>");
+            }
+
+            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
+
+            Log.i.erro(ex);
+        }
+
         protected override bool validar(Solicitacao objSolicitacao)
         {
             // base.validar(objSolicitacao);
-
-            if (objSolicitacao == null)
-            {
-                return false;
-            }
 
             return true;
         }
@@ -457,23 +474,6 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.processarMensagem(objInterlocutor);
-        }
-
-        private void responderErro(Solicitacao objSolicitacao, Exception ex)
-        {
-            if (ex == null)
-            {
-                return;
-            }
-
-            string strStack = ex.StackTrace;
-
-            if (!string.IsNullOrEmpty(strStack))
-            {
-                strStack = strStack.Replace(Environment.NewLine, "<br/>");
-            }
-
-            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
         }
 
         private void setSrvWs(SrvWsBase srvWs)
