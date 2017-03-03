@@ -43,7 +43,6 @@ namespace NetZ.Web
         private object _objLstObjUsuarioLock;
         private SmtpClient _objSmtpClient;
         private string _strEmail;
-        private JavaScriptTag _tagJsRelease;
 
         public new static AppWebBase i
         {
@@ -144,21 +143,6 @@ namespace NetZ.Web
             }
         }
 
-        internal JavaScriptTag tagJsRelease
-        {
-            get
-            {
-                if (_tagJsRelease != null)
-                {
-                    return _tagJsRelease;
-                }
-
-                _tagJsRelease = this.getTagJsRelease();
-
-                return _tagJsRelease;
-            }
-        }
-
         private List<ServerBase> lstSrv
         {
             get
@@ -210,7 +194,7 @@ namespace NetZ.Web
         /// </para>
         /// <para>
         /// O servidor der solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
-        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbAtivar"/>
+        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
         /// esteja marcada.
         /// </para>
         /// </summary>
@@ -314,11 +298,6 @@ namespace NetZ.Web
         protected virtual string getStrEmail()
         {
             throw new NotFiniteNumberException();
-        }
-
-        protected virtual JavaScriptTag getTagJsRelease()
-        {
-            return null;
         }
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);

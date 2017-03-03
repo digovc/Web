@@ -108,9 +108,9 @@ namespace NetZ.Web.Html.Pagina.Documentacao
             lstCss.Add(new CssTag(AppWebBase.DIR_CSS + "github-markdown.css"));
         }
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(DocumentacaoDominioBase), 151));
             lstJsDebug.Add(new JavaScriptTag(typeof(DominioWebBase), 150));

@@ -28,7 +28,7 @@ namespace NetZ.Web.Html.Pagina
         private bool _booPagSimples;
         private Div _divNotificacao;
         private LstTag<CssTag> _lstCss;
-        private LstTag<JavaScriptTag> _lstJsDebug;
+        private LstTag<JavaScriptTag> _lstJs;
         private LstTag<JavaScriptTag> _lstJsLib;
         private string _srcIcone = "/res/media/ico/favicon.ico";
         private string _strHtmlEstatico;
@@ -89,18 +89,18 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        internal LstTag<JavaScriptTag> lstJsDebug
+        internal LstTag<JavaScriptTag> lstJs
         {
             get
             {
-                if (_lstJsDebug != null)
+                if (_lstJs != null)
                 {
-                    return _lstJsDebug;
+                    return _lstJs;
                 }
 
-                _lstJsDebug = new LstTag<JavaScriptTag>();
+                _lstJs = new LstTag<JavaScriptTag>();
 
-                return _lstJsDebug;
+                return _lstJs;
             }
         }
 
@@ -465,7 +465,7 @@ namespace NetZ.Web.Html.Pagina
             this.tagJs.setPai(this.tagHead);
         }
 
-        protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
             lstJsDebug.Add(new JavaScriptTag(typeof(AppWebBase), 104));
             lstJsDebug.Add(new JavaScriptTag(typeof(Interlocutor), 105));
@@ -645,31 +645,9 @@ namespace NetZ.Web.Html.Pagina
 
             this.addJs(this.tagJs);
 
-            this.addJsRelease();
+            this.addJs(this.lstJs);
 
-            this.addJsDebug();
-        }
-
-        private void addJsDebug()
-        {
-            if (!AppWebBase.i.booDesenvolvimento)
-            {
-                return;
-            }
-
-            this.addJsDebug(this.lstJsDebug);
-
-            List<JavaScriptTag> lstJsDebugOrdenado = this.lstJsDebug.OrderBy((o) => o.intOrdem).ToList();
-
-            foreach (JavaScriptTag tagJs in lstJsDebugOrdenado)
-            {
-                if (tagJs == null)
-                {
-                    continue;
-                }
-
-                tagJs.setPai(this.tagHead);
-            }
+            this.addJsLstJs();
         }
 
         private void addJsLib()
@@ -689,19 +667,19 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private void addJsRelease()
+        private void addJsLstJs()
         {
-            if (AppWebBase.i.booDesenvolvimento)
-            {
-                return;
-            }
+            List<JavaScriptTag> lstJsDebugOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
 
-            if (AppWebBase.i.tagJsRelease == null)
+            foreach (JavaScriptTag tagJs in lstJsDebugOrdenado)
             {
-                return;
-            }
+                if (tagJs == null)
+                {
+                    continue;
+                }
 
-            AppWebBase.i.tagJsRelease.setPai(this.tagHead);
+                tagJs.setPai(this.tagHead);
+            }
         }
 
         private string getStrTitulo()

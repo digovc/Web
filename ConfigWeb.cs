@@ -14,7 +14,7 @@ namespace NetZ.Web
 
         private string[] _arrDirIgnorado;
         private string[] _arrStrExtencaoIgnorada;
-        private bool _booSrvAjaxDbAtivar = true;
+        private bool _booSrvAjaxDbeAtivar = true;
         private int _intSrvAjaxDbePorta = 8082;
         private int _intSrvAjaxDocumentacao = 8081;
         private int _intSrvHttpPorta = 80;
@@ -72,16 +72,16 @@ namespace NetZ.Web
         /// Indica se ao inicializar o servidor HTTP, o servidor de solicitações AJAX do banco de
         /// dados será ativo também.
         /// </summary>
-        public bool booSrvAjaxDbAtivar
+        public bool booSrvAjaxDbeAtivar
         {
             get
             {
-                return _booSrvAjaxDbAtivar;
+                return _booSrvAjaxDbeAtivar;
             }
 
             set
             {
-                _booSrvAjaxDbAtivar = value;
+                _booSrvAjaxDbeAtivar = value;
             }
         }
 

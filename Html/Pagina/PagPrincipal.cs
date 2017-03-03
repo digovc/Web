@@ -65,9 +65,9 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             // TODO: Carregar esses scripts separadamente, quando forem necessário, durante a
             //       execução de cada tarefa. O carregamento excessivo na abertura da tela principal

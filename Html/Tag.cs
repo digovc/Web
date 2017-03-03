@@ -778,7 +778,7 @@ namespace NetZ.Web.Html
         {
             this.addCss(PaginaHtml.i.lstCss);
             this.addJsLib(PaginaHtml.i.lstJsLib);
-            this.addJsDebug(PaginaHtml.i.lstJsDebug);
+            this.addJsDebug(PaginaHtml.i.lstJs);
             this.addJs(PaginaHtml.i.tagJs);
 
             this.inicializarClazz();
