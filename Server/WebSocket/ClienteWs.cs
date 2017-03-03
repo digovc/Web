@@ -15,6 +15,8 @@ namespace NetZ.Web.Server.WebSocket
         #region Constantes
 
         private const string STR_METODO_ERRO = "STR_METODO_ERRO";
+        private const string STR_METODO_PING = "ping";
+        private const string STR_METODO_PONG = "pong";
         private const string STR_METODO_WELCOME = "STR_METODO_WELCOME";
 
         #endregion Constantes
@@ -182,11 +184,6 @@ namespace NetZ.Web.Server.WebSocket
             this.finalizarSrv();
         }
 
-        protected override int getIntTempoInatividade()
-        {
-            return (60 * 60 * 5);
-        }
-
         /// <summary>
         /// Mensagem recebida quando este cliente solicita o fechamento da conexão.
         /// </summary>
@@ -211,12 +208,21 @@ namespace NetZ.Web.Server.WebSocket
         {
             switch (objInterlocutor.strMetodo)
             {
+                case STR_METODO_PING:
+                    this.processarMensagemPing();
+                    return true;
+
                 case STR_METODO_WELCOME:
                     this.processarMensagemWelcome(objInterlocutor);
                     return true;
             }
 
             return false;
+        }
+
+        private void processarMensagemPing()
+        {
+            this.enviar(new Interlocutor(STR_METODO_PONG));
         }
 
         protected virtual bool processarMensagem(string strMensagem)
@@ -237,11 +243,6 @@ namespace NetZ.Web.Server.WebSocket
 
             try
             {
-                if (!this.validar(objSolicitacao))
-                {
-                    return;
-                }
-
                 this.processarMensagem(objSolicitacao);
             }
             catch (Exception ex)
@@ -269,13 +270,6 @@ namespace NetZ.Web.Server.WebSocket
             this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
 
             Log.i.erro(ex);
-        }
-
-        protected override bool validar(Solicitacao objSolicitacao)
-        {
-            // base.validar(objSolicitacao);
-
-            return true;
         }
 
         private void enviar(string strMensagem)

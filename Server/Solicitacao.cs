@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DigoFramework;
+using NetZ.Web.DataBase.Dominio;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,8 +9,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Web;
-using DigoFramework;
-using NetZ.Web.DataBase.Dominio;
 
 namespace NetZ.Web.Server
 {
@@ -553,6 +553,20 @@ namespace NetZ.Web.Server
             }
 
             return null;
+        }
+
+        internal bool validar()
+        {
+            // TODO: Quando a solicitação utilizar o método POST deve ser validado o corpo dela para
+            //       garantir que todo os bytes foram transferidos. Do contrário um cache deve ser
+            //       criado afim de aguardar o envio completo dos dados.
+
+            if (this.enmMetodo.Equals(EnmMetodo.DESCONHECIDO))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private byte[] getArrBteConteudo()

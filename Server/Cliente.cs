@@ -18,7 +18,6 @@ namespace NetZ.Web.Server
 
         private bool _booConectado;
         private DateTime _dttUltimaMensagemRecebida = DateTime.Now;
-        private int _intTempoInatividade;
         private ServerBase _srv;
         private TcpClient _tcpClient;
 
@@ -74,21 +73,6 @@ namespace NetZ.Web.Server
             }
         }
 
-        private int intTempoInatividade
-        {
-            get
-            {
-                if (_intTempoInatividade != 0)
-                {
-                    return _intTempoInatividade;
-                }
-
-                _intTempoInatividade = this.getIntTempoInatividade();
-
-                return _intTempoInatividade;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -137,11 +121,6 @@ namespace NetZ.Web.Server
             this.finalizarTcpClient();
         }
 
-        protected virtual int getIntTempoInatividade()
-        {
-            return (60 * 5); // Aguardar no máximo 5 minutos de inatividade.
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -153,7 +132,7 @@ namespace NetZ.Web.Server
         {
             try
             {
-                if (!this.validar(objSolicitacao))
+                if (!objSolicitacao.validar())
                 {
                     return;
                 }
@@ -202,16 +181,6 @@ namespace NetZ.Web.Server
             }
 
             this.loop();
-        }
-
-        protected virtual bool validar(Solicitacao objSolicitacao)
-        {
-            if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(objSolicitacao.enmMetodo))
-            {
-                return false;
-            }
-
-            return true;
         }
 
         private Solicitacao carregarSolicitacao()
@@ -301,7 +270,7 @@ namespace NetZ.Web.Server
                 return false;
             }
 
-            if ((DateTime.Now - this.dttUltimaMensagemRecebida).Seconds > this.intTempoInatividade)
+            if ((DateTime.Now - this.dttUltimaMensagemRecebida).Seconds > 45)
             {
                 return false;
             }
