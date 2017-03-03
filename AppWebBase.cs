@@ -193,7 +193,7 @@ namespace NetZ.Web
         /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
         /// </para>
         /// <para>
-        /// O servidor der solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
+        /// O servidor de solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
         /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
         /// esteja marcada.
         /// </para>

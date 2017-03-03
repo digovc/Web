@@ -112,9 +112,9 @@ namespace NetZ.Web.Html
             this.dicOpcao.Add(objValor, strNome);
         }
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(ComboBox), 111));
         }

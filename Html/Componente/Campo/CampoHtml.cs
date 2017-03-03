@@ -283,9 +283,9 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(CampoHtml), 130));
         }

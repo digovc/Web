@@ -52,7 +52,7 @@ namespace NetZ.Web.Server.Ajax
 
         protected override int getIntPorta()
         {
-            return ConfigWebBase.i.intSrvAjaxDbePorta;
+            return 8082;
         }
 
         protected override bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)

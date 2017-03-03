@@ -81,9 +81,9 @@ namespace NetZ.Web.Html.Componente.Mobile
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobileItem), 110));
         }

@@ -129,9 +129,9 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(MenuItem), 151));
 

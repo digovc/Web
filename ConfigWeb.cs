@@ -12,10 +12,6 @@ namespace NetZ.Web
 
         private static ConfigWebBase _i;
 
-        private string[] _arrDirIgnorado;
-        private string[] _arrStrExtencaoIgnorada;
-        private bool _booSrvAjaxDbeAtivar = true;
-        private int _intSrvAjaxDbePorta = 8082;
         private int _intSrvAjaxDocumentacao = 8081;
         private int _intSrvHttpPorta = 80;
         private int _intTimeOut = 5;
@@ -30,74 +26,6 @@ namespace NetZ.Web
             private set
             {
                 _i = value;
-            }
-        }
-
-        /// <summary>
-        /// Lista de diretórios ou arquivos estáticos que devem ser ignorados e que não estarão
-        /// disponíveis do lado do cliente.
-        /// <para>Estes diretórios e arquivos são relativos ao diretório presente em <see cref="dirLocal"/>.</para>
-        /// </summary>
-        public string[] arrDirIgnorado
-        {
-            get
-            {
-                return _arrDirIgnorado;
-            }
-
-            set
-            {
-                _arrDirIgnorado = value;
-            }
-        }
-
-        /// <summary>
-        /// Lista de extenções de arquivos que devem ser ignorados e que não estarão disponíveis do
-        /// lado do cliente.
-        /// </summary>
-        public string[] arrStrExtencaoIgnorada
-        {
-            get
-            {
-                return _arrStrExtencaoIgnorada;
-            }
-
-            set
-            {
-                _arrStrExtencaoIgnorada = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica se ao inicializar o servidor HTTP, o servidor de solicitações AJAX do banco de
-        /// dados será ativo também.
-        /// </summary>
-        public bool booSrvAjaxDbeAtivar
-        {
-            get
-            {
-                return _booSrvAjaxDbeAtivar;
-            }
-
-            set
-            {
-                _booSrvAjaxDbeAtivar = value;
-            }
-        }
-
-        /// <summary>
-        /// Porta que será utilizada pelo servidor <see cref="SrvAjaxDbe"/>.
-        /// </summary>
-        public int intSrvAjaxDbePorta
-        {
-            get
-            {
-                return _intSrvAjaxDbePorta;
-            }
-
-            set
-            {
-                _intSrvAjaxDbePorta = value;
             }
         }
 

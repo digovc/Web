@@ -182,9 +182,9 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJsDebug);
 
             lstJsDebug.Add(new JavaScriptTag(typeof(JanelaHtml), 111));
         }
