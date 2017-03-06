@@ -40,11 +40,11 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
+            lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
         }
 
         protected override void finalizarCss(CssArquivo css)

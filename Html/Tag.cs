@@ -727,7 +727,7 @@ namespace NetZ.Web.Html
         /// <param name="lstJs">
         /// Lista de <see cref="JavaScriptTag"/> que será carregada pelo browser do usuário.
         /// </param>
-        protected virtual void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
         }
 

@@ -53,11 +53,11 @@
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(PagMobile), 103));
+            lstJs.Add(new JavaScriptTag(typeof(PagMobile), 103));
         }
 
         protected override void inicializar()

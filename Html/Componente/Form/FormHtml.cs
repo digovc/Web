@@ -325,11 +325,11 @@ namespace NetZ.Web.Html.Componente.Form
             this.booJnlCadastro = (tagPai is JnlCadastro);
         }
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(FormHtml)));
+            lstJs.Add(new JavaScriptTag(typeof(FormHtml)));
         }
 
         protected override void addTag(Tag tag)

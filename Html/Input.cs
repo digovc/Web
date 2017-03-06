@@ -259,13 +259,13 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(Input), 110));
+            lstJs.Add(new JavaScriptTag(typeof(Input), 110));
 
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/OnValorAlteradoArg.js", 110));
+            lstJs.Add(new JavaScriptTag("/res/js/web/OnValorAlteradoArg.js", 110));
         }
 
         protected void setStrValor(string strValor)

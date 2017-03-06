@@ -16,15 +16,15 @@
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
+            lstJs.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
 
             if (this.getBooJs())
             {
-                lstJsDebug.Add(new JavaScriptTag(this.GetType()));
+                lstJs.Add(new JavaScriptTag(this.GetType()));
             }
         }
 

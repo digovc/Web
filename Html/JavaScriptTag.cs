@@ -169,7 +169,7 @@ namespace NetZ.Web.Html
         /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
         /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
         /// </summary>
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             // Não fazer nada.
         }

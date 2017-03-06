@@ -49,12 +49,12 @@
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(TreeViewHtml), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(TreeViewNode), 112));
+            lstJs.Add(new JavaScriptTag(typeof(TreeViewHtml), 111));
+            lstJs.Add(new JavaScriptTag(typeof(TreeViewNode), 112));
         }
 
         protected override void addLayoutFixo(JavaScriptTag tagJs)

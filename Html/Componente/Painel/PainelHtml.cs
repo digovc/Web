@@ -86,13 +86,13 @@ namespace NetZ.Web.Html.Componente.Painel
             this.addJsMarkdown(js);
         }
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(PainelHtml), 114));
+            lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
 
-            this.addJsMarkdown(lstJsDebug);
+            this.addJsMarkdown(lstJs);
         }
 
         protected override void setCss(CssArquivo css)

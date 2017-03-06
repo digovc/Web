@@ -108,17 +108,17 @@ namespace NetZ.Web.Html.Pagina.Documentacao
             lstCss.Add(new CssTag(AppWebBase.DIR_CSS + "github-markdown.css"));
         }
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJs(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(DocumentacaoDominioBase), 151));
-            lstJsDebug.Add(new JavaScriptTag(typeof(DominioWebBase), 150));
-            lstJsDebug.Add(new JavaScriptTag(typeof(EmailRegistroDominio), 152));
-            lstJsDebug.Add(new JavaScriptTag(typeof(PagDocumentacaoBase), 104));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvAjaxDocumentacao), 103));
+            lstJs.Add(new JavaScriptTag(typeof(DocumentacaoDominioBase), 151));
+            lstJs.Add(new JavaScriptTag(typeof(DominioWebBase), 150));
+            lstJs.Add(new JavaScriptTag(typeof(EmailRegistroDominio), 152));
+            lstJs.Add(new JavaScriptTag(typeof(PagDocumentacaoBase), 104));
+            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDocumentacao), 103));
 
-            lstJsDebug.Add(new JavaScriptTag((AppWebBase.DIR_JS_LIB + "marked.min.js")));
+            lstJs.Add(new JavaScriptTag((AppWebBase.DIR_JS_LIB + "marked.min.js")));
         }
 
         protected override void inicializar()

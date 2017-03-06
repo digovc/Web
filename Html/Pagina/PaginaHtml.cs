@@ -465,35 +465,35 @@ namespace NetZ.Web.Html.Pagina
             this.tagJs.setPai(this.tagHead);
         }
 
-        protected virtual void addJs(LstTag<JavaScriptTag> lstJsDebug)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            lstJsDebug.Add(new JavaScriptTag(typeof(AppWebBase), 104));
-            lstJsDebug.Add(new JavaScriptTag(typeof(Interlocutor), 105));
-            lstJsDebug.Add(new JavaScriptTag(typeof(Mensagem), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuContexto), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuGrid), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(Notificacao), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(AppWebBase), 104));
+            lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
+            lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
+            lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
+            lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
+            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
+            lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
 
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/html/Tag.js", 103));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
+            lstJs.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
+            lstJs.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
+            lstJs.Add(new JavaScriptTag("/res/js/web/html/Tag.js", 103));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
 
             if (this.getBooJs())
             {
-                lstJsDebug.Add(new JavaScriptTag(this.GetType()));
+                lstJs.Add(new JavaScriptTag(this.GetType()));
             }
         }
 
@@ -669,9 +669,9 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsLstJs()
         {
-            List<JavaScriptTag> lstJsDebugOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
+            List<JavaScriptTag> lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
 
-            foreach (JavaScriptTag tagJs in lstJsDebugOrdenado)
+            foreach (JavaScriptTag tagJs in lstJsOrdenado)
             {
                 if (tagJs == null)
                 {
