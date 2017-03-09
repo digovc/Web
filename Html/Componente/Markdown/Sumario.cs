@@ -2,6 +2,7 @@
 using NetZ.Web.Server.Arquivo.Css;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace NetZ.Web.Html.Componente.Markdown
 {
@@ -181,7 +182,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             var lstDivItemResultado = new List<SumarioItem>();
 
-            foreach (string dirMarkdown in Directory.GetFiles(this.pagDoc.dirDocumentacao))
+            foreach (string dirMarkdown in Directory.GetFiles(this.pagDoc.dirDocumentacao).OrderBy(dir => dir))
             {
                 this.getLstDivItem(lstDivItemResultado, dirMarkdown);
             }

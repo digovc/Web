@@ -200,7 +200,7 @@ namespace NetZ.Web.Html.Componente.Markdown
 
             var lstDivItemResultado = new List<SumarioItem>();
 
-            foreach (string dirMarkdown in Directory.GetFiles(dirMarkdownFolder))
+            foreach (string dirMarkdown in Directory.GetFiles(dirMarkdownFolder).OrderBy(dir => dir))
             {
                 this.getLstDivItem(lstDivItemResultado, dirMarkdown);
             }
