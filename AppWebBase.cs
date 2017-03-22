@@ -318,6 +318,8 @@ namespace NetZ.Web
 
         private void inicializarLstSrv()
         {
+            Log.i.info("Inicializando a lista de serviços.");
+
             this.lstSrv?.ForEach((srv) => srv.iniciar());
         }
 

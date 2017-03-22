@@ -57,6 +57,7 @@
     <Compile Include="DataBase\View\ViwFiltroItem.cs" />
     <Compile Include="DataBase\View\ViwWebBase.cs" />
     <Compile Include="DataBase\Dominio\DominioWebBase.cs" />
+    <Compile Include="Html\Activity\ActivityBase.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
