@@ -99,6 +99,7 @@ namespace NetZ.Web.Html.Componente.Botao
 
             this.addCss(css.setBorder(0));
             this.addCss(css.setCursor("pointer"));
+            this.addCss(css.setOutline("none"));
 
             this.setCssHeight(css);
             this.setCssWidth(css);
