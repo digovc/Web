@@ -129,10 +129,8 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.inicializar();
 
-            this.btnDireita.enmLado = BotaoHtml.EnmLado.ESQUERDA;
             this.btnDireita.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
-            this.btnEsquerda.enmLado = BotaoHtml.EnmLado.ESQUERDA;
             this.btnEsquerda.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
             this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;

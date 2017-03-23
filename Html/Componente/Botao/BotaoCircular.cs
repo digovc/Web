@@ -47,13 +47,6 @@ namespace NetZ.Web.Html.Componente.Botao
             lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
         }
 
-        protected override void finalizarCss(CssArquivo css)
-        {
-            base.finalizarCss(css);
-
-            this.finalizarCssPadding(css);
-        }
-
         protected virtual int getIntTamanho()
         {
             switch (this.enmTamanho)
@@ -90,18 +83,6 @@ namespace NetZ.Web.Html.Componente.Botao
         protected override void setCssWidth(CssArquivo css)
         {
             this.addCss(css.setWidth(this.getIntTamanho()));
-        }
-
-        private void finalizarCssPadding(CssArquivo css)
-        {
-            if (EnmLado.DIREITA.Equals(this.enmLado))
-            {
-                this.addCss(css.setMarginLeft(5));
-            }
-            else
-            {
-                this.addCss(css.setMarginRight(5));
-            }
         }
 
         #endregion Métodos

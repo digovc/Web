@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Html.Componente.Botao.ActionBar;
+﻿using System;
+using NetZ.Web.Html.Componente.Botao.ActionBar;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Mobile
@@ -11,11 +12,39 @@ namespace NetZ.Web.Html.Componente.Mobile
 
         #region Atributos
 
+        private bool _booMostrarMenu = true;
+        private bool _booMostrarVoltar;
         private BotaoActionBar _btnMenu;
         private BotaoActionBar _btnVoltar;
         private Div _divLinha;
         private Div _divTitulo;
         private string _strTitulo;
+
+        public bool booMostrarMenu
+        {
+            get
+            {
+                return _booMostrarMenu;
+            }
+
+            set
+            {
+                _booMostrarMenu = value;
+            }
+        }
+
+        public bool booMostrarVoltar
+        {
+            get
+            {
+                return _booMostrarVoltar;
+            }
+
+            set
+            {
+                _booMostrarVoltar = value;
+            }
+        }
 
         public string strTitulo
         {
@@ -111,9 +140,12 @@ namespace NetZ.Web.Html.Componente.Mobile
         {
             base.montarLayout();
 
-            this.btnMenu.setPai(this);
-            this.btnVoltar.setPai(this);
-            this.divLinha.setPai(this);
+            this.btnMenu.setPai(this.booMostrarMenu ? this : null);
+
+            this.divLinha.setPai(this.booMostrarMenu ? this : null);
+
+            this.btnVoltar.setPai(this.booMostrarVoltar ? this : null);
+
             this.divTitulo.setPai(this);
         }
 
@@ -125,17 +157,15 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
             this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setHeight(50, "px"));
+            this.addCss(css.setLeft(0));
             this.addCss(css.setPosition("fixed"));
+            this.addCss(css.setRight(0));
             this.addCss(css.setTop(0));
             this.addCss(css.setWidth(100, "%"));
 
-            this.btnMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_PNG + "icon-menu-action-bar.png"));
-            this.btnMenu.addCss(css.setBackgroundPosition("center"));
-            this.btnMenu.addCss(css.setBackgroundRepeat("no-repeat"));
-            this.btnMenu.addCss(css.setFloat("left"));
+            this.setCssBtnMenu(css);
 
-            this.btnVoltar.addCss(css.setDisplay("none"));
-            this.btnVoltar.addCss(css.setFloat("left"));
+            this.setCssBtnVoltar(css);
 
             this.divLinha.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFonteTema));
             this.divLinha.addCss(css.setFloat("left"));
@@ -148,6 +178,28 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divTitulo.addCss(css.setLineHeight(50));
             this.divTitulo.addCss(css.setPaddingLeft(65));
             this.divTitulo.addCss(css.setWidth(100, "%"));
+        }
+
+        private void setCssBtnVoltar(CssArquivo css)
+        {
+            if (!this.booMostrarVoltar)
+            {
+                return;
+            }
+
+            this.btnVoltar.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "return.svg"));
+            this.btnVoltar.addCss(css.setFloat("left"));
+        }
+
+        private void setCssBtnMenu(CssArquivo css)
+        {
+            if (!this.booMostrarMenu)
+            {
+                return;
+            }
+
+            this.btnMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "menu.svg"));
+            this.btnMenu.addCss(css.setFloat("left"));
         }
 
         protected override void setStrId(string strId)
