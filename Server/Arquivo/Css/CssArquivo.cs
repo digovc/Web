@@ -167,7 +167,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             this.stbConteudo.Append(css);
 
             this.arrBteConteudo = null;
-            this.dttUltimaModificacao = DateTime.Now;
+            this.dttAlteracao = DateTime.Now;
         }
 
         public override string getStrConteudo()
@@ -600,7 +600,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             this.stbConteudo.Append(atrCss.getStrFormatado());
 
             this.arrBteConteudo = null;
-            this.dttUltimaModificacao = DateTime.Now;
+            this.dttAlteracao = DateTime.Now;
 
             return atrCss.strClass;
         }

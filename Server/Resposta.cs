@@ -416,7 +416,7 @@ namespace NetZ.Web.Server
                 return this;
             }
 
-            this.dttUltimaModificacao = arq.dttUltimaModificacao;
+            this.dttUltimaModificacao = arq.dttAlteracao;
             this.atualizarEnmContentType(arq);
 
             if (this.objSolicitacao.dttUltimaModificacao.ToString().Equals(this.dttUltimaModificacao.ToString()))

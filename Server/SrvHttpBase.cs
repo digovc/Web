@@ -388,7 +388,7 @@ namespace NetZ.Web.Server
             ArquivoEstatico arqDownload = new ArquivoEstatico();
 
             arqDownload.arrBteConteudo = (tbl as ITblArquivo).getClnArq().arrBteValor;
-            arqDownload.dttUltimaModificacao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
+            arqDownload.dttAlteracao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
             arqDownload.strNome = (tbl as ITblArquivo).getClnStrArquivoNome().strValor;
 
             tbl.liberarThread();
