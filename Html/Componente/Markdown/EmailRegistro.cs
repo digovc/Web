@@ -82,7 +82,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.divTitulo.strConteudo = "Receber atualizações";
 
             this.txtEmail.enmTipo = Input.EnmTipo.EMAIL;
-            this.txtEmail.strPlaceHolder = "Informa seu email";
+            this.txtEmail.strPlaceHolder = "Digite o seu email aqui";
         }
 
         protected override void montarLayout()

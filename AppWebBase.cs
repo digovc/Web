@@ -1,7 +1,6 @@
 ﻿using DigoFramework;
 using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
-using NetZ.Web.Html;
 using NetZ.Web.Server;
 using System;
 using System.Collections.Generic;
@@ -29,6 +28,7 @@ namespace NetZ.Web
         public const string DIR_JS_LIB = "/res/js/lib/";
         public const string DIR_JSON_CONFIG = "JSON Config/";
         public const string DIR_MEDIA_PNG = "/res/media/png/";
+        public const string DIR_MEDIA_SVG = "/res/media/svg/";
 
         #endregion Constantes
 
@@ -318,6 +318,8 @@ namespace NetZ.Web
 
         private void inicializarLstSrv()
         {
+            Log.i.info("Inicializando a lista de serviços.");
+
             this.lstSrv?.ForEach((srv) => srv.iniciar());
         }
 

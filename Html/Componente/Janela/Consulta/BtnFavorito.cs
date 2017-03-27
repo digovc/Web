@@ -23,7 +23,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            this.enmLado = EnmLado.ESQUERDA;
             this.enmTamanho = EnmTamanho.PEQUENO;
         }
 

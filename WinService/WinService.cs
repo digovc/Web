@@ -1,4 +1,5 @@
-﻿using NetZ.Web;
+﻿using DigoFramework;
+using NetZ.Web;
 using NetZ.Web.WinService;
 using System;
 using System.ComponentModel;
@@ -34,10 +35,13 @@ namespace Cia.WinService.WinService
 
         private void runDebug()
         {
+            Log.i.info("Abrindo em modo \"aplicação\".");
+
             i.getAppWeb().inicializarServidor();
 
             Console.Read();
-            Console.WriteLine("Fechando os serviços do servidor.");
+
+            Log.i.info("Fechando a aplicação.");
 
             i.getAppWeb().pararServidor();
         }
@@ -45,6 +49,8 @@ namespace Cia.WinService.WinService
         private void runService()
         {
             //Debugger.Launch();
+
+            Log.i.info("Abrindo em modo \"serviço\".");
 
             Run(i);
         }

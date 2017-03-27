@@ -204,13 +204,10 @@ namespace NetZ.Web.Html.Componente.Tab
         {
             base.inicializar();
 
-            this.btnAdicionar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
             this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
-            this.btnAlterar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
             this.btnAlterar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
-            this.btnApagar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
             this.btnApagar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
         }
 

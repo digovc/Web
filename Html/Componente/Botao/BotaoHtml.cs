@@ -17,7 +17,6 @@ namespace NetZ.Web.Html.Componente.Botao
         #region Atributos
 
         private bool _booFrmSubmit;
-        private EnmLado _enmLado = EnmLado.DIREITA;
         private int _intNivel;
         private int _intTamanhoVertical;
 
@@ -35,22 +34,6 @@ namespace NetZ.Web.Html.Componente.Botao
             set
             {
                 _booFrmSubmit = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica o lado que que este componente estará dentro do seu container.
-        /// </summary>
-        public EnmLado enmLado
-        {
-            get
-            {
-                return _enmLado;
-            }
-
-            set
-            {
-                _enmLado = value;
             }
         }
 
@@ -116,16 +99,10 @@ namespace NetZ.Web.Html.Componente.Botao
 
             this.addCss(css.setBorder(0));
             this.addCss(css.setCursor("pointer"));
-            this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));
+            this.addCss(css.setOutline("none"));
 
-            this.setCssFload(css);
             this.setCssHeight(css);
             this.setCssWidth(css);
-        }
-
-        protected virtual void setCssFload(CssArquivo css)
-        {
-            this.addCss(css.setFloat("right"));
         }
 
         protected virtual void setCssHeight(CssArquivo css)
