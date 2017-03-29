@@ -60,7 +60,7 @@ namespace NetZ.Web.Server
             }
         }
 
-        protected TcpClient tcpClient
+        public TcpClient tcpClient
         {
             get
             {
@@ -208,7 +208,6 @@ namespace NetZ.Web.Server
             }
 
             this.tcpClient.Close();
-            this.tcpClient.Dispose();
         }
 
         private bool getBooConectado()

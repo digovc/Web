@@ -406,7 +406,6 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.tcpClient.Close();
-            this.tcpClient.Dispose();
             this.parar();
         }
 

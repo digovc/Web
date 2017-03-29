@@ -63,16 +63,18 @@ namespace NetZ.Web.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;body&gt;
         ///    &lt;h1 id=&quot;divTitulo&quot;&gt;
-        ///        Atualização da documentação &quot;_doc_nome&quot;
+        ///        Atualização da documentação &lt;a href=&quot;_url_documentacao&quot; target=&quot;_blank&quot;&gt;&quot;_doc_nome&quot;&lt;/a&gt;
         ///    &lt;/h1&gt;
-        ///    &lt;h6 id=&quot;divDescricao&quot;&gt;
+        ///    &lt;h3 id=&quot;divDescricao&quot;&gt;
         ///        _email_descricao
-        ///    &lt;/h6&gt;
+        ///    &lt;/h3&gt;
         ///    &lt;hr /&gt;
         ///    &lt;div id=&quot;divConteudo&quot;&gt;
-        ///        _email_conteudo
+        ///        &lt;ul&gt;
+        ///            _email_conteudo
+        ///        &lt;/ul&gt;
         ///    &lt;/div&gt;
-        ///    &lt;hr style=&quot;margin-top: 100px;&quot;/&gt;
+        ///    &lt;hr /&gt;
         ///    &lt;div id=&quot;divRodape&quot;&gt;
         ///        Caso você não queira mais receber atualizações para esta documentação basta &lt;a href=&quot;_link_cancelar&quot;&gt;clique aqui&lt;/a&gt;.
         ///    &lt;/div&gt;
@@ -85,7 +87,9 @@ namespace NetZ.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;li&gt;
+        ///    &lt;a href=&quot;_artigo_link&quot; target=&quot;_blank&quot;&gt;&quot;_artigo_nome&quot;&lt;/a&gt; (_tipo_alteracao).
+        ///&lt;/li&gt;.
         /// </summary>
         internal static string documentacao_email_item {
             get {
