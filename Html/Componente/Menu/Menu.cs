@@ -115,7 +115,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divGaveta.setPai(this.divGavetaContainer);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

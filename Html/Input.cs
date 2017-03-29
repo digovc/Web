@@ -291,7 +291,7 @@ namespace NetZ.Web.Html
             this.montarLayoutValor();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -496,17 +496,17 @@ namespace NetZ.Web.Html
             }
         }
 
-        private void setCssDateTime(CssArquivo css)
+        private void setCssDateTime(CssArquivoBase css)
         {
             this.addCss(css.setTextAlign("right"));
         }
 
-        private void setCssNumber(CssArquivo css)
+        private void setCssNumber(CssArquivoBase css)
         {
             this.addCss(css.setTextAlign("right"));
         }
 
-        private void setCssTextArea(CssArquivo css)
+        private void setCssTextArea(CssArquivoBase css)
         {
             //this.addCss(css.setWidth(100, "%"));
         }

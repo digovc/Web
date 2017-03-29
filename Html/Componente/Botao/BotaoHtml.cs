@@ -93,7 +93,7 @@ namespace NetZ.Web.Html.Componente.Botao
             this.addAtt("type", "button");
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -105,12 +105,12 @@ namespace NetZ.Web.Html.Componente.Botao
             this.setCssWidth(css);
         }
 
-        protected virtual void setCssHeight(CssArquivo css)
+        protected virtual void setCssHeight(CssArquivoBase css)
         {
             this.addCss(css.setHeight(30));
         }
 
-        protected virtual void setCssWidth(CssArquivo css)
+        protected virtual void setCssWidth(CssArquivoBase css)
         {
             this.addCss(css.setWidth(this.getDecWidth()));
         }

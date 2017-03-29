@@ -128,7 +128,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.btnAcao.setPai(this.divInputContainer);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

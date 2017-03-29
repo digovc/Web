@@ -364,7 +364,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.setPai(this.divInputContainer);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -400,12 +400,12 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.addCss(css.setOutline("none"));
         }
 
-        protected virtual void setCssTagInputHeight(CssArquivo css)
+        protected virtual void setCssTagInputHeight(CssArquivoBase css)
         {
             this.tagInput.addCss(css.setHeight(19));
         }
 
-        protected virtual void setCssTagInputWidth(CssArquivo css)
+        protected virtual void setCssTagInputWidth(CssArquivoBase css)
         {
             this.tagInput.addCss(css.setWidth(100, "%"));
         }
@@ -450,7 +450,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addAtt("mostrar_titulo_sempre", true);
         }
 
-        private void setCssWidth(CssArquivo css)
+        private void setCssWidth(CssArquivoBase css)
         {
             switch (this.enmTamanho)
             {
@@ -480,7 +480,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private void setCssWidthTotal(CssArquivo css)
+        private void setCssWidthTotal(CssArquivoBase css)
         {
             this.addCss(css.setLeft(0));
             this.addCss(css.setRight(0));

@@ -50,7 +50,7 @@ namespace NetZ.Web.Html.Componente.Circulo
             lstJs.Add(new JavaScriptTag(typeof(DivCirculo), 110));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -60,7 +60,7 @@ namespace NetZ.Web.Html.Componente.Circulo
             this.setCssEnmTamanho(css);
         }
 
-        private void setCssEnmTamanho(CssArquivo css)
+        private void setCssEnmTamanho(CssArquivoBase css)
         {
             switch (this.enmTamanho)
             {

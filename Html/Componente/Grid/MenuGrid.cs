@@ -108,7 +108,7 @@ namespace NetZ.Web.Html.Componente.Grid
             this.btnAdicionar.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

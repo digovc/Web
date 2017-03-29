@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Campo
             return Input.EnmTipo.NUMBER;
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

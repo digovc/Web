@@ -25,7 +25,7 @@ namespace NetZ.Web.Html.Componente.Botao
             lstJs.Add(new JavaScriptTag(typeof(BotaoMini), 114));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

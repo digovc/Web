@@ -47,7 +47,7 @@ namespace NetZ.Web.Html.Componente.Tab
             lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 110));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

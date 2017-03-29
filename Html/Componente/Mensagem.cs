@@ -165,7 +165,7 @@ namespace NetZ.Web.Html.Componente
             this.btnCancelar.setPai(this.divComando);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

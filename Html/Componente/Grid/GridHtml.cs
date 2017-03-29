@@ -179,7 +179,7 @@ namespace NetZ.Web.Html.Componente.Grid
             this.montarLayoutTbody();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

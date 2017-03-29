@@ -61,7 +61,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.montarLayoutItem();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

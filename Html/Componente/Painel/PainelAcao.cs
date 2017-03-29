@@ -111,7 +111,7 @@ namespace NetZ.Web.Html.Componente.Painel
             this.btnAcaoPrincipal.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -138,7 +138,7 @@ namespace NetZ.Web.Html.Componente.Painel
             this.lstBtnAcaoSecundaria.Add(btnAcaoSecundaria);
         }
 
-        private void setCss(CssArquivo css, BotaoCircular btnAcaoSecundaria)
+        private void setCss(CssArquivoBase css, BotaoCircular btnAcaoSecundaria)
         {
             if (btnAcaoSecundaria == null)
             {
@@ -152,7 +152,7 @@ namespace NetZ.Web.Html.Componente.Painel
             this.intBtnAcaoSecundariaTop -= 40;
         }
 
-        private void setCssLstBtnMini(CssArquivo css)
+        private void setCssLstBtnMini(CssArquivoBase css)
         {
             foreach (BotaoCircular btnAcaoSecundaria in this.lstBtnAcaoSecundaria)
             {

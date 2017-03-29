@@ -107,7 +107,7 @@ namespace NetZ.Web.Html.Pagina
             this.divError.strConteudo = string.Format("{0} ({1})<br/><br/>{2}", this.ex.Message, this.ex.GetType().FullName, strStack);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

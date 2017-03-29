@@ -109,7 +109,7 @@ namespace NetZ.Web.Html
             new LimiteFloat().setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

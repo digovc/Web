@@ -18,7 +18,7 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
-        protected override void setCss(CssArquivo tagCss)
+        protected override void setCss(CssArquivoBase tagCss)
         {
             base.setCss(tagCss);
 

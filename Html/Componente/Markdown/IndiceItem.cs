@@ -31,7 +31,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.strLink = "_link";
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

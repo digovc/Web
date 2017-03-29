@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NetZ.Web.Server.Arquivo.Css
 {
-    public abstract class CssArquivo : ArquivoEstatico
+    public abstract class CssArquivoBase : ArquivoEstatico
     {
         #region Constantes
 
@@ -18,10 +18,24 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Atributos
 
         private CultureInfo _ctiUsa;
+        private DateTime _dttAlteracao;
         private object _lckLstAttCss;
         private List<AtributoCss> _lstAttCss;
         private StringBuilder _stbConteudo;
         private string _strHref;
+
+        public override DateTime dttAlteracao
+        {
+            get
+            {
+                return _dttAlteracao;
+            }
+
+            set
+            {
+                _dttAlteracao = value;
+            }
+        }
 
         public string strHref
         {

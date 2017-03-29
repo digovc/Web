@@ -212,14 +212,14 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divInativa.setPai(this);
         }
 
-        protected override void finalizarCss(CssArquivo css)
+        protected override void finalizarCss(CssArquivoBase css)
         {
             base.finalizarCss(css);
 
             this.finalizarCssWidth(css);
         }
 
-        protected virtual void finalizarCssWidth(CssArquivo css)
+        protected virtual void finalizarCssWidth(CssArquivoBase css)
         {
             if (this.intTamanhoHotizontal < 1)
             {
@@ -246,7 +246,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divBtnFechar.setPai(this.divAcao);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

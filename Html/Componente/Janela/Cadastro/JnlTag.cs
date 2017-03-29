@@ -131,7 +131,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.tagInputTag.setPai(this.divTagConteudo);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

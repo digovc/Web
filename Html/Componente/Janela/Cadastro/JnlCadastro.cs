@@ -170,7 +170,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.cmpIntId.setPai(this.frm);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

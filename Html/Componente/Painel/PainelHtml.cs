@@ -95,7 +95,7 @@ namespace NetZ.Web.Html.Componente.Painel
             this.addJsMarkdown(lstJs);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -153,7 +153,7 @@ namespace NetZ.Web.Html.Componente.Painel
             js.addJs(strJs);
         }
 
-        private void setCssMinHeight(CssArquivo css)
+        private void setCssMinHeight(CssArquivoBase css)
         {
             if (this.intTamanhoVertical < 1)
             {
@@ -163,7 +163,7 @@ namespace NetZ.Web.Html.Componente.Painel
             this.addCss(css.setMinHeight(50 * this.intTamanhoVertical));
         }
 
-        private void setCssWidth(CssArquivo css)
+        private void setCssWidth(CssArquivoBase css)
         {
             if (this.intTamanhoHorizontal < 1)
             {

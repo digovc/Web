@@ -193,7 +193,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divArquivoTamanho.setPai(this.divContent);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

@@ -54,7 +54,7 @@ namespace NetZ.Web.Html.Componente
             this.divProgresso.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

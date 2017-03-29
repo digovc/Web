@@ -525,7 +525,7 @@ namespace NetZ.Web.Html.Pagina
         /// ajustes finais no estilo da tag.
         /// </summary>
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
-        protected virtual void finalizarCss(CssArquivo css)
+        protected virtual void finalizarCss(CssArquivoBase css)
         {
         }
 
@@ -604,7 +604,7 @@ namespace NetZ.Web.Html.Pagina
             this.divNotificacao.setPai(this);
         }
 
-        protected virtual void setCss(CssArquivo css)
+        protected virtual void setCss(CssArquivoBase css)
         {
             this.tagBody.addCss(css.setMargin(0));
 

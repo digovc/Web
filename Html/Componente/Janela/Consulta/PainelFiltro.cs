@@ -122,7 +122,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             new LimiteFloat().setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

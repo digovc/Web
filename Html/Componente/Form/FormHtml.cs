@@ -371,7 +371,7 @@ namespace NetZ.Web.Html.Componente.Form
             this.finalizarBooAutoComplete();
         }
 
-        protected override void finalizarCss(CssArquivo css)
+        protected override void finalizarCss(CssArquivoBase css)
         {
             base.finalizarCss(css);
 
@@ -475,7 +475,7 @@ namespace NetZ.Web.Html.Componente.Form
             this.addAtt("autocomplete", "off");
         }
 
-        private void finalizarCssNivel(CssArquivo css)
+        private void finalizarCssNivel(CssArquivoBase css)
         {
             if (!this.booJnlCadastro)
             {
@@ -492,17 +492,17 @@ namespace NetZ.Web.Html.Componente.Form
             this.finalizarCssNivelComando(css, this.lstPnlNivel.Last());
         }
 
-        private void finalizarCssNivelComando(CssArquivo css, PainelNivel pnlNivelComando)
+        private void finalizarCssNivelComando(CssArquivoBase css, PainelNivel pnlNivelComando)
         {
             pnlNivelComando.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
         }
 
-        private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)
+        private void finalizarCssNivelDica(CssArquivoBase css, PainelNivel pnlNivelDica)
         {
             pnlNivelDica.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo1));
         }
 
-        private void finalizarCssNivelTabHtml(CssArquivo css, PainelNivel pnlNivelTabHtml)
+        private void finalizarCssNivelTabHtml(CssArquivoBase css, PainelNivel pnlNivelTabHtml)
         {
             if (this.tabHtml.intTabQuantidade < 1)
             {

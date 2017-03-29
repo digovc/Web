@@ -18,7 +18,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
         #region Métodos
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

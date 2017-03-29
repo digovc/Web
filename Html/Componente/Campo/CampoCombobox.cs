@@ -93,7 +93,7 @@ namespace NetZ.Web.Html.Componente.Campo
             return this.cmb;
         }
 
-        protected override void setCssTagInputHeight(CssArquivo css)
+        protected override void setCssTagInputHeight(CssArquivoBase css)
         {
             this.tagInput.addCss(css.setHeight(22));
         }

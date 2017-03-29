@@ -25,19 +25,19 @@ namespace NetZ.Web.Html.Componente.Botao.ActionBar
             lstJs.Add(new JavaScriptTag(typeof(BotaoActionBar), 114));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
         }
 
-        protected override void setCssHeight(CssArquivo css)
+        protected override void setCssHeight(CssArquivoBase css)
         {
             this.addCss(css.setHeight(50));
         }
 
-        protected override void setCssWidth(CssArquivo css)
+        protected override void setCssWidth(CssArquivoBase css)
         {
             this.addCss(css.setWidth(50));
         }

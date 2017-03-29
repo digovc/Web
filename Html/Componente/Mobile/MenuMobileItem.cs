@@ -96,7 +96,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divTitulo.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

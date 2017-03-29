@@ -149,7 +149,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divTitulo.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -180,7 +180,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 
-        private void setCssBtnVoltar(CssArquivo css)
+        private void setCssBtnVoltar(CssArquivoBase css)
         {
             if (!this.booMostrarVoltar)
             {
@@ -191,7 +191,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.btnVoltar.addCss(css.setFloat("left"));
         }
 
-        private void setCssBtnMenu(CssArquivo css)
+        private void setCssBtnMenu(CssArquivoBase css)
         {
             if (!this.booMostrarMenu)
             {

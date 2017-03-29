@@ -193,7 +193,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divItemConteudo.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -222,7 +222,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addAtt("tbl_web_nome", tbl.sqlNome);
         }
 
-        private void setCssFilho(CssArquivo css)
+        private void setCssFilho(CssArquivoBase css)
         {
             if (!this.booFilho)
             {
@@ -240,7 +240,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divTitulo.addCss(css.setLineHeight(40));
         }
 
-        private void setCssPai(CssArquivo css)
+        private void setCssPai(CssArquivoBase css)
         {
             if (this.booFilho)
             {

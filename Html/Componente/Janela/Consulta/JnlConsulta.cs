@@ -158,7 +158,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.pnlAcaoConsulta.strId = (strId + "_pnlAcaoConsulta");
         }
 
-        protected override void finalizarCssWidth(CssArquivo css)
+        protected override void finalizarCssWidth(CssArquivoBase css)
         {
             // base.finalizarCssWidth(css);
         }
@@ -183,7 +183,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.montarLayoutCmbStrViewNome();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -255,7 +255,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.cmbStrViewNome.setPai(this.divCabecalho);
         }
 
-        private void setCssCmbStrViewNome(CssArquivo css)
+        private void setCssCmbStrViewNome(CssArquivoBase css)
         {
             if (this.tbl.lstViw.Count < 2)
             {

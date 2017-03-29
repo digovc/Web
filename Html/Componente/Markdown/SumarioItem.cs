@@ -158,7 +158,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.lstDivItem?.ForEach((divItem) => divItem.setPai(this.divConteudo));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

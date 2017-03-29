@@ -702,7 +702,7 @@ namespace NetZ.Web.Html
         /// browser do usuário.
         /// </summary>
         /// <param name="lstCss">
-        /// Lista de <see cref="CssArquivo"/> que será carregada pelo browser do usuário.
+        /// Lista de <see cref="CssArquivoBase"/> que será carregada pelo browser do usuário.
         /// </param>
         protected virtual void addCss(LstTag<CssTag> lstCss)
         {
@@ -766,7 +766,7 @@ namespace NetZ.Web.Html
         /// ajustes finais no estilo da tag.
         /// </summary>
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
-        protected virtual void finalizarCss(CssArquivo css)
+        protected virtual void finalizarCss(CssArquivoBase css)
         {
         }
 
@@ -792,7 +792,7 @@ namespace NetZ.Web.Html
         /// Método que deve ser utilizado para configurar o design desta tag e de seus filhos.
         /// </summary>
         /// <param name="css">Tag CSS principal da página onde serão adicionado todo o design.</param>
-        protected virtual void setCss(CssArquivo css)
+        protected virtual void setCss(CssArquivoBase css)
         {
             this.setCssBooMostrarGrade(css);
         }
@@ -915,7 +915,7 @@ namespace NetZ.Web.Html
             this.addAtt("clazz", this.GetType().Name);
         }
 
-        private void setCssBooMostrarGrade(CssArquivo css)
+        private void setCssBooMostrarGrade(CssArquivoBase css)
         {
             if (!AppWebBase.i.booMostrarGrade)
             {

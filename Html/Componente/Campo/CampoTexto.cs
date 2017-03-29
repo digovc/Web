@@ -37,7 +37,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.intTamanhoVertical = 2;
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

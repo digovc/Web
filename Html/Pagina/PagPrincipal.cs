@@ -143,7 +143,7 @@ namespace NetZ.Web.Html.Pagina
             this.divCadastro.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

@@ -149,7 +149,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.btnTag.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

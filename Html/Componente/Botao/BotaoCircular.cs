@@ -62,7 +62,7 @@ namespace NetZ.Web.Html.Componente.Botao
             }
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -75,12 +75,12 @@ namespace NetZ.Web.Html.Componente.Botao
             this.addCss(css.setWidth(this.getIntTamanho()));
         }
 
-        protected override void setCssHeight(CssArquivo css)
+        protected override void setCssHeight(CssArquivoBase css)
         {
             this.addCss(css.setHeight(this.getIntTamanho()));
         }
 
-        protected override void setCssWidth(CssArquivo css)
+        protected override void setCssWidth(CssArquivoBase css)
         {
             this.addCss(css.setWidth(this.getIntTamanho()));
         }

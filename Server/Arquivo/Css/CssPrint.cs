@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Server.Arquivo.Css
 {
-    public class CssPrint : CssArquivo
+    public class CssPrint : CssArquivoBase
     {
         #region Constantes
 
