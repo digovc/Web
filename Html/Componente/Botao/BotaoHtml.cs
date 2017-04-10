@@ -17,7 +17,6 @@ namespace NetZ.Web.Html.Componente.Botao
         #region Atributos
 
         private bool _booFrmSubmit;
-        private EnmLado _enmLado = EnmLado.DIREITA;
         private int _intNivel;
         private int _intTamanhoVertical;
 
@@ -35,22 +34,6 @@ namespace NetZ.Web.Html.Componente.Botao
             set
             {
                 _booFrmSubmit = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica o lado que que este componente estará dentro do seu container.
-        /// </summary>
-        public EnmLado enmLado
-        {
-            get
-            {
-                return _enmLado;
-            }
-
-            set
-            {
-                _enmLado = value;
             }
         }
 
@@ -96,11 +79,11 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
+            lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
         }
 
         protected override void inicializar()
@@ -110,30 +93,24 @@ namespace NetZ.Web.Html.Componente.Botao
             this.addAtt("type", "button");
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
             this.addCss(css.setBorder(0));
             this.addCss(css.setCursor("pointer"));
-            this.addCss(css.setFloat(EnmLado.DIREITA.Equals(this.enmLado) ? "right" : "left"));
+            this.addCss(css.setOutline("none"));
 
-            this.setCssFload(css);
             this.setCssHeight(css);
             this.setCssWidth(css);
         }
 
-        protected virtual void setCssFload(CssArquivo css)
-        {
-            this.addCss(css.setFloat("right"));
-        }
-
-        protected virtual void setCssHeight(CssArquivo css)
+        protected virtual void setCssHeight(CssArquivoBase css)
         {
             this.addCss(css.setHeight(30));
         }
 
-        protected virtual void setCssWidth(CssArquivo css)
+        protected virtual void setCssWidth(CssArquivoBase css)
         {
             this.addCss(css.setWidth(this.getDecWidth()));
         }
@@ -160,7 +137,7 @@ namespace NetZ.Web.Html.Componente.Botao
                 return 150;
             }
 
-            return 175;
+            return 200;
         }
 
         #endregion Métodos

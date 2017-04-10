@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.DataBase.Dominio
 {
-    public class FavoritoDominio : DominioWeb
+    public class FavoritoDominio : DominioWebBase
     {
         #region Constantes
 

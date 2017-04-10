@@ -83,6 +83,20 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
+        public Interlocutor(string strMetodo = "<desconhecido>", object objJson = null)
+        {
+            this.strMetodo = strMetodo;
+
+            if (objJson is string)
+            {
+                this.objData = objJson;
+            }
+            else
+            {
+                this.addJson(objJson);
+            }
+        }
+
         #endregion Construtores
 
         #region Métodos

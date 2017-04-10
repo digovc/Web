@@ -126,7 +126,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
                 _tbl = value;
 
-                this.atualizarTbl();
+                this.setTbl(_tbl);
             }
         }
 
@@ -143,24 +143,24 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnFavorito.strId = (this.strId + "_btnFavorito");
-            this.cmbStrViewNome.strId = (this.strId + "_cmbStrViewNome");
-            this.divGrid.strId = (this.strId + "_divGrid");
-            this.pnlAcaoConsulta.strId = (this.strId + "_pnlAcaoConsulta");
+            this.btnFavorito.strId = (strId + "_btnFavorito");
+            this.cmbStrViewNome.strId = (strId + "_cmbStrViewNome");
+            this.divGrid.strId = (strId + "_divGrid");
+            this.pnlAcaoConsulta.strId = (strId + "_pnlAcaoConsulta");
         }
 
-        protected override void finalizarCssWidth(CssArquivo css)
+        protected override void finalizarCssWidth(CssArquivoBase css)
         {
-            //base.finalizarCssWidth(css);
+            // base.finalizarCssWidth(css);
         }
 
         protected override void inicializar()
@@ -183,7 +183,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.montarLayoutCmbStrViewNome();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -208,34 +208,34 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.setCssCmbStrViewNome(css);
         }
 
-        private void atualizarTbl()
+        private void setTbl(TabelaBase tbl)
         {
-            if (this.tbl == null)
+            if (tbl == null)
             {
                 return;
             }
 
-            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
-            this.addAtt("viw_web_nome", this.tbl.viwPrincipal.sqlNome);
+            this.addAtt("tbl_web_nome", tbl.sqlNome);
+            this.addAtt("viw_web_nome", tbl.viwPrincipal.sqlNome);
 
-            this.atualizarTblLstViw();
+            this.setTblLstViw(tbl);
         }
 
-        private void atualizarTblLstViw()
+        private void setTblLstViw(TabelaBase tbl)
         {
-            if (this.tbl.lstViw.Count < 2)
+            if (tbl.lstViw.Count < 2)
             {
-                this.strTitulo = this.tbl.strNomeExibicao;
+                this.strTitulo = tbl.strNomeExibicao;
                 return;
             }
 
-            foreach (ViewBase viw in this.tbl.lstViw)
+            foreach (ViewBase viw in tbl.lstViw)
             {
-                this.atualizarTblLstViw(viw);
+                this.setTblLstViw(viw);
             }
         }
 
-        private void atualizarTblLstViw(ViewBase viw)
+        private void setTblLstViw(ViewBase viw)
         {
             if (viw == null)
             {
@@ -255,7 +255,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.cmbStrViewNome.setPai(this.divCabecalho);
         }
 
-        private void setCssCmbStrViewNome(CssArquivo css)
+        private void setCssCmbStrViewNome(CssArquivoBase css)
         {
             if (this.tbl.lstViw.Count < 2)
             {

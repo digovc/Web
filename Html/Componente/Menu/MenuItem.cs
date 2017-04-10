@@ -49,7 +49,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 _tbl = value;
 
-                this.atualizarTbl();
+                this.setTbl(_tbl);
             }
         }
 
@@ -129,13 +129,13 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuItem), 151));
+            lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
@@ -156,18 +156,18 @@ namespace NetZ.Web.Html.Componente.Menu
             this.lstMni.Add(tag as MenuItem);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divIcone.strId = (this.strId + "_divIcone");
-            this.divItemConteudo.strId = (this.strId + "_divItemConteudo");
-            this.divTitulo.strId = (this.strId + "_divTitulo");
+            this.divIcone.strId = (strId + "_divIcone");
+            this.divItemConteudo.strId = (strId + "_divItemConteudo");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         protected override void finalizar()
@@ -193,14 +193,14 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divItemConteudo.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
             this.addCss(css.setCursor("pointer"));
             this.addCss(css.setFontFamily("ubuntu"));
             this.addCss(css.setFontStyle("ligth"));
-            this.addCss(css.setOutLine("none"));
+            this.addCss(css.setOutline("none"));
 
             this.setCssPai(css);
             this.setCssFilho(css);
@@ -210,19 +210,19 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divItemConteudo.addCss(css.setFontSize(14));
         }
 
-        private void atualizarTbl()
+        private void setTbl(TabelaBase tbl)
         {
-            if (this.tbl == null)
+            if (tbl == null)
             {
                 return;
             }
 
-            this.strTitulo = this.tbl.strNomeExibicao;
+            this.strTitulo = tbl.strNomeExibicao;
 
-            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
+            this.addAtt("tbl_web_nome", tbl.sqlNome);
         }
 
-        private void setCssFilho(CssArquivo css)
+        private void setCssFilho(CssArquivoBase css)
         {
             if (!this.booFilho)
             {
@@ -240,7 +240,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divTitulo.addCss(css.setLineHeight(40));
         }
 
-        private void setCssPai(CssArquivo css)
+        private void setCssPai(CssArquivoBase css)
         {
             if (this.booFilho)
             {

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using DigoFramework;
+﻿using DigoFramework;
 using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
-using NetZ.Web.Html;
 using NetZ.Web.Server;
+using System;
+using System.Collections.Generic;
+using System.Net.Mail;
 
 namespace NetZ.Web
 {
@@ -23,6 +24,12 @@ namespace NetZ.Web
     {
         #region Constantes
 
+        public const string DIR_CSS = "/res/css/";
+        public const string DIR_JS_LIB = "/res/js/lib/";
+        public const string DIR_JSON_CONFIG = "JSON Config/";
+        public const string DIR_MEDIA_PNG = "/res/media/png/";
+        public const string DIR_MEDIA_SVG = "/res/media/svg/";
+
         #endregion Constantes
 
         #region Atributos
@@ -34,7 +41,8 @@ namespace NetZ.Web
         private List<UsuarioDominio> _lstObjUsuario;
         private List<ServerBase> _lstSrv;
         private object _objLstObjUsuarioLock;
-        private JavaScriptTag _tagJsRelease;
+        private SmtpClient _objSmtpClient;
+        private string _strEmail;
 
         public new static AppWebBase i
         {
@@ -45,11 +53,6 @@ namespace NetZ.Web
 
             set
             {
-                if (_i != null)
-                {
-                    return;
-                }
-
                 _i = value;
             }
         }
@@ -92,6 +95,39 @@ namespace NetZ.Web
             }
         }
 
+        /// <summary>
+        /// Conta de email que será utilizada para envio de emails pela aplicação.
+        /// </summary>
+        public SmtpClient objSmtpClient
+        {
+            get
+            {
+                if (_objSmtpClient != null)
+                {
+                    return _objSmtpClient;
+                }
+
+                _objSmtpClient = this.getObjSmtpClient();
+
+                return _objSmtpClient;
+            }
+        }
+
+        public string strEmail
+        {
+            get
+            {
+                if (_strEmail != null)
+                {
+                    return _strEmail;
+                }
+
+                _strEmail = this.getStrEmail();
+
+                return _strEmail;
+            }
+        }
+
         internal List<UsuarioDominio> lstObjUsuario
         {
             get
@@ -104,21 +140,6 @@ namespace NetZ.Web
                 _lstObjUsuario = new List<UsuarioDominio>();
 
                 return _lstObjUsuario;
-            }
-        }
-
-        internal JavaScriptTag tagJsRelease
-        {
-            get
-            {
-                if (_tagJsRelease != null)
-                {
-                    return _tagJsRelease;
-                }
-
-                _tagJsRelease = this.getTagJsRelease();
-
-                return _tagJsRelease;
             }
         }
 
@@ -172,13 +193,15 @@ namespace NetZ.Web
         /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
         /// </para>
         /// <para>
-        /// O servidor der solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
-        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booServerAjaxDbAtivar"/>
+        /// O servidor de solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
+        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
         /// esteja marcada.
         /// </para>
         /// </summary>
         public virtual void iniciarServidorWeb()
         {
+            Log.i.info("Inicializando o servidor.");
+
             this.inicializarConfig();
             this.inicializarLstSrv();
         }
@@ -267,9 +290,14 @@ namespace NetZ.Web
 
         protected abstract ConfigWebBase getObjConfig();
 
-        protected virtual JavaScriptTag getTagJsRelease()
+        protected virtual SmtpClient getObjSmtpClient()
         {
-            return null;
+            throw new NotImplementedException();
+        }
+
+        protected virtual string getStrEmail()
+        {
+            throw new NotFiniteNumberException();
         }
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
@@ -290,25 +318,9 @@ namespace NetZ.Web
 
         private void inicializarLstSrv()
         {
-            if (this.lstSrv == null)
-            {
-                return;
-            }
+            Log.i.info("Inicializando a lista de serviços.");
 
-            foreach (ServerBase srv in this.lstSrv)
-            {
-                this.inicializarLstSrv(srv);
-            }
-        }
-
-        private void inicializarLstSrv(ServerBase srv)
-        {
-            if (srv == null)
-            {
-                return;
-            }
-
-            srv.iniciar();
+            this.lstSrv?.ForEach((srv) => srv.iniciar());
         }
 
         private void pararServidor(ServerBase srv)

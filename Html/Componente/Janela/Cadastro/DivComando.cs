@@ -102,37 +102,35 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(DivComando), 116));
+            lstJs.Add(new JavaScriptTag(typeof(DivComando), 116));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
-            this.btnDireita.strId = (this.strId + "_btnDireita");
-            this.btnEsquerda.strId = (this.strId + "_btnEsquerda");
-            this.btnSalvar.strId = (this.strId + "_btnSalvar");
-            this.btnTag.strId = (this.strId + "_btnTag");
+            this.btnAdicionar.strId = (strId + "_btnAdicionar");
+            this.btnDireita.strId = (strId + "_btnDireita");
+            this.btnEsquerda.strId = (strId + "_btnEsquerda");
+            this.btnSalvar.strId = (strId + "_btnSalvar");
+            this.btnTag.strId = (strId + "_btnTag");
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.btnDireita.enmLado = BotaoHtml.EnmLado.ESQUERDA;
             this.btnDireita.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
-            this.btnEsquerda.enmLado = BotaoHtml.EnmLado.ESQUERDA;
             this.btnEsquerda.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
             this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
@@ -151,7 +149,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.btnTag.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

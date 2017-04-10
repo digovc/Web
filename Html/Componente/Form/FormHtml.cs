@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NetZ.Web.Html.Componente.Campo;
+﻿using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Html.Componente.Tab;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NetZ.Web.Html.Componente.Form
 {
@@ -24,6 +24,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         private Atributo _attAction;
         private Atributo _attMetodo;
+        private bool _booAutoComplete = true;
         private bool _booJnlCadastro;
         private DivComando _divComando;
         private Div _divConteudo;
@@ -37,6 +38,22 @@ namespace NetZ.Web.Html.Componente.Form
         private List<ITagNivel> _lstTagNivel;
         private string _strAction;
         private TabHtml _tabHtml;
+
+        /// <summary>
+        /// Indica se o browser poderá guardar os valores em cache para auxiliar o usuário.
+        /// </summary>
+        public bool booAutoComplete
+        {
+            get
+            {
+                return _booAutoComplete;
+            }
+
+            set
+            {
+                _booAutoComplete = value;
+            }
+        }
 
         /// <summary>
         /// Indica o método que será utilizado para envio dos dados.
@@ -308,11 +325,11 @@ namespace NetZ.Web.Html.Componente.Form
             this.booJnlCadastro = (tagPai is JnlCadastro);
         }
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(FormHtml)));
+            lstJs.Add(new JavaScriptTag(typeof(FormHtml)));
         }
 
         protected override void addTag(Tag tag)
@@ -337,21 +354,6 @@ namespace NetZ.Web.Html.Componente.Form
             base.addTag(tag);
         }
 
-        protected override void atualizarStrId()
-        {
-            base.atualizarStrId();
-
-            if (string.IsNullOrEmpty(this.strId))
-            {
-                return;
-            }
-
-            this.divComando.strId = (this.strId + "_divComando");
-            this.divCritica.strId = (this.strId + "_divCritica");
-            this.divDica.strId = (this.strId + "_divDica");
-            this.tabHtml.strId = (this.strId + "_tabHtml");
-        }
-
         protected override void finalizar()
         {
             base.finalizar();
@@ -365,9 +367,11 @@ namespace NetZ.Web.Html.Componente.Form
             this.finalizarMontarLayoutLstCmp();
 
             this.finalizarMontarLayoutLstPnlNivel();
+
+            this.finalizarBooAutoComplete();
         }
 
-        protected override void finalizarCss(CssArquivo css)
+        protected override void finalizarCss(CssArquivoBase css)
         {
             base.finalizarCss(css);
 
@@ -386,6 +390,21 @@ namespace NetZ.Web.Html.Componente.Form
             base.montarLayout();
 
             this.divConteudo.setPai(this);
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            if (string.IsNullOrEmpty(strId))
+            {
+                return;
+            }
+
+            this.divComando.strId = (strId + "_divComando");
+            this.divCritica.strId = (strId + "_divCritica");
+            this.divDica.strId = (strId + "_divDica");
+            this.tabHtml.strId = (strId + "_tabHtml");
         }
 
         private void addLstCmp(ITagNivel tag)
@@ -446,7 +465,17 @@ namespace NetZ.Web.Html.Componente.Form
             tabItem.setPai(this.tabHtml);
         }
 
-        private void finalizarCssNivel(CssArquivo css)
+        private void finalizarBooAutoComplete()
+        {
+            if (this.booAutoComplete)
+            {
+                return;
+            }
+
+            this.addAtt("autocomplete", "off");
+        }
+
+        private void finalizarCssNivel(CssArquivoBase css)
         {
             if (!this.booJnlCadastro)
             {
@@ -463,17 +492,17 @@ namespace NetZ.Web.Html.Componente.Form
             this.finalizarCssNivelComando(css, this.lstPnlNivel.Last());
         }
 
-        private void finalizarCssNivelComando(CssArquivo css, PainelNivel pnlNivelComando)
+        private void finalizarCssNivelComando(CssArquivoBase css, PainelNivel pnlNivelComando)
         {
             pnlNivelComando.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
         }
 
-        private void finalizarCssNivelDica(CssArquivo css, PainelNivel pnlNivelDica)
+        private void finalizarCssNivelDica(CssArquivoBase css, PainelNivel pnlNivelDica)
         {
             pnlNivelDica.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo1));
         }
 
-        private void finalizarCssNivelTabHtml(CssArquivo css, PainelNivel pnlNivelTabHtml)
+        private void finalizarCssNivelTabHtml(CssArquivoBase css, PainelNivel pnlNivelTabHtml)
         {
             if (this.tabHtml.intTabQuantidade < 1)
             {
@@ -500,7 +529,7 @@ namespace NetZ.Web.Html.Componente.Form
 
         private void finalizarMontarLayoutLstCmp()
         {
-            foreach (ITagNivel tag in this.lstTagNivel.OrderBy((x) => x.intNivel))
+            foreach (ITagNivel tag in this.lstTagNivel.OrderBy((tag) => tag.intNivel))
             {
                 this.finalizarMontarLayoutLstCmp(tag);
             }

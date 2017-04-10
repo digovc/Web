@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace NetZ.Web.Server
 {
@@ -16,7 +16,7 @@ namespace NetZ.Web.Server
     /// implementando sua lógica a partir da class <see cref="AppWebBase"/> e seu método <see cref="AppWebBase.responder(Solicitacao)"/>.
     /// </para>
     /// </summary>
-    public abstract class ServerHttpBase : ServerBase
+    public abstract class SrvHttpBase : ServerBase
     {
         #region Constantes
 
@@ -49,7 +49,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        protected ServerHttpBase(string strNome) : base(strNome)
+        protected SrvHttpBase() : base("Servidor HTTP")
         {
         }
 
@@ -96,9 +96,9 @@ namespace NetZ.Web.Server
             return null;
         }
 
-        protected override int getIntPort()
+        protected override int getIntPorta()
         {
-            return ConfigWebBase.i.intServerHttpPorta;
+            return ConfigWebBase.i.intSrvHttpPorta;
         }
 
         protected override void inicializar()
@@ -388,10 +388,10 @@ namespace NetZ.Web.Server
             ArquivoEstatico arqDownload = new ArquivoEstatico();
 
             arqDownload.arrBteConteudo = (tbl as ITblArquivo).getClnArq().arrBteValor;
-            arqDownload.dttUltimaModificacao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
+            arqDownload.dttAlteracao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
             arqDownload.strNome = (tbl as ITblArquivo).getClnStrArquivoNome().strValor;
 
-            tbl.liberar();
+            tbl.liberarThread();
 
             return this.responderArquivoEstatico(objSolicitacao, arqDownload);
         }

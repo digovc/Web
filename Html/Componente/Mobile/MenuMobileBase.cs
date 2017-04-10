@@ -1,8 +1,8 @@
 ﻿using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Menu
+namespace NetZ.Web.Html.Componente.Mobile
 {
-    public abstract class MenuMobile : ComponenteHtml
+    public abstract class MenuMobileBase : ComponenteHtml
     {
         #region Constantes
 
@@ -67,11 +67,11 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobile), 200));
+            lstJs.Add(new JavaScriptTag(typeof(MenuMobileBase), 111));
         }
 
         protected override void addTag(Tag tag)
@@ -99,7 +99,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divItemConteudo.setPai(this.divConteudo);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -107,6 +107,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setHeight(100, "%"));
             this.addCss(css.setPosition("fixed"));
+            this.addCss(css.setTop(0));
             this.addCss(css.setWidth(100, "%"));
 
             this.divCabecalho.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
@@ -117,7 +118,8 @@ namespace NetZ.Web.Html.Componente.Menu
 
             this.divConteudo.addCss(css.setBackgroundColor("white"));
             this.divConteudo.addCss(css.setHeight(100, "%"));
-            this.divConteudo.addCss(css.setWidth(90, "%"));
+            this.divConteudo.addCss(css.setMaxWidth(250));
+            this.divConteudo.addCss(css.setMinWidth(250));
 
             this.divItemConteudo.addCss(css.setPadding(10));
         }

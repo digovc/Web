@@ -126,7 +126,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 _tblArquivo = value;
 
-                this.atualizarTblArquivo();
+                this.setTblArquivo(_tblArquivo);
             }
         }
 
@@ -143,28 +143,28 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(CampoAnexo), 132));
+            lstJs.Add(new JavaScriptTag(typeof(CampoAnexo), 132));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnDownload.strId = (this.strId + "_btnDownload");
-            this.btnPesquisar.strId = (this.strId + "_btnPesquisar");
-            this.divArquivoNome.strId = (this.strId + "_divArquivoNome");
-            this.divArquivoTamanho.strId = (this.strId + "_divArquivoTamanho");
-            this.divIcone.strId = (this.strId + "_divIcone");
-            this.divProgressBar.strId = (this.strId + "_divProgressBar");
+            this.btnDownload.strId = (strId + "_btnDownload");
+            this.btnPesquisar.strId = (strId + "_btnPesquisar");
+            this.divArquivoNome.strId = (strId + "_divArquivoNome");
+            this.divArquivoTamanho.strId = (strId + "_divArquivoTamanho");
+            this.divIcone.strId = (strId + "_divIcone");
+            this.divProgressBar.strId = (strId + "_divProgressBar");
         }
 
         protected override Input.EnmTipo getEnmTipo()
@@ -193,7 +193,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divArquivoTamanho.setPai(this.divContent);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -218,46 +218,46 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divProgressBar.addCss(css.setMarginRight(150));
         }
 
-        private void atualizarTblArquivo()
+        private void setTblArquivo(ITblArquivo tblArquivo)
         {
-            if (this.tblArquivo == null)
+            if (tblArquivo == null)
             {
                 return;
             }
 
-            this.atualizarTblArquivoModificacao();
-            this.atualizarTblArquivoNome();
-            this.atualizarTblArquivoTamanho();
+            this.setTblArquivoModificacao(tblArquivo);
+            this.setTblArquivoNome(tblArquivo);
+            this.setTblArquivoTamanho(tblArquivo);
         }
 
-        private void atualizarTblArquivoModificacao()
+        private void setTblArquivoModificacao(ITblArquivo tblArquivo)
         {
-            if (this.tblArquivo.getClnDttArquivoModificacao() == null)
+            if (tblArquivo.getClnDttArquivoModificacao() == null)
             {
                 return;
             }
 
-            this.addAtt("cln_web_arquivo_modificacao_nome", this.tblArquivo.getClnDttArquivoModificacao().sqlNome);
+            this.addAtt("cln_web_arquivo_modificacao_nome", tblArquivo.getClnDttArquivoModificacao().sqlNome);
         }
 
-        private void atualizarTblArquivoNome()
+        private void setTblArquivoNome(ITblArquivo tblArquivo)
         {
-            if (this.tblArquivo.getClnStrArquivoNome() == null)
+            if (tblArquivo.getClnStrArquivoNome() == null)
             {
                 return;
             }
 
-            this.addAtt("cln_web_arquivo_nome_nome", this.tblArquivo.getClnStrArquivoNome().sqlNome);
+            this.addAtt("cln_web_arquivo_nome_nome", tblArquivo.getClnStrArquivoNome().sqlNome);
         }
 
-        private void atualizarTblArquivoTamanho()
+        private void setTblArquivoTamanho(ITblArquivo tblArquivo)
         {
-            if (this.tblArquivo.getClnIntArquivoTamanho() == null)
+            if (tblArquivo.getClnIntArquivoTamanho() == null)
             {
                 return;
             }
 
-            this.addAtt("cln_web_arquivo_tamanho_nome", this.tblArquivo.getClnIntArquivoTamanho().sqlNome);
+            this.addAtt("cln_web_arquivo_tamanho_nome", tblArquivo.getClnIntArquivoTamanho().sqlNome);
         }
 
         #endregion Métodos

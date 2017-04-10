@@ -165,7 +165,7 @@ namespace NetZ.Web.Html.Componente
             this.btnCancelar.setPai(this.divComando);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -179,11 +179,14 @@ namespace NetZ.Web.Html.Componente
             this.addCss(css.setTop(0));
             this.addCss(css.setZIndex(100));
 
+            this.btnCancelar.addCss(css.setBackgroundImage("/res/media/png/btn_cancelar_30x30.png"));
             this.btnCancelar.addCss(css.setDisplay("none"));
+            this.btnCancelar.addCss(css.setFloat("right"));
             this.btnCancelar.addCss(css.setMarginRight(10));
             this.btnCancelar.addCss(css.setMarginTop(7));
 
             this.btnConfirmar.addCss(css.setBackgroundImage("/res/media/png/btn_salvar_40x40.png"));
+            this.btnConfirmar.addCss(css.setFloat("right"));
 
             this.divComando.addCss(css.setBottom(0));
             this.divComando.addCss(css.setHeight(50));
@@ -203,7 +206,10 @@ namespace NetZ.Web.Html.Componente
             this.divContainerFaixa.addCss(css.setRight(0));
             this.divContainerFaixa.addCss(css.setTop(250));
 
+            this.divMensagem.addCss(css.setMaxHeight(90));
+            this.divMensagem.addCss(css.setOverflow("auto"));
             this.divMensagem.addCss(css.setPadding(10));
+            this.divMensagem.addCss(css.setWordWrap("break-word"));
 
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setPaddingBottom(25));

@@ -1,6 +1,6 @@
 ﻿using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Menu
+namespace NetZ.Web.Html.Componente.Mobile
 {
     public class MenuMobileItem : ComponenteHtml
     {
@@ -39,7 +39,7 @@ namespace NetZ.Web.Html.Componente.Menu
             {
                 _strTitulo = value;
 
-                this.atualizarStrTitulo();
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -81,11 +81,11 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuMobileItem), 110));
+            lstJs.Add(new JavaScriptTag(typeof(MenuMobileItem), 110));
         }
 
         protected override void montarLayout()
@@ -96,7 +96,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divTitulo.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -116,9 +116,9 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divTitulo.addCss(css.setLineHeight(50));
         }
 
-        private void atualizarStrTitulo()
+        private void setStrTitulo(string strTitulo)
         {
-            this.divTitulo.strConteudo = this.strTitulo;
+            this.divTitulo.strConteudo = strTitulo;
         }
 
         #endregion Métodos

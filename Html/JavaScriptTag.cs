@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NetZ.Web.Html.Componente;
+using System;
 using System.Collections.Generic;
-using NetZ.Web.Html.Componente;
 
 namespace NetZ.Web.Html
 {
@@ -61,11 +61,8 @@ namespace NetZ.Web.Html
             this.src = src;
         }
 
-        public JavaScriptTag(Type cls, int intOrdem = 200) : base("script")
+        public JavaScriptTag(Type cls, int intOrdem = 200) : this(getSrc(cls), intOrdem)
         {
-            this.booMostrarClazz = false;
-            this.intOrdem = intOrdem;
-            this.src = getSrc(cls);
         }
 
         #endregion Construtores
@@ -79,7 +76,7 @@ namespace NetZ.Web.Html
                 return null;
             }
 
-            string srcResultado = "res/js/_cls_namespace/_cls_nome_ponto_finaljs";
+            string srcResultado = "/res/js/_cls_namespace/_cls_nome_ponto_finaljs";
 
             srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
             srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
@@ -92,6 +89,36 @@ namespace NetZ.Web.Html
             return srcResultado;
         }
 
+        public void addConstante(string strNome, decimal decValor)
+        {
+            this.addConstante(strNome, decValor.ToString());
+        }
+
+        public void addConstante(string strNome, int intValor)
+        {
+            this.addConstante(strNome, intValor.ToString());
+        }
+
+        public void addConstante(string strNome, string strValor)
+        {
+            if (string.IsNullOrEmpty(strNome))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(strValor))
+            {
+                return;
+            }
+
+            string strJs = "Web.ConstanteManager.i.addConstante(new Web.Constante('_constante_nome', '_constante_valor'));";
+
+            strJs = strJs.Replace("_constante_nome", strNome);
+            strJs = strJs.Replace("_constante_valor", strValor);
+
+            this.addJs(strJs);
+        }
+
         public void addJs(string strJs)
         {
             if (string.IsNullOrEmpty(strJs))
@@ -100,6 +127,21 @@ namespace NetZ.Web.Html
             }
 
             this.lstStrCodigo.Add(strJs);
+        }
+
+        public void addLayoutFixo(Type cls)
+        {
+            if (cls == null)
+            {
+                return;
+            }
+
+            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
+            {
+                return;
+            }
+
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
         }
 
         public override string toHtml()
@@ -123,46 +165,11 @@ namespace NetZ.Web.Html
             return base.toHtml();
         }
 
-        internal void addConstante(string strNome, string strValor)
-        {
-            if (string.IsNullOrEmpty(strNome))
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(strValor))
-            {
-                return;
-            }
-
-            string strJs = "NetZ_Web.ConstanteManager.i.addConstante(new NetZ_Web.Constante('_constante_nome', '_constante_valor'));";
-
-            strJs = strJs.Replace("_constante_nome", strNome);
-            strJs = strJs.Replace("_constante_valor", strValor);
-
-            this.addJs(strJs);
-        }
-
-        internal void addLayoutFixo(Type cls)
-        {
-            if (cls == null)
-            {
-                return;
-            }
-
-            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
-            {
-                return;
-            }
-
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
-        }
-
         /// <summary>
         /// Este método precisa estar vazio para que não ocorra um loop infinito e porque este tag
         /// não necessita de adicionar nenhuma outra tag JavaScript para a página.
         /// </summary>
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             // Não fazer nada.
         }
@@ -172,6 +179,8 @@ namespace NetZ.Web.Html
             base.inicializar();
 
             this.addAtt("type", "text/javascript");
+
+            //this.addAtt("defer");
         }
 
         #endregion Métodos

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Reflection;
-using DigoFramework.Json;
+﻿using DigoFramework.Json;
 using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
@@ -9,10 +6,13 @@ using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
+using System;
+using System.Data;
+using System.Reflection;
 
 namespace NetZ.Web.Server.Ajax
 {
-    public abstract class ServerAjaxDb : ServerAjax
+    public abstract class SrvAjaxDbeBase : SrvAjaxBase
     {
         #region Constantes
 
@@ -42,7 +42,7 @@ namespace NetZ.Web.Server.Ajax
 
         #region Construtores
 
-        protected ServerAjaxDb(string strNome) : base(strNome)
+        protected SrvAjaxDbeBase(string strNome) : base(strNome)
         {
         }
 
@@ -50,62 +50,18 @@ namespace NetZ.Web.Server.Ajax
 
         #region Métodos
 
-        public override Resposta responder(Solicitacao objSolicitacao)
+        protected override int getIntPorta()
         {
-            Resposta objResposta = base.responder(objSolicitacao);
-
-            if (objResposta != null)
-            {
-                return objResposta;
-            }
-
-            Interlocutor objInterlocutor = null;
-
-            try
-            {
-                if (objSolicitacao == null)
-                {
-                    return null;
-                }
-
-                if (string.IsNullOrEmpty(objSolicitacao.jsn))
-                {
-                    return null;
-                }
-
-                objInterlocutor = Json.i.fromJson<Interlocutor>(objSolicitacao.jsn);
-
-                if (objInterlocutor == null)
-                {
-                    return null;
-                }
-
-                this.responder(objSolicitacao, objInterlocutor);
-
-                objResposta = new Resposta(objSolicitacao);
-
-                objResposta.addJson(objInterlocutor);
-
-                this.addAcessControl(objResposta);
-
-                return objResposta;
-            }
-            catch (Exception ex)
-            {
-                return this.responderErro(objSolicitacao, ex, objInterlocutor);
-            }
-            finally
-            {
-            }
+            return 8082;
         }
 
-        protected override int getIntPort()
+        protected override bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            return ConfigWebBase.i.intServerAjaxDbPorta;
-        }
+            if (base.responder(objSolicitacao, objInterlocutor))
+            {
+                return true;
+            }
 
-        protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
-        {
             if (objInterlocutor == null)
             {
                 return false;
@@ -255,7 +211,7 @@ namespace NetZ.Web.Server.Ajax
             }
             finally
             {
-                tbl.liberar();
+                tbl.liberarThread();
             }
         }
 
@@ -298,7 +254,7 @@ namespace NetZ.Web.Server.Ajax
             }
             finally
             {
-                TblFiltro.i.liberar();
+                TblFiltro.i.liberarThread();
             }
         }
 
@@ -451,7 +407,7 @@ namespace NetZ.Web.Server.Ajax
 
             if (tbl == null)
             {
-                return;
+                throw new Exception(string.Format("Tabela \"{0}\" não encontrada.", tblWeb.strNome));
             }
 
             if (!this.validarPesquisar(objSolicitacao, objInterlocutor, tblWeb, tbl))
@@ -518,36 +474,6 @@ namespace NetZ.Web.Server.Ajax
 
         private void recuperarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-        }
-
-        private Resposta responderErro(Solicitacao objSolicitacao, Exception ex, Interlocutor objInterlocutor)
-        {
-            if (objSolicitacao == null)
-            {
-                return null;
-            }
-
-            string strErro = "Erro desconhecido.";
-
-            if (ex != null)
-            {
-                strErro = ex.Message;
-            }
-
-            if (objInterlocutor == null)
-            {
-                objInterlocutor = new Interlocutor();
-            }
-
-            objInterlocutor.strErro = strErro;
-
-            Resposta objResposta = new Resposta(objSolicitacao);
-
-            objResposta.addJson(objInterlocutor);
-
-            this.addAcessControl(objResposta);
-
-            return objResposta;
         }
 
         private void salvarDominio(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -663,7 +589,7 @@ namespace NetZ.Web.Server.Ajax
 
             tbl.salvarWeb(tblWeb);
 
-            tbl.liberar();
+            tbl.liberarThread();
         }
 
         private void salvarTag(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -731,7 +657,7 @@ namespace NetZ.Web.Server.Ajax
 
             objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.sqlNome);
 
-            TblFavorito.i.liberar();
+            TblFavorito.i.liberarThread();
         }
 
         #endregion Métodos

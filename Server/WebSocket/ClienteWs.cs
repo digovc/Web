@@ -1,10 +1,12 @@
-﻿using System;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
+﻿using DigoFramework;
 using DigoFramework.Json;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Tabela;
+using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace NetZ.Web.Server.WebSocket
 {
@@ -12,26 +14,22 @@ namespace NetZ.Web.Server.WebSocket
     {
         #region Constantes
 
+        private const string STR_METODO_ERRO = "STR_METODO_ERRO";
+        private const string STR_METODO_PING = "ping";
+        private const string STR_METODO_PONG = "pong";
+        private const string STR_METODO_WELCOME = "STR_METODO_WELCOME";
+
         #endregion Constantes
 
         #region Atributos
 
-        private bool _booConectado;
         private bool _booHandshake;
+        private List<byte> _lstBteCache;
         private UsuarioDominio _objUsuario;
+        private SrvWsBase _srvWs;
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
         private string _strSessaoId;
-
-        public bool booConectado
-        {
-            get
-            {
-                _booConectado = this.getBooConectado();
-
-                return _booConectado;
-            }
-        }
 
         public UsuarioDominio objUsuario
         {
@@ -45,6 +43,26 @@ namespace NetZ.Web.Server.WebSocket
                 _objUsuario = this.getObjUsuario();
 
                 return _objUsuario;
+            }
+        }
+
+        protected SrvWsBase srvWs
+        {
+            get
+            {
+                return _srvWs;
+            }
+
+            set
+            {
+                if (_srvWs == value)
+                {
+                    return;
+                }
+
+                _srvWs = value;
+
+                this.setSrvWs(_srvWs);
             }
         }
 
@@ -74,6 +92,19 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
+        private List<byte> lstBteCache
+        {
+            get
+            {
+                return _lstBteCache;
+            }
+
+            set
+            {
+                _lstBteCache = value;
+            }
+        }
+
         private string strSecWebSocketAccept
         {
             get
@@ -84,6 +115,7 @@ namespace NetZ.Web.Server.WebSocket
                 }
 
                 _strSecWebSocketAccept = this.getStrSecWebSocketAccept();
+
                 return _strSecWebSocketAccept;
             }
         }
@@ -105,13 +137,29 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Construtores
 
-        public ClienteWs(TcpClient tcpClient, ServerWs srv) : base(tcpClient, srv)
+        public ClienteWs(TcpClient tcpClient, SrvWsBase srvWs) : base(tcpClient, srvWs)
         {
+            this.srvWs = srvWs;
         }
 
         #endregion Construtores
 
         #region Métodos
+
+        /// <summary>
+        /// Atalho para <see cref="enviar(Interlocutor)"/>
+        /// </summary>
+        /// <param name="strMetodo">Método que está sendo executado.</param>
+        /// <param name="objData">Data que será enviada junto do JSON para o cliente.</param>
+        public void enviar(string strMetodo, object objData = null)
+        {
+            if (string.IsNullOrEmpty(strMetodo))
+            {
+                return;
+            }
+
+            this.enviar(new Interlocutor(strMetodo, objData));
+        }
 
         /// <summary>
         /// Envia uma mensagem contendo a estrutura do interlocutor em JSON para este cliente.
@@ -129,16 +177,11 @@ namespace NetZ.Web.Server.WebSocket
             this.enviar(Json.i.toJson(objInterlocutor));
         }
 
-        protected override void atualizarSrv()
+        protected override void finalizar()
         {
-            base.atualizarSrv();
+            base.finalizar();
 
-            if (this.srv == null)
-            {
-                return;
-            }
-
-                    (this.srv as ServerWs).addObjClienteWs(this);
+            this.finalizarSrv();
         }
 
         /// <summary>
@@ -156,28 +199,77 @@ namespace NetZ.Web.Server.WebSocket
         {
         }
 
+        protected virtual bool processarMensagem(byte[] arrBteData)
+        {
+            return false;
+        }
+
+        protected virtual bool processarMensagem(Interlocutor objInterlocutor)
+        {
+            switch (objInterlocutor.strMetodo)
+            {
+                case STR_METODO_PING:
+                    this.processarMensagemPing();
+                    return true;
+
+                case STR_METODO_WELCOME:
+                    this.processarMensagemWelcome(objInterlocutor);
+                    return true;
+            }
+
+            return false;
+        }
+
+        private void processarMensagemPing()
+        {
+            this.enviar(new Interlocutor(STR_METODO_PONG));
+        }
+
+        protected virtual bool processarMensagem(string strMensagem)
+        {
+            return false;
+        }
+
+        protected virtual void processarMensagemWelcome(Interlocutor objInterlocutor)
+        {
+            objInterlocutor.strMetodo = STR_METODO_WELCOME;
+
+            this.enviar(objInterlocutor);
+        }
+
         protected override void responder(Solicitacao objSolicitacao)
         {
-            //base.responder();
+            // base.responder();
 
-            if (!this.validar(objSolicitacao))
+            try
+            {
+                this.processarMensagem(objSolicitacao);
+            }
+            catch (Exception ex)
+            {
+                this.responderErro(objSolicitacao, ex);
+            }
+        }
+
+        protected override void responderErro(Solicitacao objSolicitacao, Exception ex)
+        {
+            // base.responderErro(objSolicitacao, ex);
+
+            if (ex == null)
             {
                 return;
             }
 
-            this.processarMensagem(objSolicitacao);
-        }
+            string strStack = ex.StackTrace;
 
-        protected override bool validar(Solicitacao objSolicitacao)
-        {
-            //base.validar(objSolicitacao);
-
-            if (objSolicitacao == null)
+            if (!string.IsNullOrEmpty(strStack))
             {
-                return false;
+                strStack = strStack.Replace(Environment.NewLine, "<br/>");
             }
 
-            return true;
+            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
+
+            Log.i.erro(ex);
         }
 
         private void enviar(string strMensagem)
@@ -194,14 +286,14 @@ namespace NetZ.Web.Server.WebSocket
             this.enviar(fme.arrBteDataOut);
         }
 
-        private bool getBooConectado()
+        private void finalizarSrv()
         {
-            if (this.tcpClient == null)
+            if (this.srvWs == null)
             {
-                return false;
+                return;
             }
 
-            return this.tcpClient.Connected;
+            this.srvWs.removerObjClienteWs(this);
         }
 
         private UsuarioDominio getObjUsuario()
@@ -244,12 +336,41 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            Frame fme = new Frame(objSolicitacao.arrBteMsgCliente);
+            List<byte> lstBteData = new List<byte>();
 
-            fme.processarDadosIn();
+            if (this.lstBteCache != null && this.lstBteCache.Count > 0)
+            {
+                lstBteData.AddRange(this.lstBteCache);
+            }
+
+            lstBteData.AddRange(objSolicitacao.arrBteMsgCliente);
+
+            this.processarMensagem(lstBteData);
+            this.processarMensagem(this.lstBteCache);
+        }
+
+        private void processarMensagem(List<byte> lstBteData)
+        {
+            if (lstBteData == null)
+            {
+                return;
+            }
+
+            if (lstBteData.Count < 1)
+            {
+                return;
+            }
+
+            Frame fme = new Frame(lstBteData.ToArray());
+
+            this.lstBteCache = new List<byte>(fme.processarDadosIn());
 
             switch (fme.enmTipo)
             {
+                case Frame.EnmTipo.BINARY:
+                    this.processarMensagemByte(fme);
+                    return;
+
                 case Frame.EnmTipo.TEXT:
                     this.processarMensagemText(fme);
                     return;
@@ -258,6 +379,21 @@ namespace NetZ.Web.Server.WebSocket
                     this.processarMensagemClose();
                     return;
             }
+        }
+
+        private void processarMensagemByte(Frame fme)
+        {
+            if (fme.arrBteMensagem == null)
+            {
+                return;
+            }
+
+            if (fme.arrBteMensagem.Length < 1)
+            {
+                return;
+            }
+
+            this.processarMensagem(fme.arrBteMensagem);
         }
 
         private void processarMensagemClose()
@@ -270,17 +406,11 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.tcpClient.Close();
-            this.tcpClient.Dispose();
             this.parar();
         }
 
         private void processarMensagemHandshake(Solicitacao objSolicitacao)
         {
-            if (string.IsNullOrEmpty(objSolicitacao.strSessaoId))
-            {
-                return;
-            }
-
             if (!"websocket".Equals(objSolicitacao.getStrHeaderValor("Upgrade")))
             {
                 return;
@@ -310,32 +440,43 @@ namespace NetZ.Web.Server.WebSocket
 
         private void processarMensagemText(Frame fme)
         {
-            if (fme == null)
-            {
-                return;
-            }
-
             if (string.IsNullOrEmpty(fme.strMensagem))
             {
                 return;
             }
 
-            this.processarOnMensagem(fme.strMensagem);
+            Interlocutor objInterlocutor = null;
+
+            try
+            {
+                objInterlocutor = Json.i.fromJson<Interlocutor>(fme.strMensagem);
+            }
+            catch (Exception)
+            {
+                this.processarMensagem(fme.strMensagem);
+            }
+
+            if (objInterlocutor == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(objInterlocutor.strMetodo))
+            {
+                return;
+            }
+
+            this.processarMensagem(objInterlocutor);
         }
 
-        private void processarOnMensagem(string strMensagem)
+        private void setSrvWs(SrvWsBase srvWs)
         {
-            if (this.srv == null)
+            if (srvWs == null)
             {
                 return;
             }
 
-            if (!(this.srv is ServerWs))
-            {
-                return;
-            }
-
-            (this.srv as ServerWs).processarOnMensagemLocal(this, strMensagem);
+            srvWs.addObjClienteWs(this);
         }
 
         #endregion Métodos

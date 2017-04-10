@@ -84,18 +84,18 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divBarra.strId = (this.strId + "_divBarra");
-            this.pnlCondicao.strId = (this.strId + "_pnlCondicao");
-            this.pnlSelecao.strId = (this.strId + "_pnlSelecao");
+            this.divBarra.strId = (strId + "_divBarra");
+            this.pnlCondicao.strId = (strId + "_pnlCondicao");
+            this.pnlSelecao.strId = (strId + "_pnlSelecao");
         }
 
         protected override void inicializar()
@@ -122,7 +122,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             new LimiteFloat().setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

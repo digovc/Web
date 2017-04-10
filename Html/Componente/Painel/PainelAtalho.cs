@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
@@ -19,32 +18,14 @@ namespace NetZ.Web.Html.Componente.Painel
 
         #region Métodos
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
-                this.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corBorda));
-                this.addCss(css.setHeight(70));
-                this.addCss(css.setPadding(5));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corFundo));
+            this.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corBorda));
+            this.addCss(css.setHeight(70));
+            this.addCss(css.setPadding(5));
         }
 
         #endregion Métodos

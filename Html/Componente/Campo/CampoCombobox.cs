@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NetZ.Web.Server.Arquivo.Css;
+using NetZ.Persistencia;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
@@ -68,18 +69,18 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
+            lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
         }
 
-        protected override void atualizarCln()
+        protected override void setCln(Coluna cln)
         {
-            base.atualizarCln();
+            base.setCln(cln);
 
-            this.cmb.cln = this.cln;
+            this.cmb.cln = cln;
         }
 
         protected override Input.EnmTipo getEnmTipo()
@@ -92,7 +93,7 @@ namespace NetZ.Web.Html.Componente.Campo
             return this.cmb;
         }
 
-        protected override void setCssTagInputHeight(CssArquivo css)
+        protected override void setCssTagInputHeight(CssArquivoBase css)
         {
             this.tagInput.addCss(css.setHeight(22));
         }

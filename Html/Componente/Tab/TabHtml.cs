@@ -162,11 +162,11 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(TabHtml), 110));
+            lstJs.Add(new JavaScriptTag(typeof(TabHtml), 110));
         }
 
         protected override void addTag(Tag tag)
@@ -185,32 +185,29 @@ namespace NetZ.Web.Html.Componente.Tab
             base.addTag(tag);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.btnAdicionar.strId = (this.strId + "_btnAdicionar");
-            this.btnAlterar.strId = (this.strId + "_btnAlterar");
-            this.btnApagar.strId = (this.strId + "_btnApagar");
-            this.divComando.strId = (this.strId + "_divComando");
+            this.btnAdicionar.strId = (strId + "_btnAdicionar");
+            this.btnAlterar.strId = (strId + "_btnAlterar");
+            this.btnApagar.strId = (strId + "_btnApagar");
+            this.divComando.strId = (strId + "_divComando");
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.btnAdicionar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
             this.btnAdicionar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
-            this.btnAlterar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
             this.btnAlterar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
 
-            this.btnApagar.enmLado = BotaoCircular.EnmLado.ESQUERDA;
             this.btnApagar.enmTamanho = BotaoCircular.EnmTamanho.PEQUENO;
         }
 
@@ -227,7 +224,7 @@ namespace NetZ.Web.Html.Componente.Tab
             //this.btnApagar.setPai(this.divComando);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

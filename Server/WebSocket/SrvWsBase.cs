@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
-using DigoFramework.Json;
 
 namespace NetZ.Web.Server.WebSocket
 {
-    public abstract class ServerWs : ServerBase
+    public abstract class SrvWsBase : ServerBase
     {
         #region Constantes
 
-        private const string STR_METODO_WELCOME = "WELCOME";
+        private const string STR_METODO_WELCOME = "metodo_welcome";
 
         #endregion Constantes
 
@@ -16,18 +16,21 @@ namespace NetZ.Web.Server.WebSocket
 
         private List<ClienteWs> _lstObjClienteWs;
 
-        protected List<ClienteWs> lstObjClienteWs
+        public List<ClienteWs> lstObjClienteWs
         {
             get
             {
-                if (_lstObjClienteWs != null)
+                lock (this)
                 {
+                    if (_lstObjClienteWs != null)
+                    {
+                        return _lstObjClienteWs;
+                    }
+
+                    _lstObjClienteWs = new List<ClienteWs>();
+
                     return _lstObjClienteWs;
                 }
-
-                _lstObjClienteWs = new List<ClienteWs>();
-
-                return _lstObjClienteWs;
             }
         }
 
@@ -35,7 +38,7 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Construtores
 
-        protected ServerWs(string strNome) : base(strNome)
+        protected SrvWsBase(string strNome) : base(strNome)
         {
         }
 
@@ -62,9 +65,11 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             this.lstObjClienteWs.Add(objClienteWs);
+
+            this.processarOnClienteWsAdd(objClienteWs);
         }
 
-        internal virtual void processarOnMensagemLocal(ClienteWs objClienteWs, string jsnInterlocutor)
+        internal void removerObjClienteWs(ClienteWs objClienteWs)
         {
             if (objClienteWs == null)
             {
@@ -76,24 +81,12 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            if (string.IsNullOrEmpty(jsnInterlocutor))
-            {
-                return;
-            }
+            this.lstObjClienteWs.Remove(objClienteWs);
+        }
 
-            Interlocutor objInterlocutor = Json.i.fromJson<Interlocutor>(jsnInterlocutor);
-
-            if (objInterlocutor == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(objInterlocutor.strMetodo))
-            {
-                return;
-            }
-
-            this.processarOnMensagem(objClienteWs, objInterlocutor);
+        protected override int getIntPorta()
+        {
+            return 443;
         }
 
         protected override Cliente getObjCliente(TcpClient tcpClient)
@@ -121,21 +114,9 @@ namespace NetZ.Web.Server.WebSocket
             return null;
         }
 
-        protected virtual bool processarOnMensagem(ClienteWs objClienteWs, Interlocutor objInterlocutor)
+        protected virtual void processarOnClienteWsAdd(ClienteWs objClienteWs)
         {
-            if (objInterlocutor == null)
-            {
-                return false;
-            }
-
-            switch (objInterlocutor.strMetodo)
-            {
-                case STR_METODO_WELCOME:
-                    this.processarOnMensagemWelcome(objClienteWs, objInterlocutor);
-                    return true;
-            }
-
-            return false;
+            this.onClienteWsAdd?.Invoke(this, objClienteWs);
         }
 
         private ClienteWs getObjClienteWs(ClienteWs objClienteWs, int intUsuarioId)
@@ -163,21 +144,11 @@ namespace NetZ.Web.Server.WebSocket
             return objClienteWs;
         }
 
-        private void processarOnMensagemWelcome(ClienteWs objClienteWs, Interlocutor objInterlocutor)
-        {
-            if (objClienteWs == null)
-            {
-                return;
-            }
-
-            objInterlocutor.strMetodo = STR_METODO_WELCOME;
-
-            objClienteWs.enviar(objInterlocutor);
-        }
-
         #endregion Métodos
 
         #region Eventos
+
+        public event EventHandler<ClienteWs> onClienteWsAdd;
 
         #endregion Eventos
     }

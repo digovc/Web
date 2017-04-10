@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Circulo
 {
@@ -44,78 +43,42 @@ namespace NetZ.Web.Html.Componente.Circulo
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(DivCirculo), 110));
+            lstJs.Add(new JavaScriptTag(typeof(DivCirculo), 110));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
-            #region Variáveis
+            this.addCss(css.setBorderRadius(50, "%"));
+            this.addCss(css.setOutline("none"));
 
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setBorderRadius(50, "%"));
-                this.addCss(css.setOutLine("none"));
-
-                this.setCssEnmTamanho(css);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.setCssEnmTamanho(css);
         }
 
-        private void setCssEnmTamanho(CssArquivo css)
+        private void setCssEnmTamanho(CssArquivoBase css)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
+            switch (this.enmTamanho)
             {
-                switch (this.enmTamanho)
-                {
-                    case EnmTamanho.GRANDE:
-                        this.addCss(css.setHeight(150));
-                        this.addCss(css.setWidth(150));
-                        return;
+                case EnmTamanho.GRANDE:
+                    this.addCss(css.setHeight(150));
+                    this.addCss(css.setWidth(150));
+                    return;
 
-                    case EnmTamanho.PEQUENO:
-                        this.addCss(css.setHeight(25));
-                        this.addCss(css.setWidth(25));
-                        return;
+                case EnmTamanho.PEQUENO:
+                    this.addCss(css.setHeight(25));
+                    this.addCss(css.setWidth(25));
+                    return;
 
-                    default:
-                        this.addCss(css.setHeight(40));
-                        this.addCss(css.setWidth(40));
-                        return;
-                }
+                default:
+                    this.addCss(css.setHeight(40));
+                    this.addCss(css.setWidth(40));
+                    return;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
         }
 
         #endregion Métodos

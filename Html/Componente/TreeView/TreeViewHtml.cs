@@ -49,12 +49,12 @@
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(TreeViewHtml), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(TreeViewNode), 112));
+            lstJs.Add(new JavaScriptTag(typeof(TreeViewHtml), 111));
+            lstJs.Add(new JavaScriptTag(typeof(TreeViewNode), 112));
         }
 
         protected override void addLayoutFixo(JavaScriptTag tagJs)
@@ -64,16 +64,16 @@
             tagJs.addLayoutFixo(typeof(TreeViewNode));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divNodeContainer.strId = (this.strId + "_divNodeContainer");
+            this.divNodeContainer.strId = (strId + "_divNodeContainer");
         }
 
         protected override void montarLayout()

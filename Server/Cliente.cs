@@ -1,12 +1,14 @@
-﻿using System;
+﻿using DigoFramework;
+using DigoFramework.Servico;
+using NetZ.Web.Html.Pagina;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using NetZ.Web.Html.Pagina;
 
 namespace NetZ.Web.Server
 {
-    public class Cliente : Servico
+    public class Cliente : ServicoBase
     {
         #region Constantes
 
@@ -14,9 +16,20 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
-        private DateTime _dttUltimaMensagemRecebida;
+        private bool _booConectado;
+        private DateTime _dttUltimaMensagemRecebida = DateTime.Now;
         private ServerBase _srv;
         private TcpClient _tcpClient;
+
+        public bool booConectado
+        {
+            get
+            {
+                _booConectado = this.getBooConectado();
+
+                return _booConectado;
+            }
+        }
 
         /// <summary>
         /// Data e hora em que a última mensagem foi enviada pelo cliente para este servidor.
@@ -43,18 +56,11 @@ namespace NetZ.Web.Server
 
             set
             {
-                if (_srv == value)
-                {
-                    return;
-                }
-
                 _srv = value;
-
-                this.atualizarSrv();
             }
         }
 
-        protected TcpClient tcpClient
+        public TcpClient tcpClient
         {
             get
             {
@@ -71,7 +77,7 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Cliente(TcpClient tcpClient, ServerBase srv) : base(string.Format("Cliente ({0})", ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString()))
+        internal Cliente(TcpClient tcpClient, ServerBase srv) : base(null)
         {
             this.srv = srv;
             this.tcpClient = tcpClient;
@@ -80,10 +86,6 @@ namespace NetZ.Web.Server
         #endregion Construtores
 
         #region Métodos
-
-        protected virtual void atualizarSrv()
-        {
-        }
 
         protected void enviar(byte[] arrBteData)
         {
@@ -97,31 +99,45 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (!this.tcpClient.GetStream().CanWrite)
+            if (!this.booConectado)
             {
                 return;
             }
 
-            this.tcpClient.GetStream().Write(arrBteData, 0, arrBteData.Length);
+            try
+            {
+                this.tcpClient.GetStream().Write(arrBteData, 0, arrBteData.Length);
+            }
+            catch (Exception ex)
+            {
+                new Erro(string.Format("Erro ao tentar enviar dados para o \"{0}\".", this.strNome), ex);
+            }
+        }
+
+        protected override void finalizar()
+        {
+            base.finalizar();
+
+            this.finalizarTcpClient();
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.inicializarStrNome();
         }
 
         protected virtual void responder(Solicitacao objSolicitacao)
         {
             try
             {
-                if (!this.validar(objSolicitacao))
+                if (!objSolicitacao.validar())
                 {
                     return;
                 }
 
-                Resposta objResposta = this.srv.responder(objSolicitacao);
-
-                if (!this.validar(objResposta))
-                {
-                    return;
-                }
-
-                this.responder(objResposta);
+                this.responder(this.srv.responder(objSolicitacao));
             }
             catch (Exception ex)
             {
@@ -133,11 +149,28 @@ namespace NetZ.Web.Server
         {
             if (objResposta == null)
             {
-                // TODO: Quando a resposta estiver null enviar uma mensagem de erro no servidor.
+                // TODO: Quando a resposta estiver null enviar uma mensagem 404 para o cliente.
                 return;
             }
 
             this.enviar(objResposta.arrBteResposta);
+        }
+
+        protected virtual void responderErro(Solicitacao objSolicitacao, Exception ex)
+        {
+            if (ex == null)
+            {
+                return;
+            }
+
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            objResposta.addHtml(new PagError(ex));
+            objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
+
+            this.responder(objResposta);
+
+            Log.i.erro(ex);
         }
 
         protected override void servico()
@@ -147,47 +180,12 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            Solicitacao objSolicitacao;
-
-            while (this.tcpClient.Connected)
-            {
-                objSolicitacao = this.carregarSolicitacao();
-
-                if (objSolicitacao == null)
-                {
-                    Thread.Sleep(10); // TODO: Parar esse processo depois de um tempo excessivo.
-                    continue;
-                }
-
-                this.responder(objSolicitacao);
-            }
-
-            this.tcpClient.Close();
-        }
-
-        protected virtual bool validar(Solicitacao objSolicitacao)
-        {
-            if (objSolicitacao == null)
-            {
-                return false;
-            }
-
-            if (Solicitacao.EnmMetodo.DESCONHECIDO.Equals(objSolicitacao.enmMetodo))
-            {
-                return false;
-            }
-
-            return true;
+            this.loop();
         }
 
         private Solicitacao carregarSolicitacao()
         {
-            if (this.tcpClient == null)
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.Connected)
+            if (!this.booConectado)
             {
                 return null;
             }
@@ -197,29 +195,81 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            if (!this.tcpClient.GetStream().CanRead)
-            {
-                return null;
-            }
-
             this.dttUltimaMensagemRecebida = DateTime.Now;
 
             return new Solicitacao(this.tcpClient.GetStream());
         }
 
-        private void responderErro(Solicitacao objSolicitacao, Exception ex)
+        private void finalizarTcpClient()
         {
-            Resposta objResposta = new Resposta(objSolicitacao);
+            if (this.tcpClient == null)
+            {
+                return;
+            }
 
-            objResposta.addHtml(new PagError(ex));
-            objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
-
-            this.responder(objResposta);
+            this.tcpClient.Close();
         }
 
-        private bool validar(Resposta objResposta)
+        private bool getBooConectado()
         {
-            if (objResposta == null)
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            if (this.tcpClient.GetStream() == null)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
+        }
+
+        private void inicializarStrNome()
+        {
+            this.strNome = string.Format("{0} ({1})", this.GetType().Name, ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString());
+        }
+
+        private void loop()
+        {
+            do
+            {
+                var objSolicitacao = this.carregarSolicitacao();
+
+                if (objSolicitacao == null)
+                {
+                    Thread.Sleep(10);
+                    continue;
+                }
+
+                this.responder(objSolicitacao);
+            }
+            while (this.validarContinuar());
+        }
+
+        private bool validarContinuar()
+        {
+            if (this.booParar)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.Connected)
+            {
+                return false;
+            }
+
+            if ((DateTime.Now - this.dttUltimaMensagemRecebida).Seconds > 45)
             {
                 return false;
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Painel
 {
@@ -37,57 +36,21 @@ namespace NetZ.Web.Html.Componente.Painel
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(PainelNivel), 115));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(PainelNivel), 115));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.addCss(css.setMinHeight(50));
-                this.addCss(css.setPaddingLeft(0));
-                this.addCss(css.setPaddingRight(0));
-                this.addCss(css.setPosition("relative"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.addCss(css.setMinHeight(50));
+            this.addCss(css.setPaddingLeft(0));
+            this.addCss(css.setPaddingRight(0));
+            this.addCss(css.setPosition("relative"));
         }
 
         #endregion Métodos

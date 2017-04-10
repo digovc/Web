@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using DigoFramework;
+﻿using DigoFramework;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
@@ -11,6 +7,10 @@ using NetZ.Web.Server;
 using NetZ.Web.Server.Ajax;
 using NetZ.Web.Server.Arquivo.Css;
 using NetZ.Web.Server.WebSocket;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 
 namespace NetZ.Web.Html.Pagina
 {
@@ -28,7 +28,7 @@ namespace NetZ.Web.Html.Pagina
         private bool _booPagSimples;
         private Div _divNotificacao;
         private LstTag<CssTag> _lstCss;
-        private LstTag<JavaScriptTag> _lstJsDebug;
+        private LstTag<JavaScriptTag> _lstJs;
         private LstTag<JavaScriptTag> _lstJsLib;
         private string _srcIcone = "/res/media/ico/favicon.ico";
         private string _strHtmlEstatico;
@@ -89,18 +89,18 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        internal LstTag<JavaScriptTag> lstJsDebug
+        internal LstTag<JavaScriptTag> lstJs
         {
             get
             {
-                if (_lstJsDebug != null)
+                if (_lstJs != null)
                 {
-                    return _lstJsDebug;
+                    return _lstJs;
                 }
 
-                _lstJsDebug = new LstTag<JavaScriptTag>();
+                _lstJs = new LstTag<JavaScriptTag>();
 
-                return _lstJsDebug;
+                return _lstJs;
             }
         }
 
@@ -154,12 +154,26 @@ namespace NetZ.Web.Html.Pagina
         {
             get
             {
+                if (_strTitulo != null)
+                {
+                    return _strTitulo;
+                }
+
+                _strTitulo = this.getStrTitulo();
+
                 return _strTitulo;
             }
 
             set
             {
+                if (_strTitulo == value)
+                {
+                    return;
+                }
+
                 _strTitulo = value;
+
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -451,36 +465,41 @@ namespace NetZ.Web.Html.Pagina
             this.tagJs.setPai(this.tagHead);
         }
 
-        protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            lstJsDebug.Add(new JavaScriptTag(typeof(AppWebBase), 104));
-            lstJsDebug.Add(new JavaScriptTag(typeof(Interlocutor), 105));
-            lstJsDebug.Add(new JavaScriptTag(typeof(Mensagem), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuContexto), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(MenuGrid), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(Notificacao), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjax), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerAjaxDb), 105));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerHttpBase), 102));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ServerWs), 102));
+            lstJs.Add(new JavaScriptTag(typeof(AppWebBase), 104));
+            lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
+            lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
+            lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
+            lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
+            lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
+            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
+            lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Constante.js", 0));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/ConstanteManager.js", 1));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/design/TemaDefault.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/erro/Erro.js", 102));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Historico.js", 101));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/html/Tag.js", 103));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Keys.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Objeto.js", 100));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/Utils.js", 101));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
+            lstJs.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
+            lstJs.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
+            lstJs.Add(new JavaScriptTag("/res/js/web/html/Tag.js", 103));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
+
+            if (this.getBooJs())
+            {
+                lstJs.Add(new JavaScriptTag(this.GetType()));
+            }
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
-            lstJsLib.Add(new JavaScriptTag("res/js/lib/jquery-2.2.2.min.js", 0));
+            lstJsLib.Add(new JavaScriptTag("/res/js/lib/jquery-3.1.0.min.js", 0));
         }
 
         protected virtual void addLayoutFixo(JavaScriptTag tagJs)
@@ -506,8 +525,13 @@ namespace NetZ.Web.Html.Pagina
         /// ajustes finais no estilo da tag.
         /// </summary>
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
-        protected virtual void finalizarCss(CssArquivo css)
+        protected virtual void finalizarCss(CssArquivoBase css)
         {
+        }
+
+        protected virtual bool getBooJs()
+        {
+            return false;
         }
 
         protected virtual string getSrcJsBoot()
@@ -564,7 +588,7 @@ namespace NetZ.Web.Html.Pagina
 
             this.tagTitle.booMostrarClazz = false;
             this.tagTitle.booDupla = false;
-            this.tagTitle.strConteudo = this.getStrTituloFormatado();
+            this.tagTitle.strConteudo = this.strTitulo;
         }
 
         protected virtual void montarLayout()
@@ -580,7 +604,7 @@ namespace NetZ.Web.Html.Pagina
             this.divNotificacao.setPai(this);
         }
 
-        protected virtual void setCss(CssArquivo css)
+        protected virtual void setCss(CssArquivoBase css)
         {
             this.tagBody.addCss(css.setMargin(0));
 
@@ -621,31 +645,9 @@ namespace NetZ.Web.Html.Pagina
 
             this.addJs(this.tagJs);
 
-            this.addJsRelease();
+            this.addJs(this.lstJs);
 
-            this.addJsDebug();
-        }
-
-        private void addJsDebug()
-        {
-            if (!AppWebBase.i.booDesenvolvimento)
-            {
-                return;
-            }
-
-            this.addJsDebug(this.lstJsDebug);
-
-            List<JavaScriptTag> lstJsDebugOrdenado = this.lstJsDebug.OrderBy((o) => o.intOrdem).ToList();
-
-            foreach (JavaScriptTag tagJs in lstJsDebugOrdenado)
-            {
-                if (tagJs == null)
-                {
-                    continue;
-                }
-
-                tagJs.setPai(this.tagHead);
-            }
+            this.addJsLstJs();
         }
 
         private void addJsLib()
@@ -665,22 +667,22 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private void addJsRelease()
+        private void addJsLstJs()
         {
-            if (!AppWebBase.i.booDesenvolvimento)
-            {
-                return;
-            }
+            List<JavaScriptTag> lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
 
-            if (AppWebBase.i.tagJsRelease == null)
+            foreach (JavaScriptTag tagJs in lstJsOrdenado)
             {
-                return;
-            }
+                if (tagJs == null)
+                {
+                    continue;
+                }
 
-            AppWebBase.i.tagJsRelease.setPai(this.tagHead);
+                tagJs.setPai(this.tagHead);
+            }
         }
 
-        private string getStrTituloFormatado()
+        private string getStrTitulo()
         {
             string strResultado = "_titulo - _app_nome";
 
@@ -699,6 +701,11 @@ namespace NetZ.Web.Html.Pagina
             this.finalizarCss(CssPrint.i);
             this.addLayoutFixo(this.tagJs);
             this.addConstante(this.tagJs);
+        }
+
+        private void setStrTitulo(string strTitulo)
+        {
+            this.tagTitle.strConteudo = strTitulo;
         }
 
         private string toHtmlDinamico()

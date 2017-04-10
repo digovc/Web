@@ -62,7 +62,7 @@ namespace NetZ.Web.Html.Componente.Grid
             this.inicializarStrConteudo();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -94,7 +94,7 @@ namespace NetZ.Web.Html.Componente.Grid
             this.strConteudo = this.cln.strValorExibicao;
         }
 
-        private void setCssCln(CssArquivo css)
+        private void setCssCln(CssArquivoBase css)
         {
             if (this.cln == null)
             {
@@ -119,12 +119,12 @@ namespace NetZ.Web.Html.Componente.Grid
             }
         }
 
-        private void setCssClnAlfanumerico(CssArquivo css)
+        private void setCssClnAlfanumerico(CssArquivoBase css)
         {
             this.addCss(css.setTextAlign("left"));
         }
 
-        private void setCssClnNumerico(CssArquivo css)
+        private void setCssClnNumerico(CssArquivoBase css)
         {
             this.addCss(css.setTextAlign("right"));
         }

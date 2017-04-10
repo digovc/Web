@@ -1,5 +1,4 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela
 {
@@ -50,32 +49,14 @@ namespace NetZ.Web.Html.Componente.Janela
 
             set
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_strTitulo == value)
                 {
-                    if (_strTitulo == value)
-                    {
-                        return;
-                    }
-
-                    _strTitulo = value;
-
-                    this.atualizarStrTitulo();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return;
                 }
 
-                #endregion Ações
+                _strTitulo = value;
+
+                this.setStrTitulo(_strTitulo);
             }
         }
 
@@ -83,30 +64,12 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divCabecalho != null)
                 {
-                    if (_divCabecalho != null)
-                    {
-                        return _divCabecalho;
-                    }
-
-                    _divCabecalho = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divCabecalho;
                 }
 
-                #endregion Ações
+                _divCabecalho = new Div();
 
                 return _divCabecalho;
             }
@@ -116,32 +79,14 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attHeight != null)
                 {
-                    if (_attHeight != null)
-                    {
-                        return _attHeight;
-                    }
-
-                    _attHeight = new Atributo("height");
-
-                    this.addAtt(_attHeight);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attHeight;
                 }
 
-                #endregion Ações
+                _attHeight = new Atributo("height");
+
+                this.addAtt(_attHeight);
 
                 return _attHeight;
             }
@@ -151,32 +96,14 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_attWidth != null)
                 {
-                    if (_attWidth != null)
-                    {
-                        return _attWidth;
-                    }
-
-                    _attWidth = new Atributo("width");
-
-                    this.addAtt(_attWidth);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _attWidth;
                 }
 
-                #endregion Ações
+                _attWidth = new Atributo("width");
+
+                this.addAtt(_attWidth);
 
                 return _attWidth;
             }
@@ -186,30 +113,12 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divAcao != null)
                 {
-                    if (_divAcao != null)
-                    {
-                        return _divAcao;
-                    }
-
-                    _divAcao = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divAcao;
                 }
 
-                #endregion Ações
+                _divAcao = new Div();
 
                 return _divAcao;
             }
@@ -219,30 +128,12 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divBtnFechar != null)
                 {
-                    if (_divBtnFechar != null)
-                    {
-                        return _divBtnFechar;
-                    }
-
-                    _divBtnFechar = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divBtnFechar;
                 }
 
-                #endregion Ações
+                _divBtnFechar = new Div();
 
                 return _divBtnFechar;
             }
@@ -267,30 +158,12 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             get
             {
-                #region Variáveis
-
-                #endregion Variáveis
-
-                #region Ações
-
-                try
+                if (_divTitulo != null)
                 {
-                    if (_divTitulo != null)
-                    {
-                        return _divTitulo;
-                    }
-
-                    _divTitulo = new Div();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
+                    return _divTitulo;
                 }
 
-                #endregion Ações
+                _divTitulo = new Div();
 
                 return _divTitulo;
             }
@@ -302,70 +175,34 @@ namespace NetZ.Web.Html.Componente.Janela
 
         public JanelaHtml()
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strId = "divJnl";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strId = "divJnl";
         }
 
         #endregion Construtores
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                lstJsDebug.Add(new JavaScriptTag(typeof(JanelaHtml), 111));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 111));
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.divAcao.strId = (this.strId + "_divAcao");
-            this.divBtnFechar.strId = (this.strId + "_divBtnFechar");
-            this.divCabecalho.strId = (this.strId + "_divCabecalho");
-            this.divInativa.strId = (this.strId + "_divInativa");
-            this.divTitulo.strId = (this.strId + "_divTitulo");
+            this.divAcao.strId = (strId + "_divAcao");
+            this.divBtnFechar.strId = (strId + "_divBtnFechar");
+            this.divCabecalho.strId = (strId + "_divCabecalho");
+            this.divInativa.strId = (strId + "_divInativa");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         protected override void finalizar()
@@ -375,14 +212,14 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divInativa.setPai(this);
         }
 
-        protected override void finalizarCss(CssArquivo css)
+        protected override void finalizarCss(CssArquivoBase css)
         {
             base.finalizarCss(css);
 
             this.finalizarCssWidth(css);
         }
 
-        protected virtual void finalizarCssWidth(CssArquivo css)
+        protected virtual void finalizarCssWidth(CssArquivoBase css)
         {
             if (this.intTamanhoHotizontal < 1)
             {
@@ -396,25 +233,7 @@ namespace NetZ.Web.Html.Componente.Janela
         {
             base.inicializar();
 
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.strId = this.GetType().Name;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.strId = this.GetType().Name;
         }
 
         protected override void montarLayout()
@@ -427,7 +246,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divBtnFechar.setPai(this.divAcao);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -472,27 +291,9 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divTitulo.addCss(css.setPaddingLeft(10));
         }
 
-        private void atualizarStrTitulo()
+        private void setStrTitulo(string strTitulo)
         {
-            #region Variáveis
-
-            #endregion Variáveis
-
-            #region Ações
-
-            try
-            {
-                this.divTitulo.strConteudo = this.strTitulo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-
-            #endregion Ações
+            this.divTitulo.strConteudo = strTitulo;
         }
 
         #endregion Métodos

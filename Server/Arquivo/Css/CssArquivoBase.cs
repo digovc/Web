@@ -1,13 +1,13 @@
-﻿using System;
+﻿using NetZ.Web.Html;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
-using NetZ.Web.Html;
 
 namespace NetZ.Web.Server.Arquivo.Css
 {
-    public abstract class CssArquivo : ArquivoEstatico
+    public abstract class CssArquivoBase : ArquivoEstatico
     {
         #region Constantes
 
@@ -18,10 +18,24 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Atributos
 
         private CultureInfo _ctiUsa;
+        private DateTime _dttAlteracao;
         private object _lckLstAttCss;
         private List<AtributoCss> _lstAttCss;
         private StringBuilder _stbConteudo;
         private string _strHref;
+
+        public override DateTime dttAlteracao
+        {
+            get
+            {
+                return _dttAlteracao;
+            }
+
+            set
+            {
+                _dttAlteracao = value;
+            }
+        }
 
         public string strHref
         {
@@ -39,7 +53,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
                 _strHref = value;
 
-                this.atualizarStrHref();
+                this.setStrHref(_strHref);
             }
         }
 
@@ -157,28 +171,36 @@ namespace NetZ.Web.Server.Arquivo.Css
             }
         }
 
+        public void addCssPuro(string css)
+        {
+            if (string.IsNullOrEmpty(css))
+            {
+                return;
+            }
+
+            this.stbConteudo.Append(css);
+
+            this.arrBteConteudo = null;
+            this.dttAlteracao = DateTime.Now;
+        }
+
         public override string getStrConteudo()
         {
             return this.stbConteudo.ToString();
         }
 
+        public string setBackground(string css)
+        {
+            return this.addCss("background", css);
+        }
+
         public string setBackgroundAttachment(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-attachment", css);
         }
 
         public string setBackgroundColor(string cor)
         {
-            if (string.IsNullOrEmpty(cor))
-            {
-                return null;
-            }
-
             return this.addCss("background-color", cor);
         }
 
@@ -209,40 +231,35 @@ namespace NetZ.Web.Server.Arquivo.Css
                 return null;
             }
 
-            return this.addCss("background-image", string.Format("url('{0}')", srcImagem));
+            if (srcImagem.ToLower().StartsWith("url"))
+            {
+                return this.addCss("background-image", srcImagem);
+            }
+
+            return this.addCss("background-image", string.Format("url({0})", srcImagem));
         }
 
         public string setBackgroundPosition(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-position", css);
         }
 
         public string setBackgroundRepeat(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-repeat", css);
         }
 
         public string setBackgroundSize(string css)
         {
-            if (string.IsNullOrEmpty(css))
-            {
-                return null;
-            }
-
             return this.addCss("background-size", css);
         }
 
-        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "gray")
+        public string setBackgroundSize(int intWidth, int intHeight, string strGrandeza = "px")
+        {
+            return this.addCss("background-size", string.Format("{0}{2} {1}{2}", intWidth, intHeight, strGrandeza));
+        }
+
+        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border", string.Format("{0}px {1} {2}", intBorderPx, strTipo, cor));
         }
@@ -252,7 +269,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorder(intBorderPx, strTipo = "solid", this.corToRgba(cor));
         }
 
-        public string setBorderBottom(int intBottomPx, string strTipo = "solid", string cor = "gray")
+        public string setBorderBottom(int intBottomPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-bottom", string.Format("{0}px {1} {2}", intBottomPx, strTipo, cor));
         }
@@ -262,7 +279,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorderBottom(intRightPx, strTipo, this.corToRgba(cor));
         }
 
-        public string setBorderLeft(int intLeftPx, string strTipo, string cor)
+        public string setBorderLeft(int intLeftPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-left", string.Format("{0}px {1} {2}", intLeftPx, strTipo, cor));
         }
@@ -282,7 +299,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("border-radius", string.Format("{0}{1}", intBorderRadius, strGrandeza));
         }
 
-        public string setBorderRight(int intRightPx, string strTipo = "solid", string cor = "gray")
+        public string setBorderRight(int intRightPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-right", string.Format("{0}px {1} {2}", intRightPx, strTipo, cor));
         }
@@ -297,7 +314,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorderTop(intRightPx, strTipo, this.corToRgba(cor));
         }
 
-        public string setBorderTop(int intTopPx, string strTipo, string cor)
+        public string setBorderTop(int intTopPx, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-top", string.Format("{0}px {1} {2}", intTopPx, strTipo, cor));
         }
@@ -307,7 +324,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("bottom", string.Format("{0}{1}", intBottom, strGrandeza));
         }
 
-        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor)
+        public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor = "grey")
         {
             return this.addCss("box-shadow", string.Format("{0}px {1}px {2}px {3}px {4}", intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, cor));
         }
@@ -329,11 +346,6 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setColor(string cor)
         {
-            if (string.IsNullOrEmpty(cor))
-            {
-                return null;
-            }
-
             return this.addCss("color", cor);
         }
 
@@ -344,41 +356,26 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setCursor(string strCursor)
         {
-            if (string.IsNullOrEmpty(strCursor))
-            {
-                return null;
-            }
-
             return this.addCss("cursor", strCursor);
         }
 
         public string setDisplay(string strDisplay)
         {
-            if (string.IsNullOrEmpty(strDisplay))
-            {
-                return null;
-            }
-
             return this.addCss("display", strDisplay);
+        }
+
+        public string setFilter(string strFilter)
+        {
+            return this.addCss("filter", strFilter);
         }
 
         public string setFloat(string strFloat)
         {
-            if (string.IsNullOrEmpty(strFloat))
-            {
-                return null;
-            }
-
             return this.addCss("float", strFloat);
         }
 
         public string setFontFamily(string strFontFamily)
         {
-            if (string.IsNullOrEmpty(strFontFamily))
-            {
-                return null;
-            }
-
             return this.addCss("font-family", strFontFamily);
         }
 
@@ -389,21 +386,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setFontStyle(string strFontStyle)
         {
-            if (string.IsNullOrEmpty(strFontStyle))
-            {
-                return null;
-            }
-
             return this.addCss("font-style", strFontStyle);
         }
 
         public string setFontWeight(string strFontWeight)
         {
-            if (string.IsNullOrEmpty(strFontWeight))
-            {
-                return null;
-            }
-
             return this.addCss("font-weight", strFontWeight);
         }
 
@@ -457,14 +444,19 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("max-height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
-        public string setMinHeight(decimal decMinHeight)
+        public string setMaxWidth(int intMaxWidth, string strGrandeza = "px")
         {
-            return this.addCss("min-height", string.Format("{0}px", decMinHeight.ToString(this.ctiUsa)));
+            return this.addCss("max-width", string.Format("{0}{1}", intMaxWidth, strGrandeza));
         }
 
-        public string setMinWidth(decimal decMinWidth)
+        public string setMinHeight(decimal decMinHeight, string strGrandeza = "px")
         {
-            return this.addCss("min-width", string.Format("{0}px", decMinWidth.ToString(this.ctiUsa)));
+            return this.addCss("min-height", string.Format("{0}{1}", decMinHeight.ToString(this.ctiUsa), strGrandeza));
+        }
+
+        public string setMinWidth(decimal decMinWidth, string strGrandeza = "px")
+        {
+            return this.addCss("min-width", string.Format("{0}{1}", decMinWidth.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setNegrito()
@@ -477,43 +469,23 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("opacity", decOpacity.ToString(this.ctiUsa));
         }
 
-        public string setOutLine(string strOutLine)
+        public string setOutline(string strOutLine)
         {
-            if (string.IsNullOrEmpty(strOutLine))
-            {
-                return null;
-            }
-
             return this.addCss("outline", strOutLine);
         }
 
-        public string setOverflow(string strOverflowPx)
+        public string setOverflow(string strOverflow)
         {
-            if (string.IsNullOrEmpty(strOverflowPx))
-            {
-                return null;
-            }
-
-            return this.addCss("overflow", strOverflowPx);
+            return this.addCss("overflow", strOverflow);
         }
 
         public string setOverflowX(string strOverflowX)
         {
-            if (string.IsNullOrEmpty(strOverflowX))
-            {
-                return null;
-            }
-
             return this.addCss("overflow-x", strOverflowX);
         }
 
         public string setOverflowY(string strOverflowY)
         {
-            if (string.IsNullOrEmpty(strOverflowY))
-            {
-                return null;
-            }
-
             return this.addCss("overflow-y", strOverflowY);
         }
 
@@ -544,12 +516,12 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setPosition(string strPosition)
         {
-            if (string.IsNullOrEmpty(strPosition))
-            {
-                return null;
-            }
-
             return this.addCss("position", strPosition);
+        }
+
+        public string setResize(string strResize)
+        {
+            return this.addCss("resize", strResize);
         }
 
         public string setRight(int intRight, string strGrandeza = "px")
@@ -559,21 +531,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setTextAlign(string strTextAlign)
         {
-            if (string.IsNullOrEmpty(strTextAlign))
-            {
-                return null;
-            }
-
             return this.addCss("text-align", strTextAlign);
         }
 
         public string setTextDecoration(string strTextDecoration)
         {
-            if (string.IsNullOrEmpty(strTextDecoration))
-            {
-                return null;
-            }
-
             return this.addCss("text-decoration", strTextDecoration);
         }
 
@@ -594,21 +556,11 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         public string setVisibility(string strVisibility)
         {
-            if (string.IsNullOrEmpty(strVisibility))
-            {
-                return null;
-            }
-
             return this.addCss("visibility", strVisibility);
         }
 
         public string setWhiteSpace(string strWhiteSpace)
         {
-            if (string.IsNullOrEmpty(strWhiteSpace))
-            {
-                return null;
-            }
-
             return this.addCss("white-space", strWhiteSpace);
         }
 
@@ -617,22 +569,19 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("width", string.Format("{0}{1}", decWidth.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setWordWrap(string strWordWrap)
+        {
+            if (string.IsNullOrEmpty(strWordWrap))
+            {
+                return null;
+            }
+
+            return this.addCss("word-wrap", strWordWrap);
+        }
+
         public string setZIndex(int intZIndex)
         {
             return this.addCss("z-index", intZIndex.ToString());
-        }
-
-        protected void addCssPuro(string css)
-        {
-            if (string.IsNullOrEmpty(css))
-            {
-                return;
-            }
-
-            this.stbConteudo.Append(css);
-
-            this.arrBteConteudo = null;
-            this.dttUltimaModificacao = DateTime.Now;
         }
 
         protected override byte[] getArrBteConteudo()
@@ -665,14 +614,9 @@ namespace NetZ.Web.Server.Arquivo.Css
             this.stbConteudo.Append(atrCss.getStrFormatado());
 
             this.arrBteConteudo = null;
-            this.dttUltimaModificacao = DateTime.Now;
+            this.dttAlteracao = DateTime.Now;
 
             return atrCss.strClass;
-        }
-
-        private void atualizarStrHref()
-        {
-            this.dirCompleto = this.strHref;
         }
 
         private string corToRgba(Color cor)
@@ -680,6 +624,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             double dblAlpha = (cor.A < 255) ? (cor.A / 255d) : 1;
 
             return string.Format("rgba({0},{1},{2},{3})", cor.R, cor.G, cor.B, dblAlpha.ToString(this.ctiUsa));
+        }
+
+        private void setStrHref(string strHref)
+        {
+            this.dirCompleto = strHref;
         }
 
         #endregion Métodos

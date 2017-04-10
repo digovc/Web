@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using DigoFramework;
+using System;
+using System.Threading;
 
 namespace NetZ.Web.Server
 {
@@ -8,7 +10,7 @@ namespace NetZ.Web.Server
     /// chamadas de entrada dos clientes, ou a classe <see cref="Cliente"/> que é um processo que
     /// processa a solicitação de cada um cliente que solicitar algum recurso deste servidor.
     /// </summary>
-    public abstract class Servico
+    public abstract class Servico : Objeto
     {
         #region Constantes
 
@@ -60,7 +62,7 @@ namespace NetZ.Web.Server
 
         protected Servico(string strNome)
         {
-            this.thr.Name = strNome;
+            this.strNome = strNome;
         }
 
         #endregion Construtores
@@ -73,6 +75,8 @@ namespace NetZ.Web.Server
         /// </summary>
         public void iniciar()
         {
+            Log.i.info("Inicializando o serviço {0}.", this.strNome ?? this.GetType().Name);
+
             this.inicializar();
             this.thr.Start();
         }
@@ -84,6 +88,11 @@ namespace NetZ.Web.Server
         public void parar()
         {
             this.booParar = true;
+        }
+
+        protected virtual void finalizar()
+        {
+            Log.i.info("Finalizando o serviço {0}.", this.strNome);
         }
 
         /// <summary>
@@ -103,6 +112,13 @@ namespace NetZ.Web.Server
         /// </summary>
         protected abstract void servico();
 
+        protected override void setStrNome(string strNome)
+        {
+            base.setStrNome(strNome);
+
+            this.thr.Name = strNome;
+        }
+
         private void inicializarServio(object obj)
         {
             #region Variáveis
@@ -114,11 +130,16 @@ namespace NetZ.Web.Server
             try
             {
                 this.servico();
+                this.finalizar();
             }
-            catch
+            catch (Exception ex)
             {
                 // TODO: Tratar esta exceção.
-                //throw ex;
+                Console.Write(ex.StackTrace);
+            }
+            finally
+            {
+                this.finalizar();
             }
 
             #endregion Ações

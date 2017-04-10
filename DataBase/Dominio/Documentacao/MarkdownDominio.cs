@@ -1,8 +1,6 @@
-﻿namespace NetZ.Web.DataBase.Dominio
+﻿namespace NetZ.Web.DataBase.Dominio.Documentacao
 {
-    // TODO: O namespace do domínio deve ficar na raíz do projeto.
-    // TODO: Todas as classes abstratas devem ter o sufixo "base" no nome.
-    public abstract class DominioWeb : Persistencia.DominioBase
+    public class MarkdownDominio : DocumentacaoDominioBase
     {
         #region Constantes
 
@@ -10,18 +8,18 @@
 
         #region Atributos
 
-        private bool _booAtivo = true;
+        private string _dir;
 
-        public bool booAtivo
+        public string dir
         {
             get
             {
-                return _booAtivo;
+                return _dir;
             }
 
             set
             {
-                _booAtivo = value;
+                _dir = value;
             }
         }
 

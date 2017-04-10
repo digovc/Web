@@ -40,18 +40,11 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
-        }
-
-        protected override void finalizarCss(CssArquivo css)
-        {
-            base.finalizarCss(css);
-
-            this.finalizarCssPadding(css);
+            lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
         }
 
         protected virtual int getIntTamanho()
@@ -69,7 +62,7 @@ namespace NetZ.Web.Html.Componente.Botao
             }
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -77,31 +70,19 @@ namespace NetZ.Web.Html.Componente.Botao
             this.addCss(css.setBorderRadius(50, "%"));
             this.addCss(css.setBoxShadow(0, 2, 1, 1, "rgba(0,0,0,0.25)"));
             this.addCss(css.setHeight(this.getIntTamanho()));
-            this.addCss(css.setOutLine("none"));
+            this.addCss(css.setOutline("none"));
             this.addCss(css.setTextAlign("center"));
             this.addCss(css.setWidth(this.getIntTamanho()));
         }
 
-        protected override void setCssHeight(CssArquivo css)
+        protected override void setCssHeight(CssArquivoBase css)
         {
             this.addCss(css.setHeight(this.getIntTamanho()));
         }
 
-        protected override void setCssWidth(CssArquivo css)
+        protected override void setCssWidth(CssArquivoBase css)
         {
             this.addCss(css.setWidth(this.getIntTamanho()));
-        }
-
-        private void finalizarCssPadding(CssArquivo css)
-        {
-            if (EnmLado.DIREITA.Equals(this.enmLado))
-            {
-                this.addCss(css.setMarginLeft(5));
-            }
-            else
-            {
-                this.addCss(css.setMarginRight(5));
-            }
         }
 
         #endregion Métodos

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DigoFramework.Json;
 using NetZ.Web.Server.Arquivo;
+using System;
 
 namespace NetZ.Web.Server.Ajax
 {
-    public abstract class ServerAjax : ServerBase
+    public abstract class SrvAjaxBase : ServerBase
     {
         #region Constantes
 
@@ -17,7 +18,7 @@ namespace NetZ.Web.Server.Ajax
 
         #region Construtores
 
-        protected ServerAjax(string strNome) : base(strNome)
+        protected SrvAjaxBase(string strNome) : base(strNome)
         {
         }
 
@@ -42,7 +43,39 @@ namespace NetZ.Web.Server.Ajax
                 return this.responderUploadFile(objSolicitacao);
             }
 
-            return null;
+            Interlocutor objInterlocutor = null;
+
+            try
+            {
+                if (string.IsNullOrEmpty(objSolicitacao.jsn))
+                {
+                    return null;
+                }
+
+                objInterlocutor = Json.i.fromJson<Interlocutor>(objSolicitacao.jsn);
+
+                if (objInterlocutor == null)
+                {
+                    return null;
+                }
+
+                if (!this.responder(objSolicitacao, objInterlocutor))
+                {
+                    return null;
+                }
+
+                var objResposta = new Resposta(objSolicitacao);
+
+                objResposta.addJson(objInterlocutor);
+
+                this.addAcessControl(objResposta);
+
+                return objResposta;
+            }
+            catch (Exception ex)
+            {
+                return this.responderErro(objSolicitacao, ex, objInterlocutor);
+            }
         }
 
         protected void addAcessControl(Resposta objResposta)
@@ -73,14 +106,49 @@ namespace NetZ.Web.Server.Ajax
 
             string strHost = ("http://" + uri.Host);
 
-            if (ConfigWebBase.i.intServerHttpPorta != 80)
+            if (ConfigWebBase.i.intSrvHttpPorta != 80)
             {
-                strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWebBase.i.intServerHttpPorta);
+                strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWebBase.i.intSrvHttpPorta);
             }
 
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");
             objResposta.addHeader("Access-Control-Allow-Methods", "POST");
             objResposta.addHeader("Access-Control-Allow-Origin", strHost);
+        }
+
+        protected virtual bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            return false;
+        }
+
+        protected Resposta responderErro(Solicitacao objSolicitacao, Exception ex, Interlocutor objInterlocutor)
+        {
+            if (objSolicitacao == null)
+            {
+                return null;
+            }
+
+            string strErro = "Erro desconhecido.";
+
+            if (ex != null)
+            {
+                strErro = ex.Message;
+            }
+
+            if (objInterlocutor == null)
+            {
+                objInterlocutor = new Interlocutor();
+            }
+
+            objInterlocutor.strErro = strErro;
+
+            Resposta objResposta = new Resposta(objSolicitacao);
+
+            objResposta.addJson(objInterlocutor);
+
+            this.addAcessControl(objResposta);
+
+            return objResposta;
         }
 
         private Resposta responderOptions(Solicitacao objSolicitacao)

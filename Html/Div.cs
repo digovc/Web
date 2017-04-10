@@ -1,4 +1,6 @@
-﻿namespace NetZ.Web.Html
+﻿using System;
+
+namespace NetZ.Web.Html
 {
     public class Div : Tag
     {
@@ -20,11 +22,11 @@
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(Div), 109));
+            lstJs.Add(new JavaScriptTag(typeof(Div), 109));
         }
 
         #endregion Métodos

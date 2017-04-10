@@ -16,11 +16,11 @@
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(CampoMapa), 132));
+            lstJs.Add(new JavaScriptTag(typeof(CampoMapa), 132));
         }
 
         protected override Input.EnmTipo getEnmTipo()

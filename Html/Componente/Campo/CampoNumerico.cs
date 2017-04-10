@@ -18,11 +18,11 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(CampoNumerico), 130));
+            lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 132));
         }
 
         protected override Input.EnmTipo getEnmTipo()
@@ -30,7 +30,7 @@ namespace NetZ.Web.Html.Componente.Campo
             return Input.EnmTipo.NUMBER;
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

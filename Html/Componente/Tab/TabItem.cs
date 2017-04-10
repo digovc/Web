@@ -48,7 +48,7 @@ namespace NetZ.Web.Html.Componente.Tab
 
                 _tbl = value;
 
-                this.atualizarTbl();
+                this.setTbl(_tbl);
             }
         }
 
@@ -60,11 +60,11 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(TabItem), 110));
+            lstJs.Add(new JavaScriptTag(typeof(TabItem), 110));
         }
 
         protected override void montarLayout()
@@ -72,21 +72,21 @@ namespace NetZ.Web.Html.Componente.Tab
             base.montarLayout();
         }
 
-        private void atualizarTbl()
+        private void setTbl(TabelaBase tbl)
         {
-            if (this.tbl == null)
+            if (tbl == null)
             {
                 return;
             }
 
-            this.tbl = this.tbl.viwPrincipal;
+            tbl = tbl.viwPrincipal;
 
-            this.strId = ("tabItem_" + this.tbl.sqlNome);
+            this.strId = ("tabItem_" + tbl.sqlNome);
 
-            this.strTitulo = this.tbl.strNomeExibicao;
+            this.strTitulo = tbl.strNomeExibicao;
 
-            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
-            this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.sqlNome);
+            this.addAtt("tbl_web_nome", tbl.sqlNome);
+            this.addAtt("tbl_web_principal_nome", tbl.tblPrincipal.sqlNome);
         }
 
         #endregion Métodos

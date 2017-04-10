@@ -38,7 +38,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
                 _tbl = value;
 
-                this.atualizarTbl();
+                this.setTbl(_tbl);
             }
         }
 
@@ -93,15 +93,15 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
-            lstJsDebug.Add(new JavaScriptTag(this.GetType(), 112));
+            lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
+            lstJs.Add(new JavaScriptTag(this.GetType(), 112));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/TabelaWeb.js"));
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/database/ColunaWeb.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/web/database/ColunaWeb.js"));
         }
 
         protected override void addTag(Tag tag)
@@ -126,16 +126,16 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             base.addTag(tag);
         }
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.frm.strId = (this.strId + "_frm");
+            this.frm.strId = (strId + "_frm");
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.cmpIntId.setPai(this.frm);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -188,15 +188,15 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             tagCampoHtml.setPai(this.frm);
         }
 
-        private void atualizarTbl()
+        private void setTbl(TabelaBase tbl)
         {
-            if (this.tbl == null)
+            if (tbl == null)
             {
                 return;
             }
 
-            this.addAtt("permitir_alterar", this.tbl.booPermitirAlterar);
-            this.addAtt("tbl_web_nome", this.tbl.sqlNome);
+            this.addAtt("permitir_alterar", tbl.booPermitirAlterar);
+            this.addAtt("tbl_web_nome", tbl.sqlNome);
         }
 
         private void inicializarCampos()

@@ -36,13 +36,13 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(DivFavorito), 111));
-            lstJsDebug.Add(new JavaScriptTag(typeof(DominioWeb), 101));
-            lstJsDebug.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
+            lstJs.Add(new JavaScriptTag(typeof(DivFavorito), 111));
+            lstJs.Add(new JavaScriptTag(typeof(DominioWebBase), 101));
+            lstJs.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
         }
 
         protected override void inicializar()
@@ -61,7 +61,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.montarLayoutItem();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

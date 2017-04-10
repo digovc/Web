@@ -28,7 +28,7 @@ namespace NetZ.Web.Html.Componente.Tab
 
                 _tabItem = value;
 
-                this.atualizarTabItem();
+                this.setTabItem(_tabItem);
             }
         }
 
@@ -40,14 +40,14 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(TabItemHead), 110));
+            lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 110));
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -59,16 +59,16 @@ namespace NetZ.Web.Html.Componente.Tab
             this.addCss(css.setWidth(130));
         }
 
-        private void atualizarTabItem()
+        private void setTabItem(TabItem tabItem)
         {
-            if (this.tabItem == null)
+            if (tabItem == null)
             {
                 return;
             }
 
-            this.strConteudo = this.tabItem.strTitulo;
+            this.strConteudo = tabItem.strTitulo;
 
-            this.strId = (this.tabItem.strId + "_tabItemHead");
+            this.strId = (tabItem.strId + "_tabItemHead");
         }
 
         #endregion Métodos

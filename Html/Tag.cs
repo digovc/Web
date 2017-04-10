@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DigoFramework;
+﻿using DigoFramework;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace NetZ.Web.Html
 {
@@ -67,6 +67,21 @@ namespace NetZ.Web.Html
         private string _strName;
         private string _strTitle;
         private Tag _tagPai;
+
+        public Atributo attClass
+        {
+            get
+            {
+                if (_attClass != null)
+                {
+                    return _attClass;
+                }
+
+                _attClass = this.getAttClass();
+
+                return _attClass;
+            }
+        }
 
         /// <summary>
         /// Atributo "type" desta tag.
@@ -171,7 +186,7 @@ namespace NetZ.Web.Html
             {
                 _intTabStop = value;
 
-                this.atualizarIntTabStop();
+                this.setIntTabStop(_intTabStop);
             }
         }
 
@@ -244,7 +259,7 @@ namespace NetZ.Web.Html
 
                 _strId = value;
 
-                this.atualizarStrId();
+                this.setStrId(_strId);
             }
         }
 
@@ -283,22 +298,7 @@ namespace NetZ.Web.Html
 
                 _strTitle = value;
 
-                this.atualizarStrTitle();
-            }
-        }
-
-        private Atributo attClass
-        {
-            get
-            {
-                if (_attClass != null)
-                {
-                    return _attClass;
-                }
-
-                _attClass = this.getAttClass();
-
-                return _attClass;
+                this.setStrTitle(_strTitle);
             }
         }
 
@@ -464,7 +464,7 @@ namespace NetZ.Web.Html
 
                 _strName = value;
 
-                this.atualizarStrName();
+                this.setStrName(_strName);
             }
         }
 
@@ -484,7 +484,7 @@ namespace NetZ.Web.Html
 
                 _tagPai = value;
 
-                this.atualizarPagPai();
+                this.setPagPai(_tagPai);
             }
         }
 
@@ -573,6 +573,16 @@ namespace NetZ.Web.Html
             this.addAtt(new Atributo(strAttNome, intValor.ToString()));
         }
 
+        public void addClass(string strClass)
+        {
+            if (string.IsNullOrEmpty(strClass))
+            {
+                return;
+            }
+
+            this.attClass.addValor(strClass);
+        }
+
         /// <summary>
         /// Adiciona uma classe para lista de classes desta tag que está diretamente vinculada com
         /// uma propriedade CSS da aplicação.
@@ -586,6 +596,20 @@ namespace NetZ.Web.Html
             }
 
             this.attClass.addValor(strCssClass);
+        }
+
+        /// <summary>
+        /// Adiciona todos os atributos css que o <paramref name="tag"/> possui.
+        /// </summary>
+        /// <param name="tag">Tag terá os atributos css copiados.</param>
+        public void addCss(Tag tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            this.attClass.copiar(tag.attClass);
         }
 
         public void apagarAtt(string strAttNome)
@@ -678,7 +702,7 @@ namespace NetZ.Web.Html
         /// browser do usuário.
         /// </summary>
         /// <param name="lstCss">
-        /// Lista de <see cref="CssArquivo"/> que será carregada pelo browser do usuário.
+        /// Lista de <see cref="CssArquivoBase"/> que será carregada pelo browser do usuário.
         /// </param>
         protected virtual void addCss(LstTag<CssTag> lstCss)
         {
@@ -703,7 +727,7 @@ namespace NetZ.Web.Html
         /// <param name="lstJs">
         /// Lista de <see cref="JavaScriptTag"/> que será carregada pelo browser do usuário.
         /// </param>
-        protected virtual void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
         }
 
@@ -731,14 +755,6 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Disparado toda vez que o atributo <see cref="strId"/> for alterado.
-        /// </summary>
-        protected virtual void atualizarStrId()
-        {
-            this.attId.strValor = this.strId;
-        }
-
-        /// <summary>
         /// Método que será chamado após <see cref="montarLayout"/> para que os ajustes finais sejam feitos.
         /// </summary>
         protected virtual void finalizar()
@@ -750,7 +766,7 @@ namespace NetZ.Web.Html
         /// ajustes finais no estilo da tag.
         /// </summary>
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
-        protected virtual void finalizarCss(CssArquivo css)
+        protected virtual void finalizarCss(CssArquivoBase css)
         {
         }
 
@@ -762,7 +778,7 @@ namespace NetZ.Web.Html
         {
             this.addCss(PaginaHtml.i.lstCss);
             this.addJsLib(PaginaHtml.i.lstJsLib);
-            this.addJsDebug(PaginaHtml.i.lstJsDebug);
+            this.addJs(PaginaHtml.i.lstJs);
             this.addJs(PaginaHtml.i.tagJs);
 
             this.inicializarClazz();
@@ -776,44 +792,17 @@ namespace NetZ.Web.Html
         /// Método que deve ser utilizado para configurar o design desta tag e de seus filhos.
         /// </summary>
         /// <param name="css">Tag CSS principal da página onde serão adicionado todo o design.</param>
-        protected virtual void setCss(CssArquivo css)
+        protected virtual void setCss(CssArquivoBase css)
         {
             this.setCssBooMostrarGrade(css);
         }
 
-        private void atualizarIntTabStop()
+        /// <summary>
+        /// Disparado toda vez que o atributo <see cref="strId"/> for alterado.
+        /// </summary>
+        protected virtual void setStrId(string strId)
         {
-            this.attTabIndex.intValor = this.intTabStop;
-        }
-
-        private void atualizarPagPai()
-        {
-            if (this.tagPai == null)
-            {
-                return;
-            }
-
-            this.tagPai.addTag(this);
-        }
-
-        private void atualizarStrName()
-        {
-            if (string.IsNullOrEmpty(this.strName))
-            {
-                return;
-            }
-
-            this.attName.strValor = this.strName;
-        }
-
-        private void atualizarStrTitle()
-        {
-            if (string.IsNullOrEmpty(this.strTitle))
-            {
-                return;
-            }
-
-            this.attTitle.strValor = this.strTitle;
+            this.attId.strValor = strId;
         }
 
         private Atributo getAttClass()
@@ -926,7 +915,7 @@ namespace NetZ.Web.Html
             this.addAtt("clazz", this.GetType().Name);
         }
 
-        private void setCssBooMostrarGrade(CssArquivo css)
+        private void setCssBooMostrarGrade(CssArquivoBase css)
         {
             if (!AppWebBase.i.booMostrarGrade)
             {
@@ -934,6 +923,41 @@ namespace NetZ.Web.Html
             }
 
             this.addCss(css.setBorder(1, "dashed", "#ababab"));
+        }
+
+        private void setIntTabStop(int intTabStop)
+        {
+            this.attTabIndex.intValor = intTabStop;
+        }
+
+        private void setPagPai(Tag tagPai)
+        {
+            if (tagPai == null)
+            {
+                return;
+            }
+
+            tagPai.addTag(this);
+        }
+
+        private void setStrName(string strName)
+        {
+            if (string.IsNullOrEmpty(strName))
+            {
+                return;
+            }
+
+            this.attName.strValor = strName;
+        }
+
+        protected virtual void setStrTitle(string strTitle)
+        {
+            if (string.IsNullOrEmpty(strTitle))
+            {
+                return;
+            }
+
+            this.attTitle.strValor = strTitle;
         }
 
         private string toHtmlAtributo()
@@ -946,7 +970,9 @@ namespace NetZ.Web.Html
             List<string> lstStrAtrAdicionado = new List<string>();
             List<string> lstStrAtrFormatado = new List<string>();
 
-            foreach (Atributo att in this.lstAtt.OrderBy((o) => o.strNome))
+            List<Atributo> lstAtrOrdenado = this.lstAtt.OrderBy((att) => att.strNome).ToList();
+
+            foreach (Atributo att in lstAtrOrdenado)
             {
                 if (att == null)
                 {

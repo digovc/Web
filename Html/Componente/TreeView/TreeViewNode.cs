@@ -122,7 +122,7 @@ namespace NetZ.Web.Html.Componente.TreeView
             this.divNodeContainer.setPai(this);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 

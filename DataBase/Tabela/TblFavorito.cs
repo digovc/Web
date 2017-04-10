@@ -107,7 +107,7 @@ namespace NetZ.Web.DataBase.Tabela
 
             this.salvar();
 
-            this.liberar();
+            this.liberarThread();
         }
 
         internal void pesquisarFavorito(int intUsuarioId, Interlocutor objInterlocutor)
@@ -158,7 +158,7 @@ namespace NetZ.Web.DataBase.Tabela
 
             bool booResultado = (this.recuperar(lstFil).clnIntId.intValor > 0);
 
-            this.liberar();
+            this.liberarThread();
 
             return booResultado;
         }

@@ -97,16 +97,16 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
         #region Métodos
 
-        protected override void atualizarStrId()
+        protected override void setStrId(string strId)
         {
-            base.atualizarStrId();
+            base.setStrId(strId);
 
-            if (string.IsNullOrEmpty(this.strId))
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.tagInputTag.strId = (this.strId + "_tagInputTag");
+            this.tagInputTag.strId = (strId + "_tagInputTag");
         }
 
         protected override void inicializar()
@@ -131,7 +131,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.tagInputTag.setPai(this.divTagConteudo);
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -153,7 +153,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.tagInputTag.addCss(css.setBorder(0));
             this.tagInputTag.addCss(css.setHeight(15));
             this.tagInputTag.addCss(css.setMinWidth(50));
-            this.tagInputTag.addCss(css.setOutLine("none"));
+            this.tagInputTag.addCss(css.setOutline("none"));
             this.tagInputTag.addCss(css.setPadding(7));
             this.tagInputTag.addCss(css.setPaddingLeft(10));
             this.tagInputTag.addCss(css.setPaddingRight(10));

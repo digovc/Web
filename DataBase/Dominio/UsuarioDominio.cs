@@ -9,7 +9,7 @@ namespace NetZ.Web.DataBase.Dominio
     /// <summary>
     /// Representa o usuário que está utilizando este sistema.
     /// </summary>
-    public class UsuarioDominio : DominioWeb
+    public class UsuarioDominio : DominioWebBase
     {
         #region Constantes
 

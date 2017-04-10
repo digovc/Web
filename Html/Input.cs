@@ -228,7 +228,7 @@ namespace NetZ.Web.Html
 
                 _strValor = value;
 
-                this.atualizarStrValor();
+                this.setStrValor(_strValor);
             }
         }
 
@@ -259,18 +259,18 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(Input), 110));
+            lstJs.Add(new JavaScriptTag(typeof(Input), 110));
 
-            lstJsDebug.Add(new JavaScriptTag("res/js/web/OnValorAlteradoArg.js", 110));
+            lstJs.Add(new JavaScriptTag("/res/js/web/OnValorAlteradoArg.js", 110));
         }
 
-        protected void atualizarStrValor()
+        protected void setStrValor(string strValor)
         {
-            this.attValue.strValor = this.strValor;
+            this.attValue.strValor = strValor;
         }
 
         protected override void inicializar()
@@ -291,7 +291,7 @@ namespace NetZ.Web.Html
             this.montarLayoutValor();
         }
 
-        protected override void setCss(CssArquivo css)
+        protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
@@ -496,17 +496,17 @@ namespace NetZ.Web.Html
             }
         }
 
-        private void setCssDateTime(CssArquivo css)
+        private void setCssDateTime(CssArquivoBase css)
         {
             this.addCss(css.setTextAlign("right"));
         }
 
-        private void setCssNumber(CssArquivo css)
+        private void setCssNumber(CssArquivoBase css)
         {
             this.addCss(css.setTextAlign("right"));
         }
 
-        private void setCssTextArea(CssArquivo css)
+        private void setCssTextArea(CssArquivoBase css)
         {
             //this.addCss(css.setWidth(100, "%"));
         }
