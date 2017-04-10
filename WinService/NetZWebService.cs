@@ -103,7 +103,7 @@ namespace NetZ.Web.WinService
                     throw new NullReferenceException("A propriedade \"appWeb\" está nula.");
                 }
 
-                this.appWeb.inicializarServidor();
+                this.appWeb.iniciarServidorWeb();
             }
             catch (Exception ex)
             {

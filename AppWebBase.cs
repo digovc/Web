@@ -177,7 +177,7 @@ namespace NetZ.Web
         /// esteja marcada.
         /// </para>
         /// </summary>
-        public virtual void inicializarServidor()
+        public virtual void iniciarServidorWeb()
         {
             this.inicializarConfig();
             this.inicializarLstSrv();
