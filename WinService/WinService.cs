@@ -37,7 +37,7 @@ namespace Cia.WinService.WinService
         {
             Log.i.info("Abrindo em modo \"aplicação\".");
 
-            i.getAppWeb().inicializarServidor();
+            i.getAppWeb().iniciarServidorWeb();
 
             Console.Read();
 
