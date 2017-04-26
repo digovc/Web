@@ -398,16 +398,6 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
-        public void addJs(string strJsCodigo)
-        {
-            if (string.IsNullOrEmpty(strJsCodigo))
-            {
-                return;
-            }
-
-            this.tagJs.addJs(strJsCodigo);
-        }
-
         public string toHtml()
         {
             string strResultado = this.toHtmlEstatico();
@@ -460,9 +450,6 @@ namespace NetZ.Web.Html.Pagina
 
         protected void addJs(JavaScriptTag tagJs)
         {
-            // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
-            //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
-
             this.tagJs.setPai(this.tagHead);
         }
 
@@ -496,6 +483,10 @@ namespace NetZ.Web.Html.Pagina
             {
                 lstJs.Add(new JavaScriptTag(this.GetType()));
             }
+        }
+
+        protected virtual void addJsCodigo(JavaScriptTag tagJs)
+        {
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
@@ -602,11 +593,13 @@ namespace NetZ.Web.Html.Pagina
 
             this.addJsLib();
 
-            this.addJs(this.tagJs);
-
             this.addJs(this.lstJs);
 
             this.addJsLstJs();
+
+            this.addJsCodigo(this.tagJs);
+
+            this.addJs(this.tagJs);
         }
 
         private void addJsLib()
