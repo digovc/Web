@@ -7,6 +7,7 @@ using NetZ.Web.Server;
 using NetZ.Web.Server.Ajax;
 using NetZ.Web.Server.Arquivo.Css;
 using NetZ.Web.Server.WebSocket;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace NetZ.Web.Html.Pagina
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
         private LstTag<JavaScriptTag> _lstJsLib;
-        private string _srcIcone = "/res/media/ico/favicon.ico";
+        private string _srcIcone;
         private string _strHtmlEstatico;
         private string _strTitulo;
         private Tag _tagBody;
@@ -68,7 +69,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagBody;
                 }
 
-                _tagBody = new Tag("body");
+                _tagBody = this.getTagBody();
 
                 return _tagBody;
             }
@@ -128,9 +129,22 @@ namespace NetZ.Web.Html.Pagina
                     return _tagJs;
                 }
 
-                _tagJs = new JavaScriptTag(string.Empty, 5000);
+                _tagJs = new JavaScriptTag(string.Empty, 100);
 
                 return _tagJs;
+            }
+        }
+
+        protected bool booPagSimples
+        {
+            get
+            {
+                return _booPagSimples;
+            }
+
+            set
+            {
+                _booPagSimples = value;
             }
         }
 
@@ -186,7 +200,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagHead;
                 }
 
-                _tagHead = new Tag("head");
+                _tagHead = this.getTagHead();
 
                 return _tagHead;
             }
@@ -205,19 +219,6 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        private bool booPagSimples
-        {
-            get
-            {
-                return _booPagSimples;
-            }
-
-            set
-            {
-                _booPagSimples = value;
-            }
-        }
-
         private Div divNotificacao
         {
             get
@@ -227,7 +228,7 @@ namespace NetZ.Web.Html.Pagina
                     return _divNotificacao;
                 }
 
-                _divNotificacao = new Div();
+                _divNotificacao = this.getDivNotificacao();
 
                 return _divNotificacao;
             }
@@ -255,7 +256,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagCssMain;
                 }
 
-                _tagCssMain = new CssTag(CssMain.i.strHref);
+                _tagCssMain = this.getTagCssMain();
 
                 return _tagCssMain;
             }
@@ -270,7 +271,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagCssPrint;
                 }
 
-                _tagCssPrint = new CssTag(CssPrint.i.strHref);
+                _tagCssPrint = this.getTagCssPrint();
 
                 return _tagCssPrint;
             }
@@ -285,7 +286,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagDocType;
                 }
 
-                _tagDocType = new Tag("!DOCTYPE");
+                _tagDocType = this.getTagDocType();
 
                 return _tagDocType;
             }
@@ -300,7 +301,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagHtml;
                 }
 
-                _tagHtml = new Tag("html");
+                _tagHtml = this.getTagHtml();
 
                 return _tagHtml;
             }
@@ -315,7 +316,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagIcon;
                 }
 
-                _tagIcon = new Tag("link");
+                _tagIcon = this.getTagIcon();
 
                 return _tagIcon;
             }
@@ -330,7 +331,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagMetaContent;
                 }
 
-                _tagMetaContent = new Tag("meta");
+                _tagMetaContent = this.getTagMetaContent();
 
                 return _tagMetaContent;
             }
@@ -345,7 +346,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagMetaHttpEquiv;
                 }
 
-                _tagMetaHttpEquiv = new Tag("meta");
+                _tagMetaHttpEquiv = this.getTagMetaHttpEquiv();
 
                 return _tagMetaHttpEquiv;
             }
@@ -360,7 +361,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagThemaColor;
                 }
 
-                _tagThemaColor = new Tag("meta");
+                _tagThemaColor = this.getTagThemaColor();
 
                 return _tagThemaColor;
             }
@@ -375,7 +376,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagTitle;
                 }
 
-                _tagTitle = new Tag("title");
+                _tagTitle = this.getTagTitle();
 
                 return _tagTitle;
             }
@@ -396,16 +397,6 @@ namespace NetZ.Web.Html.Pagina
         #endregion Construtores
 
         #region Métodos
-
-        public void addJs(string strJsCodigo)
-        {
-            if (string.IsNullOrEmpty(strJsCodigo))
-            {
-                return;
-            }
-
-            this.tagJs.addJs(strJsCodigo);
-        }
 
         public string toHtml()
         {
@@ -459,9 +450,6 @@ namespace NetZ.Web.Html.Pagina
 
         protected void addJs(JavaScriptTag tagJs)
         {
-            // TODO: É necessário as informações dos objetos básicos do lado do cliente (exemplo:
-            //       appWeb, usr, msgInformacao, msgLoad, msgErro, msgSucesso).
-
             this.tagJs.setPai(this.tagHead);
         }
 
@@ -495,6 +483,10 @@ namespace NetZ.Web.Html.Pagina
             {
                 lstJs.Add(new JavaScriptTag(this.GetType()));
             }
+        }
+
+        protected virtual void addJsCodigo(JavaScriptTag tagJs)
+        {
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
@@ -545,50 +537,6 @@ namespace NetZ.Web.Html.Pagina
         /// </summary>
         protected virtual void inicializar()
         {
-            this.divNotificacao.strId = "divNotificacao";
-
-            this.tagBody.booMostrarClazz = false;
-
-            this.tagCssMain.strId = CssMain.STR_CSS_ID;
-
-            this.tagCssPrint.strId = CssPrint.STR_CSS_ID;
-
-            this.tagCssPrint.addAtt("media", "print");
-
-            this.tagDocType.addAtt("html");
-            this.tagDocType.booBarraFinal = false;
-            this.tagDocType.booMostrarClazz = false;
-            this.tagDocType.booDupla = false;
-
-            this.tagHead.booMostrarClazz = false;
-
-            this.tagHtml.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
-            this.tagHtml.addAtt("lang", "pt-br");
-            this.tagHtml.booMostrarClazz = false;
-
-            this.tagIcon.addAtt("rel", "icon");
-            this.tagIcon.addAtt("href", this.srcIcone);
-            this.tagIcon.addAtt("type", "image/x-icon");
-            this.tagIcon.booMostrarClazz = false;
-
-            this.tagJs.intOrdem = 100;
-
-            this.tagMetaContent.addAtt("content", this.strNomeExibicao);
-            this.tagMetaContent.booMostrarClazz = false;
-            this.tagMetaContent.booDupla = false;
-
-            this.tagMetaHttpEquiv.addAtt("http-equiv", "Content-Type");
-            this.tagMetaHttpEquiv.booMostrarClazz = false;
-            this.tagMetaHttpEquiv.booDupla = false;
-
-            this.tagMetaThemaColor.addAtt("name", "theme-color");
-            this.tagMetaThemaColor.addAtt("content", ColorTranslator.ToHtml(AppWebBase.i.objTema.corTema));
-            this.tagMetaThemaColor.booMostrarClazz = false;
-            this.tagMetaThemaColor.booDupla = false;
-
-            this.tagTitle.booMostrarClazz = false;
-            this.tagTitle.booDupla = false;
-            this.tagTitle.strConteudo = this.strTitulo;
         }
 
         protected virtual void montarLayout()
@@ -597,9 +545,11 @@ namespace NetZ.Web.Html.Pagina
             this.tagMetaContent.setPai(this.tagHead);
             this.tagMetaHttpEquiv.setPai(this.tagHead);
             this.tagMetaThemaColor.setPai(this.tagHead);
-            this.tagIcon.setPai(this.tagHead);
             this.tagCssMain.setPai(this.tagHead);
-            this.tagCssPrint.setPai(this.tagHead);
+
+            this.montarLayoutTagCssPrint();
+
+            this.montarLayoutTagIcon();
 
             this.divNotificacao.setPai(this);
         }
@@ -643,11 +593,13 @@ namespace NetZ.Web.Html.Pagina
 
             this.addJsLib();
 
-            this.addJs(this.tagJs);
-
             this.addJs(this.lstJs);
 
             this.addJsLstJs();
+
+            this.addJsCodigo(this.tagJs);
+
+            this.addJs(this.tagJs);
         }
 
         private void addJsLib()
@@ -682,6 +634,15 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
+        private Div getDivNotificacao()
+        {
+            var divNotificacaoResultado = new Div();
+
+            divNotificacaoResultado.strId = "divNotificacao";
+
+            return divNotificacaoResultado;
+        }
+
         private string getStrTitulo()
         {
             string strResultado = "_titulo - _app_nome";
@@ -690,6 +651,130 @@ namespace NetZ.Web.Html.Pagina
             strResultado = strResultado.Replace("_app_nome", AppWebBase.i.strNome);
 
             return strResultado;
+        }
+
+        private Tag getTagBody()
+        {
+            var tagBodyResultado = new Tag("body");
+
+            tagBodyResultado.booMostrarClazz = false;
+
+            return tagBodyResultado;
+        }
+
+        private CssTag getTagCssMain()
+        {
+            var tagCssMainResultado = new CssTag(CssMain.i.strHref);
+
+            tagCssMainResultado.strId = CssMain.STR_CSS_ID;
+
+            return tagCssMainResultado;
+        }
+
+        private CssTag getTagCssPrint()
+        {
+            var tagCssPrintResultado = new CssTag(CssPrint.i.strHref);
+
+            tagCssPrintResultado.strId = CssPrint.STR_CSS_ID;
+
+            tagCssPrintResultado.addAtt("media", "print");
+
+            return tagCssPrintResultado;
+        }
+
+        private Tag getTagDocType()
+        {
+            var tagDocTypeResultado = new Tag("!DOCTYPE");
+
+            tagDocTypeResultado.addAtt("html");
+            tagDocTypeResultado.booBarraFinal = false;
+            tagDocTypeResultado.booMostrarClazz = false;
+            tagDocTypeResultado.booDupla = false;
+
+            return tagDocTypeResultado;
+        }
+
+        private Tag getTagHead()
+        {
+            var tagHeadResultado = new Tag("head");
+
+            tagHeadResultado.booMostrarClazz = false;
+
+            return tagHeadResultado;
+        }
+
+        private Tag getTagHtml()
+        {
+            var tagHtmlResultado = new Tag("html");
+
+            tagHtmlResultado.booMostrarClazz = false;
+
+            tagHtmlResultado.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
+            tagHtmlResultado.addAtt("lang", "pt-br");
+
+            return tagHtmlResultado;
+        }
+
+        private Tag getTagIcon()
+        {
+            var tagIconResultado = new Tag("link");
+
+            tagIconResultado.booMostrarClazz = false;
+
+            tagIconResultado.addAtt("href", this.srcIcone);
+            tagIconResultado.addAtt("rel", "icon");
+            tagIconResultado.addAtt("type", "image/x-icon");
+            tagIconResultado.booDupla = false;
+
+            return tagIconResultado;
+        }
+
+        private Tag getTagMetaContent()
+        {
+            var tagMetaContentRsultado = new Tag("meta");
+
+            tagMetaContentRsultado.booMostrarClazz = false;
+            tagMetaContentRsultado.booDupla = false;
+
+            tagMetaContentRsultado.addAtt("content", this.strNomeExibicao);
+
+            return tagMetaContentRsultado;
+        }
+
+        private Tag getTagMetaHttpEquiv()
+        {
+            var tagMetaHttpEquivResultado = new Tag("meta");
+
+            tagMetaHttpEquivResultado.booMostrarClazz = false;
+            tagMetaHttpEquivResultado.booDupla = false;
+
+            tagMetaHttpEquivResultado.addAtt("http-equiv", "Content-Type");
+
+            return tagMetaHttpEquivResultado;
+        }
+
+        private Tag getTagThemaColor()
+        {
+            var tagMetaThemaColorResultado = new Tag("meta");
+
+            tagMetaThemaColorResultado.booMostrarClazz = false;
+            tagMetaThemaColorResultado.booDupla = false;
+
+            tagMetaThemaColorResultado.addAtt("name", "theme-color");
+            tagMetaThemaColorResultado.addAtt("content", ColorTranslator.ToHtml(AppWebBase.i.objTema.corTema));
+
+            return tagMetaThemaColorResultado;
+        }
+
+        private Tag getTagTitle()
+        {
+            var tagTitleResultado = new Tag("title");
+
+            tagTitleResultado.booMostrarClazz = false;
+            tagTitleResultado.booDupla = false;
+            tagTitleResultado.strConteudo = this.strTitulo;
+
+            return tagTitleResultado;
         }
 
         private void iniciar()
@@ -701,6 +786,26 @@ namespace NetZ.Web.Html.Pagina
             this.finalizarCss(CssPrint.i);
             this.addLayoutFixo(this.tagJs);
             this.addConstante(this.tagJs);
+        }
+
+        private void montarLayoutTagCssPrint()
+        {
+            if (DateTime.MinValue.Equals(CssPrint.i.dttAlteracao))
+            {
+                return;
+            }
+
+            this.tagCssPrint.setPai(this.tagHead);
+        }
+
+        private void montarLayoutTagIcon()
+        {
+            if (string.IsNullOrEmpty(this.srcIcone))
+            {
+                return;
+            }
+
+            this.tagIcon.setPai(this.tagHead);
         }
 
         private void setStrTitulo(string strTitulo)

@@ -198,7 +198,7 @@ namespace NetZ.Web
         /// esteja marcada.
         /// </para>
         /// </summary>
-        public virtual void inicializarServidor()
+        public virtual void iniciarServidorWeb()
         {
             Log.i.info("Inicializando o servidor.");
 

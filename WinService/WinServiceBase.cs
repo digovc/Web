@@ -31,7 +31,7 @@ namespace NetZ.Web.WinService
         {
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
-            this.getAppWeb().inicializarServidor();
+            this.getAppWeb().iniciarServidorWeb();
         }
 
         #endregion Métodos

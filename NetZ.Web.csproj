@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppWebBase.cs" />
-    <Compile Include="ConfigWeb.cs" />
+    <Compile Include="ConfigWebBase.cs" />
     <Compile Include="DataBase\DbeWebBase.cs" />
     <Compile Include="DataBase\Dominio\Documentacao\DocumentacaoDominioBase.cs" />
     <Compile Include="DataBase\Dominio\Documentacao\MarkdownDominio.cs" />

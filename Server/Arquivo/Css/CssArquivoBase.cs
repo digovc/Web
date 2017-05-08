@@ -189,6 +189,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.stbConteudo.ToString();
         }
 
+        public string setAlignItems(string css)
+        {
+            return this.addCss("align-items", css);
+        }
+
         public string setBackground(string css)
         {
             return this.addCss("background", css);
@@ -259,7 +264,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("background-size", string.Format("{0}{2} {1}{2}", intWidth, intHeight, strGrandeza));
         }
 
-        public string setBorder(int intBorderPx, string strTipo = "solid", string cor = "grey")
+        public string setBorder(int intBorderPx = 1, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border", string.Format("{0}px {1} {2}", intBorderPx, strTipo, cor));
         }
@@ -279,7 +284,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorderBottom(intRightPx, strTipo, this.corToRgba(cor));
         }
 
-        public string setBorderLeft(int intLeftPx, string strTipo = "solid", string cor = "grey")
+        public string setBorderLeft(int intLeftPx = 1, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-left", string.Format("{0}px {1} {2}", intLeftPx, strTipo, cor));
         }
@@ -299,7 +304,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("border-radius", string.Format("{0}{1}", intBorderRadius, strGrandeza));
         }
 
-        public string setBorderRight(int intRightPx, string strTipo = "solid", string cor = "grey")
+        public string setBorderRight(int intRightPx = 1, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-right", string.Format("{0}px {1} {2}", intRightPx, strTipo, cor));
         }
@@ -314,7 +319,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.setBorderTop(intRightPx, strTipo, this.corToRgba(cor));
         }
 
-        public string setBorderTop(int intTopPx, string strTipo = "solid", string cor = "grey")
+        public string setBorderTop(int intTopPx = 1, string strTipo = "solid", string cor = "grey")
         {
             return this.addCss("border-top", string.Format("{0}px {1} {2}", intTopPx, strTipo, cor));
         }
@@ -399,6 +404,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setJustifyContent(string css)
+        {
+            return this.addCss("justify-content", css);
+        }
+
         public string setLeft(int intLeft, string strGrandeza = "px")
         {
             return this.addCss("left", string.Format("{0}{1}", intLeft, strGrandeza));
@@ -427,6 +437,11 @@ namespace NetZ.Web.Server.Arquivo.Css
         public string setMarginLeft(int intMarginLeft, string strGrandeza = "px")
         {
             return this.addCss("margin-left", string.Format("{0}{1}", intMarginLeft, strGrandeza));
+        }
+
+        public string setMarginRight(decimal decMarginRight, string strGrandeza = "px")
+        {
+            return this.addCss("margin-right", string.Format("{0}{1}", decMarginRight.ToString(this.ctiUsa), strGrandeza));
         }
 
         public string setMarginRight(int intMarginRight, string strGrandeza = "px")

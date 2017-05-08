@@ -181,10 +181,12 @@ namespace NetZ.Web.Html.Componente
 
             this.btnCancelar.addCss(css.setBackgroundImage("/res/media/png/btn_cancelar_30x30.png"));
             this.btnCancelar.addCss(css.setDisplay("none"));
+            this.btnCancelar.addCss(css.setFloat("right"));
             this.btnCancelar.addCss(css.setMarginRight(10));
             this.btnCancelar.addCss(css.setMarginTop(7));
 
             this.btnConfirmar.addCss(css.setBackgroundImage("/res/media/png/btn_salvar_40x40.png"));
+            this.btnConfirmar.addCss(css.setFloat("right"));
 
             this.divComando.addCss(css.setBottom(0));
             this.divComando.addCss(css.setHeight(50));

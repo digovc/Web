@@ -50,6 +50,8 @@ namespace NetZ.Web.WinService
             this.svi.Description = this.getAppWeb().strDescricao ?? "A descrição do serviço não foi indicada.";
             this.svi.DisplayName = this.getAppWeb().strNome;
             this.svi.ServiceName = this.getAppWeb().strNomeSimplificado;
+
+            this.svi.DelayedAutoStart = true;
             this.svi.StartType = ServiceStartMode.Automatic;
         }
 
