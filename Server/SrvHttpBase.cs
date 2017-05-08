@@ -226,6 +226,7 @@ namespace NetZ.Web.Server
 
             if (CssMain.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
             {
+
                 return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
             }
 
