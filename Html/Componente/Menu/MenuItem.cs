@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Circulo;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Collections.Generic;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
@@ -156,20 +156,6 @@ namespace NetZ.Web.Html.Componente.Menu
             this.lstMni.Add(tag as MenuItem);
         }
 
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.divIcone.strId = (strId + "_divIcone");
-            this.divItemConteudo.strId = (strId + "_divItemConteudo");
-            this.divTitulo.strId = (strId + "_divTitulo");
-        }
-
         protected override void finalizar()
         {
             base.finalizar();
@@ -210,16 +196,18 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divItemConteudo.addCss(css.setFontSize(14));
         }
 
-        private void setTbl(TabelaBase tbl)
+        protected override void setStrId(string strId)
         {
-            if (tbl == null)
+            base.setStrId(strId);
+
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            this.strTitulo = tbl.strNomeExibicao;
-
-            this.addAtt("tbl_web_nome", tbl.sqlNome);
+            this.divIcone.strId = (strId + "_divIcone");
+            this.divItemConteudo.strId = (strId + "_divItemConteudo");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         private void setCssFilho(CssArquivoBase css)
@@ -229,8 +217,6 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corSombra));
-            this.addCss(css.setBorderBottom(0, "solid", null));
             this.addCss(css.setHeight(40));
             this.addCss(css.setMinHeight(40));
             this.addCss(css.setPaddingLeft(60));
@@ -247,7 +233,6 @@ namespace NetZ.Web.Html.Componente.Menu
                 return;
             }
 
-            this.addCss(css.setBorderTop(1, "solid", AppWebBase.i.objTema.corSombra));
             this.addCss(css.setLineHeight(50));
             this.addCss(css.setMinHeight(50));
 
@@ -259,6 +244,21 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divIcone.addCss(css.setMarginTop(4));
 
             this.divTitulo.addCss(css.setLineHeight(50));
+
+            this.divItemConteudo.addCss(css.setMaxHeight(50, "vh"));
+            this.divItemConteudo.addCss(css.setOverflowY("auto"));
+        }
+
+        private void setTbl(TabelaBase tbl)
+        {
+            if (tbl == null)
+            {
+                return;
+            }
+
+            this.strTitulo = tbl.strNomeExibicao;
+
+            this.addAtt("tbl_web_nome", tbl.sqlNome);
         }
 
         #endregion Métodos

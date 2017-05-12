@@ -130,8 +130,7 @@ namespace NetZ.Web.Html.Componente.Menu
             this.divGaveta.addCss(css.setMaxHeight(650));
             this.divGaveta.addCss(css.setMinWidth(370));
             this.divGaveta.addCss(css.setOverflow("hidden"));
-            this.divGaveta.addCss(css.setPaddingLeft(10, "px"));
-            this.divGaveta.addCss(css.setPaddingRight(10, "px"));
+            this.divGaveta.addCss(css.setPadding(10, "px"));
             this.divGaveta.addCss(css.setWidth(25, "%"));
             this.divGaveta.addCss(css.setZIndex(10));
 
