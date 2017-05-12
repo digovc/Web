@@ -116,17 +116,17 @@ namespace NetZ.Web.Html
             strJs = strJs.Replace("_constante_nome", strNome);
             strJs = strJs.Replace("_constante_valor", strValor);
 
-            this.addJs(strJs);
+            this.addJsCodigo(strJs);
         }
 
-        public void addJs(string strJs)
+        public void addJsCodigo(string strJsCodigo)
         {
-            if (string.IsNullOrEmpty(strJs))
+            if (string.IsNullOrEmpty(strJsCodigo))
             {
                 return;
             }
 
-            this.lstStrCodigo.Add(strJs);
+            this.lstStrCodigo.Add(strJsCodigo);
         }
 
         public void addLayoutFixo(Type cls)

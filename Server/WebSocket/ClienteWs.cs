@@ -267,7 +267,7 @@ namespace NetZ.Web.Server.WebSocket
                 strStack = strStack.Replace(Environment.NewLine, "<br/>");
             }
 
-            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
+            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/><br/><br/><br/><br/>{1}", ex.Message, strStack)));
 
             Log.i.erro(ex);
         }
