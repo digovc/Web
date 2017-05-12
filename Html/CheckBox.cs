@@ -148,6 +148,7 @@ namespace NetZ.Web.Html
             }
 
             this.divSeletor.strId = (strId + "_divSeletor");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         #endregion Métodos
