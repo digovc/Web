@@ -140,7 +140,7 @@ namespace NetZ.Web.DataBase.Tabela
             return intOrdem;
         }
 
-        protected override void inicializarViews(List<Persistencia.ViewBase> lstViw)
+        protected override void inicializarViews(List<ViewBase> lstViw)
         {
             base.inicializarViews(lstViw);
 
