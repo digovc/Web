@@ -73,7 +73,6 @@
     <Compile Include="Html\Componente\Form\DivCritica.cs" />
     <Compile Include="Html\Componente\Form\DivDica.cs" />
     <Compile Include="Html\Componente\Grafico\Canvas.cs" />
-    <Compile Include="Html\Componente\Grid\MenuGrid.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroCadastro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlFiltroItemCadastro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\JnlTag.cs" />

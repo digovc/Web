@@ -460,7 +460,6 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
             lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
@@ -500,7 +499,6 @@ namespace NetZ.Web.Html.Pagina
             tagJs.addLayoutFixo(typeof(Mensagem));
             tagJs.addLayoutFixo(typeof(MenuContexto));
             tagJs.addLayoutFixo(typeof(MenuContextoItem));
-            tagJs.addLayoutFixo(typeof(MenuGrid));
             tagJs.addLayoutFixo(typeof(Notificacao));
             tagJs.addLayoutFixo(typeof(TagCard));
         }
