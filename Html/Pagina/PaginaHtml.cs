@@ -462,18 +462,19 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
             lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
-            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(Tag), 103));
 
             lstJs.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
             lstJs.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
             lstJs.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
             lstJs.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/html/Tag.js", 103));
+            lstJs.Add(new JavaScriptTag("/res/js/web/html/Animator.js", 101));
             lstJs.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));

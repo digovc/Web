@@ -103,6 +103,7 @@ namespace NetZ.Web.Html.Componente.Menu
 
             this.divTitulo.addCss(css.setBottom(0));
             this.divTitulo.addCss(css.setColor(AppWebBase.i.objTema.corTelaFundo));
+            this.divTitulo.addCss(css.setCursor("pointer"));
             this.divTitulo.addCss(css.setLeft(0));
             this.divTitulo.addCss(css.setPosition("absolute"));
             this.divTitulo.addCss(css.setRight(0));
