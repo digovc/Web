@@ -145,10 +145,9 @@ namespace NetZ.Web.Html.Componente.Menu
             this.txtPesquisa.limparClass();
 
             this.txtPesquisa.addCss(css.setBorder(0));
-            this.txtPesquisa.addCss(css.setBorderRadius(5, "px"));
             this.txtPesquisa.addCss(css.setCenter());
             this.txtPesquisa.addCss(css.setDisplay("block"));
-            this.txtPesquisa.addCss(css.setFontSize(20));
+            this.txtPesquisa.addCss(css.setFontSize(18));
             this.txtPesquisa.addCss(css.setHeight(29));
             this.txtPesquisa.addCss(css.setPaddingLeft(10));
             this.txtPesquisa.addCss(css.setPaddingRight(10));

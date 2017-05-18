@@ -265,6 +265,7 @@ namespace NetZ.Web.Html.Componente.Janela
             this.divBtnFechar.addCss(css.setBorderRadius(0, 0, 5, 5));
             this.divBtnFechar.addCss(css.setBorderRight(1, "solid", AppWebBase.i.objTema.corTema));
             this.divBtnFechar.addCss(css.setBoxShadow(0, 1, 5, 0, AppWebBase.i.objTema.corSombra));
+            this.divBtnFechar.addCss(css.setCursor("pointer"));
             this.divBtnFechar.addCss(css.setHeight(25));
             this.divBtnFechar.addCss(css.setMarginRight(8));
             this.divBtnFechar.addCss(css.setTextAlign("center"));
