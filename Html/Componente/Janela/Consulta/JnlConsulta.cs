@@ -143,21 +143,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.btnFavorito.strId = (strId + "_btnFavorito");
-            this.cmbStrViewNome.strId = (strId + "_cmbStrViewNome");
-            this.divGrid.strId = (strId + "_divGrid");
-            this.pnlAcaoConsulta.strId = (strId + "_pnlAcaoConsulta");
-        }
-
         protected override void finalizarCssWidth(CssArquivoBase css)
         {
             // base.finalizarCssWidth(css);
@@ -167,7 +152,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         {
             base.inicializar();
 
-            this.strId = "jnlConsulta"; // TODO: Colocar o id desta janela baseado no nome da sua tabela.
+            this.strId = this.GetType().Name; // TODO: Colocar o id desta janela baseado no nome da sua tabela.
         }
 
         protected override void montarLayout()
@@ -194,6 +179,8 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.addCss(css.setRight(0));
             this.addCss(css.setTop(0));
 
+            this.btnFavorito.addCss(css.setFloat("left"));
+
             this.divGrid.addCss(css.setBottom(0));
             this.divGrid.addCss(css.setLeft(0));
             this.divGrid.addCss(css.setOverflow("auto"));
@@ -206,6 +193,44 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.pnlAcaoConsulta.addCss(css.setRight(50));
 
             this.setCssCmbStrViewNome(css);
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            if (string.IsNullOrEmpty(strId))
+            {
+                return;
+            }
+
+            this.btnFavorito.strId = (strId + "_btnFavorito");
+            this.cmbStrViewNome.strId = (strId + "_cmbStrViewNome");
+            this.divGrid.strId = (strId + "_divGrid");
+            this.pnlAcaoConsulta.strId = (strId + "_pnlAcaoConsulta");
+        }
+
+        private void montarLayoutCmbStrViewNome()
+        {
+            if (this.tbl.lstViw.Count < 2)
+            {
+                return;
+            }
+
+            this.cmbStrViewNome.setPai(this.divCabecalho);
+        }
+
+        private void setCssCmbStrViewNome(CssArquivoBase css)
+        {
+            if (this.tbl.lstViw.Count < 2)
+            {
+                return;
+            }
+
+            this.cmbStrViewNome.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
+            this.cmbStrViewNome.addCss(css.setBorder(0));
+            this.cmbStrViewNome.addCss(css.setHeight(100, "%"));
+            this.cmbStrViewNome.addCss(css.setMinWidth(255));
         }
 
         private void setTbl(TabelaBase tbl)
@@ -243,29 +268,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
 
             this.cmbStrViewNome.addOpcao((viw.intObjetoId), viw.strNomeExibicao);
-        }
-
-        private void montarLayoutCmbStrViewNome()
-        {
-            if (this.tbl.lstViw.Count < 2)
-            {
-                return;
-            }
-
-            this.cmbStrViewNome.setPai(this.divCabecalho);
-        }
-
-        private void setCssCmbStrViewNome(CssArquivoBase css)
-        {
-            if (this.tbl.lstViw.Count < 2)
-            {
-                return;
-            }
-
-            this.cmbStrViewNome.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
-            this.cmbStrViewNome.addCss(css.setBorder(0));
-            this.cmbStrViewNome.addCss(css.setHeight(100, "%"));
-            this.cmbStrViewNome.addCss(css.setMinWidth(255));
         }
 
         #endregion Métodos
