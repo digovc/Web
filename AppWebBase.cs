@@ -26,13 +26,15 @@ namespace NetZ.Web
     {
         #region Constantes
 
-        public const string DIR_CSS = "/res/css/";
-        public const string DIR_JS_LIB = "/res/js/lib/";
+        public const string DIR_CSS = (DIR_RESOURCE + "css/");
+        public const string DIR_HTML = "res/html/";
+        public const string DIR_JS_LIB = (DIR_RESOURCE + "js/lib/");
         public const string DIR_JSON_CONFIG = "JSON Config/";
-        public const string DIR_MEDIA_PNG = "/res/media/png/";
-        public const string DIR_MEDIA_SVG = "/res/media/svg/";
+        public const string DIR_MEDIA_PNG = (DIR_RESOURCE + "media/png/");
+        public const string DIR_MEDIA_SVG = (DIR_RESOURCE + "media/svg/");
+        public const string DIR_RESOURCE = "/res/";
 
-        private const string DIR_HTML = "res/html/";
+        public const string STR_CONSTANTE_NAMESPACE_PROJETO = "STR_CONSTANTE_NAMESPACE_PROJETO";
 
         #endregion Constantes
 
@@ -306,6 +308,11 @@ namespace NetZ.Web
             }
         }
 
+        public virtual string getStrJsDefaultNamespace()
+        {
+            return "<desconhecido>";
+        }
+
         protected virtual DbeBase getDbe()
         {
             return null;
@@ -365,11 +372,6 @@ namespace NetZ.Web
             ConfigWebBase.i.strVersaoPagEstatica = this.strVersao;
         }
 
-        private void inicializarHtmlEstaticoCss()
-        {
-            CssMain.i.salvar();
-        }
-
         private void inicializarHtmlEstatico(PaginaHtml pagEstatica)
         {
             if (pagEstatica == null)
@@ -378,6 +380,11 @@ namespace NetZ.Web
             }
 
             pagEstatica.salvar(DIR_HTML);
+        }
+
+        private void inicializarHtmlEstaticoCss()
+        {
+            CssMain.i.salvar();
         }
 
         private void inicializarLstSrv()
