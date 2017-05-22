@@ -34,6 +34,7 @@ namespace NetZ.Web
         public const string DIR_MEDIA_SVG = (DIR_RESOURCE + "media/svg/");
         public const string DIR_RESOURCE = "/res/";
 
+        public const string STR_CONSTANTE_DESENVOLVIMENTO = "STR_CONSTANTE_DESENVOLVIMENTO";
         public const string STR_CONSTANTE_NAMESPACE_PROJETO = "STR_CONSTANTE_NAMESPACE_PROJETO";
 
         #endregion Constantes

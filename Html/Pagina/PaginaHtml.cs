@@ -427,26 +427,17 @@ namespace NetZ.Web.Html.Pagina
 
             strHtml = strHtml.Replace("=\"/res/", "=\"../../res/");
 
-            File.WriteAllText(dirCompleto, strHtml);
-        }
+            var objUtf8Encoding = new UTF8Encoding(true);
 
-        protected void addConstante(string strNome, string strValor)
-        {
-            this.tagJs.addConstante(strNome, strValor);
-        }
-
-        protected void addConstante(string strNome, int intValor)
-        {
-            this.addConstante(strNome, intValor.ToString());
-        }
-
-        protected void addConstante(string strNome, decimal decValor)
-        {
-            this.addConstante(strNome, decValor.ToString());
+            using (var objStreamWriter = new StreamWriter(dirCompleto, false, objUtf8Encoding))
+            {
+                objStreamWriter.Write(strHtml);
+            }
         }
 
         protected virtual void addConstante(JavaScriptTag tagJs)
         {
+            tagJs.addConstante(AppWebBase.STR_CONSTANTE_DESENVOLVIMENTO, AppWebBase.i.booDesenvolvimento);
         }
 
         /// <summary>
@@ -507,6 +498,10 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJsCodigo(JavaScriptTag tagJs)
         {
+            if (this.getBooJsAutoInicializavel())
+            {
+                tagJs.addJsCodigo(string.Format(AppWebBase.i.getStrJsDefaultNamespace() + ".{0}.i.iniciar();", this.GetType().Name));
+            }
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
@@ -541,6 +536,11 @@ namespace NetZ.Web.Html.Pagina
         }
 
         protected virtual bool getBooJs()
+        {
+            return false;
+        }
+
+        protected virtual bool getBooJsAutoInicializavel()
         {
             return false;
         }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using DigoFramework;
+﻿using DigoFramework;
 using DigoFramework.Arquivo;
 using DigoFramework.Json;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace NetZ.Web.Server
 {
@@ -453,12 +453,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            string strSessaoId = "_dtt_agora+_solicitacao_id";
-
-            strSessaoId = strSessaoId.Replace("_dtt_agora", DateTime.Now.ToString());
-            strSessaoId = strSessaoId.Replace("_solicitacao_id", this.objSolicitacao.intObjetoId.ToString());
-
-            strSessaoId = Utils.getStrMd5(strSessaoId);
+            string strSessaoId = Utils.getStrToken(32, DateTime.Now, this.objSolicitacao.intObjetoId);
 
             Cookie objCookieSessaoId = new Cookie(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
 

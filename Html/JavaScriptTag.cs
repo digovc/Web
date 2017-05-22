@@ -94,6 +94,11 @@ namespace NetZ.Web.Html
             this.addConstante(strNome, decValor.ToString());
         }
 
+        public void addConstante(string strNome, bool booValor)
+        {
+            this.addConstante(strNome, booValor ? 1 : 0);
+        }
+
         public void addConstante(string strNome, int intValor)
         {
             this.addConstante(strNome, intValor.ToString());
