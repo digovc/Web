@@ -189,6 +189,28 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.stbConteudo.ToString();
         }
 
+        public override bool salvar()
+        {
+            var strConteudo = Encoding.UTF8.GetString(this.arrBteConteudo);
+
+            strConteudo = strConteudo.Replace(":url(/res/", ":url(../../res/");
+
+            this.strConteudo = strConteudo;
+
+            var dirTemp = this.dir;
+
+            this.dir = this.dir.Substring(1);
+
+            try
+            {
+                return base.salvar();
+            }
+            finally
+            {
+                this.dir = dirTemp;
+            }
+        }
+
         public string setAlignItems(string css)
         {
             return this.addCss("align-items", css);

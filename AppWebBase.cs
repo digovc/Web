@@ -1,7 +1,9 @@
 ﻿using DigoFramework;
 using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
+using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server;
+using NetZ.Web.Server.Arquivo.Css;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -30,6 +32,8 @@ namespace NetZ.Web
         public const string DIR_MEDIA_PNG = "/res/media/png/";
         public const string DIR_MEDIA_SVG = "/res/media/svg/";
 
+        private const string DIR_HTML = "res/html/";
+
         #endregion Constantes
 
         #region Atributos
@@ -39,6 +43,7 @@ namespace NetZ.Web
         private bool _booMostrarGrade;
         private DbeBase _dbe;
         private List<UsuarioDominio> _lstObjUsuario;
+        private List<PaginaHtml> _lstPagEstatica;
         private List<ServerBase> _lstSrv;
         private object _objLstObjUsuarioLock;
         private SmtpClient _objSmtpClient;
@@ -143,6 +148,23 @@ namespace NetZ.Web
             }
         }
 
+        private List<PaginaHtml> lstPagEstatica
+        {
+            get
+            {
+                if (_lstPagEstatica != null)
+                {
+                    return _lstPagEstatica;
+                }
+
+                _lstPagEstatica = new List<PaginaHtml>();
+
+                this.inicializarLstPagEstatica(_lstPagEstatica);
+
+                return _lstPagEstatica;
+            }
+        }
+
         private List<ServerBase> lstSrv
         {
             get
@@ -203,6 +225,7 @@ namespace NetZ.Web
             Log.i.info("Inicializando o servidor.");
 
             this.inicializarConfig();
+            this.inicializarHtmlEstatico();
             this.inicializarLstSrv();
         }
 
@@ -300,6 +323,10 @@ namespace NetZ.Web
             throw new NotFiniteNumberException();
         }
 
+        protected virtual void inicializarLstPagEstatica(List<PaginaHtml> lstPagEstatica)
+        {
+        }
+
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
 
         private List<ServerBase> getLstSrv()
@@ -314,6 +341,43 @@ namespace NetZ.Web
         private void inicializarConfig()
         {
             this.getObjConfig();
+        }
+
+        private void inicializarHtmlEstatico()
+        {
+            if (this.lstPagEstatica.Count < 1)
+            {
+                return;
+            }
+
+            if (this.strVersao.Equals(ConfigWebBase.i.strVersaoPagEstatica))
+            {
+                return;
+            }
+
+            foreach (var pagEstatica in this.lstPagEstatica)
+            {
+                this.inicializarHtmlEstatico(pagEstatica);
+            }
+
+            this.inicializarHtmlEstaticoCss();
+
+            ConfigWebBase.i.strVersaoPagEstatica = this.strVersao;
+        }
+
+        private void inicializarHtmlEstaticoCss()
+        {
+            CssMain.i.salvar();
+        }
+
+        private void inicializarHtmlEstatico(PaginaHtml pagEstatica)
+        {
+            if (pagEstatica == null)
+            {
+                return;
+            }
+
+            pagEstatica.salvar(DIR_HTML);
         }
 
         private void inicializarLstSrv()

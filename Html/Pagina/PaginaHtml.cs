@@ -1,6 +1,5 @@
 ﻿using DigoFramework;
 using NetZ.Web.Html.Componente;
-using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
@@ -10,6 +9,7 @@ using NetZ.Web.Server.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -408,6 +408,26 @@ namespace NetZ.Web.Html.Pagina
             }
 
             return this.toHtmlDinamico();
+        }
+
+        internal void salvar(string dir)
+        {
+            if (string.IsNullOrEmpty(dir))
+            {
+                return;
+            }
+
+            Directory.CreateDirectory(dir);
+
+            var strPagNome = string.Format("pag_{0}.html", this.strNomeSimplificado);
+
+            var dirCompleto = Path.Combine(dir, strPagNome);
+
+            var strHtml = this.toHtml();
+
+            strHtml = strHtml.Replace("=\"/res/", "=\"../../res/");
+
+            File.WriteAllText(dirCompleto, strHtml);
         }
 
         protected void addConstante(string strNome, string strValor)
