@@ -1,6 +1,5 @@
 ﻿using DigoFramework;
 using NetZ.Web.Html.Componente;
-using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
@@ -10,6 +9,7 @@ using NetZ.Web.Server.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -410,23 +410,34 @@ namespace NetZ.Web.Html.Pagina
             return this.toHtmlDinamico();
         }
 
-        protected void addConstante(string strNome, string strValor)
+        internal void salvar(string dir)
         {
-            this.tagJs.addConstante(strNome, strValor);
-        }
+            if (string.IsNullOrEmpty(dir))
+            {
+                return;
+            }
 
-        protected void addConstante(string strNome, int intValor)
-        {
-            this.addConstante(strNome, intValor.ToString());
-        }
+            Directory.CreateDirectory(dir);
 
-        protected void addConstante(string strNome, decimal decValor)
-        {
-            this.addConstante(strNome, decValor.ToString());
+            var strPagNome = string.Format("pag_{0}.html", this.strNomeSimplificado);
+
+            var dirCompleto = Path.Combine(dir, strPagNome);
+
+            var strHtml = this.toHtml();
+
+            strHtml = strHtml.Replace("=\"/res/", "=\"../../res/");
+
+            var objUtf8Encoding = new UTF8Encoding(true);
+
+            using (var objStreamWriter = new StreamWriter(dirCompleto, false, objUtf8Encoding))
+            {
+                objStreamWriter.Write(strHtml);
+            }
         }
 
         protected virtual void addConstante(JavaScriptTag tagJs)
         {
+            tagJs.addConstante(AppWebBase.STR_CONSTANTE_DESENVOLVIMENTO, AppWebBase.i.booDesenvolvimento);
         }
 
         /// <summary>
@@ -460,21 +471,21 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuGrid), 111));
             lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
-            lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
+            lstJs.Add(new JavaScriptTag(typeof(Tag), 103));
 
             lstJs.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
             lstJs.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
             lstJs.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
             lstJs.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/html/Tag.js", 103));
+            lstJs.Add(new JavaScriptTag("/res/js/web/html/Animator.js", 101));
             lstJs.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
@@ -487,6 +498,10 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJsCodigo(JavaScriptTag tagJs)
         {
+            if (this.getBooJsAutoInicializavel())
+            {
+                tagJs.addJsCodigo(string.Format(AppWebBase.i.getStrJsDefaultNamespace() + ".{0}.i.iniciar();", this.GetType().Name));
+            }
         }
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
@@ -500,7 +515,6 @@ namespace NetZ.Web.Html.Pagina
             tagJs.addLayoutFixo(typeof(Mensagem));
             tagJs.addLayoutFixo(typeof(MenuContexto));
             tagJs.addLayoutFixo(typeof(MenuContextoItem));
-            tagJs.addLayoutFixo(typeof(MenuGrid));
             tagJs.addLayoutFixo(typeof(Notificacao));
             tagJs.addLayoutFixo(typeof(TagCard));
         }
@@ -522,6 +536,11 @@ namespace NetZ.Web.Html.Pagina
         }
 
         protected virtual bool getBooJs()
+        {
+            return false;
+        }
+
+        protected virtual bool getBooJsAutoInicializavel()
         {
             return false;
         }

@@ -150,7 +150,7 @@ namespace NetZ.Web.Html.Componente.Painel
 
             strJs = strJs.Replace("_pnl_id", this.strId);
 
-            js.addJs(strJs);
+            js.addJsCodigo(strJs);
         }
 
         private void setCssMinHeight(CssArquivoBase css)

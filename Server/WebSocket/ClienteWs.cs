@@ -220,11 +220,6 @@ namespace NetZ.Web.Server.WebSocket
             return false;
         }
 
-        private void processarMensagemPing()
-        {
-            this.enviar(new Interlocutor(STR_METODO_PONG));
-        }
-
         protected virtual bool processarMensagem(string strMensagem)
         {
             return false;
@@ -267,7 +262,7 @@ namespace NetZ.Web.Server.WebSocket
                 strStack = strStack.Replace(Environment.NewLine, "<br/>");
             }
 
-            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/>{1}", ex.Message, strStack)));
+            this.enviar(new Interlocutor(STR_METODO_ERRO, string.Format("{0}<br/><br/><br/><br/><br/>{1}", ex.Message, strStack)));
 
             Log.i.erro(ex);
         }
@@ -425,6 +420,11 @@ namespace NetZ.Web.Server.WebSocket
 
             this.strSessaoId = objSolicitacao.strSessaoId;
 
+            if (string.IsNullOrEmpty(this.strSessaoId))
+            {
+                this.strSessaoId = Utils.getStrToken(32, DateTime.Now, this.intObjetoId);
+            }
+
             Resposta objResposta = new Resposta(objSolicitacao);
 
             objResposta.intStatus = Resposta.INT_STATUS_CODE_101_SWITCHING_PROTOCOLS;
@@ -436,6 +436,11 @@ namespace NetZ.Web.Server.WebSocket
             this.booHandshake = true;
 
             this.onMensagemConnect(objSolicitacao);
+        }
+
+        private void processarMensagemPing()
+        {
+            this.enviar(new Interlocutor(STR_METODO_PONG));
         }
 
         private void processarMensagemText(Frame fme)

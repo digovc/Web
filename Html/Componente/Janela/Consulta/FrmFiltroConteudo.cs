@@ -187,7 +187,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            cmpFiltro.booMostrarTituloSempre = true;
+            //cmpFiltro.booMostrarTituloSempre = true;
             cmpFiltro.cln = clnFiltrada;
             cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
             cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);

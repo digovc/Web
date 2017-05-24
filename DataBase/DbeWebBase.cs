@@ -25,6 +25,7 @@ namespace NetZ.Web.DataBase
             base.inicializarLstTbl(lstTbl);
 
             lstTbl.Add(TblFiltro.i);
+            lstTbl.Add(TblFiltroItem.i);
         }
 
         #endregion Métodos

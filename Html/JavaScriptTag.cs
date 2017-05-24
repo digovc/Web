@@ -94,6 +94,11 @@ namespace NetZ.Web.Html
             this.addConstante(strNome, decValor.ToString());
         }
 
+        public void addConstante(string strNome, bool booValor)
+        {
+            this.addConstante(strNome, booValor ? 1 : 0);
+        }
+
         public void addConstante(string strNome, int intValor)
         {
             this.addConstante(strNome, intValor.ToString());
@@ -116,17 +121,17 @@ namespace NetZ.Web.Html
             strJs = strJs.Replace("_constante_nome", strNome);
             strJs = strJs.Replace("_constante_valor", strValor);
 
-            this.addJs(strJs);
+            this.addJsCodigo(strJs);
         }
 
-        public void addJs(string strJs)
+        public void addJsCodigo(string strJsCodigo)
         {
-            if (string.IsNullOrEmpty(strJs))
+            if (string.IsNullOrEmpty(strJsCodigo))
             {
                 return;
             }
 
-            this.lstStrCodigo.Add(strJs);
+            this.lstStrCodigo.Add(strJsCodigo);
         }
 
         public void addLayoutFixo(Type cls)

@@ -65,6 +65,13 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
+        protected override void addConstante(JavaScriptTag tagJs)
+        {
+            base.addConstante(tagJs);
+
+            tagJs.addConstante(AppWebBase.STR_CONSTANTE_NAMESPACE_PROJETO, AppWebBase.i.getStrJsDefaultNamespace());
+        }
+
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);

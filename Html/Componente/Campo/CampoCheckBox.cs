@@ -56,6 +56,8 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.setCss(css);
 
+            this.divTitulo.addCss(css.setVisibility("hidden"));
+
             this.ckb.addCss(css.setBorderBottom(0, "solid", AppWebBase.i.objTema.corTema));
         }
 
