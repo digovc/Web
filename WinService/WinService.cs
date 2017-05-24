@@ -1,11 +1,9 @@
 ﻿using DigoFramework;
-using NetZ.Web;
-using NetZ.Web.WinService;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Cia.WinService.WinService
+namespace NetZ.Web.WinService
 {
     public class WinService : WinServiceBase
     {
@@ -37,13 +35,13 @@ namespace Cia.WinService.WinService
         {
             Log.i.info("Abrindo em modo \"aplicação\".");
 
-            i.getAppWeb().iniciarServidorWeb();
+            this.getAppWeb().iniciarServidorWeb();
 
             Console.Read();
 
             Log.i.info("Fechando a aplicação.");
 
-            i.getAppWeb().pararServidor();
+            this.getAppWeb().pararServidor();
         }
 
         private void runService()
