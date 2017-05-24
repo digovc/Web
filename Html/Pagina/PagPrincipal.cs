@@ -69,7 +69,7 @@ namespace NetZ.Web.Html.Pagina
         {
             base.addConstante(tagJs);
 
-            tagJs.addConstante(AppWebBase.STR_CONSTANTE_NAMESPACE_PROJETO, AppWebBase.i.getStrJsDefaultNamespace());
+            tagJs.addConstante(AppWebBase.STR_CONSTANTE_NAMESPACE_PROJETO, AppWebBase.i.GetType().Namespace);
         }
 
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
