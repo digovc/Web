@@ -57,6 +57,11 @@ namespace Cia.WinService.WinService
 
         private bool validarDebug(string[] arrStrParam)
         {
+            if (this.getAppWeb().booDesenvolvimento)
+            {
+                return true;
+            }
+
             if (Debugger.IsAttached)
             {
                 return true;
