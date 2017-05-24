@@ -309,11 +309,6 @@ namespace NetZ.Web
             }
         }
 
-        public virtual string getStrJsDefaultNamespace()
-        {
-            return "<desconhecido>";
-        }
-
         protected virtual DbeBase getDbe()
         {
             return null;

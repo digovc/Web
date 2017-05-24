@@ -500,7 +500,7 @@ namespace NetZ.Web.Html.Pagina
         {
             if (this.getBooJsAutoInicializavel())
             {
-                tagJs.addJsCodigo(string.Format(AppWebBase.i.getStrJsDefaultNamespace() + ".{0}.i.iniciar();", this.GetType().Name));
+                tagJs.addJsCodigo(string.Format(AppWebBase.i.GetType().Namespace + ".{0}.i.iniciar();", this.GetType().Name));
             }
         }
 
