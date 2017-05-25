@@ -33,7 +33,7 @@ namespace NetZ.Web.WinService
 
         private void runDebug()
         {
-            Log.i.info("Abrindo em modo \"aplicação\".");
+            Log.i.info("Abrindo em modo de aplicação.");
 
             this.getAppWeb().iniciarServidorWeb();
 
@@ -48,7 +48,7 @@ namespace NetZ.Web.WinService
         {
             //Debugger.Launch();
 
-            Log.i.info("Abrindo em modo \"serviço\".");
+            Log.i.info("Abrindo em modo de serviço.");
 
             Run(i);
         }
