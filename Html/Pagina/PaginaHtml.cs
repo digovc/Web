@@ -398,19 +398,7 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
-        public string toHtml()
-        {
-            string strResultado = this.toHtmlEstatico();
-
-            if (!string.IsNullOrEmpty(strResultado))
-            {
-                return strResultado;
-            }
-
-            return this.toHtmlDinamico();
-        }
-
-        internal void salvar(string dir)
+        public void salvar(string dir)
         {
             if (string.IsNullOrEmpty(dir))
             {
@@ -433,6 +421,18 @@ namespace NetZ.Web.Html.Pagina
             {
                 objStreamWriter.Write(strHtml);
             }
+        }
+
+        public string toHtml()
+        {
+            string strResultado = this.toHtmlEstatico();
+
+            if (!string.IsNullOrEmpty(strResultado))
+            {
+                return strResultado;
+            }
+
+            return this.toHtmlDinamico();
         }
 
         protected virtual void addConstante(JavaScriptTag tagJs)

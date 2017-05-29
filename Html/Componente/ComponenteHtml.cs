@@ -1,4 +1,7 @@
-﻿namespace NetZ.Web.Html.Componente
+﻿using System.IO;
+using System.Text;
+
+namespace NetZ.Web.Html.Componente
 {
     public abstract class ComponenteHtml : Div
     {
@@ -15,6 +18,31 @@
         #endregion Construtores
 
         #region Métodos
+
+        public void salvar(string dir)
+        {
+            if (string.IsNullOrEmpty(dir))
+            {
+                return;
+            }
+
+            Directory.CreateDirectory(dir);
+
+            var strPagNome = string.Format("tag_{0}.html", this.strNomeSimplificado);
+
+            var dirCompleto = Path.Combine(dir, strPagNome);
+
+            var strHtml = this.toHtml();
+
+            strHtml = strHtml.Replace("=\"/res/", "=\"../../res/");
+
+            var objUtf8Encoding = new UTF8Encoding(true);
+
+            using (var objStreamWriter = new StreamWriter(dirCompleto, false, objUtf8Encoding))
+            {
+                objStreamWriter.Write(strHtml);
+            }
+        }
 
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
