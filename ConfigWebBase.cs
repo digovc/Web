@@ -15,7 +15,6 @@ namespace NetZ.Web
         private int _intSrvAjaxDocumentacao = 8081;
         private int _intSrvHttpPorta = 80;
         private int _intTimeOut = 5;
-        private string _strVersaoPagEstatica;
 
         public static new ConfigWebBase i
         {
@@ -77,19 +76,6 @@ namespace NetZ.Web
             set
             {
                 _intTimeOut = value;
-            }
-        }
-
-        public string strVersaoPagEstatica
-        {
-            get
-            {
-                return _strVersaoPagEstatica;
-            }
-
-            set
-            {
-                _strVersaoPagEstatica = value;
             }
         }
 

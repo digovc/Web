@@ -1,10 +1,12 @@
-﻿using NetZ.Persistencia;
+﻿using DigoFramework;
+using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Web.UiManager;
 
 namespace NetZ.Web.Server
 {
@@ -30,6 +32,8 @@ namespace NetZ.Web.Server
 
         private List<ArquivoEstatico> _lstArqEstatico;
 
+        private UiExportBase _objUiManager;
+
         private List<ArquivoEstatico> lstArqEstatico
         {
             get
@@ -42,6 +46,21 @@ namespace NetZ.Web.Server
                 _lstArqEstatico = new List<ArquivoEstatico>();
 
                 return _lstArqEstatico;
+            }
+        }
+
+        private UiExportBase objUiManager
+        {
+            get
+            {
+                if (_objUiManager != null)
+                {
+                    return _objUiManager;
+                }
+
+                _objUiManager = this.getObjUiManager();
+
+                return _objUiManager;
             }
         }
 
@@ -101,11 +120,21 @@ namespace NetZ.Web.Server
             return ConfigWebBase.i.intSrvHttpPorta;
         }
 
+        protected virtual UiExportBase getObjUiManager()
+        {
+            return null;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
+            Log.i.info("Serviço \"{0}\" rodando na porta {1}.", this.strNome, this.intPorta);
+
             this.criarDiretorio();
+
+            this.inicializarHtmlEstatico();
+
             this.inicializarArquivoEstatico();
         }
 
@@ -115,6 +144,8 @@ namespace NetZ.Web.Server
             {
                 return;
             }
+
+            Log.i.info("Criando a pasta de \"resources\" (res).");
 
             Directory.CreateDirectory("res");
         }
@@ -146,6 +177,8 @@ namespace NetZ.Web.Server
 
         private void inicializarArquivoEstatico()
         {
+            Log.i.info("Inicializando os arquivos estáticos da pasta de \"resources\" (res).");
+
             string dir = Assembly.GetEntryAssembly().Location;
 
             if (string.IsNullOrEmpty(dir))
@@ -212,6 +245,18 @@ namespace NetZ.Web.Server
             this.lstArqEstatico.Add(arq);
         }
 
+        private void inicializarHtmlEstatico()
+        {
+            if (this.objUiManager == null)
+            {
+                return;
+            }
+
+            Log.i.info("Exportando páginas estáticas.");
+
+            this.objUiManager.iniciar();
+        }
+
         private Resposta responderArquivoEstatico(Solicitacao objSolicitacao)
         {
             if (objSolicitacao == null)
@@ -226,7 +271,6 @@ namespace NetZ.Web.Server
 
             if (CssMain.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
             {
-
                 return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
             }
 

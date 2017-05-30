@@ -413,8 +413,6 @@ namespace NetZ.Web.Html.Pagina
 
             var strHtml = this.toHtml();
 
-            strHtml = strHtml.Replace("=\"/res/", "=\"../../res/");
-
             var objUtf8Encoding = new UTF8Encoding(true);
 
             using (var objStreamWriter = new StreamWriter(dirCompleto, false, objUtf8Encoding))
