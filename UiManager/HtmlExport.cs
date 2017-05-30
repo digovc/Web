@@ -14,7 +14,21 @@ namespace Web.UiManager
 
         #region Atributos
 
+        private bool _booExportarSempre;
         private int _intVersao;
+
+        public bool booExportarSempre
+        {
+            get
+            {
+                return _booExportarSempre;
+            }
+
+            private set
+            {
+                _booExportarSempre = value;
+            }
+        }
 
         public int intVersao
         {
@@ -23,7 +37,7 @@ namespace Web.UiManager
                 return _intVersao;
             }
 
-            set
+            private set
             {
                 _intVersao = value;
             }
@@ -36,6 +50,11 @@ namespace Web.UiManager
         public HtmlExport(int intVersao)
         {
             this.intVersao = intVersao;
+        }
+
+        public HtmlExport(bool booExportarSempre)
+        {
+            this.booExportarSempre = booExportarSempre;
         }
 
         #endregion Construtores

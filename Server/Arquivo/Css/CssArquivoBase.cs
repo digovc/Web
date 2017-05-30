@@ -576,6 +576,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("text-decoration", strTextDecoration);
         }
 
+        public string setTextIndent(decimal decIndent, string strGrandeza = "px")
+        {
+            return this.addCss("text-indent", string.Format("{0}{1}", decIndent.ToString(this.ctiUsa), strGrandeza));
+        }
+
         public string setTextShadow(int intX, int intY, int intBlur, string cor)
         {
             return this.addCss("text-shadow", string.Format("{0}px {1}px {2}px {3}", intX, intY, intBlur, cor));

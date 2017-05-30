@@ -290,46 +290,6 @@ namespace NetZ.Web.Html.Componente.Campo
             lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
         }
 
-        protected virtual void setCln(Coluna cln)
-        {
-            if (cln == null)
-            {
-                return;
-            }
-
-            this.addAtt("cln_web_nome", cln.sqlNome);
-            this.addAtt("str_dica", cln.strDica);
-
-            this.booObrigatorio = cln.booObrigatorio;
-            this.booPermitirAlterar = cln.booPermitirAlterar;
-            this.booSomenteLeitura = cln.booSomenteLeitura;
-            this.strTitulo = cln.strNomeExibicao;
-
-            this.tagInput.strValor = cln.strValor;
-
-            this.setClnStrId(cln);
-        }
-
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.divInputContainer.strId = (strId + "_divInputContainer");
-            this.divTitulo.strId = (strId + "_divTitulo");
-            this.tagInput.strId = (strId + "_tagInput");
-        }
-
-        protected virtual void setStrTitulo(string strTitulo)
-        {
-            this.divTitulo.strConteudo = (!string.IsNullOrEmpty(strTitulo)) ? strTitulo : STR_TITULO;
-            this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(strTitulo)) ? strTitulo : STR_TITULO;
-        }
-
         protected override void finalizar()
         {
             base.finalizar();
@@ -364,6 +324,26 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.setPai(this.divInputContainer);
         }
 
+        protected virtual void setCln(Coluna cln)
+        {
+            if (cln == null)
+            {
+                return;
+            }
+
+            this.addAtt("cln_web_nome", cln.sqlNome);
+            this.addAtt("str_dica", cln.strDica);
+
+            this.booObrigatorio = cln.booObrigatorio;
+            this.booPermitirAlterar = cln.booPermitirAlterar;
+            this.booSomenteLeitura = cln.booSomenteLeitura;
+            this.strTitulo = cln.strNomeExibicao;
+
+            this.tagInput.strValor = cln.strValor;
+
+            this.setClnStrId(cln);
+        }
+
         protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
@@ -372,11 +352,14 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.addCss(css.setFloat(this.booDireita ? "right" : "left"));
             this.addCss(css.setHeight(100, "%"));
+            this.addCss(css.setMaxHeight(65));
             this.addCss(css.setPaddingLeft(10));
             this.addCss(css.setPaddingRight(10));
             this.addCss(css.setPosition((EnmTamanho.TOTAL.Equals(this.enmTamanho)) ? "absolute" : "relative"));
 
+            this.divInputContainer.addCss(css.setBorderRadius(20));
             this.divInputContainer.addCss(css.setFontSize(15));
+            this.divInputContainer.addCss(css.setHeight(40));
             this.divInputContainer.addCss(css.setLeft(10));
             this.divInputContainer.addCss(css.setPosition("absolute"));
             this.divInputContainer.addCss(css.setRight(10));
@@ -387,22 +370,24 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divTitulo.addCss(css.setHeight(15));
             this.divTitulo.addCss(css.setLineHeight(15));
             this.divTitulo.addCss(css.setOpacity(0));
-            this.divTitulo.addCss(css.setPaddingTop(10));
+            this.divTitulo.addCss(css.setPaddingTop(5));
             this.divTitulo.addCss(css.setTextAlign("left"));
 
             this.setCssTagInputHeight(css);
             this.setCssTagInputWidth(css);
 
-            this.tagInput.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
+            this.tagInput.addCss(css.setBackgroundColor("rgba(255,255,255,.25)"));
             this.tagInput.addCss(css.setBorder(0));
             this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
+            this.tagInput.addCss(css.setBorderRadius(20));
             this.tagInput.addCss(css.setFontSize(15));
             this.tagInput.addCss(css.setOutline("none"));
+            this.tagInput.addCss(css.setTextIndent(20));
         }
 
         protected virtual void setCssTagInputHeight(CssArquivoBase css)
         {
-            this.tagInput.addCss(css.setHeight(19));
+            this.tagInput.addCss(css.setHeight(100, "%"));
         }
 
         protected virtual void setCssTagInputWidth(CssArquivoBase css)
@@ -410,24 +395,24 @@ namespace NetZ.Web.Html.Componente.Campo
             this.tagInput.addCss(css.setWidth(100, "%"));
         }
 
-        private void setBooSomenteLeitura(bool booSomenteLeitura)
+        protected override void setStrId(string strId)
         {
-            this.tagInput.booDisabled = booSomenteLeitura;
-        }
+            base.setStrId(strId);
 
-        private void setClnStrId(Coluna cln)
-        {
-            if (cln.tbl == null)
+            if (string.IsNullOrEmpty(strId))
             {
                 return;
             }
 
-            string strId = "cmp__cln_nome__obj_id";
+            this.divInputContainer.strId = (strId + "_divInputContainer");
+            this.divTitulo.strId = (strId + "_divTitulo");
+            this.tagInput.strId = (strId + "_tagInput");
+        }
 
-            strId = strId.Replace("_cln_nome", cln.sqlNome);
-            strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
-
-            this.strId = strId;
+        protected virtual void setStrTitulo(string strTitulo)
+        {
+            this.divTitulo.strConteudo = (!string.IsNullOrEmpty(strTitulo)) ? strTitulo : STR_TITULO;
+            this.tagInput.strPlaceHolder = (!string.IsNullOrEmpty(strTitulo)) ? strTitulo : STR_TITULO;
         }
 
         private void finalizarBooObrigatorio()
@@ -448,6 +433,26 @@ namespace NetZ.Web.Html.Componente.Campo
             }
 
             this.addAtt("mostrar_titulo_sempre", true);
+        }
+
+        private void setBooSomenteLeitura(bool booSomenteLeitura)
+        {
+            this.tagInput.booDisabled = booSomenteLeitura;
+        }
+
+        private void setClnStrId(Coluna cln)
+        {
+            if (cln.tbl == null)
+            {
+                return;
+            }
+
+            string strId = "cmp__cln_nome__obj_id";
+
+            strId = strId.Replace("_cln_nome", cln.sqlNome);
+            strId = strId.Replace("_obj_id", this.intObjetoId.ToString());
+
+            this.strId = strId;
         }
 
         private void setCssWidth(CssArquivoBase css)

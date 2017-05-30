@@ -127,7 +127,7 @@ namespace Web.UiManager
 
             var kpvHtmlVersao = this.getKpvHtmlVersao(cls);
 
-            if ((objAttributeHtmlExport as HtmlExport).intVersao <= kpvHtmlVersao.Value)
+            if (!(objAttributeHtmlExport as HtmlExport).booExportarSempre && ((objAttributeHtmlExport as HtmlExport).intVersao <= kpvHtmlVersao.Value))
             {
                 return;
             }
