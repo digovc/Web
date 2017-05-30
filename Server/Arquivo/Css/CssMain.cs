@@ -1,4 +1,6 @@
-﻿namespace NetZ.Web.Server.Arquivo.Css
+﻿using System;
+
+namespace NetZ.Web.Server.Arquivo.Css
 {
     public class CssMain : CssArquivoBase
     {
@@ -44,7 +46,7 @@
         {
             base.inicializar();
 
-            this.strHref = STR_CSS_SRC;
+            this.strHref = (STR_CSS_SRC + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
 
             this.addCssPuro("::-webkit-scrollbar-corner{background-color:rgb(239,239,239)}");
             this.addCssPuro("::-webkit-scrollbar-thumb{background-color:rgb(80,80,80);border:1px solid rgb(195,195,195)}");

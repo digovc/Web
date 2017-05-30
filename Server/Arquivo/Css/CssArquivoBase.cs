@@ -670,7 +670,20 @@ namespace NetZ.Web.Server.Arquivo.Css
 
         private void setStrHref(string strHref)
         {
-            this.dirCompleto = strHref;
+            if (string.IsNullOrEmpty(strHref))
+            {
+                return;
+            }
+
+            var i = strHref.IndexOf("?");
+
+            if (i < 0)
+            {
+                this.dirCompleto = strHref;
+                return;
+            }
+
+            this.dirCompleto = strHref.Substring(0, i);
         }
 
         #endregion Métodos

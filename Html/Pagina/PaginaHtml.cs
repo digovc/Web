@@ -485,6 +485,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
             lstJs.Add(new JavaScriptTag("/res/js/web/html/Animator.js", 101));
             lstJs.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
+            lstJs.Add(new JavaScriptTag("/res/js/web/Loop.js", 101));
             lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
 

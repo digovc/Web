@@ -1,4 +1,6 @@
-﻿namespace NetZ.Web.Server.Arquivo.Css
+﻿using System;
+
+namespace NetZ.Web.Server.Arquivo.Css
 {
     public class CssPrint : CssArquivoBase
     {
@@ -44,7 +46,7 @@
         {
             base.inicializar();
 
-            this.strHref = STR_CSS_SRC;
+            this.strHref = (STR_CSS_SRC + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
         }
 
         #endregion Métodos
