@@ -69,7 +69,7 @@ namespace NetZ.Web.Server.Ajax.Data
 
         #region Métodos
 
-        internal abstract DbeBase getDbe();
+        protected abstract DbeBase getDbe();
 
         protected override int getIntPorta()
         {

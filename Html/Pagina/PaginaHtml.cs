@@ -3,9 +3,7 @@ using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
-using NetZ.Web.Server.Ajax;
 using NetZ.Web.Server.Arquivo.Css;
-using NetZ.Web.Server.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -465,17 +463,13 @@ namespace NetZ.Web.Html.Pagina
         protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
             lstJs.Add(new JavaScriptTag(typeof(AppWebBase), 104));
-            lstJs.Add(new JavaScriptTag(typeof(Interlocutor), 105));
             lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
             lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
             lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
-            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
-            lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDbeBase), 105));
             lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
-            lstJs.Add(new JavaScriptTag(typeof(SrvWsBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(Tag), 103));
 
             lstJs.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
