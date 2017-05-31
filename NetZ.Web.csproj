@@ -147,6 +147,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Server\Ajax\Data\PesquisaInterlocutor.cs" />
     <Compile Include="Server\Ajax\SrvAjaxDocumentacao.cs" />
     <Compile Include="Server\Arquivo\ArqUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivoBase.cs" />
@@ -177,7 +178,7 @@
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\SrvHttpBase.cs" />
     <Compile Include="Server\Ajax\SrvAjaxBase.cs" />
-    <Compile Include="Server\Ajax\SrvAjaxDbeBase.cs" />
+    <Compile Include="Server\Ajax\Data\SrvAjaxDbeBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\SrvWsBase.cs" />

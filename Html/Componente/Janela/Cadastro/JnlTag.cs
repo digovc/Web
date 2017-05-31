@@ -171,7 +171,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            ColunaWeb clnWebIntId = this.tblWeb.getClnWeb(this.tbl.clnIntId.sqlNome);
+            ColunaWeb clnWebIntId = this.tblWeb.getCln(this.tbl.clnIntId.sqlNome);
 
             if (clnWebIntId == null)
             {
@@ -193,12 +193,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (this.tblWeb.clnWebIntId.intValor < 1)
+            if (this.tblWeb.clnIntId.intValor < 1)
             {
                 return;
             }
 
-            this.tbl.recuperar(this.tblWeb.clnWebIntId.intValor);
+            this.tbl.recuperar(this.tblWeb.clnIntId.intValor);
 
             if (string.IsNullOrEmpty(this.tbl.clnStrTag.strValor))
             {

@@ -10,7 +10,7 @@ using System;
 using System.Data;
 using System.Reflection;
 
-namespace NetZ.Web.Server.Ajax
+namespace NetZ.Web.Server.Ajax.Data
 {
     public abstract class SrvAjaxDbeBase : SrvAjaxBase
     {
@@ -34,9 +34,28 @@ namespace NetZ.Web.Server.Ajax
         public const string STR_METODO_TAG_ABRIR_JANELA = "TAG_ABRIR_JANELA";
         public const string STR_METODO_TAG_SALVAR = "TAG_SALVAR";
 
+        private const string STR_METODO_PESQUISAR = "STR_METODO_PESQUISAR";
+
         #endregion Constantes
 
         #region Atributos
+
+        private DbeBase _dbe;
+
+        private DbeBase dbe
+        {
+            get
+            {
+                if (_dbe != null)
+                {
+                    return _dbe;
+                }
+
+                _dbe = this.getDbe();
+
+                return _dbe;
+            }
+        }
 
         #endregion Atributos
 
@@ -49,6 +68,8 @@ namespace NetZ.Web.Server.Ajax
         #endregion Construtores
 
         #region Métodos
+
+        internal abstract DbeBase getDbe();
 
         protected override int getIntPorta()
         {
@@ -87,9 +108,13 @@ namespace NetZ.Web.Server.Ajax
                     this.carregarTbl(objSolicitacao, objInterlocutor);
                     return true;
 
+                case STR_METODO_PESQUISAR:
+                    this.pesquisar(objSolicitacao, objInterlocutor);
+                    return true;
+
                 case STR_METODO_PESQUISAR_GRID:
                 case STR_METODO_PESQUISAR_COMBO_BOX:
-                    this.pesquisar(objSolicitacao, objInterlocutor);
+                    this.pesquisarOld(objSolicitacao, objInterlocutor);
                     return true;
 
                 case STR_METODO_RECUPERAR:
@@ -181,7 +206,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[tblWeb.strNome];
+            TabelaBase tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
@@ -282,7 +307,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[tblWeb.strNome];
+            TabelaBase tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
@@ -309,7 +334,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[tblWeb.strNome];
+            TabelaBase tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
@@ -347,7 +372,7 @@ namespace NetZ.Web.Server.Ajax
 
         private void carregarTbl(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            TabelaBase tbl = AppWebBase.i.dbe[objInterlocutor.objData.ToString()];
+            TabelaBase tbl = this.dbe[objInterlocutor.objData.ToString()];
 
             if (tbl == null)
             {
@@ -374,7 +399,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[objInterlocutor.objData.ToString()];
+            TabelaBase tbl = this.dbe[objInterlocutor.objData.ToString()];
 
             if (tbl == null)
             {
@@ -386,55 +411,28 @@ namespace NetZ.Web.Server.Ajax
 
         private void pesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
-            if (string.IsNullOrEmpty(objInterlocutor.objData.ToString()))
+            var objPesquisa = objInterlocutor.getObjJson<PesquisaInterlocutor>();
+
+            if (objPesquisa == null)
             {
-                return;
+                throw new NullReferenceException();
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
-
-            this.pesquisar(objSolicitacao, objInterlocutor, tblWeb);
-        }
-
-        private void pesquisar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
-        {
-            if (tblWeb == null)
+            if (string.IsNullOrEmpty(objPesquisa.strTblNome))
             {
-                return;
+                throw new NullReferenceException();
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[tblWeb.strNome];
+            var tbl = this.dbe[objPesquisa.strTblNome];
 
             if (tbl == null)
             {
-                throw new Exception(string.Format("Tabela \"{0}\" não encontrada.", tblWeb.strNome));
+                throw new EntryPointNotFoundException();
             }
 
-            if (!this.validarPesquisar(objSolicitacao, objInterlocutor, tblWeb, tbl))
-            {
-                return;
-            }
+            // TODO: Validar permissão de acesso a esses dados.
 
-            DataTable tblData = tbl.viwPrincipal.pesquisar(tblWeb);
-
-            if (tblData == null)
-            {
-                return;
-            }
-
-            if (tblData.Rows.Count < 1)
-            {
-                objInterlocutor.objData = STR_RESULTADO_VAZIO;
-                return;
-            }
-
-            if (STR_METODO_PESQUISAR_GRID.Equals(objInterlocutor.strMetodo))
-            {
-                this.pesquisarGrid(objInterlocutor, tbl, tblWeb, tblData);
-                return;
-            }
-
-            this.pesquisarComboBox(objInterlocutor, tbl, tblWeb, tblData);
+            objInterlocutor.addJson(tbl.pesquisar(objPesquisa.arrFil));
         }
 
         private void pesquisarComboBox(Interlocutor objInterlocutor, TabelaBase tbl, TabelaWeb tblWeb, DataTable tblData)
@@ -472,6 +470,59 @@ namespace NetZ.Web.Server.Ajax
             objInterlocutor.objData = tagGrid.toHtml();
         }
 
+        private void pesquisarOld(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
+        {
+            if (tblWeb == null)
+            {
+                return;
+            }
+
+            TabelaBase tbl = this.dbe[tblWeb.strNome];
+
+            if (tbl == null)
+            {
+                throw new Exception(string.Format("Tabela \"{0}\" não encontrada.", tblWeb.strNome));
+            }
+
+            if (!this.validarPesquisar(objSolicitacao, objInterlocutor, tblWeb, tbl))
+            {
+                return;
+            }
+
+            DataTable tblData = tbl.viwPrincipal.pesquisar(tblWeb);
+
+            if (tblData == null)
+            {
+                return;
+            }
+
+            if (tblData.Rows.Count < 1)
+            {
+                objInterlocutor.objData = STR_RESULTADO_VAZIO;
+                return;
+            }
+
+            if (STR_METODO_PESQUISAR_GRID.Equals(objInterlocutor.strMetodo))
+            {
+                this.pesquisarGrid(objInterlocutor, tbl, tblWeb, tblData);
+                return;
+            }
+
+            this.pesquisarComboBox(objInterlocutor, tbl, tblWeb, tblData);
+        }
+
+        private void pesquisarOld(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
+        {
+            if (string.IsNullOrEmpty(objInterlocutor.objData.ToString()))
+            {
+                return;
+            }
+
+            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
+
+            this.pesquisarOld(objSolicitacao, objInterlocutor, tblWeb);
+        }
+
         private void recuperarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
         }
@@ -488,7 +539,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe.getTblPorDominio(objInterlocutor.strClazz);
+            TabelaBase tbl = this.dbe.getTblPorDominio(objInterlocutor.strClazz);
 
             if (tbl == null)
             {
@@ -558,12 +609,12 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            if (tblWeb.arrClnWeb == null)
+            if (tblWeb.arrCln == null)
             {
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[tblWeb.strNome];
+            TabelaBase tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
@@ -576,13 +627,13 @@ namespace NetZ.Web.Server.Ajax
             }
 
             // TODO: Reavaliar a necessidade de carregar os valores destas colunas.
-            tblWeb.getClnWeb(tbl.clnDttAlteracao.sqlNome).dttValor = DateTime.Now;
-            tblWeb.getClnWeb(tbl.clnIntUsuarioAlteracaoId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
+            tblWeb.getCln(tbl.clnDttAlteracao.sqlNome).dttValor = DateTime.Now;
+            tblWeb.getCln(tbl.clnIntUsuarioAlteracaoId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
 
-            if (0.Equals(tblWeb.getClnWeb(tbl.clnIntId.sqlNome).intValor))
+            if (0.Equals(tblWeb.getCln(tbl.clnIntId.sqlNome).intValor))
             {
-                tblWeb.getClnWeb(tbl.clnDttCadastro.sqlNome).dttValor = DateTime.Now;
-                tblWeb.getClnWeb(tbl.clnIntUsuarioCadastroId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
+                tblWeb.getCln(tbl.clnDttCadastro.sqlNome).dttValor = DateTime.Now;
+                tblWeb.getCln(tbl.clnIntUsuarioCadastroId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
             }
 
             this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
@@ -621,14 +672,14 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[tblWeb.strNome];
+            TabelaBase tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
                 return;
             }
 
-            tbl.salvarTag(tblWeb.clnWebIntId.intValor, tblWeb.getClnWeb(tbl.clnStrTag.sqlNome).strValor);
+            tbl.salvarTag(tblWeb.clnIntId.intValor, tblWeb.getCln(tbl.clnStrTag.sqlNome).strValor);
         }
 
         private void verificarFavorito(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -648,7 +699,7 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            TabelaBase tbl = AppWebBase.i.dbe[objInterlocutor.objData.ToString()];
+            TabelaBase tbl = this.dbe[objInterlocutor.objData.ToString()];
 
             if (tbl == null)
             {

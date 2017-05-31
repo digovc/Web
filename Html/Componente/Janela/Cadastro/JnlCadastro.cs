@@ -211,9 +211,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (this.tblWeb.getClnWeb(tbl.clnIntId.sqlNome).intValor > 0)
+            if (this.tblWeb.getCln(tbl.clnIntId.sqlNome).intValor > 0)
             {
-                this.tbl.recuperar(this.tblWeb.getClnWeb(tbl.clnIntId.sqlNome).intValor);
+                this.tbl.recuperar(this.tblWeb.getCln(tbl.clnIntId.sqlNome).intValor);
             }
             else
             {
