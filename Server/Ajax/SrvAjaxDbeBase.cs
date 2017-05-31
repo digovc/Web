@@ -42,7 +42,7 @@ namespace NetZ.Web.Server.Ajax
 
         #region Construtores
 
-        protected SrvAjaxDbeBase(string strNome) : base(strNome)
+        protected SrvAjaxDbeBase() : base("Servidor de dados")
         {
         }
 
