@@ -2,6 +2,7 @@
 using NetZ.Persistencia;
 using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
+using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Tabela;
 using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
@@ -40,9 +41,9 @@ namespace NetZ.Web.Server.Ajax.Data
 
         #region Atributos
 
-        private DbeBase _dbe;
+        private DbeWebBase _dbe;
 
-        private DbeBase dbe
+        private DbeWebBase dbe
         {
             get
             {
@@ -69,7 +70,7 @@ namespace NetZ.Web.Server.Ajax.Data
 
         #region Métodos
 
-        protected abstract DbeBase getDbe();
+        protected abstract DbeWebBase getDbe();
 
         protected override int getIntPorta()
         {
