@@ -1,5 +1,6 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.Tabela;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.View
 {
@@ -275,25 +276,23 @@ namespace NetZ.Web.DataBase.View
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.MENOR_IGUAL, "Menor igual");
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnStrFiltroNome.intOrdem = ++intOrdem;
-            this.clnStrFiltroDescricao.intOrdem = ++intOrdem;
-            this.clnStrFiltroTabelaNome.intOrdem = ++intOrdem;
-            this.clnStrFiltroItemColunaNome.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemOperador.intOrdem = ++intOrdem;
-            this.clnStrUsuarioCadastroLogin.intOrdem = ++intOrdem;
-            this.clnStrUsuarioAlteracaoLogin.intOrdem = ++intOrdem;
-            this.clnBooFiltroItemAnd.intOrdem = ++intOrdem;
-            this.clnDttFiltroItemCadastro.intOrdem = ++intOrdem;
-            this.clnDttFiltroItemAlteracao.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemUsuarioCadastroId.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemUsuarioAlteracaoId.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemFiltroId.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnStrFiltroNome);
+            lstCln.Add(this.clnStrFiltroDescricao);
+            lstCln.Add(this.clnStrFiltroTabelaNome);
+            lstCln.Add(this.clnStrFiltroItemColunaNome);
+            lstCln.Add(this.clnIntFiltroItemOperador);
+            lstCln.Add(this.clnStrUsuarioCadastroLogin);
+            lstCln.Add(this.clnStrUsuarioAlteracaoLogin);
+            lstCln.Add(this.clnBooFiltroItemAnd);
+            lstCln.Add(this.clnDttFiltroItemCadastro);
+            lstCln.Add(this.clnDttFiltroItemAlteracao);
+            lstCln.Add(this.clnIntFiltroItemUsuarioCadastroId);
+            lstCln.Add(this.clnIntFiltroItemUsuarioAlteracaoId);
+            lstCln.Add(this.clnIntFiltroItemFiltroId);
         }
 
         #endregion Métodos

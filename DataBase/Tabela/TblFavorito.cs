@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Server;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NetZ.Web.DataBase.Tabela
 {
@@ -84,7 +84,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFavorito() : base("tbl_favorito")
+        private TblFavorito() : base("tbl_favorito", AppWebBase.i.dbe)
         {
         }
 
@@ -163,18 +163,16 @@ namespace NetZ.Web.DataBase.Tabela
             return booResultado;
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnIntUsuarioId.intOrdem += intOrdem;
-            this.clnStrNome.intOrdem += intOrdem;
-            this.clnStrTitulo.intOrdem += intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnIntUsuarioId);
+            lstCln.Add(this.clnStrNome);
+            lstCln.Add(this.clnStrTitulo);
         }
 
-        private bool favoritarValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, Persistencia.TabelaBase tbl)
+        private bool favoritarValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaBase tbl)
         {
             if (objSolicitacao == null)
             {

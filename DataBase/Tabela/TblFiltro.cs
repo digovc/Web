@@ -1,5 +1,6 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Tabela
 {
@@ -13,9 +14,9 @@ namespace NetZ.Web.DataBase.Tabela
 
         private static TblFiltro _i;
 
+        private Coluna _clnSqlTabelaNome;
         private Coluna _clnStrDescricao;
         private Coluna _clnStrNome;
-        private Coluna _clnStrTabelaNome;
 
         public static TblFiltro i
         {
@@ -29,6 +30,21 @@ namespace NetZ.Web.DataBase.Tabela
                 _i = new TblFiltro();
 
                 return _i;
+            }
+        }
+
+        public Coluna clnSqlTabelaNome
+        {
+            get
+            {
+                if (_clnSqlTabelaNome != null)
+                {
+                    return _clnSqlTabelaNome;
+                }
+
+                _clnSqlTabelaNome = new Coluna("sql_tabela_nome", this, Coluna.EnmTipo.TEXT);
+
+                return _clnSqlTabelaNome;
             }
         }
 
@@ -62,26 +78,11 @@ namespace NetZ.Web.DataBase.Tabela
             }
         }
 
-        public Coluna clnStrTabelaNome
-        {
-            get
-            {
-                if (_clnStrTabelaNome != null)
-                {
-                    return _clnStrTabelaNome;
-                }
-
-                _clnStrTabelaNome = new Coluna("str_tabela_nome", this, Coluna.EnmTipo.TEXT);
-
-                return _clnStrTabelaNome;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
 
-        private TblFiltro() : base("tbl_filtro")
+        private TblFiltro() : base("tbl_filtro", AppWebBase.i.dbe)
         {
         }
 
@@ -100,18 +101,16 @@ namespace NetZ.Web.DataBase.Tabela
             this.clnStrNome.booNome = true;
             this.clnStrNome.booObrigatorio = true;
 
-            this.clnStrTabelaNome.booObrigatorio = true;
+            this.clnSqlTabelaNome.booObrigatorio = true;
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnStrDescricao.intOrdem = ++intOrdem;
-            this.clnStrNome.intOrdem = ++intOrdem;
-            this.clnStrTabelaNome.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnStrDescricao);
+            lstCln.Add(this.clnStrNome);
+            lstCln.Add(this.clnSqlTabelaNome);
         }
 
         #endregion Métodos

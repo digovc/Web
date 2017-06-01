@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.View;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Tabela
 {
@@ -18,7 +18,7 @@ namespace NetZ.Web.DataBase.Tabela
         private Coluna _clnBooAnd;
         private Coluna _clnIntFiltroId;
         private Coluna _clnIntOperador;
-        private Coluna _clnStrColunaNome;
+        private Coluna _clnSqlColunaNome;
 
         public static TblFiltroItem i
         {
@@ -80,18 +80,18 @@ namespace NetZ.Web.DataBase.Tabela
             }
         }
 
-        public Coluna clnStrColunaNome
+        public Coluna clnSqlColunaNome
         {
             get
             {
-                if (_clnStrColunaNome != null)
+                if (_clnSqlColunaNome != null)
                 {
-                    return _clnStrColunaNome;
+                    return _clnSqlColunaNome;
                 }
 
-                _clnStrColunaNome = new Coluna("str_coluna_nome", this, Coluna.EnmTipo.TEXT);
+                _clnSqlColunaNome = new Coluna("sql_coluna_nome", this, Coluna.EnmTipo.TEXT);
 
-                return _clnStrColunaNome;
+                return _clnSqlColunaNome;
             }
         }
 
@@ -99,7 +99,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFiltroItem() : base("tbl_filtro_item")
+        private TblFiltroItem() : base("tbl_filtro_item", AppWebBase.i.dbe)
         {
         }
 
@@ -128,16 +128,14 @@ namespace NetZ.Web.DataBase.Tabela
             this.clnIntOperador.addOpcao((int)Filtro.EnmOperador.MENOR_IGUAL, "Menor igual");
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnBooAnd.intOrdem = ++intOrdem;
-            this.clnIntFiltroId.intOrdem = ++intOrdem;
-            this.clnIntOperador.intOrdem = ++intOrdem;
-            this.clnStrColunaNome.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnBooAnd);
+            lstCln.Add(this.clnIntFiltroId);
+            lstCln.Add(this.clnIntOperador);
+            lstCln.Add(this.clnSqlColunaNome);
         }
 
         protected override void inicializarViews(List<ViewBase> lstViw)

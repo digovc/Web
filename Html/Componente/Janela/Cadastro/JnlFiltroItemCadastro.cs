@@ -137,12 +137,12 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             TblFiltro.i.recuperar(this.tblWeb.intRegistroPaiId);
 
-            if (string.IsNullOrEmpty(TblFiltro.i.clnStrTabelaNome.strValor))
+            if (string.IsNullOrEmpty(TblFiltro.i.clnSqlTabelaNome.strValor))
             {
                 return;
             }
 
-            TabelaBase tblFiltrada = AppWebBase.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
+            TabelaBase tblFiltrada = AppWebBase.i.dbe[TblFiltro.i.clnSqlTabelaNome.strValor];
 
             if (tblFiltrada == null)
             {

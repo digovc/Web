@@ -1,6 +1,7 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
+using System;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Tabela
 {
@@ -101,7 +102,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        protected TblUsuarioBase(string strNome) : base(strNome)
+        protected TblUsuarioBase(string strNome) : base(strNome, AppWebBase.i.dbe)
         {
             i = this;
         }
@@ -132,16 +133,14 @@ namespace NetZ.Web.DataBase.Tabela
             return objUsuario;
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnBooAdministrador.intOrdem = ++intOrdem;
-            this.clnDttLogin.intOrdem = ++intOrdem;
-            this.clnDttUltimoAcesso.intOrdem = ++intOrdem;
-            this.clnStrSessaoId.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnBooAdministrador);
+            lstCln.Add(this.clnDttLogin);
+            lstCln.Add(this.clnDttUltimoAcesso);
+            lstCln.Add(this.clnStrSessaoId);
         }
 
         #endregion Métodos

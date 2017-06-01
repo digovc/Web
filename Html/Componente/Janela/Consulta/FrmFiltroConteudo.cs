@@ -116,7 +116,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             TblFiltro.i.recuperar(this.intFiltroId);
 
-            return AppWebBase.i.dbe[TblFiltro.i.clnStrTabelaNome.strValor];
+            return AppWebBase.i.dbe[TblFiltro.i.clnSqlTabelaNome.strValor];
         }
 
         private void inicializarLstCmpFiltro()
@@ -156,12 +156,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            if (DBNull.Value.Equals(row[TblFiltroItem.i.clnStrColunaNome.sqlNome]))
+            if (DBNull.Value.Equals(row[TblFiltroItem.i.clnSqlColunaNome.sqlNome]))
             {
                 return;
             }
 
-            string sqlClnNome = (string)row[TblFiltroItem.i.clnStrColunaNome.sqlNome];
+            string sqlClnNome = (string)row[TblFiltroItem.i.clnSqlColunaNome.sqlNome];
 
             Coluna clnFiltrada = this.tblFiltrada[Convert.ToString(sqlClnNome)];
 
