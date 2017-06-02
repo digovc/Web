@@ -14,7 +14,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        public TblWebBase(string strNome, DbeWebBase dbe) : base(strNome, dbe)
+        public TblWebBase(DbeWebBase dbe) : base(dbe)
         {
         }
 

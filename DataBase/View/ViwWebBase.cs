@@ -14,7 +14,7 @@ namespace NetZ.Web.DataBase.View
 
         #region Construtores
 
-        public ViwWebBase(string strNome) : base(strNome, AppWebBase.i.dbe)
+        public ViwWebBase() : base(AppWebBase.i.dbe)
         {
         }
 

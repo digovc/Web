@@ -172,7 +172,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrFiltroItemColunaNome;
                 }
 
-                _clnStrFiltroItemColunaNome = new Coluna("str_filtro_item_coluna_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrFiltroItemColunaNome = new Coluna("sql_filtro_item_coluna_nome", this, Coluna.EnmTipo.TEXT);
 
                 return _clnStrFiltroItemColunaNome;
             }
@@ -202,7 +202,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrFiltroTabelaNome;
                 }
 
-                _clnStrFiltroTabelaNome = new Coluna("str_filtro_tabela_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrFiltroTabelaNome = new Coluna("sql_filtro_tabela_nome", this, Coluna.EnmTipo.TEXT);
 
                 return _clnStrFiltroTabelaNome;
             }
@@ -241,10 +241,6 @@ namespace NetZ.Web.DataBase.View
         #endregion Atributos
 
         #region Construtores
-
-        public ViwFiltroItem() : base("viw_filtro_item")
-        {
-        }
 
         protected override string getSql()
         {

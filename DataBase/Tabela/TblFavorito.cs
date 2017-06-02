@@ -84,7 +84,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFavorito() : base("tbl_favorito", AppWebBase.i.dbe)
+        private TblFavorito() : base(AppWebBase.i.dbe)
         {
         }
 
