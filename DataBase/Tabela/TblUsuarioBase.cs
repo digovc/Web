@@ -47,7 +47,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnBooAdministrador;
                 }
 
-                _clnBooAdministrador = new Coluna("boo_administrador", this, Coluna.EnmTipo.BOOLEAN);
+                _clnBooAdministrador = new Coluna("boo_administrador", Coluna.EnmTipo.BOOLEAN);
 
                 return _clnBooAdministrador;
             }
@@ -62,7 +62,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnDttLogin;
                 }
 
-                _clnDttLogin = new Coluna("dtt_login", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
+                _clnDttLogin = new Coluna("dtt_login", Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttLogin;
             }
@@ -77,7 +77,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnDttUltimoAcesso;
                 }
 
-                _clnDttUltimoAcesso = new Coluna("dtt_ultimo_acesso", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
+                _clnDttUltimoAcesso = new Coluna("dtt_ultimo_acesso", Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttUltimoAcesso;
             }
@@ -92,7 +92,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrSessaoId;
                 }
 
-                _clnStrSessaoId = new Coluna("str_sessao_id", this, Coluna.EnmTipo.TEXT);
+                _clnStrSessaoId = new Coluna("str_sessao_id", Coluna.EnmTipo.TEXT);
 
                 return _clnStrSessaoId;
             }
@@ -102,7 +102,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        protected TblUsuarioBase() : base(AppWebBase.i.dbe)
+        protected TblUsuarioBase()
         {
             i = this;
         }

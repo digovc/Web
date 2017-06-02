@@ -44,7 +44,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnIntUsuarioId;
                 }
 
-                _clnIntUsuarioId = new Coluna("int_usuario_id", this, Coluna.EnmTipo.BIGINT);
+                _clnIntUsuarioId = new Coluna("int_usuario_id", Coluna.EnmTipo.BIGINT);
 
                 return _clnIntUsuarioId;
             }
@@ -59,7 +59,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrNome;
                 }
 
-                _clnStrNome = new Coluna("str_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrNome = new Coluna("str_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnStrNome;
             }
@@ -74,7 +74,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrTitulo;
                 }
 
-                _clnStrTitulo = new Coluna("str_titulo", this, Coluna.EnmTipo.TEXT);
+                _clnStrTitulo = new Coluna("str_titulo", Coluna.EnmTipo.TEXT);
 
                 return _clnStrTitulo;
             }
@@ -84,7 +84,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFavorito() : base(AppWebBase.i.dbe)
+        private TblFavorito()
         {
         }
 

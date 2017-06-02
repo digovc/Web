@@ -44,7 +44,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnBooAnd;
                 }
 
-                _clnBooAnd = new Coluna("boo_and", this, Coluna.EnmTipo.BOOLEAN);
+                _clnBooAnd = new Coluna("boo_and", Coluna.EnmTipo.BOOLEAN);
 
                 return _clnBooAnd;
             }
@@ -59,7 +59,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnIntFiltroId;
                 }
 
-                _clnIntFiltroId = new Coluna("int_filtro_id", this, Coluna.EnmTipo.BIGINT, TblFiltro.i.clnIntId);
+                _clnIntFiltroId = new Coluna("int_filtro_id", Coluna.EnmTipo.BIGINT, TblFiltro.i.clnIntId);
 
                 return _clnIntFiltroId;
             }
@@ -74,7 +74,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnIntOperador;
                 }
 
-                _clnIntOperador = new Coluna("int_operador", this, Coluna.EnmTipo.INTEGER);
+                _clnIntOperador = new Coluna("int_operador", Coluna.EnmTipo.INTEGER);
 
                 return _clnIntOperador;
             }
@@ -89,7 +89,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnSqlColunaNome;
                 }
 
-                _clnSqlColunaNome = new Coluna("sql_coluna_nome", this, Coluna.EnmTipo.TEXT);
+                _clnSqlColunaNome = new Coluna("sql_coluna_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnSqlColunaNome;
             }
@@ -99,7 +99,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFiltroItem() : base(AppWebBase.i.dbe)
+        private TblFiltroItem()
         {
         }
 

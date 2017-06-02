@@ -42,7 +42,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnSqlTabelaNome;
                 }
 
-                _clnSqlTabelaNome = new Coluna("sql_tabela_nome", this, Coluna.EnmTipo.TEXT);
+                _clnSqlTabelaNome = new Coluna("sql_tabela_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnSqlTabelaNome;
             }
@@ -57,7 +57,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrDescricao;
                 }
 
-                _clnStrDescricao = new Coluna("str_descricao", this, Coluna.EnmTipo.TEXT);
+                _clnStrDescricao = new Coluna("str_descricao", Coluna.EnmTipo.TEXT);
 
                 return _clnStrDescricao;
             }
@@ -72,7 +72,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrNome;
                 }
 
-                _clnStrNome = new Coluna("str_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrNome = new Coluna("str_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnStrNome;
             }
@@ -82,7 +82,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFiltro() : base(AppWebBase.i.dbe)
+        private TblFiltro()
         {
         }
 

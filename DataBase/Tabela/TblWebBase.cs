@@ -14,10 +14,6 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        public TblWebBase(DbeWebBase dbe) : base(dbe)
-        {
-        }
-
         #endregion Construtores
 
         #region Métodos

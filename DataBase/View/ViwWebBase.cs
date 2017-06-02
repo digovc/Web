@@ -14,10 +14,6 @@ namespace NetZ.Web.DataBase.View
 
         #region Construtores
 
-        public ViwWebBase() : base(AppWebBase.i.dbe)
-        {
-        }
-
         #endregion Construtores
 
         #region Métodos
