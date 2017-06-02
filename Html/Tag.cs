@@ -52,7 +52,7 @@ namespace NetZ.Web.Html
         private Atributo _attType;
         private bool _booBarraFinal = true;
         private bool _booDupla = true;
-        private bool _booMostrarClazz = true;
+        private bool _booMostrarClazz = AppWebBase.i.booDesenvolvimento;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
         private object _lckLstAtt;

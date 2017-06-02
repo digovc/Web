@@ -20,7 +20,7 @@
                     return _tagMetaMobile;
                 }
 
-                _tagMetaMobile = new Tag("meta");
+                _tagMetaMobile = this.getTagMetaMobile();
 
                 return _tagMetaMobile;
             }
@@ -35,7 +35,7 @@
                     return _tagMetaViewPort;
                 }
 
-                _tagMetaViewPort = new Tag("meta");
+                _tagMetaViewPort = this.getTagMetaViewPort();
 
                 return _tagMetaViewPort;
             }
@@ -60,29 +60,36 @@
             lstJs.Add(new JavaScriptTag(typeof(PagMobile), 103));
         }
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.tagMetaMobile.addAtt("name", "mobile-web-app-capable");
-            this.tagMetaMobile.addAtt("content", "yes");
-
-            this.tagMetaMobile.booBarraFinal = false;
-            this.tagMetaMobile.booDupla = false;
-
-            this.tagMetaViewPort.addAtt("name", "viewport");
-            this.tagMetaViewPort.addAtt("content", "width=device-width, initial-scale=1.0");
-
-            this.tagMetaViewPort.booBarraFinal = false;
-            this.tagMetaViewPort.booDupla = false;
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();
 
             this.tagMetaMobile.setPai(this.tagHead);
             this.tagMetaViewPort.setPai(this.tagHead);
+        }
+
+        private Tag getTagMetaMobile()
+        {
+            var tagMetaMobileResultado = new Tag("meta");
+
+            tagMetaMobileResultado.booDupla = false;
+
+            tagMetaMobileResultado.addAtt("content", "yes");
+            tagMetaMobileResultado.addAtt("name", "mobile-web-app-capable");
+
+            return tagMetaMobileResultado;
+        }
+
+        private Tag getTagMetaViewPort()
+        {
+            var tagMetaViewPortResultado = new Tag("meta");
+
+            tagMetaViewPortResultado.booDupla = false;
+
+            tagMetaViewPortResultado.addAtt("name", "viewport");
+            tagMetaViewPortResultado.addAtt("content", "width=device-width, initial-scale=1.0");
+
+            return tagMetaViewPortResultado;
         }
 
         #endregion Métodos
