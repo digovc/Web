@@ -10,24 +10,9 @@ namespace NetZ.Web
 
         #region Atributos
 
-        private static ConfigWebBase _i;
-
         private int _intSrvAjaxDocumentacao = 8081;
         private int _intSrvHttpPorta = 80;
         private int _intTimeOut = 5;
-
-        public static new ConfigWebBase i
-        {
-            get
-            {
-                return _i;
-            }
-
-            private set
-            {
-                _i = value;
-            }
-        }
 
         /// <summary>
         /// Porta que será utilizada pelo servidor <see cref="SrvAjaxDocumentacao"/>.
@@ -85,7 +70,6 @@ namespace NetZ.Web
 
         protected ConfigWebBase()
         {
-            i = this;
         }
 
         #endregion Construtores

@@ -98,7 +98,7 @@ namespace NetZ.Web.Html.Pagina.Documentacao
         {
             base.addConstante(tagJs);
 
-            tagJs.addConstante((typeof(SrvAjaxDocumentacao).Name + "_intPorta"), ConfigWebBase.i.intSrvAjaxDocumentacao);
+            tagJs.addConstante((typeof(SrvAjaxDocumentacao).Name + "_intPorta"), (AppWebBase.i.cfg as ConfigWebBase).intSrvAjaxDocumentacao);
         }
 
         protected override void addCss(LstTag<CssTag> lstCss)

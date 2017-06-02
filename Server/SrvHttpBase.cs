@@ -117,7 +117,7 @@ namespace NetZ.Web.Server
 
         protected override int getIntPorta()
         {
-            return ConfigWebBase.i.intSrvHttpPorta;
+            return (AppWebBase.i.cfg as ConfigWebBase).intSrvHttpPorta;
         }
 
         protected virtual UiExportBase getObjUiManager()

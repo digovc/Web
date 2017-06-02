@@ -106,9 +106,9 @@ namespace NetZ.Web.Server.Ajax
 
             string strHost = ("http://" + uri.Host);
 
-            if (ConfigWebBase.i.intSrvHttpPorta != 80)
+            if ((AppWebBase.i.cfg as ConfigWebBase).intSrvHttpPorta != 80)
             {
-                strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWebBase.i.intSrvHttpPorta);
+                strHost = string.Format("http://{0}:{1}", uri.Host, (AppWebBase.i.cfg as ConfigWebBase).intSrvHttpPorta);
             }
 
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");

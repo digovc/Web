@@ -27,11 +27,11 @@ namespace NetZ.Web.WinService
 
         protected abstract AppWebBase getAppWeb();
 
-        private void inicializar()
+        private void iniciar()
         {
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
-            this.getAppWeb().iniciarServidorWeb();
+            this.getAppWeb().iniciar();
         }
 
         #endregion Métodos
@@ -42,7 +42,7 @@ namespace NetZ.Web.WinService
         {
             base.OnStart(args);
 
-            this.inicializar();
+            this.iniciar();
         }
 
         protected override void OnStop()

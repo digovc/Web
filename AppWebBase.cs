@@ -1,5 +1,4 @@
 ﻿using DigoFramework;
-using NetZ.Persistencia;
 using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Server;
@@ -193,26 +192,6 @@ namespace NetZ.Web
         #region Métodos
 
         /// <summary>
-        /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
-        /// ficarão disponíveis para servir esta aplicação para os cliente.
-        /// <para>
-        /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
-        /// </para>
-        /// <para>
-        /// O servidor de solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
-        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
-        /// esteja marcada.
-        /// </para>
-        /// </summary>
-        public virtual void iniciarServidorWeb()
-        {
-            Log.i.info("Inicializando o servidor.");
-
-            this.inicializarConfig();
-            this.inicializarLstSrv();
-        }
-
-        /// <summary>
         /// Para o servidor imediatamente.
         /// </summary>
         public void pararServidor()
@@ -294,8 +273,6 @@ namespace NetZ.Web
             return null;
         }
 
-        protected abstract ConfigWebBase getObjConfig();
-
         protected virtual SmtpClient getObjSmtpClient()
         {
             throw new NotImplementedException();
@@ -304,6 +281,28 @@ namespace NetZ.Web
         protected virtual string getStrEmail()
         {
             throw new NotFiniteNumberException();
+        }
+
+        /// <summary>
+        /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
+        /// ficarão disponíveis para servir esta aplicação para os cliente.
+        /// <para>
+        /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
+        /// </para>
+        /// <para>
+        /// O servidor de solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
+        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
+        /// esteja marcada.
+        /// </para>
+        /// </summary>
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            Log.i.info("Inicializando o servidor.");
+
+            this.inicializarDbe();
+            this.inicializarLstSrv();
         }
 
         protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
@@ -317,14 +316,19 @@ namespace NetZ.Web
             return lstSrvResultado;
         }
 
-        private void inicializarConfig()
+        private void inicializarDbe()
         {
-            this.getObjConfig();
+            if (this.dbe == null)
+            {
+                return;
+            }
+
+            this.dbe.iniciar();
         }
 
         private void inicializarLstSrv()
         {
-            Log.i.info("Inicializando a lista de serviços.");
+            Log.i.info("Inicializando a lista de servidores.");
 
             this.lstSrv?.ForEach((srv) => srv.iniciar());
         }

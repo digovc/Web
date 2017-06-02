@@ -138,9 +138,9 @@ namespace NetZ.Web.DataBase.Tabela
             lstCln.Add(this.clnSqlColunaNome);
         }
 
-        protected override void inicializarViews(List<ViewBase> lstViw)
+        protected override void inicializarLstView(List<ViewBase> lstViw)
         {
-            base.inicializarViews(lstViw);
+            base.inicializarLstView(lstViw);
 
             lstViw.Add(ViwFiltroItem.i);
         }
