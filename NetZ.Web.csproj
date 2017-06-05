@@ -147,7 +147,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Server\Ajax\Data\PesquisaInterlocutor.cs" />
+    <Compile Include="Server\Ajax\Dbe\PesquisaInterlocutor.cs" />
     <Compile Include="Server\Ajax\SrvAjaxDocumentacao.cs" />
     <Compile Include="Server\Arquivo\ArquivoUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivoBase.cs" />
@@ -178,7 +178,7 @@
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\SrvHttpBase.cs" />
     <Compile Include="Server\Ajax\SrvAjaxBase.cs" />
-    <Compile Include="Server\Ajax\Data\SrvAjaxDbeBase.cs" />
+    <Compile Include="Server\Ajax\Dbe\SrvAjaxDbeBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\SrvWsBase.cs" />
@@ -234,6 +234,9 @@
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\media\png\btn_fechar_notificacao_20x20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\svg\about.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

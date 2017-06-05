@@ -68,7 +68,7 @@ namespace NetZ.Web.Server.Ajax
 
                 objResposta.addJson(objInterlocutor);
 
-                this.addAcessControl(objResposta);
+                this.addAcessControl(objResposta, objInterlocutor);
 
                 return objResposta;
             }
@@ -78,7 +78,7 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
-        protected void addAcessControl(Resposta objResposta)
+        protected void addAcessControl(Resposta objResposta, Interlocutor objInterlocutor)
         {
             if (objResposta == null)
             {
@@ -106,9 +106,9 @@ namespace NetZ.Web.Server.Ajax
 
             string strHost = ("http://" + uri.Host);
 
-            if ((AppWebBase.i.cfg as ConfigWebBase).intSrvHttpPorta != 80)
+            if (objInterlocutor?.intHttpPorta != 80)
             {
-                strHost = string.Format("http://{0}:{1}", uri.Host, (AppWebBase.i.cfg as ConfigWebBase).intSrvHttpPorta);
+                strHost = string.Format("http://{0}:{1}", uri.Host, objInterlocutor.intHttpPorta);
             }
 
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");
@@ -146,7 +146,7 @@ namespace NetZ.Web.Server.Ajax
 
             objResposta.addJson(objInterlocutor);
 
-            this.addAcessControl(objResposta);
+            this.addAcessControl(objResposta, objInterlocutor);
 
             return objResposta;
         }
@@ -155,7 +155,7 @@ namespace NetZ.Web.Server.Ajax
         {
             Resposta objResposta = new Resposta(objSolicitacao);
 
-            this.addAcessControl(objResposta);
+            this.addAcessControl(objResposta, null);
 
             return objResposta;
         }
@@ -166,7 +166,7 @@ namespace NetZ.Web.Server.Ajax
 
             Resposta objResposta = new Resposta(objSolicitacao);
 
-            this.addAcessControl(objResposta);
+            this.addAcessControl(objResposta, null);
 
             if (objSolicitacao == null)
             {

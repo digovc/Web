@@ -1,4 +1,5 @@
-﻿using DigoFramework.Servico;
+﻿using DigoFramework;
+using DigoFramework.Servico;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -129,6 +130,8 @@ namespace NetZ.Web.Server
         protected override void inicializar()
         {
             base.inicializar();
+
+            Log.i.info("Inicializando o serviço \"{0}\" na porta {1}.", this.strNome, this.intPorta);
 
             this.tcpListener.Start();
 

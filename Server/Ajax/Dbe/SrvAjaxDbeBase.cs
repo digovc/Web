@@ -74,7 +74,7 @@ namespace NetZ.Web.Server.Ajax.Data
 
         protected override int getIntPorta()
         {
-            return 8082;
+            return 8081;
         }
 
         protected override bool responder(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
@@ -428,12 +428,12 @@ namespace NetZ.Web.Server.Ajax.Data
 
             if (tbl == null)
             {
-                throw new EntryPointNotFoundException();
+                throw new NullReferenceException();
             }
 
             // TODO: Validar permissão de acesso a esses dados.
 
-            objInterlocutor.addJson(tbl.pesquisar(objPesquisa.arrFil));
+            objInterlocutor.addJson(tbl.pesquisar(objPesquisa.arrFil) ?? null);
         }
 
         private void pesquisarComboBox(Interlocutor objInterlocutor, TabelaBase tbl, TabelaWeb tblWeb, DataTable tblData)

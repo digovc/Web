@@ -485,7 +485,7 @@ namespace NetZ.Web.Html.Pagina
 
             if (this.getBooJs())
             {
-                lstJs.Add(new JavaScriptTag(this.GetType()));
+                lstJs.Add(new JavaScriptTag(this.GetType(), 1000));
             }
         }
 
@@ -493,7 +493,7 @@ namespace NetZ.Web.Html.Pagina
         {
             if (this.getBooJsAutoInicializavel())
             {
-                tagJs.addJsCodigo(string.Format(AppWebBase.i.GetType().Namespace + ".{0}.i.iniciar();", this.GetType().Name));
+                tagJs.addJsCodigo(string.Format(this.getStrJsNamespace() + ".{0}.i.iniciar();", this.GetType().Name));
             }
         }
 
@@ -541,6 +541,11 @@ namespace NetZ.Web.Html.Pagina
         protected virtual string getSrcJsBoot()
         {
             return null;
+        }
+
+        protected virtual string getStrJsNamespace()
+        {
+            return AppWebBase.i.GetType().Namespace;
         }
 
         /// <summary>

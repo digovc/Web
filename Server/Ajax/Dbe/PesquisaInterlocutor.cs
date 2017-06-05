@@ -3,7 +3,7 @@ using NetZ.Persistencia.Web;
 
 namespace NetZ.Web.Server.Ajax.Data
 {
-    internal class PesquisaInterlocutor : Objeto
+    public class PesquisaInterlocutor : Objeto
     {
         #region Constantes
 

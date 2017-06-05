@@ -26,7 +26,9 @@ namespace NetZ.Web
 
         public const string DIR_CSS = (DIR_RESOURCE + "css/");
         public const string DIR_HTML = "res/html/";
+        public const string DIR_JS = (DIR_RESOURCE + "js/");
         public const string DIR_JS_LIB = (DIR_RESOURCE + "js/lib/");
+        public const string DIR_JS_WEB = (DIR_JS + "web/");
         public const string DIR_JSON_CONFIG = "JSON Config/";
         public const string DIR_MEDIA_PNG = (DIR_RESOURCE + "media/png/");
         public const string DIR_MEDIA_SVG = (DIR_RESOURCE + "media/svg/");

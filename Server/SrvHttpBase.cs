@@ -117,7 +117,7 @@ namespace NetZ.Web.Server
 
         protected override int getIntPorta()
         {
-            return (AppWebBase.i.cfg as ConfigWebBase).intSrvHttpPorta;
+            return 80;
         }
 
         protected virtual UiExportBase getObjUiManager()
@@ -128,8 +128,6 @@ namespace NetZ.Web.Server
         protected override void inicializar()
         {
             base.inicializar();
-
-            Log.i.info("Serviço \"{0}\" rodando na porta {1}.", this.strNome, this.intPorta);
 
             this.criarDiretorio();
 
