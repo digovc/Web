@@ -188,7 +188,7 @@ namespace NetZ.Web.Server.Ajax
                 return objResposta.addJson(objInterlocutor);
             }
 
-            objSolicitacao.objUsuario.addArqUpload(new ArqUpload(objSolicitacao));
+            objSolicitacao.objUsuario.addArqUpload(new ArquivoUpload(objSolicitacao));
 
             objInterlocutor.objData = "Arquivo recebido com sucesso.";
 

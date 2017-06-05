@@ -708,8 +708,6 @@ namespace NetZ.Web.Server.Ajax.Data
             }
 
             objInterlocutor.objData = TblFavorito.i.verificarFavorito(objSolicitacao.objUsuario.intId, tbl.sqlNome);
-
-            TblFavorito.i.liberarThread();
         }
 
         #endregion Métodos

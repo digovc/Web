@@ -139,28 +139,31 @@ namespace NetZ.Web.DataBase.Tabela
             }
         }
 
-        internal bool verificarFavorito(int intUsuarioId, string strTblNomeSql)
+        internal bool verificarFavorito(int intUsuarioId, string sqlTabelaNome)
         {
             if (intUsuarioId < 1)
             {
                 return false;
             }
 
-            if (string.IsNullOrEmpty(strTblNomeSql))
+            if (string.IsNullOrEmpty(sqlTabelaNome))
             {
                 return false;
             }
 
-            List<Filtro> lstFil = new List<Filtro>();
+            var lstFil = new List<Filtro>();
 
             lstFil.Add(new Filtro(this.clnIntUsuarioId, intUsuarioId));
-            lstFil.Add(new Filtro(this.clnStrNome, strTblNomeSql));
+            lstFil.Add(new Filtro(this.clnStrNome, sqlTabelaNome));
 
-            bool booResultado = (this.recuperar(lstFil).clnIntId.intValor > 0);
-
-            this.liberarThread();
-
-            return booResultado;
+            try
+            {
+                return (this.recuperar(lstFil).clnIntId.intValor > 0);
+            }
+            finally
+            {
+                this.liberarThread();
+            }
         }
 
         protected override void inicializarLstCln(List<Coluna> lstCln)

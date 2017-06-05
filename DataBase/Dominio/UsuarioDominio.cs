@@ -21,7 +21,7 @@ namespace NetZ.Web.DataBase.Dominio
         private bool _booLogado;
         private DateTime _dttLogin;
         private DateTime _dttUltimoAcesso;
-        private List<ArqUpload> _lstArqUpload;
+        private List<ArquivoUpload> _lstArqUpload;
         private string _strSessaoId;
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace NetZ.Web.DataBase.Dominio
             }
         }
 
-        private List<ArqUpload> lstArqUpload
+        private List<ArquivoUpload> lstArqUpload
         {
             get
             {
@@ -113,7 +113,7 @@ namespace NetZ.Web.DataBase.Dominio
                     return _lstArqUpload;
                 }
 
-                _lstArqUpload = new List<ArqUpload>();
+                _lstArqUpload = new List<ArquivoUpload>();
 
                 return _lstArqUpload;
             }
@@ -131,7 +131,7 @@ namespace NetZ.Web.DataBase.Dominio
 
         #region Métodos
 
-        public void addArqUpload(ArqUpload arqUpload)
+        public void addArqUpload(ArquivoUpload arqUpload)
         {
             if (arqUpload == null)
             {
@@ -158,7 +158,7 @@ namespace NetZ.Web.DataBase.Dominio
 
         internal void carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Persistencia.TabelaBase tbl)
         {
-            foreach (ArqUpload arqUpload in this.lstArqUpload)
+            foreach (ArquivoUpload arqUpload in this.lstArqUpload)
             {
                 if (arqUpload == null)
                 {
