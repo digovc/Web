@@ -50,13 +50,18 @@ namespace NetZ.Web.Html.Componente
 
             if (this.getBooJs())
             {
-                lstJs.Add(new JavaScriptTag(this.GetType()));
+                lstJs.Add(new JavaScriptTag(this.GetType(), this.getIntJsOrdem()));
             }
         }
 
         protected virtual bool getBooJs()
         {
             return false;
+        }
+
+        protected virtual int getIntJsOrdem()
+        {
+            return 200;
         }
 
         #endregion Métodos

@@ -674,7 +674,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagBodyResultado = new Tag("body");
 
-            tagBodyResultado.booMostrarClazz = false;
+            tagBodyResultado.booClazz = false;
 
             return tagBodyResultado;
         }
@@ -705,7 +705,7 @@ namespace NetZ.Web.Html.Pagina
 
             tagDocTypeResultado.addAtt("html");
             tagDocTypeResultado.booBarraFinal = false;
-            tagDocTypeResultado.booMostrarClazz = false;
+            tagDocTypeResultado.booClazz = false;
             tagDocTypeResultado.booDupla = false;
 
             return tagDocTypeResultado;
@@ -715,7 +715,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagHeadResultado = new Tag("head");
 
-            tagHeadResultado.booMostrarClazz = false;
+            tagHeadResultado.booClazz = false;
 
             return tagHeadResultado;
         }
@@ -724,7 +724,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagHtmlResultado = new Tag("html");
 
-            tagHtmlResultado.booMostrarClazz = false;
+            tagHtmlResultado.booClazz = false;
 
             tagHtmlResultado.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
             tagHtmlResultado.addAtt("lang", "pt-br");
@@ -736,7 +736,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagIconResultado = new Tag("link");
 
-            tagIconResultado.booMostrarClazz = false;
+            tagIconResultado.booClazz = false;
 
             tagIconResultado.addAtt("href", this.srcIcone);
             tagIconResultado.addAtt("rel", "icon");
@@ -750,7 +750,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaContentRsultado = new Tag("meta");
 
-            tagMetaContentRsultado.booMostrarClazz = false;
+            tagMetaContentRsultado.booClazz = false;
             tagMetaContentRsultado.booDupla = false;
 
             tagMetaContentRsultado.addAtt("content", this.strNomeExibicao);
@@ -762,7 +762,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaHttpEquivResultado = new Tag("meta");
 
-            tagMetaHttpEquivResultado.booMostrarClazz = false;
+            tagMetaHttpEquivResultado.booClazz = false;
             tagMetaHttpEquivResultado.booDupla = false;
 
             tagMetaHttpEquivResultado.addAtt("http-equiv", "Content-Type");
@@ -774,7 +774,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaThemaColorResultado = new Tag("meta");
 
-            tagMetaThemaColorResultado.booMostrarClazz = false;
+            tagMetaThemaColorResultado.booClazz = false;
             tagMetaThemaColorResultado.booDupla = false;
 
             tagMetaThemaColorResultado.addAtt("name", "theme-color");
@@ -787,7 +787,7 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagTitleResultado = new Tag("title");
 
-            tagTitleResultado.booMostrarClazz = false;
+            tagTitleResultado.booClazz = false;
             tagTitleResultado.booDupla = false;
             tagTitleResultado.strConteudo = this.strTitulo;
 

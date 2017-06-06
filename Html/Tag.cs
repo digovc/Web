@@ -51,8 +51,8 @@ namespace NetZ.Web.Html
         private Atributo _attTitle;
         private Atributo _attType;
         private bool _booBarraFinal = true;
+        private bool _booClazz = AppWebBase.i.booDesenvolvimento;
         private bool _booDupla = true;
-        private bool _booMostrarClazz = AppWebBase.i.booDesenvolvimento;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
         private object _lckLstAtt;
@@ -120,6 +120,25 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo a
+        /// qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
+        /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
+        /// browser do usuário.
+        /// </summary>
+        public bool booClazz
+        {
+            get
+            {
+                return _booClazz;
+            }
+
+            set
+            {
+                _booClazz = value;
+            }
+        }
+
+        /// <summary>
         /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo
         /// nenhum <see cref="strConteudo"/>.
         /// </summary>
@@ -133,25 +152,6 @@ namespace NetZ.Web.Html
             set
             {
                 _booDupla = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo a
-        /// qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
-        /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
-        /// browser do usuário.
-        /// </summary>
-        public bool booMostrarClazz
-        {
-            get
-            {
-                return _booMostrarClazz;
-            }
-
-            set
-            {
-                _booMostrarClazz = value;
             }
         }
 
@@ -805,6 +805,16 @@ namespace NetZ.Web.Html
             this.attId.strValor = strId;
         }
 
+        protected virtual void setStrTitle(string strTitle)
+        {
+            if (string.IsNullOrEmpty(strTitle))
+            {
+                return;
+            }
+
+            this.attTitle.strValor = strTitle;
+        }
+
         private Atributo getAttClass()
         {
             Atributo attResultado = new Atributo("class");
@@ -907,7 +917,7 @@ namespace NetZ.Web.Html
 
         private void inicializarClazz()
         {
-            if (!this.booMostrarClazz)
+            if (!this.booClazz)
             {
                 return;
             }
@@ -948,16 +958,6 @@ namespace NetZ.Web.Html
             }
 
             this.attName.strValor = strName;
-        }
-
-        protected virtual void setStrTitle(string strTitle)
-        {
-            if (string.IsNullOrEmpty(strTitle))
-            {
-                return;
-            }
-
-            this.attTitle.strValor = strTitle;
         }
 
         private string toHtmlAtributo()
