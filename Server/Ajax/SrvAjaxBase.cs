@@ -1,4 +1,5 @@
-﻿using DigoFramework.Json;
+﻿using DigoFramework;
+using DigoFramework.Json;
 using NetZ.Web.Server.Arquivo;
 using System;
 
@@ -61,7 +62,7 @@ namespace NetZ.Web.Server.Ajax
 
                 if (!this.responder(objSolicitacao, objInterlocutor))
                 {
-                    return null;
+                    throw new NotImplementedException();
                 }
 
                 var objResposta = new Resposta(objSolicitacao);
@@ -102,9 +103,9 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Uri uri = new Uri(strReferer);
+            var uri = new Uri(strReferer);
 
-            string strHost = ("http://" + uri.Host);
+            var strHost = ("http://" + uri.Host);
 
             if (objInterlocutor?.intHttpPorta != 80)
             {
@@ -128,32 +129,32 @@ namespace NetZ.Web.Server.Ajax
                 return null;
             }
 
-            string strErro = "Erro desconhecido.";
-
-            if (ex != null)
-            {
-                strErro = ex.Message;
-            }
-
             if (objInterlocutor == null)
             {
                 objInterlocutor = new Interlocutor();
             }
 
-            objInterlocutor.strErro = strErro;
+            objInterlocutor.strErro = "Erro desconhecido.";
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            if (ex != null)
+            {
+                objInterlocutor.strErro = ex.Message;
+            }
+
+            var objResposta = new Resposta(objSolicitacao);
 
             objResposta.addJson(objInterlocutor);
 
             this.addAcessControl(objResposta, objInterlocutor);
+
+            Log.i.erro("Erro no servidor AJAX ({0}): {1}", this.strNome, objInterlocutor.strErro);
 
             return objResposta;
         }
 
         private Resposta responderOptions(Solicitacao objSolicitacao)
         {
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
             this.addAcessControl(objResposta, null);
 
@@ -162,9 +163,9 @@ namespace NetZ.Web.Server.Ajax
 
         private Resposta responderUploadFile(Solicitacao objSolicitacao)
         {
-            Interlocutor objInterlocutor = new Interlocutor();
+            var objInterlocutor = new Interlocutor();
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
             this.addAcessControl(objResposta, null);
 

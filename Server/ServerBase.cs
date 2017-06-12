@@ -142,41 +142,17 @@ namespace NetZ.Web.Server
         {
             while (!this.booParar)
             {
-                this.loop();
-
-                Thread.Sleep(1);
+                this.addCliente(this.tcpListener.AcceptTcpClient());
             }
         }
 
         private void addCliente(TcpClient tcpClient)
         {
-            if (tcpClient == null)
-            {
-                return;
-            }
-
             tcpClient.NoDelay = true;
 
-            Cliente objCliente = this.getObjCliente(tcpClient);
+            var objCliente = this.getObjCliente(tcpClient);
 
             objCliente.iniciar();
-
-            Thread.Sleep(1);
-        }
-
-        private void loop()
-        {
-            this.validarAddCliente();
-        }
-
-        private void validarAddCliente()
-        {
-            if (!this.tcpListener.Pending())
-            {
-                return;
-            }
-
-            this.addCliente(this.tcpListener.AcceptTcpClient());
         }
 
         #endregion Métodos

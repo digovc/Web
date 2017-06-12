@@ -84,11 +84,6 @@ namespace NetZ.Web.Server.Ajax.Data
                 return true;
             }
 
-            if (objInterlocutor == null)
-            {
-                return false;
-            }
-
             switch (objInterlocutor.strMetodo)
             {
                 case STR_METODO_APAGAR:
@@ -145,9 +140,10 @@ namespace NetZ.Web.Server.Ajax.Data
                 case STR_METODO_TAG_SALVAR:
                     this.salvarTag(objSolicitacao, objInterlocutor);
                     return true;
-            }
 
-            return false;
+                default:
+                    return false;
+            }
         }
 
         protected virtual bool validarAbrirCadastro(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)
@@ -419,12 +415,12 @@ namespace NetZ.Web.Server.Ajax.Data
                 throw new NullReferenceException();
             }
 
-            if (string.IsNullOrEmpty(objPesquisa.strTblNome))
+            if (string.IsNullOrEmpty(objPesquisa.sqlTabelaNome))
             {
                 throw new NullReferenceException();
             }
 
-            var tbl = this.dbe[objPesquisa.strTblNome];
+            var tbl = this.dbe[objPesquisa.sqlTabelaNome];
 
             if (tbl == null)
             {

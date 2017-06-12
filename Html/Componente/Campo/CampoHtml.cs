@@ -1,4 +1,5 @@
 ﻿using NetZ.Persistencia;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
@@ -51,8 +52,11 @@ namespace NetZ.Web.Html.Componente.Campo
         private bool _booObrigatorio;
         private bool _booPermitirAlterar;
         private bool _booSomenteLeitura;
+        private BotaoHtml _btnAcao;
         private Coluna _cln;
-        private Div _divInputContainer;
+        private Div _divAreaDireita;
+        private Div _divAreaEsquerda;
+        private Div _divContainer;
         private Div _divTitulo;
         private EnmTamanho _enmTamanho = EnmTamanho.NORMAL;
         private int _intNivel;
@@ -232,18 +236,18 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        protected Div divInputContainer
+        protected Div divContainer
         {
             get
             {
-                if (_divInputContainer != null)
+                if (_divContainer != null)
                 {
-                    return _divInputContainer;
+                    return _divContainer;
                 }
 
-                _divInputContainer = new Div();
+                _divContainer = new Div();
 
-                return _divInputContainer;
+                return _divContainer;
             }
         }
 
@@ -272,6 +276,51 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _booPermitirAlterar = value;
+            }
+        }
+
+        private BotaoHtml btnAcao
+        {
+            get
+            {
+                if (_btnAcao != null)
+                {
+                    return _btnAcao;
+                }
+
+                _btnAcao = new BotaoHtml();
+
+                return _btnAcao;
+            }
+        }
+
+        private Div divAreaDireita
+        {
+            get
+            {
+                if (_divAreaDireita != null)
+                {
+                    return _divAreaDireita;
+                }
+
+                _divAreaDireita = new Div();
+
+                return _divAreaDireita;
+            }
+        }
+
+        private Div divAreaEsquerda
+        {
+            get
+            {
+                if (_divAreaEsquerda != null)
+                {
+                    return _divAreaEsquerda;
+                }
+
+                _divAreaEsquerda = new Div();
+
+                return _divAreaEsquerda;
             }
         }
 
@@ -320,8 +369,16 @@ namespace NetZ.Web.Html.Componente.Campo
             base.montarLayout();
 
             this.divTitulo.setPai(this);
-            this.divInputContainer.setPai(this);
-            this.tagInput.setPai(this.divInputContainer);
+
+            this.divContainer.setPai(this);
+
+            this.divAreaEsquerda.setPai(this.divContainer);
+
+            this.tagInput.setPai(this.divContainer);
+
+            this.divAreaDireita.setPai(this.divContainer);
+
+            this.btnAcao.setPai(this.divAreaDireita);
         }
 
         protected virtual void setCln(Coluna cln)
@@ -357,13 +414,30 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addCss(css.setPaddingRight(10));
             this.addCss(css.setPosition((EnmTamanho.TOTAL.Equals(this.enmTamanho)) ? "absolute" : "relative"));
 
-            this.divInputContainer.addCss(css.setBorderRadius(20));
-            this.divInputContainer.addCss(css.setFontSize(15));
-            this.divInputContainer.addCss(css.setHeight(40));
-            this.divInputContainer.addCss(css.setLeft(10));
-            this.divInputContainer.addCss(css.setPosition("absolute"));
-            this.divInputContainer.addCss(css.setRight(10));
-            this.divInputContainer.addCss(css.setTextAlign("left"));
+            this.btnAcao.addCss(css.setBackground("none"));
+            this.btnAcao.addCss(css.setBackgroundColor("rgba(255,255,255,.5)"));
+            this.btnAcao.addCss(css.setBorderRadius(0, 20, 20, 0));
+            this.btnAcao.addCss(css.setHeight(100, "%"));
+            this.btnAcao.addCss(css.setWidth(50));
+
+            this.divAreaDireita.addCss(css.setFloat("right"));
+            this.divAreaDireita.addCss(css.setHeight(100, "%"));
+            this.divAreaDireita.addCss(css.setMinWidth(20));
+
+            this.divAreaEsquerda.addCss(css.setFloat("left"));
+            this.divAreaEsquerda.addCss(css.setHeight(100, "%"));
+            this.divAreaEsquerda.addCss(css.setMinWidth(20));
+
+            this.divContainer.addCss(css.setBackgroundColor("rgba(255,255,255,.25)"));
+            this.divContainer.addCss(css.setBorderRadius(20));
+            this.divContainer.addCss(css.setBorderRadius(20));
+            this.divContainer.addCss(css.setFontSize(15));
+            this.divContainer.addCss(css.setHeight(40));
+            this.divContainer.addCss(css.setLeft(10));
+            this.divContainer.addCss(css.setOverflow("hidden"));
+            this.divContainer.addCss(css.setPosition("absolute"));
+            this.divContainer.addCss(css.setRight(10));
+            this.divContainer.addCss(css.setTextAlign("left"));
 
             this.divTitulo.addCss(css.setColor(AppWebBase.i.objTema.corTelaFundo));
             this.divTitulo.addCss(css.setFontSize(14));
@@ -376,13 +450,10 @@ namespace NetZ.Web.Html.Componente.Campo
             this.setCssTagInputHeight(css);
             this.setCssTagInputWidth(css);
 
-            this.tagInput.addCss(css.setBackgroundColor("rgba(255,255,255,.25)"));
+            this.tagInput.addCss(css.setBackground("none"));
             this.tagInput.addCss(css.setBorder(0));
-            this.tagInput.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
-            this.tagInput.addCss(css.setBorderRadius(20));
             this.tagInput.addCss(css.setFontSize(15));
             this.tagInput.addCss(css.setOutline("none"));
-            this.tagInput.addCss(css.setTextIndent(20));
         }
 
         protected virtual void setCssTagInputHeight(CssArquivoBase css)
@@ -392,7 +463,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected virtual void setCssTagInputWidth(CssArquivoBase css)
         {
-            this.tagInput.addCss(css.setWidth(100, "%"));
+            //this.tagInput.addCss(css.setWidth(100, "%"));
         }
 
         protected override void setStrId(string strId)
@@ -404,7 +475,8 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
-            this.divInputContainer.strId = (strId + "_divInputContainer");
+            this.btnAcao.strId = (strId + "_btnAcao");
+            this.divContainer.strId = (strId + "_divContainer");
             this.divTitulo.strId = (strId + "_divTitulo");
             this.tagInput.strId = (strId + "_tagInput");
         }

@@ -1,7 +1,7 @@
 ﻿using DigoFramework;
+using DigoFramework.Servico;
 using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Dominio;
-using NetZ.Web.Server;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -46,7 +46,7 @@ namespace NetZ.Web
         private bool _booMostrarGrade;
         private DbeWebBase _dbe;
         private List<UsuarioDominio> _lstObjUsuario;
-        private List<ServerBase> _lstSrv;
+        private List<ServicoBase> _lstSrv;
         private object _objLstObjUsuarioLock;
         private SmtpClient _objSmtpClient;
         private string _strEmail;
@@ -150,7 +150,7 @@ namespace NetZ.Web
             }
         }
 
-        private List<ServerBase> lstSrv
+        private List<ServicoBase> lstSrv
         {
             get
             {
@@ -198,9 +198,9 @@ namespace NetZ.Web
         /// </summary>
         public void pararServidor()
         {
-            foreach (ServerBase srv in this.lstSrv)
+            foreach (ServicoBase srv in this.lstSrv)
             {
-                this.pararServidor(srv);
+                srv?.parar();
             }
         }
 
@@ -307,11 +307,11 @@ namespace NetZ.Web
             this.inicializarLstSrv();
         }
 
-        protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
+        protected abstract void inicializarLstSrv(List<ServicoBase> lstSrv);
 
-        private List<ServerBase> getLstSrv()
+        private List<ServicoBase> getLstSrv()
         {
-            var lstSrvResultado = new List<ServerBase>();
+            var lstSrvResultado = new List<ServicoBase>();
 
             this.inicializarLstSrv(lstSrvResultado);
 
@@ -333,16 +333,6 @@ namespace NetZ.Web
             Log.i.info("Inicializando a lista de servidores.");
 
             this.lstSrv?.ForEach((srv) => srv.iniciar());
-        }
-
-        private void pararServidor(ServerBase srv)
-        {
-            if (srv == null)
-            {
-                return;
-            }
-
-            srv.parar();
         }
 
         #endregion Métodos

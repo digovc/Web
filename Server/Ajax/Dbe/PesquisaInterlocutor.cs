@@ -12,7 +12,7 @@ namespace NetZ.Web.Server.Ajax.Data
         #region Atributos
 
         private FiltroWeb[] _arrFil;
-        private string _strTblNome;
+        private string _sqlTabelaNome;
 
         public FiltroWeb[] arrFil
         {
@@ -27,16 +27,16 @@ namespace NetZ.Web.Server.Ajax.Data
             }
         }
 
-        public string strTblNome
+        public string sqlTabelaNome
         {
             get
             {
-                return _strTblNome;
+                return _sqlTabelaNome;
             }
 
             set
             {
-                _strTblNome = value;
+                _sqlTabelaNome = value;
             }
         }
 
