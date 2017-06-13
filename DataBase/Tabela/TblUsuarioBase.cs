@@ -18,7 +18,7 @@ namespace NetZ.Web.DataBase.Tabela
         private Coluna _clnBooAdministrador;
         private Coluna _clnDttLogin;
         private Coluna _clnDttUltimoAcesso;
-        private Coluna _clnStrSessaoId;
+        private Coluna _clnStrSessao;
 
         public static TblUsuarioBase i
         {
@@ -83,18 +83,18 @@ namespace NetZ.Web.DataBase.Tabela
             }
         }
 
-        public Coluna clnStrSessaoId
+        public Coluna clnStrSessao
         {
             get
             {
-                if (_clnStrSessaoId != null)
+                if (_clnStrSessao != null)
                 {
-                    return _clnStrSessaoId;
+                    return _clnStrSessao;
                 }
 
-                _clnStrSessaoId = new Coluna("str_sessao_id", Coluna.EnmTipo.TEXT);
+                _clnStrSessao = new Coluna("str_sessao", Coluna.EnmTipo.TEXT);
 
-                return _clnStrSessaoId;
+                return _clnStrSessao;
             }
         }
 
@@ -111,14 +111,14 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Métodos
 
-        internal UsuarioDominio getObjUsuario(string strSessaoId)
+        internal UsuarioDominio getObjUsuario(string strSessao)
         {
-            if (string.IsNullOrEmpty(strSessaoId))
+            if (string.IsNullOrEmpty(strSessao))
             {
                 return null;
             }
 
-            UsuarioDominio objUsuario = this.recuperarDominio<UsuarioDominio>(this.clnStrSessaoId, strSessaoId);
+            var objUsuario = this.recuperarDominio<UsuarioDominio>(this.clnStrSessao, strSessao);
 
             if (objUsuario == null)
             {
@@ -140,7 +140,7 @@ namespace NetZ.Web.DataBase.Tabela
             lstCln.Add(this.clnBooAdministrador);
             lstCln.Add(this.clnDttLogin);
             lstCln.Add(this.clnDttUltimoAcesso);
-            lstCln.Add(this.clnStrSessaoId);
+            lstCln.Add(this.clnStrSessao);
         }
 
         #endregion Métodos

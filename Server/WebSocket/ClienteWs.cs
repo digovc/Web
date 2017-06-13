@@ -29,7 +29,7 @@ namespace NetZ.Web.Server.WebSocket
         private SrvWsBase _srvWs;
         private string _strSecWebSocketAccept;
         private string _strSecWebSocketKey;
-        private string _strSessaoId;
+        private string _strSessao;
 
         public UsuarioDominio objUsuario
         {
@@ -66,16 +66,16 @@ namespace NetZ.Web.Server.WebSocket
             }
         }
 
-        protected string strSessaoId
+        protected string strSessao
         {
             get
             {
-                return _strSessaoId;
+                return _strSessao;
             }
 
             private set
             {
-                _strSessaoId = value;
+                _strSessao = value;
             }
         }
 
@@ -298,7 +298,7 @@ namespace NetZ.Web.Server.WebSocket
                 return null;
             }
 
-            return TblUsuarioBase.i.getObjUsuario(this.strSessaoId);
+            return TblUsuarioBase.i.getObjUsuario(this.strSessao);
         }
 
         private string getStrSecWebSocketAccept()
@@ -418,11 +418,11 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            this.strSessaoId = objSolicitacao.strSessaoId;
+            this.strSessao = objSolicitacao.strSessao;
 
-            if (string.IsNullOrEmpty(this.strSessaoId))
+            if (string.IsNullOrEmpty(this.strSessao))
             {
-                this.strSessaoId = Utils.getStrToken(32, DateTime.Now, this.intObjetoId);
+                this.strSessao = Utils.getStrToken(32, DateTime.Now, this.intObjetoId);
             }
 
             Resposta objResposta = new Resposta(objSolicitacao);

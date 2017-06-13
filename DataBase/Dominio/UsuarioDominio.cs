@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using NetZ.Persistencia.Web;
+﻿using NetZ.Persistencia.Web;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo;
+using System;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Dominio
 {
@@ -22,7 +22,7 @@ namespace NetZ.Web.DataBase.Dominio
         private DateTime _dttLogin;
         private DateTime _dttUltimoAcesso;
         private List<ArquivoUpload> _lstArqUpload;
-        private string _strSessaoId;
+        private string _strSessao;
 
         /// <summary>
         /// Indica se o usuário é administrador do sistema.
@@ -91,16 +91,16 @@ namespace NetZ.Web.DataBase.Dominio
         /// <summary>
         /// Valor do cookie que mantém a sessão atual do usuário.
         /// </summary>
-        public string strSessaoId
+        public string strSessao
         {
             get
             {
-                return _strSessaoId;
+                return _strSessao;
             }
 
             set
             {
-                _strSessaoId = value;
+                _strSessao = value;
             }
         }
 

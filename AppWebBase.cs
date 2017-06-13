@@ -214,7 +214,7 @@ namespace NetZ.Web
                 return;
             }
 
-            if (string.IsNullOrEmpty(objUsuario.strSessaoId))
+            if (string.IsNullOrEmpty(objUsuario.strSessao))
             {
                 return;
             }
@@ -229,13 +229,13 @@ namespace NetZ.Web
         }
 
         /// <summary>
-        /// Busca o usuário que pertence a <param name="strSessaoId"/>.
+        /// Busca o usuário que pertence a <param name="strSessao"/>.
         /// </summary>
-        internal UsuarioDominio getObjUsuario(string strSessaoId)
+        internal UsuarioDominio getObjUsuario(string strSessao)
         {
             lock (this.objLstObjUsuarioLock)
             {
-                if (string.IsNullOrEmpty(strSessaoId))
+                if (string.IsNullOrEmpty(strSessao))
                 {
                     return null;
                 }
@@ -247,12 +247,12 @@ namespace NetZ.Web
                         continue;
                     }
 
-                    if (string.IsNullOrEmpty(objUsuario.strSessaoId))
+                    if (string.IsNullOrEmpty(objUsuario.strSessao))
                     {
                         continue;
                     }
 
-                    if (!objUsuario.strSessaoId.Equals(strSessaoId))
+                    if (!objUsuario.strSessao.Equals(strSessao))
                     {
                         continue;
                     }
@@ -260,9 +260,9 @@ namespace NetZ.Web
                     return objUsuario;
                 }
 
-                UsuarioDominio objUsuarioNovo = new UsuarioDominio();
+                var objUsuarioNovo = new UsuarioDominio();
 
-                objUsuarioNovo.strSessaoId = strSessaoId;
+                objUsuarioNovo.strSessao = strSessao;
 
                 this.addObjUsuario(objUsuarioNovo);
 

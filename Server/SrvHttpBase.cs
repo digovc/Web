@@ -22,7 +22,7 @@ namespace NetZ.Web.Server
     {
         #region Constantes
 
-        public const string STR_COOKIE_SESSAO_ID_NOME = "sessao_id";
+        public const string STR_COOKIE_SESSAO_NOME = "sessao";
         private const string STR_GET_SCRIPT = "get-script";
         private const string URL_DATA_BASE_FILE_DOWNLOAD = "/data-base-file-download";
 
