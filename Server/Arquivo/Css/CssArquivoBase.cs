@@ -436,6 +436,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setHeight(string strHeight)
+        {
+            return this.addCss("height", strHeight);
+        }
+
         public string setJustifyContent(string css)
         {
             return this.addCss("justify-content", css);
