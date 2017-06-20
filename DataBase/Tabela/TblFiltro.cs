@@ -94,11 +94,11 @@ namespace NetZ.Web.DataBase.Tabela
         {
             base.inicializar();
 
+            this.clnNome = this.clnStrNome;
             this.clsJnlCadastro = typeof(JnlFiltroCadastro);
 
             this.clnStrDescricao.strNomeExibicao = "descrição";
 
-            this.clnStrNome.booNome = true;
             this.clnStrNome.booObrigatorio = true;
 
             this.clnSqlTabelaNome.booObrigatorio = true;

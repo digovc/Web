@@ -446,6 +446,7 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divTitulo.addCss(css.setOpacity(0));
             this.divTitulo.addCss(css.setPaddingTop(5));
             this.divTitulo.addCss(css.setTextAlign("left"));
+            this.divTitulo.addCss(css.setTextIndent(15));
 
             this.setCssTagInputHeight(css);
             this.setCssTagInputWidth(css);

@@ -474,7 +474,7 @@ namespace NetZ.Web.Server.Ajax.Data
                 return;
             }
 
-            TabelaBase tbl = this.dbe[tblWeb.strNome];
+            var tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
@@ -486,7 +486,7 @@ namespace NetZ.Web.Server.Ajax.Data
                 return;
             }
 
-            DataTable tblData = tbl.viwPrincipal.pesquisar(tblWeb);
+            var tblData = tbl.viwPrincipal.pesquisar(tblWeb);
 
             if (tblData == null)
             {
@@ -515,7 +515,7 @@ namespace NetZ.Web.Server.Ajax.Data
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
+            var tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             this.pesquisarOld(objSolicitacao, objInterlocutor, tblWeb);
         }
