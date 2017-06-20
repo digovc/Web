@@ -151,8 +151,6 @@ namespace Web.UiManager
 
         private void exportarHtmlPag(PaginaHtml pag, string dirNamespace)
         {
-            Log.i.info("Exportando a página \"{0}\".", pag.strNome);
-
             pag.salvar(AppWebBase.DIR_HTML + dirNamespace);
         }
 

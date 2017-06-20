@@ -403,11 +403,13 @@ namespace NetZ.Web.Html.Pagina
                 return;
             }
 
-            Directory.CreateDirectory(dir);
-
             var strPagNome = string.Format("pag_{0}.html", this.strNomeSimplificado);
 
-            var dirCompleto = Path.Combine(dir, strPagNome);
+            var dirCompleto = Path.Combine(dir, strPagNome).Replace("\\", "/");
+
+            Log.i.info("Exportando a página \"{0}\" ({1}).", this.strNome, dirCompleto);
+
+            Directory.CreateDirectory(dir);
 
             var strHtml = this.toHtml();
 

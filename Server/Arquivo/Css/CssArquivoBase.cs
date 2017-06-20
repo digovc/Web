@@ -506,6 +506,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("min-height", string.Format("{0}{1}", decMinHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setMinHeight(string strMinHeight)
+        {
+            return this.addCss("min-height", strMinHeight);
+        }
+
         public string setMinWidth(decimal decMinWidth, string strGrandeza = "px")
         {
             return this.addCss("min-width", string.Format("{0}{1}", decMinWidth.ToString(this.ctiUsa), strGrandeza));
