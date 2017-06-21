@@ -4,6 +4,7 @@ using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Menu.Contexto;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Ajax;
+using NetZ.Web.Server.Ajax.Data;
 using NetZ.Web.Server.Arquivo.Css;
 using NetZ.Web.Server.WebSocket;
 using System;
