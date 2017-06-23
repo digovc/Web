@@ -448,14 +448,14 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO_NOME)))
+            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO)))
             {
                 return;
             }
 
             var strSessao = Utils.getStrToken(32, DateTime.Now, this.objSolicitacao.intObjetoId);
 
-            var objCookieSessao = new Cookie(SrvHttpBase.STR_COOKIE_SESSAO_NOME, strSessao);
+            var objCookieSessao = new Cookie(SrvHttpBase.STR_COOKIE_SESSAO, strSessao);
 
             objCookieSessao.dttValidade = DateTime.Now.AddHours(8);
 
