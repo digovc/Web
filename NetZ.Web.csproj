@@ -116,10 +116,10 @@
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\DivComando.cs" />
-    <Compile Include="Html\Componente\Grid\GridColumn.cs" />
-    <Compile Include="Html\Componente\Grid\GridHead.cs" />
-    <Compile Include="Html\Componente\Grid\GridHtml.cs" />
-    <Compile Include="Html\Componente\Grid\GridRow.cs" />
+    <Compile Include="Html\Componente\Table\TableColumn.cs" />
+    <Compile Include="Html\Componente\Table\TableHead.cs" />
+    <Compile Include="Html\Componente\Table\TableHtml.cs" />
+    <Compile Include="Html\Componente\Table\TableRow.cs" />
     <Compile Include="Html\Componente\Menu\Chat\DivChatUsuario.cs" />
     <Compile Include="Html\Componente\Menu\DivFavorito.cs" />
     <Compile Include="Html\Componente\Menu\DivFavoritoItem.cs" />

@@ -4,7 +4,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
-    public class GridHtml : ComponenteHtml
+    public class TableHtml : ComponenteHtml
     {
         #region Constantes
 
@@ -212,7 +212,7 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            new GridHead(cln).setPai(this.tagTrHead);
+            new TableHead(cln).setPai(this.tagTrHead);
         }
 
         private void montarLayoutTbody()
@@ -240,7 +240,7 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            GridRow tagGridRow = new GridRow();
+            TableRow tagGridRow = new TableRow();
 
             tagGridRow.row = row;
             tagGridRow.tbl = tbl;

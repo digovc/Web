@@ -5,7 +5,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
-    internal class GridRow : ComponenteHtml
+    internal class TableRow : ComponenteHtml
     {
         #region Constantes
 
@@ -64,7 +64,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Construtores
 
-        internal GridRow()
+        internal TableRow()
         {
         }
 
@@ -105,7 +105,7 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
-            this.addCss(css.setHeight(GridHtml.INT_LINHA_TAMANHO));
+            this.addCss(css.setHeight(TableHtml.INT_LINHA_TAMANHO));
         }
 
         private void inicializarIntId()
@@ -154,7 +154,7 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            new GridColumn(cln, this.row).setPai(this);
+            new TableColumn(cln, this.row).setPai(this);
         }
 
         #endregion Métodos

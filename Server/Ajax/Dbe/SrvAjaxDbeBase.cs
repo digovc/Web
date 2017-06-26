@@ -459,7 +459,7 @@ namespace NetZ.Web.Server.Ajax.Data
 
         private void pesquisarGrid(Interlocutor objInterlocutor, TabelaBase tbl, TabelaWeb tblWeb, DataTable tblData)
         {
-            GridHtml tagGrid = new GridHtml();
+            TableHtml tagGrid = new TableHtml();
 
             tagGrid.tbl = tbl.viwPrincipal;
             tagGrid.tblData = tblData;

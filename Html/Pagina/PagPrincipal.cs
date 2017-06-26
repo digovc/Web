@@ -103,8 +103,8 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(FormHtml), 111));
             lstJs.Add(new JavaScriptTag(typeof(FrmFiltro), 112));
             lstJs.Add(new JavaScriptTag(typeof(FrmFiltroConteudo), 112));
-            lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
-            lstJs.Add(new JavaScriptTag(typeof(GridRow), 111));
+            lstJs.Add(new JavaScriptTag(typeof(TableHtml), 111));
+            lstJs.Add(new JavaScriptTag(typeof(TableRow), 111));
             lstJs.Add(new JavaScriptTag(typeof(Input), 110));
             lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
             lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));

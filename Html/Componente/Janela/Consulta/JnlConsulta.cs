@@ -15,7 +15,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         private BtnFavorito _btnFavorito;
         private ComboBox _cmbStrViewNome;
         private Div _divGrid;
-        private GridHtml _grdDados;
+        private TableHtml _grdDados;
         private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
         private TabelaBase _tbl;
@@ -65,7 +65,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private GridHtml grdDados
+        private TableHtml grdDados
         {
             get
             {
@@ -74,7 +74,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _grdDados;
                 }
 
-                _grdDados = new GridHtml();
+                _grdDados = new TableHtml();
 
                 return _grdDados;
             }
