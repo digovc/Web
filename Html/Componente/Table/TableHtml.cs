@@ -1,8 +1,8 @@
-﻿using System.Data;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
+using System.Data;
 
-namespace NetZ.Web.Html.Componente.Grid
+namespace NetZ.Web.Html.Componente.Table
 {
     public class TableHtml : ComponenteHtml
     {
@@ -23,7 +23,7 @@ namespace NetZ.Web.Html.Componente.Grid
         private DataTable _tblData;
 
         /// <summary>
-        /// Tabela que este grid irá representar.
+        /// Tabela que este componente irá representar.
         /// </summary>
         public TabelaBase tbl
         {
@@ -39,7 +39,7 @@ namespace NetZ.Web.Html.Componente.Grid
         }
 
         /// <summary>
-        /// Tabela que guarda os dados deste grid.
+        /// DataTable com os dados que serão mostrados neste componente.
         /// </summary>
         public DataTable tblData
         {
@@ -137,19 +137,6 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.tagTable.strId = (strId + "_table");
-            this.tagTbody.strId = (strId + "_tbody");
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -159,7 +146,8 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            this.strId = ("tagGridHtml_" + this.tbl.sqlNome);
+            this.booClazz = true;
+            this.strId = ("tagTableHtml_" + this.tbl.sqlNome);
 
             this.addAtt("tbl_web_nome", this.tbl.sqlNome);
             this.addAtt("tbl_web_principal_nome", this.tbl.tblPrincipal.sqlNome);
@@ -190,6 +178,19 @@ namespace NetZ.Web.Html.Componente.Grid
             this.tagTable.addCss(css.setWhiteSpace("nowrap"));
 
             this.tagTrHead.addCss(css.setHeight(INT_LINHA_TAMANHO));
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            if (string.IsNullOrEmpty(strId))
+            {
+                return;
+            }
+
+            this.tagTable.strId = (strId + "_table");
+            this.tagTbody.strId = (strId + "_tbody");
         }
 
         private void montarLayoutHead()
@@ -240,12 +241,12 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            TableRow tagGridRow = new TableRow();
+            var tagTable = new TableRow();
 
-            tagGridRow.row = row;
-            tagGridRow.tbl = tbl;
+            tagTable.row = row;
+            tagTable.tbl = tbl;
 
-            tagGridRow.setPai(this.tagTbody);
+            tagTable.setPai(this.tagTbody);
         }
 
         #endregion Métodos

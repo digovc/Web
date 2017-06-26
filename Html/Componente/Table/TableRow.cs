@@ -3,7 +3,7 @@ using System.Data;
 using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Grid
+namespace NetZ.Web.Html.Componente.Table
 {
     internal class TableRow : ComponenteHtml
     {
@@ -139,7 +139,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
             this.attIntId.addValor(intId);
 
-            strId = "tagGridRow___tbl_nome__registro_id";
+            strId = "tagRow___tbl_nome__registro_id";
 
             strId = strId.Replace("_tbl_nome", this.tbl.sqlNome);
             strId = strId.Replace("_registro_id", intId.ToString());

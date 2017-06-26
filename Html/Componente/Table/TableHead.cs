@@ -1,7 +1,7 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Grid
+namespace NetZ.Web.Html.Componente.Table
 {
     internal class TableHead : ComponenteHtml
     {

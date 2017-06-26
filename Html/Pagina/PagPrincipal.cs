@@ -2,7 +2,7 @@
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
-using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Html.Componente.Table;
 using NetZ.Web.Html.Componente.Janela;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
@@ -131,7 +131,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js", 102));
             lstJs.Add(new JavaScriptTag("/res/js/web/database/TblFiltro.js", 300));
 
-            lstJs.Add(new JavaScriptTag("/res/js/web/html/componente/grid/OnGridMenuClickArg.js", 300));
+            lstJs.Add(new JavaScriptTag("/res/js/web/html/componente/tabela/OnTableMenuClickArg.js", 300));
         }
 
         protected override void inicializar()

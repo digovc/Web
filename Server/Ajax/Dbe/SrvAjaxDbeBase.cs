@@ -4,9 +4,9 @@ using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
 using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Tabela;
-using NetZ.Web.Html.Componente.Grid;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
+using NetZ.Web.Html.Componente.Table;
 using System;
 using System.Data;
 using System.Reflection;
@@ -25,7 +25,7 @@ namespace NetZ.Web.Server.Ajax.Data
         public const string STR_METODO_CARREGAR_TBL_WEB = "CARREGAR_TBL_WEB";
         public const string STR_METODO_FILTRO = "FILTRO";
         public const string STR_METODO_PESQUISAR_COMBO_BOX = "PESQUISAR_COMBO_BOX";
-        public const string STR_METODO_PESQUISAR_GRID = "PESQUISAR_GRID";
+        public const string STR_METODO_PESQUISAR_TABLE = "PESQUISAR_TABLE";
         public const string STR_METODO_RECUPERAR = "RECUPERAR";
         public const string STR_METODO_SALVAR = "SALVAR";
         public const string STR_METODO_SALVAR_DOMINIO = "SALVAR_DOMINIO";
@@ -108,7 +108,7 @@ namespace NetZ.Web.Server.Ajax.Data
                     this.pesquisar(objSolicitacao, objInterlocutor);
                     return true;
 
-                case STR_METODO_PESQUISAR_GRID:
+                case STR_METODO_PESQUISAR_TABLE:
                 case STR_METODO_PESQUISAR_COMBO_BOX:
                     this.pesquisarOld(objSolicitacao, objInterlocutor);
                     return true;
@@ -457,16 +457,6 @@ namespace NetZ.Web.Server.Ajax.Data
             TblFavorito.i.pesquisarFavorito(objSolicitacao.objUsuario.intId, objInterlocutor);
         }
 
-        private void pesquisarGrid(Interlocutor objInterlocutor, TabelaBase tbl, TabelaWeb tblWeb, DataTable tblData)
-        {
-            TableHtml tagGrid = new TableHtml();
-
-            tagGrid.tbl = tbl.viwPrincipal;
-            tagGrid.tblData = tblData;
-
-            objInterlocutor.objData = tagGrid.toHtml();
-        }
-
         private void pesquisarOld(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb)
         {
             if (tblWeb == null)
@@ -499,9 +489,9 @@ namespace NetZ.Web.Server.Ajax.Data
                 return;
             }
 
-            if (STR_METODO_PESQUISAR_GRID.Equals(objInterlocutor.strMetodo))
+            if (STR_METODO_PESQUISAR_TABLE.Equals(objInterlocutor.strMetodo))
             {
-                this.pesquisarGrid(objInterlocutor, tbl, tblWeb, tblData);
+                this.pesquisarTable(objInterlocutor, tbl, tblWeb, tblData);
                 return;
             }
 
@@ -518,6 +508,16 @@ namespace NetZ.Web.Server.Ajax.Data
             var tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             this.pesquisarOld(objSolicitacao, objInterlocutor, tblWeb);
+        }
+
+        private void pesquisarTable(Interlocutor objInterlocutor, TabelaBase tbl, TabelaWeb tblWeb, DataTable tblData)
+        {
+            var tagTable = new TableHtml();
+
+            tagTable.tbl = tbl.viwPrincipal;
+            tagTable.tblData = tblData;
+
+            objInterlocutor.objData = tagTable.toHtml();
         }
 
         private void recuperarRegistro(Solicitacao objSolicitacao, Interlocutor objInterlocutor)

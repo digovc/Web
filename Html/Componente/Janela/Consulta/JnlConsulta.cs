@@ -1,5 +1,5 @@
 ﻿using NetZ.Persistencia;
-using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Html.Componente.Table;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Janela.Consulta
@@ -14,7 +14,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         private BtnFavorito _btnFavorito;
         private ComboBox _cmbStrViewNome;
-        private Div _divGrid;
+        private Div _divTableConteudo;
         private TableHtml _grdDados;
         private PainelAcaoConsulta _pnlAcaoConsulta;
         private PainelFiltro _pnlFiltro;
@@ -50,18 +50,18 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private Div divGrid
+        private Div divTableConteudo
         {
             get
             {
-                if (_divGrid != null)
+                if (_divTableConteudo != null)
                 {
-                    return _divGrid;
+                    return _divTableConteudo;
                 }
 
-                _divGrid = new Div();
+                _divTableConteudo = new Div();
 
-                return _divGrid;
+                return _divTableConteudo;
             }
         }
 
@@ -162,7 +162,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             base.montarLayout();
 
             this.pnlFiltro.setPai(this);
-            this.divGrid.setPai(this);
+            this.divTableConteudo.setPai(this);
             this.pnlAcaoConsulta.setPai(this);
 
             this.montarLayoutCmbStrViewNome();
@@ -181,12 +181,12 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.btnFavorito.addCss(css.setFloat("left"));
 
-            this.divGrid.addCss(css.setBottom(0));
-            this.divGrid.addCss(css.setLeft(0));
-            this.divGrid.addCss(css.setOverflow("auto"));
-            this.divGrid.addCss(css.setPosition("absolute"));
-            this.divGrid.addCss(css.setRight(0));
-            this.divGrid.addCss(css.setTop(190));
+            this.divTableConteudo.addCss(css.setBottom(0));
+            this.divTableConteudo.addCss(css.setLeft(0));
+            this.divTableConteudo.addCss(css.setOverflow("auto"));
+            this.divTableConteudo.addCss(css.setPosition("absolute"));
+            this.divTableConteudo.addCss(css.setRight(0));
+            this.divTableConteudo.addCss(css.setTop(190));
 
             this.pnlAcaoConsulta.addCss(css.setBottom(25));
             this.pnlAcaoConsulta.addCss(css.setDisplay("none"));
@@ -206,7 +206,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             this.btnFavorito.strId = (strId + "_btnFavorito");
             this.cmbStrViewNome.strId = (strId + "_cmbStrViewNome");
-            this.divGrid.strId = (strId + "_divGrid");
+            this.divTableConteudo.strId = (strId + "_divTableConteudo");
             this.pnlAcaoConsulta.strId = (strId + "_pnlAcaoConsulta");
         }
 
