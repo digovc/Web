@@ -16,11 +16,6 @@
 
         #region Métodos
 
-        protected override bool getBooJs()
-        {
-            return true;
-        }
-
         #endregion Métodos
 
         #region Eventos

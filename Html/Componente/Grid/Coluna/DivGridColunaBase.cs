@@ -26,11 +26,6 @@ namespace NetZ.Web.Html.Componente.Grid.Coluna
             lstJs.Add(new JavaScriptTag(typeof(DivGridColunaBase)));
         }
 
-        protected override int getIntJsOrdem()
-        {
-            return 201;
-        }
-
         #endregion Métodos
 
         #region Eventos

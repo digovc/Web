@@ -129,11 +129,6 @@ namespace NetZ.Web.Html.Componente.Markdown
             tagJs.addLayoutFixo(typeof(IndiceItem));
         }
 
-        protected override bool getBooJs()
-        {
-            return true;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();

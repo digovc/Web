@@ -5,7 +5,7 @@ namespace NetZ.Web.Html.Pagina
 {
     // TODO: Melhorar o layout da página de erro.
     // TODO: Dar a possibilidade da aplicação ter uma página específica para erros.
-    public class PagError : PaginaHtml
+    public class PagError : PaginaHtmlBase
     {
         #region Constantes
 

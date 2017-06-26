@@ -33,11 +33,6 @@ namespace NetZ.Web.Html.Componente.Grid
             tagJs.addLayoutFixo(typeof(DivGridColunaSumario));
         }
 
-        protected override bool getBooJs()
-        {
-            return true;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();

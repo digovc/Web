@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace NetZ.Web.Html.Componente
@@ -48,20 +49,27 @@ namespace NetZ.Web.Html.Componente
 
             lstJs.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
 
-            if (this.getBooJs())
+            this.addJsAutomatico(lstJs);
+        }
+
+        private void addJsAutomatico(LstTag<JavaScriptTag> lstJs)
+        {
+            this.addJsAutomatico(lstJs, this.GetType());
+        }
+
+        private void addJsAutomatico(LstTag<JavaScriptTag> lstJs, Type cls)
+        {
+            if (typeof(ComponenteHtml).Equals(cls))
             {
-                lstJs.Add(new JavaScriptTag(this.GetType(), this.getIntJsOrdem()));
+                return;
             }
-        }
 
-        protected virtual bool getBooJs()
-        {
-            return false;
-        }
+            if (cls.BaseType != null)
+            {
+                this.addJsAutomatico(lstJs, cls.BaseType);
+            }
 
-        protected virtual int getIntJsOrdem()
-        {
-            return 200;
+            lstJs.Add(new JavaScriptTag(cls));
         }
 
         #endregion Métodos

@@ -332,11 +332,11 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Adiciona o conteúdo em html da <see cref="PaginaHtml"/> para a resposta.
+        /// Adiciona o conteúdo em html da <see cref="PaginaHtmlBase"/> para a resposta.
         /// </summary>
         /// <param name="pagHtml">Página que se deseja responder para o usuário.</param>
         /// <returns>Retorna esta mesma instância.</returns>
-        public Resposta addHtml(PaginaHtml pagHtml)
+        public Resposta addHtml(PaginaHtmlBase pagHtml)
         {
             if (pagHtml == null)
             {

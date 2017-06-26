@@ -1,4 +1,5 @@
 ﻿using NetZ.Web.Html.Componente;
+using NetZ.Web.Html.Pagina;
 using System;
 using System.Collections.Generic;
 
@@ -146,10 +147,10 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml());
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml(this.pag));
         }
 
-        public override string toHtml()
+        public override string toHtml(PaginaHtmlBase pag)
         {
             if (this.lstStrCodigo.Count < 1 && string.IsNullOrEmpty(this.src))
             {
@@ -158,7 +159,7 @@ namespace NetZ.Web.Html
 
             if (this.lstStrCodigo.Count < 1)
             {
-                return base.toHtml();
+                return base.toHtml(pag);
             }
 
             string strResultado = "$(document).ready(function(){_js_codigo});";
@@ -167,7 +168,7 @@ namespace NetZ.Web.Html
 
             this.strConteudo = strResultado;
 
-            return base.toHtml();
+            return base.toHtml(pag);
         }
 
         /// <summary>

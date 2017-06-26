@@ -13,15 +13,13 @@ using System.Text;
 
 namespace NetZ.Web.Html.Pagina
 {
-    public class PaginaHtml : Objeto
+    public abstract class PaginaHtmlBase : Objeto
     {
         #region Constantes
 
         #endregion Constantes
 
         #region Atributos
-
-        private static PaginaHtml _i;
 
         private bool _booEstatica = true;
         private bool _booPagSimples;
@@ -44,19 +42,6 @@ namespace NetZ.Web.Html.Pagina
         private Tag _tagMetaHttpEquiv;
         private Tag _tagThemaColor;
         private Tag _tagTitle;
-
-        public static PaginaHtml i
-        {
-            get
-            {
-                return _i;
-            }
-
-            set
-            {
-                _i = value;
-            }
-        }
 
         public Tag tagBody
         {
@@ -384,10 +369,8 @@ namespace NetZ.Web.Html.Pagina
 
         #region Construtores
 
-        public PaginaHtml(string strNome)
+        public PaginaHtmlBase(string strNome)
         {
-            i = this;
-
             this.strNome = strNome;
             this.strTitulo = this.strNome;
         }
@@ -469,7 +452,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
             lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
             lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
-            lstJs.Add(new JavaScriptTag(typeof(PaginaHtml), 103));
+            lstJs.Add(new JavaScriptTag(typeof(PaginaHtmlBase), 103));
             lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(Tag), 103));
@@ -485,10 +468,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
             lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
 
-            if (this.getBooJs())
-            {
-                lstJs.Add(new JavaScriptTag(this.GetType(), 1000));
-            }
+            this.addJsAutomatico(lstJs);
         }
 
         protected virtual void addJsCodigo(JavaScriptTag tagJs)
@@ -528,11 +508,6 @@ namespace NetZ.Web.Html.Pagina
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
         protected virtual void finalizarCss(CssArquivoBase css)
         {
-        }
-
-        protected virtual bool getBooJs()
-        {
-            return false;
         }
 
         protected virtual bool getBooJsAutoInicializavel()
@@ -619,6 +594,26 @@ namespace NetZ.Web.Html.Pagina
             this.addJsCodigo(this.tagJs);
 
             this.addJs(this.tagJs);
+        }
+
+        private void addJsAutomatico(LstTag<JavaScriptTag> lstJs)
+        {
+            this.addJsAutomatico(lstJs, this.GetType());
+        }
+
+        private void addJsAutomatico(LstTag<JavaScriptTag> lstJs, Type cls)
+        {
+            if (typeof(PaginaHtmlBase).Equals(cls))
+            {
+                return;
+            }
+
+            if (cls.BaseType != null)
+            {
+                this.addJsAutomatico(lstJs, cls.BaseType);
+            }
+
+            lstJs.Add(new JavaScriptTag(cls));
         }
 
         private void addJsLib()
@@ -836,14 +831,14 @@ namespace NetZ.Web.Html.Pagina
         {
             this.iniciar();
 
-            string strBody = this.tagBody.toHtml();
+            var strBody = this.tagBody.toHtml(this);
 
             this.addCss();
             this.addJs();
 
-            string strHead = this.tagHead.toHtml();
+            var strHead = this.tagHead.toHtml(this);
 
-            StringBuilder stbConteudo = new StringBuilder();
+            var stbConteudo = new StringBuilder();
 
             stbConteudo.Append("_head_body");
 
@@ -852,12 +847,12 @@ namespace NetZ.Web.Html.Pagina
 
             this.tagHtml.strConteudo = stbConteudo.ToString();
 
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
             stbResultado.Append("_tag_doc_type_tag_html");
 
-            stbResultado.Replace("_tag_doc_type", this.tagDocType.toHtml());
-            stbResultado.Replace("_tag_html", this.tagHtml.toHtml());
+            stbResultado.Replace("_tag_doc_type", this.tagDocType.toHtml(this));
+            stbResultado.Replace("_tag_html", this.tagHtml.toHtml(this));
 
             this.strHtmlEstatico = stbResultado.ToString();
 

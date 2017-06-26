@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Pagina
 {
-    public class PagMobile : PaginaHtml
+    public class PagMobile : PaginaHtmlBase
     {
         #region Constantes
 

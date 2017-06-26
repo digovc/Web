@@ -12,7 +12,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
 {
-    public abstract class PagPrincipal : PaginaHtml
+    public abstract class PagPrincipal : PaginaHtmlBase
     {
         #region Constantes
 

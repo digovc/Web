@@ -18,11 +18,6 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
-        protected override bool getBooJs()
-        {
-            return true;
-        }
-
         #endregion Métodos
 
         #region Eventos

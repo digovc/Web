@@ -18,11 +18,6 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
-        protected override bool getBooJs()
-        {
-            return true;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();

@@ -168,7 +168,7 @@
     <Compile Include="Html\JavaScriptTag.cs" />
     <Compile Include="Html\Componente\LimiteFloat.cs" />
     <Compile Include="Html\LstTag.cs" />
-    <Compile Include="Html\Pagina\PaginaHtml.cs" />
+    <Compile Include="Html\Pagina\PaginaHtmlBase.cs" />
     <Compile Include="Html\Componente\Painel\PainelHtml.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\JnlConsulta.cs" />
     <Compile Include="Html\Pagina\PagPrincipal.cs" />
