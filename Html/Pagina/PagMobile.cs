@@ -1,4 +1,6 @@
-﻿namespace NetZ.Web.Html.Pagina
+﻿using NetZ.Web.Server.Arquivo.Css;
+
+namespace NetZ.Web.Html.Pagina
 {
     public class PagMobile : PaginaHtml
     {
@@ -66,6 +68,13 @@
 
             this.tagMetaMobile.setPai(this.tagHead);
             this.tagMetaViewPort.setPai(this.tagHead);
+        }
+
+        protected override void setCss(CssArquivoBase css)
+        {
+            base.setCss(css);
+
+            this.addCss(css.addCss("-webkit-tap-highlight-color", "rgba(255,255,255, 0)"));
         }
 
         private Tag getTagMetaMobile()
