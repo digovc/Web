@@ -332,11 +332,11 @@ namespace NetZ.Web.Server
         }
 
         /// <summary>
-        /// Adiciona o conteúdo em html da <see cref="PaginaHtml"/> para a resposta.
+        /// Adiciona o conteúdo em html da <see cref="PaginaHtmlBase"/> para a resposta.
         /// </summary>
         /// <param name="pagHtml">Página que se deseja responder para o usuário.</param>
         /// <returns>Retorna esta mesma instância.</returns>
-        public Resposta addHtml(PaginaHtml pagHtml)
+        public Resposta addHtml(PaginaHtmlBase pagHtml)
         {
             if (pagHtml == null)
             {
@@ -441,41 +441,41 @@ namespace NetZ.Web.Server
             return this;
         }
 
-        private void addCookieSessaoId()
+        private void addCookieSessao()
         {
             if (this.objSolicitacao == null)
             {
                 return;
             }
 
-            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME)))
+            if (!string.IsNullOrEmpty(objSolicitacao.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO)))
             {
                 return;
             }
 
-            string strSessaoId = Utils.getStrToken(32, DateTime.Now, this.objSolicitacao.intObjetoId);
+            var strSessao = Utils.getStrToken(32, DateTime.Now, this.objSolicitacao.intObjetoId);
 
-            Cookie objCookieSessaoId = new Cookie(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME, strSessaoId);
+            var objCookieSessao = new Cookie(SrvHttpBase.STR_COOKIE_SESSAO, strSessao);
 
-            objCookieSessaoId.dttValidade = DateTime.Now.AddHours(8);
+            objCookieSessao.dttValidade = DateTime.Now.AddHours(8);
 
-            this.addCookie(objCookieSessaoId);
-            this.addObjUsuario(objCookieSessaoId);
+            this.addCookie(objCookieSessao);
+            this.addObjUsuario(objCookieSessao);
         }
 
-        private void addObjUsuario(Cookie objCookieSessaoId)
+        private void addObjUsuario(Cookie objCookieSessao)
         {
-            if (objCookieSessaoId == null)
+            if (objCookieSessao == null)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(objCookieSessaoId.strValor))
+            if (string.IsNullOrEmpty(objCookieSessao.strValor))
             {
                 return;
             }
 
-            AppWebBase.i.addObjUsuario(new UsuarioDominio() { strSessaoId = objCookieSessaoId.strValor });
+            AppWebBase.i.addObjUsuario(new UsuarioDominio() { strSessao = objCookieSessao.strValor });
         }
 
         private void addStrConteudo(string strConteudo)
@@ -555,7 +555,7 @@ namespace NetZ.Web.Server
 
         private string getStrHeader()
         {
-            this.addCookieSessaoId();
+            this.addCookieSessao();
 
             switch (this.intStatus)
             {

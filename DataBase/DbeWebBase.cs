@@ -24,6 +24,7 @@ namespace NetZ.Web.DataBase
         {
             base.inicializarLstTbl(lstTbl);
 
+            lstTbl.Add(TblFavorito.i);
             lstTbl.Add(TblFiltro.i);
             lstTbl.Add(TblFiltroItem.i);
         }

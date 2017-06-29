@@ -68,11 +68,6 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Métodos
 
-        protected override bool getBooJs()
-        {
-            return true;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();

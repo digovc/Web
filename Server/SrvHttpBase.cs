@@ -22,7 +22,8 @@ namespace NetZ.Web.Server
     {
         #region Constantes
 
-        public const string STR_COOKIE_SESSAO_ID_NOME = "sessao_id";
+        public const string STR_COOKIE_SESSAO = "sessao";
+
         private const string STR_GET_SCRIPT = "get-script";
         private const string URL_DATA_BASE_FILE_DOWNLOAD = "/data-base-file-download";
 
@@ -117,7 +118,7 @@ namespace NetZ.Web.Server
 
         protected override int getIntPorta()
         {
-            return ConfigWebBase.i.intSrvHttpPorta;
+            return 80;
         }
 
         protected virtual UiExportBase getObjUiManager()
@@ -128,8 +129,6 @@ namespace NetZ.Web.Server
         protected override void inicializar()
         {
             base.inicializar();
-
-            Log.i.info("Serviço \"{0}\" rodando na porta {1}.", this.strNome, this.intPorta);
 
             this.criarDiretorio();
 

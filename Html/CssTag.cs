@@ -52,7 +52,7 @@
 
         public CssTag(string strHref) : base("link")
         {
-            this.booMostrarClazz = false;
+            this.booClazz = false;
             this.strHref = strHref;
         }
 

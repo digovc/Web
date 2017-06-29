@@ -1,4 +1,5 @@
-﻿using DigoFramework.Json;
+﻿using DigoFramework;
+using DigoFramework.Json;
 using NetZ.Web.Server.Arquivo;
 using System;
 
@@ -61,14 +62,14 @@ namespace NetZ.Web.Server.Ajax
 
                 if (!this.responder(objSolicitacao, objInterlocutor))
                 {
-                    return null;
+                    throw new NotImplementedException();
                 }
 
                 var objResposta = new Resposta(objSolicitacao);
 
                 objResposta.addJson(objInterlocutor);
 
-                this.addAcessControl(objResposta);
+                this.addAcessControl(objResposta, objInterlocutor);
 
                 return objResposta;
             }
@@ -78,7 +79,7 @@ namespace NetZ.Web.Server.Ajax
             }
         }
 
-        protected void addAcessControl(Resposta objResposta)
+        protected void addAcessControl(Resposta objResposta, Interlocutor objInterlocutor)
         {
             if (objResposta == null)
             {
@@ -102,13 +103,13 @@ namespace NetZ.Web.Server.Ajax
                 return;
             }
 
-            Uri uri = new Uri(strReferer);
+            var uri = new Uri(strReferer);
 
-            string strHost = ("http://" + uri.Host);
+            var strHost = ("http://" + uri.Host);
 
-            if (ConfigWebBase.i.intSrvHttpPorta != 80)
+            if (objInterlocutor?.intHttpPorta != 80)
             {
-                strHost = string.Format("http://{0}:{1}", uri.Host, ConfigWebBase.i.intSrvHttpPorta);
+                strHost = string.Format("http://{0}:{1}", uri.Host, objInterlocutor.intHttpPorta);
             }
 
             objResposta.addHeader("Access-Control-Allow-Credentials", "true");
@@ -128,45 +129,45 @@ namespace NetZ.Web.Server.Ajax
                 return null;
             }
 
-            string strErro = "Erro desconhecido.";
-
-            if (ex != null)
-            {
-                strErro = ex.Message;
-            }
-
             if (objInterlocutor == null)
             {
                 objInterlocutor = new Interlocutor();
             }
 
-            objInterlocutor.strErro = strErro;
+            objInterlocutor.strErro = "Erro desconhecido.";
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            if (ex != null)
+            {
+                objInterlocutor.strErro = ex.Message;
+            }
+
+            var objResposta = new Resposta(objSolicitacao);
 
             objResposta.addJson(objInterlocutor);
 
-            this.addAcessControl(objResposta);
+            this.addAcessControl(objResposta, objInterlocutor);
+
+            Log.i.erro("Erro no servidor AJAX ({0}): {1}", this.strNome, objInterlocutor.strErro);
 
             return objResposta;
         }
 
         private Resposta responderOptions(Solicitacao objSolicitacao)
         {
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
-            this.addAcessControl(objResposta);
+            this.addAcessControl(objResposta, null);
 
             return objResposta;
         }
 
         private Resposta responderUploadFile(Solicitacao objSolicitacao)
         {
-            Interlocutor objInterlocutor = new Interlocutor();
+            var objInterlocutor = new Interlocutor();
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
-            this.addAcessControl(objResposta);
+            this.addAcessControl(objResposta, null);
 
             if (objSolicitacao == null)
             {
@@ -188,7 +189,7 @@ namespace NetZ.Web.Server.Ajax
                 return objResposta.addJson(objInterlocutor);
             }
 
-            objSolicitacao.objUsuario.addArqUpload(new ArqUpload(objSolicitacao));
+            objSolicitacao.objUsuario.addArqUpload(new ArquivoUpload(objSolicitacao));
 
             objInterlocutor.objData = "Arquivo recebido com sucesso.";
 

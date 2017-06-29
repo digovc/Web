@@ -2,7 +2,7 @@
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
-using NetZ.Web.Html.Componente.Grid;
+using NetZ.Web.Html.Componente.Table;
 using NetZ.Web.Html.Componente.Janela;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
@@ -12,7 +12,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
 {
-    public abstract class PagPrincipal : PaginaHtml
+    public abstract class PagPrincipal : PaginaHtmlBase
     {
         #region Constantes
 
@@ -103,8 +103,8 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(FormHtml), 111));
             lstJs.Add(new JavaScriptTag(typeof(FrmFiltro), 112));
             lstJs.Add(new JavaScriptTag(typeof(FrmFiltroConteudo), 112));
-            lstJs.Add(new JavaScriptTag(typeof(GridHtml), 111));
-            lstJs.Add(new JavaScriptTag(typeof(GridRow), 111));
+            lstJs.Add(new JavaScriptTag(typeof(TableHtml), 111));
+            lstJs.Add(new JavaScriptTag(typeof(TableRow), 111));
             lstJs.Add(new JavaScriptTag(typeof(Input), 110));
             lstJs.Add(new JavaScriptTag(typeof(JanelaHtml), 121));
             lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
@@ -131,7 +131,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js", 102));
             lstJs.Add(new JavaScriptTag("/res/js/web/database/TblFiltro.js", 300));
 
-            lstJs.Add(new JavaScriptTag("/res/js/web/html/componente/grid/OnGridMenuClickArg.js", 300));
+            lstJs.Add(new JavaScriptTag("/res/js/web/html/componente/tabela/OnTableMenuClickArg.js", 300));
         }
 
         protected override void inicializar()

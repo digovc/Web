@@ -1,8 +1,6 @@
-﻿using NetZ.Persistencia;
-
-namespace NetZ.Web.DataBase.Tabela
+﻿namespace NetZ.Web.Html.Componente.Grid.Coluna
 {
-    public abstract class TblWebBase : TabelaBase
+    internal class DivGridColunaSumario : DivGridColunaBase
     {
         #region Constantes
 

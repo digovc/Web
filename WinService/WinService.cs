@@ -35,7 +35,7 @@ namespace NetZ.Web.WinService
         {
             Log.i.info("Abrindo em modo de aplicação.");
 
-            this.getAppWeb().iniciarServidorWeb();
+            this.getAppWeb().iniciar();
 
             Console.Read();
 

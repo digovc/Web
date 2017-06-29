@@ -190,21 +190,23 @@ namespace NetZ.Web.Html.Componente
 
             this.divComando.addCss(css.setBottom(0));
             this.divComando.addCss(css.setHeight(50));
-            this.divComando.addCss(css.setLeft(0));
+            this.divComando.addCss(css.setLeft(15));
             this.divComando.addCss(css.setPosition("absolute"));
-            this.divComando.addCss(css.setRight(0));
+            this.divComando.addCss(css.setRight(15));
 
             this.divContainer.addCss(css.setCenter());
             this.divContainer.addCss(css.setHeight(250));
+            this.divContainer.addCss(css.setMaxWidth(500));
+            this.divContainer.addCss(css.setPaddingLeft(15));
+            this.divContainer.addCss(css.setPaddingRight(15));
             this.divContainer.addCss(css.setPosition("relative"));
-            this.divContainer.addCss(css.setWidth(450));
 
             this.divContainerFaixa.addCss(css.setBackgroundColor("#607c60"));
             this.divContainerFaixa.addCss(css.setHeight(250));
             this.divContainerFaixa.addCss(css.setLeft(0));
             this.divContainerFaixa.addCss(css.setPosition("absolute"));
             this.divContainerFaixa.addCss(css.setRight(0));
-            this.divContainerFaixa.addCss(css.setTop(250));
+            this.divContainerFaixa.addCss(css.setTop(35, "vh"));
 
             this.divMensagem.addCss(css.setMaxHeight(90));
             this.divMensagem.addCss(css.setOverflow("auto"));

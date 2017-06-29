@@ -1,8 +1,8 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Html.Componente;
 
-namespace NetZ.Web.Html.Componente.Markdown
+namespace NetZ.Web.Html.Componente.Grid
 {
-    internal class IndiceItem : ComponenteHtml
+    internal class DivGridCabecalho : ComponenteHtml
     {
         #region Constantes
 
@@ -22,15 +22,7 @@ namespace NetZ.Web.Html.Componente.Markdown
         {
             base.inicializar();
 
-            this.strConteudo = "_conteudo";
-            this.strLink = "_link";
-        }
-
-        protected override void setCss(CssArquivoBase css)
-        {
-            base.setCss(css);
-
-            this.addCss(css.setPadding(5));
+            this.strId = "_div_grid_cabecalho_id";
         }
 
         #endregion Métodos

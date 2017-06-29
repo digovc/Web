@@ -6,7 +6,7 @@ using NetZ.Persistencia.Web;
 
 namespace NetZ.Web.Server.Arquivo
 {
-    public class ArqUpload : ArquivoDiverso
+    public class ArquivoUpload : ArquivoDiverso
     {
         #region Constantes
 
@@ -88,7 +88,7 @@ namespace NetZ.Web.Server.Arquivo
 
         #region Construtores
 
-        public ArqUpload(Solicitacao objSolicitacao)
+        public ArquivoUpload(Solicitacao objSolicitacao)
         {
             this.objSolicitacao = objSolicitacao;
         }

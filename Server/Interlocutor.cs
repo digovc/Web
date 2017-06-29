@@ -10,10 +10,27 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
+        private int _intHttpPorta;
         private object _objData;
         private string _strClazz;
         private string _strErro;
         private string _strMetodo;
+
+        /// <summary>
+        /// Porta do servidor HTTP que originou a solicitação.
+        /// </summary>
+        public int intHttpPorta
+        {
+            get
+            {
+                return _intHttpPorta;
+            }
+
+            set
+            {
+                _intHttpPorta = value;
+            }
+        }
 
         /// <summary>
         /// Propriedade que serve para intercâmbio de informações entre o servidor e o cliente.
@@ -105,10 +122,13 @@ namespace NetZ.Web.Server
         {
             if (obj == null)
             {
+                this.objData = null;
+                this.strClazz = null;
                 return;
             }
 
             this.objData = Json.i.toJson(obj);
+            this.strClazz = obj.GetType().Name;
         }
 
         /// <summary>

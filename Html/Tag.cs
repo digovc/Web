@@ -1,6 +1,7 @@
 ﻿using DigoFramework;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,13 +52,14 @@ namespace NetZ.Web.Html
         private Atributo _attTitle;
         private Atributo _attType;
         private bool _booBarraFinal = true;
+        private bool _booClazz = AppWebBase.i.booDesenvolvimento;
         private bool _booDupla = true;
-        private bool _booMostrarClazz = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
         private object _lckLstAtt;
         private List<Atributo> _lstAtt;
         private List<Tag> _lstTag;
+        private PaginaHtmlBase _pag;
         private string _src;
         private string _strAbertura = "<";
         private string _strConteudo;
@@ -120,6 +122,25 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
+        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo a
+        /// qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
+        /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
+        /// browser do usuário.
+        /// </summary>
+        public bool booClazz
+        {
+            get
+            {
+                return _booClazz;
+            }
+
+            set
+            {
+                _booClazz = value;
+            }
+        }
+
+        /// <summary>
         /// Indica se esta tag possuirá uma tag e abertura e outra de fechamento, mesmo não tendo
         /// nenhum <see cref="strConteudo"/>.
         /// </summary>
@@ -133,25 +154,6 @@ namespace NetZ.Web.Html
             set
             {
                 _booDupla = value;
-            }
-        }
-
-        /// <summary>
-        /// Indica se um atributo chamado "clazz" será adicionado para esta tag para indicar o tipo a
-        /// qual ela pertence. Este atributo dará a chance às classes em TypeScript de inicializar
-        /// propriedades, comportamentos ou eventos dessas tags quando a página for carregada no
-        /// browser do usuário.
-        /// </summary>
-        public bool booMostrarClazz
-        {
-            get
-            {
-                return _booMostrarClazz;
-            }
-
-            set
-            {
-                _booMostrarClazz = value;
             }
         }
 
@@ -422,6 +424,19 @@ namespace NetZ.Web.Html
             }
         }
 
+        protected PaginaHtmlBase pag
+        {
+            get
+            {
+                return _pag;
+            }
+
+            set
+            {
+                _pag = value;
+            }
+        }
+
         private string strAbertura
         {
             get
@@ -648,7 +663,7 @@ namespace NetZ.Web.Html
 
         /// <summary>
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
-        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de seus descendentes).
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtmlBase"/> (ou um de seus descendentes).
         /// </summary>
         public virtual void setPai(Tag tagPai)
         {
@@ -662,9 +677,9 @@ namespace NetZ.Web.Html
 
         /// <summary>
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
-        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtml"/> (ou um de seus descendentes).
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtmlBase"/> (ou um de seus descendentes).
         /// </summary>
-        public void setPai(PaginaHtml pagPai)
+        public void setPai(PaginaHtmlBase pagPai)
         {
             if (pagPai == null)
             {
@@ -678,17 +693,22 @@ namespace NetZ.Web.Html
         /// Retorna esta TAG formatada em HTML.
         /// </summary>
         /// <returns>Retorna esta TAG formatada em HTML.</returns>
-        public virtual string toHtml()
+        public virtual string toHtml(PaginaHtmlBase pag = null)
         {
-            // TODO: Criar processo para persistir as tags que não mudam durante o ciclo de uso da aplicação.
+            this.pag = pag;
 
             this.inicializar();
             this.montarLayout();
             this.setCss(CssMain.i);
             this.finalizar();
             this.finalizarCss(CssMain.i);
-            this.addLayoutFixo(PaginaHtml.i.tagJs);
-            this.addConstante(PaginaHtml.i.tagJs);
+
+            if (this.pag != null)
+            {
+                this.addLayoutFixo(this.pag.tagJs);
+                this.addConstante(this.pag.tagJs);
+            }
+
 
             return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
         }
@@ -776,10 +796,13 @@ namespace NetZ.Web.Html
         /// </summary>
         protected virtual void inicializar()
         {
-            this.addCss(PaginaHtml.i.lstCss);
-            this.addJsLib(PaginaHtml.i.lstJsLib);
-            this.addJs(PaginaHtml.i.lstJs);
-            this.addJs(PaginaHtml.i.tagJs);
+            if (this.pag != null)
+            {
+                this.addCss(this.pag.lstCss);
+                this.addJsLib(this.pag.lstJsLib);
+                this.addJs(this.pag.lstJs);
+                this.addJs(this.pag.tagJs);
+            }
 
             this.inicializarClazz();
         }
@@ -803,6 +826,16 @@ namespace NetZ.Web.Html
         protected virtual void setStrId(string strId)
         {
             this.attId.strValor = strId;
+        }
+
+        protected virtual void setStrTitle(string strTitle)
+        {
+            if (string.IsNullOrEmpty(strTitle))
+            {
+                return;
+            }
+
+            this.attTitle.strValor = strTitle;
         }
 
         private Atributo getAttClass()
@@ -907,7 +940,7 @@ namespace NetZ.Web.Html
 
         private void inicializarClazz()
         {
-            if (!this.booMostrarClazz)
+            if (!this.booClazz)
             {
                 return;
             }
@@ -950,16 +983,6 @@ namespace NetZ.Web.Html
             this.attName.strValor = strName;
         }
 
-        protected virtual void setStrTitle(string strTitle)
-        {
-            if (string.IsNullOrEmpty(strTitle))
-            {
-                return;
-            }
-
-            this.attTitle.strValor = strTitle;
-        }
-
         private string toHtmlAtributo()
         {
             if (this.lstAtt == null)
@@ -997,7 +1020,7 @@ namespace NetZ.Web.Html
 
         private string toHtmlTagDupla()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
             stbResultado.Append(this.toHtmlTagDuplaLinkIn());
             stbResultado.Append(this.strAbertura);
@@ -1033,16 +1056,16 @@ namespace NetZ.Web.Html
 
         private string toHtmlTagFilho()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            foreach (Tag tag in this.lstTag)
+            foreach (var tag in this.lstTag)
             {
                 if (tag == null)
                 {
                     continue;
                 }
 
-                stbResultado.Append(tag.toHtml());
+                stbResultado.Append(tag.toHtml(this.pag));
             }
 
             return stbResultado.ToString();
@@ -1050,7 +1073,7 @@ namespace NetZ.Web.Html
 
         private string toHtmlTagUnica()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
             stbResultado.Append(this.toHtmlTagDuplaLinkIn());
             stbResultado.Append(this.strAbertura);

@@ -67,7 +67,7 @@ namespace NetZ.Web.Server
         private string _strMsgCliente;
         private string _strPagina;
         private string _strPaginaCompleta;
-        private string _strSessaoId;
+        private string _strSessao;
 
         /// <summary>
         /// Caso esta seja uma solicitação do tipo POST, este retorna os valores dos parâmetros
@@ -293,22 +293,22 @@ namespace NetZ.Web.Server
         /// Código único que identifica o cliente. Todas as solicitações enviadas pelo cliente
         /// através de um mesmo browser terão o mesmo valor.
         /// <para>
-        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME"/>.
+        /// Este valor é salvo no browser do cliente através de um cookie com o nome de <see cref="SrvHttpBase.STR_COOKIE_SESSAO"/>.
         /// </para>
         /// <para>Esse cookie fica salvo no browser do cliente durante 8 (oito) horas.</para>
         /// </summary>
-        public string strSessaoId
+        public string strSessao
         {
             get
             {
-                if (_strSessaoId != null)
+                if (_strSessao != null)
                 {
-                    return _strSessaoId;
+                    return _strSessao;
                 }
 
-                _strSessaoId = this.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO_ID_NOME);
+                _strSessao = this.getStrCookieValor(SrvHttpBase.STR_COOKIE_SESSAO);
 
-                return _strSessaoId;
+                return _strSessao;
             }
         }
 
@@ -966,12 +966,12 @@ namespace NetZ.Web.Server
 
         private UsuarioDominio getObjUsuario()
         {
-            if (string.IsNullOrEmpty(this.strSessaoId))
+            if (string.IsNullOrEmpty(this.strSessao))
             {
                 return null;
             }
 
-            return AppWebBase.i.getObjUsuario(this.strSessaoId);
+            return AppWebBase.i.getObjUsuario(this.strSessao);
         }
 
         private string getStrConteudo()

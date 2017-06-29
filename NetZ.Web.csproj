@@ -66,6 +66,15 @@
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
     <Compile Include="Html\Componente\Documentacao\ActionBarDocumentacao.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaBase.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaCabecalho.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaSumario.cs" />
+    <Compile Include="Html\Componente\Grid\DivGridBase.cs" />
+    <Compile Include="Html\Componente\Grid\DivGridCabecalho.cs" />
+    <Compile Include="Html\Componente\Grid\DivGridConsulta.cs" />
+    <Compile Include="Html\Componente\Grid\DivGridConteudo.cs" />
+    <Compile Include="Html\Componente\Grid\DivGridLinha.cs" />
+    <Compile Include="Html\Componente\Grid\DivGridRodape.cs" />
     <Compile Include="Html\Componente\Markdown\EmailRegistro.cs" />
     <Compile Include="Html\Componente\Markdown\IndiceItem.cs" />
     <Compile Include="Html\Componente\Mobile\ActionBarBase.cs" />
@@ -116,10 +125,10 @@
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\DivComando.cs" />
-    <Compile Include="Html\Componente\Grid\GridColumn.cs" />
-    <Compile Include="Html\Componente\Grid\GridHead.cs" />
-    <Compile Include="Html\Componente\Grid\GridHtml.cs" />
-    <Compile Include="Html\Componente\Grid\GridRow.cs" />
+    <Compile Include="Html\Componente\Table\TableColumn.cs" />
+    <Compile Include="Html\Componente\Table\TableHead.cs" />
+    <Compile Include="Html\Componente\Table\TableHtml.cs" />
+    <Compile Include="Html\Componente\Table\TableRow.cs" />
     <Compile Include="Html\Componente\Menu\Chat\DivChatUsuario.cs" />
     <Compile Include="Html\Componente\Menu\DivFavorito.cs" />
     <Compile Include="Html\Componente\Menu\DivFavoritoItem.cs" />
@@ -147,9 +156,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Server\Ajax\Data\PesquisaInterlocutor.cs" />
+    <Compile Include="Server\Ajax\Dbe\PesquisaInterlocutor.cs" />
     <Compile Include="Server\Ajax\SrvAjaxDocumentacao.cs" />
-    <Compile Include="Server\Arquivo\ArqUpload.cs" />
+    <Compile Include="Server\Arquivo\ArquivoUpload.cs" />
     <Compile Include="Server\Arquivo\Css\CssArquivoBase.cs" />
     <Compile Include="Html\Div.cs" />
     <Compile Include="Html\Hr.cs" />
@@ -159,7 +168,7 @@
     <Compile Include="Html\JavaScriptTag.cs" />
     <Compile Include="Html\Componente\LimiteFloat.cs" />
     <Compile Include="Html\LstTag.cs" />
-    <Compile Include="Html\Pagina\PaginaHtml.cs" />
+    <Compile Include="Html\Pagina\PaginaHtmlBase.cs" />
     <Compile Include="Html\Componente\Painel\PainelHtml.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\JnlConsulta.cs" />
     <Compile Include="Html\Pagina\PagPrincipal.cs" />
@@ -178,7 +187,7 @@
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\SrvHttpBase.cs" />
     <Compile Include="Server\Ajax\SrvAjaxBase.cs" />
-    <Compile Include="Server\Ajax\Data\SrvAjaxDbeBase.cs" />
+    <Compile Include="Server\Ajax\Dbe\SrvAjaxDbeBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\SrvWsBase.cs" />
@@ -234,6 +243,9 @@
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\media\png\btn_fechar_notificacao_20x20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\svg\about.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -310,7 +322,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

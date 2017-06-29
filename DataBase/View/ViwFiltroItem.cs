@@ -1,5 +1,6 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.Tabela;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.View
 {
@@ -51,7 +52,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnBooFiltroItemAnd;
                 }
 
-                _clnBooFiltroItemAnd = new Coluna("boo_filtro_item_and", this, Coluna.EnmTipo.BOOLEAN);
+                _clnBooFiltroItemAnd = new Coluna("boo_filtro_item_and", Coluna.EnmTipo.BOOLEAN);
 
                 return _clnBooFiltroItemAnd;
             }
@@ -66,7 +67,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnDttFiltroItemAlteracao;
                 }
 
-                _clnDttFiltroItemAlteracao = new Coluna("dtt_filtro_item_alteracao", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
+                _clnDttFiltroItemAlteracao = new Coluna("dtt_filtro_item_alteracao", Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttFiltroItemAlteracao;
             }
@@ -81,7 +82,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnDttFiltroItemCadastro;
                 }
 
-                _clnDttFiltroItemCadastro = new Coluna("dtt_filtro_item_cadastro", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
+                _clnDttFiltroItemCadastro = new Coluna("dtt_filtro_item_cadastro", Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttFiltroItemCadastro;
             }
@@ -96,7 +97,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnIntFiltroItemFiltroId;
                 }
 
-                _clnIntFiltroItemFiltroId = new Coluna("int_filtro_item_filtro_id", this, Coluna.EnmTipo.BIGINT, TblFiltro.i.clnIntId);
+                _clnIntFiltroItemFiltroId = new Coluna("int_filtro_item_filtro_id", Coluna.EnmTipo.BIGINT, TblFiltro.i.clnIntId);
 
                 return _clnIntFiltroItemFiltroId;
             }
@@ -111,7 +112,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnIntFiltroItemOperador;
                 }
 
-                _clnIntFiltroItemOperador = new Coluna("int_filtro_item_operador", this, Coluna.EnmTipo.INTEGER);
+                _clnIntFiltroItemOperador = new Coluna("int_filtro_item_operador", Coluna.EnmTipo.INTEGER);
 
                 return _clnIntFiltroItemOperador;
             }
@@ -126,7 +127,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnIntFiltroItemUsuarioAlteracaoId;
                 }
 
-                _clnIntFiltroItemUsuarioAlteracaoId = new Coluna("int_filtro_item_usuario_alteracao_id", this, Coluna.EnmTipo.BIGINT);
+                _clnIntFiltroItemUsuarioAlteracaoId = new Coluna("int_filtro_item_usuario_alteracao_id", Coluna.EnmTipo.BIGINT);
 
                 return _clnIntFiltroItemUsuarioAlteracaoId;
             }
@@ -141,7 +142,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnIntFiltroItemUsuarioCadastroId;
                 }
 
-                _clnIntFiltroItemUsuarioCadastroId = new Coluna("int_filtro_item_usuario_cadastro_id", this, Coluna.EnmTipo.BIGINT);
+                _clnIntFiltroItemUsuarioCadastroId = new Coluna("int_filtro_item_usuario_cadastro_id", Coluna.EnmTipo.BIGINT);
 
                 return _clnIntFiltroItemUsuarioCadastroId;
             }
@@ -156,7 +157,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrFiltroDescricao;
                 }
 
-                _clnStrFiltroDescricao = new Coluna("str_filtro_descricao", this, Coluna.EnmTipo.TEXT);
+                _clnStrFiltroDescricao = new Coluna("str_filtro_descricao", Coluna.EnmTipo.TEXT);
 
                 return _clnStrFiltroDescricao;
             }
@@ -171,7 +172,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrFiltroItemColunaNome;
                 }
 
-                _clnStrFiltroItemColunaNome = new Coluna("str_filtro_item_coluna_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrFiltroItemColunaNome = new Coluna("sql_filtro_item_coluna_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnStrFiltroItemColunaNome;
             }
@@ -186,7 +187,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrFiltroNome;
                 }
 
-                _clnStrFiltroNome = new Coluna("str_filtro_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrFiltroNome = new Coluna("str_filtro_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnStrFiltroNome;
             }
@@ -201,7 +202,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrFiltroTabelaNome;
                 }
 
-                _clnStrFiltroTabelaNome = new Coluna("str_filtro_tabela_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrFiltroTabelaNome = new Coluna("sql_filtro_tabela_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnStrFiltroTabelaNome;
             }
@@ -216,7 +217,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrUsuarioAlteracaoLogin;
                 }
 
-                _clnStrUsuarioAlteracaoLogin = new Coluna("str_usuario_alteracao_login", this, Coluna.EnmTipo.TEXT);
+                _clnStrUsuarioAlteracaoLogin = new Coluna("str_usuario_alteracao_login", Coluna.EnmTipo.TEXT);
 
                 return _clnStrUsuarioAlteracaoLogin;
             }
@@ -231,7 +232,7 @@ namespace NetZ.Web.DataBase.View
                     return _clnStrUsuarioCadastroLogin;
                 }
 
-                _clnStrUsuarioCadastroLogin = new Coluna("str_usuario_cadastro_login", this, Coluna.EnmTipo.TEXT);
+                _clnStrUsuarioCadastroLogin = new Coluna("str_usuario_cadastro_login", Coluna.EnmTipo.TEXT);
 
                 return _clnStrUsuarioCadastroLogin;
             }
@@ -240,10 +241,6 @@ namespace NetZ.Web.DataBase.View
         #endregion Atributos
 
         #region Construtores
-
-        public ViwFiltroItem() : base("viw_filtro_item")
-        {
-        }
 
         protected override string getSql()
         {
@@ -275,25 +272,23 @@ namespace NetZ.Web.DataBase.View
             this.clnIntFiltroItemOperador.addOpcao((int)Filtro.EnmOperador.MENOR_IGUAL, "Menor igual");
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnStrFiltroNome.intOrdem = ++intOrdem;
-            this.clnStrFiltroDescricao.intOrdem = ++intOrdem;
-            this.clnStrFiltroTabelaNome.intOrdem = ++intOrdem;
-            this.clnStrFiltroItemColunaNome.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemOperador.intOrdem = ++intOrdem;
-            this.clnStrUsuarioCadastroLogin.intOrdem = ++intOrdem;
-            this.clnStrUsuarioAlteracaoLogin.intOrdem = ++intOrdem;
-            this.clnBooFiltroItemAnd.intOrdem = ++intOrdem;
-            this.clnDttFiltroItemCadastro.intOrdem = ++intOrdem;
-            this.clnDttFiltroItemAlteracao.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemUsuarioCadastroId.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemUsuarioAlteracaoId.intOrdem = ++intOrdem;
-            this.clnIntFiltroItemFiltroId.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnStrFiltroNome);
+            lstCln.Add(this.clnStrFiltroDescricao);
+            lstCln.Add(this.clnStrFiltroTabelaNome);
+            lstCln.Add(this.clnStrFiltroItemColunaNome);
+            lstCln.Add(this.clnIntFiltroItemOperador);
+            lstCln.Add(this.clnStrUsuarioCadastroLogin);
+            lstCln.Add(this.clnStrUsuarioAlteracaoLogin);
+            lstCln.Add(this.clnBooFiltroItemAnd);
+            lstCln.Add(this.clnDttFiltroItemCadastro);
+            lstCln.Add(this.clnDttFiltroItemAlteracao);
+            lstCln.Add(this.clnIntFiltroItemUsuarioCadastroId);
+            lstCln.Add(this.clnIntFiltroItemUsuarioAlteracaoId);
+            lstCln.Add(this.clnIntFiltroItemFiltroId);
         }
 
         #endregion Métodos

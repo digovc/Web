@@ -1,7 +1,7 @@
 ﻿using DigoFramework;
-using NetZ.Persistencia;
+using DigoFramework.Servico;
+using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Dominio;
-using NetZ.Web.Server;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -26,8 +26,11 @@ namespace NetZ.Web
 
         public const string DIR_CSS = (DIR_RESOURCE + "css/");
         public const string DIR_HTML = "res/html/";
+        public const string DIR_JS = (DIR_RESOURCE + "js/");
         public const string DIR_JS_LIB = (DIR_RESOURCE + "js/lib/");
+        public const string DIR_JS_WEB = (DIR_JS + "web/");
         public const string DIR_JSON_CONFIG = "JSON Config/";
+        public const string DIR_MEDIA_GIF = (DIR_RESOURCE + "media/gif/");
         public const string DIR_MEDIA_PNG = (DIR_RESOURCE + "media/png/");
         public const string DIR_MEDIA_SVG = (DIR_RESOURCE + "media/svg/");
         public const string DIR_RESOURCE = "/res/";
@@ -42,9 +45,9 @@ namespace NetZ.Web
         private static AppWebBase _i;
 
         private bool _booMostrarGrade;
-        private DbeBase _dbe;
+        private DbeWebBase _dbe;
         private List<UsuarioDominio> _lstObjUsuario;
-        private List<ServerBase> _lstSrv;
+        private List<ServicoBase> _lstSrv;
         private object _objLstObjUsuarioLock;
         private SmtpClient _objSmtpClient;
         private string _strEmail;
@@ -85,7 +88,7 @@ namespace NetZ.Web
             }
         }
 
-        public DbeBase dbe
+        public DbeWebBase dbe
         {
             get
             {
@@ -148,7 +151,7 @@ namespace NetZ.Web
             }
         }
 
-        private List<ServerBase> lstSrv
+        private List<ServicoBase> lstSrv
         {
             get
             {
@@ -192,33 +195,13 @@ namespace NetZ.Web
         #region Métodos
 
         /// <summary>
-        /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
-        /// ficarão disponíveis para servir esta aplicação para os cliente.
-        /// <para>
-        /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
-        /// </para>
-        /// <para>
-        /// O servidor de solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
-        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
-        /// esteja marcada.
-        /// </para>
-        /// </summary>
-        public virtual void iniciarServidorWeb()
-        {
-            Log.i.info("Inicializando o servidor.");
-
-            this.inicializarConfig();
-            this.inicializarLstSrv();
-        }
-
-        /// <summary>
         /// Para o servidor imediatamente.
         /// </summary>
         public void pararServidor()
         {
-            foreach (ServerBase srv in this.lstSrv)
+            foreach (ServicoBase srv in this.lstSrv)
             {
-                this.pararServidor(srv);
+                srv?.parar();
             }
         }
 
@@ -232,7 +215,7 @@ namespace NetZ.Web
                 return;
             }
 
-            if (string.IsNullOrEmpty(objUsuario.strSessaoId))
+            if (string.IsNullOrEmpty(objUsuario.strSessao))
             {
                 return;
             }
@@ -247,13 +230,13 @@ namespace NetZ.Web
         }
 
         /// <summary>
-        /// Busca o usuário que pertence a <param name="strSessaoId"/>.
+        /// Busca o usuário que pertence a <param name="strSessao"/>.
         /// </summary>
-        internal UsuarioDominio getObjUsuario(string strSessaoId)
+        internal UsuarioDominio getObjUsuario(string strSessao)
         {
             lock (this.objLstObjUsuarioLock)
             {
-                if (string.IsNullOrEmpty(strSessaoId))
+                if (string.IsNullOrEmpty(strSessao))
                 {
                     return null;
                 }
@@ -265,12 +248,12 @@ namespace NetZ.Web
                         continue;
                     }
 
-                    if (string.IsNullOrEmpty(objUsuario.strSessaoId))
+                    if (string.IsNullOrEmpty(objUsuario.strSessao))
                     {
                         continue;
                     }
 
-                    if (!objUsuario.strSessaoId.Equals(strSessaoId))
+                    if (!objUsuario.strSessao.Equals(strSessao))
                     {
                         continue;
                     }
@@ -278,9 +261,9 @@ namespace NetZ.Web
                     return objUsuario;
                 }
 
-                UsuarioDominio objUsuarioNovo = new UsuarioDominio();
+                var objUsuarioNovo = new UsuarioDominio();
 
-                objUsuarioNovo.strSessaoId = strSessaoId;
+                objUsuarioNovo.strSessao = strSessao;
 
                 this.addObjUsuario(objUsuarioNovo);
 
@@ -288,12 +271,10 @@ namespace NetZ.Web
             }
         }
 
-        protected virtual DbeBase getDbe()
+        protected virtual DbeWebBase getDbe()
         {
             return null;
         }
-
-        protected abstract ConfigWebBase getObjConfig();
 
         protected virtual SmtpClient getObjSmtpClient()
         {
@@ -305,37 +286,54 @@ namespace NetZ.Web
             throw new NotFiniteNumberException();
         }
 
-        protected abstract void inicializarLstSrv(List<ServerBase> lstSrv);
-
-        private List<ServerBase> getLstSrv()
+        /// <summary>
+        /// Inicializa a aplicação e o servidor WEB em sí, juntamente com os demais componentes que
+        /// ficarão disponíveis para servir esta aplicação para os cliente.
+        /// <para>
+        /// Estes serviços levarão em consideração as configurações presentes em <seealso cref="ConfigWebBase"/>.
+        /// </para>
+        /// <para>
+        /// O servidor de solicitações AJAX do banco de dados <see cref="ServerAjaxDb"/> também será
+        /// inicializado, caso a configuração <seealso cref="ConfigWebBase.booSrvAjaxDbeAtivar"/>
+        /// esteja marcada.
+        /// </para>
+        /// </summary>
+        protected override void inicializar()
         {
-            var lstSrvResultado = new List<ServerBase>();
+            base.inicializar();
+
+            Log.i.info("Inicializando o servidor.");
+
+            this.inicializarDbe();
+            this.inicializarLstSrv();
+        }
+
+        protected abstract void inicializarLstSrv(List<ServicoBase> lstSrv);
+
+        private List<ServicoBase> getLstSrv()
+        {
+            var lstSrvResultado = new List<ServicoBase>();
 
             this.inicializarLstSrv(lstSrvResultado);
 
             return lstSrvResultado;
         }
 
-        private void inicializarConfig()
+        private void inicializarDbe()
         {
-            this.getObjConfig();
-        }
-
-        private void inicializarLstSrv()
-        {
-            Log.i.info("Inicializando a lista de serviços.");
-
-            this.lstSrv?.ForEach((srv) => srv.iniciar());
-        }
-
-        private void pararServidor(ServerBase srv)
-        {
-            if (srv == null)
+            if (this.dbe == null)
             {
                 return;
             }
 
-            srv.parar();
+            this.dbe.iniciar();
+        }
+
+        private void inicializarLstSrv()
+        {
+            Log.i.info("Inicializando a lista de servidores.");
+
+            this.lstSrv?.ForEach((srv) => srv.iniciar());
         }
 
         #endregion Métodos

@@ -30,6 +30,9 @@ namespace NetZ.Web.Html.Componente.Botao.ActionBar
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
+            this.addCss(css.setBackgroundPosition("center"));
+            this.addCss(css.setBackgroundRepeat("no-repeat"));
+            this.addCss(css.setBackgroundSize("35px"));
         }
 
         protected override void setCssHeight(CssArquivoBase css)

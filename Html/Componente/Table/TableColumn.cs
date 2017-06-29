@@ -2,9 +2,9 @@
 using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Grid
+namespace NetZ.Web.Html.Componente.Table
 {
-    internal class GridColumn : Tag
+    internal class TableColumn : Tag
     {
         #region Constantes
 
@@ -45,7 +45,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Construtores
 
-        public GridColumn(Coluna cln, DataRow row) : base("td")
+        public TableColumn(Coluna cln, DataRow row) : base("td")
         {
             this.cln = cln;
             this.row = row;

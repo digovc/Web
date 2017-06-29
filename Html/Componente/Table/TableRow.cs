@@ -3,9 +3,9 @@ using System.Data;
 using NetZ.Persistencia;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Grid
+namespace NetZ.Web.Html.Componente.Table
 {
-    internal class GridRow : ComponenteHtml
+    internal class TableRow : ComponenteHtml
     {
         #region Constantes
 
@@ -64,7 +64,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Construtores
 
-        internal GridRow()
+        internal TableRow()
         {
         }
 
@@ -105,7 +105,7 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
-            this.addCss(css.setHeight(GridHtml.INT_LINHA_TAMANHO));
+            this.addCss(css.setHeight(TableHtml.INT_LINHA_TAMANHO));
         }
 
         private void inicializarIntId()
@@ -139,7 +139,7 @@ namespace NetZ.Web.Html.Componente.Grid
 
             this.attIntId.addValor(intId);
 
-            strId = "tagGridRow___tbl_nome__registro_id";
+            strId = "tagRow___tbl_nome__registro_id";
 
             strId = strId.Replace("_tbl_nome", this.tbl.sqlNome);
             strId = strId.Replace("_registro_id", intId.ToString());
@@ -154,7 +154,7 @@ namespace NetZ.Web.Html.Componente.Grid
                 return;
             }
 
-            new GridColumn(cln, this.row).setPai(this);
+            new TableColumn(cln, this.row).setPai(this);
         }
 
         #endregion Métodos

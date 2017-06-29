@@ -291,6 +291,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("border", string.Format("{0}px {1} {2}", intBorderPx, strTipo, cor));
         }
 
+        public string setBorder(string strBorder)
+        {
+            return this.addCss("border", strBorder);
+        }
+
         public string setBorder(int intBorderPx, string strTipo, Color cor)
         {
             return this.setBorder(intBorderPx, strTipo = "solid", this.corToRgba(cor));
@@ -354,6 +359,11 @@ namespace NetZ.Web.Server.Arquivo.Css
         public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, string cor = "grey")
         {
             return this.addCss("box-shadow", string.Format("{0}px {1}px {2}px {3}px {4}", intHorizontalPx, intVerticalPx, intBlurPx, intSpreadPx, cor));
+        }
+
+        public string setBoxShadow(string strBoxShadow)
+        {
+            return this.addCss("box-shadow", strBoxShadow);
         }
 
         public string setBoxShadow(int intHorizontalPx, int intVerticalPx, int intBlurPx, int intSpreadPx, Color cor)
@@ -426,6 +436,11 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("height", string.Format("{0}{1}", decHeight.ToString(this.ctiUsa), strGrandeza));
         }
 
+        public string setHeight(string strHeight)
+        {
+            return this.addCss("height", strHeight);
+        }
+
         public string setJustifyContent(string css)
         {
             return this.addCss("justify-content", css);
@@ -489,6 +504,11 @@ namespace NetZ.Web.Server.Arquivo.Css
         public string setMinHeight(decimal decMinHeight, string strGrandeza = "px")
         {
             return this.addCss("min-height", string.Format("{0}{1}", decMinHeight.ToString(this.ctiUsa), strGrandeza));
+        }
+
+        public string setMinHeight(string strMinHeight)
+        {
+            return this.addCss("min-height", strMinHeight);
         }
 
         public string setMinWidth(decimal decMinWidth, string strGrandeza = "px")

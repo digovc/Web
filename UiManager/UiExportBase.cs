@@ -113,7 +113,7 @@ namespace Web.UiManager
                 return;
             }
 
-            if (!(typeof(PaginaHtml).IsAssignableFrom(cls)))
+            if (!(typeof(PaginaHtmlBase).IsAssignableFrom(cls)))
             {
                 return;
             }
@@ -146,13 +146,11 @@ namespace Web.UiManager
 
             this.booUiAlterada = true;
 
-            this.exportarHtmlPag(objHtml as PaginaHtml, dirNamespace);
+            this.exportarHtmlPag(objHtml as PaginaHtmlBase, dirNamespace);
         }
 
-        private void exportarHtmlPag(PaginaHtml pag, string dirNamespace)
+        private void exportarHtmlPag(PaginaHtmlBase pag, string dirNamespace)
         {
-            Log.i.info("Exportando a página \"{0}\".", pag.strNome);
-
             pag.salvar(AppWebBase.DIR_HTML + dirNamespace);
         }
 

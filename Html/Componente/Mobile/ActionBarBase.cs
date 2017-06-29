@@ -162,6 +162,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setRight(0));
             this.addCss(css.setTop(0));
             this.addCss(css.setWidth(100, "%"));
+            this.addCss(css.setZIndex(1000));
 
             this.setCssBtnMenu(css);
 

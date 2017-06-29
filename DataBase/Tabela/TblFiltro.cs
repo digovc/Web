@@ -1,5 +1,6 @@
 ﻿using NetZ.Persistencia;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Tabela
 {
@@ -13,9 +14,9 @@ namespace NetZ.Web.DataBase.Tabela
 
         private static TblFiltro _i;
 
+        private Coluna _clnSqlTabelaNome;
         private Coluna _clnStrDescricao;
         private Coluna _clnStrNome;
-        private Coluna _clnStrTabelaNome;
 
         public static TblFiltro i
         {
@@ -32,6 +33,21 @@ namespace NetZ.Web.DataBase.Tabela
             }
         }
 
+        public Coluna clnSqlTabelaNome
+        {
+            get
+            {
+                if (_clnSqlTabelaNome != null)
+                {
+                    return _clnSqlTabelaNome;
+                }
+
+                _clnSqlTabelaNome = new Coluna("sql_tabela_nome", Coluna.EnmTipo.TEXT);
+
+                return _clnSqlTabelaNome;
+            }
+        }
+
         public Coluna clnStrDescricao
         {
             get
@@ -41,7 +57,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrDescricao;
                 }
 
-                _clnStrDescricao = new Coluna("str_descricao", this, Coluna.EnmTipo.TEXT);
+                _clnStrDescricao = new Coluna("str_descricao", Coluna.EnmTipo.TEXT);
 
                 return _clnStrDescricao;
             }
@@ -56,24 +72,9 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnStrNome;
                 }
 
-                _clnStrNome = new Coluna("str_nome", this, Coluna.EnmTipo.TEXT);
+                _clnStrNome = new Coluna("str_nome", Coluna.EnmTipo.TEXT);
 
                 return _clnStrNome;
-            }
-        }
-
-        public Coluna clnStrTabelaNome
-        {
-            get
-            {
-                if (_clnStrTabelaNome != null)
-                {
-                    return _clnStrTabelaNome;
-                }
-
-                _clnStrTabelaNome = new Coluna("str_tabela_nome", this, Coluna.EnmTipo.TEXT);
-
-                return _clnStrTabelaNome;
             }
         }
 
@@ -81,7 +82,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        private TblFiltro() : base("tbl_filtro")
+        private TblFiltro()
         {
         }
 
@@ -93,25 +94,23 @@ namespace NetZ.Web.DataBase.Tabela
         {
             base.inicializar();
 
+            this.clnNome = this.clnStrNome;
             this.clsJnlCadastro = typeof(JnlFiltroCadastro);
 
             this.clnStrDescricao.strNomeExibicao = "descrição";
 
-            this.clnStrNome.booNome = true;
             this.clnStrNome.booObrigatorio = true;
 
-            this.clnStrTabelaNome.booObrigatorio = true;
+            this.clnSqlTabelaNome.booObrigatorio = true;
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnStrDescricao.intOrdem = ++intOrdem;
-            this.clnStrNome.intOrdem = ++intOrdem;
-            this.clnStrTabelaNome.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnStrDescricao);
+            lstCln.Add(this.clnStrNome);
+            lstCln.Add(this.clnSqlTabelaNome);
         }
 
         #endregion Métodos

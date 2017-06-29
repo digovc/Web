@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using NetZ.Persistencia.Web;
+﻿using NetZ.Persistencia.Web;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Arquivo;
+using System;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Dominio
 {
@@ -21,8 +21,8 @@ namespace NetZ.Web.DataBase.Dominio
         private bool _booLogado;
         private DateTime _dttLogin;
         private DateTime _dttUltimoAcesso;
-        private List<ArqUpload> _lstArqUpload;
-        private string _strSessaoId;
+        private List<ArquivoUpload> _lstArqUpload;
+        private string _strSessao;
 
         /// <summary>
         /// Indica se o usuário é administrador do sistema.
@@ -91,20 +91,20 @@ namespace NetZ.Web.DataBase.Dominio
         /// <summary>
         /// Valor do cookie que mantém a sessão atual do usuário.
         /// </summary>
-        public string strSessaoId
+        public string strSessao
         {
             get
             {
-                return _strSessaoId;
+                return _strSessao;
             }
 
             set
             {
-                _strSessaoId = value;
+                _strSessao = value;
             }
         }
 
-        private List<ArqUpload> lstArqUpload
+        private List<ArquivoUpload> lstArqUpload
         {
             get
             {
@@ -113,7 +113,7 @@ namespace NetZ.Web.DataBase.Dominio
                     return _lstArqUpload;
                 }
 
-                _lstArqUpload = new List<ArqUpload>();
+                _lstArqUpload = new List<ArquivoUpload>();
 
                 return _lstArqUpload;
             }
@@ -131,7 +131,7 @@ namespace NetZ.Web.DataBase.Dominio
 
         #region Métodos
 
-        public void addArqUpload(ArqUpload arqUpload)
+        public void addArqUpload(ArquivoUpload arqUpload)
         {
             if (arqUpload == null)
             {
@@ -158,7 +158,7 @@ namespace NetZ.Web.DataBase.Dominio
 
         internal void carregarArquivo(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, Persistencia.TabelaBase tbl)
         {
-            foreach (ArqUpload arqUpload in this.lstArqUpload)
+            foreach (ArquivoUpload arqUpload in this.lstArqUpload)
             {
                 if (arqUpload == null)
                 {

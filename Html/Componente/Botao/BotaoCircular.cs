@@ -67,8 +67,11 @@ namespace NetZ.Web.Html.Componente.Botao
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor("rgb(248,248,248)"));
+            this.addCss(css.setBackgroundPosition("center"));
+            this.addCss(css.setBackgroundRepeat("no-repeat"));
+            this.addCss(css.setBackgroundSize((this.getIntTamanho() * .75).ToString("0px")));
             this.addCss(css.setBorderRadius(50, "%"));
-            this.addCss(css.setBoxShadow(0, 2, 1, 1, "rgba(0,0,0,0.25)"));
+            this.addCss(css.setBoxShadow(0, 2, 1, 1, "rgba(0,0,0,.25)"));
             this.addCss(css.setHeight(this.getIntTamanho()));
             this.addCss(css.setOutline("none"));
             this.addCss(css.setTextAlign("center"));

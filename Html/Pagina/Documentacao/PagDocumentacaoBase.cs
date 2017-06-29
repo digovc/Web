@@ -98,7 +98,7 @@ namespace NetZ.Web.Html.Pagina.Documentacao
         {
             base.addConstante(tagJs);
 
-            tagJs.addConstante((typeof(SrvAjaxDocumentacao).Name + "_intPorta"), ConfigWebBase.i.intSrvAjaxDocumentacao);
+            tagJs.addConstante((typeof(SrvAjaxDocumentacao).Name + "_intPorta"), this.getIntSrvAjaxDocumentacaoPorta());
         }
 
         protected override void addCss(LstTag<CssTag> lstCss)
@@ -120,6 +120,8 @@ namespace NetZ.Web.Html.Pagina.Documentacao
 
             lstJs.Add(new JavaScriptTag((AppWebBase.DIR_JS_LIB + "marked.min.js")));
         }
+
+        protected abstract decimal getIntSrvAjaxDocumentacaoPorta();
 
         protected override void inicializar()
         {

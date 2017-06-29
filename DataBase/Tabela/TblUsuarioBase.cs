@@ -1,6 +1,7 @@
-﻿using System;
-using NetZ.Persistencia;
+﻿using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
+using System;
+using System.Collections.Generic;
 
 namespace NetZ.Web.DataBase.Tabela
 {
@@ -17,7 +18,7 @@ namespace NetZ.Web.DataBase.Tabela
         private Coluna _clnBooAdministrador;
         private Coluna _clnDttLogin;
         private Coluna _clnDttUltimoAcesso;
-        private Coluna _clnStrSessaoId;
+        private Coluna _clnStrSessao;
 
         public static TblUsuarioBase i
         {
@@ -46,7 +47,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnBooAdministrador;
                 }
 
-                _clnBooAdministrador = new Coluna("boo_administrador", this, Coluna.EnmTipo.BOOLEAN);
+                _clnBooAdministrador = new Coluna("boo_administrador", Coluna.EnmTipo.BOOLEAN);
 
                 return _clnBooAdministrador;
             }
@@ -61,7 +62,7 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnDttLogin;
                 }
 
-                _clnDttLogin = new Coluna("dtt_login", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
+                _clnDttLogin = new Coluna("dtt_login", Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttLogin;
             }
@@ -76,24 +77,24 @@ namespace NetZ.Web.DataBase.Tabela
                     return _clnDttUltimoAcesso;
                 }
 
-                _clnDttUltimoAcesso = new Coluna("dtt_ultimo_acesso", this, Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
+                _clnDttUltimoAcesso = new Coluna("dtt_ultimo_acesso", Coluna.EnmTipo.TIMESTAMP_WITHOUT_TIME_ZONE);
 
                 return _clnDttUltimoAcesso;
             }
         }
 
-        public Coluna clnStrSessaoId
+        public Coluna clnStrSessao
         {
             get
             {
-                if (_clnStrSessaoId != null)
+                if (_clnStrSessao != null)
                 {
-                    return _clnStrSessaoId;
+                    return _clnStrSessao;
                 }
 
-                _clnStrSessaoId = new Coluna("str_sessao_id", this, Coluna.EnmTipo.TEXT);
+                _clnStrSessao = new Coluna("str_sessao", Coluna.EnmTipo.TEXT);
 
-                return _clnStrSessaoId;
+                return _clnStrSessao;
             }
         }
 
@@ -101,7 +102,7 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Construtores
 
-        protected TblUsuarioBase(string strNome) : base(strNome)
+        protected TblUsuarioBase()
         {
             i = this;
         }
@@ -110,14 +111,14 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Métodos
 
-        internal UsuarioDominio getObjUsuario(string strSessaoId)
+        internal UsuarioDominio getObjUsuario(string strSessao)
         {
-            if (string.IsNullOrEmpty(strSessaoId))
+            if (string.IsNullOrEmpty(strSessao))
             {
                 return null;
             }
 
-            UsuarioDominio objUsuario = this.recuperarDominio<UsuarioDominio>(this.clnStrSessaoId, strSessaoId);
+            var objUsuario = this.recuperarDominio<UsuarioDominio>(this.clnStrSessao, strSessao);
 
             if (objUsuario == null)
             {
@@ -132,16 +133,14 @@ namespace NetZ.Web.DataBase.Tabela
             return objUsuario;
         }
 
-        protected override int inicializarColunas(int intOrdem)
+        protected override void inicializarLstCln(List<Coluna> lstCln)
         {
-            intOrdem = base.inicializarColunas(intOrdem);
+            base.inicializarLstCln(lstCln);
 
-            this.clnBooAdministrador.intOrdem = ++intOrdem;
-            this.clnDttLogin.intOrdem = ++intOrdem;
-            this.clnDttUltimoAcesso.intOrdem = ++intOrdem;
-            this.clnStrSessaoId.intOrdem = ++intOrdem;
-
-            return intOrdem;
+            lstCln.Add(this.clnBooAdministrador);
+            lstCln.Add(this.clnDttLogin);
+            lstCln.Add(this.clnDttUltimoAcesso);
+            lstCln.Add(this.clnStrSessao);
         }
 
         #endregion Métodos

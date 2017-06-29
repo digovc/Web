@@ -123,9 +123,9 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.montarLayout();
 
-            this.txtPesquisa.setPai(this.divInputContainer);
-            this.txtIntId.setPai(this.divInputContainer);
-            this.btnAcao.setPai(this.divInputContainer);
+            this.txtPesquisa.setPai(this.divContainer);
+            this.txtIntId.setPai(this.divContainer);
+            this.btnAcao.setPai(this.divContainer);
         }
 
         protected override void setCss(CssArquivoBase css)
@@ -143,7 +143,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.cmb.addCss(css.setDisplay("none"));
 
-            this.divInputContainer.addCss(css.setMarginRight(110));
+            this.divContainer.addCss(css.setMarginRight(110));
 
             this.txtIntId.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
             this.txtIntId.addCss(css.setHeight(19));
