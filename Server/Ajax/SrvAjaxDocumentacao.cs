@@ -13,7 +13,7 @@ namespace NetZ.Web.Server.Ajax
     {
         #region Constantes
 
-        public const string DIR_MARKDOWN = "res\\markdown";
+        public const string DIR_MARKDOWN = "res/markdown";
 
         private const string DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO = (AppWebBase.DIR_JSON_CONFIG + "documentacao_email_registro.json");
 

@@ -12,7 +12,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
 {
-    public abstract class PagPrincipal : PaginaHtmlBase
+    public abstract class PagPrincipalBase : PaginaHtmlBase
     {
         #region Constantes
 
@@ -57,7 +57,7 @@ namespace NetZ.Web.Html.Pagina
 
         #region Construtores
 
-        public PagPrincipal(string strNome) : base(strNome)
+        public PagPrincipalBase(string strNome) : base(strNome)
         {
         }
 
@@ -110,7 +110,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
             lstJs.Add(new JavaScriptTag(typeof(JnlConsulta), 122));
             lstJs.Add(new JavaScriptTag(typeof(JnlTag), 122));
-            lstJs.Add(new JavaScriptTag(typeof(PagPrincipal), 103));
+            lstJs.Add(new JavaScriptTag(typeof(PagPrincipalBase), 103));
             lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
             lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
             lstJs.Add(new JavaScriptTag(typeof(PainelFiltro), 115));

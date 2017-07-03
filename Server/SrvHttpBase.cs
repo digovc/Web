@@ -32,7 +32,6 @@ namespace NetZ.Web.Server
         #region Atributos
 
         private List<ArquivoEstatico> _lstArqEstatico;
-
         private UiExportBase _objUiManager;
 
         private List<ArquivoEstatico> lstArqEstatico
@@ -178,21 +177,11 @@ namespace NetZ.Web.Server
         {
             Log.i.info("Inicializando os arquivos estáticos da pasta de \"resources\" (res).");
 
-            string dir = Assembly.GetEntryAssembly().Location;
-
-            if (string.IsNullOrEmpty(dir))
-            {
-                return;
-            }
+            var dir = Assembly.GetEntryAssembly().Location;
 
             dir = Path.GetDirectoryName(dir);
 
-            if (string.IsNullOrEmpty(dir))
-            {
-                return;
-            }
-
-            dir = dir + "\\res";
+            dir = Path.Combine(dir, "res");
 
             this.inicializarArquivoEstatico(dir);
         }
@@ -237,9 +226,9 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            ArquivoEstatico arq = new ArquivoEstatico();
+            var arq = new ArquivoEstatico();
 
-            arq.dirCompleto = dirArquivo.ToLower();
+            arq.dirCompleto = dirArquivo;
 
             this.lstArqEstatico.Add(arq);
         }
@@ -283,7 +272,7 @@ namespace NetZ.Web.Server
                 return this.responderArquivoEstaticoGetScript(objSolicitacao);
             }
 
-            foreach (ArquivoEstatico arq in this.lstArqEstatico)
+            foreach (var arq in this.lstArqEstatico)
             {
                 if (arq == null)
                 {
@@ -291,11 +280,6 @@ namespace NetZ.Web.Server
                 }
 
                 if (string.IsNullOrEmpty(arq.dirWeb))
-                {
-                    continue;
-                }
-
-                if (!File.Exists(arq.dirCompleto))
                 {
                     continue;
                 }
@@ -356,6 +340,8 @@ namespace NetZ.Web.Server
 
         private Resposta responderArquivoEstaticoNaoEncontrado(Solicitacao objSolicitacao)
         {
+            Log.i.info("Arquivo estático ({0}) não encontrado.", objSolicitacao.strPaginaCompleta);
+
             return new Resposta(objSolicitacao) { intStatus = 404 };
         }
 

@@ -1,7 +1,6 @@
 ﻿using DigoFramework;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,10 +64,10 @@ namespace NetZ.Web.Html
         private string _strConteudo;
         private string _strFechamento = ">";
         private string _strId;
-        private string _strLink;
         private string _strName;
         private string _strTitle;
         private Tag _tagPai;
+        private string _urlLink;
 
         public Atributo attClass
         {
@@ -266,22 +265,6 @@ namespace NetZ.Web.Html
         }
 
         /// <summary>
-        /// Link para onde o usuário será direcionado caso click nesta tag.
-        /// </summary>
-        public string strLink
-        {
-            get
-            {
-                return _strLink;
-            }
-
-            set
-            {
-                _strLink = value;
-            }
-        }
-
-        /// <summary>
         /// Indica o valor que será apresentado ao usuário ao manter o mouse em cima desta tag.
         /// </summary>
         public string strTitle
@@ -301,6 +284,35 @@ namespace NetZ.Web.Html
                 _strTitle = value;
 
                 this.setStrTitle(_strTitle);
+            }
+        }
+
+        /// <summary>
+        /// Link para onde o usuário será direcionado caso click nesta tag.
+        /// </summary>
+        public string urlLink
+        {
+            get
+            {
+                return _urlLink;
+            }
+
+            set
+            {
+                _urlLink = value;
+            }
+        }
+
+        protected PaginaHtmlBase pag
+        {
+            get
+            {
+                return _pag;
+            }
+
+            set
+            {
+                _pag = value;
             }
         }
 
@@ -421,19 +433,6 @@ namespace NetZ.Web.Html
                 _lstTag = new List<Tag>();
 
                 return _lstTag;
-            }
-        }
-
-        protected PaginaHtmlBase pag
-        {
-            get
-            {
-                return _pag;
-            }
-
-            set
-            {
-                _pag = value;
             }
         }
 
@@ -663,7 +662,8 @@ namespace NetZ.Web.Html
 
         /// <summary>
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
-        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtmlBase"/> (ou um de seus descendentes).
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtmlBase"/> (ou um de
+        /// seus descendentes).
         /// </summary>
         public virtual void setPai(Tag tagPai)
         {
@@ -677,7 +677,8 @@ namespace NetZ.Web.Html
 
         /// <summary>
         /// Indica qual o elemento será o "pai" desta tag. Este elemento pode ser uma <see
-        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtmlBase"/> (ou um de seus descendentes).
+        /// cref="Tag"/> (ou um de seus descendentes), ou uma <see cref="PaginaHtmlBase"/> (ou um de
+        /// seus descendentes).
         /// </summary>
         public void setPai(PaginaHtmlBase pagPai)
         {
@@ -708,7 +709,6 @@ namespace NetZ.Web.Html
                 this.addLayoutFixo(this.pag.tagJs);
                 this.addConstante(this.pag.tagJs);
             }
-
 
             return this.getBooTagDupla() ? this.toHtmlTagDupla() : this.toHtmlTagUnica();
         }
@@ -1034,21 +1034,21 @@ namespace NetZ.Web.Html
             stbResultado.Append((!this.booBarraFinal) ? null : "/");
             stbResultado.Append(this.strNome);
             stbResultado.Append(this.strFechamento);
-            stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
+            stbResultado.Append((!string.IsNullOrEmpty(this.urlLink)) ? "</a>" : null);
 
             return stbResultado.ToString();
         }
 
         private string toHtmlTagDuplaLinkIn()
         {
-            if (string.IsNullOrEmpty(this.strLink))
+            if (string.IsNullOrEmpty(this.urlLink))
             {
                 return null;
             }
 
             string strResultado = "<a href=\"_link_valor\" target=\"_target_valor\">";
 
-            strResultado = strResultado.Replace("_link_valor", this.strLink);
+            strResultado = strResultado.Replace("_link_valor", this.urlLink);
             strResultado = strResultado.Replace("_target_valor", this.getStrLinkTipo());
 
             return strResultado;
@@ -1082,7 +1082,7 @@ namespace NetZ.Web.Html
             stbResultado.Append(this.toHtmlAtributo());
             stbResultado.Append((!this.booBarraFinal) ? null : "/");
             stbResultado.Append(this.strFechamento);
-            stbResultado.Append((!string.IsNullOrEmpty(this.strLink)) ? "</a>" : null);
+            stbResultado.Append((!string.IsNullOrEmpty(this.urlLink)) ? "</a>" : null);
 
             return stbResultado.ToString();
         }

@@ -23,7 +23,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             base.inicializar();
 
             this.strConteudo = "_conteudo";
-            this.strLink = "_link";
+            this.urlLink = "_link";
         }
 
         protected override void setCss(CssArquivoBase css)

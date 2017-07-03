@@ -2,6 +2,7 @@
 using NetZ.Web;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Pagina;
+using NetZ.Web.Server.Arquivo.Css;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -78,10 +79,33 @@ namespace Web.UiManager
         public void iniciar()
         {
             this.inicializar();
+
             this.finalizar();
         }
 
+        protected virtual bool getBooExportarCss()
+        {
+            return false;
+        }
+
+        protected virtual string getUrlPrefix()
+        {
+            return null;
+        }
+
         protected abstract void inicializarLstDllUi(List<Assembly> lstDllUi);
+
+        private void exportarCss()
+        {
+            if (!this.getBooExportarCss())
+            {
+                return;
+            }
+
+            Log.i.info("Exportando o arquivo css ({0}).", CssMain.i.dirCompleto);
+
+            CssMain.i.salvar(this.getUrlPrefix());
+        }
 
         private void exportarHtml()
         {
@@ -151,7 +175,7 @@ namespace Web.UiManager
 
         private void exportarHtmlPag(PaginaHtmlBase pag, string dirNamespace)
         {
-            pag.salvar(AppWebBase.DIR_HTML + dirNamespace);
+            pag.salvar(AppWebBase.DIR_HTML + dirNamespace, this.getUrlPrefix());
         }
 
         private void exportarHtmlTag(ComponenteHtml tag, string dirNamespace)
@@ -215,6 +239,7 @@ namespace Web.UiManager
         private void inicializar()
         {
             this.exportarHtml();
+            this.exportarCss();
         }
 
         #endregion Métodos

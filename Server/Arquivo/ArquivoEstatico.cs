@@ -1,4 +1,5 @@
-﻿using DigoFramework.Arquivo;
+﻿using DigoFramework;
+using DigoFramework.Arquivo;
 
 namespace NetZ.Web.Server.Arquivo
 {
@@ -42,7 +43,7 @@ namespace NetZ.Web.Server.Arquivo
                 return null;
             }
 
-            string dirWebResultado = "/_dir_completo";
+            var dirWebResultado = "/_dir_completo";
 
             dirWebResultado = dirWebResultado.Replace("_dir_completo", this.dirCompleto);
             dirWebResultado = dirWebResultado.Replace("\\", "/");

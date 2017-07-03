@@ -189,11 +189,14 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.stbConteudo.ToString();
         }
 
-        public override bool salvar()
+        public void salvar(string urlPrefix = null)
         {
             var strConteudo = Encoding.UTF8.GetString(this.arrBteConteudo);
 
-            strConteudo = strConteudo.Replace(":url(/res/", ":url(../../res/");
+            if (!string.IsNullOrWhiteSpace(urlPrefix))
+            {
+                strConteudo = strConteudo.Replace(":url(/res/", string.Format(":url({0}/res/", urlPrefix));
+            }
 
             this.strConteudo = strConteudo;
 
@@ -203,7 +206,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
             try
             {
-                return base.salvar();
+                base.salvar();
             }
             finally
             {
@@ -419,6 +422,11 @@ namespace NetZ.Web.Server.Arquivo.Css
         public string setFontSize(decimal decFontSize, string strGrandeza = "px")
         {
             return this.addCss("font-size", string.Format("{0}{1}", decFontSize.ToString(this.ctiUsa), strGrandeza));
+        }
+
+        public string setFontSize(string strFontSize)
+        {
+            return this.addCss("font-size", strFontSize);
         }
 
         public string setFontStyle(string strFontStyle)

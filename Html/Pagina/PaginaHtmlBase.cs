@@ -379,14 +379,14 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
-        public void salvar(string dir)
+        public void salvar(string dir, string urlPrefix = null)
         {
             if (string.IsNullOrEmpty(dir))
             {
                 return;
             }
 
-            var strPagNome = string.Format("pag_{0}.html", this.strNomeSimplificado);
+            var strPagNome = string.Format("{0}.html", Utils.simplificar(this.GetType().Name));
 
             var dirCompleto = Path.Combine(dir, strPagNome).Replace("\\", "/");
 
@@ -395,6 +395,11 @@ namespace NetZ.Web.Html.Pagina
             Directory.CreateDirectory(dir);
 
             var strHtml = this.toHtml();
+
+            if (!string.IsNullOrWhiteSpace(urlPrefix))
+            {
+                strHtml = strHtml.Replace("/res/", (urlPrefix + "/res/"));
+            }
 
             var objUtf8Encoding = new UTF8Encoding(true);
 
