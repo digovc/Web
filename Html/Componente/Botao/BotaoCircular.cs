@@ -39,14 +39,10 @@ namespace NetZ.Web.Html.Componente.Botao
         #endregion Construtores
 
         #region Métodos
-
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        protected override void addJs(JavaScriptTag js)
         {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(BotaoCircular), 116));
+            base.addJs(js);
         }
-
         protected virtual int getIntTamanho()
         {
             switch (this.enmTamanho)

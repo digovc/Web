@@ -90,13 +90,6 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(CheckBox), 111));
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();

@@ -56,13 +56,6 @@ namespace NetZ.Web.Html.Componente.Menu
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(DivFavoritoItem), 111));
-        }
-
         protected override void setStrId(string strId)
         {
             base.setStrId(strId);

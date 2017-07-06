@@ -191,6 +191,19 @@ namespace NetZ.Web.Html
             }
         }
 
+        public PaginaHtmlBase pag
+        {
+            get
+            {
+                return _pag;
+            }
+
+            set
+            {
+                _pag = value;
+            }
+        }
+
         /// <summary>
         /// Atributo "src" que pode identificar um arquivo estático do servidor que esta tag representa.
         /// </summary>
@@ -300,19 +313,6 @@ namespace NetZ.Web.Html
             set
             {
                 _urlLink = value;
-            }
-        }
-
-        protected PaginaHtmlBase pag
-        {
-            get
-            {
-                return _pag;
-            }
-
-            set
-            {
-                _pag = value;
             }
         }
 

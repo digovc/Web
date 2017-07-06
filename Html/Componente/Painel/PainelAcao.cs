@@ -67,13 +67,6 @@ namespace NetZ.Web.Html.Componente.Painel
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
-        }
-
         protected override void addTag(Tag tag)
         {
             base.addTag(tag);

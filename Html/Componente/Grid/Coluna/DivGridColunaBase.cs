@@ -19,13 +19,6 @@ namespace NetZ.Web.Html.Componente.Grid.Coluna
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(DivGridColunaBase)));
-        }
-
         #endregion Métodos
 
         #region Eventos

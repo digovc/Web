@@ -112,7 +112,7 @@ namespace NetZ.Web.Html.Pagina
                     return _tagJs;
                 }
 
-                _tagJs = new JavaScriptTag(string.Empty, 100);
+                _tagJs = this.getTagJs();
 
                 return _tagJs;
             }
@@ -453,25 +453,21 @@ namespace NetZ.Web.Html.Pagina
         protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
             lstJs.Add(new JavaScriptTag(typeof(AppWebBase), 104));
-            lstJs.Add(new JavaScriptTag(typeof(Mensagem), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuContexto), 111));
-            lstJs.Add(new JavaScriptTag(typeof(MenuContextoItem), 111));
-            lstJs.Add(new JavaScriptTag(typeof(Notificacao), 111));
             lstJs.Add(new JavaScriptTag(typeof(PaginaHtmlBase), 103));
             lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(Tag), 103));
 
-            lstJs.Add(new JavaScriptTag("/res/js/web/Constante.js", 0));
-            lstJs.Add(new JavaScriptTag("/res/js/web/ConstanteManager.js", 1));
-            lstJs.Add(new JavaScriptTag("/res/js/web/design/TemaDefault.js", 100));
-            lstJs.Add(new JavaScriptTag("/res/js/web/erro/Erro.js", 102));
-            lstJs.Add(new JavaScriptTag("/res/js/web/Historico.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/html/Animator.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/Keys.js", 100));
-            lstJs.Add(new JavaScriptTag("/res/js/web/Loop.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/Objeto.js", 100));
-            lstJs.Add(new JavaScriptTag("/res/js/web/Utils.js", 101));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/Constante.js", 0));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/ConstanteManager.js", 1));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/design/TemaDefault.js", 100));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/erro/Erro.js", 102));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/Historico.js", 101));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/html/Animator.js", 101));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/Keys.js", 100));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/Loop.js", 101));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/Objeto.js", 100));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/Utils.js", 101));
 
             this.addJsAutomatico(lstJs);
         }
@@ -486,7 +482,7 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
-            lstJsLib.Add(new JavaScriptTag("/res/js/lib/jquery-3.1.0.min.js", 0));
+            lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "jquery-3.1.0.min.js", 0));
         }
 
         protected virtual void addLayoutFixo(JavaScriptTag tagJs)
@@ -746,6 +742,15 @@ namespace NetZ.Web.Html.Pagina
             tagIconResultado.booDupla = false;
 
             return tagIconResultado;
+        }
+
+        private JavaScriptTag getTagJs()
+        {
+            var tagJsResultado = new JavaScriptTag(string.Empty, 100);
+
+            tagJsResultado.pag = this;
+
+            return tagJsResultado;
         }
 
         private Tag getTagMetaContent()

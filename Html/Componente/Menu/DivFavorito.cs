@@ -40,7 +40,6 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(DivFavorito), 111));
             lstJs.Add(new JavaScriptTag(typeof(DominioWebBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(FavoritoDominio), 102));
         }

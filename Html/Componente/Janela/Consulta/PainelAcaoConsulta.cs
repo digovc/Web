@@ -53,13 +53,6 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
-        }
-
         protected override void setStrId(string strId)
         {
             base.setStrId(strId);

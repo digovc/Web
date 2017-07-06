@@ -21,13 +21,6 @@
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(Canvas), 111));
-        }
-
         #endregion Métodos
 
         #region Eventos

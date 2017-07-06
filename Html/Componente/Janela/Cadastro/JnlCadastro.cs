@@ -97,9 +97,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 112));
-            lstJs.Add(new JavaScriptTag(this.GetType(), 112));
-
             lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js"));
             lstJs.Add(new JavaScriptTag("/res/js/web/database/ColunaWeb.js"));
         }

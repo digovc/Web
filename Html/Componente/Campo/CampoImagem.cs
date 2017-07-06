@@ -16,13 +16,6 @@
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(CampoImagem), 130));
-        }
-
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.IMAGE;

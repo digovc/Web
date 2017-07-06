@@ -186,6 +186,7 @@ namespace NetZ.Web.Server.Ajax
             if (!objSolicitacao.objUsuario.booLogado)
             {
                 objInterlocutor.strErro = "Usuário deslogado não pode fazer upload de arquivos.";
+
                 return objResposta.addJson(objInterlocutor);
             }
 

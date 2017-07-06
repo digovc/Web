@@ -133,8 +133,6 @@ namespace NetZ.Web.Html.Componente.Menu
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(MenuItem), 151));
-
             lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js"));
         }
 

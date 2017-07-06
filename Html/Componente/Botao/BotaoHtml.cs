@@ -79,13 +79,6 @@ namespace NetZ.Web.Html.Componente.Botao
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(BotaoHtml), 113));
-        }
-
         protected override void inicializar()
         {
             base.inicializar();

@@ -18,13 +18,6 @@ namespace NetZ.Web.Html.Componente.Mobile
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(TileBase), 111));
-        }
-
         #endregion Métodos
 
         #region Eventos

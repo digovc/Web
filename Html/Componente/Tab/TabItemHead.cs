@@ -40,13 +40,6 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 110));
-        }
-
         protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);

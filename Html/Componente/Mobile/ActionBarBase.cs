@@ -129,13 +129,6 @@ namespace NetZ.Web.Html.Componente.Mobile
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(ActionBarBase), 111));
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();

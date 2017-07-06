@@ -69,7 +69,14 @@ namespace NetZ.Web.Html.Componente
                 this.addJsAutomatico(lstJs, cls.BaseType);
             }
 
-            lstJs.Add(new JavaScriptTag(cls));
+            var intOrdem = 111;
+
+            if (!this.GetType().Assembly.FullName.Equals(typeof(ComponenteHtml).Assembly.FullName))
+            {
+                intOrdem = 200;
+            }
+
+            lstJs.Add(new JavaScriptTag(cls, intOrdem));
         }
 
         #endregion Métodos

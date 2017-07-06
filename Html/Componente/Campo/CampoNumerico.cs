@@ -18,13 +18,6 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(CampoNumerico), 132));
-        }
-
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.NUMBER;

@@ -69,13 +69,6 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
-        }
-
         protected override void setCln(Coluna cln)
         {
             base.setCln(cln);

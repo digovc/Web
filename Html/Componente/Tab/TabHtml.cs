@@ -162,13 +162,6 @@ namespace NetZ.Web.Html.Componente.Tab
 
         #region Métodos
 
-        protected override void addJs(LstTag<JavaScriptTag> lstJs)
-        {
-            base.addJs(lstJs);
-
-            lstJs.Add(new JavaScriptTag(typeof(TabHtml), 110));
-        }
-
         protected override void addTag(Tag tag)
         {
             if (tag == null)

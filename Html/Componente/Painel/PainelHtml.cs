@@ -90,8 +90,6 @@ namespace NetZ.Web.Html.Componente.Painel
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(PainelHtml), 114));
-
             this.addJsMarkdown(lstJs);
         }
 
