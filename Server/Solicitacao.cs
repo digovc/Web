@@ -70,25 +70,6 @@ namespace NetZ.Web.Server
         private string _strSessao;
 
         /// <summary>
-        /// Caso esta seja uma solicitação do tipo POST, este retorna os valores dos parâmetros
-        /// passados na solicitação.
-        /// </summary>
-        public Dictionary<string, string> dicPost
-        {
-            get
-            {
-                if (_dicPost != null)
-                {
-                    return _dicPost;
-                }
-
-                _dicPost = this.getDicPost();
-
-                return _dicPost;
-            }
-        }
-
-        /// <summary>
         /// Indica a data e hora da última modificação do recurso que está salvo em cache do lado do
         /// cliente no cache.
         /// <para>
@@ -357,6 +338,21 @@ namespace NetZ.Web.Server
             }
         }
 
+        private Dictionary<string, string> dicPost
+        {
+            get
+            {
+                if (_dicPost != null)
+                {
+                    return _dicPost;
+                }
+
+                _dicPost = this.getDicPost();
+
+                return _dicPost;
+            }
+        }
+
         private List<Field> lstObjField
         {
             get
@@ -505,7 +501,7 @@ namespace NetZ.Web.Server
                 urlPagina = "http://localhost" + urlPagina;
             }
 
-            Uri uri = new Uri(urlPagina);
+            var uri = new Uri(urlPagina);
 
             return HttpUtility.ParseQueryString(uri.Query).Get(strGetParam);
         }
@@ -553,6 +549,25 @@ namespace NetZ.Web.Server
             }
 
             return null;
+        }
+
+        public string getStrPostValue(string strPostParam)
+        {
+            if (string.IsNullOrWhiteSpace(strPostParam))
+            {
+                return null;
+            }
+
+            if (this.dicPost == null)
+            {
+                return null;
+            }
+
+            string strResultado = null;
+
+            this.dicPost.TryGetValue(strPostParam, out strResultado);
+
+            return strResultado;
         }
 
         internal bool validar()
@@ -708,7 +723,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            Dictionary<string, string> dicResultado = new Dictionary<string, string>();
+            var dicResultado = new Dictionary<string, string>();
 
             foreach (string strKeyValue in arrStrKeyValue)
             {
@@ -727,19 +742,17 @@ namespace NetZ.Web.Server
 
             strKeyValue = HttpUtility.UrlDecode(strKeyValue);
 
-            string[] arrStrKeyValue = strKeyValue.Split("=".ToCharArray());
+            var intIndex = strKeyValue.IndexOf("=");
 
-            if (arrStrKeyValue == null)
+            if (intIndex < 0)
             {
                 return;
             }
 
-            if (arrStrKeyValue.Length < 2)
-            {
-                return;
-            }
+            var strKey = strKeyValue.Substring(0, intIndex);
+            var strValue = strKeyValue.Substring(++intIndex, (strKeyValue.Length - intIndex));
 
-            dicResultado.Add(arrStrKeyValue[0], arrStrKeyValue[1]);
+            dicResultado.Add(strKey, strValue);
         }
 
         private DateTime getDttUltimaModificacao()

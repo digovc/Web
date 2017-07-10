@@ -314,10 +314,17 @@ namespace NetZ.Web.Server
         /// Adiciona código HTML para a resposta que será encaminhada para o cliente quando o
         /// processamento da solicitação for finalizada.
         /// </summary>
-        /// <param name="strHtml">Código HTML que deve ser enviada para o cliente.</param>
+        /// <param name="objHtml">Código HTML que deve ser enviada para o cliente.</param>
         /// <returns>Retorna esta mesma instância.</returns>
-        public Resposta addHtml(string strHtml)
+        public Resposta addHtml(object objHtml)
         {
+            if (objHtml == null)
+            {
+                return this;
+            }
+
+            var strHtml = objHtml.ToString();
+
             if (string.IsNullOrEmpty(strHtml))
             {
                 return this;

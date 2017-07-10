@@ -18,6 +18,11 @@ namespace NetZ.Web.Html.Componente
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            //base.addJs(lstJs);
+        }
+
         protected override void setCss(CssArquivoBase tagCss)
         {
             base.setCss(tagCss);
