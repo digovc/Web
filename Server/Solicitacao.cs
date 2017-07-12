@@ -45,6 +45,8 @@ namespace NetZ.Web.Server
             POST,
         }
 
+        private const string STR_BODY_DIVISION = "\r\n\r\n";
+
         #endregion Constantes
 
         #region Atributos
@@ -572,10 +574,6 @@ namespace NetZ.Web.Server
 
         internal bool validar()
         {
-            // TODO: Quando a solicitação utilizar o método POST deve ser validado o corpo dela para
-            //       garantir que todo os bytes foram transferidos. Do contrário um cache deve ser
-            //       criado afim de aguardar o envio completo dos dados.
-
             if (this.enmMetodo.Equals(EnmMetodo.DESCONHECIDO))
             {
                 return false;
@@ -596,7 +594,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            int intIndexOf = Utils.indexOf(this.arrBteMsgCliente, Encoding.UTF8.GetBytes(Environment.NewLine + Environment.NewLine));
+            int intIndexOf = Utils.indexOf(this.arrBteMsgCliente, Encoding.UTF8.GetBytes(STR_BODY_DIVISION));
 
             intIndexOf += 4;
 
@@ -620,9 +618,9 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            byte[] arrBte = new byte[1024000];
-            int intQuantidade = 0;
-            MemoryStream mmsMsgCliente = new MemoryStream();
+            var arrBte = new byte[1024000];
+            var intQuantidade = 0;
+            var mmsMsgCliente = new MemoryStream();
 
             do
             {
@@ -653,7 +651,7 @@ namespace NetZ.Web.Server
                 return false;
             }
 
-            string strMsgClienteParcial = Encoding.UTF8.GetString(mmsMsgClienteParcial.ToArray());
+            var strMsgClienteParcial = Encoding.UTF8.GetString(mmsMsgClienteParcial.ToArray());
 
             if (string.IsNullOrEmpty(strMsgClienteParcial))
             {
@@ -670,9 +668,10 @@ namespace NetZ.Web.Server
                 return true;
             }
 
-            int intContentLength = this.getIntMsgClienteContentLength(strMsgClienteParcial);
 
-            int intContentLengthRecebido = this.getIntMsgClienteContentLengthRecebido(mmsMsgClienteParcial);
+            var intContentLength = this.getIntMsgClienteContentLength(strMsgClienteParcial);
+
+            var intContentLengthRecebido = this.getIntMsgClienteContentLengthRecebido(mmsMsgClienteParcial);
 
             if (intContentLength.Equals(intContentLengthRecebido))
             {
@@ -829,7 +828,7 @@ namespace NetZ.Web.Server
 
         private int getIntMsgClienteContentLength(string strMsgClienteParcial)
         {
-            int intIndexOfStart = strMsgClienteParcial.ToLower().IndexOf("content-length: ");
+            var intIndexOfStart = strMsgClienteParcial.ToLower().IndexOf("content-length: ");
 
             if (intIndexOfStart < 0)
             {
@@ -838,14 +837,14 @@ namespace NetZ.Web.Server
 
             intIndexOfStart += "content-length: ".Length;
 
-            int intIndexOfEnd = strMsgClienteParcial.IndexOf(Environment.NewLine, intIndexOfStart);
+            var intIndexOfEnd = strMsgClienteParcial.IndexOf(Environment.NewLine, intIndexOfStart);
 
             if (intIndexOfEnd < 0)
             {
                 return 0;
             }
 
-            int intResultado = 0;
+            var intResultado = 0;
 
             int.TryParse(strMsgClienteParcial.Substring(intIndexOfStart, (intIndexOfEnd - intIndexOfStart)), out intResultado);
 
@@ -854,7 +853,7 @@ namespace NetZ.Web.Server
 
         private int getIntMsgClienteContentLengthRecebido(MemoryStream mmsMsgClienteParcial)
         {
-            int intIndexOfStart = Utils.indexOf(mmsMsgClienteParcial.ToArray(), Encoding.UTF8.GetBytes(Environment.NewLine + Environment.NewLine));
+            var intIndexOfStart = Utils.indexOf(mmsMsgClienteParcial.ToArray(), Encoding.UTF8.GetBytes(STR_BODY_DIVISION));
 
             if (intIndexOfStart < 0)
             {
@@ -888,7 +887,7 @@ namespace NetZ.Web.Server
 
         private List<Cookie> getLstObjCookie()
         {
-            List<Cookie> lstObjCookieResultado = new List<Cookie>();
+            var lstObjCookieResultado = new List<Cookie>();
 
             foreach (Field objField in this.lstObjField)
             {

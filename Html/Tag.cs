@@ -223,8 +223,6 @@ namespace NetZ.Web.Html
                     return;
                 }
 
-                // TODO: Avaliar a necessidade de adicionar a versão da aplicação para que recursos
-                // não fiquem defasados por conta do cache do navegador.
                 this.attSrc.strValor = _src;
             }
         }

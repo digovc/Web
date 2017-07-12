@@ -59,7 +59,7 @@ namespace NetZ.Web.Html
         {
             this.booClazz = false;
             this.intOrdem = intOrdem;
-            this.src = src;
+            this.src = this.getSrc(src);
         }
 
         public JavaScriptTag(Type cls, int intOrdem = 200) : this(getSrc(cls), intOrdem)
@@ -77,15 +77,9 @@ namespace NetZ.Web.Html
                 return null;
             }
 
-            string srcResultado = "/res/js/_cls_namespace/_cls_nome_ponto_finaljs";
-
-            srcResultado = srcResultado.Replace("_cls_namespace", cls.Namespace.ToLower());
-            srcResultado = srcResultado.Replace("_cls_nome", cls.Name);
-            srcResultado = srcResultado.Replace(".", "/");
+            var srcResultado = string.Format("/res/js/{0}/{1}.js?v={2}", cls.Namespace.ToLower().Replace(".", "/"), cls.Name, AppWebBase.i.strVersao);
 
             srcResultado = srcResultado.Replace("/netz/web/", "/web/");
-
-            srcResultado = srcResultado.Replace("_ponto_final", ".");
 
             return srcResultado;
         }
@@ -187,6 +181,21 @@ namespace NetZ.Web.Html
             this.addAtt("type", "text/javascript");
 
             //this.addAtt("defer");
+        }
+
+        private string getSrc(string src)
+        {
+            if (string.IsNullOrWhiteSpace(src))
+            {
+                return null;
+            }
+
+            if (src.Contains("?"))
+            {
+                return src;
+            }
+
+            return string.Format("{0}?v={1}", src, AppWebBase.i.strVersao);
         }
 
         #endregion Métodos

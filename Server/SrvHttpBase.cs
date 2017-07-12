@@ -210,11 +210,11 @@ namespace NetZ.Web.Server
                     continue;
                 }
 
-                this.inicializarArquivoEstaticoArquivo(dirArquivo);
+                this.adicionarArquivoEstatico(dirArquivo);
             }
         }
 
-        private void inicializarArquivoEstaticoArquivo(string dirArquivo)
+        protected void adicionarArquivoEstatico(string dirArquivo)
         {
             if (string.IsNullOrEmpty(dirArquivo))
             {
