@@ -1,6 +1,5 @@
 ﻿using DigoFramework;
 using NetZ.Persistencia;
-using NetZ.Persistencia.Interface;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
 using System.Collections.Generic;
@@ -115,6 +114,25 @@ namespace NetZ.Web.Server
             return null;
         }
 
+        protected void adicionarArquivoEstatico(string dirArquivo)
+        {
+            if (string.IsNullOrEmpty(dirArquivo))
+            {
+                return;
+            }
+
+            if (!File.Exists(dirArquivo))
+            {
+                return;
+            }
+
+            var arq = new ArquivoEstatico();
+
+            arq.dirCompleto = dirArquivo;
+
+            this.lstArqEstatico.Add(arq);
+        }
+
         protected override int getIntPorta()
         {
             return 80;
@@ -134,6 +152,36 @@ namespace NetZ.Web.Server
             this.inicializarHtmlEstatico();
 
             this.inicializarArquivoEstatico();
+        }
+
+        protected Resposta responderArquivoEstatico(Solicitacao objSolicitacao, string dirArquivo)
+        {
+            if (string.IsNullOrWhiteSpace(dirArquivo))
+            {
+                return null;
+            }
+
+            foreach (var arq in this.lstArqEstatico)
+            {
+                if (arq == null)
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(arq.dirWeb))
+                {
+                    continue;
+                }
+
+                if (!arq.dirWeb.ToLower().Equals(dirArquivo.ToLower()))
+                {
+                    continue;
+                }
+
+                return this.responderArquivoEstatico(objSolicitacao, arq);
+            }
+
+            return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
         }
 
         private void criarDiretorio()
@@ -214,25 +262,6 @@ namespace NetZ.Web.Server
             }
         }
 
-        protected void adicionarArquivoEstatico(string dirArquivo)
-        {
-            if (string.IsNullOrEmpty(dirArquivo))
-            {
-                return;
-            }
-
-            if (!File.Exists(dirArquivo))
-            {
-                return;
-            }
-
-            var arq = new ArquivoEstatico();
-
-            arq.dirCompleto = dirArquivo;
-
-            this.lstArqEstatico.Add(arq);
-        }
-
         private void inicializarHtmlEstatico()
         {
             if (this.objUiManager == null)
@@ -272,27 +301,7 @@ namespace NetZ.Web.Server
                 return this.responderArquivoEstaticoGetScript(objSolicitacao);
             }
 
-            foreach (var arq in this.lstArqEstatico)
-            {
-                if (arq == null)
-                {
-                    continue;
-                }
-
-                if (string.IsNullOrEmpty(arq.dirWeb))
-                {
-                    continue;
-                }
-
-                if (!arq.dirWeb.ToLower().Equals(objSolicitacao.strPagina.ToLower()))
-                {
-                    continue;
-                }
-
-                return this.responderArquivoEstatico(objSolicitacao, arq);
-            }
-
-            return this.responderArquivoEstaticoNaoEncontrado(objSolicitacao);
+            return this.responderArquivoEstatico(objSolicitacao, objSolicitacao.strPagina);
         }
 
         private Resposta responderArquivoEstatico(Solicitacao objSolicitacao, ArquivoEstatico arq)
@@ -307,11 +316,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            Resposta objResposta = new Resposta(objSolicitacao);
-
-            objResposta.addArquivo(arq);
-
-            return objResposta;
+            return new Resposta(objSolicitacao).addArquivo(arq);
         }
 
         private Resposta responderArquivoEstaticoGetScript(Solicitacao objSolicitacao)
@@ -340,7 +345,7 @@ namespace NetZ.Web.Server
 
         private Resposta responderArquivoEstaticoNaoEncontrado(Solicitacao objSolicitacao)
         {
-            Log.i.info("Arquivo estático ({0}) não encontrado.", objSolicitacao.strPaginaCompleta);
+            Log.i.erro("Arquivo estático ({0}) não encontrado.", objSolicitacao.strPaginaCompleta);
 
             return new Resposta(objSolicitacao) { intStatus = 404 };
         }
@@ -393,11 +398,6 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            if (!(tbl is ITblArquivo))
-            {
-                return null;
-            }
-
             tbl.recuperar(intRegistroId);
 
             if (!intRegistroId.Equals(tbl.clnIntId.intValor))
@@ -405,21 +405,13 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            if ((tbl as ITblArquivo).getClnArq().arrBteValor == null)
-            {
-                return null;
-            }
+            var arqDownload = new ArquivoEstatico();
 
-            if ((tbl as ITblArquivo).getClnArq().arrBteValor.Length < 1)
-            {
-                return null;
-            }
+            //arqDownload.arrBteConteudo = (tbl as ITblArquivo).getClnArq().arrBteValor;
+            //arqDownload.dttAlteracao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
+            //arqDownload.strNome = (tbl as ITblArquivo).getClnStrArquivoNome().strValor;
 
-            ArquivoEstatico arqDownload = new ArquivoEstatico();
-
-            arqDownload.arrBteConteudo = (tbl as ITblArquivo).getClnArq().arrBteValor;
-            arqDownload.dttAlteracao = (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor;
-            arqDownload.strNome = (tbl as ITblArquivo).getClnStrArquivoNome().strValor;
+            // TODO: Refazer.
 
             tbl.liberarThread();
 

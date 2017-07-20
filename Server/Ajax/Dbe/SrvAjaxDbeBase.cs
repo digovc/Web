@@ -352,21 +352,6 @@ namespace NetZ.Web.Server.Ajax.Data
         {
         }
 
-        private void carregarArquivoUpload(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)
-        {
-            if (!(tbl is ITblArquivo))
-            {
-                return;
-            }
-
-            if (DateTime.MinValue.Equals(tblWeb.dttUpload))
-            {
-                return;
-            }
-
-            objSolicitacao.objUsuario.carregarArquivo(objSolicitacao, objInterlocutor, tblWeb, tbl);
-        }
-
         private void carregarTbl(Solicitacao objSolicitacao, Interlocutor objInterlocutor)
         {
             TabelaBase tbl = this.dbe[objInterlocutor.objData.ToString()];
@@ -632,8 +617,6 @@ namespace NetZ.Web.Server.Ajax.Data
                 tblWeb.getCln(tbl.clnDttCadastro.sqlNome).dttValor = DateTime.Now;
                 tblWeb.getCln(tbl.clnIntUsuarioCadastroId.sqlNome).intValor = objSolicitacao.objUsuario.intId;
             }
-
-            this.carregarArquivoUpload(objSolicitacao, objInterlocutor, tblWeb, tbl);
 
             tbl.salvarWeb(tblWeb);
 

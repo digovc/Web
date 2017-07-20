@@ -1,8 +1,7 @@
-﻿using System;
-using DigoFramework.Arquivo;
+﻿using DigoFramework.Arquivo;
 using NetZ.Persistencia;
-using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
+using System;
 
 namespace NetZ.Web.Server.Arquivo
 {
@@ -104,28 +103,9 @@ namespace NetZ.Web.Server.Arquivo
                 return false;
             }
 
-            (tbl as ITblArquivo).getClnArq().arrBteValor = this.arrBteConteudo;
-            (tbl as ITblArquivo).getClnDttArquivoModificacao().dttValor = this.dttUpload;
-            (tbl as ITblArquivo).getClnIntArquivoTamanho().intValor = this.arrBteConteudo.Length;
-            (tbl as ITblArquivo).getClnStrArquivoNome().strValor = this.strNome;
+            // TODO: Refazer.
 
             return true;
-        }
-
-        private void setObjSolicitacao(Solicitacao objSolicitacao)
-        {
-            if (objSolicitacao == null)
-            {
-                return;
-            }
-
-            if (objSolicitacao.frmData == null)
-            {
-                return;
-            }
-
-            this.arrBteConteudo = objSolicitacao.frmData.getArrBteFrmItemValor("arq_conteudo");
-            this.strNome = objSolicitacao.frmData.getStrFrmItemValor("arq_nome");
         }
 
         private bool carregarArquivoValidar(Solicitacao objSolicitacao, Interlocutor objInterlocutor, TabelaWeb tblWeb, TabelaBase tbl)
@@ -151,11 +131,6 @@ namespace NetZ.Web.Server.Arquivo
             }
 
             if (this.arrBteConteudo.Length < 1)
-            {
-                return false;
-            }
-
-            if (!(tbl is ITblArquivo))
             {
                 return false;
             }
@@ -231,6 +206,22 @@ namespace NetZ.Web.Server.Arquivo
             }
 
             return this.objSolicitacao.frmData.getStrFrmItemValor("tbl_web_nome");
+        }
+
+        private void setObjSolicitacao(Solicitacao objSolicitacao)
+        {
+            if (objSolicitacao == null)
+            {
+                return;
+            }
+
+            if (objSolicitacao.frmData == null)
+            {
+                return;
+            }
+
+            this.arrBteConteudo = objSolicitacao.frmData.getArrBteFrmItemValor("arq_conteudo");
+            this.strNome = objSolicitacao.frmData.getStrFrmItemValor("arq_nome");
         }
 
         #endregion Métodos

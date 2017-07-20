@@ -90,11 +90,15 @@ namespace NetZ.Web.DataBase.Tabela
 
         #region Métodos
 
+        protected override Coluna getClnNome()
+        {
+            return this.clnStrNome;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.clnNome = this.clnStrNome;
             this.clsJnlCadastro = typeof(JnlFiltroCadastro);
 
             this.clnStrDescricao.strNomeExibicao = "descrição";
