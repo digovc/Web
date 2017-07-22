@@ -79,6 +79,11 @@ namespace NetZ.Web.Html
 
             var srcResultado = string.Format("/res/js/{0}/{1}.js?v={2}", cls.Namespace.ToLower().Replace(".", "/"), cls.Name, AppWebBase.i.strVersao);
 
+            if (AppWebBase.i.booDesenvolvimento)
+            {
+                srcResultado = string.Format("/res/js/{0}/{1}.js", cls.Namespace.ToLower().Replace(".", "/"), cls.Name);
+            }
+
             srcResultado = srcResultado.Replace("/netz/web/", "/web/");
 
             return srcResultado;
@@ -188,6 +193,11 @@ namespace NetZ.Web.Html
             if (string.IsNullOrWhiteSpace(src))
             {
                 return null;
+            }
+
+            if (AppWebBase.i.booDesenvolvimento)
+            {
+                return src;
             }
 
             if (src.Contains("?"))
