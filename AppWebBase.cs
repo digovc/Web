@@ -1,6 +1,6 @@
 ﻿using DigoFramework;
 using DigoFramework.Servico;
-using NetZ.Web.DataBase;
+using NetZ.Persistencia;
 using NetZ.Web.DataBase.Dominio;
 using System;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ namespace NetZ.Web
         private static AppWebBase _i;
 
         private bool _booMostrarGrade;
-        private DbeWebBase _dbe;
+        private DbeBase _dbe;
         private List<UsuarioDominio> _lstObjUsuario;
         private List<ServicoBase> _lstSrv;
         private object _objLstObjUsuarioLock;
@@ -90,7 +90,7 @@ namespace NetZ.Web
             }
         }
 
-        public DbeWebBase dbe
+        public DbeBase dbe
         {
             get
             {
@@ -273,7 +273,7 @@ namespace NetZ.Web
             }
         }
 
-        protected virtual DbeWebBase getDbe()
+        protected virtual DbeBase getDbe()
         {
             return null;
         }
