@@ -129,11 +129,16 @@ namespace NetZ.Web.Html.Componente.Markdown
             tagJs.addLayoutFixo(typeof(IndiceItem));
         }
 
+        protected override bool getBooClazz()
+        {
+            return true;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.strId = ("SumarioMarkdownItem_" + Utils.simplificar(this.dirMarkdown));
+            this.strId = ("SumarioItem_" + Utils.simplificar(this.dirMarkdown));
 
             this.addAtt("url-markdown", ("/" + this.dirMarkdown.Replace("\\", "/")));
 

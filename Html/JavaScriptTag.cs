@@ -57,7 +57,6 @@ namespace NetZ.Web.Html
 
         public JavaScriptTag(string src = null, int intOrdem = 200) : base("script")
         {
-            this.booClazz = false;
             this.intOrdem = intOrdem;
             this.src = this.getSrc(src);
         }

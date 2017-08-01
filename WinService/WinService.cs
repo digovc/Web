@@ -46,8 +46,6 @@ namespace NetZ.Web.WinService
 
         private void runService()
         {
-            //Debugger.Launch();
-
             Log.i.info("Abrindo em modo de serviço.");
 
             Run(i);

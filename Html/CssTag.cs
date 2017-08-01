@@ -52,7 +52,6 @@
 
         public CssTag(string strHref) : base("link")
         {
-            this.booClazz = false;
             this.strHref = strHref;
         }
 
@@ -70,6 +69,15 @@
             this.addAtt("type", "text/css");
         }
 
+        private Atributo getAttHref()
+        {
+            Atributo attResultado = new Atributo("href");
+
+            this.addAtt(attResultado);
+
+            return attResultado;
+        }
+
         private void setStrHref(string strHref)
         {
             if (string.IsNullOrEmpty(strHref))
@@ -78,15 +86,6 @@
             }
 
             this.attHref.strValor = strHref;
-        }
-
-        private Atributo getAttHref()
-        {
-            Atributo attResultado = new Atributo("href");
-
-            this.addAtt(attResultado);
-
-            return attResultado;
         }
 
         #endregion Métodos

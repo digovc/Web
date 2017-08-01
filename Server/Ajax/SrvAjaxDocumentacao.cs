@@ -73,7 +73,7 @@ namespace NetZ.Web.Server.Ajax
 
         protected override int getIntPorta()
         {
-            return 8082;
+            return 81; // TODO: Corrigir duplicidade dessa porta nessa classe e na classe "PagDocumentacaoBase".
         }
 
         protected override void inicializar()
