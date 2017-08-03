@@ -56,7 +56,7 @@ namespace NetZ.Web.Html.Componente.Menu.Contexto
             base.setCss(css);
 
             this.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corSombra));
-            this.addCss(css.setColor("white"));
+            this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setCursor("pointer"));
             this.addCss(css.setPadding(10));
             this.addCss(css.setPosition("relative"));

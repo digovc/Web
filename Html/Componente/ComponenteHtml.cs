@@ -52,6 +52,11 @@ namespace NetZ.Web.Html.Componente
             this.addJsAutomatico(lstJs);
         }
 
+        protected override bool getBooClazz()
+        {
+            return AppWebBase.i.booDesenvolvimento;
+        }
+
         private void addJsAutomatico(LstTag<JavaScriptTag> lstJs)
         {
             this.addJsAutomatico(lstJs, this.GetType());

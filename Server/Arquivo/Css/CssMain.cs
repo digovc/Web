@@ -53,7 +53,7 @@ namespace NetZ.Web.Server.Arquivo.Css
             this.addCssPuro("::-webkit-scrollbar-track{background-color:rgba(0,0,0,0.0);border-radius:5px;}");
             this.addCssPuro("::-webkit-scrollbar-thumb{background-color:rgba(80,80,80,0.5);border-radius:5px;}");
             this.addCssPuro("::-webkit-scrollbar-corner{border-radius:5px;}");
-            
+
             this.addCssPuro("a:link{color:inherit;text-decoration:none;}");
             this.addCssPuro("a:visited{color:inherit;text-decoration:none;}");
             this.addCssPuro("a:hover{color:inherit;text-decoration:none;}");

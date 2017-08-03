@@ -81,7 +81,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaMobileResultado = new Tag("meta");
 
-            tagMetaMobileResultado.booClazz = false;
             tagMetaMobileResultado.booDupla = false;
 
             tagMetaMobileResultado.addAtt("content", "yes");
@@ -94,7 +93,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaViewPortResultado = new Tag("meta");
 
-            tagMetaViewPortResultado.booClazz = false;
             tagMetaViewPortResultado.booDupla = false;
 
             tagMetaViewPortResultado.addAtt("name", "viewport");
