@@ -409,7 +409,7 @@ namespace NetZ.Web.Server.Ajax.Data
 
             if (tbl == null)
             {
-                throw new NullReferenceException();
+                throw new Exception("Tabela não encontrada.");
             }
 
             // TODO: Validar permissão de acesso a esses dados.
