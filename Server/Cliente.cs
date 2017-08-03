@@ -163,9 +163,10 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
             objResposta.addHtml(new PagError(ex));
+
             objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
 
             this.responder(objResposta);
