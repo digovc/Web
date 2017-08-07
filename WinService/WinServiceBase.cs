@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DigoFramework;
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
 
@@ -27,11 +29,67 @@ namespace NetZ.Web.WinService
 
         protected abstract AppWebBase getAppWeb();
 
-        private void iniciar()
+        protected void iniciar()
         {
-            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            if (this.validarDebug())
+            {
+                this.runDebug();
+                return;
+            }
+
+            this.runService();
+        }
+
+        private void runDebug()
+        {
+            Log.i.info("Abrindo em modo de aplicação.");
 
             this.getAppWeb().iniciar();
+
+            Console.Read();
+
+            Log.i.info("Fechando a aplicação.");
+
+            this.getAppWeb().pararServidor();
+        }
+
+        private void runService()
+        {
+            Log.i.info("Abrindo em modo de serviço.");
+
+            Run(this);
+        }
+
+        private bool validarDebug()
+        {
+            if (this.getAppWeb().booDesenvolvimento)
+            {
+                return true;
+            }
+
+            if (Debugger.IsAttached)
+            {
+                return true;
+            }
+
+            var arrStrParam = Environment.GetCommandLineArgs();
+
+            if (arrStrParam == null)
+            {
+                return false;
+            }
+
+            if (arrStrParam.Length < 1)
+            {
+                return false;
+            }
+
+            if (!arrStrParam[0].Equals("debug"))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion Métodos
@@ -42,7 +100,9 @@ namespace NetZ.Web.WinService
         {
             base.OnStart(args);
 
-            this.iniciar();
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
+            this.getAppWeb().iniciar();
         }
 
         protected override void OnStop()
