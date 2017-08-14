@@ -200,7 +200,7 @@ namespace NetZ.Web.Server
             this.tcpClient.Close();
         }
 
-        private bool getBooConectado()
+        internal bool getBooConectado()
         {
             if (this.tcpClient == null)
             {
