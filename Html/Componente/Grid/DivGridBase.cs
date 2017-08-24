@@ -1,11 +1,12 @@
-﻿using NetZ.Web.Html.Componente.Grid.Coluna;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
     public abstract class DivGridBase : ComponenteHtml
     {
         #region Constantes
+
+        internal const string STR_GRID_ID = "_div_grid_id";
 
         #endregion Constantes
 
@@ -19,25 +20,20 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
-        protected override void addLayoutFixo(JavaScriptTag tagJs)
-        {
-            base.addLayoutFixo(tagJs);
-
-            tagJs.addLayoutFixo(typeof(DivGridCabecalho));
-            tagJs.addLayoutFixo(typeof(DivGridConteudo));
-            tagJs.addLayoutFixo(typeof(DivGridRodape));
-
-            tagJs.addLayoutFixo(typeof(DivGridLinha));
-
-            tagJs.addLayoutFixo(typeof(DivGridColunaCabecalho));
-            tagJs.addLayoutFixo(typeof(DivGridColunaSumario));
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.strId = "_div_grid_consulta_id";
+            this.strId = STR_GRID_ID;
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            new DivGridCabecalho().setPai(this);
+            new DivGridConteudo().setPai(this);
+            new DivGridRodape().setPai(this);
         }
 
         protected override void setCss(CssArquivoBase css)

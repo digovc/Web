@@ -1,4 +1,4 @@
-﻿using NetZ.Web.Html.Componente;
+﻿using NetZ.Web.Html.Componente.Grid.Coluna;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
@@ -18,11 +18,18 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(DivGridColunaRodape));
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.strId = "_div_grid_rodape_id";
+            this.strId = (DivGridBase.STR_GRID_ID + "_" + this.GetType().Name);
         }
 
         #endregion Métodos
