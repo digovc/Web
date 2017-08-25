@@ -69,7 +69,8 @@
     <Compile Include="Html\Componente\Documentacao\ActionBarDocumentacao.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaBase.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaCabecalho.cs" />
-    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaSumario.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaLinha.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaRodape.cs" />
     <Compile Include="Html\Componente\Grid\DivGridBase.cs" />
     <Compile Include="Html\Componente\Grid\DivGridCabecalho.cs" />
     <Compile Include="Html\Componente\Grid\DivGridConsulta.cs" />
@@ -183,12 +184,14 @@
     <Compile Include="Server\Field.cs" />
     <Compile Include="Server\FormData.cs" />
     <Compile Include="Server\FormDataItem.cs" />
+    <Compile Include="Server\Https\ClienteHttps.cs" />
     <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\SrvHttpBase.cs" />
     <Compile Include="Server\Ajax\SrvAjaxBase.cs" />
     <Compile Include="Server\Ajax\Dbe\SrvAjaxDbeBase.cs" />
+    <Compile Include="Server\Https\SrvHttpsBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\SrvWsBase.cs" />

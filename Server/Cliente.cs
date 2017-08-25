@@ -151,6 +151,8 @@ namespace NetZ.Web.Server
                     return;
                 }
 
+                this.dttUltimaMensagemRecebida = DateTime.Now;
+
                 this.responder(this.srv.responder(objSolicitacao));
             }
             catch (Exception ex)
@@ -198,7 +200,7 @@ namespace NetZ.Web.Server
             this.loop();
         }
 
-        private Solicitacao carregarSolicitacao()
+        protected virtual Solicitacao carregarSolicitacao()
         {
             if (!this.getBooConectado())
             {
@@ -209,8 +211,6 @@ namespace NetZ.Web.Server
             {
                 return null;
             }
-
-            this.dttUltimaMensagemRecebida = DateTime.Now;
 
             return new Solicitacao(this.tcpClient.GetStream());
         }
@@ -223,6 +223,31 @@ namespace NetZ.Web.Server
             }
 
             this.tcpClient.Close();
+        }
+
+        internal bool getBooConectado()
+        {
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            if (this.tcpClient.GetStream() == null)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
         }
 
         private void inicializarStrNome()
