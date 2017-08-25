@@ -411,6 +411,11 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
+        public bool getBooGetValue(string strGetParam)
+        {
+            return Utils.getBoo(this.getStrGetValue(strGetParam));
+        }
+
         public decimal getDecGetValue(string strGetParam)
         {
             decimal decValueResultado = 0;
@@ -667,7 +672,6 @@ namespace NetZ.Web.Server
             {
                 return true;
             }
-
 
             var intContentLength = this.getIntMsgClienteContentLength(strMsgClienteParcial);
 
