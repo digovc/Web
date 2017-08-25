@@ -14,6 +14,7 @@ namespace NetZ.Web.Html
         #region Atributos
 
         private int _intOrdem;
+        private List<Type> _lstClsLayoutFixo;
         private List<string> _lstStrCodigo;
 
         /// <summary>
@@ -33,6 +34,21 @@ namespace NetZ.Web.Html
             set
             {
                 _intOrdem = value;
+            }
+        }
+
+        private List<Type> lstClsLayoutFixo
+        {
+            get
+            {
+                if (_lstClsLayoutFixo != null)
+                {
+                    return _lstClsLayoutFixo;
+                }
+
+                _lstClsLayoutFixo = new List<Type>();
+
+                return _lstClsLayoutFixo;
             }
         }
 
@@ -145,7 +161,13 @@ namespace NetZ.Web.Html
                 return;
             }
 
+            if (this.lstClsLayoutFixo.Contains(cls))
+            {
+                return;
+            }
+
             this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml(this.pag));
+            this.lstClsLayoutFixo.Add(cls);
         }
 
         public override string toHtml(PaginaHtmlBase pag)

@@ -69,7 +69,8 @@
     <Compile Include="Html\Componente\Documentacao\ActionBarDocumentacao.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaBase.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaCabecalho.cs" />
-    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaSumario.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaLinha.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaRodape.cs" />
     <Compile Include="Html\Componente\Grid\DivGridBase.cs" />
     <Compile Include="Html\Componente\Grid\DivGridCabecalho.cs" />
     <Compile Include="Html\Componente\Grid\DivGridConsulta.cs" />
