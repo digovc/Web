@@ -16,18 +16,20 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
-        private bool _booConectado;
         private DateTime _dttUltimaMensagemRecebida = DateTime.Now;
         private ServerBase _srv;
         private TcpClient _tcpClient;
 
-        public bool booConectado
+        public TcpClient tcpClient
         {
             get
             {
-                _booConectado = this.getBooConectado();
+                return _tcpClient;
+            }
 
-                return _booConectado;
+            set
+            {
+                _tcpClient = value;
             }
         }
 
@@ -60,19 +62,6 @@ namespace NetZ.Web.Server
             }
         }
 
-        public TcpClient tcpClient
-        {
-            get
-            {
-                return _tcpClient;
-            }
-
-            set
-            {
-                _tcpClient = value;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -99,7 +88,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (!this.booConectado)
+            if (!this.getBooConectado())
             {
                 return;
             }
@@ -163,9 +152,10 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
             objResposta.addHtml(new PagError(ex));
+
             objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
 
             this.responder(objResposta);
@@ -185,7 +175,7 @@ namespace NetZ.Web.Server
 
         private Solicitacao carregarSolicitacao()
         {
-            if (!this.booConectado)
+            if (!this.getBooConectado())
             {
                 return null;
             }
@@ -210,7 +200,7 @@ namespace NetZ.Web.Server
             this.tcpClient.Close();
         }
 
-        private bool getBooConectado()
+        internal bool getBooConectado()
         {
             if (this.tcpClient == null)
             {

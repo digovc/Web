@@ -1,4 +1,4 @@
-﻿using NetZ.Web.Html.Componente;
+﻿using NetZ.Web.Html.Componente.Grid.Coluna;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
@@ -17,6 +17,20 @@ namespace NetZ.Web.Html.Componente.Grid
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(DivGridColunaLinha));
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.strId = "_div_id";
+        }
 
         #endregion Métodos
 

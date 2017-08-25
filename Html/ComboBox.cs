@@ -170,6 +170,13 @@ namespace NetZ.Web.Html
             }
         }
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(ComboBox), 111));
+        }
+
         #endregion Métodos
 
         #region Eventos

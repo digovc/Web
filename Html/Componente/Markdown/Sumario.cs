@@ -147,6 +147,7 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.divConteudo.addCss(css.setOverflow("auto"));
             this.divConteudo.addCss(css.setPosition("absolute"));
             this.divConteudo.addCss(css.setTop(40));
+            this.divConteudo.addCss(css.setWidth(100, "%"));
 
             this.divTitulo.addCss(css.setBackgroundColor("#cecece"));
             this.divTitulo.addCss(css.setFontSize(20));

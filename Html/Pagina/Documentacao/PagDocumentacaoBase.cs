@@ -2,6 +2,7 @@
 using NetZ.Web.DataBase.Dominio.Documentacao;
 using NetZ.Web.Html.Componente.Documentacao;
 using NetZ.Web.Html.Componente.Markdown;
+using NetZ.Web.Server;
 using NetZ.Web.Server.Ajax;
 using System;
 
@@ -115,6 +116,7 @@ namespace NetZ.Web.Html.Pagina.Documentacao
             lstJs.Add(new JavaScriptTag(typeof(DocumentacaoDominioBase), 151));
             lstJs.Add(new JavaScriptTag(typeof(DominioWebBase), 150));
             lstJs.Add(new JavaScriptTag(typeof(EmailRegistroDominio), 152));
+            lstJs.Add(new JavaScriptTag(typeof(Interlocutor)));
             lstJs.Add(new JavaScriptTag(typeof(PagDocumentacaoBase), 104));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDocumentacao), 103));

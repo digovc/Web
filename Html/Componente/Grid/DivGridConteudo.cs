@@ -1,6 +1,4 @@
-﻿using NetZ.Web.Html.Componente;
-
-namespace NetZ.Web.Html.Componente.Grid
+﻿namespace NetZ.Web.Html.Componente.Grid
 {
     internal class DivGridConteudo : ComponenteHtml
     {
@@ -18,11 +16,18 @@ namespace NetZ.Web.Html.Componente.Grid
 
         #region Métodos
 
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(DivGridLinha));
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.strId = "_div_grid_conteudo_id";
+            this.strId = (DivGridBase.STR_GRID_ID + "_" + this.GetType().Name);
         }
 
         #endregion Métodos

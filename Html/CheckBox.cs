@@ -90,6 +90,13 @@ namespace NetZ.Web.Html
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(typeof(CheckBox), 111));
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -134,11 +141,6 @@ namespace NetZ.Web.Html
         protected override void setStrId(string strId)
         {
             base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
 
             this.divSeletor.strId = (strId + "_divSeletor");
             this.divTitulo.strId = (strId + "_divTitulo");

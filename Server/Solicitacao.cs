@@ -418,9 +418,7 @@ namespace NetZ.Web.Server
 
         public decimal getDecGetValue(string strGetParam)
         {
-            decimal decValueResultado = 0;
-
-            decimal.TryParse(this.getStrGetValue(strGetParam), out decValueResultado);
+            decimal.TryParse(this.getStrGetValue(strGetParam), out decimal decValueResultado);
 
             return decValueResultado;
         }
