@@ -76,7 +76,7 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
-        public bool getBooConectado()
+        internal bool getBooConectado()
         {
             if (this.tcpClient == null)
             {
@@ -99,6 +99,21 @@ namespace NetZ.Web.Server
             }
 
             return this.tcpClient.Connected;
+        }
+
+        protected virtual Solicitacao carregarSolicitacao()
+        {
+            if (!this.getBooConectado())
+            {
+                return null;
+            }
+
+            if (!this.tcpClient.GetStream().DataAvailable)
+            {
+                return null;
+            }
+
+            return new Solicitacao(this.tcpClient.GetStream());
         }
 
         protected void enviar(byte[] arrBteData)
@@ -200,21 +215,6 @@ namespace NetZ.Web.Server
             this.loop();
         }
 
-        protected virtual Solicitacao carregarSolicitacao()
-        {
-            if (!this.getBooConectado())
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.GetStream().DataAvailable)
-            {
-                return null;
-            }
-
-            return new Solicitacao(this.tcpClient.GetStream());
-        }
-
         private void finalizarTcpClient()
         {
             if (this.tcpClient == null)
@@ -223,31 +223,6 @@ namespace NetZ.Web.Server
             }
 
             this.tcpClient.Close();
-        }
-
-        internal bool getBooConectado()
-        {
-            if (this.tcpClient == null)
-            {
-                return false;
-            }
-
-            if (this.tcpClient.GetStream() == null)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanRead)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanWrite)
-            {
-                return false;
-            }
-
-            return this.tcpClient.Connected;
         }
 
         private void inicializarStrNome()
