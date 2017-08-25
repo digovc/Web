@@ -126,7 +126,7 @@ namespace NetZ.Web.Server.WebSocket
                 return null;
             }
 
-            if (!objClienteWs.booConectado)
+            if (!objClienteWs.getBooConectado())
             {
                 return null;
             }

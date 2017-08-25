@@ -76,6 +76,31 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
+        public bool getBooConectado()
+        {
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            if (this.tcpClient.GetStream() == null)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
+        }
+
         protected void enviar(byte[] arrBteData)
         {
             if (arrBteData == null)
@@ -198,31 +223,6 @@ namespace NetZ.Web.Server
             }
 
             this.tcpClient.Close();
-        }
-
-        private bool getBooConectado()
-        {
-            if (this.tcpClient == null)
-            {
-                return false;
-            }
-
-            if (this.tcpClient.GetStream() == null)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanRead)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanWrite)
-            {
-                return false;
-            }
-
-            return this.tcpClient.Connected;
         }
 
         private void inicializarStrNome()
