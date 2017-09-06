@@ -40,6 +40,8 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
+            this.addCss(css.setBackgroundColor("rgba(255,255,255,.15)"));
+            this.addCss(css.setBorderRadius(5));
             this.addCss(css.setDisplay("none"));
         }
 

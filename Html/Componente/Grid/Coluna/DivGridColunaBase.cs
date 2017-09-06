@@ -33,6 +33,7 @@ namespace NetZ.Web.Html.Componente.Grid.Coluna
             this.addCss(css.setPaddingLeft(5));
             this.addCss(css.setPaddingRight(5));
             this.addCss(css.setWhiteSpace("nowrap"));
+            this.addCss(css.setWidth(150));
         }
 
         #endregion Métodos

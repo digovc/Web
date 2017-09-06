@@ -1,4 +1,5 @@
 ﻿using NetZ.Web.Html.Componente.Grid.Coluna;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
@@ -30,6 +31,13 @@ namespace NetZ.Web.Html.Componente.Grid
             base.inicializar();
 
             this.strId = "_div_id";
+        }
+
+        protected override void setCss(CssArquivoBase css)
+        {
+            base.setCss(css);
+
+            this.addCss(css.setDisplay("inline-flex"));
         }
 
         #endregion Métodos

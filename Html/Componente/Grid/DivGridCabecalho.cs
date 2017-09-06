@@ -37,7 +37,11 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
-            this.addCss(css.setDisplay("flex"));
+            this.addCss(css.setBackgroundColor("rgba(255,255,255,.15)"));
+            this.addCss(css.setBorderRadius(10, 10, 0, 0));
+            this.addCss(css.setDisplay("inline-flex"));
+            this.addCss(css.setPaddingBottom(10));
+            this.addCss(css.setPaddingTop(10));
         }
 
         #endregion Métodos
