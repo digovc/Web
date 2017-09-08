@@ -88,7 +88,7 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(CampoComboBox), 131));
             lstJs.Add(new JavaScriptTag(typeof(CampoConsulta), 132));
             lstJs.Add(new JavaScriptTag(typeof(CampoDataHora), 131));
-            lstJs.Add(new JavaScriptTag(typeof(CampoHtml), 130));
+            lstJs.Add(new JavaScriptTag(typeof(CampoHtmlBase), 130));
             lstJs.Add(new JavaScriptTag(typeof(CampoMapa), 132));
             lstJs.Add(new JavaScriptTag(typeof(CampoMarkdown), 132));
             lstJs.Add(new JavaScriptTag(typeof(CampoMedia), 131));

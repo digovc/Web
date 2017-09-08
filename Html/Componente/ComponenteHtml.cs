@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetZ.Web.Server.Arquivo.Css;
+using System;
 using System.IO;
 using System.Text;
 
@@ -11,6 +12,21 @@ namespace NetZ.Web.Html.Componente
         #endregion Constantes
 
         #region Atributos
+
+        private bool _booLayoutFixo;
+
+        internal bool booLayoutFixo
+        {
+            get
+            {
+                return _booLayoutFixo;
+            }
+
+            set
+            {
+                _booLayoutFixo = value;
+            }
+        }
 
         #endregion Atributos
 
@@ -55,6 +71,34 @@ namespace NetZ.Web.Html.Componente
         protected override bool getBooClazz()
         {
             return AppWebBase.i.booDesenvolvimento;
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            if (this.booLayoutFixo)
+            {
+                this.inicializarLayoutFixo();
+            }
+        }
+
+        protected virtual void inicializarLayoutFixo()
+        {
+        }
+
+        protected override void setCss(CssArquivoBase css)
+        {
+            base.setCss(css);
+
+            if (this.booLayoutFixo)
+            {
+                this.setCssLayoutFixo(css);
+            }
+        }
+
+        protected virtual void setCssLayoutFixo(CssArquivoBase css)
+        {
         }
 
         private void addJsAutomatico(LstTag<JavaScriptTag> lstJs)

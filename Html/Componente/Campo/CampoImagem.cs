@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoImagem : CampoHtml
+    public class CampoImagem : CampoHtmlBase
     {
         #region Constantes
 

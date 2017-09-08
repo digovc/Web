@@ -38,10 +38,9 @@ namespace NetZ.Web.Html.Componente.Grid
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor("rgba(255,255,255,.15)"));
-            this.addCss(css.setBorderRadius(10, 10, 0, 0));
+            this.addCss(css.setBorderRadius(5, 5, 0, 0));
             this.addCss(css.setDisplay("inline-flex"));
-            this.addCss(css.setPaddingBottom(10));
-            this.addCss(css.setPaddingTop(10));
+            this.addCss(css.setLineHeight(DivGridBase.INT_LINHA_TAMANHO_VERTICAL));
         }
 
         #endregion Métodos

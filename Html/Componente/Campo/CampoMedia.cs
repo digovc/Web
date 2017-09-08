@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public abstract class CampoMedia : CampoHtml
+    public abstract class CampoMedia : CampoHtmlBase
     {
         #region Constantes
 

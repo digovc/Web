@@ -5,7 +5,7 @@ namespace NetZ.Web.Html.Componente.Campo
     /// <summary>
     /// Campo para a inserção de valores de qualquer espécie, como letras, números e até mesmo pontuação.
     /// </summary>
-    public class CampoAlfanumerico : CampoHtml
+    public class CampoAlfanumerico : CampoHtmlBase
     {
         #region Constantes
 

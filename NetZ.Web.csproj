@@ -114,7 +114,7 @@
     <Compile Include="Html\Componente\Campo\CampoComboBox.cs" />
     <Compile Include="Html\Componente\Campo\CampoConsulta.cs" />
     <Compile Include="Html\Componente\Campo\CampoDataHora.cs" />
-    <Compile Include="Html\Componente\Campo\CampoHtml.cs" />
+    <Compile Include="Html\Componente\Campo\CampoHtmlBase.cs" />
     <Compile Include="Html\ComboBox.cs" />
     <Compile Include="Html\Componente\Campo\CampoImagem.cs" />
     <Compile Include="Html\Componente\Campo\CampoNumerico.cs" />

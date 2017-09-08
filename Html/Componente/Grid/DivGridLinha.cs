@@ -38,6 +38,7 @@ namespace NetZ.Web.Html.Componente.Grid
             base.setCss(css);
 
             this.addCss(css.setDisplay("inline-flex"));
+            this.addCss(css.setLineHeight(DivGridBase.INT_LINHA_TAMANHO_VERTICAL));
         }
 
         #endregion Métodos
