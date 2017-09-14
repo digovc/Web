@@ -156,7 +156,7 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
+            if (!typeof(ComponenteHtmlBase).IsAssignableFrom(cls))
             {
                 return;
             }
@@ -166,7 +166,7 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml(this.pag));
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtmlBase).toHtml(this.pag));
             this.lstClsLayoutFixo.Add(cls);
         }
 

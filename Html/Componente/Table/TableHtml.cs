@@ -4,7 +4,7 @@ using System.Data;
 
 namespace NetZ.Web.Html.Componente.Table
 {
-    public class TableHtml : ComponenteHtml
+    public class TableHtml : ComponenteHtmlBase
     {
         #region Constantes
 

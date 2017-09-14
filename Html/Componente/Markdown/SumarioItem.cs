@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace NetZ.Web.Html.Componente.Markdown
 {
-    internal class SumarioItem : ComponenteHtml
+    internal class SumarioItem : ComponenteHtmlBase
     {
         #region Constantes
 

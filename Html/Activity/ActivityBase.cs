@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Activity
 {
-    public abstract class ActivityBase : ComponenteHtml
+    public abstract class ActivityBase : ComponenteHtmlBase
     {
         #region Constantes
 

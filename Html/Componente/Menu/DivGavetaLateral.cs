@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
-    public class DivGavetaLateral : ComponenteHtml
+    public class DivGavetaLateral : ComponenteHtmlBase
     {
         #region Constantes
 

@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Tab
 {
-    public class TabItem : ComponenteHtml // TODO: Criar uma classe especializada para telas de cadastro.
+    public class TabItem : ComponenteHtmlBase // TODO: Criar uma classe especializada para telas de cadastro.
     {
         #region Constantes
 

@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Table
 {
-    internal class TableHead : ComponenteHtml
+    internal class TableHead : ComponenteHtmlBase
     {
         #region Constantes
 

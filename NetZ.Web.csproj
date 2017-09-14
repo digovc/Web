@@ -66,6 +66,7 @@
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
+    <Compile Include="Html\Componente\Card.cs" />
     <Compile Include="Html\Componente\Documentacao\ActionBarDocumentacao.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaBase.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaCabecalho.cs" />
@@ -122,7 +123,7 @@
     <Compile Include="Html\Componente\Campo\CampoSenha.cs" />
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
     <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
-    <Compile Include="Html\Componente\ComponenteHtml.cs" />
+    <Compile Include="Html\Componente\ComponenteHtmlBase.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
@@ -253,6 +254,9 @@
     <Content Include="res\media\svg\about.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="res\media\svg\close.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\svg\delete.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -287,6 +291,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\svg\save.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\svg\search.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\svg\server.svg">

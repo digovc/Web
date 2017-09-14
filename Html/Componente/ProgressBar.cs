@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente
 {
-    public class ProgressBar : ComponenteHtml
+    public class ProgressBar : ComponenteHtmlBase
     {
         #region Constantes
 

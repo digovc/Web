@@ -4,7 +4,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public abstract class CampoHtml : ComponenteHtml, ITagNivel
+    public abstract class CampoHtml : ComponenteHtmlBase, ITagNivel
     {
         #region Constantes
 

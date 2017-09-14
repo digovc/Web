@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Grid
 {
-    internal class DivGridLinha : ComponenteHtml
+    internal class DivGridLinha : ComponenteHtmlBase
     {
         #region Constantes
 

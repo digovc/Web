@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NetZ.Web.Html.Componente
 {
-    public abstract class ComponenteHtml : Div
+    public abstract class ComponenteHtmlBase : Div
     {
         #region Constantes
 
@@ -47,7 +47,7 @@ namespace NetZ.Web.Html.Componente
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
+            lstJs.Add(new JavaScriptTag(typeof(ComponenteHtmlBase), 110));
 
             this.addJsAutomatico(lstJs);
         }
@@ -64,7 +64,7 @@ namespace NetZ.Web.Html.Componente
 
         private void addJsAutomatico(LstTag<JavaScriptTag> lstJs, Type cls)
         {
-            if (typeof(ComponenteHtml).Equals(cls))
+            if (typeof(ComponenteHtmlBase).Equals(cls))
             {
                 return;
             }
@@ -76,7 +76,7 @@ namespace NetZ.Web.Html.Componente
 
             var intOrdem = 111;
 
-            if (!this.GetType().Assembly.FullName.Equals(typeof(ComponenteHtml).Assembly.FullName))
+            if (!this.GetType().Assembly.FullName.Equals(typeof(ComponenteHtmlBase).Assembly.FullName))
             {
                 intOrdem = 200;
             }

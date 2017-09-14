@@ -5,7 +5,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Table
 {
-    internal class TableRow : ComponenteHtml
+    internal class TableRow : ComponenteHtmlBase
     {
         #region Constantes
 

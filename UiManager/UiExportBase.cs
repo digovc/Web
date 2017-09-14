@@ -178,7 +178,7 @@ namespace Web.UiManager
             pag.salvar(AppWebBase.DIR_HTML + dirNamespace, this.getUrlPrefix());
         }
 
-        private void exportarHtmlTag(ComponenteHtml tag, string dirNamespace)
+        private void exportarHtmlTag(ComponenteHtmlBase tag, string dirNamespace)
         {
             tag.salvar(AppWebBase.DIR_HTML + dirNamespace);
         }

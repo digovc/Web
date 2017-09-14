@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Mobile
 {
-    public class MenuMobileItem : ComponenteHtml
+    public class MenuMobileItem : ComponenteHtmlBase
     {
         #region Constantes
 

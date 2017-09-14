@@ -4,7 +4,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Mobile
 {
-    public abstract class ActionBarBase : ComponenteHtml
+    public abstract class ActionBarBase : ComponenteHtmlBase
     {
         #region Constantes
 

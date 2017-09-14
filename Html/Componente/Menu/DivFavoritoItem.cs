@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Menu
 {
-    public class DivFavoritoItem : ComponenteHtml
+    public class DivFavoritoItem : ComponenteHtmlBase
     {
         #region Constantes
 

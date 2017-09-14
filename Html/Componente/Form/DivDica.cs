@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Form
 {
-    public class DivDica : ComponenteHtml, ITagNivel
+    public class DivDica : ComponenteHtmlBase, ITagNivel
     {
         #region Constantes
 

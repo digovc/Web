@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Painel
 {
-    public class PainelHtml : ComponenteHtml
+    public class PainelHtml : ComponenteHtmlBase
     {
         #region Constantes
 

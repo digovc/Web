@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Menu.Contexto
 {
-    public class MenuContextoItem : ComponenteHtml
+    public class MenuContextoItem : ComponenteHtmlBase
     {
         #region Constantes
 
