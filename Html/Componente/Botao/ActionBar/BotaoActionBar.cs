@@ -18,11 +18,18 @@ namespace NetZ.Web.Html.Componente.Botao.ActionBar
 
         #region Métodos
 
+        protected override void inicializarLayoutFixo()
+        {
+            base.inicializarLayoutFixo();
+
+            this.strId = "_div_id";
+        }
+
         protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
+            this.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.addCss(css.setBackgroundPosition("center"));
             this.addCss(css.setBackgroundRepeat("no-repeat"));
             this.addCss(css.setBackgroundSize("35px"));
@@ -31,6 +38,13 @@ namespace NetZ.Web.Html.Componente.Botao.ActionBar
         protected override void setCssHeight(CssArquivoBase css)
         {
             this.addCss(css.setHeight(50));
+        }
+
+        protected override void setCssLayoutFixo(CssArquivoBase css)
+        {
+            base.setCssLayoutFixo(css);
+
+            this.addCss(css.setFloat("right"));
         }
 
         protected override void setCssWidth(CssArquivoBase css)

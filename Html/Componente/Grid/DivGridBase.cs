@@ -7,6 +7,7 @@ namespace NetZ.Web.Html.Componente.Grid
         #region Constantes
 
         internal const string STR_GRID_ID = "_div_grid_id";
+        internal const int INT_LINHA_TAMANHO_VERTICAL = 35;
 
         #endregion Constantes
 
@@ -40,7 +41,11 @@ namespace NetZ.Web.Html.Componente.Grid
         {
             base.setCss(css);
 
+            this.addCss(css.setBackgroundColor("rgba(255,255,255,.15)"));
+            this.addCss(css.setBorderRadius(5));
             this.addCss(css.setDisplay("none"));
+            this.addCss(css.setMarginLeft(5));
+            this.addCss(css.setMarginRight(5));
         }
 
         #endregion Métodos

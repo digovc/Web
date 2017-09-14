@@ -379,6 +379,16 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
+        public virtual void addTag(Tag tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            tag.tagPai = this.tagBody;
+        }
+
         public void salvar(string dir, string urlPrefix = null)
         {
             if (string.IsNullOrEmpty(dir))

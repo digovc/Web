@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoCheckBox : CampoHtml
+    public class CampoCheckBox : CampoHtmlBase
     {
         #region Constantes
 

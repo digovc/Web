@@ -82,10 +82,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.intTamanhoHotizontal = 7;
 
-            this.cmpStrColunaNome.enmTamanho = CampoHtml.EnmTamanho.TOTAL;
+            this.cmpStrColunaNome.enmTamanho = CampoHtmlBase.EnmTamanho.TOTAL;
             this.cmpStrColunaNome.intNivel = 1;
 
-            this.cmpIntOperador.enmTamanho = CampoHtml.EnmTamanho.MEDIO;
             this.cmpIntOperador.intNivel = 2;
 
             this.cmpBooAnd.booDireita = true;

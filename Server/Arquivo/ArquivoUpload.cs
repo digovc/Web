@@ -190,7 +190,7 @@ namespace NetZ.Web.Server.Arquivo
                 return null;
             }
 
-            return this.objSolicitacao.frmData.getStrFrmItemValor("cln_web_nome");
+            return this.objSolicitacao.frmData.getStrFrmItemValor("coluna-nome");
         }
 
         private string getStrTblWebNome()

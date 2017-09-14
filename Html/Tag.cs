@@ -482,7 +482,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private Tag tagPai
+        internal Tag tagPai
         {
             get
             {
@@ -687,7 +687,7 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            this.tagPai = pagPai.tagBody;
+            pagPai.addTag(this);
         }
 
         /// <summary>

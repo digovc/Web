@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoRadioButton : CampoHtml
+    public class CampoRadioButton : CampoHtmlBase
     {
         #region Constantes
 

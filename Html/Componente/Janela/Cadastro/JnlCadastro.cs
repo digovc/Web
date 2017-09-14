@@ -108,9 +108,9 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if ((typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
+            if ((typeof(CampoHtmlBase).IsAssignableFrom(tag.GetType())))
             {
-                this.addTagCampoHtml(tag as CampoHtml);
+                this.addTagCampoHtml(tag as CampoHtmlBase);
                 return;
             }
 
@@ -154,8 +154,6 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
 
             this.addAtt("src_js", JavaScriptTag.getSrc(this.GetType()));
 
-            this.cmpIntId.enmTamanho = CampoHtml.EnmTamanho.MEDIO;
-
             this.carregarDados();
         }
 
@@ -175,7 +173,7 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
             this.addCss(css.setMinWidth(500));
         }
 
-        private void addTagCampoHtml(CampoHtml tagCampoHtml)
+        private void addTagCampoHtml(CampoHtmlBase tagCampoHtml)
         {
             if (tagCampoHtml == null)
             {
@@ -262,17 +260,17 @@ namespace NetZ.Web.Html.Componente.Janela.Cadastro
                 return;
             }
 
-            if (!(typeof(CampoHtml).IsAssignableFrom(objPropertyInfo.PropertyType)))
+            if (!(typeof(CampoHtmlBase).IsAssignableFrom(objPropertyInfo.PropertyType)))
             {
                 return;
             }
 
-            if ((objPropertyInfo.GetValue(this) as CampoHtml).cln != null)
+            if ((objPropertyInfo.GetValue(this) as CampoHtmlBase).cln != null)
             {
                 return;
             }
 
-            (objPropertyInfo.GetValue(this) as CampoHtml).cln = cln;
+            (objPropertyInfo.GetValue(this) as CampoHtmlBase).cln = cln;
         }
 
         #endregion Métodos

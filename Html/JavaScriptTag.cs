@@ -168,6 +168,14 @@ namespace NetZ.Web.Html
 
             this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtmlBase).toHtml(this.pag));
             this.lstClsLayoutFixo.Add(cls);
+
+            var tagLayoutFixo = (Activator.CreateInstance(cls) as ComponenteHtml);
+
+            tagLayoutFixo.booLayoutFixo = true;
+
+            var strLayoutFixo = tagLayoutFixo.toHtml(this.pag);
+
+            this.addConstante((cls.Name + "_layoutFixo"), strLayoutFixo);
         }
 
         public override string toHtml(PaginaHtmlBase pag)
@@ -182,7 +190,7 @@ namespace NetZ.Web.Html
                 return base.toHtml(pag);
             }
 
-            string strResultado = "$(document).ready(function(){_js_codigo});";
+            var strResultado = "$(document).ready(function(){_js_codigo});";
 
             strResultado = strResultado.Replace("_js_codigo", string.Join(string.Empty, this.lstStrCodigo.ToArray()));
 
