@@ -25,6 +25,7 @@ namespace NetZ.Web
         #region Constantes
 
         public const string DIR_CSS = (DIR_RESOURCE + "css/");
+        public const string DIR_FONT = (DIR_RESOURCE + "font/");
         public const string DIR_HTML = "res/html/";
         public const string DIR_HTML_PAGINA = (DIR_HTML + "pagina/");
         public const string DIR_JS = (DIR_RESOURCE + "js/");
