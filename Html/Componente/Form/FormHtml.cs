@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace NetZ.Web.Html.Componente.Form
 {
-    public class FormHtml : ComponenteHtml
+    public class FormHtml : ComponenteHtmlBase
     {
         #region Constantes
 
@@ -33,7 +33,7 @@ namespace NetZ.Web.Html.Componente.Form
         private LimiteFloat _divLimiteFloat;
         private EnmMetodo _enmMetodo;
         private int _intUltimoNivel = 1;
-        private List<CampoHtml> _lstCmp;
+        private List<CampoHtmlBase> _lstCmp;
         private List<PainelNivel> _lstPnlNivel;
         private List<ITagNivel> _lstTagNivel;
         private string _strAction;
@@ -76,7 +76,7 @@ namespace NetZ.Web.Html.Componente.Form
         /// <summary>
         /// Lista dos campos que foram adicionados para este formulário.
         /// </summary>
-        public List<CampoHtml> lstCmp
+        public List<CampoHtmlBase> lstCmp
         {
             get
             {
@@ -85,7 +85,7 @@ namespace NetZ.Web.Html.Componente.Form
                     return _lstCmp;
                 }
 
-                _lstCmp = new List<CampoHtml>();
+                _lstCmp = new List<CampoHtmlBase>();
 
                 return _lstCmp;
             }
@@ -407,17 +407,17 @@ namespace NetZ.Web.Html.Componente.Form
                 return;
             }
 
-            if (!(typeof(CampoHtml).IsAssignableFrom(tag.GetType())))
+            if (!(typeof(CampoHtmlBase).IsAssignableFrom(tag.GetType())))
             {
                 return;
             }
 
-            if (this.lstCmp.Contains((CampoHtml)tag))
+            if (this.lstCmp.Contains((CampoHtmlBase)tag))
             {
                 return;
             }
 
-            this.lstCmp.Add((CampoHtml)tag);
+            this.lstCmp.Add((CampoHtmlBase)tag);
         }
 
         private void addLstTagNivel(ITagNivel tag)

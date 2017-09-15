@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html.Componente.Grid.Coluna
 {
-    internal class DivGridColunaSumario : DivGridColunaBase
+    internal class DivGridColunaLinha : DivGridColunaBase
     {
         #region Constantes
 

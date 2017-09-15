@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
-    public class MenuItem : ComponenteHtml
+    public class MenuItem : ComponenteHtmlBase
     {
         #region Constantes
 

@@ -1,10 +1,9 @@
-﻿using System;
-using NetZ.Web.Html.Componente.Botao.ActionBar;
+﻿using NetZ.Web.Html.Componente.Botao.ActionBar;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Mobile
 {
-    public abstract class ActionBarBase : ComponenteHtml
+    public abstract class ActionBarBase : ComponenteHtmlBase
     {
         #region Constantes
 
@@ -15,6 +14,7 @@ namespace NetZ.Web.Html.Componente.Mobile
         private bool _booMostrarMenu = true;
         private bool _booMostrarVoltar;
         private BotaoActionBar _btnMenu;
+        private BotaoActionBar _btnSubMenu;
         private BotaoActionBar _btnVoltar;
         private Div _divLinha;
         private Div _divTitulo;
@@ -76,6 +76,21 @@ namespace NetZ.Web.Html.Componente.Mobile
             }
         }
 
+        private BotaoActionBar btnSubMenu
+        {
+            get
+            {
+                if (_btnSubMenu != null)
+                {
+                    return _btnSubMenu;
+                }
+
+                _btnSubMenu = new BotaoActionBar();
+
+                return _btnSubMenu;
+            }
+        }
+
         private BotaoActionBar btnVoltar
         {
             get
@@ -129,6 +144,13 @@ namespace NetZ.Web.Html.Componente.Mobile
 
         #region Métodos
 
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(BotaoActionBar));
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -140,6 +162,8 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.btnVoltar.setPai(this.booMostrarVoltar ? this : null);
 
             this.divTitulo.setPai(this);
+
+            this.btnSubMenu.setPai(this);
         }
 
         protected override void setCss(CssArquivoBase css)
@@ -156,6 +180,10 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setTop(0));
             this.addCss(css.setWidth(100, "%"));
             this.addCss(css.setZIndex(1000));
+
+            this.btnSubMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "menu.svg"));
+            this.btnSubMenu.addCss(css.setDisplay("none"));
+            this.btnSubMenu.addCss(css.setFloat("right"));
 
             this.setCssBtnMenu(css);
 
@@ -174,15 +202,14 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 
-        private void setCssBtnVoltar(CssArquivoBase css)
+        protected override void setStrId(string strId)
         {
-            if (!this.booMostrarVoltar)
-            {
-                return;
-            }
+            base.setStrId(strId);
 
-            this.btnVoltar.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "return.svg"));
-            this.btnVoltar.addCss(css.setFloat("left"));
+            this.btnMenu.strId = (strId + "_btnMenu");
+            this.btnSubMenu.strId = (strId + "_btnSubMenu");
+            this.btnVoltar.strId = (strId + "_btnVoltar");
+            this.divTitulo.strId = (strId + "_divTitulo");
         }
 
         private void setCssBtnMenu(CssArquivoBase css)
@@ -196,13 +223,15 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.btnMenu.addCss(css.setFloat("left"));
         }
 
-        protected override void setStrId(string strId)
+        private void setCssBtnVoltar(CssArquivoBase css)
         {
-            base.setStrId(strId);
+            if (!this.booMostrarVoltar)
+            {
+                return;
+            }
 
-            this.btnMenu.strId = (strId + "_btnMenu");
-            this.btnVoltar.strId = (strId + "_btnVoltar");
-            this.divTitulo.strId = (strId + "_divTitulo");
+            this.btnVoltar.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "return.svg"));
+            this.btnVoltar.addCss(css.setFloat("left"));
         }
 
         private void setStrTitulo(string strTitulo)

@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Tab
 {
-    public class TabHtml : ComponenteHtml, ITagNivel
+    public class TabHtml : ComponenteHtmlBase, ITagNivel
     {
         #region Constantes
 

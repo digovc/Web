@@ -4,7 +4,7 @@ using NetZ.Persistencia;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoComboBox : CampoHtml
+    public class CampoComboBox : CampoHtmlBase
     {
         #region Constantes
 

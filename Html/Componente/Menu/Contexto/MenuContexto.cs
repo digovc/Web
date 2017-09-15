@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Menu.Contexto
 {
-    public class MenuContexto : ComponenteHtml
+    public class MenuContexto : ComponenteHtmlBase
     {
         #region Constantes
 
@@ -32,7 +32,7 @@ namespace NetZ.Web.Html.Componente.Menu.Contexto
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTelaFundo));
+            this.addCss(css.setBackgroundColor("grey"));
             this.addCss(css.setBoxShadow(0, 0, 10, 0, AppWebBase.i.objTema.corSombra));
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setMaxHeight(250));

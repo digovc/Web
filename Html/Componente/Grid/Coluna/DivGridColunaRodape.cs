@@ -1,8 +1,6 @@
-﻿using NetZ.Web.Html.Componente;
-
-namespace NetZ.Web.Html.Activity
+﻿namespace NetZ.Web.Html.Componente.Grid.Coluna
 {
-    public abstract class ActivityBase : ComponenteHtmlBase
+    internal class DivGridColunaRodape : DivGridColunaBase
     {
         #region Constantes
 

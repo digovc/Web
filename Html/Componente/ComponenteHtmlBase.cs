@@ -1,16 +1,32 @@
-﻿using System;
+﻿using NetZ.Web.Server.Arquivo.Css;
+using System;
 using System.IO;
 using System.Text;
 
 namespace NetZ.Web.Html.Componente
 {
-    public abstract class ComponenteHtml : Div
+    public abstract class ComponenteHtmlBase : Div
     {
         #region Constantes
 
         #endregion Constantes
 
         #region Atributos
+
+        private bool _booLayoutFixo;
+
+        internal bool booLayoutFixo
+        {
+            get
+            {
+                return _booLayoutFixo;
+            }
+
+            set
+            {
+                _booLayoutFixo = value;
+            }
+        }
 
         #endregion Atributos
 
@@ -47,9 +63,42 @@ namespace NetZ.Web.Html.Componente
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(ComponenteHtml), 110));
+            lstJs.Add(new JavaScriptTag(typeof(ComponenteHtmlBase), 110));
 
             this.addJsAutomatico(lstJs);
+        }
+
+        protected override bool getBooClazz()
+        {
+            return AppWebBase.i.booDesenvolvimento;
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            if (this.booLayoutFixo)
+            {
+                this.inicializarLayoutFixo();
+            }
+        }
+
+        protected virtual void inicializarLayoutFixo()
+        {
+        }
+
+        protected override void setCss(CssArquivoBase css)
+        {
+            base.setCss(css);
+
+            if (this.booLayoutFixo)
+            {
+                this.setCssLayoutFixo(css);
+            }
+        }
+
+        protected virtual void setCssLayoutFixo(CssArquivoBase css)
+        {
         }
 
         private void addJsAutomatico(LstTag<JavaScriptTag> lstJs)
@@ -59,7 +108,7 @@ namespace NetZ.Web.Html.Componente
 
         private void addJsAutomatico(LstTag<JavaScriptTag> lstJs, Type cls)
         {
-            if (typeof(ComponenteHtml).Equals(cls))
+            if (typeof(ComponenteHtmlBase).Equals(cls))
             {
                 return;
             }
@@ -71,7 +120,7 @@ namespace NetZ.Web.Html.Componente
 
             var intOrdem = 111;
 
-            if (!this.GetType().Assembly.FullName.Equals(typeof(ComponenteHtml).Assembly.FullName))
+            if (!this.GetType().Assembly.FullName.Equals(typeof(ComponenteHtmlBase).Assembly.FullName))
             {
                 intOrdem = 200;
             }

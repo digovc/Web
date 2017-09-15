@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public class CampoDataHora : CampoHtml
+    public class CampoDataHora : CampoHtmlBase
     {
         #region Constantes
 

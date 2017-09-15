@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Mobile
 {
-    public abstract class TileBase : ComponenteHtml
+    public abstract class TileBase : ComponenteHtmlBase
     {
         #region Constantes
 

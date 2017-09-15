@@ -16,18 +16,20 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
-        private bool _booConectado;
         private DateTime _dttUltimaMensagemRecebida = DateTime.Now;
         private ServerBase _srv;
         private TcpClient _tcpClient;
 
-        public bool booConectado
+        public TcpClient tcpClient
         {
             get
             {
-                _booConectado = this.getBooConectado();
+                return _tcpClient;
+            }
 
-                return _booConectado;
+            set
+            {
+                _tcpClient = value;
             }
         }
 
@@ -60,19 +62,6 @@ namespace NetZ.Web.Server
             }
         }
 
-        public TcpClient tcpClient
-        {
-            get
-            {
-                return _tcpClient;
-            }
-
-            set
-            {
-                _tcpClient = value;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -87,6 +76,46 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
+        internal bool getBooConectado()
+        {
+            if (this.tcpClient == null)
+            {
+                return false;
+            }
+
+            if (this.tcpClient.GetStream() == null)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanRead)
+            {
+                return false;
+            }
+
+            if (!this.tcpClient.GetStream().CanWrite)
+            {
+                return false;
+            }
+
+            return this.tcpClient.Connected;
+        }
+
+        protected virtual Solicitacao carregarSolicitacao()
+        {
+            if (!this.getBooConectado())
+            {
+                return null;
+            }
+
+            if (!this.tcpClient.GetStream().DataAvailable)
+            {
+                return null;
+            }
+
+            return new Solicitacao(this.tcpClient.GetStream());
+        }
+
         protected void enviar(byte[] arrBteData)
         {
             if (arrBteData == null)
@@ -99,7 +128,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (!this.booConectado)
+            if (!this.getBooConectado())
             {
                 return;
             }
@@ -137,6 +166,8 @@ namespace NetZ.Web.Server
                     return;
                 }
 
+                this.dttUltimaMensagemRecebida = DateTime.Now;
+
                 this.responder(this.srv.responder(objSolicitacao));
             }
             catch (Exception ex)
@@ -163,9 +194,10 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            Resposta objResposta = new Resposta(objSolicitacao);
+            var objResposta = new Resposta(objSolicitacao);
 
             objResposta.addHtml(new PagError(ex));
+
             objResposta.intStatus = Resposta.INT_STATUS_CODE_500_INTERNAL_ERROR;
 
             this.responder(objResposta);
@@ -183,23 +215,6 @@ namespace NetZ.Web.Server
             this.loop();
         }
 
-        private Solicitacao carregarSolicitacao()
-        {
-            if (!this.booConectado)
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.GetStream().DataAvailable)
-            {
-                return null;
-            }
-
-            this.dttUltimaMensagemRecebida = DateTime.Now;
-
-            return new Solicitacao(this.tcpClient.GetStream());
-        }
-
         private void finalizarTcpClient()
         {
             if (this.tcpClient == null)
@@ -208,31 +223,6 @@ namespace NetZ.Web.Server
             }
 
             this.tcpClient.Close();
-        }
-
-        private bool getBooConectado()
-        {
-            if (this.tcpClient == null)
-            {
-                return false;
-            }
-
-            if (this.tcpClient.GetStream() == null)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanRead)
-            {
-                return false;
-            }
-
-            if (!this.tcpClient.GetStream().CanWrite)
-            {
-                return false;
-            }
-
-            return this.tcpClient.Connected;
         }
 
         private void inicializarStrNome()

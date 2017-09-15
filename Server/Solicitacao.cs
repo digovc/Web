@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -62,6 +64,7 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
+        private SslStream _objSslStream;
         private UsuarioDominio _objUsuario;
         private string _strConteudo;
         private string _strHeaderLinhaCabecalho;
@@ -383,6 +386,19 @@ namespace NetZ.Web.Server
             }
         }
 
+        private SslStream objSslStream
+        {
+            get
+            {
+                return _objSslStream;
+            }
+
+            set
+            {
+                _objSslStream = value;
+            }
+        }
+
         private string strMsgCliente
         {
             get
@@ -407,15 +423,23 @@ namespace NetZ.Web.Server
             this.nts = nts;
         }
 
+        internal Solicitacao(SslStream objSslStream)
+        {
+            this.objSslStream = objSslStream;
+        }
+
         #endregion Construtores
 
         #region Métodos
 
+        public bool getBooGetValue(string strGetParam)
+        {
+            return Utils.getBoo(this.getStrGetValue(strGetParam));
+        }
+
         public decimal getDecGetValue(string strGetParam)
         {
-            decimal decValueResultado = 0;
-
-            decimal.TryParse(this.getStrGetValue(strGetParam), out decValueResultado);
+            decimal.TryParse(this.getStrGetValue(strGetParam), out decimal decValueResultado);
 
             return decValueResultado;
         }
@@ -608,35 +632,17 @@ namespace NetZ.Web.Server
 
         private byte[] getArrBteMsgCliente()
         {
-            if (this.nts == null)
+            if (this.nts != null)
             {
-                return null;
+                return this.getArrBteMsgClienteNts();
             }
 
-            if (!this.nts.CanRead)
+            if (this.objSslStream != null)
             {
-                return null;
+                return this.getArrBteMsgClienteObjSslStream();
             }
 
-            var arrBte = new byte[1024000];
-            var intQuantidade = 0;
-            var mmsMsgCliente = new MemoryStream();
-
-            do
-            {
-                if (!this.nts.DataAvailable)
-                {
-                    Thread.Sleep(50);
-                    continue;
-                }
-
-                intQuantidade = this.nts.Read(arrBte, 0, arrBte.Length);
-
-                mmsMsgCliente.Write(arrBte, 0, intQuantidade);
-            }
-            while (!this.getArrBteMsgClienteCompleto(mmsMsgCliente));
-
-            return mmsMsgCliente.ToArray();
+            return null;
         }
 
         private bool getArrBteMsgClienteCompleto(MemoryStream mmsMsgClienteParcial)
@@ -668,7 +674,6 @@ namespace NetZ.Web.Server
                 return true;
             }
 
-
             var intContentLength = this.getIntMsgClienteContentLength(strMsgClienteParcial);
 
             var intContentLengthRecebido = this.getIntMsgClienteContentLengthRecebido(mmsMsgClienteParcial);
@@ -679,6 +684,48 @@ namespace NetZ.Web.Server
             }
 
             return false;
+        }
+
+        private byte[] getArrBteMsgClienteNts()
+        {
+            if (!this.nts.CanRead)
+            {
+                return null;
+            }
+
+            var arrBte = new byte[1024000];
+            var intQuantidade = 0;
+            var mmsMsgCliente = new MemoryStream();
+
+            do
+            {
+                if (!this.nts.DataAvailable)
+                {
+                    Thread.Sleep(50);
+                    continue;
+                }
+
+                intQuantidade = this.nts.Read(arrBte, 0, arrBte.Length);
+
+                mmsMsgCliente.Write(arrBte, 0, intQuantidade);
+            }
+            while (!this.getArrBteMsgClienteCompleto(mmsMsgCliente));
+
+            return mmsMsgCliente.ToArray();
+        }
+
+        private byte[] getArrBteMsgClienteObjSslStream()
+        {
+            byte[] buffer = new byte[2048];
+            int bytes = -1;
+
+            this.objSslStream.AuthenticateAsServer(new X509Certificate("certificado.pfx", "123"));
+
+            bytes = this.objSslStream.Read(buffer, 0, buffer.Length);
+
+            Console.WriteLine(Encoding.ASCII.GetString(buffer, 0, bytes));
+
+            return buffer;
         }
 
         private decimal getDecHttpVersao()

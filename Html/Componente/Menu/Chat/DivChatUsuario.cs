@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Menu.Chat
 {
-    public class DivChatUsuario : ComponenteHtml
+    public class DivChatUsuario : ComponenteHtmlBase
     {
         #region Constantes
 

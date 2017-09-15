@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Janela.Cadastro
 {
-    public class TagCard : ComponenteHtml
+    public class TagCard : ComponenteHtmlBase
     {
         #region Constantes
 

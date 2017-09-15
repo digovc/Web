@@ -17,7 +17,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
         #region Atributos
 
         private int _intFiltroId;
-        private List<CampoHtml> _lstCmpFiltro;
+        private List<CampoHtmlBase> _lstCmpFiltro;
         private TabelaBase _tblFiltrada;
 
         public int intFiltroId
@@ -33,7 +33,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private List<CampoHtml> lstCmpFiltro
+        private List<CampoHtmlBase> lstCmpFiltro
         {
             get
             {
@@ -42,7 +42,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                     return _lstCmpFiltro;
                 }
 
-                _lstCmpFiltro = new List<CampoHtml>();
+                _lstCmpFiltro = new List<CampoHtmlBase>();
 
                 return _lstCmpFiltro;
             }
@@ -180,7 +180,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            CampoHtml cmpFiltro = this.inicializarLstCmpFiltro(clnFiltrada);
+            CampoHtmlBase cmpFiltro = this.inicializarLstCmpFiltro(clnFiltrada);
 
             if (cmpFiltro == null)
             {
@@ -189,7 +189,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
 
             //cmpFiltro.booMostrarTituloSempre = true;
             cmpFiltro.cln = clnFiltrada;
-            cmpFiltro.enmTamanho = CampoHtml.EnmTamanho.GRANDE;
+            cmpFiltro.enmTamanho = CampoHtmlBase.EnmTamanho.GRANDE;
             cmpFiltro.strTitulo = this.getStrCampoTitulo(row, clnFiltrada);
 
             cmpFiltro.addAtt("enm_operador", Convert.ToInt32(row[TblFiltroItem.i.clnIntOperador.sqlNome]));
@@ -198,7 +198,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             this.lstCmpFiltro.Add(cmpFiltro);
         }
 
-        private CampoHtml inicializarLstCmpFiltro(Coluna clnFiltrada)
+        private CampoHtmlBase inicializarLstCmpFiltro(Coluna clnFiltrada)
         {
             if (clnFiltrada.lstKvpOpcao.Count > 0)
             {
@@ -225,7 +225,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
             }
         }
 
-        private CampoHtml inicializarLstCmpFiltroOpcao(Coluna clnFiltrada)
+        private CampoHtmlBase inicializarLstCmpFiltroOpcao(Coluna clnFiltrada)
         {
             CampoComboBox cmpComboBox = new CampoComboBox();
 
@@ -241,7 +241,7 @@ namespace NetZ.Web.Html.Componente.Janela.Consulta
                 return;
             }
 
-            foreach (CampoHtml cmpFiltro in this.lstCmpFiltro)
+            foreach (CampoHtmlBase cmpFiltro in this.lstCmpFiltro)
             {
                 cmpFiltro.setPai(this);
             }

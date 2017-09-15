@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Janela
 {
-    public class JanelaHtml : ComponenteHtml
+    public class JanelaHtml : ComponenteHtmlBase
     {
         #region Constantes
 

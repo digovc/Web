@@ -379,6 +379,16 @@ namespace NetZ.Web.Html.Pagina
 
         #region Métodos
 
+        public virtual void addTag(Tag tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            tag.tagPai = this.tagBody;
+        }
+
         public void salvar(string dir, string urlPrefix = null)
         {
             if (string.IsNullOrEmpty(dir))
@@ -672,8 +682,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagBodyResultado = new Tag("body");
 
-            tagBodyResultado.booClazz = false;
-
             return tagBodyResultado;
         }
 
@@ -703,7 +711,6 @@ namespace NetZ.Web.Html.Pagina
 
             tagDocTypeResultado.addAtt("html");
             tagDocTypeResultado.booBarraFinal = false;
-            tagDocTypeResultado.booClazz = false;
             tagDocTypeResultado.booDupla = false;
 
             return tagDocTypeResultado;
@@ -713,16 +720,12 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagHeadResultado = new Tag("head");
 
-            tagHeadResultado.booClazz = false;
-
             return tagHeadResultado;
         }
 
         private Tag getTagHtml()
         {
             var tagHtmlResultado = new Tag("html");
-
-            tagHtmlResultado.booClazz = false;
 
             tagHtmlResultado.addAtt("xmlns", "http://www.w3.org/1999/xhtml");
             tagHtmlResultado.addAtt("lang", "pt-br");
@@ -733,8 +736,6 @@ namespace NetZ.Web.Html.Pagina
         private Tag getTagIcon()
         {
             var tagIconResultado = new Tag("link");
-
-            tagIconResultado.booClazz = false;
 
             tagIconResultado.addAtt("href", this.srcIcone);
             tagIconResultado.addAtt("rel", "icon");
@@ -757,7 +758,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaContentRsultado = new Tag("meta");
 
-            tagMetaContentRsultado.booClazz = false;
             tagMetaContentRsultado.booDupla = false;
 
             tagMetaContentRsultado.addAtt("content", this.strNomeExibicao);
@@ -769,7 +769,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaHttpEquivResultado = new Tag("meta");
 
-            tagMetaHttpEquivResultado.booClazz = false;
             tagMetaHttpEquivResultado.booDupla = false;
 
             tagMetaHttpEquivResultado.addAtt("http-equiv", "Content-Type");
@@ -781,7 +780,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagMetaThemaColorResultado = new Tag("meta");
 
-            tagMetaThemaColorResultado.booClazz = false;
             tagMetaThemaColorResultado.booDupla = false;
 
             tagMetaThemaColorResultado.addAtt("name", "theme-color");
@@ -794,7 +792,6 @@ namespace NetZ.Web.Html.Pagina
         {
             var tagTitleResultado = new Tag("title");
 
-            tagTitleResultado.booClazz = false;
             tagTitleResultado.booDupla = false;
             tagTitleResultado.strConteudo = this.strTitulo;
 

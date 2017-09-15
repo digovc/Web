@@ -32,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -65,10 +66,12 @@
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
     <Compile Include="Html\CheckBox.cs" />
+    <Compile Include="Html\Componente\Card.cs" />
     <Compile Include="Html\Componente\Documentacao\ActionBarDocumentacao.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaBase.cs" />
     <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaCabecalho.cs" />
-    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaSumario.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaLinha.cs" />
+    <Compile Include="Html\Componente\Grid\Coluna\DivGridColunaRodape.cs" />
     <Compile Include="Html\Componente\Grid\DivGridBase.cs" />
     <Compile Include="Html\Componente\Grid\DivGridCabecalho.cs" />
     <Compile Include="Html\Componente\Grid\DivGridConsulta.cs" />
@@ -112,7 +115,7 @@
     <Compile Include="Html\Componente\Campo\CampoComboBox.cs" />
     <Compile Include="Html\Componente\Campo\CampoConsulta.cs" />
     <Compile Include="Html\Componente\Campo\CampoDataHora.cs" />
-    <Compile Include="Html\Componente\Campo\CampoHtml.cs" />
+    <Compile Include="Html\Componente\Campo\CampoHtmlBase.cs" />
     <Compile Include="Html\ComboBox.cs" />
     <Compile Include="Html\Componente\Campo\CampoImagem.cs" />
     <Compile Include="Html\Componente\Campo\CampoNumerico.cs" />
@@ -120,11 +123,12 @@
     <Compile Include="Html\Componente\Campo\CampoSenha.cs" />
     <Compile Include="Html\Componente\Campo\CampoTexto.cs" />
     <Compile Include="Html\Componente\Circulo\DivCirculo.cs" />
-    <Compile Include="Html\Componente\ComponenteHtml.cs" />
+    <Compile Include="Html\Componente\ComponenteHtmlBase.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\DivComando.cs" />
+    <Compile Include="Html\Componente\Painel\PainelModal.cs" />
     <Compile Include="Html\Componente\Table\TableColumn.cs" />
     <Compile Include="Html\Componente\Table\TableHead.cs" />
     <Compile Include="Html\Componente\Table\TableHtml.cs" />
@@ -182,12 +186,14 @@
     <Compile Include="Server\Field.cs" />
     <Compile Include="Server\FormData.cs" />
     <Compile Include="Server\FormDataItem.cs" />
+    <Compile Include="Server\Https\ClienteHttps.cs" />
     <Compile Include="Server\Interlocutor.cs" />
     <Compile Include="Server\Resposta.cs" />
     <Compile Include="Server\ServerBase.cs" />
     <Compile Include="Server\SrvHttpBase.cs" />
     <Compile Include="Server\Ajax\SrvAjaxBase.cs" />
     <Compile Include="Server\Ajax\Dbe\SrvAjaxDbeBase.cs" />
+    <Compile Include="Server\Https\SrvHttpsBase.cs" />
     <Compile Include="Server\WebSocket\ClienteWs.cs" />
     <Compile Include="Server\WebSocket\Frame.cs" />
     <Compile Include="Server\WebSocket\SrvWsBase.cs" />
@@ -249,6 +255,9 @@
     <Content Include="res\media\svg\about.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="res\media\svg\close.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\svg\delete.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -283,6 +292,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\svg\save.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\media\svg\search.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\media\svg\server.svg">

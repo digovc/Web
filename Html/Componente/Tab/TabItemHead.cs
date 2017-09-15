@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Tab
 {
-    internal class TabItemHead : ComponenteHtml
+    internal class TabItemHead : ComponenteHtmlBase
     {
         #region Constantes
 

@@ -14,6 +14,7 @@ namespace NetZ.Web.Html
         #region Atributos
 
         private int _intOrdem;
+        private List<Type> _lstClsLayoutFixo;
         private List<string> _lstStrCodigo;
 
         /// <summary>
@@ -33,6 +34,21 @@ namespace NetZ.Web.Html
             set
             {
                 _intOrdem = value;
+            }
+        }
+
+        private List<Type> lstClsLayoutFixo
+        {
+            get
+            {
+                if (_lstClsLayoutFixo != null)
+                {
+                    return _lstClsLayoutFixo;
+                }
+
+                _lstClsLayoutFixo = new List<Type>();
+
+                return _lstClsLayoutFixo;
             }
         }
 
@@ -57,7 +73,6 @@ namespace NetZ.Web.Html
 
         public JavaScriptTag(string src = null, int intOrdem = 200) : base("script")
         {
-            this.booClazz = false;
             this.intOrdem = intOrdem;
             this.src = this.getSrc(src);
         }
@@ -78,6 +93,11 @@ namespace NetZ.Web.Html
             }
 
             var srcResultado = string.Format("/res/js/{0}/{1}.js?v={2}", cls.Namespace.ToLower().Replace(".", "/"), cls.Name, AppWebBase.i.strVersao);
+
+            if (AppWebBase.i.booDesenvolvimento)
+            {
+                srcResultado = string.Format("/res/js/{0}/{1}.js", cls.Namespace.ToLower().Replace(".", "/"), cls.Name);
+            }
 
             srcResultado = srcResultado.Replace("/netz/web/", "/web/");
 
@@ -136,12 +156,26 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            if (!typeof(ComponenteHtml).IsAssignableFrom(cls))
+            if (!typeof(ComponenteHtmlBase).IsAssignableFrom(cls))
             {
                 return;
             }
 
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtml).toHtml(this.pag));
+            if (this.lstClsLayoutFixo.Contains(cls))
+            {
+                return;
+            }
+
+            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtmlBase).toHtml(this.pag));
+            this.lstClsLayoutFixo.Add(cls);
+
+            var tagLayoutFixo = (Activator.CreateInstance(cls) as ComponenteHtmlBase);
+
+            tagLayoutFixo.booLayoutFixo = true;
+
+            var strLayoutFixo = tagLayoutFixo.toHtml(this.pag);
+
+            this.addConstante((cls.Name + "_layoutFixo"), strLayoutFixo);
         }
 
         public override string toHtml(PaginaHtmlBase pag)
@@ -156,7 +190,7 @@ namespace NetZ.Web.Html
                 return base.toHtml(pag);
             }
 
-            string strResultado = "$(document).ready(function(){_js_codigo});";
+            var strResultado = "$(document).ready(function(){_js_codigo});";
 
             strResultado = strResultado.Replace("_js_codigo", string.Join(string.Empty, this.lstStrCodigo.ToArray()));
 
@@ -188,6 +222,11 @@ namespace NetZ.Web.Html
             if (string.IsNullOrWhiteSpace(src))
             {
                 return null;
+            }
+
+            if (AppWebBase.i.booDesenvolvimento)
+            {
+                return src;
             }
 
             if (src.Contains("?"))

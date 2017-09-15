@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Markdown
 {
-    internal class Viewer : ComponenteHtml
+    internal class Viewer : ComponenteHtmlBase
     {
         #region Constantes
 

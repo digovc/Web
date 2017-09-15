@@ -51,7 +51,7 @@ namespace NetZ.Web.Html
         private Atributo _attTitle;
         private Atributo _attType;
         private bool _booBarraFinal = true;
-        private bool _booClazz = AppWebBase.i.booDesenvolvimento;
+        private bool? _booClazz;
         private bool _booDupla = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
@@ -130,12 +130,14 @@ namespace NetZ.Web.Html
         {
             get
             {
-                return _booClazz;
-            }
+                if (_booClazz != null)
+                {
+                    return (bool)_booClazz;
+                }
 
-            set
-            {
-                _booClazz = value;
+                _booClazz = this.getBooClazz();
+
+                return (bool)_booClazz;
             }
         }
 
@@ -480,7 +482,7 @@ namespace NetZ.Web.Html
             }
         }
 
-        private Tag tagPai
+        internal Tag tagPai
         {
             get
             {
@@ -685,7 +687,7 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            this.tagPai = pagPai.tagBody;
+            pagPai.addTag(this);
         }
 
         /// <summary>
@@ -786,6 +788,11 @@ namespace NetZ.Web.Html
         /// <param name="css">Tag CssMain utilizada para dar estilo para todas as tags da página.</param>
         protected virtual void finalizarCss(CssArquivoBase css)
         {
+        }
+
+        protected virtual bool getBooClazz()
+        {
+            return false;
         }
 
         /// <summary>
