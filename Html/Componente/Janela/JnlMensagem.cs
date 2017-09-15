@@ -68,13 +68,6 @@ namespace NetZ.Web.Html.Componente.Janela
 
         #region Métodos
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.pnlConteudo.intTamanhoVertical = 2;
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();

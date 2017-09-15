@@ -169,7 +169,7 @@ namespace NetZ.Web.Html
             this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtmlBase).toHtml(this.pag));
             this.lstClsLayoutFixo.Add(cls);
 
-            var tagLayoutFixo = (Activator.CreateInstance(cls) as ComponenteHtml);
+            var tagLayoutFixo = (Activator.CreateInstance(cls) as ComponenteHtmlBase);
 
             tagLayoutFixo.booLayoutFixo = true;
 

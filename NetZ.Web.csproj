@@ -128,6 +128,7 @@
     <Compile Include="Html\Componente\Janela\Consulta\PainelAcaoConsulta.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\PainelFiltro.cs" />
     <Compile Include="Html\Componente\Janela\Cadastro\DivComando.cs" />
+    <Compile Include="Html\Componente\Painel\PainelModal.cs" />
     <Compile Include="Html\Componente\Table\TableColumn.cs" />
     <Compile Include="Html\Componente\Table\TableHead.cs" />
     <Compile Include="Html\Componente\Table\TableHtml.cs" />
