@@ -171,7 +171,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
-            this.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
+            this.addCss(css.setBoxShadow(0, 2, 2, 0, "rgba(0,0,0,.5)"));
             this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setHeight(50, "px"));
             this.addCss(css.setLeft(0));
@@ -198,7 +198,7 @@ namespace NetZ.Web.Html.Componente.Mobile
 
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setLineHeight(50));
-            this.divTitulo.addCss(css.setPaddingLeft(65));
+            this.divTitulo.addCss(css.setPaddingLeft(10));
             this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 

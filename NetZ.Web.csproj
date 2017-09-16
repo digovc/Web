@@ -241,7 +241,7 @@
       <Name>DigoFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
-      <Project>{5fdebacf-1812-47a0-8fba-25db3ad2b31c}</Project>
+      <Project>{5FDEBACF-1812-47A0-8FBA-25DB3AD2B31C}</Project>
       <Name>NetZ.Persistencia</Name>
     </ProjectReference>
   </ItemGroup>

@@ -148,6 +148,11 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Eventos
 
+        public virtual bool processarMensagem(ClienteWs objClienteWs, Interlocutor objInterlocutor)
+        {
+            return false;
+        }
+
         public event EventHandler<ClienteWs> onClienteWsAdd;
 
         #endregion Eventos

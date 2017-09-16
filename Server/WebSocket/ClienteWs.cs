@@ -331,7 +331,7 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            List<byte> lstBteData = new List<byte>();
+            var lstBteData = new List<byte>();
 
             if (this.lstBteCache != null && this.lstBteCache.Count > 0)
             {
@@ -356,7 +356,7 @@ namespace NetZ.Web.Server.WebSocket
                 return;
             }
 
-            Frame fme = new Frame(lstBteData.ToArray());
+            var fme = new Frame(lstBteData.ToArray());
 
             this.lstBteCache = new List<byte>(fme.processarDadosIn());
 
@@ -467,6 +467,11 @@ namespace NetZ.Web.Server.WebSocket
             }
 
             if (string.IsNullOrEmpty(objInterlocutor.strMetodo))
+            {
+                return;
+            }
+
+            if (this.srvWs.processarMensagem(this, objInterlocutor))
             {
                 return;
             }
