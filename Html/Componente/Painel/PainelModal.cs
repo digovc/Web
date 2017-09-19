@@ -1,8 +1,8 @@
 ﻿using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Markdown
+namespace NetZ.Web.Html.Componente.Painel
 {
-    internal class IndiceItem : ComponenteHtmlBase
+    public class PainelModal : PainelHtml
     {
         #region Constantes
 
@@ -18,19 +18,17 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Métodos
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.strConteudo = "_conteudo";
-            this.urlLink = "_link";
-        }
-
         protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
-            this.addCss(css.setPadding(5));
+            this.addCss(css.setBackgroundColor("rgba(0,0,0,.5)"));
+            this.addCss(css.setBottom(0));
+            this.addCss(css.setDisplay("none"));
+            this.addCss(css.setLeft(0));
+            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setRight(0));
+            this.addCss(css.setTop(0));
         }
 
         #endregion Métodos

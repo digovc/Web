@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html.Componente.TreeView
 {
-    public class TreeViewHtml : ComponenteHtml
+    public class TreeViewHtml : ComponenteHtmlBase
     {
         #region Constantes
 

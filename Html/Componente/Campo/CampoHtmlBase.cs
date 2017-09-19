@@ -4,7 +4,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
 {
-    public abstract class CampoHtmlBase : ComponenteHtml, ITagNivel
+    public abstract class CampoHtmlBase : ComponenteHtmlBase, ITagNivel
     {
         #region Constantes
 
@@ -495,13 +495,13 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 default:
                     return 320;
-            }
+        }
         }
 
         private void setBooSomenteLeitura(bool booSomenteLeitura)
         {
             this.tagInput.booDisabled = booSomenteLeitura;
-        }
+            }
 
         private void setClnDica(Coluna cln)
         {

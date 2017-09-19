@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Grid
 {
-    internal class DivGridRodape : ComponenteHtml
+    internal class DivGridRodape : ComponenteHtmlBase
     {
         #region Constantes
 

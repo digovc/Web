@@ -46,6 +46,30 @@ namespace NetZ.Web.Server.WebSocket
 
         #region Métodos
 
+        public virtual bool processarMensagem(ClienteWs objClienteWs, Interlocutor objInterlocutor)
+        {
+            return false;
+        }
+
+        public virtual void processarMensagemWelcome(ClienteWs objClienteWs, Interlocutor objInterlocutor)
+        {
+        }
+
+        public virtual void removerObjClienteWs(ClienteWs objClienteWs)
+        {
+            if (objClienteWs == null)
+            {
+                return;
+            }
+
+            if (!this.lstObjClienteWs.Contains(objClienteWs))
+            {
+                return;
+            }
+
+            this.lstObjClienteWs.Remove(objClienteWs);
+        }
+
         public override Resposta responder(Solicitacao objSolicitacao)
         {
             // A solicitação e resposta é sempre processada pela classe ClienteWs.
@@ -67,21 +91,6 @@ namespace NetZ.Web.Server.WebSocket
             this.lstObjClienteWs.Add(objClienteWs);
 
             this.processarOnClienteWsAdd(objClienteWs);
-        }
-
-        internal void removerObjClienteWs(ClienteWs objClienteWs)
-        {
-            if (objClienteWs == null)
-            {
-                return;
-            }
-
-            if (!this.lstObjClienteWs.Contains(objClienteWs))
-            {
-                return;
-            }
-
-            this.lstObjClienteWs.Remove(objClienteWs);
         }
 
         protected override int getIntPorta()

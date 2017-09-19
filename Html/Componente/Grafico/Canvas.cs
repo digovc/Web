@@ -1,6 +1,6 @@
 ﻿namespace NetZ.Web.Html.Componente.Grafico
 {
-    public class Canvas : ComponenteHtml
+    public class Canvas : ComponenteHtmlBase
     {
         #region Constantes
 

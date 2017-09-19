@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Markdown
 {
-    internal class EmailRegistro : ComponenteHtml
+    internal class EmailRegistro : ComponenteHtmlBase
     {
         #region Constantes
 

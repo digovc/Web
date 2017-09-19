@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Menu
 {
-    public class DivFavorito : ComponenteHtml
+    public class DivFavorito : ComponenteHtmlBase
     {
         #region Constantes
 

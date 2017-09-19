@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Mobile
 {
-    public abstract class ActionBarBase : ComponenteHtml
+    public abstract class ActionBarBase : ComponenteHtmlBase
     {
         #region Constantes
 
@@ -171,7 +171,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             base.setCss(css);
 
             this.addCss(css.setBackgroundColor(AppWebBase.i.objTema.corTema));
-            this.addCss(css.setBoxShadow(0, 0, 15, 0, "black"));
+            this.addCss(css.setBoxShadow(0, 2, 2, 0, "rgba(0,0,0,.5)"));
             this.addCss(css.setColor(AppWebBase.i.objTema.corFonteTema));
             this.addCss(css.setHeight(50, "px"));
             this.addCss(css.setLeft(0));
@@ -196,10 +196,10 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divLinha.addCss(css.setMarginTop(10));
             this.divLinha.addCss(css.setWidth(1));
 
+            this.divTitulo.addCss(css.setFloat("left"));
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setLineHeight(50));
-            this.divTitulo.addCss(css.setPaddingLeft(65));
-            this.divTitulo.addCss(css.setWidth(100, "%"));
+            this.divTitulo.addCss(css.setPaddingLeft(10));
         }
 
         protected override void setStrId(string strId)

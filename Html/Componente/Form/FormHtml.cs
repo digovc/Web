@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace NetZ.Web.Html.Componente.Form
 {
-    public class FormHtml : ComponenteHtml
+    public class FormHtml : ComponenteHtmlBase
     {
         #region Constantes
 

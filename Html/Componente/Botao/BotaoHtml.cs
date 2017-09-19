@@ -2,7 +2,7 @@
 
 namespace NetZ.Web.Html.Componente.Botao
 {
-    public class BotaoHtml : ComponenteHtml, ITagNivel
+    public class BotaoHtml : ComponenteHtmlBase, ITagNivel
     {
         #region Constantes
 

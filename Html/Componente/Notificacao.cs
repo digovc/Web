@@ -3,7 +3,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente
 {
-    public class Notificacao : ComponenteHtml
+    public class Notificacao : ComponenteHtmlBase
     {
         #region Constantes
 

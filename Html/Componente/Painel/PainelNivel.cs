@@ -11,6 +11,7 @@ namespace NetZ.Web.Html.Componente.Painel
         #region Atributos
 
         private int _intNivel;
+        private int _intTamanhoVertical;
 
         /// <summary>
         /// Indica qual é o nível dentro do formulário.
@@ -25,6 +26,19 @@ namespace NetZ.Web.Html.Componente.Painel
             set
             {
                 _intNivel = value;
+            }
+        }
+
+        public int intTamanhoVertical
+        {
+            get
+            {
+                return _intTamanhoVertical;
+            }
+
+            set
+            {
+                _intTamanhoVertical = value;
             }
         }
 
