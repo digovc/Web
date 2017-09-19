@@ -369,8 +369,9 @@ namespace NetZ.Web.Html.Componente.Campo
                 return;
             }
 
+            this.setClnDica(cln);
+
             this.addAtt("coluna-nome", cln.sqlNome);
-            this.addAtt("dica", cln.strDica);
 
             this.booObrigatorio = cln.booObrigatorio;
             this.booPermitirAlterar = cln.booPermitirAlterar;
@@ -441,7 +442,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         protected virtual void setCssTagInputWidth(CssArquivoBase css)
         {
-            this.tagInput.addCss(css.setWidth(this.getIntWigth() - 40));
+            this.tagInput.addCss(css.setWidth(this.getIntWigth() - 60));
         }
 
         protected override void setStrId(string strId)
@@ -500,6 +501,16 @@ namespace NetZ.Web.Html.Componente.Campo
         private void setBooSomenteLeitura(bool booSomenteLeitura)
         {
             this.tagInput.booDisabled = booSomenteLeitura;
+        }
+
+        private void setClnDica(Coluna cln)
+        {
+            if (string.IsNullOrEmpty(cln.strDica))
+            {
+                return;
+            }
+
+            this.addAtt("dica", cln.strDica);
         }
 
         private void setCssWidth(CssArquivoBase css)

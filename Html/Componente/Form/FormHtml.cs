@@ -540,7 +540,7 @@ namespace NetZ.Web.Html.Componente.Form
                 return;
             }
 
-            PainelNivel pnlNivel = this.lstPnlNivel.Last();
+            var pnlNivel = this.lstPnlNivel.Last();
 
             if (tag.intNivel > pnlNivel.intNivel)
             {
