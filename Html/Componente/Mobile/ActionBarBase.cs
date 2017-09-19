@@ -196,10 +196,10 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.divLinha.addCss(css.setMarginTop(10));
             this.divLinha.addCss(css.setWidth(1));
 
+            this.divTitulo.addCss(css.setFloat("left"));
             this.divTitulo.addCss(css.setFontSize(25));
             this.divTitulo.addCss(css.setLineHeight(50));
             this.divTitulo.addCss(css.setPaddingLeft(10));
-            this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 
         protected override void setStrId(string strId)

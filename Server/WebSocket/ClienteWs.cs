@@ -230,6 +230,8 @@ namespace NetZ.Web.Server.WebSocket
             objInterlocutor.strMetodo = STR_METODO_WELCOME;
 
             this.enviar(objInterlocutor);
+
+            this.srvWs.processarMensagemWelcome(this, objInterlocutor);
         }
 
         protected override void responder(Solicitacao objSolicitacao)

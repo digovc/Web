@@ -16,7 +16,7 @@ namespace NetZ.Web.Server
 
         #region Atributos
 
-        private DateTime _dttUltimaMensagemRecebida = DateTime.Now;
+        private DateTime _dttComunicacaoUltima = DateTime.Now;
         private ServerBase _srv;
         private TcpClient _tcpClient;
 
@@ -36,16 +36,16 @@ namespace NetZ.Web.Server
         /// <summary>
         /// Data e hora em que a última mensagem foi enviada pelo cliente para este servidor.
         /// </summary>
-        internal DateTime dttUltimaMensagemRecebida
+        internal DateTime dttComunicacaoUltima
         {
             get
             {
-                return _dttUltimaMensagemRecebida;
+                return _dttComunicacaoUltima;
             }
 
             set
             {
-                _dttUltimaMensagemRecebida = value;
+                _dttComunicacaoUltima = value;
             }
         }
 
@@ -166,8 +166,6 @@ namespace NetZ.Web.Server
                     return;
                 }
 
-                this.dttUltimaMensagemRecebida = DateTime.Now;
-
                 this.responder(this.srv.responder(objSolicitacao));
             }
             catch (Exception ex)
@@ -242,6 +240,8 @@ namespace NetZ.Web.Server
                     continue;
                 }
 
+                this.dttComunicacaoUltima = DateTime.Now;
+
                 this.responder(objSolicitacao);
             }
             while (this.validarContinuar());
@@ -259,7 +259,7 @@ namespace NetZ.Web.Server
                 return false;
             }
 
-            if ((DateTime.Now - this.dttUltimaMensagemRecebida).Seconds > 45)
+            if ((DateTime.Now - this.dttComunicacaoUltima).TotalSeconds > 45)
             {
                 return false;
             }
