@@ -1,6 +1,6 @@
 ﻿using NetZ.Web.Html.Componente;
 
-namespace NetZ.Web.Html.Activity
+namespace NetZ.Web.Html.Componente.Mobile.Activity
 {
     public abstract class ActivityBase : ComponenteHtmlBase
     {
