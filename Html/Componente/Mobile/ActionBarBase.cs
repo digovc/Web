@@ -151,6 +151,11 @@ namespace NetZ.Web.Html.Componente.Mobile
             tagJs.addLayoutFixo(typeof(BotaoActionBar));
         }
 
+        protected virtual string getUrlBtnSubMenuIcon()
+        {
+            return (AppWebBase.DIR_MEDIA_SVG + "menu.svg");
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -181,7 +186,7 @@ namespace NetZ.Web.Html.Componente.Mobile
             this.addCss(css.setWidth(100, "%"));
             this.addCss(css.setZIndex(1000));
 
-            this.btnSubMenu.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "menu.svg"));
+            this.btnSubMenu.addCss(css.setBackgroundImage(this.getUrlBtnSubMenuIcon()));
             this.btnSubMenu.addCss(css.setDisplay("none"));
             this.btnSubMenu.addCss(css.setFloat("right"));
 
