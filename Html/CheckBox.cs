@@ -117,20 +117,22 @@ namespace NetZ.Web.Html
 
             this.divContainer.addCss(css.setBackgroundColor("white"));
             this.divContainer.addCss(css.setBorder(1, "solid", "gray"));
-            this.divContainer.addCss(css.setBorderRadius(10));
+            this.divContainer.addCss(css.setBorderRadius(20));
             this.divContainer.addCss(css.setFloat("left"));
-            this.divContainer.addCss(css.setHeight(16));
+            this.divContainer.addCss(css.setHeight(34));
+            this.divContainer.addCss(css.setMarginLeft(-18));
             this.divContainer.addCss(css.setMarginRight(10));
+            this.divContainer.addCss(css.setMarginTop(2));
             this.divContainer.addCss(css.setPosition("relative"));
-            this.divContainer.addCss(css.setWidth(30));
+            this.divContainer.addCss(css.setWidth(70));
 
             this.divSeletor.addCss(css.setBackgroundColor("rgb(160,160,160)"));
             this.divSeletor.addCss(css.setBorderRadius(50, "%"));
-            this.divSeletor.addCss(css.setHeight(14));
+            this.divSeletor.addCss(css.setHeight(32));
             this.divSeletor.addCss(css.setLeft(1));
             this.divSeletor.addCss(css.setPosition("absolute"));
             this.divSeletor.addCss(css.setTop(1));
-            this.divSeletor.addCss(css.setWidth(14));
+            this.divSeletor.addCss(css.setWidth(32));
 
             this.divTitulo.addCss(css.setLineHeight(13));
             this.divTitulo.addCss(css.setPaddingLeft(25));

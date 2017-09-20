@@ -131,19 +131,19 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            string strJs = "Web.ConstanteManager.i.addConstante(new Web.Constante('_constante_nome', '_constante_valor'));";
-
-            strJs = strJs.Replace("_constante_nome", strNome);
-            strJs = strJs.Replace("_constante_valor", strValor);
-
-            this.addJsCodigo(strJs);
+            this.addJsCodigo("Web.ConstanteManager.i.addConstante(new Web.Constante('{0}', '{1}'));", strNome, strValor);
         }
 
-        public void addJsCodigo(string strJsCodigo)
+        public void addJsCodigo(string strJsCodigo, params string[] arrStrArg)
         {
             if (string.IsNullOrEmpty(strJsCodigo))
             {
                 return;
+            }
+
+            if (arrStrArg != null)
+            {
+                strJsCodigo = string.Format(strJsCodigo, arrStrArg);
             }
 
             this.lstStrCodigo.Add(strJsCodigo);
@@ -166,16 +166,13 @@ namespace NetZ.Web.Html
                 return;
             }
 
-            this.addConstante((cls.Name + "_layoutFixo"), (Activator.CreateInstance(cls) as ComponenteHtmlBase).toHtml(this.pag));
             this.lstClsLayoutFixo.Add(cls);
 
             var tagLayoutFixo = (Activator.CreateInstance(cls) as ComponenteHtmlBase);
 
             tagLayoutFixo.booLayoutFixo = true;
 
-            var strLayoutFixo = tagLayoutFixo.toHtml(this.pag);
-
-            this.addConstante((cls.Name + "_layoutFixo"), strLayoutFixo);
+            this.addConstante((cls.Name + "_layoutFixo"), tagLayoutFixo.toHtml(this.pag));
         }
 
         public override string toHtml(PaginaHtmlBase pag)
