@@ -117,9 +117,13 @@ namespace NetZ.Web.Html.Pagina.Documentacao
             lstJs.Add(new JavaScriptTag(typeof(DominioWebBase), 150));
             lstJs.Add(new JavaScriptTag(typeof(EmailRegistroDominio), 152));
             lstJs.Add(new JavaScriptTag(typeof(Interlocutor)));
-            lstJs.Add(new JavaScriptTag(typeof(PagDocumentacaoBase), 104));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDocumentacao), 103));
+        }
+
+        protected override void addJsLib(LstTag<JavaScriptTag> lstJsLib)
+        {
+            base.addJsLib(lstJsLib);
 
             lstJs.Add(new JavaScriptTag((AppWebBase.DIR_JS_LIB + "marked.min.js")));
         }

@@ -463,7 +463,6 @@ namespace NetZ.Web.Html.Pagina
         protected virtual void addJs(LstTag<JavaScriptTag> lstJs)
         {
             lstJs.Add(new JavaScriptTag(typeof(AppWebBase), 104));
-            lstJs.Add(new JavaScriptTag(typeof(PaginaHtmlBase), 103));
             lstJs.Add(new JavaScriptTag(typeof(ServerBase), 101));
             lstJs.Add(new JavaScriptTag(typeof(SrvHttpBase), 102));
             lstJs.Add(new JavaScriptTag(typeof(Tag), 103));
@@ -492,8 +491,8 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
-            lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "jquery-3.1.0.min.js", 1));
-            lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "require.js", 0));
+            lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "jquery-3.2.1.min.js", 0));
+            lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "velocity.min.js", 1));
         }
 
         protected virtual void addLayoutFixo(JavaScriptTag tagJs)
@@ -615,7 +614,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsAutomatico(LstTag<JavaScriptTag> lstJs, Type cls)
         {
-            if (typeof(PaginaHtmlBase).Equals(cls))
+            if (typeof(Objeto).Equals(cls))
             {
                 return;
             }
@@ -647,9 +646,9 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJsLstJs()
         {
-            List<JavaScriptTag> lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
+            var lstJsOrdenado = this.lstJs.OrderBy((o) => o.intOrdem).ToList();
 
-            foreach (JavaScriptTag tagJs in lstJsOrdenado)
+            foreach (var tagJs in lstJsOrdenado)
             {
                 if (tagJs == null)
                 {
@@ -667,6 +666,11 @@ namespace NetZ.Web.Html.Pagina
             divNotificacaoResultado.strId = "divNotificacao";
 
             return divNotificacaoResultado;
+        }
+
+        private JavaScriptTag getJsMain()
+        {
+            throw new NotImplementedException();
         }
 
         private string getStrTitulo()

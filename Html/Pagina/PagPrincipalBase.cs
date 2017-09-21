@@ -2,12 +2,12 @@
 using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Html.Componente.Campo;
 using NetZ.Web.Html.Componente.Form;
-using NetZ.Web.Html.Componente.Table;
 using NetZ.Web.Html.Componente.Janela;
 using NetZ.Web.Html.Componente.Janela.Cadastro;
 using NetZ.Web.Html.Componente.Janela.Consulta;
 using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Html.Componente.Tab;
+using NetZ.Web.Html.Componente.Table;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Pagina
@@ -110,7 +110,6 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(JnlCadastro), 122));
             lstJs.Add(new JavaScriptTag(typeof(JnlConsulta), 122));
             lstJs.Add(new JavaScriptTag(typeof(JnlTag), 122));
-            lstJs.Add(new JavaScriptTag(typeof(PagPrincipalBase), 103));
             lstJs.Add(new JavaScriptTag(typeof(PainelAcao), 120));
             lstJs.Add(new JavaScriptTag(typeof(PainelAcaoConsulta), 121));
             lstJs.Add(new JavaScriptTag(typeof(PainelFiltro), 115));
@@ -122,16 +121,17 @@ namespace NetZ.Web.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(TabItemHead), 111));
             lstJs.Add(new JavaScriptTag(typeof(TagCard), 111));
 
-            lstJs.Add(new JavaScriptTag("/res/js/lib/jquery.fixedheadertable.min.js"));
-            lstJs.Add(new JavaScriptTag("/res/js/lib/jquery.floatThead.min.js"));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/database/ColunaWeb.js", 101));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/database/FiltroWeb.js", 101));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/database/ParValorNome.js", 300));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/database/TabelaWeb.js", 102));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/database/TblFiltro.js", 300));
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS + "web/html/componente/tabela/OnTableMenuClickArg.js", 300));
+        }
 
-            lstJs.Add(new JavaScriptTag("/res/js/web/database/ColunaWeb.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/database/FiltroWeb.js", 101));
-            lstJs.Add(new JavaScriptTag("/res/js/web/database/ParValorNome.js", 300));
-            lstJs.Add(new JavaScriptTag("/res/js/web/database/TabelaWeb.js", 102));
-            lstJs.Add(new JavaScriptTag("/res/js/web/database/TblFiltro.js", 300));
-
-            lstJs.Add(new JavaScriptTag("/res/js/web/html/componente/tabela/OnTableMenuClickArg.js", 300));
+        protected override void addJsLib(LstTag<JavaScriptTag> lstJsLib)
+        {
+            base.addJsLib(lstJsLib);
         }
 
         protected override void inicializar()
