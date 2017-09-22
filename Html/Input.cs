@@ -1,5 +1,5 @@
-﻿using System;
-using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Server.Arquivo.Css;
+using System;
 
 namespace NetZ.Web.Html
 {
@@ -39,7 +39,9 @@ namespace NetZ.Web.Html
 
         #region Atributos
 
+        private Atributo _attAutoComplete;
         private Atributo _attValue;
+        private bool _booAutoComplete;
         private bool _booDisabled;
         private bool _booValor;
         private decimal _decValor;
@@ -48,6 +50,19 @@ namespace NetZ.Web.Html
         private int _intValor;
         private string _strPlaceHolder;
         private string _strValor;
+
+        public bool booAutoComplete
+        {
+            get
+            {
+                return _booAutoComplete;
+            }
+
+            set
+            {
+                _booAutoComplete = value;
+            }
+        }
 
         public bool booDisabled
         {
@@ -232,6 +247,21 @@ namespace NetZ.Web.Html
             }
         }
 
+        private Atributo attAutoComplete
+        {
+            get
+            {
+                if (_attAutoComplete != null)
+                {
+                    return _attAutoComplete;
+                }
+
+                _attAutoComplete = new Atributo("autocomplete", "off");
+
+                return _attAutoComplete;
+            }
+        }
+
         private Atributo attValue
         {
             get
@@ -268,15 +298,11 @@ namespace NetZ.Web.Html
             lstJs.Add(new JavaScriptTag("/res/js/web/OnValorAlteradoArg.js", 110));
         }
 
-        protected void setStrValor(string strValor)
-        {
-            this.attValue.strValor = strValor;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
 
+            this.inicializarAttAutoComplete();
             this.inicializarEnmTipo();
             this.inicializarName();
             this.inicializarStrPlaceHolder();
@@ -311,6 +337,11 @@ namespace NetZ.Web.Html
             }
         }
 
+        protected void setStrValor(string strValor)
+        {
+            this.attValue.strValor = strValor;
+        }
+
         private Atributo getAttValue()
         {
             Atributo attResultado = new Atributo("value");
@@ -318,6 +349,16 @@ namespace NetZ.Web.Html
             this.addAtt(attResultado);
 
             return attResultado;
+        }
+
+        private void inicializarAttAutoComplete()
+        {
+            if (!this.booAutoComplete)
+            {
+                return;
+            }
+
+            this.addAtt(this.attAutoComplete);
         }
 
         private void inicializarEnmTipo()

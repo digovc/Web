@@ -316,6 +316,26 @@ namespace NetZ.Web.Html
             }
         }
 
+        internal Tag tagPai
+        {
+            get
+            {
+                return _tagPai;
+            }
+
+            set
+            {
+                if (_tagPai == value)
+                {
+                    return;
+                }
+
+                _tagPai = value;
+
+                this.setPagPai(_tagPai);
+            }
+        }
+
         private Atributo attId
         {
             get
@@ -479,26 +499,6 @@ namespace NetZ.Web.Html
                 _strName = value;
 
                 this.setStrName(_strName);
-            }
-        }
-
-        internal Tag tagPai
-        {
-            get
-            {
-                return _tagPai;
-            }
-
-            set
-            {
-                if (_tagPai == value)
-                {
-                    return;
-                }
-
-                _tagPai = value;
-
-                this.setPagPai(_tagPai);
             }
         }
 

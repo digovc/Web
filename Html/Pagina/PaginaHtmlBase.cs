@@ -453,6 +453,7 @@ namespace NetZ.Web.Html.Pagina
 
         protected virtual void addCss(LstTag<CssTag> lstCss)
         {
+            lstCss.Add(new CssTag(AppWebBase.DIR_CSS + "ripple.min.css"));
         }
 
         protected void addJs(JavaScriptTag tagJs)
@@ -492,6 +493,7 @@ namespace NetZ.Web.Html.Pagina
         protected virtual void addJsLib(LstTag<JavaScriptTag> lstJsLib)
         {
             lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "jquery-3.2.1.min.js", 0));
+            lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "ripple.min.js", 1));
             lstJsLib.Add(new JavaScriptTag(AppWebBase.DIR_JS_LIB + "velocity.min.js", 1));
         }
 

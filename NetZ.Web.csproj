@@ -259,6 +259,9 @@
     <None Include="ServiceInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\css\ripple.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\media\png\btn_fechar_notificacao_20x20.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
