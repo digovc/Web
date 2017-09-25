@@ -43,6 +43,8 @@ namespace NetZ.Web.Html.Pagina
         private Tag _tagThemaColor;
         private Tag _tagTitle;
 
+        private string _urlPrefixo;
+
         public Tag tagBody
         {
             get
@@ -365,6 +367,21 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
+        private string urlPrefixo
+        {
+            get
+            {
+                if (_urlPrefixo != null)
+                {
+                    return _urlPrefixo;
+                }
+
+                _urlPrefixo = this.getUrlPrefixo();
+
+                return _urlPrefixo;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -389,7 +406,7 @@ namespace NetZ.Web.Html.Pagina
             tag.tagPai = this.tagBody;
         }
 
-        public void salvar(string dir, string urlPrefix = null)
+        public void salvar(string dir)
         {
             if (string.IsNullOrEmpty(dir))
             {
@@ -406,9 +423,9 @@ namespace NetZ.Web.Html.Pagina
 
             var strHtml = this.toHtml();
 
-            if (!string.IsNullOrWhiteSpace(urlPrefix))
+            if (!string.IsNullOrWhiteSpace(this.urlPrefixo))
             {
-                strHtml = strHtml.Replace("/res/", (urlPrefix + "/res/"));
+                strHtml = strHtml.Replace("/res/", (this.urlPrefixo + "res/"));
             }
 
             var objUtf8Encoding = new UTF8Encoding(true);
@@ -536,6 +553,11 @@ namespace NetZ.Web.Html.Pagina
         protected virtual string getStrJsNamespace()
         {
             return AppWebBase.i.GetType().Namespace;
+        }
+
+        protected virtual string getUrlPrefixo()
+        {
+            return null;
         }
 
         /// <summary>

@@ -195,7 +195,7 @@ namespace NetZ.Web.Server.Arquivo.Css
 
             if (!string.IsNullOrWhiteSpace(urlPrefix))
             {
-                strConteudo = strConteudo.Replace(":url(/res/", string.Format(":url({0}/res/", urlPrefix));
+                strConteudo = strConteudo.Replace(":url(/res/", string.Format(":url({0}res/", urlPrefix));
             }
 
             this.strConteudo = strConteudo;

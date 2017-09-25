@@ -88,7 +88,7 @@ namespace Web.UiManager
             return false;
         }
 
-        protected virtual string getUrlPrefix()
+        protected virtual string getUrlPrefixCssMain()
         {
             return null;
         }
@@ -104,7 +104,7 @@ namespace Web.UiManager
 
             Log.i.info("Exportando o arquivo css ({0}).", CssMain.i.dirCompleto);
 
-            CssMain.i.salvar(this.getUrlPrefix());
+            CssMain.i.salvar(this.getUrlPrefixCssMain());
         }
 
         private void exportarHtml()
@@ -175,7 +175,7 @@ namespace Web.UiManager
 
         private void exportarHtmlPag(PaginaHtmlBase pag, string dirNamespace)
         {
-            pag.salvar(AppWebBase.DIR_HTML + dirNamespace, this.getUrlPrefix());
+            pag.salvar(AppWebBase.DIR_HTML + dirNamespace);
         }
 
         private void exportarHtmlTag(ComponenteHtmlBase tag, string dirNamespace)

@@ -79,17 +79,12 @@ namespace NetZ.Web.WinService
                 return false;
             }
 
-            if (arrStrParam.Length < 1)
+            if (string.Join(" ", arrStrParam).Contains("debug"))
             {
-                return false;
+                return true;
             }
 
-            if (!arrStrParam[0].Equals("debug"))
-            {
-                return false;
-            }
-
-            return true;
+            return false;
         }
 
         #endregion Métodos
