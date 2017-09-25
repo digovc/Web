@@ -46,6 +46,8 @@ namespace NetZ.Web.Html.Componente.Campo
         private EnmTamanho _enmTamanho = EnmTamanho.GRANDE;
         private int _intNivel;
         private int _intTamanhoVertical;
+        private string _strRegex;
+        private string _strRegexAjuda;
         private string _strTitulo;
         private Input _tagInput;
 
@@ -182,6 +184,32 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _intTamanhoVertical = value;
+            }
+        }
+
+        public string strRegex
+        {
+            get
+            {
+                return _strRegex;
+            }
+
+            set
+            {
+                _strRegex = value;
+            }
+        }
+
+        public string strRegexAjuda
+        {
+            get
+            {
+                return _strRegexAjuda;
+            }
+
+            set
+            {
+                _strRegexAjuda = value;
             }
         }
 
@@ -327,7 +355,8 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addAtt("permitir_alterar", this.booPermitirAlterar);
 
             this.finalizarBooObrigatorio();
-
+            this.finalizarStrRegex();
+            this.finalizarStrRegexAjuda();
             this.finalizarTitulofixo();
         }
 
@@ -476,6 +505,26 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addAtt("required", true);
         }
 
+        private void finalizarStrRegex()
+        {
+            if (string.IsNullOrWhiteSpace(this.strRegex))
+            {
+                return;
+            }
+
+            this.addAtt("regex", this.strRegex);
+        }
+
+        private void finalizarStrRegexAjuda()
+        {
+            if (string.IsNullOrWhiteSpace(this.strRegexAjuda))
+            {
+                return;
+            }
+
+            this.addAtt("regex-ajuda", this.strRegex);
+        }
+
         private void finalizarTitulofixo()
         {
             if (!this.booTituloFixo)
@@ -495,13 +544,13 @@ namespace NetZ.Web.Html.Componente.Campo
 
                 default:
                     return 320;
-        }
+            }
         }
 
         private void setBooSomenteLeitura(bool booSomenteLeitura)
         {
             this.tagInput.booDisabled = booSomenteLeitura;
-            }
+        }
 
         private void setClnDica(Coluna cln)
         {

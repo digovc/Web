@@ -68,14 +68,11 @@ namespace NetZ.Web.Html.Componente
             this.addJsAutomatico(lstJs);
         }
 
-        protected override bool getBooClazz()
-        {
-            return AppWebBase.i.booDesenvolvimento;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
+
+            this.booClazz = AppWebBase.i.booDesenvolvimento;
 
             if (this.booLayoutFixo)
             {

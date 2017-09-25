@@ -137,11 +137,6 @@ namespace NetZ.Web.Html.Componente.Table
 
         #region Métodos
 
-        protected override bool getBooClazz()
-        {
-            return true;
-        }
-
         protected override void inicializar()
         {
             base.inicializar();
@@ -151,6 +146,7 @@ namespace NetZ.Web.Html.Componente.Table
                 return;
             }
 
+            this.booClazz = true;
             this.strId = ("tagTableHtml_" + this.tbl.sqlNome);
 
             this.addAtt("tbl_web_nome", this.tbl.sqlNome);

@@ -134,10 +134,11 @@ namespace NetZ.Web.Html
             this.divSeletor.addCss(css.setTop(1));
             this.divSeletor.addCss(css.setWidth(32));
 
-            this.divTitulo.addCss(css.setLineHeight(13));
+            this.divTitulo.addCss(css.setLineHeight(34));
             this.divTitulo.addCss(css.setPaddingLeft(25));
             this.divTitulo.addCss(css.setPaddingTop(2));
             this.divTitulo.addCss(css.setTextAlign("left"));
+            this.divTitulo.addCss(css.setWidth(100, "%"));
         }
 
         protected override void setStrId(string strId)

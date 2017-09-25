@@ -51,7 +51,7 @@ namespace NetZ.Web.Html
         private Atributo _attTitle;
         private Atributo _attType;
         private bool _booBarraFinal = true;
-        private bool? _booClazz;
+        private bool _booClazz;
         private bool _booDupla = true;
         private EnmLinkTipo _enmLinkTipo = EnmLinkTipo.SELF;
         private int _intTabStop;
@@ -130,14 +130,12 @@ namespace NetZ.Web.Html
         {
             get
             {
-                if (_booClazz != null)
-                {
-                    return (bool)_booClazz;
-                }
+                return _booClazz;
+            }
 
-                _booClazz = this.getBooClazz();
-
-                return (bool)_booClazz;
+            set
+            {
+                _booClazz = value;
             }
         }
 
@@ -779,6 +777,7 @@ namespace NetZ.Web.Html
         /// </summary>
         protected virtual void finalizar()
         {
+            this.finalizarBooClazz();
         }
 
         /// <summary>
@@ -790,26 +789,21 @@ namespace NetZ.Web.Html
         {
         }
 
-        protected virtual bool getBooClazz()
-        {
-            return false;
-        }
-
         /// <summary>
         /// Método que é chamado antes de montar o HTML desta tag e pode ser utilizado para
         /// inicializar valores diversos das propriedades desta e de outras tags filhas.
         /// </summary>
         protected virtual void inicializar()
         {
-            if (this.pag != null)
+            if (this.pag == null)
             {
-                this.addCss(this.pag.lstCss);
-                this.addJsLib(this.pag.lstJsLib);
-                this.addJs(this.pag.lstJs);
-                this.addJs(this.pag.tagJs);
+                return;
             }
 
-            this.inicializarClazz();
+            this.addCss(this.pag.lstCss);
+            this.addJsLib(this.pag.lstJsLib);
+            this.addJs(this.pag.lstJs);
+            this.addJs(this.pag.tagJs);
         }
 
         protected virtual void montarLayout()
@@ -841,6 +835,16 @@ namespace NetZ.Web.Html
             }
 
             this.attTitle.strValor = strTitle;
+        }
+
+        private void finalizarBooClazz()
+        {
+            if (!this.booClazz)
+            {
+                return;
+            }
+
+            this.addAtt("clazz", this.GetType().Name);
         }
 
         private Atributo getAttClass()
@@ -941,16 +945,6 @@ namespace NetZ.Web.Html
                 default:
                     return "_self";
             }
-        }
-
-        private void inicializarClazz()
-        {
-            if (!this.booClazz)
-            {
-                return;
-            }
-
-            this.addAtt("clazz", this.GetType().Name);
         }
 
         private void setCssBooMostrarGrade(CssArquivoBase css)
