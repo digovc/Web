@@ -374,7 +374,7 @@ namespace NetZ.Web.Server
                 return this;
             }
 
-            string jsn = Json.i.toJson(obj);
+            var jsn = Json.i.toJson(obj);
 
             if (string.IsNullOrEmpty(jsn))
             {

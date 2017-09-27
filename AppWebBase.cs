@@ -237,14 +237,16 @@ namespace NetZ.Web
         /// </summary>
         internal UsuarioDominio getObjUsuario(string strSessao)
         {
-            lock (this.objLstObjUsuarioLock)
+            if (string.IsNullOrEmpty(strSessao))
             {
-                if (string.IsNullOrEmpty(strSessao))
-                {
-                    return null;
-                }
+                return null;
+            }
 
-                foreach (UsuarioDominio objUsuario in this.lstObjUsuario)
+            try
+            {
+                this.bloquearThread();
+
+                foreach (var objUsuario in this.lstObjUsuario)
                 {
                     if (objUsuario == null)
                     {
@@ -264,13 +266,11 @@ namespace NetZ.Web
                     return objUsuario;
                 }
 
-                var objUsuarioNovo = new UsuarioDominio();
-
-                objUsuarioNovo.strSessao = strSessao;
-
-                this.addObjUsuario(objUsuarioNovo);
-
-                return objUsuarioNovo;
+                return getObjUsuarioNovo(strSessao);
+            }
+            finally
+            {
+                this.liberarThread();
             }
         }
 
@@ -320,6 +320,17 @@ namespace NetZ.Web
             this.inicializarLstSrv(lstSrvResultado);
 
             return lstSrvResultado;
+        }
+
+        private UsuarioDominio getObjUsuarioNovo(string strSessao)
+        {
+            var objUsuarioResultado = new UsuarioDominio();
+
+            objUsuarioResultado.strSessao = strSessao;
+
+            this.addObjUsuario(objUsuarioResultado);
+
+            return objUsuarioResultado;
         }
 
         private void inicializarDbe()
