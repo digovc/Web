@@ -286,14 +286,18 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            if (CssMain.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
+            var objResposta = this.responderArquivoEstaticoCss(objSolicitacao);
+
+            if (objResposta != null)
             {
-                return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
+                return objResposta;
             }
 
-            if (CssPrint.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
+            objResposta = this.responderArquivoEstaticoCss(objSolicitacao);
+
+            if (objResposta != null)
             {
-                return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
+                return objResposta;
             }
 
             if (STR_GET_SCRIPT.Equals(objSolicitacao.getStrGetValue("method")))
@@ -317,6 +321,26 @@ namespace NetZ.Web.Server
             }
 
             return new Resposta(objSolicitacao).addArquivo(arq);
+        }
+
+        private Resposta responderArquivoEstaticoCss(Solicitacao objSolicitacao)
+        {
+            if ((this.objUiManager != null) && this.objUiManager.getBooExportarCss())
+            {
+                return null;
+            }
+
+            if (CssMain.SRC_CSS.Equals(objSolicitacao.strPagina))
+            {
+                return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
+            }
+
+            if (CssPrint.SRC_CSS.Equals(objSolicitacao.strPagina))
+            {
+                return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
+            }
+
+            return null;
         }
 
         private Resposta responderArquivoEstaticoGetScript(Solicitacao objSolicitacao)

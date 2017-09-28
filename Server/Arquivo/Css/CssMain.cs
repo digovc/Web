@@ -7,7 +7,7 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Constantes
 
         public const string STR_CSS_ID = "cssMain";
-        public const string STR_CSS_SRC = "/res/css/main.css";
+        public const string SRC_CSS = "/res/css/main.css";
 
         #endregion Constantes
 
@@ -46,7 +46,7 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             base.inicializar();
 
-            this.strHref = (STR_CSS_SRC + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
+            this.strHref = (SRC_CSS + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
 
             this.addCssPuro("::-webkit-scrollbar{margin-right:15px;height:10px;width:10px;background-color:rgba(0,0,0,0.0)}");
             this.addCssPuro("::-webkit-scrollbar-button{height:5px;width:5px;background-color:rgba(0,0,0,0.0)}");

@@ -1,5 +1,4 @@
 ﻿using NetZ.Persistencia;
-using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
@@ -12,37 +11,21 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private BotaoMini _btnAcao; // TODO: Trocar este botão por dois botões, um de pesquisar e outro de limpar o campo.
-        private Input _txtIntId;
+        private Div _divIntId;
         private Input _txtPesquisa;
 
-        private BotaoMini btnAcao
+        private Div divIntId
         {
             get
             {
-                if (_btnAcao != null)
+                if (_divIntId != null)
                 {
-                    return _btnAcao;
+                    return _divIntId;
                 }
 
-                _btnAcao = new BotaoMini();
+                _divIntId = new Div();
 
-                return _btnAcao;
-            }
-        }
-
-        private Input txtIntId
-        {
-            get
-            {
-                if (_txtIntId != null)
-                {
-                    return _txtIntId;
-                }
-
-                _txtIntId = new Input();
-
-                return _txtIntId;
+                return _divIntId;
             }
         }
 
@@ -69,6 +52,19 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
+        protected override Input.EnmTipo getEnmTipo()
+        {
+            return Input.EnmTipo.SEARCH;
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.txtPesquisa.setPai(this.divConteudo);
+            this.divIntId.setPai(this.divAreaEsquerda);
+        }
+
         protected override void setCln(Coluna cln)
         {
             base.setCln(cln);
@@ -81,70 +77,21 @@ namespace NetZ.Web.Html.Componente.Campo
             this.setClnClnRef(cln);
         }
 
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.btnAcao.strId = (strId + "_btnAcao");
-            this.txtIntId.strId = (strId + "_txtIntId");
-            this.txtIntId.strId = (strId + "_txtIntId");
-            this.txtPesquisa.strId = (strId + "_txtPesquisa");
-        }
-
-        protected override Input.EnmTipo getEnmTipo()
-        {
-            return Input.EnmTipo.SEARCH;
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.btnAcao.intTabStop = -1;
-
-            this.btnAcao.addAtt("type", "button");
-
-            this.txtIntId.booDisabled = true;
-        }
-
-        protected override void montarLayout()
-        {
-            base.montarLayout();
-
-            this.txtPesquisa.setPai(this.divConteudo);
-            this.txtIntId.setPai(this.divConteudo);
-            this.btnAcao.setPai(this.divConteudo);
-        }
-
         protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
-
-            this.btnAcao.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisar_25x25.png"));
-            this.btnAcao.addCss(css.setBackgroundPosition("-1px -1px"));
-            this.btnAcao.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
-            this.btnAcao.addCss(css.setHeight(25));
-            this.btnAcao.addCss(css.setPosition("absolute"));
-            this.btnAcao.addCss(css.setRight(-115));
-            this.btnAcao.addCss(css.setTop(-3));
-            this.btnAcao.addCss(css.setWidth(25));
 
             this.cmb.addCss(css.setDisplay("none"));
 
             this.divConteudo.addCss(css.setMarginRight(110));
 
-            this.txtIntId.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
-            this.txtIntId.addCss(css.setHeight(19));
-            this.txtIntId.addCss(css.setPadding(2));
-            this.txtIntId.addCss(css.setPosition("absolute"));
-            this.txtIntId.addCss(css.setTextAlign("center"));
-            this.txtIntId.addCss(css.setTop(-3));
-            this.txtIntId.addCss(css.setWidth(80));
+            this.divIntId.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
+            this.divIntId.addCss(css.setHeight(19));
+            this.divIntId.addCss(css.setPadding(2));
+            this.divIntId.addCss(css.setPosition("absolute"));
+            this.divIntId.addCss(css.setTextAlign("center"));
+            this.divIntId.addCss(css.setTop(-3));
+            this.divIntId.addCss(css.setWidth(80));
 
             this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
             this.txtPesquisa.addCss(css.setBorder(0));
@@ -153,6 +100,14 @@ namespace NetZ.Web.Html.Componente.Campo
             this.txtPesquisa.addCss(css.setHeight(19));
             this.txtPesquisa.addCss(css.setOutline("none"));
             this.txtPesquisa.addCss(css.setWidth(100, "%"));
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            this.divIntId.strId = (strId + "_divIntId");
+            this.txtPesquisa.strId = (strId + "_txtPesquisa");
         }
 
         private void setClnClnRef(Coluna cln)

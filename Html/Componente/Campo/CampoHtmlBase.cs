@@ -310,7 +310,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private Div divAreaDireita
+        protected Div divAreaDireita
         {
             get
             {
@@ -325,7 +325,7 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        private Div divAreaEsquerda
+        public Div divAreaEsquerda
         {
             get
             {

@@ -3,10 +3,8 @@ using NetZ.Web;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 
 namespace Web.UiManager
@@ -22,7 +20,8 @@ namespace Web.UiManager
         #region Atributos
 
         private bool _booUiAlterada;
-        private Dictionary<string, int> _dicHtmlVersao;
+        private int _intVersao;
+        private int _intVersaoAnterior;
         private List<Assembly> _lstDllUi;
 
         private bool booUiAlterada
@@ -38,18 +37,45 @@ namespace Web.UiManager
             }
         }
 
-        private Dictionary<string, int> dicHtmlVersao
+        private int intVersao
         {
             get
             {
-                if (_dicHtmlVersao != null)
+                if (_intVersao != 0)
                 {
-                    return _dicHtmlVersao;
+                    return _intVersao;
                 }
 
-                _dicHtmlVersao = this.getDicHtmlVersao();
+                _intVersao = this.getIntVersao();
 
-                return _dicHtmlVersao;
+                return _intVersao;
+            }
+        }
+
+        private int intVersaoAnterior
+        {
+            get
+            {
+                if (_intVersaoAnterior != 0)
+                {
+                    return _intVersaoAnterior;
+                }
+
+                _intVersaoAnterior = this.getIntVersaoAnterior();
+
+                return _intVersaoAnterior;
+            }
+
+            set
+            {
+                if (_intVersaoAnterior == value)
+                {
+                    return;
+                }
+
+                _intVersaoAnterior = value;
+
+                this.setIntVersaoAnterior(_intVersaoAnterior);
             }
         }
 
@@ -76,17 +102,27 @@ namespace Web.UiManager
 
         #region Métodos
 
+        public virtual bool getBooExportarCss()
+        {
+            return false;
+        }
+
         public void iniciar()
         {
+            if (this.intVersaoAnterior >= this.intVersao)
+            {
+                Log.i.info("A versão atual do HTML estático já foi exportada.");
+                return;
+            }
+
             this.inicializar();
 
             this.finalizar();
         }
 
-        protected virtual bool getBooExportarCss()
-        {
-            return false;
-        }
+        protected abstract int getIntVersao();
+
+        protected abstract int getIntVersaoAnterior();
 
         protected virtual string getUrlPrefixCssMain()
         {
@@ -95,6 +131,8 @@ namespace Web.UiManager
 
         protected abstract void inicializarLstDllUi(List<Assembly> lstDllUi);
 
+        protected abstract void setIntVersaoAnterior(int intVersaoAnterior);
+
         private void exportarCss()
         {
             if (!this.getBooExportarCss())
@@ -102,7 +140,7 @@ namespace Web.UiManager
                 return;
             }
 
-            Log.i.info("Exportando o arquivo css ({0}).", CssMain.i.dirCompleto);
+            Log.i.info("Exportando o arquivo CSS ({0}).", CssMain.i.dirCompleto);
 
             CssMain.i.salvar(this.getUrlPrefixCssMain());
         }
@@ -149,17 +187,6 @@ namespace Web.UiManager
                 return;
             }
 
-            var kpvHtmlVersao = this.getKpvHtmlVersao(cls);
-
-            if (!(objAttributeHtmlExport as HtmlExport).booExportarSempre && ((objAttributeHtmlExport as HtmlExport).intVersao <= kpvHtmlVersao.Value))
-            {
-                return;
-            }
-
-            this.dicHtmlVersao.Remove(kpvHtmlVersao.Key);
-
-            this.dicHtmlVersao.Add(cls.FullName, (objAttributeHtmlExport as HtmlExport).intVersao);
-
             var objHtml = Activator.CreateInstance(cls);
 
             var dirNamespace = objHtml.GetType().Namespace.ToLower();
@@ -185,41 +212,7 @@ namespace Web.UiManager
 
         private void finalizar()
         {
-            this.finalizarSalvarJson();
-        }
-
-        private void finalizarSalvarJson()
-        {
-            if (!this.booUiAlterada)
-            {
-                Log.i.info("Nenhuma página estática foi alterada.");
-                return;
-            }
-
-            File.WriteAllText(DIR_FILE_UI_VERSAO, JsonConvert.SerializeObject(this.dicHtmlVersao));
-        }
-
-        private Dictionary<string, int> getDicHtmlVersao()
-        {
-            if (!File.Exists(DIR_FILE_UI_VERSAO))
-            {
-                return new Dictionary<string, int>();
-            }
-
-            return JsonConvert.DeserializeObject<Dictionary<string, int>>(File.ReadAllText(DIR_FILE_UI_VERSAO));
-        }
-
-        private KeyValuePair<string, int> getKpvHtmlVersao(Type cls)
-        {
-            foreach (var kpv in this.dicHtmlVersao)
-            {
-                if (kpv.Key.Equals(cls.FullName))
-                {
-                    return kpv;
-                }
-            }
-
-            return this.getObjHtmlVersaoNovo(cls);
+            this.intVersaoAnterior = this.intVersao;
         }
 
         private List<Assembly> getLstDllUi()
@@ -229,11 +222,6 @@ namespace Web.UiManager
             this.inicializarLstDllUi(lstDllUiResultado);
 
             return lstDllUiResultado;
-        }
-
-        private KeyValuePair<string, int> getObjHtmlVersaoNovo(Type cls)
-        {
-            return new KeyValuePair<string, int>(cls.FullName, -1);
         }
 
         private void inicializar()
