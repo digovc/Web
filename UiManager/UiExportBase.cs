@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Web.UiManager
+namespace NetZ.Web.UiManager
 {
     public abstract class UiExportBase : Objeto
     {
