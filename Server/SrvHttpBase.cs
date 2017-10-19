@@ -135,7 +135,7 @@ namespace NetZ.Web.Server
 
         protected override int getIntPorta()
         {
-            return 8080;
+            return 80;
         }
 
         protected virtual UiExportBase getObjUiManager()
