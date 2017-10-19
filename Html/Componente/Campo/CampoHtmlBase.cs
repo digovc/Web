@@ -141,6 +141,21 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        public Div divAreaEsquerda
+        {
+            get
+            {
+                if (_divAreaEsquerda != null)
+                {
+                    return _divAreaEsquerda;
+                }
+
+                _divAreaEsquerda = new Div();
+
+                return _divAreaEsquerda;
+            }
+        }
+
         /// <summary>
         /// Indica o tamanho horizontal deste campo.
         /// </summary>
@@ -252,6 +267,36 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        protected BotaoHtml btnAcao
+        {
+            get
+            {
+                if (_btnAcao != null)
+                {
+                    return _btnAcao;
+                }
+
+                _btnAcao = new BotaoHtml();
+
+                return _btnAcao;
+            }
+        }
+
+        protected Div divAreaDireita
+        {
+            get
+            {
+                if (_divAreaDireita != null)
+                {
+                    return _divAreaDireita;
+                }
+
+                _divAreaDireita = new Div();
+
+                return _divAreaDireita;
+            }
+        }
+
         protected Div divConteudo
         {
             get
@@ -292,51 +337,6 @@ namespace NetZ.Web.Html.Componente.Campo
             set
             {
                 _booPermitirAlterar = value;
-            }
-        }
-
-        private BotaoHtml btnAcao
-        {
-            get
-            {
-                if (_btnAcao != null)
-                {
-                    return _btnAcao;
-                }
-
-                _btnAcao = new BotaoHtml();
-
-                return _btnAcao;
-            }
-        }
-
-        protected Div divAreaDireita
-        {
-            get
-            {
-                if (_divAreaDireita != null)
-                {
-                    return _divAreaDireita;
-                }
-
-                _divAreaDireita = new Div();
-
-                return _divAreaDireita;
-            }
-        }
-
-        public Div divAreaEsquerda
-        {
-            get
-            {
-                if (_divAreaEsquerda != null)
-                {
-                    return _divAreaEsquerda;
-                }
-
-                _divAreaEsquerda = new Div();
-
-                return _divAreaEsquerda;
             }
         }
 
@@ -384,11 +384,16 @@ namespace NetZ.Web.Html.Componente.Campo
 
             this.divAreaEsquerda.setPai(this.divConteudo);
 
-            this.tagInput.setPai(this.divConteudo);
+            this.montarLayoutDivConteudo();
 
             this.divAreaDireita.setPai(this.divConteudo);
 
             this.btnAcao.setPai(this.divAreaDireita);
+        }
+
+        protected virtual void montarLayoutDivConteudo()
+        {
+            this.tagInput.setPai(this.divConteudo);
         }
 
         protected virtual void setCln(Coluna cln)
@@ -424,12 +429,13 @@ namespace NetZ.Web.Html.Componente.Campo
             this.addCss(css.setPaddingRight(10));
             this.addCss(css.setPosition((EnmTamanho.TOTAL.Equals(this.enmTamanho)) ? "absolute" : "relative"));
 
-            this.btnAcao.addCss(css.setBackground("none"));
             this.btnAcao.addCss(css.setBackgroundColor("rgba(255,255,255,.5)"));
+            this.btnAcao.addCss(css.setBackgroundPosition("center"));
+            this.btnAcao.addCss(css.setBackgroundPositionX(-2));
             this.btnAcao.addCss(css.setBorderRadius(0, 20, 20, 0));
             this.btnAcao.addCss(css.setDisplay("none"));
             this.btnAcao.addCss(css.setHeight(100, "%"));
-            this.btnAcao.addCss(css.setWidth(50));
+            this.btnAcao.addCss(css.setWidth(40));
 
             this.divAreaDireita.addCss(css.setFloat("right"));
             this.divAreaDireita.addCss(css.setHeight(100, "%"));
@@ -454,19 +460,19 @@ namespace NetZ.Web.Html.Componente.Campo
             this.divTitulo.addCss(css.setTextAlign("left"));
             this.divTitulo.addCss(css.setTextIndent(15));
 
-            this.setCssTagInputHeight(css);
-            this.setCssTagInputWidth(css);
-
             this.tagInput.addCss(css.setBackground("none"));
             this.tagInput.addCss(css.setBorder(0));
             this.tagInput.addCss(css.setColor(AppWebBase.i.objTema.corFonte));
             this.tagInput.addCss(css.setFontSize(15));
             this.tagInput.addCss(css.setOutline("none"));
+
+            this.setCssTagInputHeight(css);
+            this.setCssTagInputWidth(css);
         }
 
         protected virtual void setCssTagInputHeight(CssArquivoBase css)
         {
-            this.tagInput.addCss(css.setHeight(37));
+            this.tagInput.addCss(css.setLineHeight(37));
         }
 
         protected virtual void setCssTagInputWidth(CssArquivoBase css)

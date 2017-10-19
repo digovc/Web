@@ -274,6 +274,16 @@ namespace NetZ.Web.Server.Arquivo.Css
             return this.addCss("background-position", css);
         }
 
+        public string setBackgroundPositionX(decimal decBackgroundPositionX, string strGrandeza = "px")
+        {
+            return this.addCss("background-position-x", string.Format("{0}{1}", decBackgroundPositionX, strGrandeza));
+        }
+
+        public string setBackgroundPositionY(decimal decBackgroundPositionY, string strGrandeza = "px")
+        {
+            return this.addCss("background-position-y", string.Format("{0}{1}", decBackgroundPositionY, strGrandeza));
+        }
+
         public string setBackgroundRepeat(string css)
         {
             return this.addCss("background-repeat", css);
