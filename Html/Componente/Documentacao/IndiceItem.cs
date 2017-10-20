@@ -1,6 +1,6 @@
 ﻿using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Markdown
+namespace NetZ.Web.Html.Componente.Documentacao
 {
     internal class IndiceItem : ComponenteHtmlBase
     {

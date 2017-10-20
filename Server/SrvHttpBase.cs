@@ -1,8 +1,10 @@
 ﻿using DigoFramework;
 using NetZ.Persistencia;
+using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
 using NetZ.Web.UiManager;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -74,6 +76,21 @@ namespace NetZ.Web.Server
         #endregion Construtores
 
         #region Métodos
+
+        public string getStrPaginaNome(Type cls)
+        {
+            if (cls == null)
+            {
+                return null;
+            }
+
+            if (!typeof(PaginaHtmlBase).IsAssignableFrom(cls))
+            {
+                return null;
+            }
+
+            return (Utils.simplificar(cls.Name) + ".html");
+        }
 
         /// <summary>
         /// Este método é disparado a acada vez que o cliente fizer uma solicitação de algum recurso

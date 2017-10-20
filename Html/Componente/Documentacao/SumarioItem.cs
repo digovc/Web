@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace NetZ.Web.Html.Componente.Markdown
+namespace NetZ.Web.Html.Componente.Documentacao
 {
     internal class SumarioItem : ComponenteHtmlBase
     {
