@@ -22,7 +22,7 @@ namespace NetZ.Web.Html.Pagina
         #region Atributos
 
         private bool _booEstatica = true;
-        private bool _booPagSimples;
+        private bool _booSimples;
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
         private LstTag<JavaScriptTag> _lstJsLib;
@@ -119,16 +119,16 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        protected bool booPagSimples
+        protected bool booSimples
         {
             get
             {
-                return _booPagSimples;
+                return _booSimples;
             }
 
             set
             {
-                _booPagSimples = value;
+                _booSimples = value;
             }
         }
 
@@ -572,7 +572,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addCss()
         {
-            if (this.booPagSimples)
+            if (this.booSimples)
             {
                 return;
             }
@@ -592,7 +592,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJs()
         {
-            if (this.booPagSimples)
+            if (this.booSimples)
             {
                 return;
             }

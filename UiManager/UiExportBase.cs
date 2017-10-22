@@ -1,5 +1,4 @@
 ﻿using DigoFramework;
-using NetZ.Web;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo.Css;
@@ -187,9 +186,7 @@ namespace NetZ.Web.UiManager
                 return;
             }
 
-            var objHtml = Activator.CreateInstance(cls);
-
-            var dirNamespace = objHtml.GetType().Namespace.ToLower();
+            var dirNamespace = cls.Namespace.ToLower();
 
             dirNamespace = dirNamespace.Substring((dirNamespace.IndexOf(".html.") + 6));
 
@@ -197,7 +194,7 @@ namespace NetZ.Web.UiManager
 
             this.booUiAlterada = true;
 
-            this.exportarHtmlPag(objHtml as PaginaHtmlBase, dirNamespace);
+            this.exportarHtmlPag((Activator.CreateInstance(cls) as PaginaHtmlBase), dirNamespace);
         }
 
         private void exportarHtmlPag(PaginaHtmlBase pag, string dirNamespace)
