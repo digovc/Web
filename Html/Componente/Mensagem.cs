@@ -1,9 +1,10 @@
 ﻿using NetZ.Web.Html.Componente.Botao;
+using NetZ.Web.Html.Componente.Painel;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente
 {
-    public class Mensagem : ComponenteHtmlBase
+    public class Mensagem : PainelModal
     {
         #region Constantes
 
@@ -169,15 +170,8 @@ namespace NetZ.Web.Html.Componente
         {
             base.setCss(css);
 
-            this.addCss(css.setBackgroundColor("rgba(0,0,0,0.75)"));
-            this.addCss(css.setBottom(0));
             this.addCss(css.setColor("white"));
-            this.addCss(css.setLeft(0));
-            this.addCss(css.setPosition("absolute"));
-            this.addCss(css.setRight(0));
             this.addCss(css.setTextAlign("left"));
-            this.addCss(css.setTop(0));
-            this.addCss(css.setZIndex(100));
 
             this.btnCancelar.addCss(css.setBackgroundImage("/res/media/png/btn_cancelar_30x30.png"));
             this.btnCancelar.addCss(css.setDisplay("none"));
@@ -201,21 +195,21 @@ namespace NetZ.Web.Html.Componente
             this.divContainer.addCss(css.setPaddingRight(15));
             this.divContainer.addCss(css.setPosition("relative"));
 
-            this.divContainerFaixa.addCss(css.setBackgroundColor("#607c60"));
+            this.divContainerFaixa.addCss(css.setBackgroundColor("#607C60"));
             this.divContainerFaixa.addCss(css.setHeight(250));
             this.divContainerFaixa.addCss(css.setLeft(0));
             this.divContainerFaixa.addCss(css.setPosition("absolute"));
             this.divContainerFaixa.addCss(css.setRight(0));
             this.divContainerFaixa.addCss(css.setTop(35, "vh"));
 
-            this.divMensagem.addCss(css.setMaxHeight(90));
+            this.divMensagem.addCss(css.setHeight(125));
             this.divMensagem.addCss(css.setOverflow("auto"));
             this.divMensagem.addCss(css.setPadding(10));
             this.divMensagem.addCss(css.setWordWrap("break-word"));
 
             this.divTitulo.addCss(css.setFontSize(25));
-            this.divTitulo.addCss(css.setPaddingBottom(25));
-            this.divTitulo.addCss(css.setPaddingTop(25));
+            this.divTitulo.addCss(css.setPaddingBottom(10));
+            this.divTitulo.addCss(css.setPaddingTop(10));
         }
 
         #endregion Métodos
