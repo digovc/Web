@@ -72,6 +72,7 @@
     <Compile Include="DataBase\View\ViwFiltroItem.cs" />
     <Compile Include="DataBase\View\ViwWebBase.cs" />
     <Compile Include="DataBase\Dominio\DominioWebBase.cs" />
+    <Compile Include="Html\Componente\Markdown\DivMarkdown.cs" />
     <Compile Include="Html\Componente\Mobile\Activity\ActivityBase.cs" />
     <Compile Include="Html\Atributo.cs" />
     <Compile Include="Html\AtributoCss.cs" />
@@ -88,8 +89,8 @@
     <Compile Include="Html\Componente\Grid\DivGridConteudo.cs" />
     <Compile Include="Html\Componente\Grid\DivGridLinha.cs" />
     <Compile Include="Html\Componente\Grid\DivGridRodape.cs" />
-    <Compile Include="Html\Componente\Markdown\EmailRegistro.cs" />
-    <Compile Include="Html\Componente\Markdown\IndiceItem.cs" />
+    <Compile Include="Html\Componente\Documentacao\EmailRegistro.cs" />
+    <Compile Include="Html\Componente\Documentacao\IndiceItem.cs" />
     <Compile Include="Html\Componente\Mobile\ActionBarBase.cs" />
     <Compile Include="Html\Componente\Botao\ActionBar\BotaoActionBar.cs" />
     <Compile Include="Html\Componente\Botao\BotaoMini.cs" />
@@ -105,9 +106,9 @@
     <Compile Include="Html\Componente\Janela\Cadastro\TagCard.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\BtnFavorito.cs" />
     <Compile Include="Html\Componente\Janela\Consulta\FrmFiltroConteudo.cs" />
-    <Compile Include="Html\Componente\Markdown\Sumario.cs" />
-    <Compile Include="Html\Componente\Markdown\SumarioItem.cs" />
-    <Compile Include="Html\Componente\Markdown\Viewer.cs" />
+    <Compile Include="Html\Componente\Documentacao\Sumario.cs" />
+    <Compile Include="Html\Componente\Documentacao\SumarioItem.cs" />
+    <Compile Include="Html\Componente\Documentacao\Viewer.cs" />
     <Compile Include="Html\Componente\Mensagem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContextoItem.cs" />
     <Compile Include="Html\Componente\Menu\Contexto\MenuContexto.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Html\Componente\TreeView\TreeViewHtml.cs" />
     <Compile Include="Html\Componente\TreeView\TreeViewNode.cs" />
     <Compile Include="Html\CssTag.cs" />
+    <Compile Include="Html\Pagina\Documentacao\Blog\PagBlogBase.cs" />
     <Compile Include="Html\Pagina\PagError.cs" />
     <Compile Include="Html\Pagina\Documentacao\PagDocumentacaoBase.cs" />
     <Compile Include="Html\Pagina\PagMobile.cs" />

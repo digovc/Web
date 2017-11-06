@@ -1,7 +1,7 @@
 ﻿using DigoFramework;
 using NetZ.Persistencia.Web;
 
-namespace NetZ.Web.Server.Ajax.Data
+namespace NetZ.Web.Server.Ajax.Dbe
 {
     public class PesquisaInterlocutor : Objeto
     {

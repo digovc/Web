@@ -1,6 +1,7 @@
-﻿using NetZ.Web.Server.Arquivo.Css;
+﻿using NetZ.Web.Html.Componente.Markdown;
+using NetZ.Web.Server.Arquivo.Css;
 
-namespace NetZ.Web.Html.Componente.Markdown
+namespace NetZ.Web.Html.Componente.Documentacao
 {
     internal class Viewer : ComponenteHtmlBase
     {
@@ -10,20 +11,20 @@ namespace NetZ.Web.Html.Componente.Markdown
 
         #region Atributos
 
-        private Div _divConteudo;
+        private DivMarkdown _divMarkdown;
 
-        private Div divConteudo
+        private DivMarkdown divMarkdown
         {
             get
             {
-                if (_divConteudo != null)
+                if (_divMarkdown != null)
                 {
-                    return _divConteudo;
+                    return _divMarkdown;
                 }
 
-                _divConteudo = new Div();
+                _divMarkdown = new DivMarkdown();
 
-                return _divConteudo;
+                return _divMarkdown;
             }
         }
 
@@ -40,15 +41,13 @@ namespace NetZ.Web.Html.Componente.Markdown
             base.inicializar();
 
             this.strId = this.GetType().Name;
-
-            this.divConteudo.addClass("markdown-body");
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            this.divConteudo.setPai(this);
+            this.divMarkdown.setPai(this);
         }
 
         protected override void setCss(CssArquivoBase css)
@@ -63,17 +62,17 @@ namespace NetZ.Web.Html.Componente.Markdown
             this.addCss(css.setPaddingTop(50));
             this.addCss(css.setZIndex(1));
 
-            this.divConteudo.addCss(css.setDisplay("none"));
-            this.divConteudo.addCss(css.setMargin("auto"));
-            this.divConteudo.addCss(css.setMaxWidth(640));
-            this.divConteudo.addCss(css.setPadding(15));
+            this.divMarkdown.addCss(css.setDisplay("none"));
+            this.divMarkdown.addCss(css.setMargin("auto"));
+            this.divMarkdown.addCss(css.setMaxWidth(640));
+            this.divMarkdown.addCss(css.setPadding(15));
         }
 
         protected override void setStrId(string strId)
         {
             base.setStrId(strId);
 
-            this.divConteudo.strId = (strId + "_divConteudo");
+            this.divMarkdown.strId = (strId + "_divMarkdown");
         }
 
         #endregion Métodos

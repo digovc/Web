@@ -48,10 +48,10 @@ namespace NetZ.Web.Server.Arquivo.Css
 
             this.strHref = (SRC_CSS + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
 
-            this.addCssPuro("::-webkit-scrollbar{margin-right:15px;height:10px;width:10px;background-color:rgba(0,0,0,0.0)}");
-            this.addCssPuro("::-webkit-scrollbar-button{height:5px;width:5px;background-color:rgba(0,0,0,0.0)}");
-            this.addCssPuro("::-webkit-scrollbar-track{background-color:rgba(0,0,0,0.0);border-radius:5px;}");
-            this.addCssPuro("::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,0.5);border-radius:5px;}");
+            this.addCssPuro("::-webkit-scrollbar{margin-right:15px;height:10px;width:10px;background-color:rgb(white)}");
+            this.addCssPuro("::-webkit-scrollbar-button{height:5px;width:5px;background-color:rgb(white)}");
+            this.addCssPuro("::-webkit-scrollbar-track{background-color:rgb(white);border-radius:5px;}");
+            this.addCssPuro("::-webkit-scrollbar-thumb{background-color:rgb(150,150,150);border-radius:5px;}");
             this.addCssPuro("::-webkit-scrollbar-corner{border-radius:5px;}");
 
             this.addCssPuro("a:link{color:inherit;text-decoration:none;}");

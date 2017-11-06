@@ -11,7 +11,7 @@ using System.Data;
 using System.Reflection;
 using System.Security;
 
-namespace NetZ.Web.Server.Ajax.Data
+namespace NetZ.Web.Server.Ajax.Dbe
 {
     public abstract class SrvAjaxDbeBase : SrvAjaxBase
     {

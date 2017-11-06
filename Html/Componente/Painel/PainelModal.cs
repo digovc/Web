@@ -26,9 +26,10 @@ namespace NetZ.Web.Html.Componente.Painel
             this.addCss(css.setBottom(0));
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setLeft(0));
-            this.addCss(css.setPosition("absolute"));
+            this.addCss(css.setPosition("fixed"));
             this.addCss(css.setRight(0));
             this.addCss(css.setTop(0));
+            this.addCss(css.setZIndex(1000));
         }
 
         #endregion Métodos

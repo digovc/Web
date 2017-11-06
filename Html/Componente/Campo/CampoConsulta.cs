@@ -1,4 +1,5 @@
 ﻿using NetZ.Persistencia;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace NetZ.Web.Html.Componente.Campo
@@ -11,8 +12,40 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
+        private BotaoHtml _btnLimpar;
+        private BotaoHtml _btnPesquisar;
         private Div _divIntId;
         private Input _txtPesquisa;
+
+        private BotaoHtml btnLimpar
+        {
+            get
+            {
+                if (_btnLimpar != null)
+                {
+                    return _btnLimpar;
+                }
+
+                _btnLimpar = new BotaoHtml();
+
+                return _btnLimpar;
+            }
+        }
+
+        private BotaoHtml btnPesquisar
+        {
+            get
+            {
+                if (_btnPesquisar != null)
+                {
+                    return _btnPesquisar;
+                }
+
+                _btnPesquisar = new BotaoHtml();
+
+                return _btnPesquisar;
+            }
+        }
 
         private Div divIntId
         {
@@ -52,6 +85,13 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS_WEB + "database/FiltroWeb.js"));
+        }
+
         protected override Input.EnmTipo getEnmTipo()
         {
             return Input.EnmTipo.SEARCH;
@@ -68,8 +108,17 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.montarLayout();
 
-            this.txtPesquisa.setPai(this.divConteudo);
             this.divIntId.setPai(this.divAreaEsquerda);
+
+            this.btnLimpar.setPai(this.divAreaDireita);
+            this.btnPesquisar.setPai(this.divAreaDireita);
+        }
+
+        protected override void montarLayoutDivConteudo()
+        {
+            base.montarLayoutDivConteudo();
+
+            this.txtPesquisa.setPai(this.divConteudo);
         }
 
         protected override void setCln(Coluna cln)
@@ -88,29 +137,50 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.setCss(css);
 
+            this.btnLimpar.addCss(this.btnAcao);
+
+            this.btnPesquisar.addCss(this.btnAcao);
+
+            this.btnPesquisar.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "search.svg"));
+            this.btnPesquisar.addCss(css.setDisplay("block"));
+
             this.cmb.addCss(css.setDisplay("none"));
 
+            this.divIntId.addCss(css.setBorder("none"));
             this.divIntId.addCss(css.setBorderRight(1, "solid", "white"));
+            this.divIntId.addCss(css.setDisplay("none"));
             this.divIntId.addCss(css.setLineHeight(30));
             this.divIntId.addCss(css.setMarginTop(5));
-            this.divIntId.addCss(css.setMinWidth(45));
-            this.divIntId.addCss(css.setPaddingLeft(10));
+            this.divIntId.addCss(css.setOverflow("hidden"));
+            this.divIntId.addCss(css.setPaddingLeft(15));
             this.divIntId.addCss(css.setPaddingRight(5));
             this.divIntId.addCss(css.setTextAlign("right"));
+            this.divIntId.addCss(css.setWidth(50));
 
-            this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
+            this.txtPesquisa.addCss(css.setBackground("none"));
             this.txtPesquisa.addCss(css.setBorder(0));
-            this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
+            this.txtPesquisa.addCss(css.setColor("grey"));
+            this.txtPesquisa.addCss(css.setColor(AppWebBase.i.objTema.corFonte));
             this.txtPesquisa.addCss(css.setFontSize(15));
-            this.txtPesquisa.addCss(css.setHeight(19));
+            this.txtPesquisa.addCss(css.setLineHeight(37));
             this.txtPesquisa.addCss(css.setOutline("none"));
-            this.txtPesquisa.addCss(css.setWidth(100, "%"));
+            this.txtPesquisa.addCss(css.setTextIndent(5));
+            this.txtPesquisa.addCss(css.setWidth(245));
+        }
+
+        protected override void setCssTagInputWidth(CssArquivoBase css)
+        {
+            //base.setCssTagInputWidth(css);
+
+            this.tagInput.addCss(css.setWidth(250));
         }
 
         protected override void setStrId(string strId)
         {
             base.setStrId(strId);
 
+            this.btnLimpar.strId = (strId + "_btnLimpar");
+            this.btnPesquisar.strId = (strId + "_btnPesquisar");
             this.divIntId.strId = (strId + "_divIntId");
             this.txtPesquisa.strId = (strId + "_txtPesquisa");
         }
