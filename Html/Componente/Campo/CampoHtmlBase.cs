@@ -34,7 +34,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private bool _booDireita;
         private bool _booObrigatorio;
-        private bool _booPermitirAlterar;
+        private bool _booPermitirAlterar = true;
         private bool _booSomenteLeitura;
         private bool _booTituloFixo;
         private BotaoHtml _btnAcao;
@@ -302,9 +302,9 @@ namespace NetZ.Web.Html.Componente.Campo
             get
             {
                 if (_divConteudo != null)
-                {
+            {
                     return _divConteudo;
-                }
+            }
 
                 _divConteudo = new Div();
 
@@ -352,7 +352,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.finalizar();
 
-            this.addAtt("permitir_alterar", this.booPermitirAlterar);
+            this.addAtt("permitir-alterar", this.booPermitirAlterar);
 
             this.finalizarBooObrigatorio();
             this.finalizarStrRegex();

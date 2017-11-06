@@ -97,6 +97,13 @@ namespace NetZ.Web.Html.Componente.Campo
             return Input.EnmTipo.SEARCH;
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.divIntId.strConteudo = "15";
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -199,7 +206,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private void setClnClnRefStrTitulo(Coluna cln)
         {
-            string strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
+            var strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
 
             strTitulo = strTitulo.Replace("_cln_ref_nome_exibicao", cln.booNomeExibicaoAutomatico ? cln.clnRef.tbl.strNomeExibicao : cln.strNomeExibicao);
             strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", cln.clnRef.tbl.viwPrincipal.clnNome.strNomeExibicao);
