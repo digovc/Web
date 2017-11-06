@@ -210,8 +210,6 @@ namespace NetZ.Web.Html
             base.inicializar();
 
             this.addAtt("type", "text/javascript");
-
-            //this.addAtt("defer");
         }
 
         private string getSrc(string src)
