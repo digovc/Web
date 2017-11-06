@@ -34,7 +34,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private bool _booDireita;
         private bool _booObrigatorio;
-        private bool _booPermitirAlterar;
+        private bool _booPermitirAlterar = true;
         private bool _booSomenteLeitura;
         private bool _booTituloFixo;
         private BotaoHtml _btnAcao;
@@ -138,6 +138,21 @@ namespace NetZ.Web.Html.Componente.Campo
                 _cln = value;
 
                 this.setCln(_cln);
+            }
+        }
+
+        public Div divAreaEsquerda
+        {
+            get
+            {
+                if (_divAreaEsquerda != null)
+                {
+                    return _divAreaEsquerda;
+                }
+
+                _divAreaEsquerda = new Div();
+
+                return _divAreaEsquerda;
             }
         }
 
@@ -252,6 +267,21 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
+        protected Div divAreaDireita
+        {
+            get
+            {
+                if (_divAreaDireita != null)
+                {
+                    return _divAreaDireita;
+                }
+
+                _divAreaDireita = new Div();
+
+                return _divAreaDireita;
+            }
+        }
+
         protected Div divConteudo
         {
             get
@@ -310,36 +340,6 @@ namespace NetZ.Web.Html.Componente.Campo
             }
         }
 
-        protected Div divAreaDireita
-        {
-            get
-            {
-                if (_divAreaDireita != null)
-                {
-                    return _divAreaDireita;
-                }
-
-                _divAreaDireita = new Div();
-
-                return _divAreaDireita;
-            }
-        }
-
-        public Div divAreaEsquerda
-        {
-            get
-            {
-                if (_divAreaEsquerda != null)
-                {
-                    return _divAreaEsquerda;
-                }
-
-                _divAreaEsquerda = new Div();
-
-                return _divAreaEsquerda;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -352,7 +352,7 @@ namespace NetZ.Web.Html.Componente.Campo
         {
             base.finalizar();
 
-            this.addAtt("permitir_alterar", this.booPermitirAlterar);
+            this.addAtt("permitir-alterar", this.booPermitirAlterar);
 
             this.finalizarBooObrigatorio();
             this.finalizarStrRegex();

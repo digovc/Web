@@ -308,6 +308,7 @@ namespace NetZ.Web
             Log.i.info("Inicializando o servidor.");
 
             this.inicializarDbe();
+
             this.inicializarLstSrv();
         }
 
@@ -336,6 +337,11 @@ namespace NetZ.Web
         private void inicializarDbe()
         {
             if (this.dbe == null)
+            {
+                return;
+            }
+
+            if (!this.dbe.testarConexao())
             {
                 return;
             }
