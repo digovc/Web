@@ -131,7 +131,7 @@ namespace NetZ.Web.Server
             return null;
         }
 
-        protected void adicionarArquivoEstatico(string dirArquivo)
+        protected void addArquivoEstatico(string dirArquivo)
         {
             if (string.IsNullOrEmpty(dirArquivo))
             {
@@ -146,6 +146,11 @@ namespace NetZ.Web.Server
             var arq = new ArquivoEstatico();
 
             arq.dirCompleto = dirArquivo;
+
+            if (this.lstArqEstatico.Find(a => a.dirCompleto.Equals(dirArquivo)) != null)
+            {
+                return;
+            }
 
             this.lstArqEstatico.Add(arq);
         }
@@ -275,7 +280,7 @@ namespace NetZ.Web.Server
                     continue;
                 }
 
-                this.adicionarArquivoEstatico(dirArquivo);
+                this.addArquivoEstatico(dirArquivo);
             }
         }
 

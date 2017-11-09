@@ -119,9 +119,15 @@ namespace NetZ.Web.UiManager
             this.finalizar();
         }
 
-        protected abstract int getIntVersao();
+        protected virtual int getIntVersao()
+        {
+            return 1;
+        }
 
-        protected abstract int getIntVersaoAnterior();
+        protected virtual int getIntVersaoAnterior()
+        {
+            return 0;
+        }
 
         protected virtual string getUrlPrefixCssMain()
         {
@@ -130,7 +136,9 @@ namespace NetZ.Web.UiManager
 
         protected abstract void inicializarLstDllUi(List<Assembly> lstDllUi);
 
-        protected abstract void setIntVersaoAnterior(int intVersaoAnterior);
+        protected virtual void setIntVersaoAnterior(int intVersaoAnterior)
+        {
+        }
 
         private void exportarCss()
         {
