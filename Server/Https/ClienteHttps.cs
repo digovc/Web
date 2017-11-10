@@ -1,5 +1,4 @@
-﻿using System.Net.Security;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
 namespace NetZ.Web.Server.Https
 {
@@ -22,22 +21,6 @@ namespace NetZ.Web.Server.Https
         #endregion Construtores
 
         #region Métodos
-
-        protected override Solicitacao carregarSolicitacao()
-        {
-            if (!this.getBooConectado())
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.GetStream().DataAvailable)
-            {
-                return null;
-            }
-
-            return new Solicitacao(new SslStream(this.tcpClient.GetStream()));
-        }
-
 
         #endregion Métodos
 

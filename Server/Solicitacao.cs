@@ -64,6 +64,7 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
+        private Cliente _objCliente;
         private SslStream _objSslStream;
         private UsuarioDominio _objUsuario;
         private string _strConteudo;
@@ -163,6 +164,19 @@ namespace NetZ.Web.Server
                 _lstObjCookie = this.getLstObjCookie();
 
                 return _lstObjCookie;
+            }
+        }
+
+        public Cliente objCliente
+        {
+            get
+            {
+                return _objCliente;
+            }
+
+            private set
+            {
+                _objCliente = value;
             }
         }
 
@@ -377,12 +391,14 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _nts;
-            }
+                if (_nts != null)
+                {
+                    return _nts;
+                }
 
-            set
-            {
-                _nts = value;
+                _nts = this.objCliente?.tcpClient?.GetStream();
+
+                return _nts;
             }
         }
 
@@ -390,12 +406,14 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _objSslStream;
-            }
+                if (_objSslStream != null)
+                {
+                    return _objSslStream;
+                }
 
-            set
-            {
-                _objSslStream = value;
+                _objSslStream = new SslStream(this.objCliente?.tcpClient?.GetStream());
+
+                return _objSslStream;
             }
         }
 
@@ -418,14 +436,9 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Solicitacao(NetworkStream nts)
+        internal Solicitacao(Cliente objCliente)
         {
-            this.nts = nts;
-        }
-
-        internal Solicitacao(SslStream objSslStream)
-        {
-            this.objSslStream = objSslStream;
+            this.objCliente = objCliente;
         }
 
         #endregion Construtores
