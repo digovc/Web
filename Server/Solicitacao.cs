@@ -47,7 +47,8 @@ namespace NetZ.Web.Server
             POST,
         }
 
-        private const string STR_BODY_DIVISION = "\r\n\r\n";
+        internal const string STR_BODY_DIVISION = (STR_NEW_LINE + STR_NEW_LINE);
+        internal const string STR_NEW_LINE = "\r\n";
 
         #endregion Constantes
 
@@ -462,7 +463,7 @@ namespace NetZ.Web.Server
         /// </summary>
         public DateTime getDttGetValue(string strGetParam)
         {
-            string strResultado = this.getStrGetValue(strGetParam);
+            var strResultado = this.getStrGetValue(strGetParam);
 
             if (string.IsNullOrEmpty(strResultado))
             {
@@ -897,7 +898,7 @@ namespace NetZ.Web.Server
 
             intIndexOfStart += "content-length: ".Length;
 
-            var intIndexOfEnd = strMsgClienteParcial.IndexOf(Environment.NewLine, intIndexOfStart);
+            var intIndexOfEnd = strMsgClienteParcial.IndexOf(STR_NEW_LINE, intIndexOfStart);
 
             if (intIndexOfEnd < 0)
             {
