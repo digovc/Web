@@ -7,7 +7,7 @@ namespace NetZ.Web.Server.Arquivo.Css
         #region Constantes
 
         public const string STR_CSS_ID = "cssPrint";
-        public const string STR_CSS_SRC = "/res/css/print.css";
+        public const string SRC_CSS = "/res/css/print.css";
 
         #endregion Constantes
 
@@ -46,7 +46,7 @@ namespace NetZ.Web.Server.Arquivo.Css
         {
             base.inicializar();
 
-            this.strHref = (STR_CSS_SRC + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
+            this.strHref = (SRC_CSS + "?" + DateTime.Now.ToString("yyyyMMddHHmm"));
         }
 
         #endregion Métodos

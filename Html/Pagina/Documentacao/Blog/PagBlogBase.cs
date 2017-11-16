@@ -1,8 +1,6 @@
-﻿using System.Net.Sockets;
-
-namespace NetZ.Web.Server.Https
+﻿namespace NetZ.Web.Html.Pagina.Documentacao.Blog
 {
-    internal class ClienteHttps : Cliente
+    public abstract class PagBlogBase : PagDocumentacaoBase
     {
         #region Constantes
 
@@ -14,7 +12,7 @@ namespace NetZ.Web.Server.Https
 
         #region Construtores
 
-        internal ClienteHttps(TcpClient tcpClient, ServerBase srv) : base(tcpClient, srv)
+        protected PagBlogBase(string strNome) : base(strNome)
         {
         }
 

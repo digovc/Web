@@ -13,8 +13,6 @@ namespace NetZ.Web.Server.Ajax
     {
         #region Constantes
 
-        public const string DIR_MARKDOWN = "res/markdown";
-
         private const string DIR_ARQUIVO_EMAIL_REGISTRO_DOCUMENTACAO = (AppWebBase.DIR_JSON_CONFIG + "documentacao_email_registro.json");
 
         private const string STR_METODO_EMAIL_DESINSCREVER = "STR_METODO_EMAIL_DESINSCREVER";
@@ -279,14 +277,14 @@ namespace NetZ.Web.Server.Ajax
 
         private List<MarkdownDominio> getLstObjMd()
         {
-            if (!Directory.Exists(DIR_MARKDOWN))
+            if (!Directory.Exists(AppWebBase.DIR_MARKDOWN))
             {
                 return null;
             }
 
             var lstObjMdMd5Resultado = new List<MarkdownDominio>();
 
-            this.getLstObjMdMd5(lstObjMdMd5Resultado, DIR_MARKDOWN);
+            this.getLstObjMdMd5(lstObjMdMd5Resultado, AppWebBase.DIR_MARKDOWN);
 
             return lstObjMdMd5Resultado;
         }

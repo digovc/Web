@@ -32,6 +32,7 @@ namespace NetZ.Web
         public const string DIR_JS_LIB = (DIR_RESOURCE + "js/lib/");
         public const string DIR_JS_WEB = (DIR_JS + "web/");
         public const string DIR_JSON_CONFIG = "JSON Config/";
+        public const string DIR_MARKDOWN = "res/markdown/";
         public const string DIR_MEDIA_GIF = (DIR_RESOURCE + "media/gif/");
         public const string DIR_MEDIA_JPG = (DIR_RESOURCE + "media/jpg/");
         public const string DIR_MEDIA_PNG = (DIR_RESOURCE + "media/png/");
@@ -237,14 +238,16 @@ namespace NetZ.Web
         /// </summary>
         internal UsuarioDominio getObjUsuario(string strSessao)
         {
-            lock (this.objLstObjUsuarioLock)
+            if (string.IsNullOrEmpty(strSessao))
             {
-                if (string.IsNullOrEmpty(strSessao))
-                {
-                    return null;
-                }
+                return null;
+            }
 
-                foreach (UsuarioDominio objUsuario in this.lstObjUsuario)
+            try
+            {
+                this.bloquearThread();
+
+                foreach (var objUsuario in this.lstObjUsuario)
                 {
                     if (objUsuario == null)
                     {
@@ -264,13 +267,11 @@ namespace NetZ.Web
                     return objUsuario;
                 }
 
-                var objUsuarioNovo = new UsuarioDominio();
-
-                objUsuarioNovo.strSessao = strSessao;
-
-                this.addObjUsuario(objUsuarioNovo);
-
-                return objUsuarioNovo;
+                return getObjUsuarioNovo(strSessao);
+            }
+            finally
+            {
+                this.liberarThread();
             }
         }
 
@@ -308,6 +309,7 @@ namespace NetZ.Web
             Log.i.info("Inicializando o servidor.");
 
             this.inicializarDbe();
+
             this.inicializarLstSrv();
         }
 
@@ -322,9 +324,25 @@ namespace NetZ.Web
             return lstSrvResultado;
         }
 
+        private UsuarioDominio getObjUsuarioNovo(string strSessao)
+        {
+            var objUsuarioResultado = new UsuarioDominio();
+
+            objUsuarioResultado.strSessao = strSessao;
+
+            this.addObjUsuario(objUsuarioResultado);
+
+            return objUsuarioResultado;
+        }
+
         private void inicializarDbe()
         {
             if (this.dbe == null)
+            {
+                return;
+            }
+
+            if (!this.dbe.testarConexao())
             {
                 return;
             }

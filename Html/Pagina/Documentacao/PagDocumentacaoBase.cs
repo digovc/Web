@@ -1,7 +1,6 @@
 ﻿using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.DataBase.Dominio.Documentacao;
 using NetZ.Web.Html.Componente.Documentacao;
-using NetZ.Web.Html.Componente.Markdown;
 using NetZ.Web.Server;
 using NetZ.Web.Server.Ajax;
 using System;
@@ -102,13 +101,6 @@ namespace NetZ.Web.Html.Pagina.Documentacao
             tagJs.addConstante((typeof(SrvAjaxDocumentacao).Name + "_intPorta"), this.getIntSrvAjaxDocumentacaoPorta());
         }
 
-        protected override void addCss(LstTag<CssTag> lstCss)
-        {
-            base.addCss(lstCss);
-
-            lstCss.Add(new CssTag(AppWebBase.DIR_CSS + "github-markdown.css"));
-        }
-
         protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
             base.addJs(lstJs);
@@ -121,22 +113,15 @@ namespace NetZ.Web.Html.Pagina.Documentacao
             lstJs.Add(new JavaScriptTag(typeof(SrvAjaxDocumentacao), 103));
         }
 
-        protected override void addJsLib(LstTag<JavaScriptTag> lstJsLib)
-        {
-            base.addJsLib(lstJsLib);
-
-            lstJs.Add(new JavaScriptTag((AppWebBase.DIR_JS_LIB + "marked.min.js")));
-        }
-
         protected abstract decimal getIntSrvAjaxDocumentacaoPorta();
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            if (!this.dirDocumentacao.StartsWith(SrvAjaxDocumentacao.DIR_MARKDOWN))
+            if (!this.dirDocumentacao.StartsWith(AppWebBase.DIR_MARKDOWN))
             {
-                throw new Exception(string.Format("O diretório da documentação precisa ser relativo à pasta \"{0}\".", SrvAjaxDocumentacao.DIR_MARKDOWN));
+                throw new Exception(string.Format("O diretório da documentação precisa ser relativo à pasta \"{0}\".", AppWebBase.DIR_MARKDOWN));
             }
 
             this.divActionBarDocumentacao.strTitulo = this.strNome;

@@ -18,7 +18,23 @@ namespace NetZ.Web.Server
 
         private DateTime _dttComunicacaoUltima = DateTime.Now;
         private ServerBase _srv;
+        private string _strEndPoint;
         private TcpClient _tcpClient;
+
+        public string strEndPoint
+        {
+            get
+            {
+                if (_strEndPoint != null)
+                {
+                    return _strEndPoint;
+                }
+
+                _strEndPoint = ((IPEndPoint)this.tcpClient?.Client.RemoteEndPoint).Address.ToString();
+
+                return _strEndPoint;
+            }
+        }
 
         public TcpClient tcpClient
         {
@@ -99,21 +115,6 @@ namespace NetZ.Web.Server
             }
 
             return this.tcpClient.Connected;
-        }
-
-        protected virtual Solicitacao carregarSolicitacao()
-        {
-            if (!this.getBooConectado())
-            {
-                return null;
-            }
-
-            if (!this.tcpClient.GetStream().DataAvailable)
-            {
-                return null;
-            }
-
-            return new Solicitacao(this.tcpClient.GetStream());
         }
 
         protected void enviar(byte[] arrBteData)
@@ -213,6 +214,21 @@ namespace NetZ.Web.Server
             this.loop();
         }
 
+        private Solicitacao carregarSolicitacao()
+        {
+            if (!this.getBooConectado())
+            {
+                return null;
+            }
+
+            if (!this.tcpClient.GetStream().DataAvailable)
+            {
+                return null;
+            }
+
+            return new Solicitacao(this);
+        }
+
         private void finalizarTcpClient()
         {
             if (this.tcpClient == null)
@@ -225,7 +241,7 @@ namespace NetZ.Web.Server
 
         private void inicializarStrNome()
         {
-            this.strNome = string.Format("{0} ({1})", this.GetType().Name, ((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString());
+            this.strNome = string.Format("{0} ({1})", this.GetType().Name, this.strEndPoint);
         }
 
         private void loop()

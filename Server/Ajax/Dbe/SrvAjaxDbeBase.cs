@@ -1,6 +1,5 @@
 ﻿using DigoFramework.Json;
 using NetZ.Persistencia;
-using NetZ.Persistencia.Interface;
 using NetZ.Persistencia.Web;
 using NetZ.Web.DataBase;
 using NetZ.Web.DataBase.Tabela;
@@ -10,8 +9,9 @@ using NetZ.Web.Html.Componente.Table;
 using System;
 using System.Data;
 using System.Reflection;
+using System.Security;
 
-namespace NetZ.Web.Server.Ajax.Data
+namespace NetZ.Web.Server.Ajax.Dbe
 {
     public abstract class SrvAjaxDbeBase : SrvAjaxBase
     {
@@ -557,7 +557,7 @@ namespace NetZ.Web.Server.Ajax.Data
                 return;
             }
 
-            TabelaWeb tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
+            var tblWeb = Json.i.fromJson<TabelaWeb>(objInterlocutor.objData.ToString());
 
             this.salvarRegistro(objSolicitacao, objInterlocutor, tblWeb);
 
@@ -568,39 +568,39 @@ namespace NetZ.Web.Server.Ajax.Data
         {
             if (objSolicitacao == null)
             {
-                return;
+                throw new NullReferenceException();
             }
 
             if (objSolicitacao.objUsuario == null)
             {
-                return;
+                throw new NullReferenceException();
             }
 
             if (!objSolicitacao.objUsuario.booLogado)
             {
-                return;
+                throw new SecurityException();
             }
 
             if (objSolicitacao.objUsuario.intId < 1)
             {
-                return;
+                throw new SecurityException();
             }
 
             if (tblWeb == null)
             {
-                return;
+                throw new NullReferenceException();
             }
 
             if (tblWeb.arrCln == null)
             {
-                return;
+                throw new NullReferenceException();
             }
 
-            TabelaBase tbl = this.dbe[tblWeb.strNome];
+            var tbl = this.dbe[tblWeb.strNome];
 
             if (tbl == null)
             {
-                return;
+                throw new NullReferenceException();
             }
 
             if (!this.validarSalvarRegistro(objSolicitacao, objInterlocutor, tblWeb, tbl))

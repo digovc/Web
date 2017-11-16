@@ -1,11 +1,13 @@
 ﻿using DigoFramework;
 using NetZ.Persistencia;
+using NetZ.Web.Html.Pagina;
 using NetZ.Web.Server.Arquivo;
 using NetZ.Web.Server.Arquivo.Css;
+using NetZ.Web.UiManager;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Web.UiManager;
 
 namespace NetZ.Web.Server
 {
@@ -75,6 +77,21 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
+        public string getStrPaginaNome(Type cls)
+        {
+            if (cls == null)
+            {
+                return null;
+            }
+
+            if (!typeof(PaginaHtmlBase).IsAssignableFrom(cls))
+            {
+                return null;
+            }
+
+            return (Utils.simplificar(cls.Name) + ".html");
+        }
+
         /// <summary>
         /// Este método é disparado a acada vez que o cliente fizer uma solicitação de algum recurso
         /// a este WEB server.
@@ -114,7 +131,7 @@ namespace NetZ.Web.Server
             return null;
         }
 
-        protected void adicionarArquivoEstatico(string dirArquivo)
+        protected void addArquivoEstatico(string dirArquivo)
         {
             if (string.IsNullOrEmpty(dirArquivo))
             {
@@ -129,6 +146,11 @@ namespace NetZ.Web.Server
             var arq = new ArquivoEstatico();
 
             arq.dirCompleto = dirArquivo;
+
+            if (this.lstArqEstatico.Find(a => a.dirCompleto.Equals(dirArquivo)) != null)
+            {
+                return;
+            }
 
             this.lstArqEstatico.Add(arq);
         }
@@ -258,7 +280,7 @@ namespace NetZ.Web.Server
                     continue;
                 }
 
-                this.adicionarArquivoEstatico(dirArquivo);
+                this.addArquivoEstatico(dirArquivo);
             }
         }
 
@@ -286,14 +308,18 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            if (CssMain.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
+            var objResposta = this.responderArquivoEstaticoCss(objSolicitacao);
+
+            if (objResposta != null)
             {
-                return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
+                return objResposta;
             }
 
-            if (CssPrint.STR_CSS_SRC.Equals(objSolicitacao.strPagina))
+            objResposta = this.responderArquivoEstaticoCss(objSolicitacao);
+
+            if (objResposta != null)
             {
-                return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
+                return objResposta;
             }
 
             if (STR_GET_SCRIPT.Equals(objSolicitacao.getStrGetValue("method")))
@@ -317,6 +343,26 @@ namespace NetZ.Web.Server
             }
 
             return new Resposta(objSolicitacao).addArquivo(arq);
+        }
+
+        private Resposta responderArquivoEstaticoCss(Solicitacao objSolicitacao)
+        {
+            if ((this.objUiManager != null) && this.objUiManager.getBooExportarCss())
+            {
+                return null;
+            }
+
+            if (CssMain.SRC_CSS.Equals(objSolicitacao.strPagina))
+            {
+                return this.responderArquivoEstatico(objSolicitacao, CssMain.i);
+            }
+
+            if (CssPrint.SRC_CSS.Equals(objSolicitacao.strPagina))
+            {
+                return this.responderArquivoEstatico(objSolicitacao, CssPrint.i);
+            }
+
+            return null;
         }
 
         private Resposta responderArquivoEstaticoGetScript(Solicitacao objSolicitacao)

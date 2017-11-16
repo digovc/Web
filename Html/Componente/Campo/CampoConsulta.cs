@@ -12,37 +12,53 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Atributos
 
-        private BotaoMini _btnAcao; // TODO: Trocar este botão por dois botões, um de pesquisar e outro de limpar o campo.
-        private Input _txtIntId;
+        private BotaoHtml _btnLimpar;
+        private BotaoHtml _btnPesquisar;
+        private Div _divIntId;
         private Input _txtPesquisa;
 
-        private BotaoMini btnAcao
+        private BotaoHtml btnLimpar
         {
             get
             {
-                if (_btnAcao != null)
+                if (_btnLimpar != null)
                 {
-                    return _btnAcao;
+                    return _btnLimpar;
                 }
 
-                _btnAcao = new BotaoMini();
+                _btnLimpar = new BotaoHtml();
 
-                return _btnAcao;
+                return _btnLimpar;
             }
         }
 
-        private Input txtIntId
+        private BotaoHtml btnPesquisar
         {
             get
             {
-                if (_txtIntId != null)
+                if (_btnPesquisar != null)
                 {
-                    return _txtIntId;
+                    return _btnPesquisar;
                 }
 
-                _txtIntId = new Input();
+                _btnPesquisar = new BotaoHtml();
 
-                return _txtIntId;
+                return _btnPesquisar;
+            }
+        }
+
+        private Div divIntId
+        {
+            get
+            {
+                if (_divIntId != null)
+                {
+                    return _divIntId;
+                }
+
+                _divIntId = new Div();
+
+                return _divIntId;
             }
         }
 
@@ -69,6 +85,42 @@ namespace NetZ.Web.Html.Componente.Campo
 
         #region Métodos
 
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
+        {
+            base.addJs(lstJs);
+
+            lstJs.Add(new JavaScriptTag(AppWebBase.DIR_JS_WEB + "database/FiltroWeb.js"));
+        }
+
+        protected override Input.EnmTipo getEnmTipo()
+        {
+            return Input.EnmTipo.SEARCH;
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.divIntId.strConteudo = "15";
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.divIntId.setPai(this.divAreaEsquerda);
+
+            this.btnLimpar.setPai(this.divAreaDireita);
+            this.btnPesquisar.setPai(this.divAreaDireita);
+        }
+
+        protected override void montarLayoutDivConteudo()
+        {
+            base.montarLayoutDivConteudo();
+
+            this.txtPesquisa.setPai(this.divConteudo);
+        }
+
         protected override void setCln(Coluna cln)
         {
             base.setCln(cln);
@@ -81,78 +133,56 @@ namespace NetZ.Web.Html.Componente.Campo
             this.setClnClnRef(cln);
         }
 
-        protected override void setStrId(string strId)
-        {
-            base.setStrId(strId);
-
-            if (string.IsNullOrEmpty(strId))
-            {
-                return;
-            }
-
-            this.btnAcao.strId = (strId + "_btnAcao");
-            this.txtIntId.strId = (strId + "_txtIntId");
-            this.txtIntId.strId = (strId + "_txtIntId");
-            this.txtPesquisa.strId = (strId + "_txtPesquisa");
-        }
-
-        protected override Input.EnmTipo getEnmTipo()
-        {
-            return Input.EnmTipo.SEARCH;
-        }
-
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.btnAcao.intTabStop = -1;
-
-            this.btnAcao.addAtt("type", "button");
-
-            this.txtIntId.booDisabled = true;
-        }
-
-        protected override void montarLayout()
-        {
-            base.montarLayout();
-
-            this.txtPesquisa.setPai(this.divConteudo);
-            this.txtIntId.setPai(this.divConteudo);
-            this.btnAcao.setPai(this.divConteudo);
-        }
-
         protected override void setCss(CssArquivoBase css)
         {
             base.setCss(css);
 
-            this.btnAcao.addCss(css.setBackgroundImage("/res/media/png/btn_pesquisar_25x25.png"));
-            this.btnAcao.addCss(css.setBackgroundPosition("-1px -1px"));
-            this.btnAcao.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
-            this.btnAcao.addCss(css.setHeight(25));
-            this.btnAcao.addCss(css.setPosition("absolute"));
-            this.btnAcao.addCss(css.setRight(-115));
-            this.btnAcao.addCss(css.setTop(-3));
-            this.btnAcao.addCss(css.setWidth(25));
+            this.btnLimpar.addCss(this.btnAcao);
+
+            this.btnPesquisar.addCss(this.btnAcao);
+
+            this.btnPesquisar.addCss(css.setBackgroundImage(AppWebBase.DIR_MEDIA_SVG + "search.svg"));
+            this.btnPesquisar.addCss(css.setDisplay("block"));
 
             this.cmb.addCss(css.setDisplay("none"));
 
-            this.divConteudo.addCss(css.setMarginRight(110));
+            this.divIntId.addCss(css.setBorder("none"));
+            this.divIntId.addCss(css.setBorderRight(1, "solid", "white"));
+            this.divIntId.addCss(css.setDisplay("none"));
+            this.divIntId.addCss(css.setLineHeight(30));
+            this.divIntId.addCss(css.setMarginTop(5));
+            this.divIntId.addCss(css.setOverflow("hidden"));
+            this.divIntId.addCss(css.setPaddingLeft(15));
+            this.divIntId.addCss(css.setPaddingRight(5));
+            this.divIntId.addCss(css.setTextAlign("right"));
+            this.divIntId.addCss(css.setWidth(50));
 
-            this.txtIntId.addCss(css.setBorder(1, "solid", AppWebBase.i.objTema.corFundoBorda));
-            this.txtIntId.addCss(css.setHeight(19));
-            this.txtIntId.addCss(css.setPadding(2));
-            this.txtIntId.addCss(css.setPosition("absolute"));
-            this.txtIntId.addCss(css.setTextAlign("center"));
-            this.txtIntId.addCss(css.setTop(-3));
-            this.txtIntId.addCss(css.setWidth(80));
-
-            this.txtPesquisa.addCss(css.setBackgroundColor("rgba(0,0,0,0)"));
+            this.txtPesquisa.addCss(css.setBackground("none"));
             this.txtPesquisa.addCss(css.setBorder(0));
-            this.txtPesquisa.addCss(css.setBorderBottom(1, "solid", AppWebBase.i.objTema.corFundoBorda));
+            this.txtPesquisa.addCss(css.setColor("grey"));
+            this.txtPesquisa.addCss(css.setColor(AppWebBase.i.objTema.corFonte));
             this.txtPesquisa.addCss(css.setFontSize(15));
-            this.txtPesquisa.addCss(css.setHeight(19));
+            this.txtPesquisa.addCss(css.setLineHeight(37));
             this.txtPesquisa.addCss(css.setOutline("none"));
-            this.txtPesquisa.addCss(css.setWidth(100, "%"));
+            this.txtPesquisa.addCss(css.setTextIndent(5));
+            this.txtPesquisa.addCss(css.setWidth(245));
+        }
+
+        protected override void setCssTagInputWidth(CssArquivoBase css)
+        {
+            //base.setCssTagInputWidth(css);
+
+            this.tagInput.addCss(css.setWidth(250));
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            this.btnLimpar.strId = (strId + "_btnLimpar");
+            this.btnPesquisar.strId = (strId + "_btnPesquisar");
+            this.divIntId.strId = (strId + "_divIntId");
+            this.txtPesquisa.strId = (strId + "_txtPesquisa");
         }
 
         private void setClnClnRef(Coluna cln)
@@ -176,7 +206,7 @@ namespace NetZ.Web.Html.Componente.Campo
 
         private void setClnClnRefStrTitulo(Coluna cln)
         {
-            string strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
+            var strTitulo = "_cln_ref_nome_exibicao (_tbl_ref_cln_nome_exibicao)";
 
             strTitulo = strTitulo.Replace("_cln_ref_nome_exibicao", cln.booNomeExibicaoAutomatico ? cln.clnRef.tbl.strNomeExibicao : cln.strNomeExibicao);
             strTitulo = strTitulo.Replace("_tbl_ref_cln_nome_exibicao", cln.clnRef.tbl.viwPrincipal.clnNome.strNomeExibicao);

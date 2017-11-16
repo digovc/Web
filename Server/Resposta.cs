@@ -297,10 +297,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            string strHeader = "_header_nome: _header_valor";
-
-            strHeader = strHeader.Replace("_header_nome", strNome);
-            strHeader = strHeader.Replace("_header_valor", strValor);
+            var strHeader = string.Format("{0}: {1}", strNome, strValor);
 
             if (this.lstStrHeaderDiverso.Contains(strHeader))
             {
@@ -374,7 +371,7 @@ namespace NetZ.Web.Server
                 return this;
             }
 
-            string jsn = Json.i.toJson(obj);
+            var jsn = Json.i.toJson(obj);
 
             if (string.IsNullOrEmpty(jsn))
             {
@@ -492,7 +489,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            byte[] arrBte = Encoding.UTF8.GetBytes(strConteudo);
+            var arrBte = Encoding.UTF8.GetBytes(strConteudo);
 
             this.mmsConteudo = new MemoryStream();
 
@@ -519,12 +516,12 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            strHeader = strHeader.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+            strHeader = strHeader.Replace(Solicitacao.STR_BODY_DIVISION, Solicitacao.STR_NEW_LINE);
 
-            MemoryStream mmsResposta = new MemoryStream();
+            var mmsResposta = new MemoryStream();
 
             mmsResposta.Write(Encoding.UTF8.GetBytes(strHeader), 0, Encoding.UTF8.GetByteCount(strHeader));
-            mmsResposta.Write(Encoding.UTF8.GetBytes(Environment.NewLine), 0, Encoding.UTF8.GetByteCount(Environment.NewLine));
+            mmsResposta.Write(Encoding.UTF8.GetBytes(Solicitacao.STR_NEW_LINE), 0, Encoding.UTF8.GetByteCount(Solicitacao.STR_NEW_LINE));
 
             if (this.mmsConteudo == null)
             {
@@ -587,54 +584,95 @@ namespace NetZ.Web.Server
 
         private string getStrHeader101()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            stbResultado.AppendLine(this.getStrHeaderStatus());
-            stbResultado.AppendLine("Upgrade: websocket");
-            stbResultado.AppendLine("Connection: Upgrade");
-            stbResultado.AppendLine(this.getStrHeaderDiverso());
+            stbResultado.Append(this.getStrHeaderStatus());
+
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append("Upgrade: websocket");
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append("Connection: Upgrade");
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderDiverso());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
 
             return stbResultado.ToString();
         }
 
         private string getStrHeader200()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            stbResultado.AppendLine(this.getStrHeaderStatus());
-            stbResultado.AppendLine(this.getStrHeaderData("Date", DateTime.Now));
-            stbResultado.AppendLine(this.getStrHeaderServer());
-            stbResultado.AppendLine(this.getStrHeaderSetCookie());
-            stbResultado.AppendLine(this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao));
-            stbResultado.AppendLine(this.getStrHeaderContentType());
-            stbResultado.AppendLine(this.getStrHeaderContentLength());
-            stbResultado.AppendLine(this.getStrHeaderDiverso());
+            stbResultado.Append(this.getStrHeaderStatus());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderData("Date", DateTime.Now));
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderServer());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderSetCookie());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderData("Last-Modified", this.dttUltimaModificacao));
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderContentType());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderContentLength());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderDiverso());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
 
             return stbResultado.ToString();
         }
 
         private string getStrHeader302()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            stbResultado.AppendLine(this.getStrHeaderStatus());
-            stbResultado.AppendLine(this.getStrHeaderServer());
-            stbResultado.AppendLine(this.getStrHeaderSetCookie());
-            stbResultado.AppendLine(this.getStrHeaderLocation());
+            stbResultado.Append(this.getStrHeaderStatus());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderServer());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderSetCookie());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderLocation());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
 
             return stbResultado.ToString();
         }
 
         private string getStrHeader404_500()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            stbResultado.AppendLine(this.getStrHeaderStatus());
-            stbResultado.AppendLine(this.getStrHeaderData("Date", DateTime.Now));
-            stbResultado.AppendLine(this.getStrHeaderServer());
-            stbResultado.AppendLine(this.getStrHeaderSetCookie());
-            stbResultado.AppendLine(this.getStrHeaderContentType());
-            stbResultado.AppendLine(this.getStrHeaderContentLength());
+            stbResultado.Append(this.getStrHeaderStatus());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderData("Date", DateTime.Now));
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderServer());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderSetCookie());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderContentType());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderContentLength());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
 
             return stbResultado.ToString();
         }
@@ -646,20 +684,12 @@ namespace NetZ.Web.Server
                 return "Content-Length: 0";
             }
 
-            string strResultado = "Content-Length: _content_length";
-            strResultado = strResultado.Replace("_content_length", this.mmsConteudo.Length.ToString());
-
-            return strResultado;
+            return string.Format("Content-Length: " + this.mmsConteudo.Length.ToString());
         }
 
         private string getStrHeaderContentType()
         {
-            string strResultado = "Content-Type: _content_type; charset=_char_set";
-
-            strResultado = strResultado.Replace("_content_type", EnmContentTypeManager.getStrContentType(this.enmContentType));
-            strResultado = strResultado.Replace("_char_set", this.getStrEnmEncoding());
-
-            return strResultado;
+            return string.Format("Content-Type: {0}; charset={1}", EnmContentTypeManager.getStrContentType(this.enmContentType), this.getStrEnmEncoding());
         }
 
         private string getStrHeaderData(string strFieldNome, DateTime dtt)
@@ -669,28 +699,28 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            string strResultado = "_str_date_nome: _date_valor";
-
-            strResultado = strResultado.Replace("_str_date_nome", strFieldNome);
-            strResultado = strResultado.Replace("_date_valor", dtt.ToUniversalTime().ToString("r"));
-
-            return strResultado;
+            return string.Format("{0}: {1}", strFieldNome, dtt.ToUniversalTime().ToString("r"));
         }
 
         private string getStrHeaderDefault()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            stbResultado.AppendLine(this.getStrHeaderStatus());
-            stbResultado.AppendLine(this.getStrHeaderServer());
-            stbResultado.AppendLine(this.getStrHeaderSetCookie());
+            stbResultado.Append(this.getStrHeaderStatus());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderServer());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
+
+            stbResultado.Append(this.getStrHeaderSetCookie());
+            stbResultado.Append(Solicitacao.STR_NEW_LINE);
 
             return stbResultado.ToString();
         }
 
         private string getStrHeaderDiverso()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
             foreach (string strHeaderDiverso in this.lstStrHeaderDiverso)
             {
@@ -699,7 +729,8 @@ namespace NetZ.Web.Server
                     continue;
                 }
 
-                stbResultado.AppendLine(strHeaderDiverso);
+                stbResultado.Append(strHeaderDiverso);
+                stbResultado.Append(Solicitacao.STR_NEW_LINE);
             }
 
             return stbResultado.ToString();
@@ -707,29 +738,27 @@ namespace NetZ.Web.Server
 
         private string getStrHeaderLocation()
         {
-            string strResultado = "Location: _location";
-            strResultado = strResultado.Replace("_location", !string.IsNullOrEmpty(this.strRedirecionamento) ? this.strRedirecionamento : "/");
-
-            return strResultado;
+            return ("Location: " + (!string.IsNullOrEmpty(this.strRedirecionamento) ? this.strRedirecionamento : "/"));
         }
 
         private string getStrHeaderServer()
         {
-            return "Server: NetZ.Web Server";
+            return "Server: NetZ.Web";
         }
 
         private string getStrHeaderSetCookie()
         {
-            StringBuilder stbResultado = new StringBuilder();
+            var stbResultado = new StringBuilder();
 
-            foreach (Cookie objCookie in this.lstObjCookie)
+            foreach (var objCookie in this.lstObjCookie)
             {
                 if (objCookie == null)
                 {
                     continue;
                 }
 
-                stbResultado.AppendLine(objCookie.getStrFormatado());
+                stbResultado.Append(objCookie.getStrFormatado());
+                stbResultado.Append(Solicitacao.STR_NEW_LINE);
             }
 
             return (stbResultado.Length > 5) ? stbResultado.ToString() : null;
@@ -737,11 +766,12 @@ namespace NetZ.Web.Server
 
         private string getStrHeaderStatus()
         {
-            string strResultado = "HTTP/1.1 _status_code";
+            var strResultado = "HTTP/1.1 _status_code";
 
             if (this.dttUltimaModificacao.ToString().Equals(this.objSolicitacao.dttUltimaModificacao.ToString()))
             {
                 this.intStatus = INT_STATUS_CODE_304_NOT_MODIFIED;
+
                 return strResultado.Replace("_status_code", "304 Not Modified");
             }
 

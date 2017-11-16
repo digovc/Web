@@ -22,8 +22,7 @@ namespace NetZ.Web.Html.Pagina
         #region Atributos
 
         private bool _booEstatica = true;
-        private bool _booPagSimples;
-        private Div _divNotificacao;
+        private bool _booSimples;
         private LstTag<CssTag> _lstCss;
         private LstTag<JavaScriptTag> _lstJs;
         private LstTag<JavaScriptTag> _lstJsLib;
@@ -120,16 +119,16 @@ namespace NetZ.Web.Html.Pagina
             }
         }
 
-        protected bool booPagSimples
+        protected bool booSimples
         {
             get
             {
-                return _booPagSimples;
+                return _booSimples;
             }
 
             set
             {
-                _booPagSimples = value;
+                _booSimples = value;
             }
         }
 
@@ -201,21 +200,6 @@ namespace NetZ.Web.Html.Pagina
             set
             {
                 _booEstatica = value;
-            }
-        }
-
-        private Div divNotificacao
-        {
-            get
-            {
-                if (_divNotificacao != null)
-                {
-                    return _divNotificacao;
-                }
-
-                _divNotificacao = this.getDivNotificacao();
-
-                return _divNotificacao;
             }
         }
 
@@ -579,23 +563,16 @@ namespace NetZ.Web.Html.Pagina
             this.montarLayoutTagCssPrint();
 
             this.montarLayoutTagIcon();
-
-            this.divNotificacao.setPai(this);
         }
 
         protected virtual void setCss(CssArquivoBase css)
         {
             this.tagBody.addCss(css.setMargin(0));
-
-            this.divNotificacao.addCss(css.setBottom(20));
-            this.divNotificacao.addCss(css.setPosition("absolute"));
-            this.divNotificacao.addCss(css.setRight(20));
-            this.divNotificacao.addCss(css.setZIndex(100));
         }
 
         private void addCss()
         {
-            if (this.booPagSimples)
+            if (this.booSimples)
             {
                 return;
             }
@@ -615,7 +592,7 @@ namespace NetZ.Web.Html.Pagina
 
         private void addJs()
         {
-            if (this.booPagSimples)
+            if (this.booSimples)
             {
                 return;
             }

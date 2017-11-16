@@ -10,6 +10,8 @@ namespace NetZ.Web.WinService
     {
         #region Constantes
 
+        private const string DIR_ERROR = "Erro.log";
+
         #endregion Constantes
 
         #region Atributos
@@ -42,15 +44,24 @@ namespace NetZ.Web.WinService
 
         private void runDebug()
         {
-            Log.i.info("Abrindo em modo de aplicação.");
+            try
+            {
+                Log.i.info("Abrindo em modo de aplicação.");
 
-            this.getAppWeb().iniciar();
+                this.getAppWeb().iniciar();
 
-            Console.Read();
+                Console.Read();
 
-            Log.i.info("Fechando a aplicação.");
+                Log.i.info("Fechando a aplicação.");
 
-            this.getAppWeb().pararServidor();
+                this.getAppWeb().pararServidor();
+            }
+            catch (Exception ex)
+            {
+                Log.i.erro(ex);
+
+                Log.i.salvar(DIR_ERROR);
+            }
         }
 
         private void runService()
@@ -97,7 +108,16 @@ namespace NetZ.Web.WinService
 
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
-            this.getAppWeb().iniciar();
+            try
+            {
+                this.getAppWeb().iniciar();
+            }
+            catch (Exception ex)
+            {
+                Log.i.erro(ex);
+
+                Log.i.salvar(DIR_ERROR);
+            }
         }
 
         protected override void OnStop()

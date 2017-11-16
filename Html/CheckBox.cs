@@ -97,6 +97,13 @@ namespace NetZ.Web.Html
             lstJs.Add(new JavaScriptTag(typeof(CheckBox), 111));
         }
 
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.addAtt("tabindex", 0);
+        }
+
         protected override void montarLayout()
         {
             base.montarLayout();

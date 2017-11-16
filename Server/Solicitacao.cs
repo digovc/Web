@@ -47,7 +47,8 @@ namespace NetZ.Web.Server
             POST,
         }
 
-        private const string STR_BODY_DIVISION = "\r\n\r\n";
+        internal const string STR_BODY_DIVISION = (STR_NEW_LINE + STR_NEW_LINE);
+        internal const string STR_NEW_LINE = "\r\n";
 
         #endregion Constantes
 
@@ -64,6 +65,7 @@ namespace NetZ.Web.Server
         private List<Cookie> _lstObjCookie;
         private List<Field> _lstObjField;
         private NetworkStream _nts;
+        private Cliente _objCliente;
         private SslStream _objSslStream;
         private UsuarioDominio _objUsuario;
         private string _strConteudo;
@@ -163,6 +165,19 @@ namespace NetZ.Web.Server
                 _lstObjCookie = this.getLstObjCookie();
 
                 return _lstObjCookie;
+            }
+        }
+
+        public Cliente objCliente
+        {
+            get
+            {
+                return _objCliente;
+            }
+
+            private set
+            {
+                _objCliente = value;
             }
         }
 
@@ -377,12 +392,14 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _nts;
-            }
+                if (_nts != null)
+                {
+                    return _nts;
+                }
 
-            set
-            {
-                _nts = value;
+                _nts = this.objCliente?.tcpClient?.GetStream();
+
+                return _nts;
             }
         }
 
@@ -390,12 +407,14 @@ namespace NetZ.Web.Server
         {
             get
             {
-                return _objSslStream;
-            }
+                if (_objSslStream != null)
+                {
+                    return _objSslStream;
+                }
 
-            set
-            {
-                _objSslStream = value;
+                _objSslStream = new SslStream(this.objCliente?.tcpClient?.GetStream());
+
+                return _objSslStream;
             }
         }
 
@@ -418,14 +437,9 @@ namespace NetZ.Web.Server
 
         #region Construtores
 
-        internal Solicitacao(NetworkStream nts)
+        internal Solicitacao(Cliente objCliente)
         {
-            this.nts = nts;
-        }
-
-        internal Solicitacao(SslStream objSslStream)
-        {
-            this.objSslStream = objSslStream;
+            this.objCliente = objCliente;
         }
 
         #endregion Construtores
@@ -449,7 +463,7 @@ namespace NetZ.Web.Server
         /// </summary>
         public DateTime getDttGetValue(string strGetParam)
         {
-            string strResultado = this.getStrGetValue(strGetParam);
+            var strResultado = this.getStrGetValue(strGetParam);
 
             if (string.IsNullOrEmpty(strResultado))
             {
@@ -487,7 +501,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            foreach (Cookie objCookie in this.lstObjCookie)
+            foreach (var objCookie in this.lstObjCookie)
             {
                 if (objCookie == null)
                 {
@@ -884,7 +898,7 @@ namespace NetZ.Web.Server
 
             intIndexOfStart += "content-length: ".Length;
 
-            var intIndexOfEnd = strMsgClienteParcial.IndexOf(Environment.NewLine, intIndexOfStart);
+            var intIndexOfEnd = strMsgClienteParcial.IndexOf(STR_NEW_LINE, intIndexOfStart);
 
             if (intIndexOfEnd < 0)
             {
@@ -936,7 +950,7 @@ namespace NetZ.Web.Server
         {
             var lstObjCookieResultado = new List<Cookie>();
 
-            foreach (Field objField in this.lstObjField)
+            foreach (var objField in this.lstObjField)
             {
                 this.getLstObjCookie(lstObjCookieResultado, objField);
             }
@@ -944,9 +958,9 @@ namespace NetZ.Web.Server
             return lstObjCookieResultado;
         }
 
-        private void getLstObjCookie(List<Cookie> lstObjCookieResultado, Field objField)
+        private void getLstObjCookie(List<Cookie> lstObjCookie, Field objField)
         {
-            if (lstObjCookieResultado == null)
+            if (lstObjCookie == null)
             {
                 return;
             }
@@ -966,17 +980,34 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            if (objField.strValor.IndexOf('=') < 0)
+            var arrStrCookie = objField.strValor.Split(';');
+
+            foreach (var strCookie in arrStrCookie)
+            {
+                this.getLstObjCookie(lstObjCookie, strCookie);
+            }
+        }
+
+        private void getLstObjCookie(List<Cookie> lstObjCookie, string strCookie)
+        {
+            if (string.IsNullOrWhiteSpace(strCookie))
             {
                 return;
             }
 
-            if (objField.strValor.Split('=').Length < 2)
+            if (strCookie.IndexOf('=') < 0)
             {
                 return;
             }
 
-            lstObjCookieResultado.Add(new Cookie(objField.strValor.Split('=')[0], objField.strValor.Split('=')[1]));
+            var arrStrValor = strCookie.Split('=');
+
+            if (arrStrValor.Length < 2)
+            {
+                return;
+            }
+
+            lstObjCookie.Add(new Cookie(arrStrValor[0], arrStrValor[1]));
         }
 
         private List<Field> getLstObjField()
@@ -986,7 +1017,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            string[] arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
+            var arrStrLinha = this.strMsgCliente.Split((new string[] { "\r\n", "\n" }), StringSplitOptions.None);
 
             if (arrStrLinha == null)
             {
@@ -998,7 +1029,7 @@ namespace NetZ.Web.Server
                 return null;
             }
 
-            List<Field> lstObjFieldResultado = new List<Field>();
+            var lstObjFieldResultado = new List<Field>();
 
             foreach (string strlinha in arrStrLinha)
             {
@@ -1015,7 +1046,7 @@ namespace NetZ.Web.Server
                 return;
             }
 
-            Field objFieldHeader = new Field();
+            var objFieldHeader = new Field();
 
             objFieldHeader.objSolicitacao = this;
             objFieldHeader.strHeaderLinha = strLinha;
