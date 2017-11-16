@@ -76,7 +76,7 @@ namespace NetZ.Web.Server
 
         #region Métodos
 
-        internal bool getBooConectado()
+        public bool getBooConectado()
         {
             if (this.tcpClient == null)
             {
